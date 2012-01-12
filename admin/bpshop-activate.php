@@ -33,6 +33,8 @@ function bpshop_activate()
 	// and corresponding fields here
 	$default_country = get_blog_option( BP_ROOT_BLOG, 'woocommerce_default_country' );
 	
+	$geo = new woocommerce_countries();
+	
 	$billing 			   = array();
 	$billing['group_id']   = xprofile_insert_field_group( array(
 		'name' => 'Billing Address'
@@ -57,7 +59,7 @@ function bpshop_activate()
 	// we need to query directly as xprofile_insert_field
 	// does not accept 'option' as type
 	$counter = 1;
-	foreach( woocommerce_countries::$countries as $country_code => $country ) :
+	foreach( $geo->countries as $country_code => $country ) :
 		$is_default = ( $country_code == $default_country ) ? 1 : 0;
 		$wpdb->query( $wpdb->prepare( "
 			INSERT INTO {$bp->profile->table_name_fields}
@@ -98,7 +100,7 @@ function bpshop_activate()
 	// we need to query directly as xprofile_insert_field
 	// does not accept 'option' as type
 	$counter = 1;
-	foreach( woocommerce_countries::$countries as $country_code => $country ) :
+	foreach( $geo->countries as $country_code => $country ) :
 		$is_default = ( $country_code == $default_country ) ? 1 : 0;
 		$wpdb->query( $wpdb->prepare( "
 			INSERT INTO {$bp->profile->table_name_fields}
