@@ -14,9 +14,16 @@ global $woocommerce;
 <?php
 $woocommerce->show_messages();
 	 	
-$woocommerce_orders = &new woocommerce_orders();
-$woocommerce_orders->get_customer_orders( bp_displayed_user_id(), 5 );
-if( $woocommerce_orders->orders ) :
+$args = array(
+    'numberposts'     => $recent_orders,
+    'meta_key'        => '_customer_user',
+    'meta_value'      => get_current_user_id(),
+    'post_type'       => 'shop_order',
+    'post_status'     => 'publish' 
+);
+
+$customer_orders = get_posts( $args );
+if( $customer_orders ) :
 ?>
 <table class="shop_table my_account_orders">
 	<thead>
@@ -29,7 +36,11 @@ if( $woocommerce_orders->orders ) :
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach( $woocommerce_orders->orders as $order ) : ?>
+		<?php foreach( $customer_orders as $customer_order ) :
+		    
+        $order = &new woocommerce_order();
+        $order->populate( $customer_order );
+		?>
 		<tr class="order">
 			<td><?php echo $order->id; ?></td>
 			<td><time title="<?php echo date_i18n(get_option( 'date_format' ) .' '. get_option( 'time_format' ), strtotime($order->order_date)); ?>"><?php echo date_i18n( get_option( 'date_format' ) .' '. get_option( 'time_format' ), strtotime( $order->order_date ) ); ?></time></td>
@@ -49,27 +60,4 @@ if( $woocommerce_orders->orders ) :
 </table>
 <?php else : ?>
 	<p><?php _e( 'No recent purchases available.', 'bpshop' ); ?></p>
-<?php endif; ?>
-
-<?php if( $downloads = BPSHOP_Downloads::get_downloadable_products() ) : ?>
-<h3><?php _e( 'Available downloads', 'woocommerce' ); ?></h3>
-<ul class="digital-downloads">
-	<?php foreach( $downloads as $download ) : ?>
-		<li>
-			<?php if( is_numeric( $download['downloads_remaining'] ) ) : ?>
-				<span class="count">
-					<?php echo $download['downloads_remaining'] . _n( ' download Remaining', ' downloads Remaining', $download['downloads_remaining'], 'woocommerce' ); ?>
-				</span>
-			<?php endif; ?>
-			<a href="<?php echo $download['download_url']; ?>">
-				<?php echo $download['download_name']; ?>
-			</a>
-			<?php if( $download['download_duration'] ) : ?>
-				<span class="download-until">
-					<?php echo ' ('. sprintf( __( 'Can be downloaded until %s', 'bpshop' ), $download['download_duration'] ) .')'; ?>
-				</span>
-			<?php endif; ?>
-		</li>
-	<?php endforeach; ?>
-</ul>
 <?php endif; ?>

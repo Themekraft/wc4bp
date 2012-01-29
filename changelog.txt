@@ -1,3 +1,6 @@
+= v1.0.2=
+* Bugfix: woocommerce_orders is not in use anymore
+
 = v1.0.1=
 * Bugfix: woocommerce_countries::$countries is not a static property anymore
 
