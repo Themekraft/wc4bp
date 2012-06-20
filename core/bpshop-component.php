@@ -38,7 +38,6 @@ class BPSHOP_Component extends BP_Component {
 		$includes = array(
 			'bpshop-helpers',
 			'bpshop-conditionals',
-			'bpshop-downloads',
 			'bpshop-screen',
 			'bpshop-redirect',
 			'bpshop-synch'
