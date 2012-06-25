@@ -86,9 +86,9 @@ class BPSHOP_Loader
 		register_activation_hook( self::$plugin_name, array( __CLASS__, 'activate'  ) );
 		register_uninstall_hook(  self::$plugin_name, array( __CLASS__, 'uninstall'	) );
 		
-		add_action( 'init', 			array( __CLASS__, 'translate' 			) );
-		add_action( 'plugins_loaded', 	array( __CLASS__, 'check_requirements' 	) );
-		add_action( 'bp_include', 		array( __CLASS__, 'start' 				) );
+		add_action( 'init', 			array( __CLASS__, 'translate' 			), 10 );
+		add_action( 'plugins_loaded', 	array( __CLASS__, 'check_requirements' 	), 0  );
+		add_action( 'bp_include', 		array( __CLASS__, 'start' 				), 10 );
 	}
 
 	/**
