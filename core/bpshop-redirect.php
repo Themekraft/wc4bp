@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		WordPress
- * @subpackage	BuddyPress,Jigoshop
+ * @subpackage	BuddyPress,woocommerce
  * @author		Boris Glumpler
  * @copyright	2011, Themekraft
  * @link		https://github.com/Themekraft/BP-Shop-Integration
@@ -18,7 +18,7 @@ class BPSHOP_Redirect
 	 * 
 	 * Attached to the <code>page_link</code> filter hook
 	 *
-	 * @todo	Collaborate with the Jigoshop team to reduce the many db calls on
+	 * @todo	Collaborate with the woocommerce team to reduce the many db calls on
 	 * 			every page load (bp_get_option/get_blog_option does caching, though)
 	 * @since 	1.0
 	 * @uses	add_filter()

@@ -1,3 +1,7 @@
+= v1.0.3=
+* Rename all jigoshop woocommerce
+* 
+
 = v1.0.2=
 * Bugfix: class woocommerce_orders is not used anymore
 

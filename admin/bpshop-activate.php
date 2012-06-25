@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		WordPress
- * @subpackage	BuddyPress,Jigoshop
+ * @subpackage	BuddyPress,woocommerce
  * @author		Boris Glumpler
  * @copyright	2011, ShabuShabu Webdesign
  * @link		http://shabushabu.eu

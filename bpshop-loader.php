@@ -48,7 +48,7 @@ class BPSHOP_Loader
 	const MIN_BP 	= '1.5';
 
 	/**
-	 * Minimum required Jigoshop version
+	 * Minimum required woocommerce version
 	 */
 	const MIN_WOO 	= '1.1.3';
 		
@@ -111,7 +111,7 @@ class BPSHOP_Loader
 	/**
 	 * Check for required versions
 	 * 
-	 * Checks for WP, BP, PHP and Jigoshop versions
+	 * Checks for WP, BP, PHP and woocommerce versions
 	 * 
 	 * @since 	1.0
 	 * @access 	private
