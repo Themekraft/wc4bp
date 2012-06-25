@@ -5,10 +5,31 @@ Requires at least: WP 3.2.1, BP 1.5
 Tested up to: WP 3.3.x, BP 1.5.x, WC 1.4.x
 Stable tag: 1.0.3
 
-Integrates a Woocommerce installation with a BuddyPress social network
+WooCommerce for BuddyPress - shop solution for your BuddyPress community.
+Integrates a WooCommerce installation with a BuddyPress social network. 
 
 == Description ==
+
 Takes a WooCommerce installation and moves all shopping cart and checkout pages into a users BuddyPress profile.
+
+Make all products a user bought available under his profile shop "history". 
+
+It integrates the WooCommerce with BuddyPress in the profile pages.
+Checkout, member data and payment history are available in the profile.
+
+It synchronizes all WooCommerce data with your BuddyPress.
+If you register a new account via the checkout or add data like your billing address etc. the plugin will handle all the communication between WooCommerce and BuddyPress and keep the data synchronized.
+All fields like shipping adress etc will be shown in you user edit profile section.
+
+Fallback save
+If you turn off BuddyPress for some reason, or the user don't want to become a member the plugin falls back to the regular WooCommerce pages.
+
+Easy to use:
+No configuration needed. Just activate. That's it!
+
+Installation:
+The installation is very simple:
+Just activate the plugin and it will work. There are no admin options needed.
 
 == Installation ==
 1. Download the plugin
