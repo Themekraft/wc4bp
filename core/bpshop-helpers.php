@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		WordPress
- * @subpackage	BuddyPress,Jigoshop
+ * @subpackage	BuddyPress,woocommerce
  * @author		Boris Glumpler
  * @copyright	2011, Themekraft
  * @link		https://github.com/Themekraft/BP-Shop-Integration
@@ -76,7 +76,7 @@ function bpshop_get_tracking_page_id()
 }
 
 /**
- * Exclude all Jigoshop pages from the main nav
+ * Exclude all woocommerce pages from the main nav
  * 
  * Only used in default theme and possibly child themes
  * if no custom menu is defined for the top navigation

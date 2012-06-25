@@ -9,7 +9,6 @@ Integrates a Woocommerce installation with a BuddyPress social network
 
 == Description ==
 Takes a WooCommerce installation and moves all shopping cart and checkout pages into a users BuddyPress profile.
-Adds a time-based option for downloadable products.
 
 == Installation ==
 1. Download the plugin
