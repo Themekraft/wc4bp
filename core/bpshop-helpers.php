@@ -121,4 +121,36 @@ function bpshop_checkout_url( $url )
 	return ( is_user_logged_in() ) ? apply_filters( 'bpshop_checkout_url', bp_loggedin_user_domain() .'shop/cart/checkout/' ) : $url;
 }
 add_filter( 'woocommerce_get_checkout_url', 'bpshop_checkout_url' );
+
+/**
+ *
+ */
+function bpshop_settings_link(){
+	echo bpshop_get_settings_link();
+}
+	function bpshop_get_settings_link(){
+		global $bp;
+		return apply_filters(
+					'bpshop_bpshop_get_settings_link', 
+					trailingslashit( $bp->loggedin_user->domain . bp_get_settings_slug() . '/shop')
+				);
+	}
+
+/**
+ * Debug function to see the variable content in a more friendly way
+ */
+if(!function_exists('print_var')){
+	function print_var($var, $die = false){
+		echo '<pre>';
+		if(empty($var)){
+			var_dump($var);
+		}else{
+			print_r($var);
+		}
+		echo '</pre>';
+
+		if($die)
+			die;
+	}
+}
 ?>

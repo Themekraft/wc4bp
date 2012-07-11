@@ -55,4 +55,113 @@ function bpshop_screen_track_order()
 {
 	bp_core_load_template( apply_filters( 'bpshop_template_member_track_order', 'shop/member/home' ) );
 }
+
+/**
+ * Display shop settings that can be changed by a user
+ * Save the settings
+ */
+function bpshop_screen_settings(){
+    global $bp;
+
+    if ( !bp_is_my_profile() && !is_super_admin() )
+        return false;
+
+    do_action( 'bpshop_screen_settings' );
+
+    if(isset($_POST['bpshop']) && !empty($_POST['bpshop'])){
+        // default values
+        $yes_no = array('yes','no');
+
+        // check that we got valid data
+        $reviews_2_activity   = (in_array($_POST['bpshop']['reviews_2_activity'],   $yes_no))?$_POST['bpshop']['reviews_2_activity']  :'yes';
+        $purchases_2_activity = (in_array($_POST['bpshop']['purchases_2_activity'], $yes_no))?$_POST['bpshop']['purchases_2_activity']:'yes';
+
+        do_action('bpshop_pre_update_user_settings', $bp->displayed_user->id, $_POST['bpshop']);
+
+        // save them
+        bp_update_user_meta( $bp->displayed_user->id, 'notification_activity_shop_reviews',   $reviews_2_activity);
+        bp_update_user_meta( $bp->displayed_user->id, 'notification_activity_shop_purchases', $purchases_2_activity);
+        
+        do_action('bpshop_post_update_user_settings', $bp->displayed_user->id, $_POST['bpshop']);
+
+        // Set the feedback messages
+        bp_core_add_message( __( 'Changes saved.', 'buddypress' ) );
+
+        // and clear the POST to make the QA happy :)
+        bp_core_redirect(bpshop_get_settings_link());
+    }
+
+    bp_core_load_template( apply_filters( 'bpshop_screen_settings', 'members/single/plugins' ) );
+}
+
+/**
+ * The main title for the Shop Settings page
+ */
+add_action('bp_template_title', 'bpshop_screen_settings_title');
+function bpshop_screen_settings_title(){
+    _e('Shop Settings', 'bpshop');
+}
+
+/**
+ * Content of the Settings page
+ *
+ * @uses bp_is_settings_component()
+ * @uses bp_current_action()
+ * @uses bp_get_user_meta()
+ * @uses do_action()
+ */
+add_action('bp_template_content', 'bpshop_screen_settings_content');
+function bpshop_screen_settings_content(){
+    global $bp;
+
+    if(!bp_is_settings_component() || bp_current_action() != 'shop')
+        return false;
+
+    if ( !$shop_reviews = bp_get_user_meta( $bp->displayed_user->id, 'notification_activity_shop_reviews', true ) )
+        $shop_reviews = 'yes';
+
+    if ( !$shop_purchases = bp_get_user_meta( $bp->displayed_user->id, 'notification_activity_shop_purchases', true ) )
+        $shop_purchases = 'yes';
+    ?>
+    <form action="<?php bpshop_settings_link() ?>" method="POST"> 
+
+        <table class="notification-settings" id="shop-notification-settings">
+            <thead>
+                <tr>
+                    <th class="icon"></th>
+                    <th class="title"><?php _e( 'Activity Stream', 'bpshop' ) ?></th>
+                    <th class="yes"><?php _e( 'Yes', 'bpshop' ) ?></th>
+                    <th class="no"><?php _e( 'No', 'bpshop' )?></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr id="shop-notification-settings-reviews">
+                    <td></td>
+                    <td><?php _e( 'Post to activity stream all reviews written by me', 'bpshop' ) ?></td>
+                    <td class="yes"><input type="radio" name="bpshop[reviews_2_activity]" value="yes" <?php checked( $shop_reviews, 'yes', true ) ?>/></td>
+                    <td class="no"><input type="radio" name="bpshop[reviews_2_activity]" value="no" <?php checked( $shop_reviews, 'no', true ) ?>/></td>
+                </tr>
+                <tr id="shop-notification-settings-purchases">
+                    <td></td>
+                    <td><?php _e( 'Post to activity stream all purchases I\'ve made', 'bpshop' ) ?></td>
+                    <td class="yes"><input type="radio" name="bpshop[purchases_2_activity]" value="yes" <?php checked( $shop_purchases, 'yes', true ) ?>/></td>
+                    <td class="no"><input type="radio" name="bpshop[purchases_2_activity]" value="no" <?php checked( $shop_purchases, 'no', true ) ?>/></td>
+                </tr>
+
+                <?php do_action( 'bpshop_screen_notification_activity_settings' ); ?>
+
+            </tbody>
+        </table>
+
+        <?php do_action( 'bpshop_screen_notification_settings' ); ?>
+
+        <div class="submit">
+            <input type="submit" name="submit" value="<?php _e('Save Changes', 'bpshop'); ?>" id="submit" class="auto">
+        </div>
+
+    </form>
+
+<?php
+}
 ?>
