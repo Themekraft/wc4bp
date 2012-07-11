@@ -123,7 +123,7 @@ function bpshop_checkout_url( $url )
 add_filter( 'woocommerce_get_checkout_url', 'bpshop_checkout_url' );
 
 /**
- *
+ * Link to the user shop settings page
  */
 function bpshop_settings_link(){
 	echo bpshop_get_settings_link();
