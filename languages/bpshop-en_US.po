@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BP Shop 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-11 17:58+0200\n"
-"PO-Revision-Date: 2012-07-11 17:58+0200\n"
+"POT-Creation-Date: 2012-07-12 19:02+0200\n"
+"PO-Revision-Date: 2012-07-12 19:02+0200\n"
 "Last-Translator: slaFFik <slaffik@list.ru>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,27 +16,45 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../core/bpshop-component.php:26
+#: ../core/bpshop-component.php:28
 msgid "Woocommerce Integration"
 msgstr ""
 
-#: ../core/bpshop-component.php:81
-#: ../core/bpshop-component.php:130
+#: ../core/bpshop-component.php:41
+msgid "New review created"
+msgstr ""
+
+#: ../core/bpshop-component.php:42
+msgid "New purchase made"
+msgstr ""
+
+#: ../core/bpshop-component.php:97
+#: ../core/bpshop-component.php:146
 msgid "Shop"
 msgstr ""
 
-#: ../core/bpshop-component.php:94
+#: ../core/bpshop-component.php:110
 #: ../templates/shop/member/cart.php:36
 msgid "Shopping Cart"
 msgstr ""
 
-#: ../core/bpshop-component.php:106
+#: ../core/bpshop-component.php:122
 msgid "History"
 msgstr ""
 
-#: ../core/bpshop-component.php:118
+#: ../core/bpshop-component.php:134
 #: ../templates/shop/member/track.php:22
 msgid "Track your order"
+msgstr ""
+
+#: ../core/bpshop-helpers.php:168
+#, php-format
+msgid "%s wrote a review about <a href=\"%s\">%s</a>"
+msgstr ""
+
+#: ../core/bpshop-helpers.php:218
+#, php-format
+msgid "%s purchased %s"
 msgstr ""
 
 #: ../core/bpshop-screen.php:88
