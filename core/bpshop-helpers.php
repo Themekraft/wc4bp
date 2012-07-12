@@ -139,13 +139,10 @@ function bpshop_settings_link(){
 /**
  * Adds an activity stream item when a user has written a new review to a product.
  *
- * @global object $bp Global BuddyPress settings object
  * @uses bp_activity_add() Adds an entry to the activity component tables for a specific activity
  */
 add_action('wp_insert_comment', 'bpshop_new_review_activity', 10, 2);
 function bpshop_new_review_activity($comment_id, $comment_data) {
-    global $bp;
-
     if ( !bp_is_active( 'activity' ) )
         return false;
 
@@ -163,6 +160,7 @@ function bpshop_new_review_activity($comment_id, $comment_data) {
 
     $user_link = bp_core_get_userlink( $user_id );
 
+    // record the activity
     bp_activity_add( array(
         'user_id'   => $user_id,
         'action'    => apply_filters('bpshop_new_review_activity_action', 
@@ -182,12 +180,53 @@ function bpshop_new_review_activity($comment_id, $comment_data) {
 }
 
 /**
- * Adds an activity stream item when a user has purchased a new product.
+ * Adds an activity stream item when a user has purchased a new product(s).
  *
  * @global object $bp Global BuddyPress settings object
  * @uses bp_activity_add() Adds an entry to the activity component tables for a specific activity
  */
+add_action('woocommerce_payment_complete', 'bpshop_new_purchase_activity');
+function bpshop_new_purchase_activity($order_id){
+    if( !is_user_logged_in() )
+        return false;
 
+    if ( !bp_is_active( 'activity' ) )
+        return false;
+
+    $order = new WC_Order($order_id);
+
+    if($order->status != 'completed')
+        return false;
+    
+    if($order->user_id != $order->customer_user)
+        return false;
+
+    $user_link = bp_core_get_userlink($order->customer_user);
+
+    // if several products - combine them, otherwise - display the product name
+    $products = maybe_unserialize($order->order_custom_fields['_order_items'][0]);
+    $names = array();
+    foreach($products as $product){
+        $names[] = '<a href="'.get_permalink($product['id']).'">'.$product['name'].'</a>';
+    }
+    
+    // record the activity
+    bp_activity_add( array(
+        'user_id'   => $order->user_id,
+        'action'    => apply_filters('bpshop_new_purchase_activity_action', 
+                            sprintf(
+                                __( '%s purchased %s', 'bpshop' ), 
+                                    $user_link,
+                                    implode(', ', $names)
+                        	), 
+                            $user_id,
+                            $review_id,
+                            $product_id
+                        ),
+        'component' => 'shop',
+        'type'      => 'new_shop_purchase'
+    ) );
+}
 
 /**
  * Debug function to see the variable content in a more friendly way
