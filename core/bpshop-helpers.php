@@ -1,11 +1,11 @@
 <?php
 /**
- * @package		WordPress
- * @subpackage	BuddyPress,woocommerce
- * @author		Boris Glumpler
- * @copyright	2011, Themekraft
- * @link		https://github.com/Themekraft/BP-Shop-Integration
- * @license		http://www.opensource.org/licenses/gpl-2.0.php GPL License
+ * @package        WordPress
+ * @subpackage    BuddyPress,woocommerce
+ * @author        Boris Glumpler
+ * @copyright    2011, Themekraft
+ * @link        https://github.com/Themekraft/BP-Shop-Integration
+ * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 
 // No direct access is allowed
@@ -18,21 +18,21 @@ if( ! defined( 'ABSPATH' ) ) exit;
  */
 function bpshop_load_template_filter( $found_template, $templates )
 {
-	if( bp_is_current_component( 'shop' ) )
-	{
-		foreach( (array)$templates as $template )
-		{
-			if( file_exists( STYLESHEETPATH .'/'. $template ) )
-				$filtered_templates[] = STYLESHEETPATH .'/'. $template;
-				
-			else
-				$filtered_templates[] = BPSHOP_ABSPATH .'templates/'. $template;
-		}
-	
-		return apply_filters( 'bpshop_load_template_filter', $filtered_templates[0] );
-	}
-	else
-		return $found_template;
+    if( bp_is_current_component( 'shop' ) )
+    {
+        foreach( (array)$templates as $template )
+        {
+            if( file_exists( STYLESHEETPATH .'/'. $template ) )
+                $filtered_templates[] = STYLESHEETPATH .'/'. $template;
+                
+            else
+                $filtered_templates[] = BPSHOP_ABSPATH .'templates/'. $template;
+        }
+    
+        return apply_filters( 'bpshop_load_template_filter', $filtered_templates[0] );
+    }
+    else
+        return $found_template;
 }
 add_filter( 'bp_located_template', 'bpshop_load_template_filter', 10, 2 );
 
@@ -43,36 +43,36 @@ add_filter( 'bp_located_template', 'bpshop_load_template_filter', 10, 2 );
  */
 function bpshop_load_template( $template_name )
 {
-	global $bp;
-	
-	if( file_exists( STYLESHEETPATH .'/'. $template_name . '.php' ) )
-		$located = STYLESHEETPATH .'/'. $template_name . '.php';
-		
-	elseif( file_exists( TEMPLATEPATH .'/'. $template_name . '.php' ) )
-		$located = TEMPLATEPATH .'/'. $template_name . '.php';
-	
-	else
-		$located = BPSHOP_ABSPATH .'templates/'. $template_name . '.php';
+    global $bp;
+    
+    if( file_exists( STYLESHEETPATH .'/'. $template_name . '.php' ) )
+        $located = STYLESHEETPATH .'/'. $template_name . '.php';
+        
+    elseif( file_exists( TEMPLATEPATH .'/'. $template_name . '.php' ) )
+        $located = TEMPLATEPATH .'/'. $template_name . '.php';
+    
+    else
+        $located = BPSHOP_ABSPATH .'templates/'. $template_name . '.php';
 
-	include( $located );
+    include( $located );
 }
 
 /**
  * Get the tracking page id
 
- * @todo	Check regularly if there is a db option
- * @since 	1.0
+ * @todo    Check regularly if there is a db option
+ * @since     1.0
  */
 function bpshop_get_tracking_page_id()
 {
-	global $wpdb;
-	
-	return $wpdb->get_var( $wpdb->prepare( "
-		SELECT ID 
-		FROM {$wpdb->posts} 
-		WHERE post_name = 'order-tracking' 
-		LIMIT 1
-	" ) );
+    global $wpdb;
+    
+    return $wpdb->get_var( $wpdb->prepare( "
+        SELECT ID 
+        FROM {$wpdb->posts} 
+        WHERE post_name = 'order-tracking' 
+        LIMIT 1
+    " ) );
 }
 
 /**
@@ -81,44 +81,44 @@ function bpshop_get_tracking_page_id()
  * Only used in default theme and possibly child themes
  * if no custom menu is defined for the top navigation
  * 
- * @since 	1.0
- * @uses	is_user_logged_in()
- * @uses	bp_get_option()
- * @uses	bpshop_get_tracking_page_id()
+ * @since     1.0
+ * @uses    is_user_logged_in()
+ * @uses    bp_get_option()
+ * @uses    bpshop_get_tracking_page_id()
  */
 function bpshop_exclude_pages_navigation( $args )
 {
-	if( ! is_user_logged_in() )
-		return $args;
-	
-	$woo_pages = array(
-		bp_get_option( 'woocommerce_cart_page_id' 			  ),
-		bp_get_option( 'woocommerce_checkout_page_id' 		  ),
-		bp_get_option( 'woocommerce_view_order_page_id' 	  ),
-		bp_get_option( 'woocommerce_edit_address_page_id' 	  ),
-		bp_get_option( 'woocommerce_myaccount_page_id' 	  ),
-		bp_get_option( 'woocommerce_pay_page_id' 			  ),
-		bp_get_option( 'woocommerce_thanks_page_id' 		  ),
-		bp_get_option( 'woocommerce_change_password_page_id' ),
-		bpshop_get_tracking_page_id()
-	);
-	
-	$args['exclude'] = join( ',', $woo_pages );
-	
-	return apply_filters( 'bpshop_exclude_pages_navigation', $args, $woo_pages );
+    if( ! is_user_logged_in() )
+        return $args;
+    
+    $woo_pages = array(
+        bp_get_option( 'woocommerce_cart_page_id'               ),
+        bp_get_option( 'woocommerce_checkout_page_id'           ),
+        bp_get_option( 'woocommerce_view_order_page_id'       ),
+        bp_get_option( 'woocommerce_edit_address_page_id'       ),
+        bp_get_option( 'woocommerce_myaccount_page_id'       ),
+        bp_get_option( 'woocommerce_pay_page_id'               ),
+        bp_get_option( 'woocommerce_thanks_page_id'           ),
+        bp_get_option( 'woocommerce_change_password_page_id' ),
+        bpshop_get_tracking_page_id()
+    );
+    
+    $args['exclude'] = join( ',', $woo_pages );
+    
+    return apply_filters( 'bpshop_exclude_pages_navigation', $args, $woo_pages );
 }
 add_filter( 'wp_page_menu_args', 'bpshop_exclude_pages_navigation' );
 
 /**
  * Adjust the checkout url to point to the profile
  * 
- * @since 	1.0
- * @uses	bp_loggedin_user_domain()
- * @uses	is_user_logged_in()
+ * @since     1.0
+ * @uses    bp_loggedin_user_domain()
+ * @uses    is_user_logged_in()
  */
 function bpshop_checkout_url( $url )
 {
-	return ( is_user_logged_in() ) ? apply_filters( 'bpshop_checkout_url', bp_loggedin_user_domain() .'shop/cart/checkout/' ) : $url;
+    return ( is_user_logged_in() ) ? apply_filters( 'bpshop_checkout_url', bp_loggedin_user_domain() .'shop/cart/checkout/' ) : $url;
 }
 add_filter( 'woocommerce_get_checkout_url', 'bpshop_checkout_url' );
 
@@ -126,31 +126,84 @@ add_filter( 'woocommerce_get_checkout_url', 'bpshop_checkout_url' );
  * Link to the user shop settings page
  */
 function bpshop_settings_link(){
-	echo bpshop_get_settings_link();
+    echo bpshop_get_settings_link();
 }
-	function bpshop_get_settings_link(){
-		global $bp;
-		return apply_filters(
-					'bpshop_bpshop_get_settings_link', 
-					trailingslashit( $bp->loggedin_user->domain . bp_get_settings_slug() . '/shop')
-				);
-	}
+    function bpshop_get_settings_link(){
+        global $bp;
+        return apply_filters(
+                    'bpshop_bpshop_get_settings_link', 
+                    trailingslashit( $bp->loggedin_user->domain . bp_get_settings_slug() . '/shop')
+                );
+    }
+
+/**
+ * Adds an activity stream item when a user has written a new review to a product.
+ *
+ * @global object $bp Global BuddyPress settings object
+ * @uses bp_activity_add() Adds an entry to the activity component tables for a specific activity
+ */
+add_action('wp_insert_comment', 'bpshop_new_review_activity', 10, 2);
+function bpshop_new_review_activity($comment_id, $comment_data) {
+    global $bp;
+
+    if ( !bp_is_active( 'activity' ) )
+        return false;
+
+    $user_id = apply_filters('bpshop_new_review_activity_user_id', $comment_data->user_id);
+
+    // check that user enabled updating the activity stream
+    if ( bp_get_user_meta($user_id, 'notification_activity_shop_reviews', true) == 'no' )
+        return false;
+
+    // Get the product data
+    $product = get_post($comment_data->comment_post_ID);
+    
+    if($product->post_type != 'product')
+        return false;
+
+    $user_link = bp_core_get_userlink( $user_id );
+
+    bp_activity_add( array(
+        'user_id'   => $user_id,
+        'action'    => apply_filters('bpshop_new_review_activity_action', 
+                            sprintf(
+                                __( '%s wrote a review about <a href="%s">%s</a>', 'bpshop' ), 
+                                    $user_link,
+                                    get_permalink($comment_data->comment_post_ID),
+                                    $product->post_title
+                                ), 
+                                $user_id,
+                                $review_id,
+                                $product_id
+                        ),
+        'component' => 'shop',
+        'type'      => 'new_shop_review'
+    ) );
+}
+
+/**
+ * Adds an activity stream item when a user has purchased a new product.
+ *
+ * @global object $bp Global BuddyPress settings object
+ * @uses bp_activity_add() Adds an entry to the activity component tables for a specific activity
+ */
+
 
 /**
  * Debug function to see the variable content in a more friendly way
  */
 if(!function_exists('print_var')){
-	function print_var($var, $die = false){
-		echo '<pre>';
-		if(empty($var)){
-			var_dump($var);
-		}else{
-			print_r($var);
-		}
-		echo '</pre>';
+    function print_var($var, $die = false){
+        echo '<pre>';
+        if(empty($var)){
+            var_dump($var);
+        }else{
+            print_r($var);
+        }
+        echo '</pre>';
 
-		if($die)
-			die;
-	}
+        if($die)
+            die;
+    }
 }
 ?>
