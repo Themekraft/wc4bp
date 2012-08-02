@@ -81,7 +81,7 @@ function bpshop_get_tracking_page_id()
  * Only used in default theme and possibly child themes
  * if no custom menu is defined for the top navigation
  * 
- * @since     1.0
+ * @since   1.0
  * @uses    is_user_logged_in()
  * @uses    bp_get_option()
  * @uses    bpshop_get_tracking_page_id()
@@ -92,13 +92,13 @@ function bpshop_exclude_pages_navigation( $args )
         return $args;
     
     $woo_pages = array(
-        bp_get_option( 'woocommerce_cart_page_id'               ),
-        bp_get_option( 'woocommerce_checkout_page_id'           ),
-        bp_get_option( 'woocommerce_view_order_page_id'       ),
-        bp_get_option( 'woocommerce_edit_address_page_id'       ),
-        bp_get_option( 'woocommerce_myaccount_page_id'       ),
-        bp_get_option( 'woocommerce_pay_page_id'               ),
-        bp_get_option( 'woocommerce_thanks_page_id'           ),
+        bp_get_option( 'woocommerce_cart_page_id' ),
+        bp_get_option( 'woocommerce_checkout_page_id' ),
+        bp_get_option( 'woocommerce_view_order_page_id' ),
+        bp_get_option( 'woocommerce_edit_address_page_id' ),
+        bp_get_option( 'woocommerce_myaccount_page_id' ),
+        bp_get_option( 'woocommerce_pay_page_id' ),
+        bp_get_option( 'woocommerce_thanks_page_id' ),
         bp_get_option( 'woocommerce_change_password_page_id' ),
         bpshop_get_tracking_page_id()
     );
@@ -112,7 +112,7 @@ add_filter( 'wp_page_menu_args', 'bpshop_exclude_pages_navigation' );
 /**
  * Adjust the checkout url to point to the profile
  * 
- * @since     1.0
+ * @since   1.0
  * @uses    bp_loggedin_user_domain()
  * @uses    is_user_logged_in()
  */
@@ -124,6 +124,9 @@ add_filter( 'woocommerce_get_checkout_url', 'bpshop_checkout_url' );
 
 /**
  * Link to the user shop settings page
+ * 
+ * @since   1.0.4
+ * @uses    bp_get_settings_slug()
  */
 function bpshop_settings_link(){
     echo bpshop_get_settings_link();
@@ -131,7 +134,7 @@ function bpshop_settings_link(){
     function bpshop_get_settings_link(){
         global $bp;
         return apply_filters(
-                    'bpshop_bpshop_get_settings_link', 
+                    'bpshop_get_settings_link', 
                     trailingslashit( $bp->loggedin_user->domain . bp_get_settings_slug() . '/shop')
                 );
     }
@@ -139,6 +142,7 @@ function bpshop_settings_link(){
 /**
  * Adds an activity stream item when a user has written a new review to a product.
  *
+ * @uses bp_is_active() Checks that the Activity component is active
  * @uses bp_activity_add() Adds an entry to the activity component tables for a specific activity
  */
 add_action('wp_insert_comment', 'bpshop_new_review_activity', 10, 2);
@@ -146,16 +150,16 @@ function bpshop_new_review_activity($comment_id, $comment_data) {
     if ( !bp_is_active( 'activity' ) )
         return false;
 
-    $user_id = apply_filters('bpshop_new_review_activity_user_id', $comment_data->user_id);
-
-    // check that user enabled updating the activity stream
-    if ( bp_get_user_meta($user_id, 'notification_activity_shop_reviews', true) == 'no' )
-        return false;
-
     // Get the product data
     $product = get_post($comment_data->comment_post_ID);
     
     if($product->post_type != 'product')
+        return false;
+
+    $user_id = apply_filters('bpshop_new_review_activity_user_id', $comment_data->user_id);
+
+    // check that user enabled updating the activity stream
+    if ( bp_get_user_meta($user_id, 'notification_activity_shop_reviews', true) == 'no' )
         return false;
 
     $user_link = bp_core_get_userlink( $user_id );
@@ -171,8 +175,8 @@ function bpshop_new_review_activity($comment_id, $comment_data) {
                                     $product->post_title
                                 ), 
                                 $user_id,
-                                $review_id,
-                                $product_id
+                                $comment_data,
+                                $product
                         ),
         'component' => 'shop',
         'type'      => 'new_shop_review'
@@ -205,7 +209,7 @@ function bpshop_new_purchase_activity($order_id){
 
     // if several products - combine them, otherwise - display the product name
     $products = maybe_unserialize($order->order_custom_fields['_order_items'][0]);
-    $names = array();
+    $names    = array();
     foreach($products as $product){
         $names[] = '<a href="'.get_permalink($product['id']).'">'.$product['name'].'</a>';
     }
@@ -220,8 +224,8 @@ function bpshop_new_purchase_activity($order_id){
                                     implode(', ', $names)
                         	), 
                             $user_id,
-                            $review_id,
-                            $product_id
+                            $order,
+                            $products
                         ),
         'component' => 'shop',
         'type'      => 'new_shop_purchase'
