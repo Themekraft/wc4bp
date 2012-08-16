@@ -1,8 +1,7 @@
 = v1.0.5 =
-* Bugfix: Shipping and payment methods are not initially visible on the checkout page
-
 * NEW: Added shop settings link into wp admin bar settings menu
 * NEW: Added nav links to wp admin bar
+* Bugfix: Shipping and payment methods were not initially visible on the checkout page
 * Bugfix: Profile data did not get synchronized both ways
 * Changed: Bumped min versions on and upwards (WP => 3.4.1, BP => 1.6.1, WC => 1.6.3)
 * Changed: Replaced old WC class names with new ones

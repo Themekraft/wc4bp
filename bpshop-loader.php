@@ -193,3 +193,53 @@ class BPSHOP_Loader
 
 // Get it on!!
 BPSHOP_Loader::init();
+
+/**
+ * The functions below do not have any filters, but can be redefined
+ * Needs to happen here, so as not to cause any errors
+ * Changing these functions ensures that the correct JS is being loaded
+ * 
+ * @todo	Write a fix to use filters rather than redeclaring these functions
+ */
+
+if( ! function_exists( 'is_checkout' ) ) :
+/**
+ * Check if we're on a checkout page
+ * 
+ * @since 	1.0.5
+ */
+function is_checkout() {
+	if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'checkout' ) )
+		return true;
+	
+	return false;
+}
+endif;
+
+if( ! function_exists( 'is_cart' ) ) :
+/**
+ * Check if we're on a cart page
+ * 
+ * @since 	1.0.5
+ */
+function is_cart() {
+	if( bp_is_current_component( 'shop' ) && ! bp_action_variables() )
+		return true;
+	
+	return false;
+}
+endif;
+
+if( ! function_exists( 'is_account_page' ) ) :
+/**
+ * Check if we're on an account page
+ * 
+ * @since 	1.0.5
+ */
+function is_account_page() {
+	if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'history' ) )
+		return true;
+	
+	return false;
+}
+endif;
