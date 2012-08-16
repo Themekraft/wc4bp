@@ -45,7 +45,7 @@ function bpshop_synch_addresses( $field_id, $value ) {
 		return false;
 	
 	if( $key == 'country' ) :
-		$geo = new woocommerce_countries();		
+		$geo = new WC_Countries();		
 		$value = array_search( $value, $geo->countries );
 	endif;
 

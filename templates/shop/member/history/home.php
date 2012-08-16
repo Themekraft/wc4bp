@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		WordPress
- * @subpackage	BuddyPress,woocommerce
+ * @subpackage	BuddyPress, Woocommerce
  * @author		Boris Glumpler
  * @copyright	2011, Themekraft
  * @link		https://github.com/Themekraft/BP-Shop-Integration
@@ -9,21 +9,21 @@
  */
 
 global $woocommerce;
+
 ?>
 <h3><?php _e( 'Purchase History', 'bpshop' ); ?></h3>
 <?php
 $woocommerce->show_messages();
 	 	
-$args = array(
-    'numberposts'     => $recent_orders,
+$customer_orders = get_posts( array(
+    'numberposts'     => -1,
     'meta_key'        => '_customer_user',
     'meta_value'      => get_current_user_id(),
     'post_type'       => 'shop_order',
     'post_status'     => 'publish' 
-);
+) );
 
-$customer_orders = get_posts( $args );
-if( $customer_orders ) :
+if( count( $customer_orders ) > 0 ) :
 ?>
 <table class="shop_table my_account_orders">
 	<thead>
@@ -38,7 +38,7 @@ if( $customer_orders ) :
 	<tbody>
 		<?php foreach( $customer_orders as $customer_order ) :
 		    
-        $order = &new woocommerce_order();
+        $order = &new WC_Order();
         $order->populate( $customer_order );
 		?>
 		<tr class="order">

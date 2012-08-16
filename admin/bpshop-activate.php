@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		WordPress
- * @subpackage	BuddyPress,woocommerce
+ * @subpackage	BuddyPress, Woocommerce
  * @author		Boris Glumpler
  * @copyright	2011, ShabuShabu Webdesign
  * @link		http://shabushabu.eu
@@ -18,12 +18,9 @@ if( ! defined( 'ABSPATH' ) ) exit;
  *
  * @todo	- Also check xprofile_insert_field to see if 'type' accepts
  * 			  a value of 'option'
- * 			- Probably need to adjust $billing and $shipping arrays when user
- * 			  manually changes profile fields
  * @since 	1.0
  */
-function bpshop_activate()
-{
+function bpshop_activate() {
 	global $wpdb, $bp;
 	
 	if( get_blog_option( BP_ROOT_BLOG, 'bpshop_installed' ) )
@@ -33,7 +30,7 @@ function bpshop_activate()
 	// and corresponding fields here
 	$default_country = get_blog_option( BP_ROOT_BLOG, 'woocommerce_default_country' );
 	
-	$geo = new woocommerce_countries();
+	$geo = new WC_Countries();
 	
 	$billing 			   = array();
 	$billing['group_id']   = xprofile_insert_field_group( array(
@@ -132,8 +129,7 @@ function bpshop_activate()
  *
  * @since 	1.0
  */
-function bpshop_cleanup()
-{
+function bpshop_cleanup() {
 	xprofile_delete_field_group( get_blog_option( BP_ROOT_BLOG, 'bpshop_shipping_address_ids' ) );
 	xprofile_delete_field_group( get_blog_option( BP_ROOT_BLOG, 'bpshop_billing_address_ids'  ) );
 	
@@ -141,4 +137,3 @@ function bpshop_cleanup()
 	delete_blog_option( BP_ROOT_BLOG, 'bpshop_billing_address_ids'  );
 	delete_blog_option( BP_ROOT_BLOG, 'bpshop_installed' 			);
 }
-?>

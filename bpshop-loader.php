@@ -4,7 +4,7 @@
  * Plugin URI:  https://github.com/Themekraft/WooCommerce-for-Buddypress
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author:      BP Shop Dev Team
- * Version:     1.0.4
+ * Version:     1.0.5
  * Author URI:  https://github.com/Themekraft/WooCommerce-for-Buddypress
  * Network:     true
  * 
@@ -35,22 +35,22 @@ class BPSHOP_Loader
 	/**
 	 * The plugin version
 	 */
-	const VERSION 	= '1.0.4';
+	const VERSION 	= '1.0.5';
 	
 	/**
 	 * Minimum required WP version
 	 */
-	const MIN_WP 	= '3.2.1';
+	const MIN_WP 	= '3.4.1';
 	
 	/**
 	 * Minimum required BP version
 	 */
-	const MIN_BP 	= '1.5';
+	const MIN_BP 	= '1.6.1';
 
 	/**
 	 * Minimum required woocommerce version
 	 */
-	const MIN_WOO 	= '1.1.3';
+	const MIN_WOO 	= '1.6.3';
 
 	/**
 	 * Name of the plugin folder
@@ -72,8 +72,7 @@ class BPSHOP_Loader
 	 * @uses	register_uninstall_hook()
 	 * @uses	add_action()
 	 */
-	public function init()
-	{
+	public function init() {
 		self::$plugin_name = plugin_basename( __FILE__ );
 
 		self::constants();
@@ -94,8 +93,7 @@ class BPSHOP_Loader
 	 * @since 	1.0
 	 * @access 	public
 	 */
-	public function start()
-	{
+	public function start() {
 		if( self::$active === false )
 			return false;
 
@@ -113,15 +111,13 @@ class BPSHOP_Loader
 	 * @global 	string 	$wp_version 	Current WordPress version
 	 * @return 	boolean
 	 */
-	public function check_requirements()
-	{		
+	public function check_requirements() {		
 		global $wp_version;
 
 		$error = false;
 		
 		// BuddyPress checks
-		if( ! defined( 'BP_VERSION' ) )
-		{
+		if( ! defined( 'BP_VERSION' ) )	{
 			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', "bpshop" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
 			$error = true;
 		}
@@ -132,20 +128,17 @@ class BPSHOP_Loader
 		}
 		
 		// Woocommerce checks
-		if( ! defined( 'WOOCOMMERCE_VERSION' ) )
-		{
+		if( ! defined( 'WOOCOMMERCE_VERSION' ) ) {
 			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop needs WooCommerce to be installed. <a href="%s">Download it now</a>!\', "bpshop" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
 			$error = true;
 		}		
-		elseif( version_compare( WOOCOMMERCE_VERSION, self::MIN_WOO, '>=' ) == false )
-		{
+		elseif( version_compare( WOOCOMMERCE_VERSION, self::MIN_WOO, '>=' ) == false ) {
 			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop works only under WooCommerce %s or higher. <a href="%s">Upgrade now</a>!\', "bpshop" ) . \'</strong></p></div>\', BPSHOP_Loader::MIN_WOO, admin_url("update-core.php") );' ) );
 			$error = true;
 		}
 		
 		// WordPress check
-		if( version_compare( $wp_version, self::MIN_WP, '>=' ) == false )
-		{
+		if( version_compare( $wp_version, self::MIN_WP, '>=' ) == false ) {
 			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop works only under WordPress %s or higher. <a href="%s">Upgrade now</a>!\', "bpshop" ) . \'</strong></p></div>\', BPSHOP_Loader::MIN_WP, admin_url("update-core.php") );' ) );
 			$error = true;
 		}
@@ -159,8 +152,7 @@ class BPSHOP_Loader
 	 * @since 	1.0
 	 * @uses 	load_plugin_textdomain()
 	 */
-	public function translate()
-	{
+	public function translate()	{
 		load_plugin_textdomain( 'bpshop', false, dirname( self::$plugin_name ) .'/languages/' );
 	}
 
@@ -169,8 +161,7 @@ class BPSHOP_Loader
 	 * 
 	 * @since 	1.0
 	 */
-	public function activate()
-	{
+	public function activate() {
 		include_once( dirname( __FILE__ ) .'/admin/bpshop-activate.php' );
 		bpshop_activate();
 	}
@@ -180,8 +171,7 @@ class BPSHOP_Loader
 	 * 
 	 * @since 	1.0
 	 */
-	public function uninstall()
-	{
+	public function uninstall()	{
 		include_once( dirname( __FILE__ ) .'/admin/bpshop-activate.php' );
 		bpshop_cleanup();
 	}
@@ -192,8 +182,7 @@ class BPSHOP_Loader
 	 * @since 	1.0
 	 * @access 	private
 	 */
-	private function constants()
-	{
+	private function constants() {
 		define( 'BPSHOP_PLUGIN', 	self::$plugin_name );
 		define( 'BPSHOP_VERSION',	self::VERSION );
 		define( 'BPSHOP_FOLDER',	plugin_basename( dirname( __FILE__ ) ) );
@@ -204,4 +193,3 @@ class BPSHOP_Loader
 
 // Get it on!!
 BPSHOP_Loader::init();
-?>

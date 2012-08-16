@@ -160,6 +160,63 @@ class BPSHOP_Component extends BP_Component
         
         parent::setup_nav( $main_nav, $sub_nav );
     }
+
+	/**
+	 * Set up the Toolbar
+	 *
+	 * @global BuddyPress $bp The one true BuddyPress instance
+	 */
+	function setup_admin_bar() {
+		global $bp;
+
+		$wp_admin_nav = array();
+
+		if ( is_user_logged_in() ) {
+			$user_domain   = bp_loggedin_user_domain();
+			$settings_link = trailingslashit( $user_domain . BP_SETTINGS_SLUG );
+
+			// Shop settings menu
+			$wp_admin_nav[] = array(
+				'parent' => 'my-account-settings',
+				'id'     => 'my-account-settings-shop',
+				'title'  => __( 'Shop', 'bpshop' ),
+				'href'   => trailingslashit( $settings_link . 'shop' )
+			);
+			
+			$shop_link = trailingslashit( $user_domain . $this->id );
+			
+			// Shop menu items
+			$wp_admin_nav[] = array(
+				'parent' => $bp->my_account_menu_id,
+				'id'     => 'my-account-' . $this->id,
+				'title'  => __( 'Shop', 'bpshop' ),
+				'href'   => trailingslashit( $shop_link )
+			);
+
+			$wp_admin_nav[] = array(
+				'parent' => 'my-account-' . $this->id,
+				'id'     => 'my-account-' . $this->id . '-cart',
+				'title'  => __( 'Shopping Cart', 'bpshop' ),
+				'href'   => trailingslashit( $shop_link )
+			);
+
+			$wp_admin_nav[] = array(
+				'parent' => 'my-account-' . $this->id,
+				'id'     => 'my-account-' . $this->id . '-history',
+				'title'  => __( 'History', 'bpshop' ),
+				'href'   => trailingslashit( $shop_link . 'history' )
+			);
+
+			$wp_admin_nav[] = array(
+				'parent' => 'my-account-' . $this->id,
+				'id'     => 'my-account-' . $this->id . '-track',
+				'title'  => __( 'Track your order', 'bpshop' ),
+				'href'   => trailingslashit( $shop_link . 'track' )
+			);
+		}
+
+		parent::setup_admin_bar( $wp_admin_nav );
+	}
 }
 
 // Create the shop component
