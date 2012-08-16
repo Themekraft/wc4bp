@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		WordPress
- * @subpackage	BuddyPress,woocommerce
+ * @subpackage	BuddyPress, Woocommerce
  * @author		Boris Glumpler
  * @copyright	2011, Themekraft
  * @link		https://github.com/Themekraft/BP-Shop-Integration
@@ -16,8 +16,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
  *
  * @since 	1.0
  */
-function bpshop_is_page( $page )
-{
+function bpshop_is_page( $page ) {
 	if( bp_is_current_component( 'shop' ) && bp_is_current_action( $page ) )
 		return true;
 	
@@ -29,8 +28,7 @@ function bpshop_is_page( $page )
  *
  * @since 	1.0
  */
-function bpshop_is_subpage( $sub )
-{
+function bpshop_is_subpage( $sub ) {
 	if( bp_is_current_component( 'shop' ) && bp_is_action_variable( $sub, 0 ) )
 		return true;
 	
@@ -42,11 +40,9 @@ function bpshop_is_subpage( $sub )
  *
  * @since 	1.0
  */
-function bpshop_is_subsubpage( $sub )
-{
+function bpshop_is_subsubpage( $sub ) {
 	if( bp_is_current_component( 'shop' ) && bp_is_action_variable( $sub, 1 ) )
 		return true;
 	
 	return false;
 }
-?>

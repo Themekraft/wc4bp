@@ -35,7 +35,7 @@ class BPSHOP_Loader
 	/**
 	 * The plugin version
 	 */
-	const VERSION 	= '1.0.3';
+	const VERSION 	= '1.0.4';
 	
 	/**
 	 * Minimum required WP version
@@ -51,11 +51,6 @@ class BPSHOP_Loader
 	 * Minimum required woocommerce version
 	 */
 	const MIN_WOO 	= '1.1.3';
-		
-	/**
-	 * Minimum required PHP version
-	 */
-	const MIN_PHP 	= '5.2.0';
 
 	/**
 	 * Name of the plugin folder
@@ -152,13 +147,6 @@ class BPSHOP_Loader
 		if( version_compare( $wp_version, self::MIN_WP, '>=' ) == false )
 		{
 			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop works only under WordPress %s or higher. <a href="%s">Upgrade now</a>!\', "bpshop" ) . \'</strong></p></div>\', BPSHOP_Loader::MIN_WP, admin_url("update-core.php") );' ) );
-			$error = true;
-		}
-		
-		// PHP check
-		if( version_compare( PHP_VERSION, self::MIN_PHP, '>=' ) == false )
-		{
-			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop works only under PHP %s or higher. Please ask your hosting company for support!\', "bpshop" ) . \'</strong></p></div>\', BPSHOP_Loader::MIN_PHP );' ) );
 			$error = true;
 		}
 		

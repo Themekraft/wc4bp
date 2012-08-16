@@ -1,18 +1,24 @@
 <?php
 /**
- * @package        WordPress
- * @subpackage    BuddyPress,woocommerce
- * @author        Boris Glumpler
- * @copyright    2011, Themekraft
- * @link        https://github.com/Themekraft/BP-Shop-Integration
- * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
+ * @package       	WordPress
+ * @subpackage    	BuddyPress, Woocommerce
+ * @author        	Boris Glumpler
+ * @copyright    	2011, Themekraft
+ * @link        	https://github.com/Themekraft/BP-Shop-Integration
+ * @license        	http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 
 // No direct access is allowed
 if( ! defined( 'ABSPATH' ) ) exit;
 
-class BPSHOP_Component extends BP_Component {
-
+class BPSHOP_Component extends BP_Component
+{
+    /**
+     * Holds the ID of the component
+	 *
+	 * @var		string
+     * @since   1.0
+     */
 	public $id = 'shop';
 
     /**
@@ -23,19 +29,21 @@ class BPSHOP_Component extends BP_Component {
      *             method
      * @since     1.0
      */
-    function __construct()
-    {
+    function __construct() {
         parent::start( $this->id, __( 'Woocommerce Integration', 'bpshop' ), BPSHOP_ABSPATH );
         
         $this->includes();
 
-        add_action( 'bp_register_activity_actions', array(&$this, 'register_activity_actions') );
+        add_action( 'bp_register_activity_actions', array( &$this, 'register_activity_actions' ) );
     }
 
-    function register_activity_actions(){
-        global $bp;
-
-        if ( !bp_is_active( 'activity' ) )
+    /**
+     * Register acctivity actions
+     *
+     * @since     1.0.4
+     */
+    function register_activity_actions() {
+        if( ! bp_is_active( 'activity' ) )
             return false;
 
         bp_activity_set_action( $this->id, 'new_shop_review',   __( 'New review created', 'bpshop' ) );
@@ -49,8 +57,7 @@ class BPSHOP_Component extends BP_Component {
      *
      * @since     1.0
      */
-    function includes()
-    {
+    function includes() {
         $includes = array(
             'bpshop-helpers',
             'bpshop-conditionals',
@@ -67,10 +74,9 @@ class BPSHOP_Component extends BP_Component {
      * Setup globals
      *
      * @since     1.0
-     * @global     object    $bp
+     * @global    object    $bp
      */
-    function setup_globals()
-    {
+    function setup_globals() {
         global $bp;
 
         $globals = array(
@@ -86,12 +92,9 @@ class BPSHOP_Component extends BP_Component {
      * Setup BuddyBar navigation
      *
      * @since    1.0
-     * @global     object    $bp
+     * @global   object    $bp
      */
-    function setup_nav()
-    {
-        global $bp;
-
+    function setup_nav() {
         // Add 'Shop' to the main navigation
         $main_nav = array(
             'name'                          => __( 'Shop', 'bpshop' ),
@@ -103,7 +106,7 @@ class BPSHOP_Component extends BP_Component {
             'show_for_displayed_user'       => false
         );
 
-        $shop_link = trailingslashit( $bp->loggedin_user->domain . $this->slug );
+        $shop_link = trailingslashit( bp_loggedin_user_domain() . $this->slug );
 
         // Add the cart nav item
         $sub_nav[] = array(
@@ -145,7 +148,7 @@ class BPSHOP_Component extends BP_Component {
         $sub_nav[] = array(
             'name'            => __( 'Shop', 'bpshop' ),
             'slug'            => 'shop',
-            'parent_url'      => trailingslashit( $bp->loggedin_user->domain . bp_get_settings_slug()),
+            'parent_url'      => trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug()),
             'parent_slug'     => bp_get_settings_slug(),
             'screen_function' => 'bpshop_screen_settings',
             'position'        => 30,
@@ -161,5 +164,4 @@ class BPSHOP_Component extends BP_Component {
 
 // Create the shop component
 $bp->shop = new BPSHOP_Component();
-
 ?>

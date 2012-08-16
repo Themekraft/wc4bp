@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		WordPress
- * @subpackage	BuddyPress,woocommerce
+ * @subpackage	BuddyPress, Woocommerce
  * @author		Boris Glumpler
  * @copyright	2011, Themekraft
  * @link		https://github.com/Themekraft/BP-Shop-Integration
@@ -25,8 +25,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @uses	bp_action_variable()
  * @uses	bp_displayed_user_id()
  */
-function bpshop_synch_addresses( $field_id, $value )
-{
+function bpshop_synch_addresses( $field_id, $value ) {
 	$shipping = bp_get_option( 'bpshop_shipping_address_ids' );
 	$billing  = bp_get_option( 'bpshop_billing_address_ids'  );
 	
@@ -53,4 +52,3 @@ function bpshop_synch_addresses( $field_id, $value )
 	bp_update_user_meta( bp_displayed_user_id(), $context .'_'. $key, $value );
 }
 add_action( 'xprofile_profile_field_data_updated', 'bpshop_synch_addresses', 10, 2 );
-?>

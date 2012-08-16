@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		WordPress
- * @subpackage	BuddyPress,woocommerce
+ * @subpackage	BuddyPress, Woocommerce
  * @author		Boris Glumpler
  * @copyright	2011, Themekraft
  * @link		https://github.com/Themekraft/BP-Shop-Integration
@@ -21,8 +21,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @uses	bp_core_load_template()
  * @uses	apply_filters()
  */
-function bpshop_screen_shopping_cart()
-{
+function bpshop_screen_shopping_cart() {
 	bp_core_load_template( apply_filters( 'bpshop_template_member_shopping_cart', 'shop/member/home' ) );
 }
 
@@ -36,8 +35,7 @@ function bpshop_screen_shopping_cart()
  * @uses	bp_core_load_template()
  * @uses	apply_filters()
  */
-function bpshop_screen_history()
-{
+function bpshop_screen_history() {
 	bp_core_load_template( apply_filters( 'bpshop_template_member_history', 'shop/member/home' ) );
 }
 
@@ -51,44 +49,43 @@ function bpshop_screen_history()
  * @uses	bp_core_load_template()
  * @uses	apply_filters()
  */
-function bpshop_screen_track_order()
-{
+function bpshop_screen_track_order() {
 	bp_core_load_template( apply_filters( 'bpshop_template_member_track_order', 'shop/member/home' ) );
 }
 
 /**
  * Display shop settings that can be changed by a user
  * Save the settings
+ * 
+ * @since 	unknown
  */
-function bpshop_screen_settings(){
-    global $bp;
-
-    if ( !bp_is_my_profile() && !is_super_admin() )
+function bpshop_screen_settings() {
+    if( ! bp_is_my_profile() && ! is_super_admin() )
         return false;
 
     do_action( 'bpshop_screen_settings' );
 
-    if(isset($_POST['bpshop']) && !empty($_POST['bpshop'])){
+    if( isset($_POST['bpshop'] ) && ! empty( $_POST['bpshop'] ) ){
         // default values
-        $yes_no = array('yes','no');
+        $yes_no = array( 'yes','no' );
 
         // check that we got valid data
-        $reviews_2_activity   = (in_array($_POST['bpshop']['reviews_2_activity'],   $yes_no))?$_POST['bpshop']['reviews_2_activity']  :'yes';
-        $purchases_2_activity = (in_array($_POST['bpshop']['purchases_2_activity'], $yes_no))?$_POST['bpshop']['purchases_2_activity']:'yes';
+        $reviews_2_activity   = ( in_array( $_POST['bpshop']['reviews_2_activity'],   $yes_no ) ) ? $_POST['bpshop']['reviews_2_activity']   : 'yes';
+        $purchases_2_activity = ( in_array( $_POST['bpshop']['purchases_2_activity'], $yes_no ) ) ? $_POST['bpshop']['purchases_2_activity'] : 'yes';
 
-        do_action('bpshop_pre_update_user_settings', $bp->displayed_user->id, $_POST['bpshop']);
+        do_action( 'bpshop_pre_update_user_settings', bp_displayed_user_id(), $_POST['bpshop'] );
 
         // save them
-        bp_update_user_meta( $bp->displayed_user->id, 'notification_activity_shop_reviews',   $reviews_2_activity);
-        bp_update_user_meta( $bp->displayed_user->id, 'notification_activity_shop_purchases', $purchases_2_activity);
+        bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_reviews',   $reviews_2_activity );
+        bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_purchases', $purchases_2_activity );
         
-        do_action('bpshop_post_update_user_settings', $bp->displayed_user->id, $_POST['bpshop']);
+        do_action( 'bpshop_post_update_user_settings', bp_displayed_user_id(), $_POST['bpshop'] );
 
         // Set the feedback messages
         bp_core_add_message( __( 'Changes saved.', 'buddypress' ) );
 
         // and clear the POST to make the QA happy :)
-        bp_core_redirect(bpshop_get_settings_link());
+        bp_core_redirect( bpshop_get_settings_link() );
     }
 
     bp_core_load_template( apply_filters( 'bpshop_screen_settings', 'members/single/plugins' ) );
@@ -96,31 +93,31 @@ function bpshop_screen_settings(){
 
 /**
  * The main title for the Shop Settings page
+ * 
+ * @since 	unknown
  */
-add_action('bp_template_title', 'bpshop_screen_settings_title');
-function bpshop_screen_settings_title(){
-    _e('Shop Settings', 'bpshop');
+function bpshop_screen_settings_title() {
+    _e( 'Shop Settings', 'bpshop' );
 }
+add_action( 'bp_template_title', 'bpshop_screen_settings_title' );
 
 /**
  * Content of the Settings page
  *
- * @uses bp_is_settings_component()
- * @uses bp_current_action()
- * @uses bp_get_user_meta()
- * @uses do_action()
+ * @since 	unknown
+ * @uses 	bp_is_settings_component()
+ * @uses 	bp_current_action()
+ * @uses 	bp_get_user_meta()
+ * @uses 	do_action()
  */
-add_action('bp_template_content', 'bpshop_screen_settings_content');
-function bpshop_screen_settings_content(){
-    global $bp;
-
-    if(!bp_is_settings_component() || bp_current_action() != 'shop')
+function bpshop_screen_settings_content() {
+    if( ! bp_is_settings_component() || bp_current_action() != 'shop' )
         return false;
 
-    if ( !$shop_reviews = bp_get_user_meta( $bp->displayed_user->id, 'notification_activity_shop_reviews', true ) )
+    if( ! $shop_reviews = bp_get_user_meta( bp_displayed_user_id(), 'notification_activity_shop_reviews', true ) )
         $shop_reviews = 'yes';
 
-    if ( !$shop_purchases = bp_get_user_meta( $bp->displayed_user->id, 'notification_activity_shop_purchases', true ) )
+    if( ! $shop_purchases = bp_get_user_meta( bp_displayed_user_id(), 'notification_activity_shop_purchases', true ) )
         $shop_purchases = 'yes';
     ?>
     <form action="<?php bpshop_settings_link() ?>" method="POST"> 
@@ -150,18 +147,16 @@ function bpshop_screen_settings_content(){
                 </tr>
 
                 <?php do_action( 'bpshop_screen_notification_activity_settings' ); ?>
-
             </tbody>
         </table>
 
         <?php do_action( 'bpshop_screen_notification_settings' ); ?>
 
         <div class="submit">
-            <input type="submit" name="submit" value="<?php _e('Save Changes', 'bpshop'); ?>" id="submit" class="auto">
+            <input type="submit" name="submit" value="<?php _e( 'Save Changes', 'bpshop' ); ?>" id="submit" class="auto">
         </div>
 
     </form>
-
-<?php
+	<?php
 }
-?>
+add_action('bp_template_content', 'bpshop_screen_settings_content');

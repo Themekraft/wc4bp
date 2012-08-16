@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		WordPress
- * @subpackage	BuddyPress,woocommerce
+ * @subpackage	BuddyPress, Woocommerce
  * @author		Boris Glumpler
  * @copyright	2011, Themekraft
  * @link		https://github.com/Themekraft/BP-Shop-Integration
@@ -24,8 +24,7 @@ class BPSHOP_Redirect
 	 * @uses	add_filter()
 	 * @uses	is_user_logged_in()
 	 */
-	public function init()
-	{
+	public function init() {
 		if( is_user_logged_in() && ! is_admin() )
 			add_filter( 'page_link', array( __CLASS__, 'router' ), 10, 2 );
 	}
@@ -38,8 +37,7 @@ class BPSHOP_Redirect
 	 * @uses	is_page()
 	 * @uses	bp_loggedin_user_domain()
 	 */
-	public static function router( $link, $id )
-	{
+	public static function router( $link, $id )	{
 		global $bp;
 		
 		$cart_page_id 		= bp_get_option( 'woocommerce_cart_page_id' 			);
@@ -57,8 +55,7 @@ class BPSHOP_Redirect
 			$id = $track_page_id;
 		endif;
 		
-		switch( $id )
-		{
+		switch( $id ) {
 			case $cart_page_id:
 				$link = bp_loggedin_user_domain() .'shop/cart/';
 				break;
@@ -90,8 +87,7 @@ class BPSHOP_Redirect
 			case $address_page_id:
 				$type = ( isset( $_GET['address'] ) ) ? $_GET['address'] : 'billing';
 				 
-				switch( $type )
-				{
+				switch( $type )	{
 					case 'shipping' :
 						$ids = bp_get_option( 'bpshop_shipping_address_ids' );
 						$url = bp_loggedin_user_domain(). $bp->profile->slug .'/edit/group/'. $ids['group_id'];
@@ -113,4 +109,3 @@ class BPSHOP_Redirect
 	}
 }
 BPSHOP_Redirect::init();
-?>

@@ -1,10 +1,17 @@
-= v1.0.3=
+= v1.0.5 =
+* NEW: Added shop settings link into wp admin bar settings menu
+* NEW: Added nav links to wp admin bar
+
+= v1.0.4 =
+* Unknown
+
+= v1.0.3 =
 * Rename all jigoshop woocommerce 
 
-= v1.0.2=
+= v1.0.2 =
 * Bugfix: class woocommerce_orders is not used anymore
 
-= v1.0.1=
+= v1.0.1 =
 * Bugfix: woocommerce_countries::$countries is not a static property anymore
 
 = v1.0 =
