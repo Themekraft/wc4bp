@@ -2,9 +2,9 @@
 
 Contributors: themekraft, svenl77, slava, travel-junkie 
 Tags: buddypress, social networking, woocommerce, e-commerce 
-Requires at least: WP 3.2.1, BP 1.5 
-Tested up to: WP 3.4.x, BP 1.5.x, WC 1.x 
-Stable tag: 1.0.4
+Requires at least: WP 3.4.1, BP 1.6.1, WC 1.6.3 
+Tested up to: WP 3.4.1, BP 1.6.1, WC 1.6.3 
+Stable tag: 1.0.5
 
 WooCommerce for BuddyPress - Shop solution for your BuddyPress community. 
 Integrates a WooCommerce installation with a BuddyPress social network.
