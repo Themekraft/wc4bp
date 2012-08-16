@@ -54,23 +54,6 @@ function bpshop_load_template( $template_name ) {
 }
 
 /**
- * Get the tracking page id
-
- * @todo    Check regularly if there is a db option
- * @since     1.0
- */
-function bpshop_get_tracking_page_id() {
-    global $wpdb;
-    
-    return $wpdb->get_var( $wpdb->prepare( "
-        SELECT ID 
-        FROM {$wpdb->posts} 
-        WHERE post_name = 'order-tracking' 
-        LIMIT 1
-    " ) );
-}
-
-/**
  * Exclude all woocommerce pages from the main nav
  * 
  * Only used in default theme and possibly child themes

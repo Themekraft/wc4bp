@@ -40,17 +40,19 @@ class BPSHOP_Redirect
 	public static function router( $link, $id )	{
 		global $bp;
 		
-		$cart_page_id 		= bp_get_option( 'woocommerce_cart_page_id' 			);
-		$checkout_page_id 	= bp_get_option( 'woocommerce_checkout_page_id' 		);
-		$view_page_id 		= bp_get_option( 'woocommerce_view_order_page_id' 		);
-		$address_page_id 	= bp_get_option( 'woocommerce_edit_address_page_id' 	);
-		$account_page_id 	= bp_get_option( 'woocommerce_myaccount_page_id' 		);
-		$password_page_id 	= bp_get_option( 'woocommerce_change_password_page_id'  );
-		$thanks_page_id 	= bp_get_option( 'woocommerce_thanks_page_id' 			);
-		$pay_page_id 		= bp_get_option( 'woocommerce_pay_page_id' 				);
-		$track_page_id 		= bpshop_get_tracking_page_id();
-
-		// TODO: this also sets the main members nav to the tracking page. Needs fix
+		$cart_page_id 		= woocommerce_get_page_id( 'cart' 			 );
+		$checkout_page_id 	= woocommerce_get_page_id( 'checkout' 		 );
+		$view_page_id 		= woocommerce_get_page_id( 'view_order' 	 );
+		$address_page_id 	= woocommerce_get_page_id( 'edit_address' 	 );
+		$account_page_id 	= woocommerce_get_page_id( 'myaccount' 		 );
+		$password_page_id 	= woocommerce_get_page_id( 'change_password' );
+		$thanks_page_id 	= woocommerce_get_page_id( 'thanks' 		 );
+		$pay_page_id 		= woocommerce_get_page_id( 'pay' 			 );
+		$track_page_id 		= woocommerce_get_page_id( 'order_tracking'  );
+		
+		/**
+		 * @todo	this also sets the main members nav to the tracking page. Needs fix
+		 */ 
 		if( $id == $bp->pages->members->id && bp_current_action() == 'track' ) :
 			$id = $track_page_id;
 		endif;

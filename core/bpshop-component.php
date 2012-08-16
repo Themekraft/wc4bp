@@ -63,7 +63,8 @@ class BPSHOP_Component extends BP_Component
             'bpshop-conditionals',
             'bpshop-screen',
             'bpshop-redirect',
-            'bpshop-sync'
+            'bpshop-sync',
+            'bpshop-deprecated'
         );
         
         foreach( $includes as $file )
