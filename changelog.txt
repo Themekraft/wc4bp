@@ -1,12 +1,12 @@
 = v1.0.5 =
 * Bugfix: Shipping and payment methods are not initially visible on the checkout page
-* Bugfix: Profile data did not get synchronized
 
 * NEW: Added shop settings link into wp admin bar settings menu
 * NEW: Added nav links to wp admin bar
+* Bugfix: Profile data did not get synchronized both ways
 * Changed: Bumped min versions on and upwards (WP => 3.4.1, BP => 1.6.1, WC => 1.6.3)
 * Changed: Replaced old WC class names with new ones
-* Removed: Minimum PHP version, as WP now requires PHP 5.2 itself
+* Removed: Minimum PHP version check, as WP now requires PHP 5.2 itself
 
 = v1.0.4 =
 * Unknown
