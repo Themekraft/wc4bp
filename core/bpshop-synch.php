@@ -63,8 +63,84 @@ function bpshop_synch_addresses_from_admin( $user_id ) {
 	// get the woocommerce fields
  	$fields = woocommerce_get_customer_meta_fields();
 
-	// woocommerce -> bpshop
-	$mapped_fields = array(
+	// get the mapped fields
+	$mapped_fields = bpshop_get_mapped_fields();
+	
+	// get the corresponding bpshop fields
+	$shipping = bp_get_option( 'bpshop_shipping_address_ids' );
+	$billing  = bp_get_option( 'bpshop_billing_address_ids'  );
+
+ 	foreach( $fields as $type => $fieldset ) :
+		if( ! in_array( $type, array( 'billing', 'shipping' ) ) )
+			continue;
+		
+		// get the kind of address to update
+		$kind_of = $$type;
+
+ 		foreach( $fieldset['fields'] as $key => $field ) :			
+			// update the field	
+ 			if( isset( $_POST[$key] ) ) :
+				// get the profile field id to update
+				$mapped_key = str_replace( $type, '', $key );
+								
+				// get the field id
+				$field_id = $kind_of[$mapped_fields[$mapped_key]];
+ 			
+				// update if it isn't empty
+				if( ! empty( $field_id ) )
+					xprofile_set_field_data( $field_id, $user_id, $_POST[$key] );
+			endif;
+ 		endforeach;
+ 	endforeach;
+}
+add_action( 'personal_options_update',  'bpshop_synch_addresses_from_admin' );
+add_action( 'edit_user_profile_update', 'bpshop_synch_addresses_from_admin' );
+
+/**
+ * Synchronize the shipping and billing address to the profile
+ * 
+ * @since 	1.0.5
+ * @param	int		$user_id	The user ID to synch the address for
+ * @param	array 	$_post 		All cleaned POST data
+ */
+function bpshop_synch_addresses_to_profile( $user_id, $_post ) {
+	// get the profile fields
+	$shipping = bp_get_option( 'bpshop_shipping_address_ids' );
+	$billing  = bp_get_option( 'bpshop_billing_address_ids'  );
+
+	// get the mapped fields
+	$mapped_fields = bpshop_get_mapped_fields();
+	
+	// get the types of fields to update
+	$types = array( 'billing', 'shipping' );
+	
+	foreach( $types as $type ) :
+		// get the kind of address to update
+		$kind_of = $$type;
+
+		foreach( $mapped_fields as $wc_field => $bpshop_field ) :
+			if( isset( $_post[$type . $wc_field] ) ) :
+				// get the field id to update
+				$field_id = $kind_of[$bpshop_field];
+				
+				if( ! empty( $field_id ) )
+					xprofile_set_field_data( $field_id, $user_id, $_post[$type . $wc_field] );
+			endif;
+		endforeach;
+	endforeach;	
+}
+add_action( 'woocommerce_checkout_update_user_meta',  'bpshop_synch_addresses_to_profile', 10, 2 );
+
+/**
+ * Get the mapped fields (woocommerce -> bpshop)
+ * 
+ * Note that Woocommerce has 2 types of addresses, billing and shipping
+ * Format: <code>billing{$key}</code> or <code>shipping{$key}</code>
+ * 
+ * @since 	1.0.5
+ */
+function bpshop_get_mapped_fields() {
+	return array(
 		'_first_name' 	=> 'first_name',
 		'_last_name' 	=> 'last_name',
 		'_company' 		=> 'company',
@@ -77,28 +153,4 @@ function bpshop_synch_addresses_from_admin( $user_id ) {
 		'_phone' 		=> 'phone',
 		'_email' 		=> 'email'
 	);
-	
-	// get the corresponding bpshop fields
-	$shipping = bp_get_option( 'bpshop_shipping_address_ids' );
-	$billing  = bp_get_option( 'bpshop_billing_address_ids'  );
-
- 	foreach( $fields as $type => $fieldset ) :
-		if( ! in_array( $type, array( 'billing', 'shipping' ) ) )
-			continue;
-		
- 		foreach( $fieldset['fields'] as $key => $field ) :			
-			// update the field	
- 			if( isset( $_POST[$key] ) ) :
-				// get the profile field id to update
-				$mapped_key = str_replace( $type, '', $key );
-				
-				$field_id = $$type[$mapped_fields[$mapped_key]];
- 			
-				xprofile_set_field_data( $field_id, $user_id, $_POST[$key] );
-			endif;
- 		endforeach;
- 	endforeach;
-
 }
-add_action( 'personal_options_update',  'bpshop_synch_addresses_from_admin' );
-add_action( 'edit_user_profile_update', 'bpshop_synch_addresses_from_admin' );
