@@ -50,13 +50,6 @@ class BPSHOP_Redirect
 		$pay_page_id 		= woocommerce_get_page_id( 'pay' 			 );
 		$track_page_id 		= woocommerce_get_page_id( 'order_tracking'  );
 		
-		/**
-		 * @todo	this also sets the main members nav to the tracking page. Needs fix
-		 */ 
-		if( $id == $bp->pages->members->id && bp_current_action() == 'track' ) :
-			$id = $track_page_id;
-		endif;
-		
 		switch( $id ) {
 			case $cart_page_id:
 				$link = bp_loggedin_user_domain() .'shop/cart/';

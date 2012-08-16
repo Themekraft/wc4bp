@@ -96,7 +96,7 @@ class BPSHOP_Loader
 	public function start() {
 		if( self::$active === false )
 			return false;
-
+		
 		// core component
 		require( BPSHOP_ABSPATH .'core/bpshop-component.php' );
 	}
@@ -200,6 +200,7 @@ BPSHOP_Loader::init();
  * Changing these functions ensures that the correct JS is being loaded
  * 
  * @todo	Write a fix to use filters rather than redeclaring these functions
+ * 			which could potentially create conflicts with other plugins
  */
 
 if( ! function_exists( 'is_checkout' ) ) :
