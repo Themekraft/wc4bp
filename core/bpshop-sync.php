@@ -25,7 +25,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @uses	bp_action_variable()
  * @uses	bp_displayed_user_id()
  */
-function bpshop_synch_addresses_from_profile( $field_id, $value ) {
+function bpshop_sync_addresses_from_profile( $field_id, $value ) {
 	$shipping = bp_get_option( 'bpshop_shipping_address_ids' );
 	$billing  = bp_get_option( 'bpshop_billing_address_ids'  );
 	
@@ -51,7 +51,7 @@ function bpshop_synch_addresses_from_profile( $field_id, $value ) {
 
 	bp_update_user_meta( bp_displayed_user_id(), $context .'_'. $key, $value );
 }
-add_action( 'xprofile_profile_field_data_updated', 'bpshop_synch_addresses_from_profile', 10, 2 );
+add_action( 'xprofile_profile_field_data_updated', 'bpshop_sync_addresses_from_profile', 10, 2 );
 
 /**
  * Synchronize the shipping and billing address from the admin area
@@ -59,7 +59,7 @@ add_action( 'xprofile_profile_field_data_updated', 'bpshop_synch_addresses_from_
  * @since 	1.0.5
  * @param	int 	$user_id	The user to synchronize the fields for
  */
-function bpshop_synch_addresses_from_admin( $user_id ) {
+function bpshop_sync_addresses_from_admin( $user_id ) {
 	// get the woocommerce fields
  	$fields = woocommerce_get_customer_meta_fields();
 
@@ -93,8 +93,8 @@ function bpshop_synch_addresses_from_admin( $user_id ) {
  		endforeach;
  	endforeach;
 }
-add_action( 'personal_options_update',  'bpshop_synch_addresses_from_admin' );
-add_action( 'edit_user_profile_update', 'bpshop_synch_addresses_from_admin' );
+add_action( 'personal_options_update',  'bpshop_sync_addresses_from_admin' );
+add_action( 'edit_user_profile_update', 'bpshop_sync_addresses_from_admin' );
 
 /**
  * Synchronize the shipping and billing address to the profile
@@ -103,7 +103,7 @@ add_action( 'edit_user_profile_update', 'bpshop_synch_addresses_from_admin' );
  * @param	int		$user_id	The user ID to synch the address for
  * @param	array 	$_post 		All cleaned POST data
  */
-function bpshop_synch_addresses_to_profile( $user_id, $_post ) {
+function bpshop_sync_addresses_to_profile( $user_id, $_post ) {
 	// get the profile fields
 	$shipping = bp_get_option( 'bpshop_shipping_address_ids' );
 	$billing  = bp_get_option( 'bpshop_billing_address_ids'  );
@@ -129,7 +129,7 @@ function bpshop_synch_addresses_to_profile( $user_id, $_post ) {
 		endforeach;
 	endforeach;	
 }
-add_action( 'woocommerce_checkout_update_user_meta',  'bpshop_synch_addresses_to_profile', 10, 2 );
+add_action( 'woocommerce_checkout_update_user_meta',  'bpshop_sync_addresses_to_profile', 10, 2 );
 
 /**
  * Get the mapped fields (woocommerce -> bpshop)
