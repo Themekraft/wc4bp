@@ -1,3 +1,6 @@
+= v1.0.6 =
+* Bugfix: Checkout page for anonymous users
+
 = v1.0.5 =
 * NEW: Added shop settings link into wp admin bar settings menu
 * NEW: Added nav links to wp admin bar

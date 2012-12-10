@@ -4,7 +4,7 @@
  * Plugin URI:  https://github.com/Themekraft/WooCommerce-for-Buddypress
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author:      BP Shop Dev Team
- * Version:     1.0.5
+ * Version:     1.0.6
  * Author URI:  https://github.com/Themekraft/WooCommerce-for-Buddypress
  * Network:     true
  * 
@@ -35,7 +35,7 @@ class BPSHOP_Loader
 	/**
 	 * The plugin version
 	 */
-	const VERSION 	= '1.0.5';
+	const VERSION 	= '1.0.6';
 	
 	/**
 	 * Minimum required WP version
@@ -81,7 +81,7 @@ class BPSHOP_Loader
 		register_uninstall_hook(  self::$plugin_name, array( __CLASS__, 'uninstall'	) );
 		
 		add_action( 'init', 			array( __CLASS__, 'translate' 			), 10 );
-		add_action( 'plugins_loaded', 	array( __CLASS__, 'check_requirements' 	), 0  );
+		add_action( 'plugins_loaded', 	array( __CLASS__, 'check_requirements' 	),  0 );
 		add_action( 'bp_include', 		array( __CLASS__, 'start' 				), 10 );
 	}
 
@@ -210,8 +210,15 @@ if( ! function_exists( 'is_checkout' ) ) :
  * @since 	1.0.5
  */
 function is_checkout() {
-	if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'checkout' ) )
-		return true;
+	if( is_user_logged_in() ) :
+		if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'checkout' ) ) :
+			return true;
+		endif;
+	else :
+		if( is_page( woocommerce_get_page_id( 'checkout' ) ) || is_page( woocommerce_get_page_id( 'pay' ) ) ) :
+			return true;
+		endif;
+	endif;
 	
 	return false;
 }
@@ -224,8 +231,15 @@ if( ! function_exists( 'is_cart' ) ) :
  * @since 	1.0.5
  */
 function is_cart() {
-	if( bp_is_current_component( 'shop' ) && ! bp_action_variables() )
-		return true;
+	if( is_user_logged_in() ) :
+		if( bp_is_current_component( 'shop' ) && ! bp_action_variables() ) :
+			return true;
+		endif;
+	else :
+		if( is_page( woocommerce_get_page_id( 'cart' ) ) ) :
+			return true;
+		endif;
+	endif;
 	
 	return false;
 }
@@ -238,8 +252,15 @@ if( ! function_exists( 'is_account_page' ) ) :
  * @since 	1.0.5
  */
 function is_account_page() {
-	if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'history' ) )
-		return true;
+	if( is_user_logged_in() ) :
+		if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'history' ) ) :
+			return true;
+		endif;
+	else :
+		if( is_page( woocommerce_get_page_id( 'myaccount' ) ) || is_page( woocommerce_get_page_id( 'edit_address' ) ) || is_page( woocommerce_get_page_id( 'view_order' ) ) || is_page( woocommerce_get_page_id( 'change_password' ) ) ) :
+			return true;
+		endif;			
+	endif;
 	
 	return false;
 }

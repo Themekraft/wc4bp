@@ -221,5 +221,6 @@ class BPSHOP_Component extends BP_Component
 }
 
 // Create the shop component
+global $bp;
 $bp->shop = new BPSHOP_Component();
 ?>
