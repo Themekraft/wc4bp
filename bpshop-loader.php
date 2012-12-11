@@ -4,7 +4,7 @@
  * Plugin URI:  https://github.com/Themekraft/WooCommerce-for-Buddypress
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author:      BP Shop Dev Team
- * Version:     1.0.6
+ * Version:     1.0.7
  * Author URI:  https://github.com/Themekraft/WooCommerce-for-Buddypress
  * Network:     true
  * 
@@ -35,7 +35,7 @@ class BPSHOP_Loader
 	/**
 	 * The plugin version
 	 */
-	const VERSION 	= '1.0.6';
+	const VERSION 	= '1.0.7';
 	
 	/**
 	 * Minimum required WP version

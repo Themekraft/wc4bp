@@ -1,3 +1,7 @@
+= v1.0.7 =
+* Changed: Bumped testet-up-to versions to latest stable versions
+* Bugfix: Fixed dumb redirect issue that the last round of refactoring for 1.0.6 introduced
+
 = v1.0.6 =
 * Bugfix: Checkout page for anonymous users
 

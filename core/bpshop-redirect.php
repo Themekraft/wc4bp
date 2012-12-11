@@ -32,8 +32,6 @@ function bpshop_get_redirect_link( $id = false ) {
 	$pay_page_id 		= woocommerce_get_page_id( 'pay' 			 );
 	$track_page_id 		= woocommerce_get_page_id( 'order_tracking'  );
 	
-	$link = '';
-		
 	switch( $id ) {
 		case $cart_page_id:
 			$link = bp_loggedin_user_domain() .'shop/cart/';
@@ -82,6 +80,10 @@ function bpshop_get_redirect_link( $id = false ) {
 		case $password_page_id:
 			$link = bp_loggedin_user_domain() . $bp->settings->slug .'/';
 			break;
+		
+		default :
+			$link = '';
+			break;
 	}
 
 	return apply_filters( 'bpshop_get_redirect_link', $link );
@@ -116,10 +118,13 @@ add_action( 'template_redirect', 'bpshop_redirect_to_profile' );
  * @uses	bp_loggedin_user_domain()
  */
 function bpshop_page_link_router( $link, $id )	{		
-	if( is_user_logged_in() && ! is_admin() )
-		return false;
+	if( ! is_user_logged_in() || is_admin() )
+		return $link;
 		
-	$link = bpshop_get_redirect_link( $id );
+	$new_link = bpshop_get_redirect_link( $id );
+	
+	if( ! empty( $new_link ) )
+		$link = $new_link;
 
 	return apply_filters( 'bpshop_router_link', $link );
 }
