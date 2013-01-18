@@ -88,6 +88,9 @@ function bpshop_screen_settings() {
         bp_core_redirect( bpshop_get_settings_link() );
     }
 
+	add_action( 'bp_template_title', 'bpshop_screen_settings_title' );
+	add_action('bp_template_content', 'bpshop_screen_settings_content');
+
     bp_core_load_template( apply_filters( 'bpshop_screen_settings', 'members/single/plugins' ) );
 }
 
@@ -99,7 +102,6 @@ function bpshop_screen_settings() {
 function bpshop_screen_settings_title() {
     _e( 'Shop Settings', 'bpshop' );
 }
-add_action( 'bp_template_title', 'bpshop_screen_settings_title' );
 
 /**
  * Content of the Settings page
@@ -159,4 +161,3 @@ function bpshop_screen_settings_content() {
     </form>
 	<?php
 }
-add_action('bp_template_content', 'bpshop_screen_settings_content');
