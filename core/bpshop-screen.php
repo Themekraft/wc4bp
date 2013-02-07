@@ -13,7 +13,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Screen function to display the shopping cart
- * 
+ *
  * Template can be changed via the <code>bpshop_template_member_home</code>
  * filter hook. Note that template files can also be copied to the current theme.
  *
@@ -27,7 +27,7 @@ function bpshop_screen_shopping_cart() {
 
 /**
  * Screen function to display the purchase history
- * 
+ *
  * Template can be changed via the <code>bpshop_template_member_history</code>
  * filter hook. Note that template files can also be copied to the current theme.
  *
@@ -41,7 +41,7 @@ function bpshop_screen_history() {
 
 /**
  * Screen function for tracking an order
- * 
+ *
  * Template can be changed via the <code>bpshop_template_member_track_order</code>
  * filter hook. Note that template files can also be copied to the current theme.
  *
@@ -56,16 +56,16 @@ function bpshop_screen_track_order() {
 /**
  * Display shop settings that can be changed by a user
  * Save the settings
- * 
+ *
  * @since 	unknown
  */
 function bpshop_screen_settings() {
-    if( ! bp_is_my_profile() && ! is_super_admin() )
+    if( ! bp_is_settings_component() || bp_current_action() != 'shop' )
         return false;
 
     do_action( 'bpshop_screen_settings' );
 
-    if( isset($_POST['bpshop'] ) && ! empty( $_POST['bpshop'] ) ){
+    if( isset( $_POST['bpshop'] ) && ! empty( $_POST['bpshop'] ) ){
         // default values
         $yes_no = array( 'yes','no' );
 
@@ -78,7 +78,7 @@ function bpshop_screen_settings() {
         // save them
         bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_reviews',   $reviews_2_activity );
         bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_purchases', $purchases_2_activity );
-        
+
         do_action( 'bpshop_post_update_user_settings', bp_displayed_user_id(), $_POST['bpshop'] );
 
         // Set the feedback messages
@@ -89,14 +89,14 @@ function bpshop_screen_settings() {
     }
 
 	add_action( 'bp_template_title', 'bpshop_screen_settings_title' );
-	add_action('bp_template_content', 'bpshop_screen_settings_content');
+	add_action( 'bp_template_content', 'bpshop_screen_settings_content' );
 
     bp_core_load_template( apply_filters( 'bpshop_screen_settings', 'members/single/plugins' ) );
 }
 
 /**
  * The main title for the Shop Settings page
- * 
+ *
  * @since 	unknown
  */
 function bpshop_screen_settings_title() {
@@ -113,16 +113,14 @@ function bpshop_screen_settings_title() {
  * @uses 	do_action()
  */
 function bpshop_screen_settings_content() {
-    if( ! bp_is_settings_component() || bp_current_action() != 'shop' )
-        return false;
-
     if( ! $shop_reviews = bp_get_user_meta( bp_displayed_user_id(), 'notification_activity_shop_reviews', true ) )
         $shop_reviews = 'yes';
 
     if( ! $shop_purchases = bp_get_user_meta( bp_displayed_user_id(), 'notification_activity_shop_purchases', true ) )
         $shop_purchases = 'yes';
+
     ?>
-    <form action="<?php bpshop_settings_link() ?>" method="POST"> 
+    <form action="<?php bpshop_settings_link() ?>" method="POST">
 
         <table class="notification-settings" id="shop-notification-settings">
             <thead>
@@ -161,3 +159,62 @@ function bpshop_screen_settings_content() {
     </form>
 	<?php
 }
+
+/**
+ * Setup the tracked order
+ *
+ * @since 	1.0.8
+ */
+function bpshop_setup_tracking_order() {
+	if( ! bpshop_is_page( 'track' ) )
+		return false;
+
+	if( isset( $_POST['track'] ) ) :
+		global $current_order;
+
+		check_admin_referer( 'bp-shop_order_tracking' );
+
+		$order_id 	 = empty( $_POST['orderid'] ) ? 0 : esc_attr( $_POST['orderid'] );
+		$order_email = empty( $_POST['order_email'] ) ? '' : esc_attr( $_POST['order_email']) ;
+
+		if ( ! $order_id ) {
+			echo '<p class="woocommerce_error">' . __('Please enter a valid order ID', 'woocommerce') . '</p>';
+
+		} elseif ( ! $order_email ) {
+			echo '<p class="woocommerce_error">' . __('Please enter a valid order email', 'woocommerce') . '</p>';
+
+		} else {
+			$order = new WC_Order( apply_filters( 'woocommerce_shortcode_order_tracking_order_id', $order_id ) );
+
+			if( $order->id && $order_email ) {
+				if( strtolower( $order->billing_email ) == strtolower( $order_email ) )
+					$current_order = $order;
+				else
+					echo '<p class="woocommerce_error">' . __('You are not allowed to view this order.', 'woocommerce') . '</p>';
+
+			} else {
+				echo '<p class="woocommerce_error">' . __('Sorry, we could not find that order id in our database.', 'woocommerce') . '</p>';
+			}
+		}
+	endif;
+}
+add_action( 'bpshop_after_track_heading', 'bpshop_setup_tracking_order' );
+
+/**
+ * Output the tracked order
+ *
+ * @since 	1.0.8
+ */
+function bpshop_output_tracking_order() {
+	global $current_order;
+
+	if( $current_order instanceof WC_Order ) :
+		do_action( 'woocommerce_track_order', $current_order->id );
+		echo '<h3>'. __( 'Your Order', 'bpshop' ) .'<h3>';
+
+		woocommerce_get_template( 'order/tracking.php', array(
+			'order' => $current_order
+		) );
+	endif;
+}
+add_action( 'bpshop_after_track_body', 'bpshop_output_tracking_order' );

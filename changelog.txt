@@ -1,3 +1,8 @@
+= v1.0.8 =
+* Added: Only spit out Woocommerce errors on the main site, Thx Ole K Hornnes
+* Added: Making sure that the settings page only shows when needed, Thx Ole K Hornnes
+* Bugfix: Track your order page wouldn't let you track anything
+
 = v1.0.7 =
 * Changed: Bumped testet-up-to versions to latest stable versions
 * Bugfix: Fixed dumb redirect issue that the last round of refactoring for 1.0.6 introduced
@@ -18,7 +23,7 @@
 * Unknown
 
 = v1.0.3 =
-* Rename all jigoshop woocommerce 
+* Rename all jigoshop woocommerce
 
 = v1.0.2 =
 * Bugfix: class woocommerce_orders is not used anymore

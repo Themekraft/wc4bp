@@ -10,7 +10,7 @@
 ?>
 <div id="item-body" role="main">
 
-	<?php do_action( 'bpshop_before_member_body' ); ?>
+	<?php do_action( 'bpshop_before_cart_body' ); ?>
 
 	<div class="item-list-tabs no-ajax" id="subnav">
 		<ul>
@@ -23,20 +23,20 @@
 	if( bpshop_is_subpage( 'checkout' ) ) :
 		if( bpshop_is_subsubpage( 'pay' ) ) :
 			bpshop_load_template( 'shop/member/checkout/pay'	 );
-		
+
 		elseif( bpshop_is_subsubpage( 'thanks' ) ) :
 			bpshop_load_template( 'shop/member/checkout/thanks'  );
-				
+
 		else :
 			bpshop_load_template( 'shop/member/checkout/general' );
-				
+
 		endif;
 	else :
 	?>
 		<h3><?php _e( 'Shopping Cart', 'bpshop' ); ?></h3>
 		<?php echo do_shortcode( '[woocommerce_cart]' ); ?>
 	<?php endif; ?>
-	
-	<?php do_action( 'bpshop_after_member_body' ); ?>
+
+	<?php do_action( 'bpshop_after_cart_body' ); ?>
 
 </div><!-- #item-body -->

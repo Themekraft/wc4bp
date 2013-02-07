@@ -10,7 +10,7 @@
 ?>
 <div id="item-body" role="main">
 
-	<?php do_action( 'bpshop_before_member_body' ); ?>
+	<?php do_action( 'bpshop_before_history_body' ); ?>
 
 	<div class="item-list-tabs no-ajax" id="subnav">
 		<ul>
@@ -18,7 +18,7 @@
 			<?php do_action( 'bpshop_member_options_nav' ); ?>
 		</ul>
 	</div><!-- .item-list-tabs -->
-	
+
 	<?php
 	if( bpshop_is_subpage( 'view' ) ) :
 		bpshop_load_template( 'shop/member/history/view' );
@@ -27,6 +27,6 @@
 	endif;
 	?>
 
-	<?php do_action( 'bpshop_after_member_body' ); ?>
+	<?php do_action( 'bpshop_after_history_body' ); ?>
 
 </div><!-- #item-body -->

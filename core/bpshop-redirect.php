@@ -13,15 +13,15 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Get the redirect link
- * 
+ *
  * @since 1.0.6
  */
 function bpshop_get_redirect_link( $id = false ) {
 	global $bp;
-	
+
 	if( ! $id )
 		return false;
-	
+
 	$cart_page_id 		= woocommerce_get_page_id( 'cart' 			 );
 	$checkout_page_id 	= woocommerce_get_page_id( 'checkout' 		 );
 	$view_page_id 		= woocommerce_get_page_id( 'view_order' 	 );
@@ -31,20 +31,20 @@ function bpshop_get_redirect_link( $id = false ) {
 	$thanks_page_id 	= woocommerce_get_page_id( 'thanks' 		 );
 	$pay_page_id 		= woocommerce_get_page_id( 'pay' 			 );
 	$track_page_id 		= woocommerce_get_page_id( 'order_tracking'  );
-	
+
 	switch( $id ) {
 		case $cart_page_id:
 			$link = bp_loggedin_user_domain() .'shop/cart/';
 			break;
-				
+
 		case $checkout_page_id:
 			$link = bp_loggedin_user_domain() .'shop/cart/checkout/';
 			break;
-				
+
 		case $thanks_page_id:
 			$link = bp_loggedin_user_domain() .'shop/cart/checkout/thanks/';
 			break;
-				
+
 		case $pay_page_id:
 			$link = bp_loggedin_user_domain() .'shop/cart/checkout/pay/';
 			break;
@@ -56,20 +56,20 @@ function bpshop_get_redirect_link( $id = false ) {
 		case $account_page_id:
 			$link = bp_loggedin_user_domain() .'shop/history/';
 			break;
-				
+
 		case $view_page_id:
 			$link = bp_loggedin_user_domain() .'shop/history/view/';
 			break;
-				
+
 		case $address_page_id:
 			$type = ( isset( $_GET['address'] ) ) ? $_GET['address'] : 'billing';
-				 
+
 			switch( $type )	{
 				case 'shipping' :
 					$ids = bp_get_option( 'bpshop_shipping_address_ids' );
 					$url = bp_loggedin_user_domain(). $bp->profile->slug .'/edit/group/'. $ids['group_id'];
 					break;
-						
+
 				case 'billing' :
 					$ids = bp_get_option( 'bpshop_billing_address_ids' );
 					$url = bp_loggedin_user_domain(). $bp->profile->slug .'/edit/group/'. $ids['group_id'];
@@ -80,7 +80,7 @@ function bpshop_get_redirect_link( $id = false ) {
 		case $password_page_id:
 			$link = bp_loggedin_user_domain() . $bp->settings->slug .'/';
 			break;
-		
+
 		default :
 			$link = '';
 			break;
@@ -91,16 +91,16 @@ function bpshop_get_redirect_link( $id = false ) {
 
 /**
  * Redirect the user to their respective profile page
- * 
+ *
  * @since 1.0.6
  */
 function bpshop_redirect_to_profile() {
 	global $post;
-	
+
 	if( ! isset( $post->ID ) || ! is_user_logged_in() )
 		return false;
-	
-	$link = bpshop_get_redirect_link( $post->ID );	
+
+	$link = bpshop_get_redirect_link( $post->ID );
 
 	if( ! empty( $link ) ) :
 		wp_safe_redirect( $link );
@@ -117,12 +117,12 @@ add_action( 'template_redirect', 'bpshop_redirect_to_profile' );
  * @uses	is_page()
  * @uses	bp_loggedin_user_domain()
  */
-function bpshop_page_link_router( $link, $id )	{		
+function bpshop_page_link_router( $link, $id )	{
 	if( ! is_user_logged_in() || is_admin() )
 		return $link;
-		
+
 	$new_link = bpshop_get_redirect_link( $id );
-	
+
 	if( ! empty( $new_link ) )
 		$link = $new_link;
 
