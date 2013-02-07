@@ -1,0 +1,179 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce for Buddypress v1.0.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-01-30 09:08+0100\n"
+"Last-Translator: Ole Kristian Ek Hornnes <ole@horneks.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ bpshop
+#: core/bpshop-component.php:33
+msgid "Woocommerce Integration"
+msgstr "Woocommerce Integrasjon"
+
+# @ bpshop
+#: core/bpshop-component.php:49
+msgid "New review created"
+msgstr "Ny vurdering opprettet"
+
+# @ bpshop
+#: core/bpshop-component.php:50
+msgid "New purchase made"
+msgstr "Nytt kjøp er gjort"
+
+# @ bpshop
+#: core/bpshop-component.php:101 core/bpshop-component.php:150
+#: core/bpshop-component.php:183 core/bpshop-component.php:193
+msgid "Shop"
+msgstr "Butikk"
+
+# @ bpshop
+#: core/bpshop-component.php:114 core/bpshop-component.php:200
+#: templates/shop/member/cart.php:36
+msgid "Shopping Cart"
+msgstr "Handlekurv"
+
+# @ bpshop
+#: core/bpshop-component.php:126 core/bpshop-component.php:207
+msgid "History"
+msgstr "Historie"
+
+# @ bpshop
+#: core/bpshop-component.php:138 core/bpshop-component.php:214
+#: templates/shop/member/track.php:22
+msgid "Track your order"
+msgstr "Spor din ordre"
+
+# @ bpshop
+#: core/bpshop-helpers.php:145
+#, php-format
+msgid "%s wrote a review about <a href=\"%s\">%s</a>"
+msgstr "%s skrev en vurdering av <a href=\"%s\">%s</a>"
+
+# @ bpshop
+#: core/bpshop-helpers.php:198
+#, php-format
+msgid "%s purchased %s"
+msgstr "%s kjøpte %s"
+
+# @ buddypress
+#: core/bpshop-screen.php:85
+msgid "Changes saved."
+msgstr "Endringer lagret."
+
+# @ bpshop
+#: core/bpshop-screen.php:100
+msgid "Shop Settings"
+msgstr "Butikk instillinger"
+
+# @ bpshop
+#: core/bpshop-screen.php:129
+msgid "Activity Stream"
+msgstr "Aktivitets strøm"
+
+# @ bpshop
+#: core/bpshop-screen.php:130
+msgid "Yes"
+msgstr "Ja"
+
+# @ bpshop
+#: core/bpshop-screen.php:131
+msgid "No"
+msgstr "Nei"
+
+# @ bpshop
+#: core/bpshop-screen.php:138
+msgid "Post to activity stream all reviews written by me"
+msgstr "Legg inn i aktivitetsstrømmen alle vurderinger jeg har skrevet"
+
+# @ bpshop
+#: core/bpshop-screen.php:144
+msgid "Post to activity stream all purchases I've made"
+msgstr "Legg inn i aktivitetsstrømmen alle kjøp jeg har gjort"
+
+# @ bpshop
+#: core/bpshop-screen.php:156
+msgid "Save Changes"
+msgstr "Lagre endringer"
+
+# @ bpshop
+#: templates/shop/member/checkout/general.php:11
+msgid "Checkout"
+msgstr "Utsjekk"
+
+# @ bpshop
+#: templates/shop/member/checkout/pay.php:11
+msgid "Payment"
+msgstr "Betaling"
+
+# @ bpshop
+#: templates/shop/member/checkout/thanks.php:11
+msgid "Thank You!"
+msgstr "Takk !"
+
+# @ bpshop
+#: templates/shop/member/history/home.php:14
+msgid "Purchase History"
+msgstr "Kjøps historikk"
+
+# @ woocommerce
+#: templates/shop/member/history/home.php:31
+msgid "#"
+msgstr "#"
+
+# @ woocommerce
+#: templates/shop/member/history/home.php:32
+msgid "Date"
+msgstr "Dato"
+
+# @ woocommerce
+#: templates/shop/member/history/home.php:33
+msgid "Ship to"
+msgstr "Send til"
+
+# @ woocommerce
+#: templates/shop/member/history/home.php:34
+msgid "Total"
+msgstr "Total"
+
+# @ woocommerce
+#: templates/shop/member/history/home.php:35
+msgid "Status"
+msgstr "Status"
+
+# @ woocommerce
+#: templates/shop/member/history/home.php:52
+msgid "Pay"
+msgstr "Betal"
+
+# @ woocommerce
+#: templates/shop/member/history/home.php:53
+msgid "Cancel"
+msgstr "Avbryt"
+
+# @ woocommerce
+#: templates/shop/member/history/home.php:55
+msgid "View"
+msgstr "Vis"
+
+# @ bpshop
+#: templates/shop/member/history/home.php:62
+msgid "No recent purchases available."
+msgstr "Ingen nylige kjøpt tilgjengelig."
+
+# @ bpshop
+#: templates/shop/member/history/view.php:11
+msgid "View order"
+msgstr "Vis ordre"
