@@ -77,7 +77,7 @@ function bpshop_exclude_pages_navigation( $args ) {
         bp_get_option( 'woocommerce_pay_page_id' ),
         bp_get_option( 'woocommerce_thanks_page_id' ),
         bp_get_option( 'woocommerce_change_password_page_id' ),
-        bpshop_get_tracking_page_id()
+        woocommerce_get_page_id( 'order_tracking' )
     );
     
     $args['exclude'] = join( ',', $woo_pages );

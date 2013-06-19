@@ -81,7 +81,7 @@ class BPSHOP_Loader
 		register_uninstall_hook(  self::$plugin_name, array( __CLASS__, 'uninstall'	) );
 
 		add_action( 'init', 			array( __CLASS__, 'translate' 			), 10 );
-		add_action( 'plugins_loaded', 	array( __CLASS__, 'check_requirements' 	),  0 );
+		add_action( 'bp_include', 		array( __CLASS__, 'check_requirements' 	),  0 );
 		add_action( 'bp_include', 		array( __CLASS__, 'start' 				), 10 );
 	}
 
@@ -130,6 +130,10 @@ class BPSHOP_Loader
 		elseif( version_compare( BP_VERSION, self::MIN_BP, '>=' ) == false )
 		{
 			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop works only under BuddyPress %s or higher. <a href="%s">Upgrade now</a>!\', "bpshop" ) . \'</strong></p></div>\', BPSHOP_Loader::MIN_BP, admin_url("update-core.php") );' ) );
+			$error = true;
+		}
+		if( !bp_is_active( 'settings' )) {
+			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop works only under BuddyPress %s or higher. With the Account Settings Component activated <a href="%s">Activate now</a>!\', "bpshop" ) . \'</strong></p></div>\', BPSHOP_Loader::MIN_BP, admin_url("options-general.php?page=bp-components") );' ) );
 			$error = true;
 		}
 
