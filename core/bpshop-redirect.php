@@ -31,7 +31,8 @@ function bpshop_get_redirect_link( $id = false ) {
 	$thanks_page_id 	= woocommerce_get_page_id( 'thanks' 		 );
 	$pay_page_id 		= woocommerce_get_page_id( 'pay' 			 );
 	$track_page_id 		= woocommerce_get_page_id( 'order_tracking'  );
-
+	$link = '';
+	
 	switch( $id ) {
 		case $cart_page_id:
 			$link = bp_loggedin_user_domain() .'shop/cart/';
