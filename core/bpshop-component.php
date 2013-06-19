@@ -34,7 +34,8 @@ class BPSHOP_Component extends BP_Component
         
         $this->includes();
 
-        add_action( 'bp_register_activity_actions', array( &$this, 'register_activity_actions' ) );
+        add_action( 'bp_register_activity_actions',	array( &$this, 'register_activity_actions' ) );
+		add_action( 'bp_located_template', 			array( &$this, 'bpshop_members_load_template_filter'), 10, 2);
     }
 
     /**
@@ -69,6 +70,10 @@ class BPSHOP_Component extends BP_Component
         
         foreach( $includes as $file )
             require( BPSHOP_ABSPATH .'core/'. $file .'.php' );
+		
+		if ( ! class_exists( 'BP_Theme_Compat' ) )
+    		require(  BPSHOP_ABSPATH .'core/bpshop-template-compatibility.php'  );
+
     }
 
     /**
@@ -218,7 +223,92 @@ class BPSHOP_Component extends BP_Component
 
 		parent::setup_admin_bar( $wp_admin_nav );
 	}
+
+	/**
+	 * BuddyForms template loader.
+	 * 
+	 * I copied this function from the buddypress.org website and modified it for my needs. 
+	 *
+	 * This function sets up BuddyForms to use custom templates.
+	 *
+	 * If a template does not exist in the current theme, we will use our own
+	 * bundled templates.
+	 *
+	 * We're doing two things here:
+	 *  1) Support the older template format for themes that are using them
+	 *     for backwards-compatibility (the template passed in
+	 *     {@link bp_core_load_template()}).
+	 *  2) Route older template names to use our new template locations and
+	 *     format.
+	 *
+	 * View the inline doc for more details.
+	 *
+	 * @since 1.0
+	 */
+	function bpshop_members_load_template_filter($found_template, $templates) {
+	global $bp;
+	// echo '<pre>';
+	// print_r($bp);
+	// echo '</pre>';
+
+	if ($bp->current_component == 'shop') {
+
+			if (empty($found_template)) {
+				// register our theme compat directory
+				//
+				// this tells BP to look for templates in our plugin directory last
+				// when the template isn't found in the parent / child theme
+				bp_register_template_stack('bpshop_members_get_template_directory', 14);
+	
+				// locate_template() will attempt to find the plugins.php template in the
+				// child and parent theme and return the located template when found
+				//
+				// plugins.php is the preferred template to use, since all we'd need to do is
+				// inject our content into BP
+				//
+				// note: this is only really relevant for bp-default themes as theme compat
+				// will kick in on its own when this template isn't found
+				$found_template = locate_template('members/single/plugins.php', false, false);
+	
+				// add our hook to inject content into BP
+				
+				if ($bp->current_action == 'cart') {
+					add_action('bp_template_content', create_function('', "
+					bp_get_template_part( 'shop/member/cart' );
+					"));
+				} elseif ($bp->current_action == 'history') {
+					add_action('bp_template_content', create_function('', "
+					bp_get_template_part( 'shop/member/history' );
+					"));
+				} elseif ($bp->current_action == 'track') {
+					add_action('bp_template_content', create_function('', "
+					bp_get_template_part( 'shop/member/track' );
+					"));
+				}
+				 
+			}
+		
+		}
+	
+	return apply_filters(' bpshop_members_load_template_filter', $found_template);
+	}
+
 }
+
+/**
+ * Get the BuddyForms template directory
+ *
+ * @package BuddyForms
+ * @since 0.1 beta
+ *
+ * @uses apply_filters()
+ * @return string
+ */
+function bpshop_members_get_template_directory() {
+	
+	return apply_filters('bpshop_members_get_template_directory', constant('BPSHOP_ABSPATH_TEMPLATE_PATH'));
+}
+
 
 // Create the shop component
 global $bp;

@@ -22,7 +22,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @uses	apply_filters()
  */
 function bpshop_screen_shopping_cart() {
-	bp_core_load_template( apply_filters( 'bpshop_template_member_shopping_cart', 'shop/member/home' ) );
+	bp_core_load_template( apply_filters( 'bpshop_template_member_shopping_cart', 'shop/member/cart' ) );
 }
 
 /**
@@ -36,7 +36,7 @@ function bpshop_screen_shopping_cart() {
  * @uses	apply_filters()
  */
 function bpshop_screen_history() {
-	bp_core_load_template( apply_filters( 'bpshop_template_member_history', 'shop/member/home' ) );
+	bp_core_load_template( apply_filters( 'bpshop_template_member_history', 'shop/member/history' ) );
 }
 
 /**
@@ -50,7 +50,7 @@ function bpshop_screen_history() {
  * @uses	apply_filters()
  */
 function bpshop_screen_track_order() {
-	bp_core_load_template( apply_filters( 'bpshop_template_member_track_order', 'shop/member/home' ) );
+	bp_core_load_template( apply_filters( 'bpshop_template_member_track_order', 'shop/member/track' ) );
 }
 
 /**

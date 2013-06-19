@@ -13,13 +13,6 @@
 
 	<?php do_action( 'bpshop_before_track_body' ); ?>
 
-	<div class="item-list-tabs no-ajax" id="subnav">
-		<ul>
-			<?php bp_get_options_nav(); ?>
-			<?php do_action( 'bpshop_member_options_nav' ); ?>
-		</ul>
-	</div><!-- .item-list-tabs -->
-
 	<h3><?php _e( 'Track your order', 'bpshop' ); ?></h3>
 
 	<?php do_action( 'bpshop_after_track_heading' ); ?>

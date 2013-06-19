@@ -12,13 +12,6 @@
 
 	<?php do_action( 'bpshop_before_cart_body' ); ?>
 
-	<div class="item-list-tabs no-ajax" id="subnav">
-		<ul>
-			<?php bp_get_options_nav(); ?>
-			<?php do_action( 'bpshop_member_options_nav' ); ?>
-		</ul>
-	</div><!-- .item-list-tabs -->
-
 	<?php
 	if( bpshop_is_subpage( 'checkout' ) ) :
 		if( bpshop_is_subsubpage( 'pay' ) ) :

@@ -45,7 +45,7 @@ get_header( 'buddypress' ); ?>
 					bpshop_load_template( 'shop/member/track' );
 
 				else :
-					bpshop_load_template( 'shop/member/cart' );
+					//bp_core_load_template( 'shop/member/cart' );
 					
 				endif;
 				?>

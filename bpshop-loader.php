@@ -6,7 +6,7 @@
  * Author:      BP Shop Dev Team
  * Version:     1.0.9
  * Author URI:  https://github.com/Themekraft/WooCommerce-for-Buddypress
- * Network:		true
+ * Network:	true
  *
  *****************************************************************************
  *
@@ -200,6 +200,7 @@ class BPSHOP_Loader
 		define( 'BPSHOP_FOLDER',	plugin_basename( dirname( __FILE__ ) ) );
 		define( 'BPSHOP_ABSPATH',	trailingslashit( str_replace( "\\", "/", WP_PLUGIN_DIR .'/'. BPSHOP_FOLDER ) ) );
 		define( 'BPSHOP_URLPATH',	trailingslashit( plugins_url( '/'. BPSHOP_FOLDER ) ) );
+		define('BPSHOP_ABSPATH_TEMPLATE_PATH', BPSHOP_ABSPATH . 'templates/');
 	}
 }
 

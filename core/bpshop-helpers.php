@@ -31,7 +31,7 @@ function bpshop_load_template_filter( $found_template, $templates ) {
     else
         return $found_template;
 }
-add_filter( 'bp_located_template', 'bpshop_load_template_filter', 10, 2 );
+//add_filter( 'bp_located_template', 'bpshop_load_template_filter', 10, 2 );
 
 /**
  * Load a template in the correct order
