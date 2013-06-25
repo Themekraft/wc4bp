@@ -23,12 +23,25 @@ if( ! defined( 'ABSPATH' ) ) exit;
 function bpshop_activate() {
 	global $wpdb, $bp;
 	
-	if( get_blog_option( BP_ROOT_BLOG, 'bpshop_installed' ) )
+	if(is_multisite()){
+	  if( get_blog_option( BP_ROOT_BLOG, 'bpshop_installed' ) )
 		return false;
+	  
+	  	// we need to create the extra profile groups
+		// and corresponding fields here
+		$default_country = get_option( 'woocommerce_default_country' );
+	}else{
+	 	if( get_option( BP_ROOT_BLOG, 'bpshop_installed' ) )
+			return false;
+		  
+		  	// we need to create the extra profile groups
+			// and corresponding fields here
+			$default_country = get_option( 'woocommerce_default_country' );
+	}
 	
-	// we need to create the extra profile groups
-	// and corresponding fields here
-	$default_country = get_blog_option( BP_ROOT_BLOG, 'woocommerce_default_country' );
+	
+	
+
 	
 	$geo = new WC_Countries();
 	
