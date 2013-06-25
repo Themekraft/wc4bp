@@ -1,4 +1,4 @@
-= v1.0.9 =
+= v1.1 =
 * Added: buddypress 1.7.x compatibility
 * Bugfix: reported by users see github thanks @Marco for the greate testing 
 

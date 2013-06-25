@@ -4,7 +4,7 @@
  * Plugin URI:  https://github.com/Themekraft/WooCommerce-for-Buddypress
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author:      BP Shop Dev Team
- * Version:     1.0.9
+ * Version:     1.1
  * Author URI:  https://github.com/Themekraft/WooCommerce-for-Buddypress
  * Network:	true
  *
@@ -27,15 +27,6 @@
  ****************************************************************************
  */
 
-	
-/**
- * Loads BuddyForms files only if BuddyPress is present
- *
- * @package BuddyForms
- * @since 0.1-beta
- */
-
-		
 if( ! defined( 'BP_VERSION' )){ 
 	add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', "bpshop" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
 	return;
