@@ -50,8 +50,8 @@ class BPSHOP_Loader
 
 		self::constants();
 
-		register_activation_hook( self::$plugin_name, array( __CLASS__, 'activate'  ) );
-		register_uninstall_hook(  self::$plugin_name, array( __CLASS__, 'uninstall'	) );
+		// register_activation_hook( self::$plugin_name, array( __CLASS__, 'activate'  ) );
+		// register_deactivation_hook(  self::$plugin_name, array( __CLASS__, 'uninstall'	) );
 
 		add_action( 'init', 			array( __CLASS__, 'translate' 			), 10 );
 		add_action( 'bp_include', 		array( __CLASS__, 'check_requirements' 	),  0 );

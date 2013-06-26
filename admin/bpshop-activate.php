@@ -23,25 +23,21 @@ if( ! defined( 'ABSPATH' ) ) exit;
 function bpshop_activate() {
 	global $wpdb, $bp;
 	
-	if(is_multisite()){
+	if(is_multisite()):
 	  if( get_blog_option( BP_ROOT_BLOG, 'bpshop_installed' ) )
 		return false;
 	  
 	  	// we need to create the extra profile groups
 		// and corresponding fields here
-		$default_country = get_option( 'woocommerce_default_country' );
-	}else{
-	 	if( get_option( BP_ROOT_BLOG, 'bpshop_installed' ) )
+		$default_country = get_blog_option( BP_ROOT_BLOG, 'woocommerce_default_country' );
+	else:
+	 	if( get_option( 'bpshop_installed' ) )
 			return false;
 		  
 		  	// we need to create the extra profile groups
 			// and corresponding fields here
 			$default_country = get_option( 'woocommerce_default_country' );
-	}
-	
-	
-	
-
+	endif;
 	
 	$geo = new WC_Countries();
 	
@@ -124,14 +120,21 @@ function bpshop_activate() {
 	
 	$shipping['state'] = xprofile_insert_field( array( 'field_group_id' => $shipping['group_id'], 'type' => 'textbox', 'name' => 'State','field_order' => 9, 'is_required' => 1 ) );
 	
-	// set the plugin to be installed
-	update_blog_option( BP_ROOT_BLOG, 'bpshop_installed', 			 true	   );
-	
-	// save the shipping data
-	update_blog_option( BP_ROOT_BLOG, 'bpshop_shipping_address_ids', $shipping );
-	
-	// save the billing data
-	update_blog_option( BP_ROOT_BLOG, 'bpshop_billing_address_ids',  $billing  );
+	if(is_multisite()):
+		// set the plugin to be installed
+		update_blog_option( BP_ROOT_BLOG, 'bpshop_installed', 			 true	   );
+		// save the shipping data
+		update_blog_option( BP_ROOT_BLOG, 'bpshop_shipping_address_ids', $shipping );
+		// save the billing data
+		update_blog_option( BP_ROOT_BLOG, 'bpshop_billing_address_ids',  $billing  );
+	else:
+		// set the plugin to be installed
+		update_option( 'bpshop_installed', 			 true	   );
+		// save the shipping data
+		update_option( 'bpshop_shipping_address_ids', $shipping );
+		// save the billing data
+		update_option( 'bpshop_billing_address_ids',  $billing  );
+	endif;		
 }
 
 /**
@@ -143,10 +146,22 @@ function bpshop_activate() {
  * @since 	1.0
  */
 function bpshop_cleanup() {
-	xprofile_delete_field_group( get_blog_option( BP_ROOT_BLOG, 'bpshop_shipping_address_ids' ) );
-	xprofile_delete_field_group( get_blog_option( BP_ROOT_BLOG, 'bpshop_billing_address_ids'  ) );
 	
-	delete_blog_option( BP_ROOT_BLOG, 'bpshop_shipping_address_ids' );
-	delete_blog_option( BP_ROOT_BLOG, 'bpshop_billing_address_ids'  );
-	delete_blog_option( BP_ROOT_BLOG, 'bpshop_installed' 			);
+	
+	if(is_multisite()):
+		xprofile_delete_field_group( get_blog_option( BP_ROOT_BLOG, 'bpshop_shipping_address_ids' ) );
+		xprofile_delete_field_group( get_blog_option( BP_ROOT_BLOG, 'bpshop_billing_address_ids'  ) );
+		
+		delete_blog_option( BP_ROOT_BLOG, 'bpshop_shipping_address_ids' );
+		delete_blog_option( BP_ROOT_BLOG, 'bpshop_billing_address_ids'  );
+		delete_blog_option( BP_ROOT_BLOG, 'bpshop_installed' 			);
+	else:
+		xprofile_delete_field_group( get_option( 'bpshop_shipping_address_ids' ) );
+		xprofile_delete_field_group( get_option( 'bpshop_billing_address_ids'  ) );
+		
+		delete_option( 'bpshop_shipping_address_ids' );
+		delete_option( 'bpshop_billing_address_ids'  );
+		delete_option( 'bpshop_installed' 			);
+	endif;		
+	
 }

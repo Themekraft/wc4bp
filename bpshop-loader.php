@@ -33,3 +33,6 @@ if( ! defined( 'BP_VERSION' )){
 }
 require (dirname(__FILE__) . '/wc4bp-basic-integration.php');
 
+
+register_activation_hook( __FILE__, 'BPSHOP_Loader::activate'  );
+register_uninstall_hook( __FILE__, 'BPSHOP_Loader::uninstall' );
