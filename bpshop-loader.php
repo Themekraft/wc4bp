@@ -6,7 +6,7 @@
  * Author:      BP Shop Dev Team
  * Version:     1.1
  * Author URI:  https://github.com/Themekraft/WooCommerce-for-Buddypress
- * Network:	true
+ * Network:	false
  *
  *****************************************************************************
  *
