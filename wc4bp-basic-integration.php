@@ -53,7 +53,7 @@ class BPSHOP_Loader
 		// register_activation_hook( self::$plugin_name, array( __CLASS__, 'activate'  ) );
 		// register_deactivation_hook(  self::$plugin_name, array( __CLASS__, 'uninstall'	) );
 
-		add_action( 'init', 			array( __CLASS__, 'translate' 			), 10 );
+		add_action( 'plugins_loaded', 	array( __CLASS__, 'translate' 			));
 		add_action( 'bp_include', 		array( __CLASS__, 'check_requirements' 	),  0 );
 		add_action( 'bp_include', 		array( __CLASS__, 'start' 				), 10 );
 	}
@@ -143,7 +143,7 @@ class BPSHOP_Loader
 	 * @uses 	load_plugin_textdomain()
 	 */
 	public function translate()	{
-		load_plugin_textdomain( 'bpshop', false, dirname( self::$plugin_name ) .'/languages/' );
+		load_plugin_textdomain( 'bpshop', false, dirname( plugin_basename( __FILE__ ).'/languages/' ));
 	}
 
 	/**

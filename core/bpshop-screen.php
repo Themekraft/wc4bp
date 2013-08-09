@@ -82,7 +82,7 @@ function bpshop_screen_settings() {
         do_action( 'bpshop_post_update_user_settings', bp_displayed_user_id(), $_POST['bpshop'] );
 
         // Set the feedback messages
-        bp_core_add_message( __( 'Changes saved.', 'buddypress' ) );
+        bp_core_add_message( __( 'Changes saved.', 'bpshop' ) );
 
         // and clear the POST to make the QA happy :)
         bp_core_redirect( bpshop_get_settings_link() );
@@ -178,10 +178,10 @@ function bpshop_setup_tracking_order() {
 		$order_email = empty( $_POST['order_email'] ) ? '' : esc_attr( $_POST['order_email']) ;
 
 		if ( ! $order_id ) {
-			echo '<p class="woocommerce_error">' . __('Please enter a valid order ID', 'woocommerce') . '</p>';
+			echo '<p class="woocommerce_error">' . __('Please enter a valid order ID', 'bpshop') . '</p>';
 
 		} elseif ( ! $order_email ) {
-			echo '<p class="woocommerce_error">' . __('Please enter a valid order email', 'woocommerce') . '</p>';
+			echo '<p class="woocommerce_error">' . __('Please enter a valid order email', 'bpshop') . '</p>';
 
 		} else {
 			$order = new WC_Order( apply_filters( 'woocommerce_shortcode_order_tracking_order_id', $order_id ) );
@@ -190,10 +190,10 @@ function bpshop_setup_tracking_order() {
 				if( strtolower( $order->billing_email ) == strtolower( $order_email ) )
 					$current_order = $order;
 				else
-					echo '<p class="woocommerce_error">' . __('You are not allowed to view this order.', 'woocommerce') . '</p>';
+					echo '<p class="woocommerce_error">' . __('You are not allowed to view this order.', 'bpshop') . '</p>';
 
 			} else {
-				echo '<p class="woocommerce_error">' . __('Sorry, we could not find that order id in our database.', 'woocommerce') . '</p>';
+				echo '<p class="woocommerce_error">' . __('Sorry, we could not find that order id in our database.', 'bpshop') . '</p>';
 			}
 		}
 	endif;

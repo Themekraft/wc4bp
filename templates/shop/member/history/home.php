@@ -28,11 +28,11 @@ if( count( $customer_orders ) > 0 ) :
 <table class="shop_table my_account_orders">
 	<thead>
 		<tr>
-			<th><span class="nobr"><?php _e( '#', 'woocommerce' ); ?></span></th>
-			<th><span class="nobr"><?php _e( 'Date', 'woocommerce' ); ?></span></th>
-			<th><span class="nobr"><?php _e( 'Ship to', 'woocommerce' ); ?></span></th>
-			<th><span class="nobr"><?php _e( 'Total', 'woocommerce' ); ?></span></th>
-			<th colspan="2"><span class="nobr"><?php _e( 'Status', 'woocommerce' ); ?></span></th>
+			<th><span class="nobr"><?php _e( '#', 'bpshop' ); ?></span></th>
+			<th><span class="nobr"><?php _e( 'Date', 'bpshop' ); ?></span></th>
+			<th><span class="nobr"><?php _e( 'Ship to', 'bpshop' ); ?></span></th>
+			<th><span class="nobr"><?php _e( 'Total', 'bpshop' ); ?></span></th>
+			<th colspan="2"><span class="nobr"><?php _e( 'Status', 'bpshop' ); ?></span></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -49,10 +49,10 @@ if( count( $customer_orders ) > 0 ) :
 			<td><?php echo $order->status; ?></td>
 			<td style="text-align:right; white-space:nowrap;">
 				<?php if( $order->status == 'pending' ) : ?>
-					<a href="<?php echo $order->get_checkout_payment_url(); ?>" class="button pay"><?php _e( 'Pay', 'woocommerce' ); ?></a>
-					<a href="<?php echo $order->get_cancel_order_url(); ?>" class="button cancel"><?php _e( 'Cancel', 'woocommerce' ); ?></a>
+					<a href="<?php echo $order->get_checkout_payment_url(); ?>" class="button pay"><?php _e( 'Pay', 'bpshop' ); ?></a>
+					<a href="<?php echo $order->get_cancel_order_url(); ?>" class="button cancel"><?php _e( 'Cancel', 'bpshop' ); ?></a>
 				<?php endif; ?>
-				<a href="<?php echo add_query_arg( 'order', $order->id, get_permalink( get_option( 'woocommerce_view_order_page_id' ) ) ); ?>" class="button"><?php _e( 'View', 'woocommerce' ); ?></a>
+				<a href="<?php echo add_query_arg( 'order', $order->id, get_permalink( get_option( 'woocommerce_view_order_page_id' ) ) ); ?>" class="button"><?php _e( 'View', 'bpshop' ); ?></a>
 			</td>
 		</tr>
 		<?php endforeach; ?>
