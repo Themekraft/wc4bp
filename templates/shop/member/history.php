@@ -9,7 +9,8 @@
  */
 ?>
 <div id="item-body" role="main">
-
+	<?php do_action( 'woocommerce_before_my_account' ); ?>
+	
 	<?php do_action( 'bpshop_before_history_body' ); ?>
 
 	<?php

@@ -1,3 +1,8 @@
+= v1.2.1 =
+* fixed several small bugs reported by users
+* fixed a bug with the en_US translation file
+* add a hook woocommerce_before_my_account to the history.
+
 = v1.2 =
 * fixed several bugs reported by users
 * fixed a problem with the us translation

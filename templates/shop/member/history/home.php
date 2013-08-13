@@ -38,7 +38,7 @@ if( count( $customer_orders ) > 0 ) :
 	<tbody>
 		<?php foreach( $customer_orders as $customer_order ) :
 		    
-        $order = &new WC_Order();
+        $order = new WC_Order();
         $order->populate( $customer_order );
 		?>
 		<tr class="order">

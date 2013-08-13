@@ -143,7 +143,7 @@ class BPSHOP_Loader
 	 * @uses 	load_plugin_textdomain()
 	 */
 	public function translate()	{
-		load_plugin_textdomain( 'bpshop', false, dirname( plugin_basename( __FILE__ ).'/languages/' ));
+		load_plugin_textdomain( 'bpshop', false, dirname( plugin_basename( __FILE__ ) ) . "/languages" );
 	}
 
 	/**
