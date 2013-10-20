@@ -102,9 +102,11 @@ class BPSHOP_Loader {
 		add_action('bp_include'						, array($this, 'check_requirements'), 0);
 		add_action('bp_include'						, array($this, 'includes') , 10 );
 						
-		if (is_admin()){
+
+		add_action('admin_enqueue_scripts', array($this, 'wc4bp_admin_js') , 10 );
+			
 			//add_action('bp_include'					, array($this, 'load_plugin_self_updater') , 20 );
-		}
+		
 		
 		 /**
 		 * Deletes all data if plugin deactivated
@@ -137,6 +139,7 @@ class BPSHOP_Loader {
 
 			// API License Key Registration Form
 			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php');			// API License Key Registration Form
+			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-ajax.php');			// API License Key Registration Form
 			require_once( plugin_dir_path( __FILE__ ) . 'admin/license-registration.php');
 			$this->load_plugin_self_updater();
 		
@@ -366,7 +369,20 @@ class BPSHOP_Loader {
 			$wc4bp_key->deactivate( $args ); // reset license key activation
 		}
 	}
-
+	
+	/** 
+	 * Enqueue admin JS and CSS
+	 * 
+	 * @author Sven Lehnert 
+	 * @package TK Google Fonts
+	 * @since 1.0
+	 */
+	 
+	public function wc4bp_admin_js(){
+		
+		wp_enqueue_script('wc4bp_admin_js', plugins_url('/admin/js/admin.js', __FILE__));
+		
+}
 }
 
 /**
