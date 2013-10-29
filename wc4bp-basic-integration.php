@@ -379,7 +379,7 @@ class BPSHOP_Loader {
 	 */
 	 
 	public function wc4bp_admin_js(){
-		
+		add_thickbox();
 		wp_enqueue_script('wc4bp_admin_js', plugins_url('/admin/js/admin.js', __FILE__));
 		
 }

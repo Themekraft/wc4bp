@@ -225,11 +225,11 @@ class BPSHOP_Component extends BP_Component
 	}
 
 	/**
-	 * BuddyForms template loader.
+	 * WC4BP template loader.
 	 * 
 	 * I copied this function from the buddypress.org website and modified it for my needs. 
 	 *
-	 * This function sets up BuddyForms to use custom templates.
+	 * This function sets up WC4BP to use custom templates.
 	 *
 	 * If a template does not exist in the current theme, we will use our own
 	 * bundled templates.
@@ -296,9 +296,9 @@ class BPSHOP_Component extends BP_Component
 }
 
 /**
- * Get the BuddyForms template directory
+ * Get the WC4BP template directory
  *
- * @package BuddyForms
+ * @package WC4BP
  * @since 0.1 beta
  *
  * @uses apply_filters()

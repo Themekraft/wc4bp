@@ -97,6 +97,10 @@ function wc4bp_general() {
 function wc4bp_shop_tabs_disable(){ 
 	$options = get_option( 'wc4bp_options' ); 
 	
+	echo '<pre>';
+	print_r($options);
+	echo '</pre>';
+	
 	$tab_shop_disabled = 0;
 	if(isset( $options['tab_shop_disabled']))
 		$tab_shop_disabled = $options['tab_shop_disabled'];
@@ -115,9 +119,11 @@ function wc4bp_shop_tabs_disable(){
 	
 	<p><b>Turn off Shop Tab under Settings/Shop for th Activity Stream settings: </b> <input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /></p>
 	<p><b>Turn off WooCommerce BuddyPress Profiel sync: This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit
- </b> <input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /></p>
+	</b> <input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /></p>
 	
 	<?php
+	
+	submit_button(); 
 
 }
 function wc4bp_shop_tabs_rename(){ 
@@ -145,13 +151,11 @@ function wc4bp_shop_tabs_rename(){
 	<p><b>Raname Track your order:</b><input id='text' name='wc4bp_options[track_sub_nav]' type='text' value='<?php echo $track_sub_nav; ?>' /></p>
 	
 	<?php
-	 
-	
+
 	submit_button(); 
 
 }
 function wc4bp_shop_tabs_add(){
-	//wc4bp_add_page_form();
 	wc4bp_get_forms_table();
 	
 }
@@ -167,15 +171,11 @@ function wc4bp_get_forms_table() {
 		table #the-list tr:hover .wc4bp-row-actions { opacity:1 }
 				
     </style>
-    <a href="#" class="add_cpt4bp_page">asd</a>
+	<?php wc4bp_thickbox_page_form(); ?>
 	<table class="wp-list-table widefat fixed posts">
 		
 		<thead>
 			<tr>
-				<th scope="col" id="cb" class="manage-column column-cb check-column" style="">
-					<label class="screen-reader-text" for="cb-select-all-1">Select All</label>
-					<input id="cb-select-all-1" type="checkbox">
-				</th>
 				<th scope="col" id="name" class="manage-column column-comment column-n" style="">Page</th>
 				<th scope="col" id="slug" class="manage-column column-description" style="">Tab Name</th>
 				<th scope="col" id="attached-post-type" class="manage-column column-status" style="">Position</th>
@@ -186,25 +186,17 @@ function wc4bp_get_forms_table() {
 		<?php
 		if(isset($options['selected_pages']) && is_array($options['selected_pages'])){
 			foreach ($options['selected_pages'] as $key => $attached_page) { ?>
-				<tr id="post-<?php echo $key ?>" class="post-<?php echo $key ?> type-page status-publish hentry alternate iedit author-self wc4bp_tr" valign="bottom">
-					<th scope="row" class="check-column">
-						<label class="screen-reader-text" for="cb-select-<?php echo $key ?>"><?php echo $key; ?></label>
-						<input type="checkbox" name="post[]" value="<?php echo $key ?>" id="cb-select-<?php echo $key ?>">
-					</th>		
+				<tr id="post-<?php echo $key ?>" class="post-<?php echo $key ?> type-page status-publish hentry alternate iedit author-self wc4bp_tr" valign="bottom">	
 					<td class="slug column-slug">
 						<?php echo  get_the_title($key); ?>
 						<div class="wc4bp-row-actions">
 							<span class="wc4bp_inline hide-if-no-js">
-								<span id="#wc4bp_inline_<?php echo $key ?>" class="wc4bp_editinline" title="Edit this item inline">Edit</span> |
+								<input id="<?php echo $key ?>" alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="Add a Existing Page to WC4BP!" class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button" value="Edit" />
 							</span>
 							<span class="trash">
 								<span id="<?php echo $key ?>" class="wc4bp_delete_page" title="Delete this item">Delete</span>
 							</span>
 						</div>
-	
-						<div id="wc4bp_inline_<?php echo $key ?>" class="hidden">
-
-						</div>	
 					</td>
 					<td class="slug column-slug">
 						<?php echo isset($attached_page['tab_name']) ? $attached_page['tab_name']: '--'; ?>
@@ -223,9 +215,42 @@ function wc4bp_get_forms_table() {
 	echo '</tbody></table>';
 }
 
-function wc4bp_add_page_form(){
+function wc4bp_thickbox_page_form(){
+	$options = get_option( 'wc4bp_options' ); ?>
+	
+	<div style="text-align:center;padding:20px;"> 
+		<input alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="Add a Existing Page to WC4BP!" class="cptfbp_thickbox cptfbp_thickbox_add " type="button" value="Show Thickbox Example Pop-up 1" />  
+	</div>
+	<div id="add_page" style="display:none"></div>
+
+	<?php
+}
+
+function wc4bp_add_edit_entry_form($edit = ''){
+	
+	$wc4bp_page_id	= '';	
+	$tab_name 		= '';
+	$position		= '';
+	$main_nav		= '';
+	echo $edit;
+	
+	if(isset($_POST['wc4bp_page_id']))
+		$wc4bp_page_id = $_POST['wc4bp_page_id'];
+
 	$options = get_option( 'wc4bp_options' );
 	
+	if(isset($wc4bp_page_id)){
+		
+		if(isset( $options['selected_pages'][$wc4bp_page_id]['tab_name']))
+			$tab_name = $options['selected_pages'][$wc4bp_page_id]['tab_name'];
+
+		if(isset( $options['selected_pages'][$wc4bp_page_id]['position']))
+			$position = $options['selected_pages'][$wc4bp_page_id]['position'];
+
+		if(isset( $options['selected_pages'][$wc4bp_page_id]['main_nav']))
+			$main_nav = $options['selected_pages'][$wc4bp_page_id]['main_nav'];
+	
+	}
 	
 	$args = array( 
 		'echo' => true,
@@ -233,15 +258,16 @@ function wc4bp_add_page_form(){
 		'show_option_none' => __( 'none', 'wc4bp' ),
 		'name' => "wc4bp_page_id",
 		'class' => 'postform',
+		'selected' => $wc4bp_page_id
 	);
-	wp_dropdown_pages($args);
-	?>
+	
+	wp_dropdown_pages($args); ?>
 
-	<p><b>Tab Name? </b><input id='wc4bp_tab_name' name='wc4bp_tab_name' type='text' value='' /></p>
-	<p><b>Position: </b><input id='wc4bp_position' name='wc4bp_position' type='text' value='' /></p>
+	<p><b>Tab Name? </b><input id='wc4bp_tab_name' name='wc4bp_tab_name' type='text' value='<?php echo $tab_name ?>' /></p>
+	<p><b>Position: </b><input id='wc4bp_position' name='wc4bp_position' type='text' value='<?php echo $position ?>' /></p>
 	<p><b>Main Nav?: </b> <input id='wc4bp_main_nav' name='wc4bp_main_nav' type='checkbox' value='1'/></p>
-	<input type="button" value="Save" name="add_cpt4bp_page" class="button add_cpt4bp_page btn">	
-
+	
+	<input type="button" value="Save" name="add_cpt4bp_page" class="button add_cpt4bp_page btn">
 	<?php
 }
 ?>
