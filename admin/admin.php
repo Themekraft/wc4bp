@@ -26,7 +26,7 @@ function wc4bp_screen() { ?>
 
     <div class="wrap">
 
-        <div id="icon-themes" class="icon32"><br></div>
+        <div id="icon-options-general" class="icon32"><br></div>
         <h2>WooCommerce for BuddyPress</h2>
 		
 		<p style="margin: 30px 0; font-size: 15px;">
@@ -62,13 +62,13 @@ function wc4bp_register_admin_settings() {
     // Settings fields and sections
     add_settings_section(	'section_general'	, ''							, 'wc4bp_general'	, 'wc4bp_options' );
 	
-	add_settings_field(		'tabs_disabled'	, '<b>Disablel Shop Profile Tabs</b>
-												<p>by default all WooCommerse Pages are Included into the BuddyPress Member Profiles.</p>
-												<p>You defind you WooCommerce pages in the Page Setup under WooCommerce/Settings/Pages</p>'	, 'wc4bp_shop_tabs_disable'	, 'wc4bp_options' , 'section_general' );
+	add_settings_field(		'tabs_disabled'	, '<p><b>Disable Shop Profile Tabs</b></p>
+												<p>By default all account related WooCommerce pages are included into the BuddyPress member profiles.</p>
+												<p><i>You defined these pages in the Page Setup in WooCommerce > Settings > Pages</i></p>'	, 'wc4bp_shop_tabs_disable'	, 'wc4bp_options' , 'section_general' );
 	//add_settings_field(		'tabs_rename'	, '<b>Rename Shop Profile Tabs</b>'	, 'wc4bp_shop_tabs_rename'	, 'wc4bp_options' , 'section_general' );
-	add_settings_field(		'tabs_add'	, '<b>Add other Pages to Profiles</b>
-											<p><i>Integrate your WooCommerce Extention Pages with BuddyPress Member Profiles.</p>
-											<p>This will redirect the Page to the corect Profile Page.<br> </i></p>'	, 'wc4bp_shop_tabs_add'	, 'wc4bp_options' , 'section_general' );
+	add_settings_field(		'tabs_add'	, '<b>Add other pages to profiles</b>
+											<p>Integrate other pages (for example from other WooCommerce extensions) into your BuddyPress member profiles.</p>
+											<p><i>This will redirect the page to the crorect profile page and add a menu item in the profile.<br> </i></p>'	, 'wc4bp_shop_tabs_add'	, 'wc4bp_options' , 'section_general' );
 
 }
 
@@ -82,7 +82,7 @@ function wc4bp_register_admin_settings() {
  
 function wc4bp_general() {
 	
-    echo '<p><i> WooCommerce for BuddyPress Setup </i></p><br>';
+    echo '<p><i> WooCommerce BuddyPress Integration Setup </i></p><br>';
 			
 }
 
@@ -97,9 +97,9 @@ function wc4bp_general() {
 function wc4bp_shop_tabs_disable(){ 
 	$options = get_option( 'wc4bp_options' ); 
 	
-	echo '<pre>';
-	print_r($options);
-	echo '</pre>';
+	// echo '<pre>';
+	// print_r($options);
+	// echo '</pre>';
 	
 	$tab_shop_disabled = 0;
 	if(isset( $options['tab_shop_disabled']))
@@ -113,13 +113,13 @@ function wc4bp_shop_tabs_disable(){
 	if(isset( $options['tab_track_disabled']))
 		$tab_track_disabled = $options['tab_track_disabled'];
 	?>
-    <p><b>Turn off Cart Tab: </b> <input id='checkbox' name='wc4bp_options[tab_shop_disabled]' type='checkbox' value='1' <?php checked( $tab_shop_disabled, 1  ) ; ?> /></p>
-	<p><b>Turn off History Tab: </b> <input id='checkbox' name='wc4bp_options[tab_history_disabled]' type='checkbox' value='1' <?php checked( $tab_history_disabled, 1  ) ; ?> /></p>
-	<p><b>Turn off Track my order Tab: </b> <input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /></p>
+    <p><input id='checkbox' name='wc4bp_options[tab_shop_disabled]' type='checkbox' value='1' <?php checked( $tab_shop_disabled, 1  ) ; ?> /> <b>Turn off "Cart" tab. </b></p>
+	<p><input id='checkbox' name='wc4bp_options[tab_history_disabled]' type='checkbox' value='1' <?php checked( $tab_history_disabled, 1  ) ; ?> /> <b>Turn off "History" tab. </b></p>
+	<p><input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /> <b>Turn off "Track my order" tab. </b> </p>
 	
-	<p><b>Turn off Shop Tab under Settings/Shop for th Activity Stream settings: </b> <input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /></p>
-	<p><b>Turn off WooCommerce BuddyPress Profiel sync: This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit
-	</b> <input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /></p>
+	<p><input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /> <b>Turn off "Shop" Tab</b> <i>inside</i> "Settings" for the activity stream settings. </p>
+	<hr />
+	<p><input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /> <b>Turn off WooCommerce BuddyPress Profile sync.</b> This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit. </p>
 	
 	<?php
 	
@@ -191,7 +191,7 @@ function wc4bp_get_forms_table() {
 						<?php echo  get_the_title($key); ?>
 						<div class="wc4bp-row-actions">
 							<span class="wc4bp_inline hide-if-no-js">
-								<input id="<?php echo $key ?>" alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="Add a Existing Page to WC4BP!" class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button" value="Edit" />
+								<input id="<?php echo $key ?>" alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="an existing page to your BuddyPress member profiles" class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button" value="Edit" />
 							</span>
 							<span class="trash">
 								<span id="<?php echo $key ?>" class="wc4bp_delete_page" title="Delete this item">Delete</span>
@@ -218,8 +218,8 @@ function wc4bp_get_forms_table() {
 function wc4bp_thickbox_page_form(){
 	$options = get_option( 'wc4bp_options' ); ?>
 	
-	<div style="text-align:center;padding:20px;"> 
-		<input alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="Add a Existing Page to WC4BP!" class="cptfbp_thickbox cptfbp_thickbox_add " type="button" value="Show Thickbox Example Pop-up 1" />  
+	<div style="margin: 0 0 20px 0;"> 
+		<input alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="Add an existing page to your BuddyPress member profiles" class="button button-secondary cptfbp_thickbox cptfbp_thickbox_add " type="button" value="Add a page to your BuddyPress Member Profiles" />  
 	</div>
 	<div id="add_page" style="display:none"></div>
 
@@ -259,13 +259,18 @@ function wc4bp_add_edit_entry_form($edit = ''){
 		'name' => "wc4bp_page_id",
 		'class' => 'postform',
 		'selected' => $wc4bp_page_id
-	);
+	); ?>
 	
-	wp_dropdown_pages($args); ?>
+	<p><b>Choose an existing page</b><br>
+	<?php wp_dropdown_pages($args); ?></p>
 
-	<p><b>Tab Name? </b><input id='wc4bp_tab_name' name='wc4bp_tab_name' type='text' value='<?php echo $tab_name ?>' /></p>
-	<p><b>Position: </b><input id='wc4bp_position' name='wc4bp_position' type='text' value='<?php echo $position ?>' /></p>
-	<p><b>Main Nav?: </b> <input id='wc4bp_main_nav' name='wc4bp_main_nav' type='checkbox' value='1'/></p>
+	<p><b>Tab Name</b><br>
+	<input id='wc4bp_tab_name' name='wc4bp_tab_name' type='text' value='<?php echo $tab_name ?>' /></p>
+	<p><b>Position</b><br>
+	<small><i>Just enter a number like 1, 2, 3..</i></small><br>
+	<input id='wc4bp_position' name='wc4bp_position' type='text' value='<?php echo $position ?>' /></p>
+	<p><input id='wc4bp_main_nav' name='wc4bp_main_nav' type='checkbox' value='1'/>&nbsp;<b>Top Level Nav?</b></p> 
+
 	
 	<input type="button" value="Save" name="add_cpt4bp_page" class="button add_cpt4bp_page btn">
 	<?php
