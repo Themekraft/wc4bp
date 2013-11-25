@@ -19,6 +19,8 @@ if( ! defined( 'ABSPATH' ) ) exit;
 function bpshop_get_redirect_link( $id = false ) {
 	global $bp;
 
+	$wc4bp_options		= get_option( 'wc4bp_options' ); 
+
 	if( ! $id )
 		return false;
 
@@ -35,31 +37,38 @@ function bpshop_get_redirect_link( $id = false ) {
 	
 	switch( $id ) {
 		case $cart_page_id:
-			$link = bp_loggedin_user_domain() .'shop/cart/';
+			if( ! isset( $wc4bp_options['tab_cart_disabled']))
+				$link = bp_loggedin_user_domain() .'shop/cart/';
 			break;
 
 		case $checkout_page_id:
-			$link = bp_loggedin_user_domain() .'shop/cart/checkout/';
+			if( ! isset( $wc4bp_options['tab_cart_disabled']))
+				$link = bp_loggedin_user_domain() .'shop/cart/checkout/';
 			break;
 
 		case $thanks_page_id:
-			$link = bp_loggedin_user_domain() .'shop/cart/checkout/thanks/';
+			if( ! isset( $wc4bp_options['tab_cart_disabled']))
+				$link = bp_loggedin_user_domain() .'shop/cart/checkout/thanks/';
 			break;
 
 		case $pay_page_id:
-			$link = bp_loggedin_user_domain() .'shop/cart/checkout/pay/';
+			if( ! isset( $wc4bp_options['tab_cart_disabled']))
+				$link = bp_loggedin_user_domain() .'shop/cart/checkout/pay/';
 			break;
 
 		case $track_page_id:
-			$link = bp_loggedin_user_domain() .'shop/track/';
+			if( ! isset( $wc4bp_options['tab_track_disabled']))
+				$link = bp_loggedin_user_domain() .'shop/track/';
 			break;
 
 		case $account_page_id:
-			$link = bp_loggedin_user_domain() .'shop/history/';
+			if( ! isset( $wc4bp_options['tab_history_disabled']))
+				$link = bp_loggedin_user_domain() .'shop/history/';
 			break;
 
 		case $view_page_id:
-			$link = bp_loggedin_user_domain() .'shop/history/view/';
+			if( ! isset( $wc4bp_options['tab_history_disabled']))
+				$link = bp_loggedin_user_domain() .'shop/history/view/';
 			break;
 
 		case $address_page_id:

@@ -94,6 +94,11 @@ add_filter( 'wp_page_menu_args', 'bpshop_exclude_pages_navigation' );
  * @uses    is_user_logged_in()
  */
 function bpshop_checkout_url( $url ) {
+	$wc4bp_options		= get_option( 'wc4bp_options' ); 
+	
+	if( isset( $wc4bp_options['tab_cart_disabled']))
+		return $url;
+	
     return ( is_user_logged_in() ) ? apply_filters( 'bpshop_checkout_url', bp_loggedin_user_domain() .'shop/cart/checkout/' ) : $url;
 }
 add_filter( 'woocommerce_get_checkout_url', 'bpshop_checkout_url' );
@@ -183,11 +188,11 @@ function bpshop_new_purchase_activity( $order_id ) {
     $user_link = bp_core_get_userlink( $order->customer_user );
 
     // if several products - combine them, otherwise - display the product name
-    $products = maybe_unserialize( $order->order_custom_fields['_order_items'][0] );
+    $products = $order->get_items();
     $names    = array();
 	
     foreach( $products as $product ){
-        $names[] = '<a href="'. get_permalink( $product['id'] ).'">'. $product['name'] .'</a>';
+        $names[] = '<a href="'. get_permalink( $product['item_meta']['_product_id'][0] ).'">'. $product['name'] .'</a>';
     }
     
     // record the activity
@@ -207,4 +212,4 @@ function bpshop_new_purchase_activity( $order_id ) {
         'type'      => 'new_shop_purchase'
     ) );
 }
-add_action( 'woocommerce_payment_complete', 'bpshop_new_purchase_activity' );
+add_action( 'woocommerce_order_status_completed', 'bpshop_new_purchase_activity');

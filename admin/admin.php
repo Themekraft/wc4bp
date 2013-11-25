@@ -101,9 +101,9 @@ function wc4bp_shop_tabs_disable(){
 	// print_r($options);
 	// echo '</pre>';
 	
-	$tab_shop_disabled = 0;
-	if(isset( $options['tab_shop_disabled']))
-		$tab_shop_disabled = $options['tab_shop_disabled'];
+	$tab_cart_disabled = 0;
+	if(isset( $options['tab_cart_disabled']))
+		$tab_cart_disabled = $options['tab_cart_disabled'];
 	
 	$tab_history_disabled = 0;
 	if(isset( $options['tab_history_disabled']))
@@ -113,13 +113,13 @@ function wc4bp_shop_tabs_disable(){
 	if(isset( $options['tab_track_disabled']))
 		$tab_track_disabled = $options['tab_track_disabled'];
 	?>
-    <p><input id='checkbox' name='wc4bp_options[tab_shop_disabled]' type='checkbox' value='1' <?php checked( $tab_shop_disabled, 1  ) ; ?> /> <b>Turn off "Cart" tab. </b></p>
+    <p><input id='checkbox' name='wc4bp_options[tab_cart_disabled]' type='checkbox' value='1' <?php checked( $tab_cart_disabled, 1  ) ; ?> /> <b>Turn off "Cart" tab. </b></p>
 	<p><input id='checkbox' name='wc4bp_options[tab_history_disabled]' type='checkbox' value='1' <?php checked( $tab_history_disabled, 1  ) ; ?> /> <b>Turn off "History" tab. </b></p>
 	<p><input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /> <b>Turn off "Track my order" tab. </b> </p>
 	
-	<p><input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /> <b>Turn off "Shop" Tab</b> <i>inside</i> "Settings" for the activity stream settings. </p>
+	<p><input id='checkbox' name='wc4bp_options[tab_activity_disabled]' type='checkbox' value='1' <?php checked( $tab_activity_disabled, 1  ) ; ?> /> <b>Turn off "Shop" Tab</b> <i>inside</i> "Settings" for the activity stream settings. </p>
 	<hr />
-	<p><input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /> <b>Turn off WooCommerce BuddyPress Profile sync.</b> This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit. </p>
+	<p><input id='checkbox' name='wc4bp_options[tab_sync_disabled]' type='checkbox' value='1' <?php checked( $tab_sync_disabled, 1  ) ; ?> /> <b>Turn off WooCommerce BuddyPress Profile sync.</b> This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit. </p>
 	
 	<?php
 	

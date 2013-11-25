@@ -101,6 +101,9 @@ class BPSHOP_Component extends BP_Component
      * @global   object    $bp
      */
     function setup_nav() {
+    	
+		$wc4bp_options		= get_option( 'wc4bp_options' );
+			
         // Add 'Shop' to the main navigation
         $main_nav = array(
             'name'                          => __( 'Shop', 'bpshop' ),
@@ -113,32 +116,37 @@ class BPSHOP_Component extends BP_Component
         );
 
         $shop_link = trailingslashit( bp_loggedin_user_domain() . $this->slug );
+		
+		// Add the cart nav item
+		if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
+	        $sub_nav[] = array(
+	            'name'            => __( 'Shopping Cart', 'bpshop' ),
+	            'slug'            => 'cart',
+	            'parent_url'      => $shop_link,
+	            'parent_slug'     => $this->slug,
+	            'screen_function' => 'bpshop_screen_shopping_cart',
+	            'position'        => 10,
+	            'item_css_id'     => 'shop-cart',
+	            'user_has_access' => bp_is_my_profile()
+	        );
+		}
 
-        // Add the cart nav item
-        $sub_nav[] = array(
-            'name'            => __( 'Shopping Cart', 'bpshop' ),
-            'slug'            => 'cart',
-            'parent_url'      => $shop_link,
-            'parent_slug'     => $this->slug,
-            'screen_function' => 'bpshop_screen_shopping_cart',
-            'position'        => 10,
-            'item_css_id'     => 'shop-cart',
-            'user_has_access' => bp_is_my_profile()
-        );
-
+		// Add the checkout nav item
+		if( ! isset( $wc4bp_options['tab_history_disabled'])) {
+	        
+	        $sub_nav[] = array(
+	            'name'            => __( 'History', 'bpshop' ),
+	            'slug'            => 'history',
+	            'parent_url'      => $shop_link,
+	            'parent_slug'     => $this->slug,
+	            'screen_function' => 'bpshop_screen_history',
+	            'position'        => 30,
+	            'item_css_id'     => 'shop-history',
+	            'user_has_access' => bp_is_my_profile()
+	        );
+		}
         // Add the checkout nav item
-        $sub_nav[] = array(
-            'name'            => __( 'History', 'bpshop' ),
-            'slug'            => 'history',
-            'parent_url'      => $shop_link,
-            'parent_slug'     => $this->slug,
-            'screen_function' => 'bpshop_screen_history',
-            'position'        => 30,
-            'item_css_id'     => 'shop-history',
-            'user_has_access' => bp_is_my_profile()
-        );
-
-        // Add the checkout nav item
+        if( ! isset( $wc4bp_options['tab_track_disabled'])) {
         $sub_nav[] = array(
             'name'            => __( 'Track your order', 'bpshop' ),
             'slug'            => 'track',
@@ -149,19 +157,21 @@ class BPSHOP_Component extends BP_Component
             'item_css_id'     => 'shop-track',
             'user_has_access' => bp_is_my_profile()
         );
-
+		}
+		
         // Add shop settings subpage
-        $sub_nav[] = array(
-            'name'            => __( 'Shop', 'bpshop' ),
-            'slug'            => 'shop',
-            'parent_url'      => trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug()),
-            'parent_slug'     => bp_get_settings_slug(),
-            'screen_function' => 'bpshop_screen_settings',
-            'position'        => 30,
-            'item_css_id'     => 'shop-settings',
-            'user_has_access' => bp_is_my_profile()
-        );
-                                
+        if( ! isset( $wc4bp_options['tab_activity_disabled'])) {
+	        $sub_nav[] = array(
+	            'name'            => __( 'Shop', 'bpshop' ),
+	            'slug'            => 'shop',
+	            'parent_url'      => trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug()),
+	            'parent_slug'     => bp_get_settings_slug(),
+	            'screen_function' => 'bpshop_screen_settings',
+	            'position'        => 30,
+	            'item_css_id'     => 'shop-settings',
+	            'user_has_access' => bp_is_my_profile()
+	        );
+		}
         do_action( 'bp_shop_setup_nav' );
         
         parent::setup_nav( $main_nav, $sub_nav );
