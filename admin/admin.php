@@ -161,7 +161,12 @@ function wc4bp_shop_tabs_add(){
 }
 
 function wc4bp_get_forms_table() {
-	$options = get_option( 'wc4bp_options' );?>
+	$options = get_option( 'wc4bp_options' );
+	
+	echo '<pre>';
+	print_r($options);
+	echo '</pre>';
+	?>
 	 <style type="text/css">
 	 .wc4bp_editinline{
 	 	color: #bc0b0b;
@@ -188,10 +193,10 @@ function wc4bp_get_forms_table() {
 			foreach ($options['selected_pages'] as $key => $attached_page) { ?>
 				<tr id="post-<?php echo $key ?>" class="post-<?php echo $key ?> type-page status-publish hentry alternate iedit author-self wc4bp_tr" valign="bottom">	
 					<td class="slug column-slug">
-						<?php echo  get_the_title($key); ?>
+						<?php echo  get_the_title($attached_page['page_id']); ?>
 						<div class="wc4bp-row-actions">
 							<span class="wc4bp_inline hide-if-no-js">
-								<input id="<?php echo $key ?>" alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="an existing page to your BuddyPress member profiles" class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button" value="Edit" />
+								<input id="<?php echo $attached_page['tab_slug'] ?>" alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="an existing page to your BuddyPress member profiles" class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button" value="Edit" />
 							</span>
 							<span class="trash">
 								<span id="<?php echo $key ?>" class="wc4bp_delete_page" title="Delete this item">Delete</span>
@@ -232,45 +237,50 @@ function wc4bp_add_edit_entry_form($edit = ''){
 	$tab_name 		= '';
 	$position		= '';
 	$main_nav		= '';
-	echo $edit;
 	
-	if(isset($_POST['wc4bp_page_id']))
-		$wc4bp_page_id = $_POST['wc4bp_page_id'];
+	if(isset($_POST['wc4bp_tab_slug']))
+		$wc4bp_tab_slug = $_POST['wc4bp_tab_slug'];
 
 	$options = get_option( 'wc4bp_options' );
 	
-	if(isset($wc4bp_page_id)){
+	if(isset($wc4bp_tab_slug)){
 		
-		if(isset( $options['selected_pages'][$wc4bp_page_id]['tab_name']))
-			$tab_name = $options['selected_pages'][$wc4bp_page_id]['tab_name'];
+		if(isset( $options['selected_pages'][$wc4bp_tab_slug]['tab_name']))
+			$tab_name = $options['selected_pages'][$wc4bp_tab_slug]['tab_name'];
 
-		if(isset( $options['selected_pages'][$wc4bp_page_id]['position']))
-			$position = $options['selected_pages'][$wc4bp_page_id]['position'];
+		if(isset( $options['selected_pages'][$wc4bp_tab_slug]['position']))
+			$position = $options['selected_pages'][$wc4bp_tab_slug]['position'];
 
-		if(isset( $options['selected_pages'][$wc4bp_page_id]['main_nav']))
-			$main_nav = $options['selected_pages'][$wc4bp_page_id]['main_nav'];
-	
+		if(isset( $options['selected_pages'][$wc4bp_tab_slug]['main_nav']))
+			$main_nav = $options['selected_pages'][$wc4bp_tab_slug]['main_nav'];
+		
+		if(isset( $options['selected_pages'][$wc4bp_tab_slug]['page_id']))
+			$page_id = $options['selected_pages'][$wc4bp_tab_slug]['page_id'];
+			
 	}
-	
+//	echo $wc4bp_page_id;
 	$args = array( 
 		'echo' => true,
 		'sort_column'  => 'post_title',
 		'show_option_none' => __( 'none', 'wc4bp' ),
 		'name' => "wc4bp_page_id",
 		'class' => 'postform',
-		'selected' => $wc4bp_page_id
+		'selected' => $page_id
 	); ?>
 	
 	<p><b>Choose an existing page</b><br>
 	<?php wp_dropdown_pages($args); ?></p>
 
 	<p><b>Tab Name</b><br>
+		<?php echo '--'.$wc4bp_tab_slug; ?>
 	<input id='wc4bp_tab_name' name='wc4bp_tab_name' type='text' value='<?php echo $tab_name ?>' /></p>
 	<p><b>Position</b><br>
 	<small><i>Just enter a number like 1, 2, 3..</i></small><br>
 	<input id='wc4bp_position' name='wc4bp_position' type='text' value='<?php echo $position ?>' /></p>
 	<p><input id='wc4bp_main_nav' name='wc4bp_main_nav' type='checkbox' value='1'/>&nbsp;<b>Top Level Nav?</b></p> 
-
+	
+	<?php if(isset($wc4bp_tab_slug)) ?>
+		<input type="hidden" id="wc4bp_tab_slug" value="<?php echo $wc4bp_tab_slug ?>" />
 	
 	<input type="button" value="Save" name="add_cpt4bp_page" class="button add_cpt4bp_page btn">
 	<?php

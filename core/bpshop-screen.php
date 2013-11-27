@@ -218,3 +218,7 @@ function bpshop_output_tracking_order() {
 	endif;
 }
 add_action( 'bpshop_after_track_body', 'bpshop_output_tracking_order' );
+
+function bpshop_screen_plugins(){
+	bp_core_load_template('shop/member/plugin');
+}

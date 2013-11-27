@@ -26,14 +26,14 @@ jQuery(document).ready(function(){
 	jQuery('.wc4bp_delete_page').click(function(){	
 		
 		var action			= jQuery(this);
-		var wc4bp_page_id	= this.id;
-				
+		var wc4bp_tab_slug	= this.id;
+
 		if (confirm('Delete Permanently'))
 		
 		jQuery.ajax({
 			type: 'POST',
 			url: ajaxurl,
-			data: {"action": "wc4bp_delete_page", "wc4bp_page_id": wc4bp_page_id},
+			data: {"action": "wc4bp_delete_page", "wc4bp_tab_slug": wc4bp_tab_slug},
 			success: function(data){
 				window.location.reload(true);
 			},
@@ -47,7 +47,8 @@ jQuery(document).ready(function(){
 	jQuery('.wc4bp_editinline').click(function(){
 		
 		var action = jQuery(this);
-		var wc4bp_page_id = this.id;	
+		var wc4bp_tab_slug = this.id;	
+		
 		var t = this.title || this.name || null;
 	    var a = this.href || this.alt;
 	    var g = this.rel || false;
@@ -56,7 +57,7 @@ jQuery(document).ready(function(){
 			type: 'POST',
 			url: ajaxurl,
 			cache: false,
-			data: {"action": "wc4bp_edit_entry", "wc4bp_page_id": wc4bp_page_id},
+			data: {"action": "wc4bp_edit_entry", "wc4bp_tab_slug": wc4bp_tab_slug},
 			success: function(data){
 				jQuery("#add_page").html(data);
 				tb_show(t,a,g);
@@ -73,14 +74,15 @@ jQuery(document).ready(function(){
 		var action = jQuery(this);
 		
 		var wc4bp_page_id	= jQuery( '#wc4bp_page_id'	).val();
+		var wc4bp_tab_slug	= jQuery( '#wc4bp_tab_slug'	).val();
 		var wc4bp_tab_name	= jQuery( '#wc4bp_tab_name'	).val();
 		var wc4bp_position	= jQuery( '#wc4bp_position'	).val();
 		var wc4bp_main_nav	= jQuery( '#wc4bp_main_nav'	).val();
-		
+
 		jQuery.ajax({
 			type: 'POST',
 			url: ajaxurl,
-			data: {"action": "wc4bp_add_page", "wc4bp_page_id": wc4bp_page_id, "wc4bp_tab_name": wc4bp_tab_name, "wc4bp_position": wc4bp_position, "wc4bp_main_nav": wc4bp_main_nav},
+			data: {"action": "wc4bp_add_page", "wc4bp_page_id": wc4bp_page_id, "wc4bp_tab_slug": wc4bp_tab_slug, "wc4bp_tab_name": wc4bp_tab_name, "wc4bp_position": wc4bp_position, "wc4bp_main_nav": wc4bp_main_nav},
 			success: function(data){
 				window.location.reload(true);
 			},

@@ -101,7 +101,7 @@ class BPSHOP_Component extends BP_Component
      * @global   object    $bp
      */
     function setup_nav() {
-    	
+
 		$wc4bp_options		= get_option( 'wc4bp_options' );
 			
         // Add 'Shop' to the main navigation
@@ -172,10 +172,28 @@ class BPSHOP_Component extends BP_Component
 	            'user_has_access' => bp_is_my_profile()
 	        );
 		}
+		$position = 40;
+		
+		if(isset($wc4bp_options['selected_pages']) && is_array($wc4bp_options['selected_pages'])){
+			foreach ($wc4bp_options['selected_pages'] as $key => $attached_page) {
+				$position++;
+				$sub_nav[] = array(
+		            'name'            => $attached_page['tab_name'],
+		            'slug'            => sanitize_title($attached_page['tab_name']),
+		            'parent_url'      => $shop_link,
+		            'parent_slug'     => $this->slug,
+		            'screen_function' => 'bpshop_screen_plugins',
+		            'position'        => $position,
+		            'item_css_id'     => 'shop-cart',
+		            'user_has_access' => bp_is_my_profile()
+		        );
+		 	}
+		} 
         do_action( 'bp_shop_setup_nav' );
         
         parent::setup_nav( $main_nav, $sub_nav );
     }
+
 
 	/**
 	 * Set up the Toolbar
@@ -257,6 +275,7 @@ class BPSHOP_Component extends BP_Component
 	 */
 	function bpshop_members_load_template_filter($found_template, $templates) {
 	global $bp;
+	$wc4bp_options		= get_option( 'wc4bp_options' );
 	// echo '<pre>';
 	// print_r($bp);
 	// echo '</pre>';
@@ -293,6 +312,10 @@ class BPSHOP_Component extends BP_Component
 				} elseif ($bp->current_action == 'track') {
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'shop/member/track' );
+					"));
+				} else {
+					add_action('bp_template_content', create_function('', "
+					bp_get_template_part( 'shop/member/plugin' );
 					"));
 				}
 				 

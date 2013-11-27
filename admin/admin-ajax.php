@@ -29,7 +29,7 @@ add_action( 'wp_ajax_nopriv_wc4bp_add_page', 'wc4bp_add_page' );
 function wc4bp_add_page($wc4bp_page_id){
 	
 	if(isset($_POST['wc4bp_page_id']))
-		$wc4bp_page_id = $_POST['wc4bp_page_id'];
+		$page_id = $_POST['wc4bp_page_id'];
 	
 	if(isset($_POST['wc4bp_tab_name']))
 		$tab_name = $_POST['wc4bp_tab_name'];
@@ -40,14 +40,23 @@ function wc4bp_add_page($wc4bp_page_id){
 	if(isset($_POST['wc4bp_main_nav']))
 		$main_nav = $_POST['wc4bp_main_nav'];
 	
-	if(empty($wc4bp_page_id))
+	if(isset($_POST['wc4bp_tab_slug'])) 
+		$tab_slug = $_POST['wc4bp_tab_slug'];
+		
+	if(empty($tab_slug))
+		$tab_slug = sanitize_title($tab_name);	
+	
+	if(empty($page_id))
 		return;
 	
 	$wc4bp_options = get_option('wc4bp_options');
 	
-	$wc4bp_options['selected_pages'][$wc4bp_page_id]['tab_name'] = $tab_name;
-	$wc4bp_options['selected_pages'][$wc4bp_page_id]['position'] = $position;
-	$wc4bp_options['selected_pages'][$wc4bp_page_id]['main_nav'] = $main_nav; 	
+	$wc4bp_options['selected_pages'][$tab_slug]['tab_name'] = $tab_name;
+	$wc4bp_options['selected_pages'][$tab_slug]['tab_slug'] = $tab_slug;
+	$wc4bp_options['selected_pages'][$tab_slug]['position'] = $position;
+	$wc4bp_options['selected_pages'][$tab_slug]['main_nav'] = $main_nav; 	
+	$wc4bp_options['selected_pages'][$tab_slug]['page_id']	= $page_id; 	
+	
 	
 	update_option("wc4bp_options", $wc4bp_options);
 
@@ -68,14 +77,14 @@ add_action('wp_ajax_nopriv_wc4bp_delete_page', 'wc4bp_delete_page');
  
 function wc4bp_delete_page(){
 		
-	if(isset($_POST['wc4bp_page_id']))
-		$wc4bp_page_id = $_POST['wc4bp_page_id'];
+	if(isset($_POST['wc4bp_tab_slug']))
+		$wc4bp_tab_slug = $_POST['wc4bp_tab_slug'];
 
-	if(empty($wc4bp_page_id))
+	if(empty($wc4bp_tab_slug))
 		return;
 
 	$wc4bp_options = get_option('wc4bp_options');
-	unset( $wc4bp_options['selected_pages'][$wc4bp_page_id] );
+	unset( $wc4bp_options['selected_pages'][$wc4bp_tab_slug] );
    
 	update_option("wc4bp_options", $wc4bp_options);
     die();
