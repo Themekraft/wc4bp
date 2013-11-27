@@ -163,9 +163,9 @@ function wc4bp_shop_tabs_add(){
 function wc4bp_get_forms_table() {
 	$options = get_option( 'wc4bp_options' );
 	
-	echo '<pre>';
-	print_r($options);
-	echo '</pre>';
+	// echo '<pre>';
+	// print_r($options);
+	// echo '</pre>';
 	?>
 	 <style type="text/css">
 	 .wc4bp_editinline{

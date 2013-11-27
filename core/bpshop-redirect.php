@@ -92,9 +92,19 @@ function bpshop_get_redirect_link( $id = false ) {
 			break;
 
 		default :
-			$link = '';
+			
+			
+			
 			break;
 	}
+	if(isset($wc4bp_options['selected_pages']) && is_array($wc4bp_options['selected_pages'])){
+				
+		foreach ($wc4bp_options['selected_pages'] as $key => $attached_page) {
+		
+			if($attached_page['page_id'] == $id)
+				$link = bp_loggedin_user_domain() .'shop/'.$attached_page['tab_slug'];
+	 	}
+	} 
 
 	return apply_filters( 'bpshop_get_redirect_link', $link );
 }

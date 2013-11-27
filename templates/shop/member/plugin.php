@@ -16,16 +16,10 @@
 	
 	$wp_query = new wp_query(
 		array(
-	        'name'      => 'shop',
+	        'p'      => $wc4bp_options['selected_pages'][$bp->current_action]['page_id'],
 	        'post_type' => 'page'
 	    )
 	);
-
-	echo '<pre>';
-	print_r($wc4bp_options);
-	echo '</pre>';
-
-	echo $bp->current_action;
 
 	if ( isset($wp_query) && '' != locate_template( 'contenst-pagee.php', true, false ) ){
 		get_template_part( 'content', 'page' );

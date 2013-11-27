@@ -179,7 +179,7 @@ class BPSHOP_Component extends BP_Component
 				$position++;
 				$sub_nav[] = array(
 		            'name'            => $attached_page['tab_name'],
-		            'slug'            => sanitize_title($attached_page['tab_name']),
+		            'slug'            => $attached_page['tab_slug'],
 		            'parent_url'      => $shop_link,
 		            'parent_slug'     => $this->slug,
 		            'screen_function' => 'bpshop_screen_plugins',
