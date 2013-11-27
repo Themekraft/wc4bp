@@ -163,9 +163,9 @@ function wc4bp_shop_tabs_add(){
 function wc4bp_get_forms_table() {
 	$options = get_option( 'wc4bp_options' );
 	
-	// echo '<pre>';
-	// print_r($options);
-	// echo '</pre>';
+	echo '<pre>';
+	print_r($options);
+	echo '</pre>';
 	?>
 	 <style type="text/css">
 	 .wc4bp_editinline{
@@ -272,7 +272,7 @@ function wc4bp_add_edit_entry_form($edit = ''){
 	<?php wp_dropdown_pages($args); ?></p>
 
 	<p><b>Tab Name</b><br>
-		<?php echo '--'.$wc4bp_tab_slug; ?>
+
 	<input id='wc4bp_tab_name' name='wc4bp_tab_name' type='text' value='<?php echo $tab_name ?>' /></p>
 	<p><b>Position</b><br>
 	<small><i>Just enter a number like 1, 2, 3..</i></small><br>

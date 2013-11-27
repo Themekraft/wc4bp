@@ -100,15 +100,42 @@ function bpshop_get_redirect_link( $id = false ) {
 	if(isset($wc4bp_options['selected_pages']) && is_array($wc4bp_options['selected_pages'])){
 				
 		foreach ($wc4bp_options['selected_pages'] as $key => $attached_page) {
-		
-			if($attached_page['page_id'] == $id)
-				$link = bp_loggedin_user_domain() .'shop/'.$attached_page['tab_slug'];
+			
+			$parent_page_id = get_top_parent_page_id($attached_page['page_id']);
+			$parent_id = get_top_parent_page_id($id);
+			if($parent_page_id == $parent_id){
+				//echo $attached_page['page_id'].' - '.$parent_page_id.' - '.$id.'<br>';
+				$post_data = get_post($id, ARRAY_A);
+				$slug = $post_data['post_name'];
+				$link = bp_loggedin_user_domain() .'shop/'.$attached_page['tab_slug'].'/'.$slug;
+			}
+				
+			
 	 	}
 	} 
 
 	return apply_filters( 'bpshop_get_redirect_link', $link );
 }
 
+function get_top_parent_page_id($post_id) {
+	
+	
+    $ancestors = get_post_ancestors( $post_id );
+
+    // Check if page is a child page (any level)
+    if ($ancestors) {
+
+        //  Grab the ID of top-level page from the tree
+        return end($ancestors);
+
+    } else {
+
+        // Page is the top level, so use  it's own id
+        return $post_id;
+
+    }
+
+}
 /**
  * Redirect the user to their respective profile page
  *
