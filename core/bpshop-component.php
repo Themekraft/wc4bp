@@ -202,7 +202,9 @@ class BPSHOP_Component extends BP_Component
 	 */
 	function setup_admin_bar() {
 		global $bp;
-
+		
+		$wc4bp_options		= get_option( 'wc4bp_options' );
+		
 		$wp_admin_nav = array();
 
 		if ( is_user_logged_in() ) {
@@ -226,30 +228,49 @@ class BPSHOP_Component extends BP_Component
 				'title'  => __( 'Shop', 'bpshop' ),
 				'href'   => trailingslashit( $shop_link )
 			);
+			
+			if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
+				$wp_admin_nav[] = array(
+					'parent' => 'my-account-' . $this->id,
+					'id'     => 'my-account-' . $this->id . '-cart',
+					'title'  => __( 'Shopping Cart', 'bpshop' ),
+					'href'   => trailingslashit( $shop_link )
+				);
+			}
+			
+			if( ! isset( $wc4bp_options['tab_history_disabled'])) {
+				$wp_admin_nav[] = array(
+					'parent' => 'my-account-' . $this->id,
+					'id'     => 'my-account-' . $this->id . '-history',
+					'title'  => __( 'History', 'bpshop' ),
+					'href'   => trailingslashit( $shop_link . 'history' )
+				);
+			}
+			
+			if( ! isset( $wc4bp_options['tab_track_disabled'])) {
+				$wp_admin_nav[] = array(
+					'parent' => 'my-account-' . $this->id,
+					'id'     => 'my-account-' . $this->id . '-track',
+					'title'  => __( 'Track your order', 'bpshop' ),
+					'href'   => trailingslashit( $shop_link . 'track' )
+				);
+			}
 
-			$wp_admin_nav[] = array(
-				'parent' => 'my-account-' . $this->id,
-				'id'     => 'my-account-' . $this->id . '-cart',
-				'title'  => __( 'Shopping Cart', 'bpshop' ),
-				'href'   => trailingslashit( $shop_link )
-			);
+			if(isset($wc4bp_options['selected_pages']) && is_array($wc4bp_options['selected_pages'])){
+				foreach ($wc4bp_options['selected_pages'] as $key => $attached_page) {
+					
+					$wp_admin_nav[] = array(
+						'parent' => 'my-account-' . $this->id,
+						'id'     => 'my-account-' . $this->id . '-'.$attached_page['tab_slug'],
+						'title'  => $attached_page['tab_name'],
+						'href'   => trailingslashit( $shop_link . $attached_page['tab_slug'] )
+					);
 
-			$wp_admin_nav[] = array(
-				'parent' => 'my-account-' . $this->id,
-				'id'     => 'my-account-' . $this->id . '-history',
-				'title'  => __( 'History', 'bpshop' ),
-				'href'   => trailingslashit( $shop_link . 'history' )
-			);
-
-			$wp_admin_nav[] = array(
-				'parent' => 'my-account-' . $this->id,
-				'id'     => 'my-account-' . $this->id . '-track',
-				'title'  => __( 'Track your order', 'bpshop' ),
-				'href'   => trailingslashit( $shop_link . 'track' )
-			);
-		}
-
+			 	}
+			}
+			
 		parent::setup_admin_bar( $wp_admin_nav );
+	}
 	}
 
 	/**
