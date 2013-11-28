@@ -163,9 +163,9 @@ function wc4bp_shop_tabs_add(){
 function wc4bp_get_forms_table() {
 	$options = get_option( 'wc4bp_options' );
 	
-	// echo '<pre>';
-	// print_r($options);
-	// echo '</pre>';
+	echo '<pre>';
+	print_r($options);
+	echo '</pre>';
 	?>
 	 <style type="text/css">
 	 .wc4bp_editinline{
@@ -181,10 +181,12 @@ function wc4bp_get_forms_table() {
 		
 		<thead>
 			<tr>
-				<th scope="col" id="name" class="manage-column column-comment column-n" style="">Page</th>
-				<th scope="col" id="slug" class="manage-column column-description" style="">Tab Name</th>
-				<th scope="col" id="attached-post-type" class="manage-column column-status" style="">Position</th>
-				<th scope="col" id="attached-page" class="manage-column column-status" style="">Main Nav?</th>
+				<th scope="col" id="page" class="manage-column column-comment column-n" style="">Page</th>
+				<th scope="col" id="children" class="manage-column column-status" style="">Including Children?</th>
+				<th scope="col" id="name" class="manage-column column-description" style="">Tab Name</th>
+				<th scope="col" id="slug" class="manage-column column-description" style="">Tab Slug</th>
+				<th scope="col" id="position" class="manage-column column-status" style="">Position</th>
+
 			</tr>
 		</thead>
 		<tbody id="the-list">
@@ -192,7 +194,7 @@ function wc4bp_get_forms_table() {
 		if(isset($options['selected_pages']) && is_array($options['selected_pages'])){
 			foreach ($options['selected_pages'] as $key => $attached_page) { ?>
 				<tr id="post-<?php echo $key ?>" class="post-<?php echo $key ?> type-page status-publish hentry alternate iedit author-self wc4bp_tr" valign="bottom">	
-					<td class="slug column-slug">
+					<td class="column-name">
 						<?php echo  get_the_title($attached_page['page_id']); ?>
 						<div class="wc4bp-row-actions">
 							<span class="wc4bp_inline hide-if-no-js">
@@ -203,14 +205,17 @@ function wc4bp_get_forms_table() {
 							</span>
 						</div>
 					</td>
+					<td class="column-slug">
+						<?php echo isset($attached_page['children']) && $attached_page['children'] > 0 ? 'Yes': 'No'; ?>
+					</td>
 					<td class="slug column-slug">
 						<?php echo isset($attached_page['tab_name']) ? $attached_page['tab_name']: '--'; ?>
 					</td>
 					<td class="slug column-slug">
-						<?php echo isset($attached_page['position']) ? $attached_page['position']: '--'; ?>
+						<?php echo isset($attached_page['tab_slug']) ? $attached_page['tab_slug']: '--'; ?>
 					</td>
 					<td class="slug column-slug">
-						<?php echo isset($attached_page['position']) ? 'Yes': 'No'; ?>
+						<?php echo !empty($attached_page['position']) ? $attached_page['position']: '--'; ?>
 					</td>
 				</tr>
 			<?php
@@ -248,11 +253,11 @@ function wc4bp_add_edit_entry_form($edit = ''){
 		if(isset( $options['selected_pages'][$wc4bp_tab_slug]['tab_name']))
 			$tab_name = $options['selected_pages'][$wc4bp_tab_slug]['tab_name'];
 
+		if(isset( $options['selected_pages'][$wc4bp_tab_slug]['children']))
+			$children = $options['selected_pages'][$wc4bp_tab_slug]['children'];
+
 		if(isset( $options['selected_pages'][$wc4bp_tab_slug]['position']))
 			$position = $options['selected_pages'][$wc4bp_tab_slug]['position'];
-
-		if(isset( $options['selected_pages'][$wc4bp_tab_slug]['main_nav']))
-			$main_nav = $options['selected_pages'][$wc4bp_tab_slug]['main_nav'];
 		
 		if(isset( $options['selected_pages'][$wc4bp_tab_slug]['page_id']))
 			$page_id = $options['selected_pages'][$wc4bp_tab_slug]['page_id'];
@@ -269,15 +274,15 @@ function wc4bp_add_edit_entry_form($edit = ''){
 	); ?>
 	
 	<p><b>Choose an existing page</b><br>
-	<?php wp_dropdown_pages($args); ?></p>
-
+	<?php wp_dropdown_pages($args); ?>
+	<input id='wc4bp_children' name='wc4bp_children' type='checkbox' value='1'/ <?php checked($children, 1 ); ?>>&nbsp;<b>Include Children?</b></p> 
 	<p><b>Tab Name</b><br>
 
 	<input id='wc4bp_tab_name' name='wc4bp_tab_name' type='text' value='<?php echo $tab_name ?>' /></p>
 	<p><b>Position</b><br>
 	<small><i>Just enter a number like 1, 2, 3..</i></small><br>
 	<input id='wc4bp_position' name='wc4bp_position' type='text' value='<?php echo $position ?>' /></p>
-	<p><input id='wc4bp_main_nav' name='wc4bp_main_nav' type='checkbox' value='1'/>&nbsp;<b>Top Level Nav?</b></p> 
+
 	
 	<?php if(isset($wc4bp_tab_slug)) ?>
 		<input type="hidden" id="wc4bp_tab_slug" value="<?php echo $wc4bp_tab_slug ?>" />

@@ -77,12 +77,16 @@ jQuery(document).ready(function(){
 		var wc4bp_tab_slug	= jQuery( '#wc4bp_tab_slug'	).val();
 		var wc4bp_tab_name	= jQuery( '#wc4bp_tab_name'	).val();
 		var wc4bp_position	= jQuery( '#wc4bp_position'	).val();
-		var wc4bp_main_nav	= jQuery( '#wc4bp_main_nav'	).val();
-
+		var wc4bp_children	= 0;
+		
+		
+		if(jQuery( '#wc4bp_children'	).attr('checked') == 'checked')
+			wc4bp_children = 1;
+			
 		jQuery.ajax({
 			type: 'POST',
 			url: ajaxurl,
-			data: {"action": "wc4bp_add_page", "wc4bp_page_id": wc4bp_page_id, "wc4bp_tab_slug": wc4bp_tab_slug, "wc4bp_tab_name": wc4bp_tab_name, "wc4bp_position": wc4bp_position, "wc4bp_main_nav": wc4bp_main_nav},
+			data: {"action": "wc4bp_add_page", "wc4bp_page_id": wc4bp_page_id, "wc4bp_tab_slug": wc4bp_tab_slug, "wc4bp_tab_name": wc4bp_tab_name, "wc4bp_position": wc4bp_position, "wc4bp_children": wc4bp_children},
 			success: function(data){
 				window.location.reload(true);
 			},

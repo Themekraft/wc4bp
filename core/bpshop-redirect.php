@@ -101,15 +101,20 @@ function bpshop_get_redirect_link( $id = false ) {
 				
 		foreach ($wc4bp_options['selected_pages'] as $key => $attached_page) {
 			
-			$parent_page_id = get_top_parent_page_id($attached_page['page_id']);
-			$parent_id = get_top_parent_page_id($id);
-			if($parent_page_id == $parent_id){
+			if($attached_page['children'] > 0){
+				$the_page_id	= get_top_parent_page_id($attached_page['page_id']);
+				$the_courent_id	= get_top_parent_page_id($id);
+			} else {
+				$the_page_id	= $attached_page['page_id'];
+				$the_courent_id	= $id;
+			}
+			
+			if($the_page_id == $the_courent_id){
 				//echo $attached_page['page_id'].' - '.$parent_page_id.' - '.$id.'<br>';
 				$post_data = get_post($id, ARRAY_A);
 				$slug = $post_data['post_name'];
 				$link = bp_loggedin_user_domain() .'shop/'.$attached_page['tab_slug'].'/'.$slug;
 			}
-				
 			
 	 	}
 	} 

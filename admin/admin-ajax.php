@@ -31,14 +31,17 @@ function wc4bp_add_page($wc4bp_page_id){
 	if(isset($_POST['wc4bp_page_id']))
 		$page_id = $_POST['wc4bp_page_id'];
 	
-	if(isset($_POST['wc4bp_tab_name']))
+	if(!empty($_POST['wc4bp_tab_name'])){
 		$tab_name = $_POST['wc4bp_tab_name'];
+	} else {
+		$tab_name = get_the_title($page_id);
+	}
 	
 	if(isset($_POST['wc4bp_position']))
 		$position = $_POST['wc4bp_position'];
 	
-	if(isset($_POST['wc4bp_main_nav']))
-		$main_nav = $_POST['wc4bp_main_nav'];
+	if(isset($_POST['wc4bp_children']))
+		$children = $_POST['wc4bp_children'];
 	
 	if(isset($_POST['wc4bp_tab_slug'])) 
 		$tab_slug = $_POST['wc4bp_tab_slug'];
@@ -54,7 +57,7 @@ function wc4bp_add_page($wc4bp_page_id){
 	$wc4bp_options['selected_pages'][$tab_slug]['tab_name'] = $tab_name;
 	$wc4bp_options['selected_pages'][$tab_slug]['tab_slug'] = $tab_slug;
 	$wc4bp_options['selected_pages'][$tab_slug]['position'] = $position;
-	$wc4bp_options['selected_pages'][$tab_slug]['main_nav'] = $main_nav; 	
+	$wc4bp_options['selected_pages'][$tab_slug]['children'] = $children; 	
 	$wc4bp_options['selected_pages'][$tab_slug]['page_id']	= $page_id; 	
 	
 	
