@@ -30,10 +30,11 @@
 	}
 	
 	if ( isset($wp_query) && '' != locate_template( 'contenst-pagee.php', true, false ) ){
-		
+
 		get_template_part( 'content', 'page' );
 	
 	} else {
+				echo 'asd'.$bp->action_variables[0];
 		echo $wp_query->content;
 	}
 
