@@ -43,7 +43,7 @@ class WC4BP_Key_Registration_Menu {
 		$tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'license_registration_dashboard';
 		?>
 		<div class='wrap'>
-			<?php screen_icon(); ?>
+			<div id="icon-options-general" class="icon32"><br></div>
 			<h2><?php _e( 'WooCommerce for BuddyPress License Activation', 'wc4bp' ); ?></h2>
 
 			<h2 class="nav-tab-wrapper">
@@ -219,7 +219,7 @@ class WC4BP_Key_Registration_Menu {
 			}
 
 		} // End Plugin Activation
-
+		
 		return $options;
 	}
 

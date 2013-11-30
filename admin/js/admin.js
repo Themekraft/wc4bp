@@ -97,4 +97,18 @@ jQuery(document).ready(function(){
 
 	});
 
+	// zendesk script for the wc4bp plugin
+	jQuery(document).ready(function(jQuery) {    
+		if (typeof(Zenbox) !== "undefined") {
+			Zenbox.init({
+				dropboxID:   "20204291",
+				url:         "https://themekraft.zendesk.com",
+				tabTooltip:  "Support",
+				tabColor:    "black",
+				tabPosition: "Left",
+				hide_tab: true
+			});
+		}
+	});
+
 });

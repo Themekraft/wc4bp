@@ -27,12 +27,30 @@ function wc4bp_screen() { ?>
     <div class="wrap">
 
         <div id="icon-options-general" class="icon32"><br></div>
-        <h2>WooCommerce for BuddyPress</h2>
+        <h2>WooCommerce BuddyPress Integration Settings</h2>
 		
-		<p style="margin: 30px 0; font-size: 15px;">
-		    Need help? <a class="button secondary" href="http://support.themekraft.com/" target="_blank">Documentation</a> <a class="button secondary" href=/#" target="_blank" title="Submit an email support ticket">Ask Question</a>
-		    <span style="font-size: 13px; float:right;">Proudly brought to you by <a href="http://themekraft.com/" target="_blank">Themekraft</a>.</span>
-        </p>
+			<span style="font-size: 13px; float:right;">Proudly brought to you by <a href="http://themekraft.com/" target="_new">Themekraft</a>.</span>
+
+        <div style="margin: 30px 0 0 0; background: #f4f4f4; padding: 20px; overflow: auto; border-radius: 6px;">
+
+	
+			<div style="float: left; overflow: auto; border-right: 1px solid #ddd; padding: 0 20px 0 0;">
+				<h3>Get Support.</h3> 
+				<p><a class="button secondary" onClick="script: Zenbox.show(); return false;" class="button secondary"  href="#" title="Submit an email support ticket">Ask Question</a> <a title="View Documentation" target="_new" href="https://themekraft.zendesk.com/hc/en-us/categories/200005301-WooCommerce-BuddyPress-Integration" class="button">Documentation</a> </p>
+			</div>	        
+			
+			<div style="float: left; overflow: auto; padding: 0 20px 0 20px; border-right: 1px solid #ddd;">
+		        <h3>Contribute your ideas.</h3>
+		        <p>Add ideas and vote in our <a title="Visit Ideas Forums" class="button button-secondary" href="https://themekraft.zendesk.com/hc/communities/public/topics/200001221-WooCommerce-BuddyPress-Integration-Ideas" target="_new">Ideas Forums</a></p>
+			</div>	        
+			
+			<div style="float: left; overflow: auto; padding: 0 20px 0 20px;">
+		        <h3>Discuss with others.</h3>
+		        <p>Learn, share, discuss. Visit our <a title="Visit Community Members Forums" class="button button-secondary" href="https://themekraft.zendesk.com/hc/communities/public/topics/200001191-WooCommerce-BuddyPress-Integration-Trouble-Shooting" target="_new">Community Forums</a></p>
+			</div>	        
+			
+		</div>
+		<br>
 		
         <form method="post" action="options.php">
             <?php wp_nonce_field( 'update-options' ); ?>
@@ -62,13 +80,9 @@ function wc4bp_register_admin_settings() {
     // Settings fields and sections
     add_settings_section(	'section_general'	, ''							, 'wc4bp_general'	, 'wc4bp_options' );
 	
-	add_settings_field(		'tabs_disabled'	, '<p><b>Disable Shop Profile Tabs</b></p>
-												<p>By default all account related WooCommerce pages are included into the BuddyPress member profiles.</p>
-												<p><i>You defined these pages in the Page Setup in WooCommerce > Settings > Pages</i></p>'	, 'wc4bp_shop_tabs_disable'	, 'wc4bp_options' , 'section_general' );
+	add_settings_field(		'tabs_disabled'	, '<p><b>Remove Shop Tabs</b></p>'	, 'wc4bp_shop_tabs_disable'	, 'wc4bp_options' , 'section_general' );
 	//add_settings_field(		'tabs_rename'	, '<b>Rename Shop Profile Tabs</b>'	, 'wc4bp_shop_tabs_rename'	, 'wc4bp_options' , 'section_general' );
-	add_settings_field(		'tabs_add'	, '<b>Add other pages to profiles</b>
-											<p>Integrate other pages (for example from other WooCommerce extensions) into your BuddyPress member profiles.</p>
-											<p><i>This will redirect the page to the crorect profile page and add a menu item in the profile.<br> </i></p>'	, 'wc4bp_shop_tabs_add'	, 'wc4bp_options' , 'section_general' );
+	add_settings_field(		'tabs_add'	, '<p><b>Add New Tabs</b></p>'	, 'wc4bp_shop_tabs_add'	, 'wc4bp_options' , 'section_general' );
 
 }
 
@@ -82,7 +96,16 @@ function wc4bp_register_admin_settings() {
  
 function wc4bp_general() {
 	
-    echo '<p><i> WooCommerce BuddyPress Integration Setup </i></p><br>';
+    echo '<div style="padding: 20px 20px 20px 20px; overflow: auto; border-radius: 6px; background: #d9f4e1; border: 1px solid #abe8c9;">';
+    echo '<h2 style="margin-bottom: 20px;">Auto Setup Complete!</h2>';
+	echo '<p style="line-height: 180%; font-size: 14px;">
+			All <i>account-related WooCommerce pages</i> have been included  
+			into your <i>BuddyPress member profiles</i>.
+			</p>';
+    echo '<h3 style="margin-bottom: 30px; font-size: 15px; ">Below you have some extra settings to add or remove tabs from your member profiles.</h3>';
+	echo '<a id="wcbp_tutorial" class="button button-secondary" href="#" style="font-size: 15px; padding: 8px 17px; height: auto;">Show me a tutorial!</a>
+			<a id="wcbp_dismiss_setup" class="button button-secondary" href="#" style="font-size: 15px; padding: 8px 17px; height: auto;">Dismiss</a>
+			</div>';
 			
 }
 
@@ -113,6 +136,13 @@ function wc4bp_shop_tabs_disable(){
 	if(isset( $options['tab_track_disabled']))
 		$tab_track_disabled = $options['tab_track_disabled'];
 	?>
+	
+	<h3>Remove Shop Tabs in Member Profiles</h3>
+	
+	<p>By default all account related WooCommerce pages are included into the BuddyPress member profiles.</p>
+	<p><i>You defined these pages in the Page Setup in <a href="<?php echo get_admin_url(); ?>admin.php?page=woocommerce_settings&tab=pages" title="You defined these pages exactly here!" target="_new">WooCommerce > Settings > Pages</a></i></p>	
+    <br>
+    
     <p><input id='checkbox' name='wc4bp_options[tab_cart_disabled]' type='checkbox' value='1' <?php checked( $tab_cart_disabled, 1  ) ; ?> /> <b>Turn off "Cart" tab. </b></p>
 	<p><input id='checkbox' name='wc4bp_options[tab_history_disabled]' type='checkbox' value='1' <?php checked( $tab_history_disabled, 1  ) ; ?> /> <b>Turn off "History" tab. </b></p>
 	<p><input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /> <b>Turn off "Track my order" tab. </b> </p>
@@ -145,10 +175,10 @@ function wc4bp_shop_tabs_rename(){
 	if(isset( $options['track_sub_nav']))
 		$track_sub_nav = $options['track_sub_nav']; ?>
 	
-	<p><b>Raname Shop main Tab:</b><input id='text' name='wc4bp_options[shop_main_nav]' type='text' value='<?php echo $shop_main_nav; ?>' /></p>
-	<p><b>Raname Shopping Cart:</b><input id='text' name='wc4bp_options[cart_sub_nav]' type='text' value='<?php echo $cart_sub_nav; ?>' /></p>
-	<p><b>Raname History:</b><input id='text' name='wc4bp_options[history_sub_nav]' type='text' value='<?php echo $history_sub_nav; ?>' /></p>
-	<p><b>Raname Track your order:</b><input id='text' name='wc4bp_options[track_sub_nav]' type='text' value='<?php echo $track_sub_nav; ?>' /></p>
+	<p><b>Rename Shop Parent Tab:</b><input id='text' name='wc4bp_options[shop_main_nav]' type='text' value='<?php echo $shop_main_nav; ?>' /></p>
+	<p><b>Rename Shopping Cart:</b><input id='text' name='wc4bp_options[cart_sub_nav]' type='text' value='<?php echo $cart_sub_nav; ?>' /></p>
+	<p><b>Rename History:</b><input id='text' name='wc4bp_options[history_sub_nav]' type='text' value='<?php echo $history_sub_nav; ?>' /></p>
+	<p><b>Rename Track your order:</b><input id='text' name='wc4bp_options[track_sub_nav]' type='text' value='<?php echo $track_sub_nav; ?>' /></p>
 	
 	<?php
 
@@ -174,8 +204,17 @@ function wc4bp_get_forms_table() {
 	 }
 		table #the-list tr .wc4bp-row-actions { opacity:0 }
 		table #the-list tr:hover .wc4bp-row-actions { opacity:1 }
+		table.wp-list-table th.manage-column {
+			width: auto;
+		}
 				
     </style>
+    
+    <h3>Add Pages to Member Profiles</h3>
+    
+    <p>Integrate other pages (for example from other WooCommerce extensions) into your BuddyPress member profiles.</p>
+	<p><i>This will redirect the page to the correct profile page and add a menu item in the profile.</i></p>
+    
 	<?php wc4bp_thickbox_page_form(); ?>
 	<table class="wp-list-table widefat fixed posts">
 		
