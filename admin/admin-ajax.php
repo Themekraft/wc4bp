@@ -52,16 +52,16 @@ function wc4bp_add_page($wc4bp_page_id){
 	if(empty($page_id))
 		return;
 	
-	$wc4bp_options = get_option('wc4bp_options');
+	$wc4bp_pages_options = get_option('wc4bp_pages_options');
 	
-	$wc4bp_options['selected_pages'][$tab_slug]['tab_name'] = $tab_name;
-	$wc4bp_options['selected_pages'][$tab_slug]['tab_slug'] = $tab_slug;
-	$wc4bp_options['selected_pages'][$tab_slug]['position'] = $position;
-	$wc4bp_options['selected_pages'][$tab_slug]['children'] = $children; 	
-	$wc4bp_options['selected_pages'][$tab_slug]['page_id']	= $page_id; 	
+	$wc4bp_pages_options['selected_pages'][$tab_slug]['tab_name'] = $tab_name;
+	$wc4bp_pages_options['selected_pages'][$tab_slug]['tab_slug'] = $tab_slug;
+	$wc4bp_pages_options['selected_pages'][$tab_slug]['position'] = $position;
+	$wc4bp_pages_options['selected_pages'][$tab_slug]['children'] = $children; 	
+	$wc4bp_pages_options['selected_pages'][$tab_slug]['page_id']	= $page_id; 	
 	
 	
-	update_option("wc4bp_options", $wc4bp_options);
+	update_option("wc4bp_pages_options", $wc4bp_pages_options);
 
 	die();
 	
@@ -86,10 +86,10 @@ function wc4bp_delete_page(){
 	if(empty($wc4bp_tab_slug))
 		return;
 
-	$wc4bp_options = get_option('wc4bp_options');
-	unset( $wc4bp_options['selected_pages'][$wc4bp_tab_slug] );
+	$wc4bp_pages_options = get_option('wc4bp_pages_options');
+	unset( $wc4bp_pages_options['selected_pages'][$wc4bp_tab_slug] );
    
-	update_option("wc4bp_options", $wc4bp_options);
+	update_option("wc4bp_pages_options", $wc4bp_pages_options);
     die();
 
 }

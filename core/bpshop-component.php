@@ -102,14 +102,21 @@ class BPSHOP_Component extends BP_Component
      */
     function setup_nav() {
 
-		$wc4bp_options		= get_option( 'wc4bp_options' );
+		$wc4bp_options			= get_option( 'wc4bp_options' ); 
+		$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
+		
+		if($wc4bp_options['tab_shop_default'] != -1 ){
+			$default_screen = 'bpshop_screen_plugins';
+		} else {
+			$default_screen = 'bpshop_screen_shopping_cart';
+		}
 			
         // Add 'Shop' to the main navigation
         $main_nav = array(
             'name'                          => __( 'Shop', 'bpshop' ),
             'slug'                          => $this->slug,
             'position'                      => 70,
-            'screen_function'               => 'bpshop_screen_shopping_cart',
+            'screen_function'               => $default_screen,
             'default_subnav_slug'           => 'cart',
             'item_css_id'                   => $this->id,
             'show_for_displayed_user'       => false
@@ -174,8 +181,8 @@ class BPSHOP_Component extends BP_Component
 		}
 		$position = 40;
 		
-		if(isset($wc4bp_options['selected_pages']) && is_array($wc4bp_options['selected_pages'])){
-			foreach ($wc4bp_options['selected_pages'] as $key => $attached_page) {
+		if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages'])){
+			foreach ($wc4bp_pages_options['selected_pages'] as $key => $attached_page) {
 				$position++;
 				$sub_nav[] = array(
 		            'name'            => $attached_page['tab_name'],
@@ -203,7 +210,8 @@ class BPSHOP_Component extends BP_Component
 	function setup_admin_bar() {
 		global $bp;
 		
-		$wc4bp_options		= get_option( 'wc4bp_options' );
+		$wc4bp_options			= get_option( 'wc4bp_options' ); 
+		$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
 		
 		$wp_admin_nav = array();
 
@@ -256,8 +264,8 @@ class BPSHOP_Component extends BP_Component
 				);
 			}
 
-			if(isset($wc4bp_options['selected_pages']) && is_array($wc4bp_options['selected_pages'])){
-				foreach ($wc4bp_options['selected_pages'] as $key => $attached_page) {
+			if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages'])){
+				foreach ($wc4bp_pages_options['selected_pages'] as $key => $attached_page) {
 					
 					$wp_admin_nav[] = array(
 						'parent' => 'my-account-' . $this->id,
@@ -296,7 +304,7 @@ class BPSHOP_Component extends BP_Component
 	 */
 	function bpshop_members_load_template_filter($found_template, $templates) {
 	global $bp;
-	$wc4bp_options		= get_option( 'wc4bp_options' );
+	//$wc4bp_options		= get_option( 'wc4bp_options' );
 	// echo '<pre>';
 	// print_r($bp);
 	// echo '</pre>';
@@ -321,11 +329,18 @@ class BPSHOP_Component extends BP_Component
 				$found_template = locate_template('members/single/plugins.php', false, false);
 	
 				// add our hook to inject content into BP
-				
+				$wc4bp_options			= get_option( 'wc4bp_options' ); 
 				if ($bp->current_action == 'cart') {
-					add_action('bp_template_content', create_function('', "
-					bp_get_template_part( 'shop/member/cart' );
-					"));
+					if(isset( $wc4bp_options['tab_cart_disabled'])){
+						$bp->current_action = $wc4bp_options['tab_shop_default'];
+						add_action('bp_template_content', create_function('', "
+						bp_get_template_part( 'shop/member/plugin' );
+						"));
+					} else{
+						add_action('bp_template_content', create_function('', "
+						bp_get_template_part( 'shop/member/cart' );
+						"));
+					}
 				} elseif ($bp->current_action == 'history') {
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'shop/member/history' );
@@ -359,7 +374,6 @@ class BPSHOP_Component extends BP_Component
  * @return string
  */
 function bpshop_members_get_template_directory() {
-	
 	return apply_filters('bpshop_members_get_template_directory', constant('BPSHOP_ABSPATH_TEMPLATE_PATH'));
 }
 

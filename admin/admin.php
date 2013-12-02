@@ -118,23 +118,28 @@ function wc4bp_general() {
  */
  
 function wc4bp_shop_tabs_disable(){ 
-	$options = get_option( 'wc4bp_options' ); 
+	$wc4bp_options = get_option( 'wc4bp_options' ); 
+	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' ); 
 	
 	// echo '<pre>';
-	// print_r($options);
+	// print_r($wc4bp_pages_options);
 	// echo '</pre>';
 	
 	$tab_cart_disabled = 0;
-	if(isset( $options['tab_cart_disabled']))
-		$tab_cart_disabled = $options['tab_cart_disabled'];
+	if(isset( $wc4bp_options['tab_cart_disabled']))
+		$tab_cart_disabled = $wc4bp_options['tab_cart_disabled'];
 	
 	$tab_history_disabled = 0;
-	if(isset( $options['tab_history_disabled']))
-		$tab_history_disabled = $options['tab_history_disabled'];
+	if(isset( $wc4bp_options['tab_history_disabled']))
+		$tab_history_disabled = $wc4bp_options['tab_history_disabled'];
 		
 	$tab_track_disabled = 0;
-	if(isset( $options['tab_track_disabled']))
-		$tab_track_disabled = $options['tab_track_disabled'];
+	if(isset( $wc4bp_options['tab_track_disabled']))
+		$tab_track_disabled = $wc4bp_options['tab_track_disabled'];
+	
+	$page_template = '';
+	if(!empty( $wc4bp_options['page_template']))
+		$page_template = $wc4bp_options['page_template'];
 	?>
 	
 	<h3>Remove Shop Tabs in Member Profiles</h3>
@@ -143,13 +148,39 @@ function wc4bp_shop_tabs_disable(){
 	<p><i>You defined these pages in the Page Setup in <a href="<?php echo get_admin_url(); ?>admin.php?page=woocommerce_settings&tab=pages" title="You defined these pages exactly here!" target="_new">WooCommerce > Settings > Pages</a></i></p>	
     <br>
     
-    <p><input id='checkbox' name='wc4bp_options[tab_cart_disabled]' type='checkbox' value='1' <?php checked( $tab_cart_disabled, 1  ) ; ?> /> <b>Turn off "Cart" tab. </b></p>
-	<p><input id='checkbox' name='wc4bp_options[tab_history_disabled]' type='checkbox' value='1' <?php checked( $tab_history_disabled, 1  ) ; ?> /> <b>Turn off "History" tab. </b></p>
-	<p><input id='checkbox' name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /> <b>Turn off "Track my order" tab. </b> </p>
+    <p><input name='wc4bp_options[tab_cart_disabled]' type='checkbox' value='1' <?php checked( $tab_cart_disabled, 1  ) ; ?> /> <b>Turn off "Cart" tab. </b></p>
+	<p><input name='wc4bp_options[tab_history_disabled]' type='checkbox' value='1' <?php checked( $tab_history_disabled, 1  ) ; ?> /> <b>Turn off "History" tab. </b></p>
+	<p><input name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /> <b>Turn off "Track my order" tab. </b> </p>
 	
-	<p><input id='checkbox' name='wc4bp_options[tab_activity_disabled]' type='checkbox' value='1' <?php checked( $tab_activity_disabled, 1  ) ; ?> /> <b>Turn off "Shop" Tab</b> <i>inside</i> "Settings" for the activity stream settings. </p>
+	<p><input name='wc4bp_options[tab_activity_disabled]' type='checkbox' value='1' <?php checked( $tab_activity_disabled, 1  ) ; ?> /> <b>Turn off "Shop" Tab</b> <i>inside</i> "Settings" for the activity stream settings. </p>
 	<hr />
-	<p><input id='checkbox' name='wc4bp_options[tab_sync_disabled]' type='checkbox' value='1' <?php checked( $tab_sync_disabled, 1  ) ; ?> /> <b>Turn off WooCommerce BuddyPress Profile sync.</b> This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit. </p>
+	<p><input name='wc4bp_options[tab_sync_disabled]' type='checkbox' value='1' <?php checked( $tab_sync_disabled, 1  ) ; ?> /> <b>Turn off WooCommerce BuddyPress Profile sync.</b> This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit. </p>
+	<hr />
+	<p>	
+		<b>Overwrite the default Shop Home main Tab Content</b><br>
+		<i>Select the Tab you want to use as your Shop Home.  </i><br>
+		<select name='wc4bp_options[tab_shop_default]'>
+		<?php
+			if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages']) && count( $wc4bp_pages_options['selected_pages'] ) > 0 ){
+				echo '<option value="-1" '.selected( $wc4bp_options['tab_shop_default'], $key ).'>Default</option>';	
+				foreach ($wc4bp_pages_options['selected_pages'] as $key => $attached_page) {
+					echo '<option value="'.$key.'" '.selected( $wc4bp_options['tab_shop_default'], $key ).'>'.$attached_page['tab_name'].'</option>';
+				}
+			} else {
+				echo '<option value="-1" '.selected( $wc4bp_options['tab_shop_default'], $key ).'>You need at least one Page added to Member Profiles!</option>';
+			}
+		?>
+
+		</select>
+	</p>
+	<hr />
+	<p>
+		<b>Change the Page template to be used for the attaced pages.</b><br>
+		<i>by default content-page is used</i><br>
+		<input name='wc4bp_options[page_template]' type='text' value="<?php echo $page_template ?>" />
+		
+	</p>
+	<hr />
 	
 	<?php
 	
@@ -191,7 +222,8 @@ function wc4bp_shop_tabs_add(){
 }
 
 function wc4bp_get_forms_table() {
-	$options = get_option( 'wc4bp_options' );
+	//$wc4bp_options			= get_option( 'wc4bp_options' ); 
+	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
 	
 	// echo '<pre>';
 	// print_r($options);
@@ -230,8 +262,8 @@ function wc4bp_get_forms_table() {
 		</thead>
 		<tbody id="the-list">
 		<?php
-		if(isset($options['selected_pages']) && is_array($options['selected_pages'])){
-			foreach ($options['selected_pages'] as $key => $attached_page) { ?>
+		if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages'])){
+			foreach ($wc4bp_pages_options['selected_pages'] as $key => $attached_page) { ?>
 				<tr id="post-<?php echo $key ?>" class="post-<?php echo $key ?> type-page status-publish hentry alternate iedit author-self wc4bp_tr" valign="bottom">	
 					<td class="column-name">
 						<?php echo  get_the_title($attached_page['page_id']); ?>
@@ -265,7 +297,7 @@ function wc4bp_get_forms_table() {
 }
 
 function wc4bp_thickbox_page_form(){
-	$options = get_option( 'wc4bp_options' ); ?>
+	//$options = get_option( 'wc4bp_options' ); ?>
 	
 	<div style="margin: 0 0 20px 0;"> 
 		<input alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="Add an existing page to your BuddyPress member profiles" class="button button-secondary cptfbp_thickbox cptfbp_thickbox_add " type="button" value="Add a page to your BuddyPress Member Profiles" />  
@@ -285,21 +317,21 @@ function wc4bp_add_edit_entry_form($edit = ''){
 	if(isset($_POST['wc4bp_tab_slug']))
 		$wc4bp_tab_slug = $_POST['wc4bp_tab_slug'];
 
-	$options = get_option( 'wc4bp_options' );
+	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
 	
 	if(isset($wc4bp_tab_slug)){
 		
-		if(isset( $options['selected_pages'][$wc4bp_tab_slug]['tab_name']))
-			$tab_name = $options['selected_pages'][$wc4bp_tab_slug]['tab_name'];
+		if(isset( $wc4bp_pages_options['selected_pages'][$wc4bp_tab_slug]['tab_name']))
+			$tab_name = $wc4bp_pages_options['selected_pages'][$wc4bp_tab_slug]['tab_name'];
 
-		if(isset( $options['selected_pages'][$wc4bp_tab_slug]['children']))
-			$children = $options['selected_pages'][$wc4bp_tab_slug]['children'];
+		if(isset( $wc4bp_pages_options['selected_pages'][$wc4bp_tab_slug]['children']))
+			$children = $wc4bp_pages_options['selected_pages'][$wc4bp_tab_slug]['children'];
 
-		if(isset( $options['selected_pages'][$wc4bp_tab_slug]['position']))
-			$position = $options['selected_pages'][$wc4bp_tab_slug]['position'];
+		if(isset( $wc4bp_pages_options['selected_pages'][$wc4bp_tab_slug]['position']))
+			$position = $wc4bp_pages_options['selected_pages'][$wc4bp_tab_slug]['position'];
 		
-		if(isset( $options['selected_pages'][$wc4bp_tab_slug]['page_id']))
-			$page_id = $options['selected_pages'][$wc4bp_tab_slug]['page_id'];
+		if(isset( $wc4bp_pages_options['selected_pages'][$wc4bp_tab_slug]['page_id']))
+			$page_id = $wc4bp_pages_options['selected_pages'][$wc4bp_tab_slug]['page_id'];
 			
 	}
 //	echo $wc4bp_page_id;
@@ -315,7 +347,7 @@ function wc4bp_add_edit_entry_form($edit = ''){
 	<p><b>Choose an existing page</b><br>
 	<?php wp_dropdown_pages($args); ?>
 	<input id='wc4bp_children' name='wc4bp_children' type='checkbox' value='1'/ <?php checked($children, 1 ); ?>>&nbsp;<b>Include Children?</b></p> 
-	<p><b>Tab Name</b><br>
+	<p><b>Tab Name</b><i>If empty same as Pagename</i><br>
 
 	<input id='wc4bp_tab_name' name='wc4bp_tab_name' type='text' value='<?php echo $tab_name ?>' /></p>
 	<p><b>Position</b><br>

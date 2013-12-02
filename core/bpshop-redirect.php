@@ -19,7 +19,8 @@ if( ! defined( 'ABSPATH' ) ) exit;
 function bpshop_get_redirect_link( $id = false ) {
 	global $bp;
 
-	$wc4bp_options		= get_option( 'wc4bp_options' ); 
+	$wc4bp_options	= get_option( 'wc4bp_options' ); 
+	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
 
 	if( ! $id )
 		return false;
@@ -97,10 +98,10 @@ function bpshop_get_redirect_link( $id = false ) {
 			
 			break;
 	}
-	if(isset($wc4bp_options['selected_pages']) && is_array($wc4bp_options['selected_pages'])){
-				
-		foreach ($wc4bp_options['selected_pages'] as $key => $attached_page) {
-			
+	if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages'])){
+					
+		foreach ($wc4bp_pages_options['selected_pages'] as $key => $attached_page) {
+
 			if($attached_page['children'] > 0){
 				$the_page_id	= get_top_parent_page_id($attached_page['page_id']);
 				$the_courent_id	= get_top_parent_page_id($id);
@@ -110,7 +111,6 @@ function bpshop_get_redirect_link( $id = false ) {
 			}
 			
 			if($the_page_id == $the_courent_id){
-				//echo $attached_page['page_id'].' - '.$parent_page_id.' - '.$id.'<br>';
 				$post_data = get_post($id, ARRAY_A);
 				$slug = $post_data['post_name'];
 				$link = bp_loggedin_user_domain() .'shop/'.$attached_page['tab_slug'].'/'.$slug;

@@ -8,10 +8,12 @@
  */
 ?>
 <div id="item-body" role="main">
+
 	<?php
 	global $bp;
 	
-	$wc4bp_options		= get_option( 'wc4bp_options' );
+	$wc4bp_options			= get_option( 'wc4bp_options' );
+	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' );
 
 	if(isset($bp->action_variables[0])){
 		$wp_query = new wp_query(
@@ -23,20 +25,20 @@
 	} else {
 		$wp_query = new wp_query(
 			array(
-		        'p'      => $wc4bp_options['selected_pages'][$bp->current_action]['page_id'],
+		        'p'      => $wc4bp_pages_options['selected_pages'][$bp->current_action]['page_id'],
 		        'post_type' => 'page'
 		    )
 		);
 	}
-	
-	if ( isset($wp_query) && '' != locate_template( 'contenst-pagee.php', true, false ) ){
 
-		get_template_part( 'content', 'page' );
-	
+	if ( empty($wc4bp_options['page_template']) ){
+		if(locate_template( 'content-page.php', true, false )){
+			get_template_part( 'content', 'page' );
+		} else {
+			echo $wp_query->pages[0]->post_content;
+		}
 	} else {
-				echo 'asd'.$bp->action_variables[0];
-		echo $wp_query->content;
-	}
-
+		get_template_part( $wc4bp_options['page_template'] );
+	} 
 ?>
 </div><!-- #item-body -->
