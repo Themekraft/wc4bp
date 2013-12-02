@@ -162,12 +162,12 @@ function wc4bp_shop_tabs_disable(){
 	
 	<p><input name='wc4bp_options[tab_activity_disabled]' type='checkbox' value='1' <?php checked( $tab_activity_disabled, 1  ) ; ?> /> <b>Turn off "Shop" Tab</b> <i>inside</i> "Settings" for the activity stream settings. </p>
 	<hr />
-	WARNING if you Disable Profiel sync, the adress and shipping profiel groups will be deletet.
+	WARNING: if you disable profile sync, the adress and shipping profile groups will be deleted.
 	
-	Woocommerce and BuddyPress is synced so all the user data should be available to the woocommerce account fields.
-	How ever: You should decide for one way and stay. do not change this to often. it can mas up your user profiel data.
+	Woocommerce and BuddyPress is synced so all the user data should be available to the WooCommerce account fields.
+	How ever, you should decide for one way and stay with it. Do not change this too often. It can mess up your user profile data.
 	
-	<p><input name='wc4bp_options[tab_sync_disabled]' type='checkbox' value='1' <?php checked( $tab_sync_disabled, 1  ) ; ?> /> <b>Turn off WooCommerce BuddyPress Profile sync.</b> This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit. </p>
+	<p><input name='wc4bp_options[tab_sync_disabled]' type='checkbox' value='1' <?php checked( $tab_sync_disabled, 1  ) ; ?> /> <b>Turn off WooCommerce BuddyPress Profile Sync.</b> This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit. </p>
 	<hr />
 	
 	<?php
@@ -182,8 +182,8 @@ function wc4bp_shop_tabs_disable(){
 	
 	 ?>
 	<p>	
-		<b>Overwrite the default Shop Home main Tab Content</b><br>
-		<i>Select the Tab you want to use as your Shop Home.  </i><br>
+		<b>Overwrite the Content of your Shop Home/Main Tab</b><br>
+		<i>Select the tab you want to use as your Shop Home.  </i><br>
 		<select name='wc4bp_options[tab_shop_default]'>
 		<?php
 			if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages']) && count( $wc4bp_pages_options['selected_pages'] ) > 0 ){
@@ -200,11 +200,11 @@ function wc4bp_shop_tabs_disable(){
 	</p>
 	<hr />
 	<p>
-		<b>Change the Page template to be used for the attaced pages.</b><br>
-		<i>For example 'content', 'page' would look for a template content-page-php and if content-page.php not exists<br>
-			it would look at content.php.
+		<b>Change the page template to be used for the attached pages.</b><br>
+		<i>For example 'content', 'page' would check for a template content-page.php 
+			and if content-page.php not exists it would look for content.php.
 			
-			Please ceep in mind that you need to use a template part. without the header and footer added. just the loop item ;)
+			Please keep in mind that you need to use a template part. without the header and footer added. just the loop item! ;)
 		</i><br>
 		<input name='wc4bp_options[page_template]' type='text' value="<?php echo $page_template ?>" />
 		
