@@ -10,7 +10,7 @@
 <div id="item-body" role="main">
 
 	<?php
-	global $bp;
+	global $bp, $post;
 	
 	$wc4bp_options			= get_option( 'wc4bp_options' );
 	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' );
@@ -32,11 +32,31 @@
 	}
 
 	if ( empty($wc4bp_options['page_template']) ){
-		if(locate_template( 'content-page.php', true, false )){
-			get_template_part( 'content', 'page' );
-		} else {
-			echo $wp_query->pages[0]->post_content;
-		}
+
+		$old_post = $post;
+		$post = '';
+
+		setup_postdata($wp_query->posts[0]); ?>
+		
+		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+			<header class="page-header">
+				<h1 class="page-title"><?php the_title(); ?></h1>
+			</header><!-- .entry-header -->
+		
+			<div class="entry-content">
+				<?php the_content(); ?>
+				<?php
+					wp_link_pages( array(
+						'before' => '<div class="page-links">' . __( 'Pages:', 'wc4bp' ),
+						'after'  => '</div>',
+					) );
+				?>
+			</div><!-- .entry-content -->
+		<?php edit_post_link( __( 'Edit', '_tk' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
+		</article><!-- #post-## -->
+		
+		<?php
+		$post = $old_post;
 	} else {
 		get_template_part( $wc4bp_options['page_template'] );
 	} 

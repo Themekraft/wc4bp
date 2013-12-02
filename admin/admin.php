@@ -137,6 +137,14 @@ function wc4bp_shop_tabs_disable(){
 	if(isset( $wc4bp_options['tab_track_disabled']))
 		$tab_track_disabled = $wc4bp_options['tab_track_disabled'];
 	
+	$tab_activity_disabled = 0;
+	if(isset( $wc4bp_options['tab_activity_disabled']))
+		$tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
+	
+	$tab_sync_disabled = 0;
+	if(isset( $wc4bp_options['tab_sync_disabled']))
+		$tab_sync_disabled = $wc4bp_options['tab_sync_disabled'];
+	
 	$page_template = '';
 	if(!empty( $wc4bp_options['page_template']))
 		$page_template = $wc4bp_options['page_template'];
@@ -154,8 +162,25 @@ function wc4bp_shop_tabs_disable(){
 	
 	<p><input name='wc4bp_options[tab_activity_disabled]' type='checkbox' value='1' <?php checked( $tab_activity_disabled, 1  ) ; ?> /> <b>Turn off "Shop" Tab</b> <i>inside</i> "Settings" for the activity stream settings. </p>
 	<hr />
+	WARNING if you Disable Profiel sync, the adress and shipping profiel groups will be deletet.
+	
+	Woocommerce and BuddyPress is synced so all the user data should be available to the woocommerce account fields.
+	How ever: You should decide for one way and stay. do not change this to often. it can mas up your user profiel data.
+	
 	<p><input name='wc4bp_options[tab_sync_disabled]' type='checkbox' value='1' <?php checked( $tab_sync_disabled, 1  ) ; ?> /> <b>Turn off WooCommerce BuddyPress Profile sync.</b> This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit. </p>
 	<hr />
+	
+	<?php
+	
+	if(isset($tab_sync_disabled) && TRUE == $tab_sync_disabled){
+		include_once( dirname( __FILE__ ) .'/bpshop-activate.php' );
+		bpshop_cleanup();
+	} else {
+		include_once( dirname( __FILE__ ) .'/bpshop-activate.php' );
+		bpshop_activate();
+	}
+	
+	 ?>
 	<p>	
 		<b>Overwrite the default Shop Home main Tab Content</b><br>
 		<i>Select the Tab you want to use as your Shop Home.  </i><br>
@@ -176,7 +201,11 @@ function wc4bp_shop_tabs_disable(){
 	<hr />
 	<p>
 		<b>Change the Page template to be used for the attaced pages.</b><br>
-		<i>by default content-page is used</i><br>
+		<i>For example 'content', 'page' would look for a template content-page-php and if content-page.php not exists<br>
+			it would look at content.php.
+			
+			Please ceep in mind that you need to use a template part. without the header and footer added. just the loop item ;)
+		</i><br>
 		<input name='wc4bp_options[page_template]' type='text' value="<?php echo $page_template ?>" />
 		
 	</p>
