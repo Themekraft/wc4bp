@@ -59,12 +59,14 @@ class BPSHOP_Component extends BP_Component
      * @since     1.0
      */
     function includes() {
+        
+		$wc4bp_options			= get_option( 'wc4bp_options' ); 
+		
         $includes = array(
             'bpshop-helpers',
             'bpshop-conditionals',
             'bpshop-screen',
             'bpshop-redirect',
-            'bpshop-sync',
             'bpshop-deprecated'
         );
         
@@ -74,7 +76,11 @@ class BPSHOP_Component extends BP_Component
 		if ( ! class_exists( 'BP_Theme_Compat' ) )
     		require(  BPSHOP_ABSPATH .'core/bpshop-template-compatibility.php'  );
 
-    }
+		if(!isset($wc4bp_options['tab_sync_disabled'])){
+    		require(  BPSHOP_ABSPATH .'core/bpshop-sync.php'  );
+		}
+	
+	}
 
     /**
      * Setup globals

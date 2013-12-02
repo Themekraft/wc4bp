@@ -52,7 +52,7 @@
 					) );
 				?>
 			</div><!-- .entry-content -->
-		<?php edit_post_link( __( 'Edit', '_tk' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
+		<?php edit_post_link( __( 'Edit', 'wc4bp' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
 		</article><!-- #post-## -->
 		
 		<?php

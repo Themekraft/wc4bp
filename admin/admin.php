@@ -78,7 +78,7 @@ function wc4bp_register_admin_settings() {
     register_setting( 'wc4bp_options', 'wc4bp_options' );
     
     // Settings fields and sections
-    add_settings_section(	'section_general'	, ''							, 'wc4bp_general'	, 'wc4bp_options' );
+    add_settings_section(	'section_general'	, ''							, ''	, 'wc4bp_options' );
 	
 	add_settings_field(		'tabs_disabled'	, '<p><b>Remove Shop Tabs</b></p>'	, 'wc4bp_shop_tabs_disable'	, 'wc4bp_options' , 'section_general' );
 	//add_settings_field(		'tabs_rename'	, '<b>Rename Shop Profile Tabs</b>'	, 'wc4bp_shop_tabs_rename'	, 'wc4bp_options' , 'section_general' );
@@ -118,8 +118,8 @@ function wc4bp_general() {
  */
  
 function wc4bp_shop_tabs_disable(){ 
-	$wc4bp_options = get_option( 'wc4bp_options' ); 
-	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' ); 
+	$wc4bp_options			= get_option( 'wc4bp_options' ); 
+	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
 	
 	// echo '<pre>';
 	// print_r($wc4bp_pages_options);
@@ -171,7 +171,7 @@ function wc4bp_shop_tabs_disable(){
 	<hr />
 	
 	<?php
-	
+	// not ready jet
 	if(isset($tab_sync_disabled) && TRUE == $tab_sync_disabled){
 		include_once( dirname( __FILE__ ) .'/bpshop-activate.php' );
 		bpshop_cleanup();
