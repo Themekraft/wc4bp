@@ -220,5 +220,23 @@ function bpshop_output_tracking_order() {
 add_action( 'bpshop_after_track_body', 'bpshop_output_tracking_order' );
 
 function bpshop_screen_plugins(){
-	bp_core_load_template('shop/member/plugin');
+    global $warum;
+
+    echo bp_displayed_user_id();
+
+    echo ' component '.bp_current_component();
+
+    echo ' bp_current_action '.bp_current_action();
+
+    if ( bp_displayed_user_id() && bp_is_current_component( 'shop' ) && bp_current_action() ) {
+    //bp_update_is_directory( true, 'shop' );
+    //if($warum != false)
+    echo ' warum? '. $warum.'<br>';
+        bp_core_load_template( apply_filters( 'bpshop_template_member_plugin', 'shop/member/plugin' ) );
+
+    //$warum = false;
+    //bp_core_load_template('shop/member/plugin');
+	}
+
+
 }

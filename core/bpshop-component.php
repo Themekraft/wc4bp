@@ -35,7 +35,9 @@ class BPSHOP_Component extends BP_Component
         $this->includes();
 
         add_action( 'bp_register_activity_actions',	array( &$this, 'register_activity_actions' ) );
-		add_action( 'bp_located_template', 			array( &$this, 'bpshop_members_load_template_filter'), 10, 2);
+		
+		add_filter( 'bp_located_template', 			array( &$this, 'bpshop_members_load_template_filter'), 10, 2);
+
     }
 
     /**
@@ -110,20 +112,25 @@ class BPSHOP_Component extends BP_Component
 
 		$wc4bp_options			= get_option( 'wc4bp_options' ); 
 		$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
-		
-		if($wc4bp_options['tab_shop_default'] != -1 ){
-			$default_screen = 'bpshop_screen_plugins';
+
+
+        //echo 'tab_shop_default: ' . $wc4bp_options['tab_shop_default']. '<br>';
+
+		if($wc4bp_options['tab_shop_default'] == 'default' ){
+            $default_screen = 'bpshop_screen_shopping_cart';
 		} else {
-			$default_screen = 'bpshop_screen_shopping_cart';
+            $default_screen = 'bpshop_screen_plugins';
 		}
-			
+
+       // echo '$default_screen: ' . $default_screen. '<br>';
+
         // Add 'Shop' to the main navigation
         $main_nav = array(
             'name'                          => __( 'Shop', 'bpshop' ),
             'slug'                          => $this->slug,
             'position'                      => 70,
             'screen_function'               => $default_screen,
-            'default_subnav_slug'           => 'cart',
+            'default_subnav_slug'           => 'home',
             'item_css_id'                   => $this->id,
             'show_for_displayed_user'       => false
         );
@@ -134,7 +141,7 @@ class BPSHOP_Component extends BP_Component
 		if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
 	        $sub_nav[] = array(
 	            'name'            => __( 'Shopping Cart', 'bpshop' ),
-	            'slug'            => 'cart',
+	            'slug'            => 'home',
 	            'parent_url'      => $shop_link,
 	            'parent_slug'     => $this->slug,
 	            'screen_function' => 'bpshop_screen_shopping_cart',
@@ -201,7 +208,7 @@ class BPSHOP_Component extends BP_Component
 		            'user_has_access' => bp_is_my_profile()
 		        );
 		 	}
-		} 
+		}
         do_action( 'bp_shop_setup_nav' );
         
         parent::setup_nav( $main_nav, $sub_nav );
@@ -312,60 +319,77 @@ class BPSHOP_Component extends BP_Component
 	global $bp;
 	//$wc4bp_options		= get_option( 'wc4bp_options' );
 	// echo '<pre>';
-	// print_r($bp);
+	// print_r($templates);
 	// echo '</pre>';
 
-	if ($bp->current_component == 'shop') {
+	if ( !bp_is_current_component( 'shop' ) )
+		return $found_template;
+	
+ 
+    // foreach ( (array) $templates as $template ) {
+        // if ( file_exists( STYLESHEETPATH . '/' . $template ) )
+            // $filtered_templates[] = STYLESHEETPATH . '/' . $template;
+        // elseif( file_exists( TEMPLATEPATH . '/' . $template ) )
+            // $filtered_templates[] = TEMPLATEPATH . '/' . $template;
+        // else
+            // $filtered_templates[] = BPSHOP_ABSPATH_TEMPLATE_PATH  . $template;
+    // }
+//  
+    // $found_template = $filtered_templates[0];
+	// // echo BP_PLUGIN_DIR.'<br>';
+ // // echo $found_template;
+    // return apply_filters( 'bpshop_members_load_template_filter', $found_template );
 
-			if (empty($found_template)) {
-				// register our theme compat directory
-				//
-				// this tells BP to look for templates in our plugin directory last
-				// when the template isn't found in the parent / child theme
-				bp_register_template_stack('bpshop_members_get_template_directory', 14);
-	
-				// locate_template() will attempt to find the plugins.php template in the
-				// child and parent theme and return the located template when found
-				//
-				// plugins.php is the preferred template to use, since all we'd need to do is
-				// inject our content into BP
-				//
-				// note: this is only really relevant for bp-default themes as theme compat
-				// will kick in on its own when this template isn't found
-				$found_template = locate_template('members/single/plugins.php', false, false);
-	
-				// add our hook to inject content into BP
-				$wc4bp_options			= get_option( 'wc4bp_options' ); 
-				if ($bp->current_action == 'cart') {
-					if(isset( $wc4bp_options['tab_cart_disabled'])){
-						$bp->current_action = $wc4bp_options['tab_shop_default'];
-						add_action('bp_template_content', create_function('', "
-						bp_get_template_part( 'shop/member/plugin' );
-						"));
-					} else{
-						add_action('bp_template_content', create_function('', "
-						bp_get_template_part( 'shop/member/cart' );
-						"));
-					}
-				} elseif ($bp->current_action == 'history') {
-					add_action('bp_template_content', create_function('', "
-					bp_get_template_part( 'shop/member/history' );
-					"));
-				} elseif ($bp->current_action == 'track') {
-					add_action('bp_template_content', create_function('', "
-					bp_get_template_part( 'shop/member/track' );
-					"));
-				} else {
-					add_action('bp_template_content', create_function('', "
-					bp_get_template_part( 'shop/member/plugin' );
-					"));
-				}
-				 
+			
+		// register our theme compat directory
+		//
+		// this tells BP to look for templates in our plugin directory last
+		// when the template isn't found in the parent / child theme
+		bp_register_template_stack('bpshop_members_get_template_directory', 14);
+
+		// locate_template() will attempt to find the plugins.php template in the
+		// child and parent theme and return the located template when found
+		//
+		// plugins.php is the preferred template to use, since all we'd need to do is
+		// inject our content into BP
+		//
+		// note: this is only really relevant for bp-default themes as theme compat
+		// will kick in on its own when this template isn't found
+		$found_template = locate_template('members/single/plugins.php', false, false);
+
+		// add our hook to inject content into BP
+		$wc4bp_options			= get_option( 'wc4bp_options' ); 
+
+
+
+        echo 'nadann.... ' . $bp->current_action;
+
+		if ($bp->current_action == 'home') {
+			if(isset( $wc4bp_options['tab_cart_disabled'])){
+				$bp->current_action = $wc4bp_options['tab_shop_default'];
+				add_action('bp_template_content', create_function('', "
+				bp_get_template_part( 'shop/member/plugin' );
+				"));
+			} else{
+				add_action('bp_template_content', create_function('', "
+				bp_get_template_part( 'shop/member/cart' );
+				"));
 			}
-		
+		} elseif ($bp->current_action == 'history') {
+			add_action('bp_template_content', create_function('', "
+			bp_get_template_part( 'shop/member/history' );
+			"));
+		} elseif ($bp->current_action == 'track') {
+			add_action('bp_template_content', create_function('', "
+			bp_get_template_part( 'shop/member/track' );
+			"));
+		} else {
+			add_action('bp_template_content', create_function('', "
+			bp_get_template_part( 'shop/member/plugin' );
+			"));
 		}
-	
-	return apply_filters(' bpshop_members_load_template_filter', $found_template);
+
+        return apply_filters('bpshop_members_load_template_filter', $found_template);
 	}
 
 }

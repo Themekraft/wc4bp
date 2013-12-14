@@ -38,7 +38,7 @@ function bpshop_get_redirect_link( $id = false ) {
 	
 	switch( $id ) {
 		case $cart_page_id:
-			if( ! isset( $wc4bp_options['tab_cart_disabled']))
+			if( ! isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] == 'default')
 				$link = bp_loggedin_user_domain() .'shop/cart/';
 			break;
 
@@ -117,7 +117,7 @@ function bpshop_get_redirect_link( $id = false ) {
 			}
 			
 	 	}
-	} 
+	}
 
 	return apply_filters( 'bpshop_get_redirect_link', $link );
 }

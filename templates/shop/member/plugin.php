@@ -11,19 +11,19 @@
 
 	<?php
 	global $bp, $post;
-	
+
 	$wc4bp_options			= get_option( 'wc4bp_options' );
 	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' );
 
 	if(isset($bp->action_variables[0])){
-		$wp_query = new wp_query(
+		$wp_query2 = new wp_query(
 			array(
 		        'name'      => $bp->action_variables[0],
 		        'post_type' => 'page'
 		    )
 		);
 	} else {
-		$wp_query = new wp_query(
+		$wp_query2 = new wp_query(
 			array(
 		        'p'      => $wc4bp_pages_options['selected_pages'][$bp->current_action]['page_id'],
 		        'post_type' => 'page'
@@ -34,15 +34,15 @@
 	if ( empty($wc4bp_options['page_template']) ){
 
 		$old_post = $post;
-		$post = '';
+		$post = $wp_query2->posts[0];
 
-		setup_postdata($wp_query->posts[0]); ?>
-		
+		setup_postdata($post); ?>
+
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<header class="page-header">
 				<h1 class="page-title"><?php the_title(); ?></h1>
 			</header><!-- .entry-header -->
-		
+
 			<div class="entry-content">
 				<?php the_content(); ?>
 				<?php
@@ -54,11 +54,13 @@
 			</div><!-- .entry-content -->
 		<?php edit_post_link( __( 'Edit', 'wc4bp' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
 		</article><!-- #post-## -->
-		
+
 		<?php
+        wp_reset_postdata();
 		$post = $old_post;
 	} else {
+        $wp_query = $wp_query2;
 		get_template_part( $wc4bp_options['page_template'] );
-	} 
+	}
 ?>
 </div><!-- #item-body -->
