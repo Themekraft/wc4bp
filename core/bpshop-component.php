@@ -24,9 +24,6 @@ class BPSHOP_Component extends BP_Component
     /**
      * Start the shop component creation process
      *
-     * @todo    Move self::includes() out of constructor once the BP bug
-     *             (hook priority) has been resolved to allow use of parent
-     *             method
      * @since     1.0
      */
     function __construct() {
@@ -113,16 +110,11 @@ class BPSHOP_Component extends BP_Component
 		$wc4bp_options			= get_option( 'wc4bp_options' ); 
 		$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
 
-
-        //echo 'tab_shop_default: ' . $wc4bp_options['tab_shop_default']. '<br>';
-
 		if($wc4bp_options['tab_shop_default'] == 'default' ){
             $default_screen = 'bpshop_screen_shopping_cart';
 		} else {
             $default_screen = 'bpshop_screen_plugins';
 		}
-
-       // echo '$default_screen: ' . $default_screen. '<br>';
 
         // Add 'Shop' to the main navigation
         $main_nav = array(
@@ -296,73 +288,19 @@ class BPSHOP_Component extends BP_Component
 
 	/**
 	 * WC4BP template loader.
-	 * 
-	 * I copied this function from the buddypress.org website and modified it for my needs. 
-	 *
-	 * This function sets up WC4BP to use custom templates.
-	 *
-	 * If a template does not exist in the current theme, we will use our own
-	 * bundled templates.
-	 *
-	 * We're doing two things here:
-	 *  1) Support the older template format for themes that are using them
-	 *     for backwards-compatibility (the template passed in
-	 *     {@link bp_core_load_template()}).
-	 *  2) Route older template names to use our new template locations and
-	 *     format.
-	 *
-	 * View the inline doc for more details.
-	 *
 	 * @since 1.0
 	 */
 	function bpshop_members_load_template_filter($found_template, $templates) {
-	global $bp;
-	//$wc4bp_options		= get_option( 'wc4bp_options' );
-	// echo '<pre>';
-	// print_r($templates);
-	// echo '</pre>';
+    	global $bp;
 
-	if ( !bp_is_current_component( 'shop' ) )
-		return $found_template;
+	    if ( !bp_is_current_component( 'shop' ) )
+		    return $found_template;
 	
- 
-    // foreach ( (array) $templates as $template ) {
-        // if ( file_exists( STYLESHEETPATH . '/' . $template ) )
-            // $filtered_templates[] = STYLESHEETPATH . '/' . $template;
-        // elseif( file_exists( TEMPLATEPATH . '/' . $template ) )
-            // $filtered_templates[] = TEMPLATEPATH . '/' . $template;
-        // else
-            // $filtered_templates[] = BPSHOP_ABSPATH_TEMPLATE_PATH  . $template;
-    // }
-//  
-    // $found_template = $filtered_templates[0];
-	// // echo BP_PLUGIN_DIR.'<br>';
- // // echo $found_template;
-    // return apply_filters( 'bpshop_members_load_template_filter', $found_template );
+ 		bp_register_template_stack('bpshop_members_get_template_directory', 14);
 
-			
-		// register our theme compat directory
-		//
-		// this tells BP to look for templates in our plugin directory last
-		// when the template isn't found in the parent / child theme
-		bp_register_template_stack('bpshop_members_get_template_directory', 14);
-
-		// locate_template() will attempt to find the plugins.php template in the
-		// child and parent theme and return the located template when found
-		//
-		// plugins.php is the preferred template to use, since all we'd need to do is
-		// inject our content into BP
-		//
-		// note: this is only really relevant for bp-default themes as theme compat
-		// will kick in on its own when this template isn't found
 		$found_template = locate_template('members/single/plugins.php', false, false);
 
-		// add our hook to inject content into BP
-		$wc4bp_options			= get_option( 'wc4bp_options' ); 
-
-
-
-        echo 'nadann.... ' . $bp->current_action;
+		$wc4bp_options			= get_option( 'wc4bp_options' );
 
 		if ($bp->current_action == 'home') {
 			if(isset( $wc4bp_options['tab_cart_disabled'])){
@@ -406,7 +344,6 @@ class BPSHOP_Component extends BP_Component
 function bpshop_members_get_template_directory() {
 	return apply_filters('bpshop_members_get_template_directory', constant('BPSHOP_ABSPATH_TEMPLATE_PATH'));
 }
-
 
 // Create the shop component
 global $bp;
