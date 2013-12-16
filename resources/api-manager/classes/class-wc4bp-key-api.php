@@ -14,9 +14,9 @@ class WC4BP_Key {
 
 	// API Key URL
 	public function create_software_api_url( $args ) {
-		global $wc4bp_new;
+		global $wc4bp_loader;
 
-		$api_url = add_query_arg( 'wc-api', 'am-software-api', $wc4bp_new->upgrade_url );
+		$api_url = add_query_arg( 'wc-api', 'am-software-api', $wc4bp_loader->upgrade_url );
 
 		return $api_url . '&' . http_build_query( $args );
 	}
@@ -28,10 +28,10 @@ class WC4BP_Key {
 		$platform = site_url();
 
 		$defaults = array(
-			'request' => 'activation',
-			'product_id' => $product_id,
-			'instance' => $instance,
-			'platform' => $platform
+			'request'       => 'activation',
+			'product_id'    => $product_id,
+			'instance'      => $instance,
+			'platform'      => $platform
 			);
 
 		$args = wp_parse_args( $defaults, $args );
@@ -54,14 +54,14 @@ class WC4BP_Key {
 
 		// instance required
 		$product_id = get_option( 'wc4bp_product_id' );
-		$instance = get_option( 'wc4bp_instance' );
-		$platform = site_url();
+		$instance   = get_option( 'wc4bp_instance' );
+		$platform   = site_url();
 
 		$defaults = array(
-			'request' => 'deactivation',
-			'product_id' => $product_id,
-			'instance' => $instance,
-			'platform' => $platform
+			'request'       => 'deactivation',
+			'product_id'    => $product_id,
+			'instance'      => $instance,
+			'platform'      => $platform
 			);
 
 		$args = wp_parse_args( $defaults, $args );

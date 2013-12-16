@@ -173,11 +173,11 @@ function wc4bp_shop_tabs_disable(){
 	<?php
 	// not ready jet
 	if(isset($tab_sync_disabled) && TRUE == $tab_sync_disabled){
-		include_once( dirname( __FILE__ ) .'/bpshop-activate.php' );
-		bpshop_cleanup();
+		include_once( dirname( __FILE__ ) .'/wc4bp-activate.php' );
+		wc4bp_cleanup();
 	} else {
-		include_once( dirname( __FILE__ ) .'/bpshop-activate.php' );
-		bpshop_activate();
+		include_once( dirname( __FILE__ ) .'/wc4bp-activate.php' );
+		wc4bp_activate();
 	}
 	
 	 ?>

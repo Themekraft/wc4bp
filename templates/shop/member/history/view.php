@@ -8,5 +8,5 @@
  * @license		http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 ?>
-<h3><?php _e( 'View order', 'bpshop' ); ?></h3>
+<h3><?php _e( 'View order', 'wc4bp' ); ?></h3>
 <?php echo do_shortcode( '[woocommerce_view_order]' ) ?>

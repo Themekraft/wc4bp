@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  */
 
-class wc4bp_Password_Management {
+class WC4BP_Password_Management {
 
 	private function rand( $min = 0, $max = 0 ) {
 		global $rnd_value;

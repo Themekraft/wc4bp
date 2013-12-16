@@ -1,12 +1,10 @@
 <?php
 /**
- * Plugin Name: WooCommerce for Buddypress
- * Plugin URI:  https://github.com/Themekraft/WooCommerce-for-Buddypress
+ * Plugin Name: WooCommerce BuddyPress Integration
+ * Plugin URI:  http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
- * Author:      BP Shop Dev Team
- * Version:     1.3
- * Author URI:  https://github.com/Themekraft/WooCommerce-for-Buddypress
- * Network:	false
+ * Author:      WC4BP Integration Dev Team ;)
+ * Version:     1.3.1
  *
  *****************************************************************************
  *
@@ -29,17 +27,17 @@
 
  // Needs to be rewritetn in Otto style ;-)
  if( ! defined( 'BP_VERSION' )){ 
-	add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', "bpshop" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
+	add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
 	return;
 }
 
-$GLOBALS['BPSHOP_Loader_new'] = new BPSHOP_Loader();
+$GLOBALS['wc4bp_loader'] = new WC4BP_Loader();
 
-class BPSHOP_Loader {
+class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION 	= '1.3';
+	const VERSION 	= '1.3.1';
 
 	/**
 	 * Minimum required WP version
@@ -76,7 +74,7 @@ class BPSHOP_Loader {
 	/**
 	 * @var string
 	 */
-	public $version = '1.3';
+	public $version = '1.3.1';
 
 	/**
 	 * @var string
@@ -93,21 +91,22 @@ class BPSHOP_Loader {
 	public function __construct() {
 		self::$plugin_name = plugin_basename( __FILE__ );
 
+
+        add_action('bp_include'						, array($this, 'check_requirements'), 0);
+
 		// Run the activation function
 		register_activation_hook( __FILE__, array( $this, 'activation' 			)		);
 		
 		$this->constants();
 		
 		add_action('plugins_loaded'					, array($this, 'translate'));
-		add_action('bp_include'						, array($this, 'check_requirements'), 0);
 		add_action('bp_include'						, array($this, 'includes') , 10 );
 						
 
-		add_action('admin_enqueue_scripts', array($this, 'wc4bp_admin_js') , 10 );
+		add_action('admin_enqueue_scripts'          , array($this, 'wc4bp_admin_js') , 10 );
 			
-			//add_action('bp_include'					, array($this, 'load_plugin_self_updater') , 20 );
-		
-		
+		//add_action('bp_include'					, array($this, 'load_plugin_self_updater') , 20 );
+
 		 /**
 		 * Deletes all data if plugin deactivated
 		 */
@@ -128,7 +127,7 @@ class BPSHOP_Loader {
 			return false;
 
 		// core component
-		require( BPSHOP_ABSPATH .'core/bpshop-component.php' );
+		require( WC4BP_ABSPATH .'core/wc4bp-component.php' );
 		
 		if (is_admin()){
 			// License Key API Class
@@ -172,18 +171,18 @@ class BPSHOP_Loader {
 		
 		// BuddyPress checks
 		if( ! defined( 'BP_VERSION' )){ 
-			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', "bpshop" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
+			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
 			$error = true;
 		}
 		elseif( version_compare( BP_VERSION, self::MIN_BP, '>=' ) == false )
 		{
-			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop works only under BuddyPress %s or higher. <a href="%s">Upgrade now</a>!\', "bpshop" ) . \'</strong></p></div>\', BPSHOP_Loader::MIN_BP, admin_url("update-core.php") );' ) );
+			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only under BuddyPress %s or higher. <a href="%s">Upgrade now</a>!\', " wc4bp" ) . \'</strong></p></div>\', WC4BP_Loader::MIN_BP, admin_url("update-core.php") );' ) );
 			$error = true;
 		}
 		if( defined( 'BP_VERSION' )){ 
 			if(function_exists('bp_is_active')){
 				if(!bp_is_active('settings')){
-					add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop works only with the BuddyPress Account Settings Component activated <a href="%s">Activate now</a>!\', "bpshop" ) . \'</strong></p></div>\', admin_url("options-general.php?page=bp-components") );' ) );
+					add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only with the BuddyPress Account Settings Component activated <a href="%s">Activate now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("options-general.php?page=bp-components") );' ) );
 					$error = true;	
 				}
 			}
@@ -191,18 +190,18 @@ class BPSHOP_Loader {
 		// Woocommerce checks
 		if( $check_wc ) :
 			if( ! defined( 'WOOCOMMERCE_VERSION' ) ) {
-				add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop needs WooCommerce to be installed. <a href="%s">Download it now</a>!\', "bpshop" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
+				add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration needs WooCommerce to be installed. <a href="%s">Download it now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
 				$error = true;
 			}
 			elseif( version_compare( WOOCOMMERCE_VERSION, self::MIN_WOO, '>=' ) == false ) {
-				add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop works only under WooCommerce %s or higher. <a href="%s">Upgrade now</a>!\', "bpshop" ) . \'</strong></p></div>\', BPSHOP_Loader::MIN_WOO, admin_url("update-core.php") );' ) );
+				add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only under WooCommerce %s or higher. <a href="%s">Upgrade now</a>!\', " wc4bp" ) . \'</strong></p></div>\', WC4BP_Loader::MIN_WOO, admin_url("update-core.php") );' ) );
 				$error = true;
 			}
 		endif;
 
 		// WordPress check
 		if( version_compare( $wp_version, self::MIN_WP, '>=' ) == false ) {
-			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BP Shop works only under WordPress %s or higher. <a href="%s">Upgrade now</a>!\', "bpshop" ) . \'</strong></p></div>\', BPSHOP_Loader::MIN_WP, admin_url("update-core.php") );' ) );
+			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only under WordPress %s or higher. <a href="%s">Upgrade now</a>!\', " wc4bp" ) . \'</strong></p></div>\', WC4BP_Loader::MIN_WP, admin_url("update-core.php") );' ) );
 			$error = true;
 		}
 
@@ -216,7 +215,7 @@ class BPSHOP_Loader {
 	 * @uses 	load_plugin_textdomain()
 	 */
 	public function translate()	{
-		load_plugin_textdomain( 'bpshop', false, dirname( plugin_basename( __FILE__ ) ) . "/languages" );
+		load_plugin_textdomain( 'wc4bp', false, dirname( plugin_basename( __FILE__ ) ) . "/languages" );
 	}
 
 	/**
@@ -226,30 +225,30 @@ class BPSHOP_Loader {
 	 * @access 	private
 	 */
 	private function constants() {
-		define( 'BPSHOP_PLUGIN', 	self::$plugin_name );
-		define( 'BPSHOP_VERSION',	self::VERSION );
-		define( 'BPSHOP_FOLDER',	plugin_basename( dirname( __FILE__ ) ) );
-		define( 'BPSHOP_ABSPATH',	trailingslashit( str_replace( "\\", "/", WP_PLUGIN_DIR .'/'. BPSHOP_FOLDER ) ) );
-		define( 'BPSHOP_URLPATH',	trailingslashit( plugins_url( '/'. BPSHOP_FOLDER ) ) );
-		define( 'BPSHOP_ABSPATH_TEMPLATE_PATH', BPSHOP_ABSPATH . 'templates/');
+        define( 'WC4BP_PLUGIN'                  , 	self::$plugin_name );
+		define( 'WC4BP_VERSION'                 ,	self::VERSION );
+		define( 'WC4BP_FOLDER'                  ,	plugin_basename( dirname( __FILE__ ) ) );
+		define( 'WC4BP_ABSPATH'                 ,	trailingslashit( str_replace( "\\", "/", WP_PLUGIN_DIR .'/'. WC4BP_FOLDER ) ) );
+		define( 'WC4BP_URLPATH'                 ,	trailingslashit( plugins_url( '/'. WC4BP_FOLDER ) ) );
+		define( 'WC4BP_ABSPATH_TEMPLATE_PATH'   , WC4BP_ABSPATH . 'templates/');
 	}
 	/**
 	 * Check for software updates
 	 */
 	public function load_plugin_self_updater() {
-		$options = get_option( 'wc4bp_license_manager' );
+        $options            = get_option( 'wc4bp_license_manager' );
 
 		// upgrade url must also be chaned in classes/class-bf-key-api.php
-		$upgrade_url = 'http://themekraft.com/'; // URL to access the Update API Manager.
-		$plugin_name = 'woocommerce-buddypress-integration';
-		$product_id = get_option( 'wc4bp_product_id' ); // Software Title
-		$api_key = $options['api_key']; // API License Key
-		$activation_email = $options['activation_email']; // License Email
-		$renew_license_url = 'http://themekraft.com/my-account/'; // URL to renew a license
-		$instance = get_option( 'wc4bp_instance' ); // Instance ID (unique to each blog activation)
-		$domain = site_url(); // blog domain name
-		$software_version = get_option( $this->wc4bp_version_name ); // The software version
-		$plugin_or_theme = 'plugin'; // 'theme' or 'plugin'
+		$upgrade_url        = $this->upgrade_url; // URL to access the Update API Manager.
+		$plugin_name        = 'wc4bp-basic-integration';
+        $product_id         = get_option( 'wc4bp_product_id' ); // Software Title
+		$api_key            = $options['api_key']; // API License Key
+		$activation_email   = $options['activation_email']; // License Email
+		$renew_license_url  = 'http://themekraft.com/my-account/'; // URL to renew a license
+		$instance           = get_option( 'wc4bp_instance' ); // Instance ID (unique to each blog activation)
+		$domain             = site_url(); // blog domain name
+		$software_version   = get_option( $this->wc4bp_version_name ); // The software version
+		$plugin_or_theme    = 'plugin'; // 'theme' or 'plugin'
 
 		new wc4bp_Plugin_Update_API_Check( $upgrade_url, $plugin_name, $product_id, $api_key, $activation_email, $renew_license_url, $instance, $domain, $software_version, $plugin_or_theme );
 	}
@@ -270,10 +269,10 @@ class BPSHOP_Loader {
 		// Password Management Class
 		require_once( plugin_dir_path( __FILE__ ) . 'resources/api-manager/classes/class-wc4bp-passwords.php');
 
-		$wc4bp_password_management = new wc4bp_Password_Management();
+		$WC4BP_Password_Management = new WC4BP_Password_Management();
 
 		// Generate a unique installation $instance id
-		$instance = $wc4bp_password_management->generate_password( 12, false );
+		$instance = $WC4BP_Password_Management->generate_password( 12, false );
 
 		$single_options = array(
 			'wc4bp_product_id' 				=> 'woocommerce-buddypress-integration',
@@ -293,8 +292,8 @@ class BPSHOP_Loader {
 			// update the version
 			update_option( $this->wc4bp_version_name, $this->version );
 		}
-		include_once( dirname( __FILE__ ) .'/admin/bpshop-activate.php' );
-		bpshop_activate();
+		include_once( dirname( __FILE__ ) .'/admin/wc4bp-activate.php' );
+		 wc4bp_activate();
 	}
 
 	/**
@@ -341,8 +340,8 @@ class BPSHOP_Loader {
 					}
 
 		}
-		include_once( dirname( __FILE__ ) .'/admin/bpshop-activate.php' );
-		bpshop_cleanup();
+		include_once( dirname( __FILE__ ) .'/admin/wc4bp-activate.php' );
+		 wc4bp_cleanup();
 	}
 
 	/**
@@ -351,7 +350,8 @@ class BPSHOP_Loader {
 	 */
 	public function license_key_deactivation() {
 
-		$wc4bp_key = new wc4bp_Key();
+		$wc4bp_key = new WC4BP_Key();
+
 
 		$activation_status = get_option( 'wc4bp_activated' );
 

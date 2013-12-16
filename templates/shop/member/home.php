@@ -13,7 +13,7 @@ get_header( 'buddypress' ); ?>
 	<div id="content">
 		<div class="padder">
 
-			<?php do_action( 'bpshop_before_member_home_content' ); ?>
+			<?php do_action( 'wc4bp_before_member_home_content' ); ?>
 
 			<div id="item-header" role="complementary">
 
@@ -35,14 +35,14 @@ get_header( 'buddypress' ); ?>
 
 			<div id="item-body">
 
-				<?php do_action( 'bpshop_before_member_body' ); ?>
+				<?php do_action( ''wc4bpbefore_member_body' ); ?>
 				
 				<?php
-				if( bpshop_is_page( 'history' ) ) :
-					bpshop_load_template( 'shop/member/history' );
+				if(  wc4bp_is_page( 'history' ) ) :
+					 wc4bp_load_template( 'shop/member/history' );
 					
-				elseif( bpshop_is_page( 'track' ) ) :
-					bpshop_load_template( 'shop/member/track' );
+				elseif(  wc4bp_is_page( 'track' ) ) :
+					 wc4bp_load_template( 'shop/member/track' );
 
 				else :
 					//bp_core_load_template( 'shop/member/cart' );
@@ -50,11 +50,11 @@ get_header( 'buddypress' ); ?>
 				endif;
 				?>
 
-				<?php do_action( 'bpshop_after_member_body' ); ?>
+				<?php do_action( ' 'wc4bpfter_member_body' ); ?>
 
 			</div><!-- #item-body -->
 
-			<?php do_action( 'bpshop_after_member_home_content' ); ?>
+			<?php do_action( 'wc4bp_after_member_home_content' ); ?>
 
 		</div><!-- .padder -->
 	</div><!-- #content -->
