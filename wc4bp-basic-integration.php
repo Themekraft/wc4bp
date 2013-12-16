@@ -81,7 +81,7 @@ class BPSHOP_Loader {
 	/**
 	 * @var string
 	 */
-	public $wc4bp_version_name = 'wc4bp_version';
+	public $wc4bp_version_name = 'wc4bp_options_version';
 
 	/**
 	 * Initiate the class
@@ -231,7 +231,7 @@ class BPSHOP_Loader {
 		define( 'BPSHOP_FOLDER',	plugin_basename( dirname( __FILE__ ) ) );
 		define( 'BPSHOP_ABSPATH',	trailingslashit( str_replace( "\\", "/", WP_PLUGIN_DIR .'/'. BPSHOP_FOLDER ) ) );
 		define( 'BPSHOP_URLPATH',	trailingslashit( plugins_url( '/'. BPSHOP_FOLDER ) ) );
-		define('BPSHOP_ABSPATH_TEMPLATE_PATH', BPSHOP_ABSPATH . 'templates/');
+		define( 'BPSHOP_ABSPATH_TEMPLATE_PATH', BPSHOP_ABSPATH . 'templates/');
 	}
 	/**
 	 * Check for software updates
@@ -241,7 +241,7 @@ class BPSHOP_Loader {
 
 		// upgrade url must also be chaned in classes/class-bf-key-api.php
 		$upgrade_url = 'http://themekraft.com/'; // URL to access the Update API Manager.
-		$plugin_name = untrailingslashit( plugin_basename( __FILE__ ) ); // same as plugin slug. if a theme use a theme name like 'twentyeleven'
+		$plugin_name = 'woocommerce-buddypress-integration';
 		$product_id = get_option( 'wc4bp_product_id' ); // Software Title
 		$api_key = $options['api_key']; // API License Key
 		$activation_email = $options['activation_email']; // License Email

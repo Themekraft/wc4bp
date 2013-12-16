@@ -1,3 +1,11 @@
+= v1.3 beta 2 =
+* fixed several small bugs reported by users
+
+= v1.3 beta 1 =
+* Add a new admin interface to turn off Tabs
+* Add a new feature to add other WooCommerce pages to the shop in member profiles.
+* fixed several small bugs reported by users
+
 = v1.2.1 =
 * fixed several small bugs reported by users
 * fixed a bug with the en_US translation file

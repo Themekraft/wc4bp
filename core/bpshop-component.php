@@ -27,7 +27,7 @@ class BPSHOP_Component extends BP_Component
      * @since     1.0
      */
     function __construct() {
-        parent::start( $this->id, __( 'Woocommerce Integration', 'bpshop' ), BPSHOP_ABSPATH );
+        parent::start( $this->id, __( 'Shop', 'bpshop' ), BPSHOP_ABSPATH );
         
         $this->includes();
 
