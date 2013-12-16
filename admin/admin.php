@@ -28,28 +28,31 @@ function wc4bp_screen() { ?>
 
         <div id="icon-options-general" class="icon32"><br></div>
         <h2>WooCommerce BuddyPress Integration Settings</h2>
-		
-			<span style="font-size: 13px; float:right;">Proudly brought to you by <a href="http://themekraft.com/" target="_new">Themekraft</a>.</span>
 
-        <div style="margin: 30px 0 0 0; background: #f4f4f4; padding: 20px; overflow: auto; border-radius: 6px;">
+        <div style="overflow: auto;">
 
-	
-			<div style="float: left; overflow: auto; border-right: 1px solid #ddd; padding: 0 20px 0 0;">
-				<h3>Get Support.</h3> 
-				<p><a class="button secondary" onClick="script: Zenbox.show(); return false;" class="button secondary"  href="#" title="Submit an email support ticket">Ask Question</a> <a title="View Documentation" target="_new" href="https://themekraft.zendesk.com/hc/en-us/categories/200005301-WooCommerce-BuddyPress-Integration" class="button">Documentation</a> </p>
-			</div>	        
-			
-			<div style="float: left; overflow: auto; padding: 0 20px 0 20px; border-right: 1px solid #ddd;">
-		        <h3>Contribute your ideas.</h3>
-		        <p>Add ideas and vote in our <a title="Visit Ideas Forums" class="button button-secondary" href="https://themekraft.zendesk.com/hc/communities/public/topics/200001221-WooCommerce-BuddyPress-Integration-Ideas" target="_new">Ideas Forums</a></p>
-			</div>	        
-			
-			<div style="float: left; overflow: auto; padding: 0 20px 0 20px;">
-		        <h3>Discuss with others.</h3>
-		        <p>Learn, share, discuss. Visit our <a title="Visit Community Members Forums" class="button button-secondary" href="https://themekraft.zendesk.com/hc/communities/public/topics/200001191-WooCommerce-BuddyPress-Integration-Trouble-Shooting" target="_new">Community Forums</a></p>
-			</div>	        
-			
-		</div>
+            <span style="font-size: 13px; float:right;">Proudly brought to you by <a href="http://themekraft.com/" target="_new">Themekraft</a>.</span>
+
+            <div style="margin: 30px 0 0 0; padding: 20px; overflow: auto; background-color: #fff; border-left: 4px solid #2ea2cc; -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1); box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);">
+
+
+                <div style="float: left; overflow: auto; border-right: 1px solid #ddd; padding: 0 20px 0 0;">
+                    <h3>Get Support.</h3>
+                    <p><a class="button secondary" onClick="script: Zenbox.show(); return false;" class="button secondary"  href="#" title="Submit an email support ticket">Ask Question</a> <a title="View Documentation" target="_new" href="https://themekraft.zendesk.com/hc/en-us/categories/200005301-WooCommerce-BuddyPress-Integration" class="button">Documentation</a> </p>
+                </div>
+
+                <div style="float: left; overflow: auto; padding: 0 20px 0 20px; border-right: 1px solid #ddd;">
+                    <h3>Contribute your ideas.</h3>
+                    <p>Add ideas and vote in our <a title="Visit Ideas Forums" class="button button-secondary" href="https://themekraft.zendesk.com/hc/communities/public/topics/200001221-WooCommerce-BuddyPress-Integration-Ideas" target="_new">Ideas Forums</a></p>
+                </div>
+
+                <div style="float: left; overflow: auto; padding: 0 20px 0 20px;">
+                    <h3>Discuss with others.</h3>
+                    <p>Learn, share, discuss. Visit our <a title="Visit Community Members Forums" class="button button-secondary" href="https://themekraft.zendesk.com/hc/communities/public/topics/200001191-WooCommerce-BuddyPress-Integration-Trouble-Shooting" target="_new">Community Forums</a></p>
+                </div>
+
+            </div>
+        </div>
 		<br>
 		
         <form method="post" action="options.php">
@@ -161,14 +164,18 @@ function wc4bp_shop_tabs_disable(){
 	<p><input name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /> <b>Turn off "Track my order" tab. </b> </p>
 	
 	<p><input name='wc4bp_options[tab_activity_disabled]' type='checkbox' value='1' <?php checked( $tab_activity_disabled, 1  ) ; ?> /> <b>Turn off "Shop" Tab</b> <i>inside</i> "Settings" for the activity stream settings. </p>
-	<hr />
-	WARNING: if you disable profile sync, the adress and shipping profile groups will be deleted.
+	<br><hr /><br>
+	<p><b>Turn off the profile sync</b></p>
+    <p>WARNING: if you disable profile sync, the adress and shipping profile groups will be deleted.
 	
 	Woocommerce and BuddyPress is synced so all the user data should be available to the WooCommerce account fields.
 	How ever, you should decide for one way and stay with it. Do not change this too often. It can mess up your user profile data.
-	
-	<p><input name='wc4bp_options[tab_sync_disabled]' type='checkbox' value='1' <?php checked( $tab_sync_disabled, 1  ) ; ?> /> <b>Turn off WooCommerce BuddyPress Profile Sync.</b> This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit. </p>
-	<hr />
+	</p>
+
+	<p><input name='wc4bp_options[tab_sync_disabled]' type='checkbox' value='1' <?php checked( $tab_sync_disabled, 1  ) ; ?> /> <b>Turn off WooCommerce BuddyPress Profile Sync.</b></p>
+
+    <p>This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit. </p>
+    <br><hr /><br>
 	
 	<?php
 	// not ready jet
@@ -184,6 +191,7 @@ function wc4bp_shop_tabs_disable(){
 	<p>	
 		<b>Overwrite the Content of your Shop Home/Main Tab</b><br>
 		<i>Select the tab you want to use as your Shop Home.  </i><br>
+        <i>Please note you need to turn off the "Cart" tab before (see the first option above).</i>
 		<select name='wc4bp_options[tab_shop_default]'>
 		<?php
 			if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages']) && count( $wc4bp_pages_options['selected_pages'] ) > 0 ){
@@ -198,7 +206,7 @@ function wc4bp_shop_tabs_disable(){
 
 		</select>
 	</p>
-	<hr />
+    <br><hr /><br>
 	<p>
 		<b>Change the page template to be used for the attached pages.</b><br>
 		<i>For example 'content', 'page' would check for a template content-page.php 
@@ -209,7 +217,7 @@ function wc4bp_shop_tabs_disable(){
 		<input name='wc4bp_options[page_template]' type='text' value="<?php echo $page_template ?>" />
 		
 	</p>
-	<hr />
+    <br><hr />
 	
 	<?php
 	
@@ -274,7 +282,7 @@ function wc4bp_get_forms_table() {
     <h3>Add Pages to Member Profiles</h3>
     
     <p>Integrate other pages (for example from other WooCommerce extensions) into your BuddyPress member profiles.</p>
-	<p><i>This will redirect the page to the correct profile page and add a menu item in the profile.</i></p>
+	<p><i>This will redirect the page to the correct profile page and add a menu item in the profile.</i></p><br>
     
 	<?php wc4bp_thickbox_page_form(); ?>
 	<table class="wp-list-table widefat fixed posts">
