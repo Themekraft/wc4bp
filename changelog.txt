@@ -1,5 +1,5 @@
 = v1.3.3 =
-*
+* fixed a bug reported by a user where the checkout js does not work if the cart integration is disabled.
 
 = v1.3.2 =
 * fixed a small bug in the cart url after "add to cart" the "View Cart" link was broken.

@@ -26,7 +26,7 @@
  */
 
  // Needs to be rewritetn in Otto style ;-)
- if( ! defined( 'BP_VERSION' )){ 
+ if( ! defined( 'BP_VERSION' )){
 	add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
 	return;
 }
@@ -87,7 +87,7 @@ class WC4BP_Loader {
 	 * @package WooCommerce for BuddyPress
 	 * @since 0.1-beta
 	 */
-	 
+
 	public function __construct() {
 		self::$plugin_name = plugin_basename( __FILE__ );
 
@@ -96,22 +96,22 @@ class WC4BP_Loader {
 
 		// Run the activation function
 		register_activation_hook( __FILE__, array( $this, 'activation' 			)		);
-		
+
 		$this->constants();
-		
+
 		add_action('plugins_loaded'					, array($this, 'translate'));
 		add_action('bp_include'						, array($this, 'includes') , 10 );
-						
+
 
 		add_action('admin_enqueue_scripts'          , array($this, 'wc4bp_admin_js') , 10 );
-			
+
 		//add_action('bp_include'					, array($this, 'load_plugin_self_updater') , 20 );
 
 		 /**
 		 * Deletes all data if plugin deactivated
 		 */
 		register_deactivation_hook( __FILE__, array( $this, 'uninstall' 			)		 );
-		
+
 	}
 
 	/**
@@ -128,7 +128,7 @@ class WC4BP_Loader {
 
 		// core component
 		require( WC4BP_ABSPATH .'core/wc4bp-component.php' );
-		
+
 		if (is_admin()){
 			// License Key API Class
 			require_once( plugin_dir_path( __FILE__ ) . 'resources/api-manager/classes/class-wc4bp-key-api.php');
@@ -141,9 +141,9 @@ class WC4BP_Loader {
 			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-ajax.php');			// API License Key Registration Form
 			require_once( plugin_dir_path( __FILE__ ) . 'admin/license-registration.php');
 			$this->load_plugin_self_updater();
-		
+
 		}
-					
+
 	}
 
 	/**
@@ -168,9 +168,9 @@ class WC4BP_Loader {
 			if( defined( 'BLOG_ID_CURRENT_SITE' ) && $wpdb->blogid != BLOG_ID_CURRENT_SITE )
 				$check_wc = true;
 		endif;
-		
+
 		// BuddyPress checks
-		if( ! defined( 'BP_VERSION' )){ 
+		if( ! defined( 'BP_VERSION' )){
 			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
 			$error = true;
 		}
@@ -179,11 +179,11 @@ class WC4BP_Loader {
 			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only under BuddyPress %s or higher. <a href="%s">Upgrade now</a>!\', " wc4bp" ) . \'</strong></p></div>\', WC4BP_Loader::MIN_BP, admin_url("update-core.php") );' ) );
 			$error = true;
 		}
-		if( defined( 'BP_VERSION' )){ 
+		if( defined( 'BP_VERSION' )){
 			if(function_exists('bp_is_active')){
 				if(!bp_is_active('settings')){
 					add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only with the BuddyPress Account Settings Component activated <a href="%s">Activate now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("options-general.php?page=bp-components") );' ) );
-					$error = true;	
+					$error = true;
 				}
 			}
 		}
@@ -369,19 +369,19 @@ class WC4BP_Loader {
 			$wc4bp_key->deactivate( $args ); // reset license key activation
 		}
 	}
-	
-	/** 
+
+	/**
 	 * Enqueue admin JS and CSS
-	 * 
-	 * @author Sven Lehnert 
+	 *
+	 * @author Sven Lehnert
 	 * @package TK Google Fonts
 	 * @since 1.0
 	 */
-	 
+
 	public function wc4bp_admin_js(){
 		add_thickbox();
 		wp_enqueue_script('wc4bp_admin_js', plugins_url('/admin/js/admin.js', __FILE__));
-		
+
 }
 }
 
@@ -393,6 +393,8 @@ class WC4BP_Loader {
  * @todo	Write a fix to use filters rather than redeclaring these functions
  * 			which could potentially create conflicts with other plugins
  */
+$wc4bp_options			= get_option( 'wc4bp_options' );
+if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
 
 if( ! function_exists( 'is_checkout' ) ) :
 /**
@@ -436,6 +438,7 @@ function is_cart() {
 }
 endif;
 
+}
 if( ! function_exists( 'is_account_page' ) ) :
 /**
  * Check if we're on an account page
