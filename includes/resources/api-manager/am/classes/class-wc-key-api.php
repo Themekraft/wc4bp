@@ -1,37 +1,35 @@
 <?php
 
 /**
+ * WooCommerce API Manager API Key Class
  *
- * @package Update API Manager
+ * @package Update API Manager/Key Handler
  * @author Todd Lahman LLC
- * @copyright   Copyright (c) 2011-2013, Todd Lahman LLC
+ * @copyright   Copyright (c) Todd Lahman LLC
+ * @since 1.3
  *
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class WC4BP_Key {
+class WC4BP_API_Manager_Key {
 
 	// API Key URL
 	public function create_software_api_url( $args ) {
-		global $wc4bp_loader;
 
-		$api_url = add_query_arg( 'wc-api', 'am-software-api', $wc4bp_loader->upgrade_url );
+		$api_url = add_query_arg( 'wc-api', 'am-software-api', WC4BPAM()->upgrade_url );
 
 		return $api_url . '&' . http_build_query( $args );
 	}
 
 	public function activate( $args ) {
 
-		$product_id = get_option( 'wc4bp_product_id' );
-		$instance = get_option( 'wc4bp_instance' );
-		$platform = site_url();
-
 		$defaults = array(
-			'request'       => 'activation',
-			'product_id'    => $product_id,
-			'instance'      => $instance,
-			'platform'      => $platform
+			'request' 			=> 'activation',
+			'product_id' 		=> WC4BPAM()->wc4bp_plugin_product_id,
+			'instance' 			=> WC4BPAM()->wc4bp_plugin_instance_id,
+			'platform' 			=> WC4BPAM()->wc4bp_plugin_domain,
+			'software_version' 	=> WC4BPAM()->wc4bp_plugin_software_version
 			);
 
 		$args = wp_parse_args( $defaults, $args );
@@ -52,16 +50,11 @@ class WC4BP_Key {
 
 	public function deactivate( $args ) {
 
-		// instance required
-		$product_id = get_option( 'wc4bp_product_id' );
-		$instance   = get_option( 'wc4bp_instance' );
-		$platform   = site_url();
-
 		$defaults = array(
-			'request'       => 'deactivation',
-			'product_id'    => $product_id,
-			'instance'      => $instance,
-			'platform'      => $platform
+			'request' 		=> 'deactivation',
+			'product_id' 	=> WC4BPAM()->wc4bp_plugin_product_id,
+			'instance' 		=> WC4BPAM()->wc4bp_plugin_instance_id,
+			'platform' 		=> WC4BPAM()->wc4bp_plugin_domain
 			);
 
 		$args = wp_parse_args( $defaults, $args );
@@ -82,11 +75,9 @@ class WC4BP_Key {
 
 	public function check( $args ) {
 
-		$product_id = get_option( 'wc4bp_product_id' );
-
 		$defaults = array(
 			'request'     => 'check',
-			'product_id' => $product_id,
+			'product_id' => WC4BPAM()->wc4bp_plugin_product_id,
 			);
 
 		$args = wp_parse_args( $defaults, $args );
