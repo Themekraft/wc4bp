@@ -1,3 +1,6 @@
+= v1.3.4 =
+* fixed issues with the the api manager
+
 = v1.3.3 =
 * fixed a bug reported by a user where the checkout js does not work if the cart integration is disabled.
 
