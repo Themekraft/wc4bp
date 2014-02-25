@@ -57,7 +57,7 @@ class WC4BP_Component extends BP_Component
      *
      * @since     1.0
      */
-    function includes() {
+    function includes($includes = Array()) {
         
 		$wc4bp_options			= get_option( 'wc4bp_options' ); 
 		
@@ -87,10 +87,10 @@ class WC4BP_Component extends BP_Component
      * @since     1.0
      * @global    object    $bp
      */
-    function setup_globals() {
+    function setup_globals($globals = Array()) {
         global $bp;
 
-        $globals = array(
+            $globals = array(
             'path'          => WC4BP_ABSPATH .'core',
             'slug'          => 'shop',
             'has_directory' => false
@@ -105,7 +105,7 @@ class WC4BP_Component extends BP_Component
      * @since    1.0
      * @global   object    $bp
      */
-    function setup_nav() {
+    function setup_nav($main_nav = Array(), $sub_nav = Array()) {
 
 		$wc4bp_options			= get_option( 'wc4bp_options' ); 
 		$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
@@ -212,7 +212,7 @@ class WC4BP_Component extends BP_Component
 	 *
 	 * @global BuddyPress $bp The one true BuddyPress instance
 	 */
-	function setup_admin_bar() {
+	function setup_admin_bar($wp_admin_nav = Array()) {
 		global $bp;
 		
 		$wc4bp_options			= get_option( 'wc4bp_options' ); 

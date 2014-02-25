@@ -285,9 +285,7 @@ function is_checkout() {
 			return true;
 		endif;
 	else :
-		if( is_page( woocommerce_get_page_id( 'checkout' ) ) || is_page( woocommerce_get_page_id( 'pay' ) ) ) :
-			return true;
-		endif;
+        return is_checkout() || ! empty( $wp->query_vars['order-pay'] ) ? true : false;
 	endif;
 
 	return false;
@@ -316,6 +314,9 @@ function is_cart() {
 endif;
 
 }
+
+add_filter('woocommerce_is_account_page','wc4bp_is_account_page');
+
 if( ! function_exists( 'is_account_page' ) ) :
 /**
  * Check if we're on an account page
@@ -323,15 +324,11 @@ if( ! function_exists( 'is_account_page' ) ) :
  * @since 	1.0.5
  */
 function is_account_page() {
-	if( is_user_logged_in() ) :
-		if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'history' ) ) :
-			return true;
+
+		if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'checkout' ) ) :
+    		return true;
 		endif;
-	else :
-		if( is_page( woocommerce_get_page_id( 'myaccount' ) ) || is_page( woocommerce_get_page_id( 'edit_address' ) ) || is_page( woocommerce_get_page_id( 'view_order' ) ) || is_page( woocommerce_get_page_id( 'change_password' ) ) ) :
-			return true;
-		endif;
-	endif;
+
 
 	return false;
 }

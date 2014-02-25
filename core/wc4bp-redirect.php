@@ -27,16 +27,19 @@ function  wc4bp_get_redirect_link( $id = false ) {
 
 	$cart_page_id 		= woocommerce_get_page_id( 'cart' 			 );
 	$checkout_page_id 	= woocommerce_get_page_id( 'checkout' 		 );
-	$view_page_id 		= woocommerce_get_page_id( 'view_order' 	 );
+    $account_page_id 	= woocommerce_get_page_id( 'myaccount' 		 );
+
+
+    /*$view_page_id 		= woocommerce_get_page_id( 'view_order' 	 );
 	$address_page_id 	= woocommerce_get_page_id( 'edit_address' 	 );
-	$account_page_id 	= woocommerce_get_page_id( 'myaccount' 		 );
 	$password_page_id 	= woocommerce_get_page_id( 'change_password' );
 	$thanks_page_id 	= woocommerce_get_page_id( 'thanks' 		 );
 	$pay_page_id 		= woocommerce_get_page_id( 'pay' 			 );
 	$track_page_id 		= woocommerce_get_page_id( 'order_tracking'  );
+    */
 	$link = '';
-	
-	switch( $id ) {
+
+    switch( $id ) {
 		case $cart_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] == 'default')
 				$link = bp_loggedin_user_domain() .'shop/home/';
@@ -47,32 +50,32 @@ function  wc4bp_get_redirect_link( $id = false ) {
 				$link = bp_loggedin_user_domain() .'shop/home/checkout/';
 			break;
 
-		case $thanks_page_id:
+		/*case $thanks_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']))
 				$link = bp_loggedin_user_domain() .'shop/home/checkout/thanks/';
-			break;
+			break;*/
 
-		case $pay_page_id:
+		/*case $pay_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']))
 				$link = bp_loggedin_user_domain() .'shop/home/checkout/pay/';
-			break;
+			break;*/
 
-		case $track_page_id:
+		/*case $track_page_id:
 			if( ! isset( $wc4bp_options['tab_track_disabled']))
 				$link = bp_loggedin_user_domain() .'shop/track/';
-			break;
+			break;*/
 
 		case $account_page_id:
-			if( ! isset( $wc4bp_options['tab_history_disabled']))
+            if( ! isset( $wc4bp_options['tab_history_disabled']))
 				$link = bp_loggedin_user_domain() .'shop/history/';
 			break;
 
-		case $view_page_id:
+		/*case $view_page_id:
 			if( ! isset( $wc4bp_options['tab_history_disabled']))
 				$link = bp_loggedin_user_domain() .'shop/history/view/';
-			break;
+			break;*/
 
-		case $address_page_id:
+		/*case $address_page_id:
 			$type = ( isset( $_GET['address'] ) ) ? $_GET['address'] : 'billing';
 
 			switch( $type )	{
@@ -86,11 +89,11 @@ function  wc4bp_get_redirect_link( $id = false ) {
 					$url = bp_loggedin_user_domain(). $bp->profile->slug .'/edit/group/'. $ids['group_id'];
 					break;
 			}
-			break;
+			break;*/
 
-		case $password_page_id:
+		/*case $password_page_id:
 			$link = bp_loggedin_user_domain() . $bp->settings->slug .'/';
-			break;
+			break;*/
 
 		default :
 			
