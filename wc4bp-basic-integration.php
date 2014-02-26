@@ -270,22 +270,25 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/resources/api-manager/api-
  * @todo	Write a fix to use filters rather than redeclaring these functions
  * 			which could potentially create conflicts with other plugins
  */
-$wc4bp_options			= get_option( 'wc4bp_options' );
-if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
+//$wc4bp_options			= get_option( 'wc4bp_options' );
+//if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
 
 if( ! function_exists( 'is_checkout' ) ) :
+
 /**
  * Check if we're on a checkout page
  *
  * @since 	1.0.5
  */
 function is_checkout() {
+
 	if( is_user_logged_in() ) :
-		if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'checkout' ) ) :
+
+        if( bp_is_current_component( 'shop' ) && (bp_is_action_variable( 'checkout' ) || bp_is_action_variable( 'cart' ) )) :
 			return true;
-		endif;
+        endif;
 	else :
-        return is_checkout() || ! empty( $wp->query_vars['order-pay'] ) ? true : false;
+        return is_page( wc_get_page_id( 'checkout' ) ) ? true : false;
 	endif;
 
 	return false;
@@ -313,7 +316,7 @@ function is_cart() {
 }
 endif;
 
-}
+//}
 
 add_filter('woocommerce_is_account_page','wc4bp_is_account_page');
 
@@ -333,3 +336,31 @@ function is_account_page() {
 	return false;
 }
 endif;
+
+if ( ! function_exists( 'is_order_received_page' ) ) {
+
+    /**
+     * is_order_received_page - Returns true when viewing the order received page.
+     *
+     * @access public
+     * @return bool
+     */
+    function is_order_received_page() {
+        global $wp;
+
+
+        if( is_user_logged_in() ) :
+            if( bp_is_current_component( 'shop' ) && (bp_is_action_variable( 'checkout' ) || bp_is_action_variable( 'cart' ) )) :
+                return true;
+            endif;
+        else :
+            if( is_page( wc_get_page_id( 'checkout' ) ) && isset( $wp->query_vars['order-received'] ) ):
+                return true;
+            endif;
+        endif;
+
+        return false;
+
+
+    }
+}

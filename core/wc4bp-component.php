@@ -303,7 +303,7 @@ class WC4BP_Component extends BP_Component
 		$wc4bp_options			= get_option( 'wc4bp_options' );
 
 		if ($bp->current_action == 'home') {
-			if(isset( $wc4bp_options['tab_cart_disabled'])){
+			if(isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] != 'default'){
 				$bp->current_action = $wc4bp_options['tab_shop_default'];
 				add_action('bp_template_content', create_function('', "
 				bp_get_template_part( 'shop/member/plugin' );

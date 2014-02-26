@@ -17,7 +17,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @since 1.0.6
  */
 function  wc4bp_get_redirect_link( $id = false ) {
-	global $bp;
+	global $bp, $wp;
 
 	$wc4bp_options	= get_option( 'wc4bp_options' ); 
 	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
@@ -25,9 +25,9 @@ function  wc4bp_get_redirect_link( $id = false ) {
 	if( ! $id )
 		return false;
 
-	$cart_page_id 		= woocommerce_get_page_id( 'cart' 			 );
-	$checkout_page_id 	= woocommerce_get_page_id( 'checkout' 		 );
-    $account_page_id 	= woocommerce_get_page_id( 'myaccount' 		 );
+	$cart_page_id 		= wc_get_page_id( 'cart' 			 );
+	$checkout_page_id 	= wc_get_page_id( 'checkout' 		 );
+    $account_page_id 	= wc_get_page_id( 'myaccount' 		 );
 
 
     /*$view_page_id 		= woocommerce_get_page_id( 'view_order' 	 );
@@ -39,6 +39,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
     */
 	$link = '';
 
+
     switch( $id ) {
 		case $cart_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] == 'default')
@@ -46,9 +47,18 @@ function  wc4bp_get_redirect_link( $id = false ) {
 			break;
 
 		case $checkout_page_id:
-			if( ! isset( $wc4bp_options['tab_cart_disabled']))
-				$link = bp_loggedin_user_domain() .'shop/home/checkout/';
-			break;
+			if( ! isset( $wc4bp_options['tab_cart_disabled'])){
+                global $wp;
+
+                $link = bp_loggedin_user_domain() .'shop/home/checkout/';
+                if(isset( $wp->query_vars['order-received'])){
+                    $link .= 'order-received/' . $wp->query_vars['order-received'] . '/?key=' . $_GET['key'];
+                }
+
+            }
+
+            break;
+
 
 		/*case $thanks_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']))
@@ -66,6 +76,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 			break;*/
 
 		case $account_page_id:
+
             if( ! isset( $wc4bp_options['tab_history_disabled']))
 				$link = bp_loggedin_user_domain() .'shop/history/';
 			break;
@@ -116,8 +127,14 @@ function  wc4bp_get_redirect_link( $id = false ) {
 			if($the_page_id == $the_courent_id){
 				$post_data = get_post($id, ARRAY_A);
 				$slug = $post_data['post_name'];
-				$link = bp_loggedin_user_domain() .'shop/'.$attached_page['tab_slug'].'/'.$slug;
+				$link = bp_loggedin_user_domain() .'shop/'.$attached_page['tab_slug'].'/'.$slug.'/';
+
+                if(isset( $wp->query_vars['order-received'])){
+                    $link .= 'order-received/' . $wp->query_vars['order-received'] . '/?key=' . $_GET['key'];
+                }
 			}
+
+
 			
 	 	}
 	}

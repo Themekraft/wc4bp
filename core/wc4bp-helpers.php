@@ -188,6 +188,6 @@ add_shortcode( 'wc4bp_my_downloads', 'wc4bp_my_downloads_shortcode' );
 
 
 function wc4bp_my_recent_orders_shortcode( $atts ){
-    return woocommerce_get_template( 'myaccount/my-orders.php', array( 'order_count' => $order_count ) );
+    return woocommerce_get_template( 'myaccount/my-orders.php', array( 'order_count' => 'all' ) );
 }
 add_shortcode( 'wc4bp_my_recent_orders', 'wc4bp_my_recent_orders_shortcode' );
