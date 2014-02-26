@@ -1,3 +1,6 @@
+= v1.3.5 =
+* rewrite for woocommerce 2.1
+
 = v1.3.4 =
 * fixed issues with the the api manager
 
