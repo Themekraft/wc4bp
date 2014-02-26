@@ -13,9 +13,8 @@
 
 	<?php do_action( 'wc4bp_before_history_body' ); ?>
 
-	<?php echo  do_shortcode('[wc4bp_my_recent_orders]');?>
 
-    <?php wc_get_template( 'myaccount/my-downloads.php' ); ?>
+	<?php do_shortcode('[wc4bp_my_recent_orders]') ?>
 
     <?php do_action( 'woocommerce_after_my_account' ); ?>
 

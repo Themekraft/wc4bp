@@ -188,6 +188,18 @@ add_shortcode( 'wc4bp_my_downloads', 'wc4bp_my_downloads_shortcode' );
 
 
 function wc4bp_my_recent_orders_shortcode( $atts ){
-    return woocommerce_get_template( 'myaccount/my-orders.php', array( 'order_count' => 'all' ) );
+
+
+    global $bp;
+
+    if(  wc4bp_is_subpage( 'view-order' ) ) :
+
+        return do_action( 'woocommerce_view_order', $bp->action_variables[1] );
+    else:
+
+        return woocommerce_get_template( 'myaccount/my-orders.php', array( 'order_count' => 'all' ) );
+
+    endif;
+
 }
 add_shortcode( 'wc4bp_my_recent_orders', 'wc4bp_my_recent_orders_shortcode' );
