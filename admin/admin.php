@@ -275,8 +275,9 @@ function wc4bp_get_forms_table() {
 		table #the-list tr:hover .wc4bp-row-actions { opacity:1 }
 		table.wp-list-table th.manage-column {
 			width: auto;
+            padding: 20px 0px 20px 10px;
 		}
-				
+
     </style>
     
     <h3>Add Pages to Member Profiles</h3>
