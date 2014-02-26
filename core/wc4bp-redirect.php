@@ -39,22 +39,22 @@ function  wc4bp_get_redirect_link( $id = false ) {
 	switch( $id ) {
 		case $cart_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] == 'default')
-				$link = bp_loggedin_user_domain() .'shop/cart/';
+				$link = bp_loggedin_user_domain() .'shop/home/';
 			break;
 
 		case $checkout_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']))
-				$link = bp_loggedin_user_domain() .'shop/cart/checkout/';
+				$link = bp_loggedin_user_domain() .'shop/home/checkout/';
 			break;
 
 		case $thanks_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']))
-				$link = bp_loggedin_user_domain() .'shop/cart/checkout/thanks/';
+				$link = bp_loggedin_user_domain() .'shop/home/checkout/thanks/';
 			break;
 
 		case $pay_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']))
-				$link = bp_loggedin_user_domain() .'shop/cart/checkout/pay/';
+				$link = bp_loggedin_user_domain() .'shop/home/checkout/pay/';
 			break;
 
 		case $track_page_id:

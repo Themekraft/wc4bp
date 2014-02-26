@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  * @package Update API Manager/Update Handler
  * @author Todd Lahman LLC
- * @copyright   Copyright (c) 2011-2013, Todd Lahman LLC
+ * @copyright   Copyright (c) Todd Lahman LLC
  * @since 1.0.0
  *
  */
@@ -27,12 +27,14 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *		$instance = get_option( 'wc_api_manager_instance' );
  *		$domain = site_url();
  *		$plugin_or_theme = 'plugin'; // 'theme' or 'plugin'
+ *		$text_domain is used to defined localization for translation
+ *		$extra; // Used to send any extra information.
  *
- *		new WC_API_Manager_Plugin_Update_API_Check( $upgrade_url, $plugin_name, $product_id, $api_key, $activation_email, $renew_license_url, $instance, $domain, $plugin_or_theme );
+ *		new WC_API_Manager_Plugin_Update_API_Check( $upgrade_url, $plugin_name, $product_id, $api_key, $activation_email, $renew_license_url, $instance, $domain, $plugin_or_theme, 'wc4bp-api-manager' );
  *	}
  */
 
-class wc4bp_Plugin_Update_API_Check {
+class WC4BP_API_Manager_Update_API_Check {
 
 	private $upgrade_url; // URL to access the Update API Manager.
 	private $plugin_name; // same as plugin slug. if a theme use a theme name like 'twentyeleven'
@@ -44,6 +46,8 @@ class wc4bp_Plugin_Update_API_Check {
 	private $domain; // blog domain name
 	private $software_version;
 	private $plugin_or_theme; // 'theme' or 'plugin'
+	private $text_domain; // localization for translation
+	private $extra; // Used to send any extra information.
 
 	/**
 	 * Constructor.
@@ -52,7 +56,7 @@ class wc4bp_Plugin_Update_API_Check {
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function __construct( $upgrade_url, $plugin_name, $product_id, $api_key, $activation_email, $renew_license_url, $instance, $domain, $software_version, $plugin_or_theme ) {
+	public function __construct( $upgrade_url, $plugin_name, $product_id, $api_key, $activation_email, $renew_license_url, $instance, $domain, $software_version, $plugin_or_theme, $text_domain, $extra = '' ) {
 		// API data
 		$this->upgrade_url 			= $upgrade_url;
 		$this->plugin_name 			= $plugin_name; // same as plugin slug. if a theme use a theme name like 'twentyeleven'
@@ -63,6 +67,8 @@ class wc4bp_Plugin_Update_API_Check {
 		$this->instance 			= $instance;
 		$this->domain 				= $domain;
 		$this->software_version 	= $software_version;
+		$this->text_domain 			= $text_domain;
+		$this->extra 				= $extra;
 
 		/**
 		 * Flag for plugin or theme updates
@@ -108,7 +114,7 @@ class wc4bp_Plugin_Update_API_Check {
 			add_filter( 'pre_set_site_transient_update_themes', array( $this, 'update_check' ) );
 
 			// Check For Theme Information to display on the update details page
-			add_filter( 'themes_api', array( $this, 'request' ), 10, 3 );
+			//add_filter( 'themes_api', array( $this, 'request' ), 10, 3 );
 
 		}
 
@@ -130,6 +136,7 @@ class wc4bp_Plugin_Update_API_Check {
 	 * @return object $transient
 	 */
 	public function update_check( $transient ) {
+		global $sc_helpers;
 
 		if( empty( $transient->checked ) )	return $transient;
 
@@ -143,6 +150,7 @@ class wc4bp_Plugin_Update_API_Check {
 					'instance'			=>	$this->instance,
 					'domain'			=>	$this->domain,
 					'software_version'	=>	$this->software_version,
+					'extra'				=> 	$this->extra,
 					);
 
 		// Check for a plugin update
@@ -214,9 +222,25 @@ class wc4bp_Plugin_Update_API_Check {
 
 		// If there is a new version, modify the transient to reflect an update is available
 		if ( isset( $new_ver ) && isset( $curr_ver ) ) {
+
 			if( $response !== false && version_compare( $new_ver, $curr_ver, '>' ) ) {
-				$transient->response[$this->plugin_name] = $response;
+
+				if ( $this->plugin_or_theme == 'plugin' ) {
+
+					$transient->response[$this->plugin_name] = $response;
+
+				} else if ( $this->plugin_or_theme == 'theme' ) {
+
+					$transient->response[$this->plugin_name] = array (
+																	'new_version' 	=> $response->new_version,
+																	'url' 			=> $response->url,
+																	'package' 		=> $response->package,
+																	);
+
+				}
+
 			}
+
 		}
 
 		return $transient;
@@ -265,6 +289,7 @@ class wc4bp_Plugin_Update_API_Check {
 	 * @return object $response or boolean false
 	 */
 	public function request( $false, $action, $args ) {
+		global $sc_helpers;
 
 		// Is this a plugin or a theme?
 		if ( $this->plugin_or_theme == 'plugin' ) {
@@ -299,6 +324,7 @@ class wc4bp_Plugin_Update_API_Check {
 					'instance'			=>	$this->instance,
 					'domain'			=>	$this->domain,
 					'software_version'	=>	$this->software_version,
+					'extra'				=> 	$this->extra,
 					);
 
 		$response = $this->plugin_information( $args );
@@ -375,7 +401,7 @@ class wc4bp_Plugin_Update_API_Check {
 
 		$plugin_name = isset( $plugins[$this->plugin_name] ) ? $plugins[$this->plugin_name]['Name'] : $this->plugin_name;
 
-		echo sprintf( '<div id="message" class="error"><p>The license key for %s has expired. You can reactivate or purchase a license key from your account <a href="%s" target="_blank">dashboard</a>.</p></div>', $plugin_name, $this->renew_license_url ) ;
+		echo sprintf( '<div id="message" class="error"><p>' . __( 'The license key for %s has expired. You can reactivate or purchase a license key from your account <a href="%s" target="_blank">dashboard</a>.', 'wc4bp-api-manager' ) . '</p></div>', $plugin_name, $this->renew_license_url ) ;
 
 	}
 
@@ -390,7 +416,7 @@ class wc4bp_Plugin_Update_API_Check {
 
 		$plugin_name = isset( $plugins[$this->plugin_name] ) ? $plugins[$this->plugin_name]['Name'] : $this->plugin_name;
 
-		echo sprintf( '<div id="message" class="error"><p>The subscription for %s is on-hold. You can reactivate the subscription from your account <a href="%s" target="_blank">dashboard</a>.</p></div>', $plugin_name, $this->renew_license_url ) ;
+		echo sprintf( '<div id="message" class="error"><p>' . __( 'The subscription for %s is on-hold. You can reactivate the subscription from your account <a href="%s" target="_blank">dashboard</a>.', 'wc4bp-api-manager' ) . '</p></div>', $plugin_name, $this->renew_license_url ) ;
 
 	}
 
@@ -405,7 +431,7 @@ class wc4bp_Plugin_Update_API_Check {
 
 		$plugin_name = isset( $plugins[$this->plugin_name] ) ? $plugins[$this->plugin_name]['Name'] : $this->plugin_name;
 
-		echo sprintf( '<div id="message" class="error"><p>The subscription for %s has been cancelled. You can renew the subscription from your account <a href="%s" target="_blank">dashboard</a>. A new license key will be emailed to you after your order has been completed.</p></div>', $plugin_name, $this->renew_license_url ) ;
+		echo sprintf( '<div id="message" class="error"><p>' . __( 'The subscription for %s has been cancelled. You can renew the subscription from your account <a href="%s" target="_blank">dashboard</a>. A new license key will be emailed to you after your order has been completed.', 'wc4bp-api-manager' ) . '</p></div>', $plugin_name, $this->renew_license_url ) ;
 
 	}
 
@@ -420,7 +446,7 @@ class wc4bp_Plugin_Update_API_Check {
 
 		$plugin_name = isset( $plugins[$this->plugin_name] ) ? $plugins[$this->plugin_name]['Name'] : $this->plugin_name;
 
-		echo sprintf( '<div id="message" class="error"><p>The subscription for %s has expired. You can reactivate the subscription from your account <a href="%s" target="_blank">dashboard</a>.</p></div>', $plugin_name, $this->renew_license_url ) ;
+		echo sprintf( '<div id="message" class="error"><p>' . __( 'The subscription for %s has expired. You can reactivate the subscription from your account <a href="%s" target="_blank">dashboard</a>.', 'wc4bp-api-manager' ) . '</p></div>', $plugin_name, $this->renew_license_url ) ;
 
 	}
 
@@ -435,7 +461,7 @@ class wc4bp_Plugin_Update_API_Check {
 
 		$plugin_name = isset( $plugins[$this->plugin_name] ) ? $plugins[$this->plugin_name]['Name'] : $this->plugin_name;
 
-		echo sprintf( '<div id="message" class="error"><p>The subscription for %s has been suspended. You can reactivate the subscription from your account <a href="%s" target="_blank">dashboard</a>.</p></div>', $plugin_name, $this->renew_license_url ) ;
+		echo sprintf( '<div id="message" class="error"><p>' . __( 'The subscription for %s has been suspended. You can reactivate the subscription from your account <a href="%s" target="_blank">dashboard</a>.', 'wc4bp-api-manager' ) . '</p></div>', $plugin_name, $this->renew_license_url ) ;
 
 	}
 
@@ -450,7 +476,7 @@ class wc4bp_Plugin_Update_API_Check {
 
 		$plugin_name = isset( $plugins[$this->plugin_name] ) ? $plugins[$this->plugin_name]['Name'] : $this->plugin_name;
 
-		echo sprintf( '<div id="message" class="error"><p>The subscription for %s is still pending. You can check on the status of the subscription from your account <a href="%s" target="_blank">dashboard</a>.</p></div>', $plugin_name, $this->renew_license_url ) ;
+		echo sprintf( '<div id="message" class="error"><p>' . __( 'The subscription for %s is still pending. You can check on the status of the subscription from your account <a href="%s" target="_blank">dashboard</a>.', 'wc4bp-api-manager' ) . '</p></div>', $plugin_name, $this->renew_license_url ) ;
 
 	}
 
@@ -465,7 +491,7 @@ class wc4bp_Plugin_Update_API_Check {
 
 		$plugin_name = isset( $plugins[$this->plugin_name] ) ? $plugins[$this->plugin_name]['Name'] : $this->plugin_name;
 
-		echo sprintf( '<div id="message" class="error"><p>The subscription for %s has been placed in the trash and will be deleted soon. You can purchase a new subscription from your account <a href="%s" target="_blank">dashboard</a>.</p></div>', $plugin_name, $this->renew_license_url ) ;
+		echo sprintf( '<div id="message" class="error"><p>' . __( 'The subscription for %s has been placed in the trash and will be deleted soon. You can purchase a new subscription from your account <a href="%s" target="_blank">dashboard</a>.', 'wc4bp-api-manager' ) . '</p></div>', $plugin_name, $this->renew_license_url ) ;
 
 	}
 
@@ -480,7 +506,7 @@ class wc4bp_Plugin_Update_API_Check {
 
 		$plugin_name = isset( $plugins[$this->plugin_name] ) ? $plugins[$this->plugin_name]['Name'] : $this->plugin_name;
 
-		echo sprintf( '<div id="message" class="error"><p>A subscription for %s could not be found. You can purchase a subscription from your account <a href="%s" target="_blank">dashboard</a>.</p></div>', $plugin_name, $this->renew_license_url ) ;
+		echo sprintf( '<div id="message" class="error"><p>' . __( 'A subscription for %s could not be found. You can purchase a subscription from your account <a href="%s" target="_blank">dashboard</a>.', 'wc4bp-api-manager' ) . '</p></div>', $plugin_name, $this->renew_license_url ) ;
 
 	}
 
@@ -495,7 +521,7 @@ class wc4bp_Plugin_Update_API_Check {
 
 		$plugin_name = isset( $plugins[$this->plugin_name] ) ? $plugins[$this->plugin_name]['Name'] : $this->plugin_name;
 
-		echo sprintf( '<div id="message" class="error"><p>A license key for %s could not be found. Maybe you forgot to enter a license key when setting up %s, or the key was deactivated in your account. You can reactivate or purchase a license key from your account <a href="%s" target="_blank">dashboard</a>.</p></div>', $plugin_name, $plugin_name, $this->renew_license_url ) ;
+		echo sprintf( '<div id="message" class="error"><p>' . __( 'A license key for %s could not be found. Maybe you forgot to enter a license key when setting up %s, or the key was deactivated in your account. You can reactivate or purchase a license key from your account <a href="%s" target="_blank">dashboard</a>.', 'wc4bp-api-manager' ) . '</p></div>', $plugin_name, $plugin_name, $this->renew_license_url ) ;
 
 	}
 
@@ -510,7 +536,7 @@ class wc4bp_Plugin_Update_API_Check {
 
 		$plugin_name = isset( $plugins[$this->plugin_name] ) ? $plugins[$this->plugin_name]['Name'] : $this->plugin_name;
 
-		echo sprintf( '<div id="message" class="error"><p>Download permission for %s has been revoked possibly due to a license key or subscription expiring. You can reactivate or purchase a license key from your account <a href="%s" target="_blank">dashboard</a>.</p></div>', $plugin_name, $this->renew_license_url ) ;
+		echo sprintf( '<div id="message" class="error"><p>' . __( 'Download permission for %s has been revoked possibly due to a license key or subscription expiring. You can reactivate or purchase a license key from your account <a href="%s" target="_blank">dashboard</a>.', 'wc4bp-api-manager' ) . '</p></div>', $plugin_name, $this->renew_license_url ) ;
 
 	}
 
@@ -525,7 +551,7 @@ class wc4bp_Plugin_Update_API_Check {
 
 		$plugin_name = isset( $plugins[$this->plugin_name] ) ? $plugins[$this->plugin_name]['Name'] : $this->plugin_name;
 
-		echo sprintf( '<div id="message" class="error"><p>%s has not been activated. Go to the settings page and enter the license key and license email to activate %s.</p></div>', $plugin_name, $plugin_name ) ;
+		echo sprintf( '<div id="message" class="error"><p>' . __( '%s has not been activated. Go to the settings page and enter the license key and license email to activate %s.', 'wc4bp-api-manager' ) . '</p></div>', $plugin_name, $plugin_name ) ;
 
 	}
 
@@ -540,7 +566,7 @@ class wc4bp_Plugin_Update_API_Check {
 
 		$plugin_name = isset( $plugins[$this->plugin_name] ) ? $plugins[$this->plugin_name]['Name'] : $this->plugin_name;
 
-		echo sprintf( '<div id="message" class="error"><p>You changed the subscription for %s, so you will need to enter your new API License Key in the settings page. The License Key should have arrived in your email inbox, if not you can get it by logging into your account <a href="%s" target="_blank">dashboard</a>.</p></div>', $plugin_name, $this->renew_license_url ) ;
+		echo sprintf( '<div id="message" class="error"><p>' . __( 'You changed the subscription for %s, so you will need to enter your new API License Key in the settings page. The License Key should have arrived in your email inbox, if not you can get it by logging into your account <a href="%s" target="_blank">dashboard</a>.', 'wc4bp-api-manager' ) . '</p></div>', $plugin_name, $this->renew_license_url ) ;
 
 	}
 

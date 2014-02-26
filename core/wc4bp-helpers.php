@@ -99,7 +99,7 @@ function  wc4bp_checkout_url( $url ) {
 	if( isset( $wc4bp_options['tab_cart_disabled']))
 		return $url;
 	
-    return ( is_user_logged_in() ) ? apply_filters( 'wc4bp_checkout_url', bp_loggedin_user_domain() .'shop/cart/checkout/' ) : $url;
+    return ( is_user_logged_in() ) ? apply_filters( 'wc4bp_checkout_url', bp_loggedin_user_domain() .'shop/home/checkout/' ) : $url;
 }
 add_filter( 'woocommerce_get_checkout_url', 'wc4bp_checkout_url' );
 

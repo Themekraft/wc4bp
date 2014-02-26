@@ -3,14 +3,16 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
+ * WooCommerce API Manager Passwords Class
  *
- * @package Update API Manager
+ * @package Update API Manager/Passwords
  * @author Todd Lahman LLC
- * @copyright   Copyright (c) 2011-2013, Todd Lahman LLC
+ * @copyright   Copyright (c) Todd Lahman LLC
+ * @since 1.0.0
  *
  */
 
-class WC4BP_Password_Management {
+class WC4BP_API_Manager_Password_Management {
 
 	private function rand( $min = 0, $max = 0 ) {
 		global $rnd_value;

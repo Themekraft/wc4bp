@@ -11,7 +11,7 @@
 add_action( 'admin_menu', 'wc4bp_admin_menu' );
 
 function wc4bp_admin_menu() {
-    add_menu_page( 'WooCommerce for BuddyPress', 'WC4BP Options', 'edit_posts', 'wc4bp_options_page', 'wc4bp_screen' );
+    add_menu_page( 'WooCommerce for BuddyPress', 'WC4BP Options', 'manage_options', 'wc4bp-options-page', 'wc4bp_screen' );
 }
 
 /**
