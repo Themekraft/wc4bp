@@ -186,6 +186,10 @@ function wc4bp_my_downloads_shortcode( $atts ){
 }
 add_shortcode( 'wc4bp_my_downloads', 'wc4bp_my_downloads_shortcode' );
 
+function wc4bp_my_addresses_shortcode( $atts ){
+    return woocommerce_get_template( 'myaccount/my-address.php' );
+}
+add_shortcode( 'wc4bp_my_addresses', 'wc4bp_my_addresses_shortcode' );
 
 function wc4bp_my_recent_orders_shortcode( $atts ){
 

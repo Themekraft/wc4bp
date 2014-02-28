@@ -56,7 +56,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
                 }
 
             }
-
+            $link = apply_filters('wc4bp_checkout_page_link', $link);
             break;
 
 
@@ -79,7 +79,9 @@ function  wc4bp_get_redirect_link( $id = false ) {
 
             if( ! isset( $wc4bp_options['tab_history_disabled']))
 				$link = bp_loggedin_user_domain() .'shop/history/';
-			break;
+
+            $link = apply_filters('wc4bp_account_page_link', $link);
+            break;
 
 		/*case $view_page_id:
 			if( ! isset( $wc4bp_options['tab_history_disabled']))
@@ -132,10 +134,11 @@ function  wc4bp_get_redirect_link( $id = false ) {
                 if(isset( $wp->query_vars['order-received'])){
                     $link .= 'order-received/' . $wp->query_vars['order-received'] . '/?key=' . $_GET['key'];
                 }
+
 			}
 
 
-			
+
 	 	}
 	}
 
