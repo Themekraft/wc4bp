@@ -4,7 +4,7 @@
  * Plugin URI:  http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author:      WC4BP Integration Dev Team ;)
- * Version:     1.3.6
+ * Version:     1.3.7
  *
  *****************************************************************************
  *
@@ -37,7 +37,7 @@ class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION 	= '1.3.6';
+	const VERSION 	= '1.3.7';
 
     /**
 	 * Minimum required WP version
@@ -281,8 +281,9 @@ if( ! function_exists( 'is_checkout' ) ) :
  * @since 	1.0.5
  */
 function is_checkout() {
+    $wc4bp_options			= get_option( 'wc4bp_options' );
 
-	if( is_user_logged_in() ) :
+	if( is_user_logged_in() && ! isset($wc4bp_options['tab_cart_disabled'] )) :
 
         if( bp_is_current_component( 'shop' ) && (bp_is_action_variable( 'checkout' ) || bp_is_action_variable( 'cart' ) )) :
 			return true;
@@ -302,7 +303,9 @@ if( ! function_exists( 'is_cart' ) ) :
  * @since 	1.0.5
  */
 function is_cart() {
-	if( is_user_logged_in() ) :
+    $wc4bp_options			= get_option( 'wc4bp_options' );
+
+    if( is_user_logged_in() && ! isset($wc4bp_options['tab_cart_disabled'] )) :
 		if( bp_is_current_component( 'shop' ) && ! bp_action_variables() ) :
 			return true;
 		endif;
@@ -316,9 +319,6 @@ function is_cart() {
 }
 endif;
 
-//}
-
-add_filter('woocommerce_is_account_page','wc4bp_is_account_page');
 
 if( ! function_exists( 'is_account_page' ) ) :
 /**
@@ -328,10 +328,13 @@ if( ! function_exists( 'is_account_page' ) ) :
  */
 function is_account_page() {
 
+    if( is_user_logged_in() ) :
 		if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'checkout' ) ) :
     		return true;
 		endif;
-
+    else :
+        return is_page( wc_get_page_id( 'myaccount' ) ) || apply_filters( 'woocommerce_is_account_page', false ) ? true : false;
+    endif;
 
 	return false;
 }

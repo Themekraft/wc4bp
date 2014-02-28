@@ -1,3 +1,6 @@
+= v1.3.7 =
+* fixed issues with the checkout js
+
 = v1.3.6 =
 * add new filters for wc4bp_checkout_page_link and wc4bp_account_page_link
 
