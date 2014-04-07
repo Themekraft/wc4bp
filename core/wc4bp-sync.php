@@ -60,8 +60,10 @@ add_action( 'xprofile_profile_field_data_updated', 'wc4bp_sync_addresses_from_pr
  * @param	int 	$user_id	The user to synchronize the fields for
  */
 function  wc4bp_sync_addresses_from_admin( $user_id ) {
+
 	// get the woocommerce fields
- 	$fields = woocommerce_get_customer_meta_fields();
+    // $fields = WC_Countries::get_default_address_fields();
+    $fields = wc4bp_get_customer_meta_fields();
 
 	// get the mapped fields
 	$mapped_fields =  wc4bp_get_mapped_fields();
@@ -153,4 +155,103 @@ function  wc4bp_get_mapped_fields() {
 		'_phone' 		=> 'phone',
 		'_email' 		=> 'email'
 	);
+}
+
+/**
+ * Get Address Fields for edit user pages
+ */
+function wc4bp_get_customer_meta_fields() {
+    $show_fields = apply_filters('woocommerce_customer_meta_fields', array(
+        'billing' => array(
+            'title' => __('Customer Billing Address', 'woocommerce'),
+            'fields' => array(
+                'billing_first_name' => array(
+                    'label' => __('First name', 'woocommerce'),
+                    'description' => ''
+                ),
+                'billing_last_name' => array(
+                    'label' => __('Last name', 'woocommerce'),
+                    'description' => ''
+                ),
+                'billing_company' => array(
+                    'label' => __('Company', 'woocommerce'),
+                    'description' => ''
+                ),
+                'billing_address_1' => array(
+                    'label' => __('Address 1', 'woocommerce'),
+                    'description' => ''
+                ),
+                'billing_address_2' => array(
+                    'label' => __('Address 2', 'woocommerce'),
+                    'description' => ''
+                ),
+                'billing_city' => array(
+                    'label' => __('City', 'woocommerce'),
+                    'description' => ''
+                ),
+                'billing_postcode' => array(
+                    'label' => __('Postcode', 'woocommerce'),
+                    'description' => ''
+                ),
+                'billing_state' => array(
+                    'label' => __('State/County', 'woocommerce'),
+                    'description' => 'Country or state code'
+                ),
+                'billing_country' => array(
+                    'label' => __('Country', 'woocommerce'),
+                    'description' => '2 letter Country code'
+                ),
+                'billing_phone' => array(
+                    'label' => __('Telephone', 'woocommerce'),
+                    'description' => ''
+                ),
+                'billing_email' => array(
+                    'label' => __('Email', 'woocommerce'),
+                    'description' => ''
+                )
+            )
+        ),
+        'shipping' => array(
+            'title' => __('Customer Shipping Address', 'woocommerce'),
+            'fields' => array(
+                'shipping_first_name' => array(
+                    'label' => __('First name', 'woocommerce'),
+                    'description' => ''
+                ),
+                'shipping_last_name' => array(
+                    'label' => __('Last name', 'woocommerce'),
+                    'description' => ''
+                ),
+                'shipping_company' => array(
+                    'label' => __('Company', 'woocommerce'),
+                    'description' => ''
+                ),
+                'shipping_address_1' => array(
+                    'label' => __('Address 1', 'woocommerce'),
+                    'description' => ''
+                ),
+                'shipping_address_2' => array(
+                    'label' => __('Address 2', 'woocommerce'),
+                    'description' => ''
+                ),
+                'shipping_city' => array(
+                    'label' => __('City', 'woocommerce'),
+                    'description' => ''
+                ),
+                'shipping_postcode' => array(
+                    'label' => __('Postcode', 'woocommerce'),
+                    'description' => ''
+                ),
+                'shipping_state' => array(
+                    'label' => __('State/County', 'woocommerce'),
+                    'description' => __('State/County or state code', 'woocommerce')
+                ),
+                'shipping_country' => array(
+                    'label' => __('Country', 'woocommerce'),
+                    'description' => __('2 letter Country code', 'woocommerce')
+                )
+            )
+        )
+    ));
+    return $show_fields;
 }

@@ -8,6 +8,7 @@
  * @license		http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 ?>
+
 <div id="item-body" role="main">
 	<?php do_action( 'woocommerce_before_my_account' ); ?>
 

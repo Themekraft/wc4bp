@@ -15,6 +15,6 @@ delete_option( 'wc4bp-basic-integration' );
 delete_option( 'wc4bp_api_manager_instance' );
 delete_option( 'wc4bp_api_manager_deactivate_checkbox' );
 delete_option( 'wc4bp_api_manager_activated' );
-delete_option( 'plugin_wc4bp_api_manager_version' );
+delete_option( 'wc4bp_api_manager_version' );
 delete_option( 'wc4bp_api_manager_checkbox' );
 

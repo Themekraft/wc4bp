@@ -29,7 +29,7 @@ class WC4BP_API_Manager {
 	 * @var string
 	 * This version is saved after an upgrade to compare this db version to $version
 	 */
-	public $wc4bp_api_manager_version_name = 'plugin_wc4bp_api_manager_version';
+	public $wc4bp_api_manager_version_name = 'wc4bp_api_manager_version';
 
 	/**
 	 * @var string
