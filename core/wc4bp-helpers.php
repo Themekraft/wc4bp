@@ -54,39 +54,6 @@ function  wc4bp_load_template( $template_name ) {
 }
 
 /**
- * Exclude all woocommerce pages from the main nav
- * 
- * Only used in default theme and possibly child themes
- * if no custom menu is defined for the top navigation
- * 
- * @since   1.0
- * @uses    is_user_logged_in()
- * @uses    bp_get_option()
- * @uses     wc4bp_get_tracking_page_id()
- */
-function  wc4bp_exclude_pages_navigation( $args ) {
-    if( ! is_user_logged_in() )
-        return $args;
-    
-    $woo_pages = array(
-        bp_get_option( 'woocommerce_cart_page_id' ),
-        bp_get_option( 'woocommerce_checkout_page_id' ),
-        bp_get_option( 'woocommerce_view_order_page_id' ),
-        bp_get_option( 'woocommerce_edit_address_page_id' ),
-        bp_get_option( 'woocommerce_myaccount_page_id' ),
-        bp_get_option( 'woocommerce_pay_page_id' ),
-        bp_get_option( 'woocommerce_thanks_page_id' ),
-        bp_get_option( 'woocommerce_change_password_page_id' ),
-        woocommerce_get_page_id( 'order_tracking' )
-    );
-    
-    $args['exclude'] = join( ',', $woo_pages );
-    
-    return apply_filters( 'wc4bp_exclude_pages_navigation', $args, $woo_pages );
-}
-add_filter( 'wp_page_menu_args', 'wc4bp_exclude_pages_navigation' );
-
-/**
  * Adjust the checkout url to point to the profile
  * 
  * @since   1.0
@@ -219,8 +186,24 @@ function wc4bp_my_downloads_shortcode( $atts ){
 }
 add_shortcode( 'wc4bp_my_downloads', 'wc4bp_my_downloads_shortcode' );
 
+function wc4bp_my_addresses_shortcode( $atts ){
+    return woocommerce_get_template( 'myaccount/my-address.php' );
+}
+add_shortcode( 'wc4bp_my_addresses', 'wc4bp_my_addresses_shortcode' );
 
 function wc4bp_my_recent_orders_shortcode( $atts ){
-    return woocommerce_get_template( 'myaccount/my-orders.php', array( 'order_count' => $order_count ) );
+
+
+    global $bp;
+
+    if(  wc4bp_is_subpage( 'view-order' ) ) :
+
+        return do_action( 'woocommerce_view_order', $bp->action_variables[1] );
+    else:
+
+        return woocommerce_get_template( 'myaccount/my-orders.php', array( 'order_count' => 'all' ) );
+
+    endif;
+
 }
 add_shortcode( 'wc4bp_my_recent_orders', 'wc4bp_my_recent_orders_shortcode' );

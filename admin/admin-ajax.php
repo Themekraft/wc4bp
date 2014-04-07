@@ -47,8 +47,8 @@ function wc4bp_add_page($wc4bp_page_id){
 		$tab_slug = $_POST['wc4bp_tab_slug'];
 		
 	if(empty($tab_slug))
-		$tab_slug = sanitize_title($tab_name);	
-	
+		$tab_slug = sanitize_title($tab_name);
+
 	if(empty($page_id))
 		return;
 	

@@ -139,7 +139,9 @@ function  wc4bp_activate() {
 		update_option( 'wc4bp_shipping_address_ids', $shipping );
 		// save the billing data
 		update_option( 'wc4bp_billing_address_ids',  $billing  );
-	endif;		
+	endif;
+
+    update_option('wc4bp_options',Array('tab_shop_default' => 'default'));
 }
 
 /**

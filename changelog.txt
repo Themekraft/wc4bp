@@ -1,3 +1,15 @@
+= v1.3.8 =
+* fixed issues with the profile sync
+
+= v1.3.7 =
+* fixed issues with the checkout js
+
+= v1.3.6 =
+* add new filters for wc4bp_checkout_page_link and wc4bp_account_page_link
+
+= v1.3.5 =
+* rewrite for woocommerce 2.1
+
 = v1.3.4 =
 * fixed issues with the the api manager
 

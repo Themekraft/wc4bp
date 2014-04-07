@@ -35,7 +35,7 @@ get_header( 'buddypress' ); ?>
 
 			<div id="item-body">
 
-				<?php do_action( ''wc4bpbefore_member_body' ); ?>
+				<?php do_action( 'wc4bpbefore_member_body' ); ?>
 				
 				<?php
 				if(  wc4bp_is_page( 'history' ) ) :
@@ -45,12 +45,11 @@ get_header( 'buddypress' ); ?>
 					 wc4bp_load_template( 'shop/member/track' );
 
 				else :
-					//bp_core_load_template( 'shop/member/cart' );
-					
+					bp_core_load_template( 'shop/member/cart' );
 				endif;
 				?>
 
-				<?php do_action( ' 'wc4bpfter_member_body' ); ?>
+				<?php do_action( 'wc4bpfter_member_body' ); ?>
 
 			</div><!-- #item-body -->
 

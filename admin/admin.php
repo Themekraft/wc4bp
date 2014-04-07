@@ -125,7 +125,7 @@ function wc4bp_shop_tabs_disable(){
 	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
 	
 	// echo '<pre>';
-	// print_r($wc4bp_pages_options);
+	// print_r($wc4bp_options );
 	// echo '</pre>';
 	
 	$tab_cart_disabled = 0;
@@ -195,9 +195,9 @@ function wc4bp_shop_tabs_disable(){
 		<select name='wc4bp_options[tab_shop_default]'>
 		<?php
 			if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages']) && count( $wc4bp_pages_options['selected_pages'] ) > 0 ){
-				echo '<option value="default" '.selected( $wc4bp_options['tab_shop_default'], $key ).'>Default</option>';
+				echo '<option value="default" '.selected( $wc4bp_options['tab_shop_default'], 'default', false ).'>Default</option>';
 				foreach ($wc4bp_pages_options['selected_pages'] as $key => $attached_page) {
-					echo '<option value="'.$key.'" '.selected( $wc4bp_options['tab_shop_default'], $key ).'>'.$attached_page['tab_name'].'</option>';
+					echo '<option value="'.$key.'" '.selected( $wc4bp_options['tab_shop_default'], $key, false ).'>'.$attached_page['tab_name'].'</option>';
 				}
 			} else {
 				echo '<option value="default" '.selected( $wc4bp_options['tab_shop_default'], $key ).'>You need at least one Page added to Member Profiles!</option>';
@@ -259,12 +259,12 @@ function wc4bp_shop_tabs_add(){
 }
 
 function wc4bp_get_forms_table() {
-	//$wc4bp_options			= get_option( 'wc4bp_options' ); 
+	//6$wc4bp_options			= get_option( 'wc4bp_options' );
 	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
 	
 	// echo '<pre>';
-	// print_r($options);
-	// echo '</pre>';
+    // print_r($wc4bp_pages_options);
+    // echo '</pre>';
 	?>
 	 <style type="text/css">
 	 .wc4bp_editinline{
@@ -355,12 +355,15 @@ function wc4bp_add_edit_entry_form($edit = ''){
 	if(isset($_POST['wc4bp_tab_slug']))
 		$wc4bp_tab_slug = $_POST['wc4bp_tab_slug'];
 
-	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
-	
+	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' );
+
+    $children = 0;
+    $page_id = '';
 	if(isset($wc4bp_tab_slug)){
 		
 		if(isset( $wc4bp_pages_options['selected_pages'][$wc4bp_tab_slug]['tab_name']))
 			$tab_name = $wc4bp_pages_options['selected_pages'][$wc4bp_tab_slug]['tab_name'];
+
 
 		if(isset( $wc4bp_pages_options['selected_pages'][$wc4bp_tab_slug]['children']))
 			$children = $wc4bp_pages_options['selected_pages'][$wc4bp_tab_slug]['children'];
@@ -393,8 +396,9 @@ function wc4bp_add_edit_entry_form($edit = ''){
 	<input id='wc4bp_position' name='wc4bp_position' type='text' value='<?php echo $position ?>' /></p>
 
 	
-	<?php if(isset($wc4bp_tab_slug)) ?>
-		<input type="hidden" id="wc4bp_tab_slug" value="<?php echo $wc4bp_tab_slug ?>" />
+	<?php if(isset($wc4bp_tab_slug))
+        echo '<input type="hidden" id="wc4bp_tab_slug" value="' . $wc4bp_tab_slug . '" />';
+    ?>
 	
 	<input type="button" value="Save" name="add_cpt4bp_page" class="button add_cpt4bp_page btn">
 	<?php

@@ -4,7 +4,7 @@
  * Plugin URI:  http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author:      WC4BP Integration Dev Team ;)
- * Version:     1.3.4
+ * Version:     1.3.8
  *
  *****************************************************************************
  *
@@ -37,7 +37,7 @@ class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION 	= '1.3.4';
+	const VERSION 	= '1.3.8';
 
     /**
 	 * Minimum required WP version
@@ -52,7 +52,7 @@ class WC4BP_Loader {
 	/**
 	 * Minimum required woocommerce version
 	 */
-	const MIN_WOO 	= '1.6.3';
+	const MIN_WOO 	= '2.1';
 
 	/**
 	 * Name of the plugin folder
@@ -270,24 +270,26 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/resources/api-manager/api-
  * @todo	Write a fix to use filters rather than redeclaring these functions
  * 			which could potentially create conflicts with other plugins
  */
-$wc4bp_options			= get_option( 'wc4bp_options' );
-if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
+//$wc4bp_options			= get_option( 'wc4bp_options' );
+//if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
 
 if( ! function_exists( 'is_checkout' ) ) :
+
 /**
  * Check if we're on a checkout page
  *
  * @since 	1.0.5
  */
 function is_checkout() {
-	if( is_user_logged_in() ) :
-		if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'checkout' ) ) :
+    $wc4bp_options			= get_option( 'wc4bp_options' );
+
+	if( is_user_logged_in() && ! isset($wc4bp_options['tab_cart_disabled'] )) :
+
+        if( bp_is_current_component( 'shop' ) && (bp_is_action_variable( 'checkout' ) || bp_is_action_variable( 'cart' ) )) :
 			return true;
-		endif;
+        endif;
 	else :
-		if( is_page( woocommerce_get_page_id( 'checkout' ) ) || is_page( woocommerce_get_page_id( 'pay' ) ) ) :
-			return true;
-		endif;
+        return is_page( wc_get_page_id( 'checkout' ) ) ? true : false;
 	endif;
 
 	return false;
@@ -301,7 +303,9 @@ if( ! function_exists( 'is_cart' ) ) :
  * @since 	1.0.5
  */
 function is_cart() {
-	if( is_user_logged_in() ) :
+    $wc4bp_options			= get_option( 'wc4bp_options' );
+
+    if( is_user_logged_in() && ! isset($wc4bp_options['tab_cart_disabled'] )) :
 		if( bp_is_current_component( 'shop' ) && ! bp_action_variables() ) :
 			return true;
 		endif;
@@ -315,7 +319,7 @@ function is_cart() {
 }
 endif;
 
-}
+
 if( ! function_exists( 'is_account_page' ) ) :
 /**
  * Check if we're on an account page
@@ -323,16 +327,43 @@ if( ! function_exists( 'is_account_page' ) ) :
  * @since 	1.0.5
  */
 function is_account_page() {
-	if( is_user_logged_in() ) :
-		if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'history' ) ) :
-			return true;
+
+    if( is_user_logged_in() ) :
+		if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'checkout' ) ) :
+    		return true;
 		endif;
-	else :
-		if( is_page( woocommerce_get_page_id( 'myaccount' ) ) || is_page( woocommerce_get_page_id( 'edit_address' ) ) || is_page( woocommerce_get_page_id( 'view_order' ) ) || is_page( woocommerce_get_page_id( 'change_password' ) ) ) :
-			return true;
-		endif;
-	endif;
+    else :
+        return is_page( wc_get_page_id( 'myaccount' ) ) || apply_filters( 'woocommerce_is_account_page', false ) ? true : false;
+    endif;
 
 	return false;
 }
 endif;
+
+if ( ! function_exists( 'is_order_received_page' ) ) {
+
+    /**
+     * is_order_received_page - Returns true when viewing the order received page.
+     *
+     * @access public
+     * @return bool
+     */
+    function is_order_received_page() {
+        global $wp;
+
+
+        if( is_user_logged_in() ) :
+            if( bp_is_current_component( 'shop' ) && (bp_is_action_variable( 'checkout' ) || bp_is_action_variable( 'cart' ) )) :
+                return true;
+            endif;
+        else :
+            if( is_page( wc_get_page_id( 'checkout' ) ) && isset( $wp->query_vars['order-received'] ) ):
+                return true;
+            endif;
+        endif;
+
+        return false;
+
+
+    }
+}

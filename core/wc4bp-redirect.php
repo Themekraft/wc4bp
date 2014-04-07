@@ -17,7 +17,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @since 1.0.6
  */
 function  wc4bp_get_redirect_link( $id = false ) {
-	global $bp;
+	global $bp, $wp;
 
 	$wc4bp_options	= get_option( 'wc4bp_options' ); 
 	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
@@ -25,54 +25,70 @@ function  wc4bp_get_redirect_link( $id = false ) {
 	if( ! $id )
 		return false;
 
-	$cart_page_id 		= woocommerce_get_page_id( 'cart' 			 );
-	$checkout_page_id 	= woocommerce_get_page_id( 'checkout' 		 );
-	$view_page_id 		= woocommerce_get_page_id( 'view_order' 	 );
+	$cart_page_id 		= wc_get_page_id( 'cart' 			 );
+	$checkout_page_id 	= wc_get_page_id( 'checkout' 		 );
+    $account_page_id 	= wc_get_page_id( 'myaccount' 		 );
+
+
+    /*$view_page_id 		= woocommerce_get_page_id( 'view_order' 	 );
 	$address_page_id 	= woocommerce_get_page_id( 'edit_address' 	 );
-	$account_page_id 	= woocommerce_get_page_id( 'myaccount' 		 );
 	$password_page_id 	= woocommerce_get_page_id( 'change_password' );
 	$thanks_page_id 	= woocommerce_get_page_id( 'thanks' 		 );
 	$pay_page_id 		= woocommerce_get_page_id( 'pay' 			 );
 	$track_page_id 		= woocommerce_get_page_id( 'order_tracking'  );
+    */
 	$link = '';
-	
-	switch( $id ) {
+
+
+    switch( $id ) {
 		case $cart_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] == 'default')
 				$link = bp_loggedin_user_domain() .'shop/home/';
 			break;
 
 		case $checkout_page_id:
-			if( ! isset( $wc4bp_options['tab_cart_disabled']))
-				$link = bp_loggedin_user_domain() .'shop/home/checkout/';
-			break;
+			if( ! isset( $wc4bp_options['tab_cart_disabled'])){
+                global $wp;
 
-		case $thanks_page_id:
+                $link = bp_loggedin_user_domain() .'shop/home/checkout/';
+                if(isset( $wp->query_vars['order-received'])){
+                    $link .= 'order-received/' . $wp->query_vars['order-received'] . '/?key=' . $_GET['key'];
+                }
+
+            }
+            $link = apply_filters('wc4bp_checkout_page_link', $link);
+            break;
+
+
+		/*case $thanks_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']))
 				$link = bp_loggedin_user_domain() .'shop/home/checkout/thanks/';
-			break;
+			break;*/
 
-		case $pay_page_id:
+		/*case $pay_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']))
 				$link = bp_loggedin_user_domain() .'shop/home/checkout/pay/';
-			break;
+			break;*/
 
-		case $track_page_id:
+		/*case $track_page_id:
 			if( ! isset( $wc4bp_options['tab_track_disabled']))
 				$link = bp_loggedin_user_domain() .'shop/track/';
-			break;
+			break;*/
 
 		case $account_page_id:
-			if( ! isset( $wc4bp_options['tab_history_disabled']))
-				$link = bp_loggedin_user_domain() .'shop/history/';
-			break;
 
-		case $view_page_id:
+            if( ! isset( $wc4bp_options['tab_history_disabled']))
+				$link = bp_loggedin_user_domain() .'shop/history/';
+
+            $link = apply_filters('wc4bp_account_page_link', $link);
+            break;
+
+		/*case $view_page_id:
 			if( ! isset( $wc4bp_options['tab_history_disabled']))
 				$link = bp_loggedin_user_domain() .'shop/history/view/';
-			break;
+			break;*/
 
-		case $address_page_id:
+		/*case $address_page_id:
 			$type = ( isset( $_GET['address'] ) ) ? $_GET['address'] : 'billing';
 
 			switch( $type )	{
@@ -86,11 +102,11 @@ function  wc4bp_get_redirect_link( $id = false ) {
 					$url = bp_loggedin_user_domain(). $bp->profile->slug .'/edit/group/'. $ids['group_id'];
 					break;
 			}
-			break;
+			break;*/
 
-		case $password_page_id:
+		/*case $password_page_id:
 			$link = bp_loggedin_user_domain() . $bp->settings->slug .'/';
-			break;
+			break;*/
 
 		default :
 			
@@ -113,9 +129,16 @@ function  wc4bp_get_redirect_link( $id = false ) {
 			if($the_page_id == $the_courent_id){
 				$post_data = get_post($id, ARRAY_A);
 				$slug = $post_data['post_name'];
-				$link = bp_loggedin_user_domain() .'shop/'.$attached_page['tab_slug'].'/'.$slug;
+				$link = bp_loggedin_user_domain() .'shop/'.$attached_page['tab_slug'].'/'.$slug.'/';
+
+                if(isset( $wp->query_vars['order-received'])){
+                    $link .= 'order-received/' . $wp->query_vars['order-received'] . '/?key=' . $_GET['key'];
+                }
+
 			}
-			
+
+
+
 	 	}
 	}
 
