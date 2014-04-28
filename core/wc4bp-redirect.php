@@ -39,7 +39,6 @@ function  wc4bp_get_redirect_link( $id = false ) {
     */
 	$link = '';
 
-
     switch( $id ) {
 		case $cart_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] == 'default')
@@ -51,6 +50,11 @@ function  wc4bp_get_redirect_link( $id = false ) {
                 global $wp;
 
                 $link = bp_loggedin_user_domain() .'shop/home/checkout/';
+
+                if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+                    $link = str_replace( 'http:', 'https:', $link );
+                }
+
                 if(isset( $wp->query_vars['order-received'])){
                     $link .= 'order-received/' . $wp->query_vars['order-received'] . '/?key=' . $_GET['key'];
                 }
