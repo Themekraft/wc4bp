@@ -30,7 +30,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
     $account_page_id 	= wc_get_page_id( 'myaccount' 		 );
 
 
-    /*$view_page_id 		= woocommerce_get_page_id( 'view_order' 	 );
+    /*$view_page_id 	= woocommerce_get_page_id( 'view_order' 	 );
 	$address_page_id 	= woocommerce_get_page_id( 'edit_address' 	 );
 	$password_page_id 	= woocommerce_get_page_id( 'change_password' );
 	$thanks_page_id 	= woocommerce_get_page_id( 'thanks' 		 );

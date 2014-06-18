@@ -229,7 +229,7 @@ class WC4BP_Loader {
 	 * Enqueue admin JS and CSS
 	 *
 	 * @author Sven Lehnert
-	 * @package TK Google Fonts
+	 * @package WC4BP
 	 * @since 1.0
 	 */
 

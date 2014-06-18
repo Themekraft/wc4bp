@@ -13,17 +13,19 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Synchronize the shipping and billing address from the profile
- * 
+ *
  * Makes sure that the addresses are always the same
  * to avoid template problems. Note that $$context is a
  * variable variable and not a misspelling :)
  *
- * @since 	1.0
- * 
- * @uses	bp_get_option()
- * @uses	bp_update_user_meta()
- * @uses	bp_action_variable()
- * @uses	bp_displayed_user_id()
+ * @since    1.0
+ *
+ * @uses    bp_get_option()
+ * @uses    bp_update_user_meta()
+ * @uses    bp_action_variable()
+ * @uses    bp_displayed_user_id()
+ * @param $field_id
+ * @param $value
  */
 function  wc4bp_sync_addresses_from_profile( $field_id, $value ) {
 	$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
@@ -33,13 +35,20 @@ function  wc4bp_sync_addresses_from_profile( $field_id, $value ) {
 		return false;
 	
 	$context = ( $shipping['group_id'] == bp_action_variable( 1 ) ) ? 'shipping' : 'billing';
-	
-	// group ids can have duplicate field ids, so we need to unset them here
+
+/*    echo '<pre>';
+    print_r($billing);
+    echo '</pre>';*/
+
+    // group ids can have duplicate field ids, so we need to unset them here
 	unset( $shipping['group_id'] );
 	unset( $billing['group_id']  );
 
 	// change $$context to something else and the sky will fall on your head
+
 	$key = array_search( $field_id, $$context );
+
+    //echo $context .'_'. $key.'<br>';
 
 	if( ! $key )
 		return false;
@@ -146,7 +155,7 @@ function  wc4bp_get_mapped_fields() {
 		'_first_name' 	=> 'first_name',
 		'_last_name' 	=> 'last_name',
 		'_company' 		=> 'company',
-		'_address_1' 	=> 'address',
+		'_address_1'   	=> 'address',
 		'_address_2' 	=> 'address-2',
 		'_city' 		=> 'city',
 		'_postcode' 	=> 'postcode',
