@@ -30,15 +30,12 @@ if( ! defined( 'ABSPATH' ) ) exit;
 function  wc4bp_sync_addresses_from_profile( $field_id, $value ) {
 	$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 	$billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
-	
+
 	if( ! in_array( bp_action_variable( 1 ), array( $shipping['group_id'], $billing['group_id'] ) ) )
 		return false;
 	
 	$context = ( $shipping['group_id'] == bp_action_variable( 1 ) ) ? 'shipping' : 'billing';
 
-/*    echo '<pre>';
-    print_r($billing);
-    echo '</pre>';*/
 
     // group ids can have duplicate field ids, so we need to unset them here
 	unset( $shipping['group_id'] );
@@ -47,8 +44,6 @@ function  wc4bp_sync_addresses_from_profile( $field_id, $value ) {
 	// change $$context to something else and the sky will fall on your head
 
 	$key = array_search( $field_id, $$context );
-
-    //echo $context .'_'. $key.'<br>';
 
 	if( ! $key )
 		return false;
@@ -96,7 +91,7 @@ function  wc4bp_sync_addresses_from_admin( $user_id ) {
 								
 				// get the field id
 				$field_id = $kind_of[$mapped_fields[$mapped_key]];
- 			
+
 				// update if it isn't empty
 				if( ! empty( $field_id ) )
 					xprofile_set_field_data( $field_id, $user_id, $_POST[$key] );
@@ -155,8 +150,8 @@ function  wc4bp_get_mapped_fields() {
 		'_first_name' 	=> 'first_name',
 		'_last_name' 	=> 'last_name',
 		'_company' 		=> 'company',
-		'_address_1'   	=> 'address',
-		'_address_2' 	=> 'address-2',
+		'_address_1'   	=> 'address_1',
+		'_address_2' 	=> 'address_2',
 		'_city' 		=> 'city',
 		'_postcode' 	=> 'postcode',
 		'_country' 		=> 'country',

@@ -11,7 +11,11 @@
 add_action( 'admin_menu', 'wc4bp_admin_menu' );
 
 function wc4bp_admin_menu() {
-    add_menu_page( 'WooCommerce for BuddyPress', 'WC4BP Options', 'manage_options', 'wc4bp-options-page', 'wc4bp_screen' );
+    add_menu_page( 'WooCommerce for BuddyPress', 'WC4BP Settings', 'manage_options', 'wc4bp-options-page', 'wc4bp_screen' );
+    add_submenu_page( 'wc4bp-options-page', 'WC4BP Add Pages'   , 'Add Pages'    , 'manage_options', 'wc4bp-options-page-tabs'   , 'wc4bp_screen_tabs' );
+    add_submenu_page( 'wc4bp-options-page', 'WC4BP Profile Sync'        , 'Profile Sync'    , 'manage_options', 'wc4bp-options-page-sync'   , 'wc4bp_screen_sync' );
+
+    do_action('wc4bp_add_submenu_page');
 }
 
 /**
@@ -38,7 +42,7 @@ function wc4bp_screen() { ?>
 
                 <div style="float: left; overflow: auto; border-right: 1px solid #ddd; padding: 0 20px 0 0;">
                     <h3>Get Support.</h3>
-                    <p><a class="button secondary" onClick="script: Zenbox.show(); return false;" class="button secondary"  href="#" title="Submit an email support ticket">Ask Question</a> <a title="View Documentation" target="_new" href="https://themekraft.zendesk.com/hc/en-us/categories/200005301-WooCommerce-BuddyPress-Integration" class="button">Documentation</a> </p>
+                    <p><a class="button secondary" onClick="script: Zenbox.show(); return false;" class="button secondary"  href="#" title="Submit an email support ticket">Ask Question</a> </p>
                 </div>
 
                 <div style="float: left; overflow: auto; padding: 0 20px 0 20px; border-right: 1px solid #ddd;">
@@ -47,19 +51,19 @@ function wc4bp_screen() { ?>
                 </div>
 
                 <div style="float: left; overflow: auto; padding: 0 20px 0 20px;">
-                    <h3>Discuss with others.</h3>
+                    <h3>Documentation</h3>
                     <p>Learn, share, discuss. Visit our <a title="Visit Community Members Forums" class="button button-secondary" href="https://themekraft.zendesk.com/hc/communities/public/topics/200001191-WooCommerce-BuddyPress-Integration-Trouble-Shooting" target="_new">Community Forums</a></p>
                 </div>
 
             </div>
         </div>
 		<br>
-		
+
         <form method="post" action="options.php">
             <?php wp_nonce_field( 'update-options' ); ?>
             <?php settings_fields( 'wc4bp_options' ); ?>
             <?php do_settings_sections( 'wc4bp_options' ); ?>
-            
+
         </form>
 
     </div><?php
@@ -85,7 +89,7 @@ function wc4bp_register_admin_settings() {
 	
 	add_settings_field(		'tabs_disabled'	, '<p><b>Remove Shop Tabs</b></p>'	, 'wc4bp_shop_tabs_disable'	, 'wc4bp_options' , 'section_general' );
 	//add_settings_field(		'tabs_rename'	, '<b>Rename Shop Profile Tabs</b>'	, 'wc4bp_shop_tabs_rename'	, 'wc4bp_options' , 'section_general' );
-	add_settings_field(		'tabs_add'	, '<p><b>Add New Tabs</b></p>'	, 'wc4bp_shop_tabs_add'	, 'wc4bp_options' , 'section_general' );
+	//add_settings_field(		'tabs_add'	, '<p><b>Add New Tabs</b></p>'	, 'wc4bp_shop_tabs_add'	, 'wc4bp_options' , 'section_general' );
 
 }
 

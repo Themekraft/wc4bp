@@ -21,20 +21,14 @@ class WC4BP_API_Manager_MENU {
 
 		$this->wc4bp_api_manager_key = new WC4BP_API_Manager_Key();
 
-		add_action( 'admin_menu', array( $this, 'add_menu' ) );
+		add_action( 'wc4bp_add_submenu_page', array( $this, 'add_menu' ) );
 		add_action( 'admin_init', array( $this, 'load_settings' ) );
 	}
 
 	// Add option page menu
 	public function add_menu() {
 
-//        $page = add_submenu_page( 'wc4bp-options-page', __( WC4BPAM()->wc4bp_plugin_settings_menu_title, 'wc4bp-api-manager' ), __( WC4BPAM()->wc4bp_plugin_settings_menu_title, 'wc4bp-api-manager' ),
-//                'manage_options', WC4BPAM()->wc4bp_plugin_activation_tab_key, array( $this, 'config_page')
-//        );
-
-        $page = add_options_page( __( WC4BPAM()->wc4bp_plugin_settings_menu_title, 'wc4bp-api-manager' ), __( WC4BPAM()->wc4bp_plugin_settings_menu_title, 'wc4bp-api-manager' ),
-						'manage_options', WC4BPAM()->wc4bp_plugin_activation_tab_key, array( $this, 'config_page')
-		);
+        $page = add_submenu_page( 'wc4bp-options-page', __( WC4BPAM()->wc4bp_plugin_settings_menu_title, 'wc4bp-api-manager' ), __( WC4BPAM()->wc4bp_plugin_settings_menu_title, 'wc4bp-api-manager' ), 'manage_options',  WC4BPAM()->wc4bp_plugin_activation_tab_key, array( $this, 'config_page') );
 
 		add_action( 'admin_print_styles-' . $page, array( $this, 'css_scripts' ) );
 	}

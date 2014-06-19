@@ -81,6 +81,7 @@ class WC4BP_Loader {
 
 		$this->constants();
 
+        add_action('plugins_loaded'						, array($this, 'update') , 10 );
 		add_action('plugins_loaded'					, array($this, 'translate'));
 		add_action('bp_include'						, array($this, 'includes') , 10 );
 
@@ -111,8 +112,10 @@ class WC4BP_Loader {
 		if (is_admin()){
 
 			// API License Key Registration Form
-			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php');			// API License Key Registration Form
-			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-ajax.php');			// API License Key Registration Form
+            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php');
+            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-sync.php');
+            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-profile-tabs.php');
+            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-ajax.php');
 
 		}
 
@@ -212,6 +215,49 @@ class WC4BP_Loader {
         include_once( dirname( __FILE__ ) .'/admin/wc4bp-activate.php' );
 		wc4bp_activate();
 	}
+
+    /*
+     *  Update function from version 1.3.8 to 1.4
+     */
+    public function update(){
+        if(version_compare(WC4BP_VERSION, '1.4', '<')) {
+
+            $billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
+            $shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
+
+            $billing_changed = false;
+            $shipping_changed = false;
+
+            if( isset($billing['address']) ) {
+                $billing['address_1'] = $billing['address'];
+                unset($billing['address']);
+                $billing_changed = true;
+            }
+
+            if( isset($billing['address-2']) ) {
+                $billing['address_2'] = $billing['address-2'];
+                unset($billing['address-2']);
+                $billing_changed = true;
+            }
+
+            if( isset($shipping['address']) ) {
+                $shipping['address_1'] = $shipping['address'];
+                unset($shipping['address']);
+                $shipping_changed = true;
+            }
+            if( isset($shipping['address-2']) ) {
+                $shipping['address_2'] = $shipping['address-2'];
+                unset($shipping['address-2']);
+                $shipping_changed = true;
+            }
+
+            if ($billing_changed == true)
+                bp_update_option('wc4bp_billing_address_ids', $billing);
+
+            if ($shipping_changed == true)
+                bp_update_option('wc4bp_shipping_address_ids', $shipping);
+        }
+    }
 
 	/**
 	 * Deletes all data if plugin deactivated

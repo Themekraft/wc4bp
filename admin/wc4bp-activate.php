@@ -54,8 +54,8 @@ function  wc4bp_activate() {
 	$billing['first_name'] = xprofile_insert_field( array( 'field_group_id' => $billing['group_id'], 'type' => 'textbox', 'name' => 'First Name', 'field_order' => 1, 'is_required' => 1  ) );
 	$billing['last_name']  = xprofile_insert_field( array( 'field_group_id' => $billing['group_id'], 'type' => 'textbox', 'name' => 'Last Name', 	'field_order' => 2, 'is_required' => 1	) );
 	$billing['company']    = xprofile_insert_field( array( 'field_group_id' => $billing['group_id'], 'type' => 'textbox', 'name' => 'Company',	'field_order' => 3, 'is_required' => 0	) );
-	$billing['address']    = xprofile_insert_field( array( 'field_group_id' => $billing['group_id'], 'type' => 'textbox', 'name' => 'Address 1',	'field_order' => 4,	'is_required' => 1	) );
-	$billing['address-2']  = xprofile_insert_field( array( 'field_group_id' => $billing['group_id'], 'type' => 'textbox', 'name' => 'Address 2',	'field_order' => 5, 'is_required' => 0	) );
+	$billing['address_1']  = xprofile_insert_field( array( 'field_group_id' => $billing['group_id'], 'type' => 'textbox', 'name' => 'Address 1',	'field_order' => 4,	'is_required' => 1	) );
+	$billing['address_2']  = xprofile_insert_field( array( 'field_group_id' => $billing['group_id'], 'type' => 'textbox', 'name' => 'Address 2',	'field_order' => 5, 'is_required' => 0	) );
 	$billing['city'] 	   = xprofile_insert_field( array( 'field_group_id' => $billing['group_id'], 'type' => 'textbox', 'name' => 'City', 		'field_order' => 6, 'is_required' => 1	) );
 	$billing['postcode']   = xprofile_insert_field( array( 'field_group_id' => $billing['group_id'], 'type' => 'textbox', 'name' => 'Postcode', 	'field_order' => 7,	'is_required' => 1	) );
 	$billing['country']    = xprofile_insert_field( array(
@@ -95,8 +95,8 @@ function  wc4bp_activate() {
 	$shipping['first_name']	= xprofile_insert_field( array( 'field_group_id' => $shipping['group_id'], 'type' => 'textbox', 'name' => 'First Name',		'field_order' => 1, 'is_required' => 1	) );
 	$shipping['last_name']	= xprofile_insert_field( array( 'field_group_id' => $shipping['group_id'], 'type' => 'textbox', 'name' => 'Last Name',		'field_order' => 2, 'is_required' => 1	) );
 	$shipping['company']	= xprofile_insert_field( array( 'field_group_id' => $shipping['group_id'], 'type' => 'textbox', 'name' => 'Company',		'field_order' => 3, 'is_required' => 0	) );
-	$shipping['address']	= xprofile_insert_field( array( 'field_group_id' => $shipping['group_id'], 'type' => 'textbox', 'name' => 'Address 1',		'field_order' => 4,	'is_required' => 1	) );
-	$shipping['address-2']	= xprofile_insert_field( array( 'field_group_id' => $shipping['group_id'], 'type' => 'textbox', 'name' => 'Address 2',		'field_order' => 5, 'is_required' => 0	) );
+	$shipping['address_1']	= xprofile_insert_field( array( 'field_group_id' => $shipping['group_id'], 'type' => 'textbox', 'name' => 'Address 1',		'field_order' => 4,	'is_required' => 1	) );
+	$shipping['address_2']	= xprofile_insert_field( array( 'field_group_id' => $shipping['group_id'], 'type' => 'textbox', 'name' => 'Address 2',		'field_order' => 5, 'is_required' => 0	) );
 	$shipping['city']		= xprofile_insert_field( array( 'field_group_id' => $shipping['group_id'], 'type' => 'textbox', 'name' => 'City',			'field_order' => 6,	'is_required' => 1	) );
 	$shipping['postcode']	= xprofile_insert_field( array( 'field_group_id' => $shipping['group_id'], 'type' => 'textbox', 'name' => 'Postcode',		'field_order' => 7,	'is_required' => 1	) );
 	$shipping['country']	= xprofile_insert_field( array(
@@ -153,8 +153,6 @@ function  wc4bp_activate() {
  * @since 	1.0
  */
 function  wc4bp_cleanup() {
-	
-	
 	if(is_multisite()):
 		xprofile_delete_field_group( get_blog_option( BP_ROOT_BLOG, 'wc4bp_shipping_address_ids' ) );
 		xprofile_delete_field_group( get_blog_option( BP_ROOT_BLOG, 'wc4bp_billing_address_ids'  ) );
