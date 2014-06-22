@@ -142,6 +142,9 @@ function  wc4bp_activate() {
 	endif;
 
     update_option('wc4bp_options',Array('tab_shop_default' => 'default'));
+
+    wc4bp_bp_xprofile_update_field_meta($billing);
+    wc4bp_bp_xprofile_update_field_meta($shipping);
 }
 
 /**
@@ -170,3 +173,13 @@ function  wc4bp_cleanup() {
 	endif;		
 	
 }
+
+function wc4bp_bp_xprofile_update_field_meta($field_ids){
+
+    foreach($field_ids as $key => $field_id){
+        bp_xprofile_update_field_meta( $field_id, 'default_visibility', 'adminsonly' );
+        bp_xprofile_update_field_meta( $field_id, 'allow_custom_visibility', 'disabled' );
+    }
+
+}
+
