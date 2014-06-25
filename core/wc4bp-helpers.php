@@ -193,15 +193,11 @@ add_shortcode( 'wc4bp_my_addresses', 'wc4bp_my_addresses_shortcode' );
 
 function wc4bp_my_recent_orders_shortcode( $atts ){
 
-
     global $bp;
 
-    if(  wc4bp_is_subpage( 'view-order' ) ) :
+    if(  wc4bp_is_subpage( 'history' ) ) :
 
-        return do_action( 'woocommerce_view_order', $bp->action_variables[1] );
-    else:
-
-        return woocommerce_get_template( 'myaccount/my-orders.php', array( 'order_count' => 'all' ) );
+        return woocommerce_get_template( 'myaccount/my-orders.php', array( 'order_count' =>  0 ));
 
     endif;
 

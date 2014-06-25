@@ -333,7 +333,7 @@ class WC4BP_API_Manager {
 		<?php if ( ! current_user_can( 'manage_options' ) ) return; ?>
 		<?php if ( isset( $_GET['page'] ) && 'wc4bp_api_manager_dashboard' == $_GET['page'] ) return; ?>
 		<div id="message" class="error">
-			<p><?php printf( __( 'The API License Key for WC4BP could not be found. %sClick here%s to activate it.', 'wc4bp-api-manager' ), '<a href="' . esc_url( admin_url( 'options-general.php?page=wc4bp_api_manager_dashboard' ) ) . '">', '</a>' ); ?></p>
+			<p><?php printf( __( 'The API License Key for WC4BP could not be found. %sClick here%s to activate it.', 'wc4bp-api-manager' ), '<a href="' . esc_url( admin_url( 'admin.php?page=wc4bp_api_manager_dashboard' ) ) . '">', '</a>' ); ?></p>
 		</div>
 		<?php
 	}

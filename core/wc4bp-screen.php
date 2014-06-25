@@ -198,7 +198,7 @@ function  wc4bp_setup_tracking_order() {
 		}
 	endif;
 }
-add_action( 'wc4bp_after_track_heading', 'wc4bp_setup_tracking_order' );
+//add_action( 'wc4bp_after_track_heading', 'wc4bp_setup_tracking_order' );
 
 /**
  * Output the tracked order

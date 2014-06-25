@@ -17,7 +17,7 @@
 
 	<?php do_action( 'wc4bp_after_track_heading' ); ?>
 
-    <?php echo  do_shortcode('[woocommerce_order_tracking]'); ?>
+    <?php echo do_shortcode( '[woocommerce_order_tracking]' ); ?>
 
 	<?php do_action( 'wc4bp_after_track_body' ); ?>
 

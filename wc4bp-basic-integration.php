@@ -81,7 +81,7 @@ class WC4BP_Loader {
 
 		$this->constants();
 
-        add_action('plugins_loaded'						, array($this, 'update') , 10 );
+        add_action('plugins_loaded'					, array($this, 'update') , 10 );
 		add_action('plugins_loaded'					, array($this, 'translate'));
 		add_action('bp_include'						, array($this, 'includes') , 10 );
 
@@ -114,7 +114,8 @@ class WC4BP_Loader {
 			// API License Key Registration Form
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php');
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-sync.php');
-            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-profile-tabs.php');
+            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-pages.php');
+            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-delete.php');
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-ajax.php');
 
 		}
@@ -266,8 +267,12 @@ class WC4BP_Loader {
 	public function uninstall() {
 		global $wpdb, $blog_id;
 
-		include_once( dirname( __FILE__ ) .'/admin/wc4bp-activate.php' );
-		wc4bp_cleanup();
+        $wc4bp_options_delete = get_option('wc4bp_options_delete');
+
+        if($wc4bp_options_delete == 'delete') {
+            include_once(dirname(__FILE__) . '/admin/wc4bp-activate.php');
+            wc4bp_cleanup();
+        }
 	}
 
 

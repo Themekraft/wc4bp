@@ -168,6 +168,7 @@ function get_top_parent_page_id($post_id) {
     }
 
 }
+
 /**
  * Redirect the user to their respective profile page
  *

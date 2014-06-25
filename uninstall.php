@@ -17,4 +17,9 @@ delete_option( 'wc4bp_api_manager_deactivate_checkbox' );
 delete_option( 'wc4bp_api_manager_activated' );
 delete_option( 'wc4bp_api_manager_version' );
 delete_option( 'wc4bp_api_manager_checkbox' );
+delete_option( 'wc4bp_options_sync' );
+delete_option( 'wc4bp_options_tabs' );
+
+
+
 

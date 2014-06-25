@@ -15,21 +15,18 @@ function wc4bp_screen_sync() { ?>
 
         <div id="icon-options-general" class="icon32"><br></div>
         <h2>WooCommerce BuddyPress Integration</h2>
-
-        <div style="overflow: auto;">
+       <div style="overflow: auto;">
 
             <span style="font-size: 13px; float:right;">Proudly brought to you by <a href="http://themekraft.com/" target="_new">Themekraft</a>.</span>
 
         </div>
         <br>
-
         <form method="post" action="options.php">
             <?php wp_nonce_field( 'update-options' ); ?>
             <?php settings_fields( 'wc4bp_options_sync' ); ?>
             <?php do_settings_sections( 'wc4bp_options_sync' ); ?>
 
         </form>
-
     </div><?php
 
 }
@@ -49,23 +46,18 @@ function wc4bp_register_admin_settings_sync() {
     register_setting( 'wc4bp_options_sync', 'wc4bp_options_sync' );
 
     // Settings fields and sections
-    add_settings_section(	'section_general'	, 'Profile Field Synchronisation Settings'							, ''	, 'wc4bp_options_sync' );
+    add_settings_section(	'section_sync'	    , 'Profile Field Synchronisation Settings'							, ''	, 'wc4bp_options_sync' );
+    add_settings_section(	'section_general'	, 'Default BuddyPress WooCommerce Profile Field Settings'			, ''	, 'wc4bp_options_sync' );
 
-    add_settings_field(		'wc4bp_shop_profile_sync'                       , '<p><b>WooCommerce -> BuddyPress Profile fields Sync </b></p>'   , 'wc4bp_shop_profile_sync'                         , 'wc4bp_options_sync' , 'section_general' );
-    add_settings_field(		'wc4bp_change_xprofile_visabilyty_by_user'	    , '<p><b>Change fields visibility for all user</b></p>'     , 'wc4bp_change_xprofile_visabilyty_by_user'	    , 'wc4bp_options_sync' , 'section_general' );
-    add_settings_field(		'wc4bp_change_xprofile_visabilyty_default'	    , '<h2>Default Settings</h2><p><b>Set the default Profile fields visibility</b></p>'	, 'wc4bp_change_xprofile_visabilyty_default'	    , 'wc4bp_options_sync' , 'section_general' );
-    add_settings_field(		'wc4bp_change_xprofile_allow_custom_visibility'	, '<p><b>Allow custom visibility change by user</b></p>'	, 'wc4bp_change_xprofile_allow_custom_visibility'	, 'wc4bp_options_sync' , 'section_general' );
+    add_settings_field(		'wc4bp_shop_profile_sync'                       , '<b>WooCommerce BuddyPress Profile Fields Sync </b>'   , 'wc4bp_shop_profile_sync'                         , 'wc4bp_options_sync' , 'section_sync' );
+    add_settings_field(		'wc4bp_change_xprofile_visabilyty_by_user'	    , '<b>Change Profile Field Visibility for all Users</b>'    , 'wc4bp_change_xprofile_visabilyty_by_user'	    , 'wc4bp_options_sync' , 'section_sync' );
 
-
-
-    //add_settings_field(		'tabs_disabled'	, '<p><b>Remove Shop Tabs</b></p>'	, 'wc4bp_shop_tabs_disable'	, 'wc4bp_options_sync' , 'section_general' );
-    //add_settings_field(		'tabs_rename'	, '<b>Rename Shop Profile Tabs</b>'	, 'wc4bp_shop_tabs_rename'	, 'wc4bp_options' , 'section_general' );
-    //add_settings_field(		'tabs_add'	, '<p><b>Add New Tabs</b></p>'	, 'wc4bp_shop_tabs_add'	, 'wc4bp_options' , 'section_general' );
-
+    add_settings_field(		'wc4bp_change_xprofile_visabilyty_default'	    , '<b>Set the Default Profile Fields Visibility</b>'	    , 'wc4bp_change_xprofile_visabilyty_default'	    , 'wc4bp_options_sync' , 'section_general' );
+    add_settings_field(		'wc4bp_change_xprofile_allow_custom_visibility'	, '<b>Allow Custom Visibility Change by User</b>'	        , 'wc4bp_change_xprofile_allow_custom_visibility'	, 'wc4bp_options_sync' , 'section_general' );
 }
 
 function wc4bp_shop_profile_sync(){ ?>
-    <p>Sync all WooCommerce user data with BuddyPress</p>
+    <p>Sync all WooCommerce User Data with BuddyPress</p>
     <input type="submit" name="wc4bp_options_sync[wc_bp_sync]" class="button" value="Sync Now">
 
     <?php
@@ -74,6 +66,7 @@ function wc4bp_shop_profile_sync(){ ?>
 
     if ( isset( $wc4bp_options_sync['wc_bp_sync'] ) ){
         $all_user = wc4bp_get_all_user();
+        echo '<h3> Depance on your Userbase this can take a while. Please wait and do not refresh this page.</h3>';
         foreach ( $all_user as $userid ) {
             $user_id       = (int) $userid->ID;
             $display_name  = stripslashes($userid->display_name);
@@ -85,7 +78,9 @@ function wc4bp_shop_profile_sync(){ ?>
 
             print($return);
         }
-        delete_option('wc4bp_options_sync');
+        echo '<h3>All Done!</h3>';
+        unset($wc4bp_options_sync['wc_bp_sync']);
+        update_option('wc4bp_options_sync', $wc4bp_options_sync);
     }
 
 }
@@ -129,12 +124,13 @@ function  wc4bp_sync_from_admin( $user_id ) {
 
 
 function select_visibility_levels($name){
+    $wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
 
-    $visibility_levels = '<select name="wc4bp_options_sync[' . $name . ']"><option value="none">Select Visibility</option>';
+    $visibility_levels = '<select name="wc4bp_options_sync[' . $name . ']"><option value="none" '.selected( $wc4bp_options_sync[$name], 'none', false ).'>Select Visibility</option>';
 
     foreach (bp_xprofile_get_visibility_levels() as $level) {
 
-        $visibility_levels .= '<option value="' . $level['id'] . '" >' . $level['label'] . '</option>';
+        $visibility_levels .= '<option value="' . $level['id'] . '"  '.selected( $wc4bp_options_sync[$name], $level['id'], false ).' >' . $level['label'] . '</option>';
 
     }
     $visibility_levels .= '</select>';
@@ -147,7 +143,7 @@ function  wc4bp_change_xprofile_visabilyty_by_user(){ ?>
 
 
 
-    <p>Set the Profile field visibility for all users to</p>
+    <p>Set the Profile Field Visibility for all Users:</p>
         <?php select_visibility_levels('visibility_levels'); ?> <input type="submit" class="button" name="wc4bp_options_sync[change_xprofile_visabilyty]" value="Sync Now">
     <?php
 
@@ -160,7 +156,7 @@ function  wc4bp_change_xprofile_visabilyty_by_user(){ ?>
         // get the corresponding  wc4bp fields
         $shipping = bp_get_option('wc4bp_shipping_address_ids');
         $billing = bp_get_option('wc4bp_billing_address_ids');
-
+        echo '<h3> Depance on your Userbase this can take a while. Please wait and do not refresh this page.</h3>';
         foreach ($all_user as $userid) {
             $user_id = (int)$userid->ID;
             $display_name = stripslashes($userid->display_name);
@@ -177,14 +173,15 @@ function  wc4bp_change_xprofile_visabilyty_by_user(){ ?>
 
             print($return);
         }
-        delete_option('wc4bp_options_sync');
+        echo '<h3>All Done!</h3>';
+        unset($wc4bp_options_sync['change_xprofile_visabilyty']);
+        update_option('wc4bp_options_sync', $wc4bp_options_sync);
     }
 
 }
 
 
 function wc4bp_change_xprofile_visabilyty_default(){ ?>
-    <br><br><br>
     <p>Set the default profile field viability to</p>
     <?php select_visibility_levels('default_visibility'); ?>
     <input type="submit" class="button" name="wc4bp_options_sync[change_xprofile_visabilyty_field_default]" value="Change now">
@@ -209,23 +206,27 @@ function wc4bp_change_xprofile_visabilyty_default(){ ?>
             echo '<li>shipping_' . $key . ' default visibility changed to ' . $wc4bp_options_sync['default_visibility'] . '</li>';
         }
         echo '</ul>';
-        delete_option('wc4bp_options_sync');
+        echo '<h3>All Done!</h3>';
+        unset($wc4bp_options_sync['change_xprofile_visabilyty_field_default']);
+        update_option('wc4bp_options_sync', $wc4bp_options_sync);
     }
 }
 
-function wc4bp_change_xprofile_allow_custom_visibility(){ ?>
+function wc4bp_change_xprofile_allow_custom_visibility(){
+
+    $wc4bp_options_sync = get_option( 'wc4bp_options_sync' ); ?>
 
     <p>Set custom visibility by user</p>
 
     <p>
         <select name="wc4bp_options_sync[custom_visibility]">
-            <option value="allowed">Let members change this field's visibility</option>
-            <option value="disabled">Enforce the default visibility for all members</option>
+            <option value="allowed" <?php echo selected( $wc4bp_options_sync['custom_visibility'], 'allowed', false ); ?>>Let members change this field's visibility</option>
+            <option value="disabled" <?php echo selected( $wc4bp_options_sync['custom_visibility'], 'disabled', false ); ?>>Enforce the default visibility for all members</option>
          </select>
 
         <input type="submit" class="button" name="wc4bp_options_sync[allow_custom_visibility]" value="Change Now">
     </p><?php
-    $wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
+
 
     $billing = bp_get_option('wc4bp_billing_address_ids');
     $shipping = bp_get_option('wc4bp_shipping_address_ids');
@@ -244,7 +245,10 @@ function wc4bp_change_xprofile_allow_custom_visibility(){ ?>
             echo '<li>shipping_' . $key . ' default visibility changed to ' . $wc4bp_options_sync['custom_visibility'] . '</li>';
         }
         echo '</ul>';
-        delete_option('wc4bp_options_sync');
+
+        echo '<h3>All Done!</h3>';
+        unset($wc4bp_options_sync['allow_custom_visibility']);
+        update_option('wc4bp_options_sync', $wc4bp_options_sync);
     }
 
 }

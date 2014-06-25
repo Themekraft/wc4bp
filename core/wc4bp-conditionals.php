@@ -29,7 +29,8 @@ function  wc4bp_is_page( $page ) {
  * @since 	1.0
  */
 function  wc4bp_is_subpage( $sub ) {
-	if( bp_is_current_component( 'shop' ) && bp_is_action_variable( $sub, 0 ) )
+
+	if( bp_is_current_component( 'shop' ) && bp_is_current_action( $sub ) )
 		return true;
 	
 	return false;
