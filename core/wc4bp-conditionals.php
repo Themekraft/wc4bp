@@ -30,7 +30,7 @@ function  wc4bp_is_page( $page ) {
  */
 function  wc4bp_is_subpage( $sub ) {
 
-	if( bp_is_current_component( 'shop' ) && bp_is_current_action( $sub ) )
+	if( bp_is_current_component( 'shop' ) && bp_is_current_action( $sub ) || bp_is_action_variable( $sub, 0 ) )
 		return true;
 	
 	return false;

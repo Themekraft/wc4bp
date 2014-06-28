@@ -30,6 +30,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
     $account_page_id 	= wc_get_page_id( 'myaccount' 		 );
 
 
+
     /*$view_page_id 	= woocommerce_get_page_id( 'view_order' 	 );
 	$address_page_id 	= woocommerce_get_page_id( 'edit_address' 	 );
 	$password_page_id 	= woocommerce_get_page_id( 'change_password' );
@@ -53,6 +54,14 @@ function  wc4bp_get_redirect_link( $id = false ) {
 
                 if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
                     $link = str_replace( 'http:', 'https:', $link );
+                }
+
+                if(isset( $wp->query_vars['order-pay'])){
+                    $link .= 'order-pay/' . $wp->query_vars['order-pay'] . '/?key=' . $_GET['key'];
+                }
+
+                if(isset( $wp->query_vars['add-payment-method'])){
+                    $link .= 'add-payment-method/' . $wp->query_vars['add-payment-method'] . '/?key=' . $_GET['key'];
                 }
 
                 if(isset( $wp->query_vars['order-received'])){
@@ -135,13 +144,19 @@ function  wc4bp_get_redirect_link( $id = false ) {
 				$slug = $post_data['post_name'];
 				$link = bp_loggedin_user_domain() .'shop/'.$attached_page['tab_slug'].'/'.$slug.'/';
 
+                if(isset( $wp->query_vars['order-pay'])){
+                    $link .= 'order-pay/' . $wp->query_vars['order-pay'] . '/?key=' . $_GET['key'];
+                }
+
+                if(isset( $wp->query_vars['add-payment-method'])){
+                    $link .= 'add-payment-method/' . $wp->query_vars['add-payment-method'] . '/?key=' . $_GET['key'];
+                }
+
                 if(isset( $wp->query_vars['order-received'])){
                     $link .= 'order-received/' . $wp->query_vars['order-received'] . '/?key=' . $_GET['key'];
                 }
 
 			}
-
-
 
 	 	}
 	}
