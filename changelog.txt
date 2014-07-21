@@ -10,6 +10,7 @@
 * redesign the admin settings page
 * fixed history view order issue
 * add order-pay and add-payment-method url handling
+* add endpoint support for order pay and order received url
 
 = v1.3.8 =
 * fixed issues with the profile sync
