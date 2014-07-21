@@ -45,7 +45,7 @@ function wc4bp_screen() { ?>
             <div style="margin: 30px 0 0 0; padding: 20px; overflow: auto; background-color: #fff; border-left: 4px solid #2ea2cc; -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1); box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);">
                 <div style="float: left; overflow: auto; border-right: 1px solid #ddd; padding: 0 20px 0 0;">
                     <h3>Get eMail Support.</h3>
-                    <p><a class="button secondary" onClick="script: Zenbox.show(); return false;" class="button secondary"  href="#" title="Submit an email support ticket">Ask Question</a> </p>
+                    <p><a class="button secondary" target="_blank"  href="https://themekraft.zendesk.com/hc/en-us/requests/new" title="Submit an email support ticket">Ask Question</a> </p>
                 </div>
                 <div style="float: left; overflow: auto; padding: 0 20px 0 20px; border-right: 1px solid #ddd;">
                     <h3>Tell us your Ideas!</h3>
