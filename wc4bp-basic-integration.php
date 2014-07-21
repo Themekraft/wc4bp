@@ -402,7 +402,6 @@ if ( ! function_exists( 'is_order_received_page' ) ) {
     function is_order_received_page() {
         global $wp;
 
-
         if( is_user_logged_in() ) :
             if( bp_is_current_component( 'shop' ) && (bp_is_action_variable( 'checkout' ) || bp_is_action_variable( 'cart' ) )) :
                 return true;

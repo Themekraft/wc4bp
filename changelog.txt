@@ -1,3 +1,16 @@
+= v2.0 =
+* add new filters for wc4bp_checkout_page_link and wc4bp_account_page_link
+* fixed issues with the checkout js
+* add delete option to the uninstaller.
+* fixed wc 2.1 bug with the profile sync
+* add https support to the checkout
+* fixing profile field sync for the address fields
+* add new options and option pages
+* add new sync options
+* redesign the admin settings page
+* fixed history view order issue
+* add order-pay and add-payment-method url handling
+
 = v1.3.8 =
 * fixed issues with the profile sync
 

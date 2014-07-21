@@ -20,7 +20,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 	global $bp, $wp;
 
 	$wc4bp_options	= get_option( 'wc4bp_options' ); 
-	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
+	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' );
 
 	if( ! $id )
 		return false;
@@ -29,15 +29,6 @@ function  wc4bp_get_redirect_link( $id = false ) {
 	$checkout_page_id 	= wc_get_page_id( 'checkout' 		 );
     $account_page_id 	= wc_get_page_id( 'myaccount' 		 );
 
-
-
-    /*$view_page_id 	= woocommerce_get_page_id( 'view_order' 	 );
-	$address_page_id 	= woocommerce_get_page_id( 'edit_address' 	 );
-	$password_page_id 	= woocommerce_get_page_id( 'change_password' );
-	$thanks_page_id 	= woocommerce_get_page_id( 'thanks' 		 );
-	$pay_page_id 		= woocommerce_get_page_id( 'pay' 			 );
-	$track_page_id 		= woocommerce_get_page_id( 'order_tracking'  );
-    */
 	$link = '';
 
     switch( $id ) {
@@ -55,38 +46,11 @@ function  wc4bp_get_redirect_link( $id = false ) {
                 if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
                     $link = str_replace( 'http:', 'https:', $link );
                 }
-
-                if(isset( $wp->query_vars['order-pay'])){
-                    $link .= 'order-pay/' . $wp->query_vars['order-pay'] . '/?key=' . $_GET['key'];
-                }
-
-                if(isset( $wp->query_vars['add-payment-method'])){
-                    $link .= 'add-payment-method/' . $wp->query_vars['add-payment-method'] . '/?key=' . $_GET['key'];
-                }
-
-                if(isset( $wp->query_vars['order-received'])){
-                    $link .= 'order-received/' . $wp->query_vars['order-received'] . '/?key=' . $_GET['key'];
-                }
-
-            }
+					
+    	    }
             $link = apply_filters('wc4bp_checkout_page_link', $link);
             break;
 
-
-		/*case $thanks_page_id:
-			if( ! isset( $wc4bp_options['tab_cart_disabled']))
-				$link = bp_loggedin_user_domain() .'shop/home/checkout/thanks/';
-			break;*/
-
-		/*case $pay_page_id:
-			if( ! isset( $wc4bp_options['tab_cart_disabled']))
-				$link = bp_loggedin_user_domain() .'shop/home/checkout/pay/';
-			break;*/
-
-		/*case $track_page_id:
-			if( ! isset( $wc4bp_options['tab_track_disabled']))
-				$link = bp_loggedin_user_domain() .'shop/track/';
-			break;*/
 
 		case $account_page_id:
 
@@ -96,36 +60,6 @@ function  wc4bp_get_redirect_link( $id = false ) {
             $link = apply_filters('wc4bp_account_page_link', $link);
             break;
 
-		/*case $view_page_id:
-			if( ! isset( $wc4bp_options['tab_history_disabled']))
-				$link = bp_loggedin_user_domain() .'shop/history/view/';
-			break;*/
-
-		/*case $address_page_id:
-			$type = ( isset( $_GET['address'] ) ) ? $_GET['address'] : 'billing';
-
-			switch( $type )	{
-				case 'shipping' :
-					$ids = bp_get_option( 'wc4bp_shipping_address_ids' );
-					$url = bp_loggedin_user_domain(). $bp->profile->slug .'/edit/group/'. $ids['group_id'];
-					break;
-
-				case 'billing' :
-					$ids = bp_get_option( 'wc4bp_billing_address_ids' );
-					$url = bp_loggedin_user_domain(). $bp->profile->slug .'/edit/group/'. $ids['group_id'];
-					break;
-			}
-			break;*/
-
-		/*case $password_page_id:
-			$link = bp_loggedin_user_domain() . $bp->settings->slug .'/';
-			break;*/
-
-		default :
-			
-			
-			
-			break;
 	}
 	if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages'])){
 					
@@ -144,7 +78,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 				$slug = $post_data['post_name'];
 				$link = bp_loggedin_user_domain() .'shop/'.$attached_page['tab_slug'].'/'.$slug.'/';
 
-                if(isset( $wp->query_vars['order-pay'])){
+                /* if(isset( $wp->query_vars['order-pay'])){
                     $link .= 'order-pay/' . $wp->query_vars['order-pay'] . '/?key=' . $_GET['key'];
                 }
 
@@ -154,7 +88,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 
                 if(isset( $wp->query_vars['order-received'])){
                     $link .= 'order-received/' . $wp->query_vars['order-received'] . '/?key=' . $_GET['key'];
-                }
+                }*/
 
 			}
 
@@ -224,3 +158,51 @@ function  wc4bp_page_link_router( $link, $id )	{
 	return apply_filters( 'wc4bp_router_link', $link );
 }
 add_filter( 'page_link', 'wc4bp_page_link_router', 10, 2 );
+
+/**
+* Generates a URL so that a customer can pay for their (unpaid - pending) order. Pass 'true' for the checkout version which doesn't offer gateway choices.
+*
+* @access public
+* @param  boolean $on_checkout
+* @return string
+*/
+function wc4bp_get_checkout_payment_url($pay_url, $order){
+	if( isset( $wc4bp_options['tab_cart_disabled']))
+		return $order_received_url;
+		
+	$pay_url = bp_loggedin_user_domain() .'shop/home/checkout/';
+	
+	if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+		$pay_url = str_replace( 'http:', 'https:', $pay_url );
+	}
+	
+	$pay_url = wc_get_endpoint_url( 'order-pay', $order->id, $pay_url );
+	$pay_url = add_query_arg( 'key', $order->order_key, $pay_url );  
+	  
+    return $pay_url;
+}
+add_filter( 'woocommerce_get_checkout_payment_url', 'wc4bp_get_checkout_payment_url', 10, 2 );
+
+/**
+* Generates a URL for the thanks page (order received)
+*
+* @access public
+* @return string
+*/
+function wc4bp_get_checkout_order_received_url($order_received_url, $order){
+	if( isset( $wc4bp_options['tab_cart_disabled']))
+		return $order_received_url;
+
+	$order_received_url = bp_loggedin_user_domain() .'shop/home/checkout/';
+	
+	if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+		$order_received_url = str_replace( 'http:', 'https:', $order_received_url );
+	}
+	
+	$order_received_url = wc_get_endpoint_url( 'order-received', $order->id, $order_received_url );
+	
+	$order_received_url = add_query_arg( 'key', $order->order_key, $order_received_url );
+    
+    return $order_received_url;
+}
+add_filter( 'woocommerce_get_checkout_order_received_url', 'wc4bp_get_checkout_order_received_url', 10, 2 );
