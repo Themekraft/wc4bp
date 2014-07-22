@@ -37,7 +37,7 @@ class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION 	= '1.3.8';
+	const VERSION 	= '2.0';
 
     /**
 	 * Minimum required WP version
