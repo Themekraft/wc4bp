@@ -200,7 +200,7 @@ function wc4bp_my_recent_orders_shortcode( $atts ){
 
     global $bp;
 
-    if(  wc4bp_is_subpage( 'history' ) && !isset($bp->action_variables[1])) :
+    if( !isset($bp->action_variables[1])) :
 
         return woocommerce_get_template( 'myaccount/my-orders.php', array( 'order_count' =>  0 ));
     else:
