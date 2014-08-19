@@ -22,6 +22,7 @@ function wc4bp_admin_menu() {
     do_action('wc4bp_add_submenu_page');
 
     add_submenu_page( 'wc4bp-options-page'  , 'Delete'     , 'Delete'       , 'manage_options', 'wc4bp-options-page-delete'   , 'wc4bp_screen_delete' );
+    add_submenu_page( 'wc4bp-options-page'  , 'xProfile'     , 'xProfile'       , 'manage_options', 'wc4bp-options-page-xprofile'   , 'wc4bp_screen_xprofile' );
 
 }
 
@@ -195,4 +196,5 @@ function wc4bp_page_template(){
     <?php
     submit_button();
 }
+
 ?>

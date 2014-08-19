@@ -81,11 +81,13 @@ class WC4BP_Loader {
 
 		$this->constants();
 
+        add_action('admin_enqueue_scripts'          , array($this, 'wc4bp_admin_js') , 10 );
+
         add_action('plugins_loaded'					, array($this, 'update') , 10 );
 		add_action('plugins_loaded'					, array($this, 'translate'));
 		add_action('bp_include'						, array($this, 'includes') , 10 );
 
-		add_action('admin_enqueue_scripts'          , array($this, 'wc4bp_admin_js') , 10 );
+
 
 		 /**
 		 * Deletes all data if plugin deactivated
@@ -115,6 +117,7 @@ class WC4BP_Loader {
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php');
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-sync.php');
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-pages.php');
+            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile.php');
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-delete.php');
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-ajax.php');
 
@@ -285,8 +288,20 @@ class WC4BP_Loader {
 	 */
 
 	public function wc4bp_admin_js(){
+
+
+
 		add_thickbox();
-		wp_enqueue_script('wc4bp_admin_js', plugins_url('/admin/js/admin.js', __FILE__));
+        wp_enqueue_script('jquery');
+        wp_enqueue_script('jquery-ui-core');
+        wp_enqueue_script('jquery-ui-widget');
+        wp_enqueue_script('jquery-ui-tabs');
+        wp_enqueue_script('jquery-effects-core');
+
+
+
+        wp_enqueue_script('wc4bp_admin_js', plugins_url('/admin/js/admin.js', __FILE__), array('jquery','jquery-ui-core','jquery-ui-widget', 'jquery-ui-tabs'));
+        wp_enqueue_style('wc4bp_admin_css', plugins_url('/admin/css/admin.css', __FILE__));
 
     }
 }
