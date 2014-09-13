@@ -66,7 +66,8 @@ class WC4BP_Component extends BP_Component
             'wc4bp-conditionals',
             'wc4bp-screen',
             'wc4bp-redirect',
-            'wc4bp-deprecated'
+            'wc4bp-deprecated',
+            'wc4bp-xprofile'
         );
         
         foreach( $includes as $file )

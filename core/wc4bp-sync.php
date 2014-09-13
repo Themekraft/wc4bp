@@ -55,7 +55,22 @@ function  wc4bp_sync_addresses_from_profile( $field_id, $value ) {
 
 	bp_update_user_meta( bp_displayed_user_id(), $context .'_'. $key, $value );
 }
+
 add_action( 'xprofile_profile_field_data_updated', 'wc4bp_sync_addresses_from_profile', 10, 2 );
+
+function  wc4bp_sync_xprofile_from_profile( $field_id, $value ) {
+
+    $bf_xprofile_options = get_option('bf_xprofile_options');
+
+    $field = new BP_XProfile_Field( $field_id );
+
+    if (isset($bf_xprofile_options[$field->group_id][$field_id])){
+        $field_slug = sanitize_title($field->group_id.'-'.$field_id);
+        bp_update_user_meta( bp_displayed_user_id(), $field_slug, $value );
+    }
+
+}
+add_action( 'xprofile_profile_field_data_updated', 'wc4bp_sync_xprofile_from_profile', 10, 2 );
 
 /**
  * Synchronize the shipping and billing address from the admin area
