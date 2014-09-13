@@ -21,6 +21,155 @@ function wc4bp_screen_sync() { ?>
 
         </div>
         <br>
+
+
+
+
+
+    <?php
+    $number     = 10;
+    $paged      = isset($_GET['wc4bppage']) ? $_GET['wc4bppage'] : 1;;
+    $offset     = ($paged - 1) * $number;
+    $users      = get_users();
+    $query      = get_users('&offset='.$offset.'&number='.$number);
+    $total_users = count($users);
+    $total_query = count($query);
+    $total_pages = intval($total_users / $number) + 1;
+
+
+
+?>
+
+    <div class="tablenav top">
+
+        <div class="alignleft actions bulkactions">
+            <label for="bulk-action-selector-top" class="screen-reader-text">Select bulk action</label><select name="action" id="bulk-action-selector-top">
+                <option value="-1" selected="selected">Bulk Actions</option>
+                <option value="delete">Delete</option>
+            </select>
+            <input type="submit" name="" id="doaction" class="button action" value="Apply">
+        </div>
+        <div class="alignleft actions">
+            <label class="screen-reader-text" for="new_role">Change role to…</label>
+            <select name="new_role" id="new_role">
+                <option value="">Change role to…</option>
+
+                <option value="shop_manager">Shop Manager</option>
+                <option value="customer">Customer</option>
+                <option value="subscriber">Subscriber</option>
+                <option value="contributor">Contributor</option>
+                <option value="author">Author</option>
+                <option value="editor">Editor</option>
+                <option value="administrator">Administrator</option>		</select>
+            <input type="submit" name="changeit" id="changeit" class="button" value="Change"></div><div class="tablenav-pages"><span class="displaying-num">592 items</span>
+<span class="pagination-links"><a class="first-page disabled" title="Go to the first page" href="http://spielwiese/wp-admin/users.php">«</a>
+<a class="prev-page disabled" title="Go to the previous page" href="http://spielwiese/wp-admin/users.php?paged=1">‹</a>
+<span class="paging-input"><label for="current-page-selector" class="screen-reader-text">Select Page</label><input class="current-page" id="current-page-selector" title="Current page" type="text" name="paged" value="1" size="3"> of <span class="total-pages">592</span></span>
+<a class="next-page" title="Go to the next page" href="http://spielwiese/wp-admin/users.php?paged=2">›</a>
+<a class="last-page" title="Go to the last page" href="http://spielwiese/wp-admin/users.php?paged=592">»</a></span></div>
+        <br class="clear">
+    </div>
+    <table class="wp-list-table widefat fixed users">
+        <thead>
+        <tr>
+            <th scope="col" id="cb" class="manage-column column-cb check-column" style=""><label
+                    class="screen-reader-text" for="cb-select-all-1">Select All</label><input id="cb-select-all-1"
+                                                                                              type="checkbox"></th>
+            <th scope="col" id="username" class="manage-column column-username sortable desc" style=""><a
+                    href="http://spielwiese/wp-admin/users.php?orderby=login&amp;order=asc"><span>Username</span><span
+                        class="sorting-indicator"></span></a></th>
+            <th scope="col" id="name" class="manage-column column-name sortable desc" style=""><a
+                    href="http://spielwiese/wp-admin/users.php?orderby=name&amp;order=asc"><span>Name</span><span
+                        class="sorting-indicator"></span></a></th>
+            <th scope="col" id="email" class="manage-column column-email sortable desc" style=""><a
+                    href="http://spielwiese/wp-admin/users.php?orderby=email&amp;order=asc"><span>E-mail</span><span
+                        class="sorting-indicator"></span></a></th>
+            <th scope="col" id="role" class="manage-column column-role" style="">Role</th>
+
+        </tr>
+        </thead>
+
+        <tfoot>
+        <tr>
+            <th scope="col" class="manage-column column-cb check-column" style=""><label class="screen-reader-text"
+                                                                                         for="cb-select-all-2">Select
+                    All</label><input id="cb-select-all-2" type="checkbox"></th>
+            <th scope="col" class="manage-column column-username sortable desc" style=""><a
+                    href="http://spielwiese/wp-admin/users.php?orderby=login&amp;order=asc"><span>Username</span><span
+                        class="sorting-indicator"></span></a></th>
+            <th scope="col" class="manage-column column-name sortable desc" style=""><a
+                    href="http://spielwiese/wp-admin/users.php?orderby=name&amp;order=asc"><span>Name</span><span
+                        class="sorting-indicator"></span></a></th>
+            <th scope="col" class="manage-column column-email sortable desc" style=""><a
+                    href="http://spielwiese/wp-admin/users.php?orderby=email&amp;order=asc"><span>E-mail</span><span
+                        class="sorting-indicator"></span></a></th>
+            <th scope="col" class="manage-column column-role" style="">Role</th>
+        </tr>
+        </tfoot>
+
+        <tbody id="the-list" data-wp-lists="list:user">
+<?php     foreach($query as $q) { ?>
+        <tr id="user-1" class="alternate">
+            <th scope="row" class="check-column">
+                <label class="screen-reader-text" for="cb-select-1">Select admin</label>
+                <input type="checkbox" name="users[]" id="user_1" class="administrator" value="1">
+            </th>
+            <td class="username column-username"><?php echo get_avatar( $q->ID, 40 ); ?> <strong>
+                     <?php echo get_the_author_meta('user_nicename', $q->ID);?>
+                    </strong><br><div class="row-actions"></div>
+            </td>
+            <td class="name column-name"><?php echo get_the_author_meta('display_name', $q->ID);?> </td>
+            <td class="email column-email"><a href="<?php echo get_the_author_meta('user_email', $q->ID);?>" title="E-mail: <?php echo get_the_author_meta('user_email', $q->ID);?>"><?php echo get_the_author_meta('user_email', $q->ID);?></a></td>
+            <td class="role column-role"><?php echo implode(',',get_the_author_meta('roles', $q->ID));?></td>
+
+        </tr>
+        </tbody>
+ <?php } ?>
+    </table>
+
+    <div class="tablenav bottom">
+
+        <div class="alignleft actions bulkactions">
+            <label for="bulk-action-selector-bottom" class="screen-reader-text">Select bulk action</label><select name="action2" id="bulk-action-selector-bottom">
+                <option value="-1" selected="selected">Bulk Actions</option>
+                <option value="delete">Delete</option>
+            </select>
+            <input type="submit" name="" id="doaction2" class="button action" value="Apply">
+        </div>
+        <div class="tablenav-pages"><span class="displaying-num">592 items</span>
+<span class="pagination-links"><a class="first-page disabled" title="Go to the first page" href="http://spielwiese/wp-admin/users.php">«</a>
+<a class="prev-page disabled" title="Go to the previous page" href="http://spielwiese/wp-admin/users.php?paged=1">‹</a>
+<span class="paging-input">1 of <span class="total-pages">592</span></span>
+<a class="next-page" title="Go to the next page" href="http://spielwiese/wp-admin/users.php?paged=2">›</a>
+<a class="last-page" title="Go to the last page" href="http://spielwiese/wp-admin/users.php?paged=592">»</a></span></div>
+        <br class="clear">
+    </div>
+
+
+    <?php
+    if ($total_users > $total_query) {
+        echo '<div id="pagination" class="clearfix">';
+        echo '<span class="pages">Pages:</span>';
+        $current_page = isset($_GET['wc4bppage']) ? $_GET['wc4bppage'] : 1; ;
+        echo paginate_links(array(
+            'base' => get_pagenum_link(1) . '%_%',
+            'format' => '&wc4bppage=%#%',
+            'current' => $current_page,
+            'total' => $total_pages,
+            'prev_next'    => false,
+            'type'         => 'list',
+        ));
+        echo '</div>';
+    }
+        ?>
+
+
+
+
+
+
+
+
         <form method="post" action="options.php">
             <?php wp_nonce_field( 'update-options' ); ?>
             <?php settings_fields( 'wc4bp_options_sync' ); ?>
@@ -58,15 +207,16 @@ function wc4bp_register_admin_settings_sync() {
 
 function wc4bp_shop_profile_sync(){ ?>
     <p>Sync all WooCommerce User Data with BuddyPress</p>
-    <input type="submit" name="wc4bp_options_sync[wc_bp_sync]" class="button" value="Sync Now">
-
+    <input type="button" name="wc4bp_options_sync[wc_bp_sync]" class="button wc_bp_sync_all_user_data" value="Sync Now">
+    <div id="result"></div>
     <?php
+}
 
-    $wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
+function wc4bp_shop_profile_sync_ajax(){
 
-    if ( isset( $wc4bp_options_sync['wc_bp_sync'] ) ){
         $all_user = wc4bp_get_all_user();
         echo '<h3> Depance on your Userbase this can take a while. Please wait and do not refresh this page.</h3>';
+
         foreach ( $all_user as $userid ) {
             $user_id       = (int) $userid->ID;
             $display_name  = stripslashes($userid->display_name);
@@ -79,11 +229,12 @@ function wc4bp_shop_profile_sync(){ ?>
             print($return);
         }
         echo '<h3>All Done!</h3>';
-        unset($wc4bp_options_sync['wc_bp_sync']);
-        update_option('wc4bp_options_sync', $wc4bp_options_sync);
-    }
+
+
 
 }
+add_action( 'wp_ajax_wc4bp_shop_profile_sync_ajax', 'wc4bp_shop_profile_sync_ajax' );
+add_action( 'wp_ajax_nopriv_wc4bp_shop_profile_sync_ajax', 'wc4bp_shop_profile_sync_ajax' );
 
 function  wc4bp_sync_from_admin( $user_id ) {
 
@@ -99,6 +250,7 @@ function  wc4bp_sync_from_admin( $user_id ) {
     $billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
 
     foreach( $fields as $type => $fieldset ) :
+
         if( ! in_array( $type, array( 'billing', 'shipping' ) ) )
             continue;
 
@@ -150,7 +302,12 @@ function  wc4bp_change_xprofile_visabilyty_by_user(){ ?>
     $wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
 
 
+
     if ( isset( $wc4bp_options_sync['change_xprofile_visabilyty'] ) ) {
+        unset($wc4bp_options_sync['change_xprofile_visabilyty']);
+        update_option('wc4bp_options_sync', $wc4bp_options_sync);
+echo 'was geht daab<br>';
+
         $all_user = wc4bp_get_all_user();
 
         // get the corresponding  wc4bp fields
@@ -174,8 +331,7 @@ function  wc4bp_change_xprofile_visabilyty_by_user(){ ?>
             print($return);
         }
         echo '<h3>All Done!</h3>';
-        unset($wc4bp_options_sync['change_xprofile_visabilyty']);
-        update_option('wc4bp_options_sync', $wc4bp_options_sync);
+
     }
 
 }
@@ -192,6 +348,9 @@ function wc4bp_change_xprofile_visabilyty_default(){ ?>
     $shipping = bp_get_option('wc4bp_shipping_address_ids');
 
     if ( isset( $wc4bp_options_sync['change_xprofile_visabilyty_field_default'] ) ) {
+
+
+
         echo '<ul>';
 
         foreach($billing as $key => $field_id){
@@ -255,10 +414,14 @@ function wc4bp_change_xprofile_allow_custom_visibility(){
 
 function wc4bp_get_all_user(){
 
-    global $wpdb;
-    $all_user = $wpdb->get_results("SELECT ID, display_name FROM $wpdb->users ORDER BY ID");
+    $all_user = get_users( array( 'fields' => array( 'ID', 'display_name' ) ) );
 
-    return $all_user;
+    foreach($all_user as $key => $user){
+        echo $user->ID . ',';
+    }
 }
 
+
+add_action( 'wp_ajax_wc4bp_get_all_user', 'wc4bp_get_all_user' );
+add_action( 'wp_ajax_nopriv_wc4bp_get_all_user', 'wc4bp_get_all_user' );
 ?>

@@ -102,4 +102,24 @@ jQuery(document).ready(function(){
         jQuery( "#tabs" ).tabs();
     });
 
+
+    jQuery('.wc_bp_sync_all_user_data').click(function(){
+
+
+        jQuery.ajax({
+            type: 'POST',
+            url: ajaxurl,
+            data: {"action": "wc4bp_get_all_user"},
+            success: function(data){
+
+                fore
+                jQuery("#result").append(data);
+            },
+            error: function() {
+                alert('Something went wrong.. ;-(sorry)');
+            }
+        });
+
+    });
+
 });

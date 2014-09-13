@@ -187,7 +187,6 @@ function buddyforms_xprofile_admin_field( $admin_field, $admin_group, $class = '
     $field_types = wc4bp_supported_field_types();
     $field_type = $field_types[$field->type];?>
 
-etwas
     <fieldset id="field_<?php echo esc_attr( $field->id ); ?>" class="sortable<?php echo ' ' . $field->type; if ( !empty( $class ) ) echo ' ' . $class; ?>">
         <legend><span><b><?php bp_the_profile_field_name(); ?> </b><?php if( !$field->can_delete ) : ?> <?php _e( '(Primary)', 'buddypress' ); endif; ?> <?php if ( bp_get_the_profile_field_is_required() ) : ?><?php _e( '(Required)', 'buddypress' ) ?><?php endif; ?></span></legend>
         <div class="field-wrapper"><p>
