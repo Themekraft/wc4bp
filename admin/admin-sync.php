@@ -22,7 +22,7 @@ function wc4bp_screen_sync() { ?>
         <br>
     <?php
 
-        $number     = 100;
+        $number     = 20;
 
         $count_users = count_users();
         $total_users = $count_users['total_users'];
@@ -71,14 +71,16 @@ function wc4bp_register_admin_settings_sync() {
 
 function wc4bp_shop_profile_sync(){ ?>
     <p>Sync all WooCommerce User Data with BuddyPress</p>
-    <input type="button" name="wc4bp_options_sync[wc_bp_sync]" class="button wc_bp_sync_all_user_data" value="Sync Now">
+    <input type="button" id="wc4bp_sync_wc_user_with_bp_ajax" name="wc4bp_options_sync[wc_bp_sync]" class="button wc_bp_sync_all_user_data" value="Sync Now">
 
     <?php
 }
 
 function wc4bp_shop_profile_sync_ajax(){
 
-    $number     = 100;
+    $update_type = $_POST['update_type'];
+
+    $number     = 20;
     $paged      = isset($_POST['wc4bp_page']) ? $_POST['wc4bp_page'] : 1;
     $offset     = ($paged - 1) * $number;
     $query      = get_users('&offset='.$offset.'&number='.$number);
@@ -113,7 +115,10 @@ function wc4bp_shop_profile_sync_ajax(){
 
         <?php foreach($query as $q) {
 
-            wc4bp_sync_from_admin($q->ID);
+            if($update_type == 'wc4bp_sync_wc_user_with_bp_ajax')
+                wc4bp_sync_from_admin($q->ID);
+            if($update_type == 'wc4bp_set_bp_field_visibility')
+                wc4bp_change_xprofile_visabilyty_by_user_ajax($q->ID);
             ?>
 
 
@@ -183,13 +188,14 @@ function  wc4bp_sync_from_admin( $user_id ) {
 
 
 function select_visibility_levels($name){
-    $wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
 
-    $visibility_levels = '<select name="wc4bp_options_sync[' . $name . ']"><option value="none" '.selected( $wc4bp_options_sync[$name], 'none', false ).'>Select Visibility</option>';
+    $visibility_levels = '<select id="wc4bp_set_bp_field_visibility" name="wc4bp_options_sync[' . $name . ']">
+
+    <option value="none">Select Visibility</option>';
 
     foreach (bp_xprofile_get_visibility_levels() as $level) {
 
-        $visibility_levels .= '<option value="' . $level['id'] . '"  '.selected( $wc4bp_options_sync[$name], $level['id'], false ).' >' . $level['label'] . '</option>';
+        $visibility_levels .= '<option value="' . $level['id'] . '" >' . $level['label'] . '</option>';
 
     }
     $visibility_levels .= '</select>';
@@ -200,53 +206,34 @@ function select_visibility_levels($name){
 
 function  wc4bp_change_xprofile_visabilyty_by_user(){ ?>
 
-
-
     <p>Set the Profile Field Visibility for all Users:</p>
-        <?php select_visibility_levels('visibility_levels'); ?> <input type="submit" class="button" name="wc4bp_options_sync[change_xprofile_visabilyty]" value="Sync Now">
-    <?php
 
-    $wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
+    <?php select_visibility_levels('visibility_levels'); ?>
 
-
-
-    if ( isset( $wc4bp_options_sync['change_xprofile_visabilyty'] ) ) {
-        unset($wc4bp_options_sync['change_xprofile_visabilyty']);
-        update_option('wc4bp_options_sync', $wc4bp_options_sync);
-echo 'was geht daab<br>';
-
-        $all_user = wc4bp_get_all_user();
-
-        // get the corresponding  wc4bp fields
-        $shipping = bp_get_option('wc4bp_shipping_address_ids');
-        $billing = bp_get_option('wc4bp_billing_address_ids');
-        echo '<h3> Depance on your Userbase this can take a while. Please wait and do not refresh this page.</h3>';
-        foreach ($all_user as $userid) {
-            $user_id = (int)$userid->ID;
-            $display_name = stripslashes($userid->display_name);
-
-            foreach ($shipping as $key => $field_id) {
-                xprofile_set_field_visibility_level($field_id, $user_id, $wc4bp_options_sync['visibility_levels']);
-            }
-            foreach ($billing as $key => $field_id) {
-                xprofile_set_field_visibility_level($field_id, $user_id, $wc4bp_options_sync['visibility_levels']);
-            }
-
-            $return = '';
-            $return .= "\t" . '<li>User ID: ' . $user_id . ' Display Name: ' . $display_name . ' Set to '. $wc4bp_options_sync['visibility_levels'] .'</li>' . "\n";
-
-            print($return);
-        }
-        echo '<h3>All Done!</h3>';
-
-    }
-
+    <input type="button" id="wc4bp_set_bp_field_visibility" name="wc4bp_options_sync[change_xprofile_visabilyty]" class="button wc_bp_sync_all_user_data" value="Sync Now">
+<?php
 }
+
+function wc4bp_change_xprofile_visabilyty_by_user_ajax($user_id){
+
+    // get the corresponding  wc4bp fields
+    $shipping = bp_get_option('wc4bp_shipping_address_ids');
+    $billing = bp_get_option('wc4bp_billing_address_ids');
+    $visibility_level = $_POST['visibility_level'];
+
+    foreach ($shipping as $key => $field_id) {
+        xprofile_set_field_visibility_level($field_id, $user_id, $visibility_level);
+    }
+    foreach ($billing as $key => $field_id) {
+        xprofile_set_field_visibility_level($field_id, $user_id, $visibility_level);
+    }
+}
+
 
 
 function wc4bp_change_xprofile_visabilyty_default(){ ?>
     <p>Set the default profile field viability to</p>
-    <?php select_visibility_levels('default_visibility'); ?>
+    <?php //select_visibility_levels('default_visibility'); ?>
     <input type="submit" class="button" name="wc4bp_options_sync[change_xprofile_visabilyty_field_default]" value="Change now">
     <?php
     $wc4bp_options_sync = get_option( 'wc4bp_options_sync' );

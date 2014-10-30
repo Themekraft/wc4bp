@@ -1,242 +1,423 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce for Buddypress v1.1\n"
+"Project-Id-Version: WooCommerce BuddyPress Integration v2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-12 19:02+0200\n"
-"PO-Revision-Date: 2013-08-07 11:29:12+0000\n"
-"Last-Translator: slaFFik <slaffik@list.ru>\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-10-16 13:48:37+0000\n"
+"Last-Translator: admin <mail@sven-lehnert.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: CSL v1.x\n"
-"X-Poedit-Language: \n"
-"X-Poedit-Country: \n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
-"X-Poedit-Basepath: .\n"
+"X-Poedit-Basepath: ../\n"
 "X-Poedit-Bookmarks: \n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes"
 
-#: core/wc4bp-component.php:33
-#@  wc4bp
-msgid "Woocommerce Integration"
+#: admin/admin-pages.php:215
+#@ wc4bp
+msgid "none"
 msgstr ""
 
-#: core/wc4bp-component.php:50
-#@  wc4bp
-msgid "New review created"
+#: admin/admin-xprofile.php:115
+#: admin/admin-xprofile.php:191
+#@ buddypress
+msgid "(Primary)"
 msgstr ""
 
-#: core/wc4bp-component.php:51
-#@  wc4bp
-msgid "New purchase made"
+#: admin/admin-xprofile.php:159
+#@ buddypress
+msgid "There are no fields in this group."
 msgstr ""
 
-#: core/wc4bp-component.php:106
-#: core/wc4bp-component.php:155
-#: core/wc4bp-component.php:188
-#: core/wc4bp-component.php:198
-#@  wc4bp
+#: admin/admin-xprofile.php:168
+#@ buddypress
+msgid "You have no groups."
+msgstr ""
+
+#: admin/admin-xprofile.php:169
+#@ buddypress
+msgid "Add New Group"
+msgstr ""
+
+#: admin/admin-xprofile.php:191
+#@ buddypress
+msgid "(Required)"
+msgstr ""
+
+#: core/wc4bp-component.php:30
+#: core/wc4bp-component.php:122
+#: core/wc4bp-component.php:178
+#: core/wc4bp-component.php:232
+#: core/wc4bp-component.php:242
+#@ wc4bp
 msgid "Shop"
 msgstr ""
 
-#: core/wc4bp-component.php:119
-#: core/wc4bp-component.php:205
-#: templates/shop/member/cart.php:29
-#@  wc4bp
+#: core/wc4bp-component.php:49
+#@ wc4bp
+msgid "New review created"
+msgstr ""
+
+#: core/wc4bp-component.php:50
+#@ wc4bp
+msgid "New purchase made"
+msgstr ""
+
+#: core/wc4bp-component.php:136
+#: core/wc4bp-component.php:250
+#@ wc4bp
 msgid "Shopping Cart"
 msgstr ""
 
-#: core/wc4bp-component.php:131
-#: core/wc4bp-component.php:212
-#@  wc4bp
+#: core/wc4bp-component.php:151
+#: core/wc4bp-component.php:259
+#@ wc4bp
 msgid "History"
 msgstr ""
 
-#: core/wc4bp-component.php:143
-#: core/wc4bp-component.php:219
+#: core/wc4bp-component.php:164
+#: core/wc4bp-component.php:268
 #: templates/shop/member/track.php:16
-#@  wc4bp
+#@ wc4bp
 msgid "Track your order"
 msgstr ""
 
-#: core/wc4bp-helpers.php:145
+#: core/wc4bp-helpers.php:122
 #, php-format
-#@  wc4bp
+#@ wc4bp
 msgid "%s wrote a review about <a href=\"%s\">%s</a>"
 msgstr ""
 
-#: core/wc4bp-helpers.php:198
+#: core/wc4bp-helpers.php:175
 #, php-format
-#@  wc4bp
+#@ wc4bp
 msgid "%s purchased %s"
 msgstr ""
 
 #: core/wc4bp-screen.php:85
-#@  wc4bp
+#@ wc4bp
 msgid "Changes saved."
 msgstr ""
 
 #: core/wc4bp-screen.php:103
-#@  wc4bp
+#@ wc4bp
 msgid "Shop Settings"
 msgstr ""
 
 #: core/wc4bp-screen.php:129
-#@  wc4bp
+#@ wc4bp
 msgid "Activity Stream"
 msgstr ""
 
 #: core/wc4bp-screen.php:130
-#@  wc4bp
+#@ wc4bp
 msgid "Yes"
 msgstr ""
 
 #: core/wc4bp-screen.php:131
-#@  wc4bp
+#@ wc4bp
 msgid "No"
 msgstr ""
 
 #: core/wc4bp-screen.php:138
-#@  wc4bp
+#@ wc4bp
 msgid "Post to activity stream all reviews written by me"
 msgstr ""
 
 #: core/wc4bp-screen.php:144
-#@  wc4bp
+#@ wc4bp
 msgid "Post to activity stream all purchases I've made"
 msgstr ""
 
 #: core/wc4bp-screen.php:156
-#@  wc4bp
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:61
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:65
+#@ wc4bp
+#@ wc4bp-api-manager
 msgid "Save Changes"
 msgstr ""
 
-#: templates/shop/member/checkout/general.php:11
-#@  wc4bp
-msgid "Checkout"
-msgstr ""
-
-#: templates/shop/member/checkout/pay.php:11
-#@  wc4bp
-msgid "Payment"
-msgstr ""
-
-#: templates/shop/member/checkout/thanks.php:11
-#@  wc4bp
-msgid "Thank You!"
-msgstr ""
-
-#: templates/shop/member/history/home.php:14
-#@  wc4bp
-msgid "Purchase History"
-msgstr ""
-
-#: templates/shop/member/history/home.php:31
-#@  wc4bp
-msgid "#"
-msgstr ""
-
-#: templates/shop/member/history/home.php:32
-#@  wc4bp
-msgid "Date"
-msgstr ""
-
-#: templates/shop/member/history/home.php:33
-#@  wc4bp
-msgid "Ship to"
-msgstr ""
-
-#: templates/shop/member/history/home.php:34
-#@  wc4bp
-msgid "Total"
-msgstr ""
-
-#: templates/shop/member/history/home.php:35
-#@  wc4bp
-msgid "Status"
-msgstr ""
-
-#: templates/shop/member/history/home.php:52
-#@  wc4bp
-msgid "Pay"
-msgstr ""
-
-#: templates/shop/member/history/home.php:53
-#@  wc4bp
-msgid "Cancel"
-msgstr ""
-
-#: templates/shop/member/history/home.php:55
-#@  wc4bp
-msgid "View"
-msgstr ""
-
-#: templates/shop/member/history/home.php:62
-#@  wc4bp
-msgid "No recent purchases available."
-msgstr ""
-
-#: templates/shop/member/history/view.php:11
-#@  wc4bp
-msgid "View order"
-msgstr ""
-
 #: core/wc4bp-screen.php:181
-#@  wc4bp
+#@ wc4bp
 msgid "Please enter a valid order ID"
 msgstr ""
 
 #: core/wc4bp-screen.php:184
-#@  wc4bp
+#@ wc4bp
 msgid "Please enter a valid order email"
 msgstr ""
 
 #: core/wc4bp-screen.php:193
-#@  wc4bp
+#@ wc4bp
 msgid "You are not allowed to view this order."
 msgstr ""
 
 #: core/wc4bp-screen.php:196
-#@  wc4bp
+#@ wc4bp
 msgid "Sorry, we could not find that order id in our database."
 msgstr ""
 
 #: core/wc4bp-screen.php:213
-#@  wc4bp
+#@ wc4bp
 msgid "Your Order"
 msgstr ""
 
-#: templates/shop/member/track.php:23
-#@  wc4bp
-msgid "To track your order please enter your Order ID in the box below and press return. This was given to you on your receipt and in the confirmation email you should have received."
+#: core/wc4bp-sync.php:185
+#@ woocommerce
+msgid "Customer Billing Address"
 msgstr ""
 
-#: templates/shop/member/track.php:25
-#@  wc4bp
-msgid "Order ID"
+#: core/wc4bp-sync.php:188
+#: core/wc4bp-sync.php:237
+#@ woocommerce
+msgid "First name"
 msgstr ""
 
-#: templates/shop/member/track.php:25
-#@  wc4bp
-msgid "Found in your order confirmation email."
+#: core/wc4bp-sync.php:192
+#: core/wc4bp-sync.php:241
+#@ woocommerce
+msgid "Last name"
 msgstr ""
 
-#: templates/shop/member/track.php:26
-#@  wc4bp
-msgid "Billing Email"
+#: core/wc4bp-sync.php:196
+#: core/wc4bp-sync.php:245
+#@ woocommerce
+msgid "Company"
 msgstr ""
 
-#: templates/shop/member/track.php:26
-#@  wc4bp
-msgid "Email you used during checkout."
+#: core/wc4bp-sync.php:200
+#: core/wc4bp-sync.php:249
+#@ woocommerce
+msgid "Address 1"
 msgstr ""
 
-#: templates/shop/member/track.php:30
-#@  wc4bp
-msgid "Track"
+#: core/wc4bp-sync.php:204
+#: core/wc4bp-sync.php:253
+#@ woocommerce
+msgid "Address 2"
+msgstr ""
+
+#: core/wc4bp-sync.php:208
+#: core/wc4bp-sync.php:257
+#@ woocommerce
+msgid "City"
+msgstr ""
+
+#: core/wc4bp-sync.php:212
+#: core/wc4bp-sync.php:261
+#@ woocommerce
+msgid "Postcode"
+msgstr ""
+
+#: core/wc4bp-sync.php:216
+#: core/wc4bp-sync.php:265
+#@ woocommerce
+msgid "State/County"
+msgstr ""
+
+#: core/wc4bp-sync.php:220
+#: core/wc4bp-sync.php:269
+#@ woocommerce
+msgid "Country"
+msgstr ""
+
+#: core/wc4bp-sync.php:224
+#@ woocommerce
+msgid "Telephone"
+msgstr ""
+
+#: core/wc4bp-sync.php:228
+#@ woocommerce
+msgid "Email"
+msgstr ""
+
+#: core/wc4bp-sync.php:234
+#@ woocommerce
+msgid "Customer Shipping Address"
+msgstr ""
+
+#: core/wc4bp-sync.php:266
+#@ woocommerce
+msgid "State/County or state code"
+msgstr ""
+
+#: core/wc4bp-sync.php:270
+#@ woocommerce
+msgid "2 letter Country code"
+msgstr ""
+
+#: core/wc4bp-xprofile.php:67
+#@ default
+msgid "Please enter something into this new shiny field."
+msgstr ""
+
+#: core/wc4bp-xprofile.php:238
+#@ woocommerce
+msgid "required"
+msgstr ""
+
+#: core/wc4bp-xprofile.php:263
+#@ default
+msgid "How'd you First find us?"
+msgstr ""
+
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:80
+#@ wc4bp-api-manager
+msgid "WC4BP API License Activation"
+msgstr ""
+
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:81
+#@ wc4bp-api-manager
+msgid "API License Key"
+msgstr ""
+
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:82
+#@ wc4bp-api-manager
+msgid "API License Email"
+msgstr ""
+
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:86
+#@ wc4bp-api-manager
+msgid "WC4BP API License Deactivation"
+msgstr ""
+
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:87
+#@ wc4bp-api-manager
+msgid "Deactivate API License Key"
+msgstr ""
+
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:160
+#@ wc4bp-api-manager
+msgid "Plugin activated. "
+msgstr ""
+
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:166
+#@ wc4bp-api-manager
+msgid "Connection failed to the License Key API server. Try again later."
+msgstr ""
+
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:241
+#@ wc4bp-api-manager
+msgid "The license could not be deactivated. Use the License Deactivation tab to manually deactivate the license before activating a new license."
+msgstr ""
+
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:270
+#@ wc4bp-api-manager
+msgid "Plugin license deactivated."
+msgstr ""
+
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:290
+#@ wc4bp-api-manager
+msgid "Deactivates an API License Key so it can be used on another blog."
+msgstr ""
+
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:404
+#, php-format
+#@ wc4bp-api-manager
+msgid "The license key for %s has expired. You can reactivate or purchase a license key from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:419
+#, php-format
+#@ wc4bp-api-manager
+msgid "The subscription for %s is on-hold. You can reactivate the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:434
+#, php-format
+#@ wc4bp-api-manager
+msgid "The subscription for %s has been cancelled. You can renew the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>. A new license key will be emailed to you after your order has been completed."
+msgstr ""
+
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:449
+#, php-format
+#@ wc4bp-api-manager
+msgid "The subscription for %s has expired. You can reactivate the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:464
+#, php-format
+#@ wc4bp-api-manager
+msgid "The subscription for %s has been suspended. You can reactivate the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:479
+#, php-format
+#@ wc4bp-api-manager
+msgid "The subscription for %s is still pending. You can check on the status of the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:494
+#, php-format
+#@ wc4bp-api-manager
+msgid "The subscription for %s has been placed in the trash and will be deleted soon. You can purchase a new subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:509
+#, php-format
+#@ wc4bp-api-manager
+msgid "A subscription for %s could not be found. You can purchase a subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:524
+#, php-format
+#@ wc4bp-api-manager
+msgid "A license key for %s could not be found. Maybe you forgot to enter a license key when setting up %s, or the key was deactivated in your account. You can reactivate or purchase a license key from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:539
+#, php-format
+#@ wc4bp-api-manager
+msgid "Download permission for %s has been revoked possibly due to a license key or subscription expiring. You can reactivate or purchase a license key from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:554
+#, php-format
+#@ wc4bp-api-manager
+msgid "%s has not been activated. Go to the settings page and enter the license key and license email to activate %s."
+msgstr ""
+
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:569
+#, php-format
+#@ wc4bp-api-manager
+msgid "You changed the subscription for %s, so you will need to enter your new API License Key in the settings page. The License Key should have arrived in your email inbox, if not you can get it by logging into your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: includes/resources/api-manager/api-manager.php:117
+#@ wc4bp-api-manager
+msgid "woocommerce-buddypress-integration"
+msgstr ""
+
+#: includes/resources/api-manager/api-manager.php:139
+#@ wc4bp-api-manager
+msgid "License Activation"
+msgstr ""
+
+#: includes/resources/api-manager/api-manager.php:140
+#@ wc4bp-api-manager
+msgid "License Deactivation"
+msgstr ""
+
+#: includes/resources/api-manager/api-manager.php:336
+#, php-format
+#@ wc4bp-api-manager
+msgid "The API License Key for WC4BP could not be found. %sClick here%s to activate it."
+msgstr ""
+
+#: templates/shop/member/plugin.php:50
+#@ wc4bp
+msgid "Pages:"
+msgstr ""
+
+#: templates/shop/member/plugin.php:55
+#@ wc4bp
+msgid "Edit"
 msgstr ""
 
