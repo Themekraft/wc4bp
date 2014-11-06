@@ -9,6 +9,7 @@ function wc4bp_custom_checkout_field( $checkout ) {
 
     $bf_xprofile_options = get_option('bf_xprofile_options');
 
+
     foreach( $bf_xprofile_options as $group_id => $fields){
         echo '<div id="wc4bp_custom_checkout_field">';
 
@@ -28,14 +29,24 @@ function wc4bp_custom_checkout_field( $checkout ) {
 
                 $field_type = $field_types[$field['field_type']];
 
+                // Load the field
+                $field_obj = new BP_XProfile_Field( $field_id );
+                $options = $field_obj->get_children( true );
+
+                $wc_field_options = array();
+                foreach($options as $Key => $option)
+                    $wc_field_options[$option->id] = $option->name;
+
+
                 if($field_type) {
                     woocommerce_form_field( $field_slug, array(
-                        'required'      => $field['field_is_required'],
                         'type'          => $field_type,
                         'class'         => array('form-row-wide'),
                         'label'         => $field['field_name'],
                         'placeholder'   => '--',
-                    ), $checkout->get_value( $field_slug ));
+                        'required'      => $field['field_is_required'],
+                        'options' => $wc_field_options
+                        ), $checkout->get_value( $field_slug ));
                 }
 
             }
@@ -192,7 +203,7 @@ function wc4bp_supported_field_types(){
         'checkbox'                      => 'checkbox',
         'selectbox'                     => 'select',
         'multiselectbox'                => 'multiselect',
-        'radio'                         => false,
+        'radio'                         => 'radio',
         'datebox'                       => false,
         'textarea'                      => 'textarea',
         'number'                        => false,
@@ -210,77 +221,4 @@ function wc4bp_supported_field_types(){
     );
 
 }
-
-
-///////////////////////
-
-
-/**
- * Outputs a rasio button form field
- */
-function woocommerce_form_field_radio( $key, $args, $value = '' ) {
-    global $woocommerce;
-    $defaults = array(
-        'type' => 'radio',
-        'label' => '',
-        'placeholder' => '',
-        'required' => false,
-        'class' => array( ),
-        'label_class' => array( ),
-        'return' => false,
-        'options' => array( )
-    );
-    $args     = wp_parse_args( $args, $defaults );
-    if ( ( isset( $args[ 'clear' ] ) && $args[ 'clear' ] ) )
-        $after = '<div class="clear"></div>';
-    else
-        $after = '';
-    $required = ( $args[ 'required' ] ) ? ' <abbr class="required" title="' . esc_attr__( 'required', 'woocommerce' ) . '">*</abbr>' : '';
-    switch ( $args[ 'type' ] ) {
-        case "select":
-            $options = '';
-            if ( !empty( $args[ 'options' ] ) )
-                foreach ( $args[ 'options' ] as $option_key => $option_text )
-                    $options .= '<input type="radio" name="' . $key . '" id="' . $key . '" value="' . $option_key . '" ' . selected( $value, $option_key, false ) . 'class="select">' . $option_text . '' . "\r\n";
-            $field = '<p class="form-row ' . implode( ' ', $args[ 'class' ] ) . '" id="' . $key . '_field">
-<label for="' . $key . '" class="' . implode( ' ', $args[ 'label_class' ] ) . '">' . $args[ 'label' ] . $required . '</label>
-' . $options . '
-</p>' . $after;
-            break;
-    } //$args[ 'type' ]
-    if ( $args[ 'return' ] )
-        return $field;
-    else
-        echo $field;
-}
-
-
-/**
- * Add the field to the checkout
- **/
-//add_action( 'woocommerce_after_checkout_billing_form', 'hear_about_us_field', 10 );
-function hear_about_us_field( $checkout ) {
-    echo '<div id="hear_about_us_field" style="background: lightgoldenrodyellow;"><h3>' . __( 'How\'d you First find us?' ) . '</h3>';
-    woocommerce_form_field_radio( 'hear_about_us', array(
-        'type' => 'select',
-        'class' => array(
-            'here-about-us form-row-wide'
-        ),
-        'label' => __( '' ),
-        'placeholder' => __( '' ),
-        'required' => false,
-        'options' => array(
-            'Google' => 'Google<br/>',
-            'Other Search' => 'Other Search Engine<br/>',
-            'Friend' => 'Friend<br/>',
-            'Friend/Facebook' => 'Facebook/Friend<br/>',
-            'Cristal' => 'CristalProStyler on YoutTube',
-            'Other' => 'Other<br/>'
-
-
-        )
-    ), $checkout->get_value( 'hear_about_us' ) );
-    echo '</div>';
-}
-
 ?>

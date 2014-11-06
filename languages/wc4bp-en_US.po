@@ -3,114 +3,22 @@ msgstr ""
 "Project-Id-Version: WooCommerce BuddyPress Integration v2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-11-06 14:35:13+0000\n"
-"Last-Translator: Ole Kristian Ek Hornnes <ole@horneks.com>\n"
+"PO-Revision-Date: 2014-11-06 14:35:07+0000\n"
+"Last-Translator: admin <mail@sven-lehnert.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.5.4\n"
-"X-Poedit-Language: \n"
-"X-Poedit-Country: \n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
 "X-Poedit-Basepath: ../\n"
 "X-Poedit-Bookmarks: \n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes"
-
-#: core/wc4bp-component.php:49
-#@ wc4bp
-msgid "New review created"
-msgstr "Ny vurdering opprettet"
-
-#: core/wc4bp-component.php:50
-#@ wc4bp
-msgid "New purchase made"
-msgstr "Nytt kjøp er gjort"
-
-#: core/wc4bp-component.php:30
-#: core/wc4bp-component.php:122
-#: core/wc4bp-component.php:178
-#: core/wc4bp-component.php:232
-#: core/wc4bp-component.php:242
-#@ wc4bp
-msgid "Shop"
-msgstr "Butikk"
-
-#: core/wc4bp-component.php:136
-#: core/wc4bp-component.php:250
-#@ wc4bp
-msgid "Shopping Cart"
-msgstr "Handlekurv"
-
-#: core/wc4bp-component.php:151
-#: core/wc4bp-component.php:259
-#@ wc4bp
-msgid "History"
-msgstr "Historie"
-
-#: core/wc4bp-component.php:164
-#: core/wc4bp-component.php:268
-#: templates/shop/member/track.php:16
-#@ wc4bp
-msgid "Track your order"
-msgstr "Spor din ordre"
-
-#: core/wc4bp-helpers.php:122
-#, php-format
-#@ wc4bp
-msgid "%s wrote a review about <a href=\"%s\">%s</a>"
-msgstr "%s skrev en vurdering av <a href=\"%s\">%s</a>"
-
-#: core/wc4bp-helpers.php:175
-#, php-format
-#@ wc4bp
-msgid "%s purchased %s"
-msgstr "%s kjøpte %s"
-
-#: core/wc4bp-screen.php:85
-#@ wc4bp
-msgid "Changes saved."
-msgstr "Endringer lagret."
-
-#: core/wc4bp-screen.php:103
-#@ wc4bp
-msgid "Shop Settings"
-msgstr "Butikk instillinger"
-
-#: core/wc4bp-screen.php:129
-#@ wc4bp
-msgid "Activity Stream"
-msgstr "Aktivitets strøm"
-
-#: core/wc4bp-screen.php:130
-#@ wc4bp
-msgid "Yes"
-msgstr "Ja"
-
-#: core/wc4bp-screen.php:131
-#@ wc4bp
-msgid "No"
-msgstr "Nei"
-
-#: core/wc4bp-screen.php:138
-#@ wc4bp
-msgid "Post to activity stream all reviews written by me"
-msgstr "Legg inn i aktivitetsstrømmen alle vurderinger jeg har skrevet"
-
-#: core/wc4bp-screen.php:144
-#@ wc4bp
-msgid "Post to activity stream all purchases I've made"
-msgstr "Legg inn i aktivitetsstrømmen alle kjøp jeg har gjort"
-
-#: core/wc4bp-screen.php:156
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:61
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:65
-#@ wc4bp
-msgid "Save Changes"
-msgstr "Lagre endringer"
 
 #: admin/admin-pages.php:215
 #@ wc4bp
@@ -141,6 +49,98 @@ msgstr ""
 #: admin/admin-xprofile.php:195
 #@ wc4bp
 msgid "(Required)"
+msgstr ""
+
+#: core/wc4bp-component.php:30
+#: core/wc4bp-component.php:122
+#: core/wc4bp-component.php:178
+#: core/wc4bp-component.php:232
+#: core/wc4bp-component.php:242
+#@ wc4bp
+msgid "Shop"
+msgstr ""
+
+#: core/wc4bp-component.php:49
+#@ wc4bp
+msgid "New review created"
+msgstr ""
+
+#: core/wc4bp-component.php:50
+#@ wc4bp
+msgid "New purchase made"
+msgstr ""
+
+#: core/wc4bp-component.php:136
+#: core/wc4bp-component.php:250
+#@ wc4bp
+msgid "Shopping Cart"
+msgstr ""
+
+#: core/wc4bp-component.php:151
+#: core/wc4bp-component.php:259
+#@ wc4bp
+msgid "History"
+msgstr ""
+
+#: core/wc4bp-component.php:164
+#: core/wc4bp-component.php:268
+#: templates/shop/member/track.php:16
+#@ wc4bp
+msgid "Track your order"
+msgstr ""
+
+#: core/wc4bp-helpers.php:122
+#, php-format
+#@ wc4bp
+msgid "%s wrote a review about <a href=\"%s\">%s</a>"
+msgstr ""
+
+#: core/wc4bp-helpers.php:175
+#, php-format
+#@ wc4bp
+msgid "%s purchased %s"
+msgstr ""
+
+#: core/wc4bp-screen.php:85
+#@ wc4bp
+msgid "Changes saved."
+msgstr ""
+
+#: core/wc4bp-screen.php:103
+#@ wc4bp
+msgid "Shop Settings"
+msgstr ""
+
+#: core/wc4bp-screen.php:129
+#@ wc4bp
+msgid "Activity Stream"
+msgstr ""
+
+#: core/wc4bp-screen.php:130
+#@ wc4bp
+msgid "Yes"
+msgstr ""
+
+#: core/wc4bp-screen.php:131
+#@ wc4bp
+msgid "No"
+msgstr ""
+
+#: core/wc4bp-screen.php:138
+#@ wc4bp
+msgid "Post to activity stream all reviews written by me"
+msgstr ""
+
+#: core/wc4bp-screen.php:144
+#@ wc4bp
+msgid "Post to activity stream all purchases I've made"
+msgstr ""
+
+#: core/wc4bp-screen.php:156
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:61
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:65
+#@ wc4bp
+msgid "Save Changes"
 msgstr ""
 
 #: core/wc4bp-screen.php:181

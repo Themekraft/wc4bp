@@ -44,7 +44,6 @@ class WC4BP_API_Manager {
 	 * http://markjaquith.wordpress.com/2011/10/06/translating-wordpress-plugins-and-themes-dont-get-clever/
 	 * http://ottopress.com/2012/internationalization-youre-probably-doing-it-wrong/
 	 */
-	public $text_domain = 'wc4bp-api-manager';
 
 	/**
 	 * Data defaults
@@ -105,16 +104,13 @@ class WC4BP_API_Manager {
 		// Run the activation function
 		register_activation_hook( $this->plugin_file(), array( $this, 'activation' ) );
 
-		// Ready for translation
-		//load_plugin_textdomain( 'wc4bp-api-manager', false, dirname( untrailingslashit( plugin_basename( __FILE__ ) ) ) . '/languages' );
-
 		if ( is_admin() ) {
 
 			/**
 			 * Software Product ID is the product title string
 			 * This value must be unique, and it must match the API tab for the product in WooCommerce
 			 */
-			$this->wc4bp_plugin_software_product_id = __('woocommerce-buddypress-integration', 'wc4bp-api-manager');
+			$this->wc4bp_plugin_software_product_id = __('woocommerce-buddypress-integration', 'wc4bp');
 
 			/**
 			 * Set all data defaults here
@@ -136,8 +132,8 @@ class WC4BP_API_Manager {
 			$this->wc4bp_plugin_deactivation_tab_key 			= 'wc4bp_api_manager_deactivation';
 			$this->wc4bp_plugin_settings_menu_title 			= 'WC4BP License';
 			$this->wc4bp_plugin_settings_title 				    = 'WooCommerce BuddyPress Integration License Activation';
-			$this->wc4bp_plugin_menu_tab_activation_title 		= __('License Activation', 'wc4bp-api-manager');
-			$this->wc4bp_plugin_menu_tab_deactivation_title 	= __('License Deactivation', 'wc4bp-api-manager');
+			$this->wc4bp_plugin_menu_tab_activation_title 		= __('License Activation', 'wc4bp');
+			$this->wc4bp_plugin_menu_tab_deactivation_title 	= __('License Deactivation', 'wc4bp');
 
 			/**
 			 * Set all software update data here
@@ -177,8 +173,7 @@ class WC4BP_API_Manager {
 					$this->wc4bp_plugin_instance_id,
 					$this->wc4bp_plugin_domain,
 					$this->wc4bp_plugin_software_version,
-					$this->wc4bp_plugin_plugin_or_theme,
-					$this->text_domain
+					$this->wc4bp_plugin_plugin_or_theme
 					);
 
 			}
@@ -333,7 +328,7 @@ class WC4BP_API_Manager {
 		<?php if ( ! current_user_can( 'manage_options' ) ) return; ?>
 		<?php if ( isset( $_GET['page'] ) && 'wc4bp_api_manager_dashboard' == $_GET['page'] ) return; ?>
 		<div id="message" class="error">
-			<p><?php printf( __( 'The API License Key for WC4BP could not be found. %sClick here%s to activate it.', 'wc4bp-api-manager' ), '<a href="' . esc_url( admin_url( 'admin.php?page=wc4bp_api_manager_dashboard' ) ) . '">', '</a>' ); ?></p>
+			<p><?php printf( __( 'The API License Key for WC4BP could not be found. %sClick here%s to activate it.', 'wc4bp' ), '<a href="' . esc_url( admin_url( 'admin.php?page=wc4bp_api_manager_dashboard' ) ) . '">', '</a>' ); ?></p>
 		</div>
 		<?php
 	}

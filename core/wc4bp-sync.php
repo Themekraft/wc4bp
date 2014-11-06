@@ -182,92 +182,92 @@ function  wc4bp_get_mapped_fields() {
 function wc4bp_get_customer_meta_fields() {
     $show_fields = apply_filters('woocommerce_customer_meta_fields', array(
         'billing' => array(
-            'title' => __('Customer Billing Address', 'woocommerce'),
+            'title' => __('Customer Billing Address', 'wc4bp'),
             'fields' => array(
                 'billing_first_name' => array(
-                    'label' => __('First name', 'woocommerce'),
+                    'label' => __('First name', 'wc4bp'),
                     'description' => ''
                 ),
                 'billing_last_name' => array(
-                    'label' => __('Last name', 'woocommerce'),
+                    'label' => __('Last name', 'wc4bp'),
                     'description' => ''
                 ),
                 'billing_company' => array(
-                    'label' => __('Company', 'woocommerce'),
+                    'label' => __('Company', 'wc4bp'),
                     'description' => ''
                 ),
                 'billing_address_1' => array(
-                    'label' => __('Address 1', 'woocommerce'),
+                    'label' => __('Address 1', 'wc4bp'),
                     'description' => ''
                 ),
                 'billing_address_2' => array(
-                    'label' => __('Address 2', 'woocommerce'),
+                    'label' => __('Address 2', 'wc4bp'),
                     'description' => ''
                 ),
                 'billing_city' => array(
-                    'label' => __('City', 'woocommerce'),
+                    'label' => __('City', 'wc4bp'),
                     'description' => ''
                 ),
                 'billing_postcode' => array(
-                    'label' => __('Postcode', 'woocommerce'),
+                    'label' => __('Postcode', 'wc4bp'),
                     'description' => ''
                 ),
                 'billing_state' => array(
-                    'label' => __('State/County', 'woocommerce'),
+                    'label' => __('State/County', 'wc4bp'),
                     'description' => 'Country or state code'
                 ),
                 'billing_country' => array(
-                    'label' => __('Country', 'woocommerce'),
+                    'label' => __('Country', 'wc4bp'),
                     'description' => '2 letter Country code'
                 ),
                 'billing_phone' => array(
-                    'label' => __('Telephone', 'woocommerce'),
+                    'label' => __('Telephone', 'wc4bp'),
                     'description' => ''
                 ),
                 'billing_email' => array(
-                    'label' => __('Email', 'woocommerce'),
+                    'label' => __('Email', 'wc4bp'),
                     'description' => ''
                 )
             )
         ),
         'shipping' => array(
-            'title' => __('Customer Shipping Address', 'woocommerce'),
+            'title' => __('Customer Shipping Address', 'wc4bp'),
             'fields' => array(
                 'shipping_first_name' => array(
-                    'label' => __('First name', 'woocommerce'),
+                    'label' => __('First name', 'wc4bp'),
                     'description' => ''
                 ),
                 'shipping_last_name' => array(
-                    'label' => __('Last name', 'woocommerce'),
+                    'label' => __('Last name', 'wc4bp'),
                     'description' => ''
                 ),
                 'shipping_company' => array(
-                    'label' => __('Company', 'woocommerce'),
+                    'label' => __('Company', 'wc4bp'),
                     'description' => ''
                 ),
                 'shipping_address_1' => array(
-                    'label' => __('Address 1', 'woocommerce'),
+                    'label' => __('Address 1', 'wc4bp'),
                     'description' => ''
                 ),
                 'shipping_address_2' => array(
-                    'label' => __('Address 2', 'woocommerce'),
+                    'label' => __('Address 2', 'wc4bp'),
                     'description' => ''
                 ),
                 'shipping_city' => array(
-                    'label' => __('City', 'woocommerce'),
+                    'label' => __('City', 'wc4bp'),
                     'description' => ''
                 ),
                 'shipping_postcode' => array(
-                    'label' => __('Postcode', 'woocommerce'),
+                    'label' => __('Postcode', 'wc4bp'),
                     'description' => ''
                 ),
                 'shipping_state' => array(
-                    'label' => __('State/County', 'woocommerce'),
-                    'description' => __('State/County or state code', 'woocommerce')
+                    'label' => __('State/County', 'wc4bp'),
+                    'description' => __('State/County or state code', 'wc4bp')
                 ),
                 'shipping_country' => array(
-                    'label' => __('Country', 'woocommerce'),
-                    'description' => __('2 letter Country code', 'woocommerce')
+                    'label' => __('Country', 'wc4bp'),
+                    'description' => __('2 letter Country code', 'wc4bp')
                 )
             )
         )

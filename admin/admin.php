@@ -19,10 +19,10 @@ function wc4bp_admin_menu() {
     if(!isset($wc4bp_options['tab_sync_disabled']))
         add_submenu_page( 'wc4bp-options-page'  , 'WC4BP Profile Sync'  , 'Profile Sync'    , 'manage_options', 'wc4bp-options-page-sync'   , 'wc4bp_screen_sync' );
 
-    do_action('wc4bp_add_submenu_page');
 
+    add_submenu_page( 'wc4bp-options-page'  , 'BuddyPress Profile'     , 'BuddyPress xProfile'       , 'manage_options', 'wc4bp-options-page-xprofile'   , 'wc4bp_screen_xprofile' );
+    do_action('wc4bp_add_submenu_page');
     add_submenu_page( 'wc4bp-options-page'  , 'Delete'     , 'Delete'       , 'manage_options', 'wc4bp-options-page-delete'   , 'wc4bp_screen_delete' );
-    add_submenu_page( 'wc4bp-options-page'  , 'xProfile'     , 'xProfile'       , 'manage_options', 'wc4bp-options-page-xprofile'   , 'wc4bp_screen_xprofile' );
 
 }
 

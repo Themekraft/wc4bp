@@ -70,7 +70,42 @@ function wc4bp_register_admin_settings_sync() {
 }
 
 function wc4bp_shop_profile_sync(){ ?>
-    <p>Sync all WooCommerce User Data with BuddyPress</p>
+    <b><p>Sync WooCommerce Customer Billing and shipping Address with BuddyPress</p></b>
+    <p>The billing and shipping address fields are WooCOmmerce default User fields. You can sync all default woocommerce custopmer fields with buddypress. </p>
+    During checkout or if a user edit his profile all all fields will be synced automaticly.
+    If you have alreaddy customers and start using WooCOmmerce BuddyPRess Integration on a existing store, you need to sync your user once.
+
+    The Customer Billing and Shipping adress fields will be created in buddypress during the plugin instalation, but the user sync can take a while depance on the sice of your userbase.
+
+
+
+    <b><p>Customer Billing Address</p></b>
+    <ul>
+        <li>First name</li>
+        <li>Last name</li>
+        <li>Company</li>
+        <li>Address 1</li>
+        <li>Address 2</li>
+        <li>City</li>
+        <li>Postcode</li>
+        <li>State/County <i>(Country or state code)</i></li>
+        <li>Country(2 letter Country code)</li>
+        <li>Telephone</li>
+        <li>Email</li>
+    </ul>
+    <b><p>Customer Shipping Address</p></b>
+    <ul>
+        <li>First name</li>
+        <li>Last name</li>
+        <li>Company</li>
+        <li>Address 1</li>
+        <li>Address 2</li>
+        <li>City</li>
+        <li>Postcode</li>
+        <li>State/County <i>(Country or state code)</i></li>
+        <li>Country(2 letter Country code)</li>
+    </ul>
+
     <input type="button" id="wc4bp_sync_wc_user_with_bp_ajax" name="wc4bp_options_sync[wc_bp_sync]" class="button wc_bp_sync_all_user_data" value="Sync Now">
 
     <?php
@@ -148,6 +183,26 @@ function wc4bp_shop_profile_sync_ajax(){
 add_action( 'wp_ajax_wc4bp_shop_profile_sync_ajax', 'wc4bp_shop_profile_sync_ajax' );
 add_action( 'wp_ajax_nopriv_wc4bp_shop_profile_sync_ajax', 'wc4bp_shop_profile_sync_ajax' );
 
+
+function wc4bp_sync_from_xprofile($user_id){
+    $bf_xprofile_options = get_option('bf_xprofile_options');
+
+    foreach( $bf_xprofile_options as $fieldset ) :
+        foreach($fieldset as $key => $field):
+xdebug_break();
+            // update if it isn't empty
+            if( ! empty( $field['field_id'] ) ){
+                $field_value = xprofile_get_field_data( $field['field_id'], $user_id);
+                $field_slug = sanitize_title($field['group_id'].'-'.$field['field_id']);
+                $old_user_meta =  get_user_meta($user_id, $field_slug, true);
+                update_user_meta( $user_id, $field_slug, $field_value );
+            }
+
+        endforeach;
+    endforeach;
+}
+
+
 function  wc4bp_sync_from_admin( $user_id ) {
 
     // get the woocommerce fields
@@ -206,7 +261,10 @@ function select_visibility_levels($name){
 
 function  wc4bp_change_xprofile_visabilyty_by_user(){ ?>
 
-    <p>Set the Profile Field Visibility for all Users:</p>
+    <b><p>Set the Profile Field Visibility for all Users:</p></b>
+
+    <p>You can change the Field Visability for all users. This will only work if the option if</p>
+    <p>"Allow Custom Visibility Change by User" is set to "Let members change this field's visibility"</p>
 
     <?php select_visibility_levels('visibility_levels'); ?>
 
@@ -233,7 +291,7 @@ function wc4bp_change_xprofile_visabilyty_by_user_ajax($user_id){
 
 function wc4bp_change_xprofile_visabilyty_default(){ ?>
     <p>Set the default profile field viability to</p>
-    <?php //select_visibility_levels('default_visibility'); ?>
+    <?php select_visibility_levels('default_visibility'); ?>
     <input type="submit" class="button" name="wc4bp_options_sync[change_xprofile_visabilyty_field_default]" value="Change now">
     <?php
     $wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
@@ -318,4 +376,7 @@ function wc4bp_get_all_user(){
 
 add_action( 'wp_ajax_wc4bp_get_all_user', 'wc4bp_get_all_user' );
 add_action( 'wp_ajax_nopriv_wc4bp_get_all_user', 'wc4bp_get_all_user' );
+
+
+
 ?>

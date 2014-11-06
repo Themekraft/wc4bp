@@ -28,7 +28,7 @@ class WC4BP_API_Manager_MENU {
 	// Add option page menu
 	public function add_menu() {
 
-        $page = add_submenu_page( 'wc4bp-options-page', __( WC4BPAM()->wc4bp_plugin_settings_menu_title, 'wc4bp-api-manager' ), __( WC4BPAM()->wc4bp_plugin_settings_menu_title, 'wc4bp-api-manager' ), 'manage_options',  WC4BPAM()->wc4bp_plugin_activation_tab_key, array( $this, 'config_page') );
+        $page = add_submenu_page( 'wc4bp-options-page', __( WC4BPAM()->wc4bp_plugin_settings_menu_title, 'wc4bp' ), __( WC4BPAM()->wc4bp_plugin_settings_menu_title, 'wc4bp' ), 'manage_options',  WC4BPAM()->wc4bp_plugin_activation_tab_key, array( $this, 'config_page') );
 
 		add_action( 'admin_print_styles-' . $page, array( $this, 'css_scripts' ) );
 	}
@@ -36,13 +36,13 @@ class WC4BP_API_Manager_MENU {
 	// Draw option page
 	public function config_page() {
 
-		$settings_tabs = array( WC4BPAM()->wc4bp_plugin_activation_tab_key => __( WC4BPAM()->wc4bp_plugin_menu_tab_activation_title, 'wc4bp-api-manager' ), WC4BPAM()->wc4bp_plugin_deactivation_tab_key => __( WC4BPAM()->wc4bp_plugin_menu_tab_deactivation_title, 'wc4bp-api-manager' ) );
+		$settings_tabs = array( WC4BPAM()->wc4bp_plugin_activation_tab_key => __( WC4BPAM()->wc4bp_plugin_menu_tab_activation_title, 'wc4bp' ), WC4BPAM()->wc4bp_plugin_deactivation_tab_key => __( WC4BPAM()->wc4bp_plugin_menu_tab_deactivation_title, 'wc4bp' ) );
 		$current_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : WC4BPAM()->wc4bp_plugin_activation_tab_key;
 		$tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : WC4BPAM()->wc4bp_plugin_activation_tab_key;
 		?>
 		<div class='wrap'>
 			<?php screen_icon(); ?>
-			<h2><?php _e( WC4BPAM()->wc4bp_plugin_settings_title, 'wc4bp-api-manager' ); ?></h2>
+			<h2><?php _e( WC4BPAM()->wc4bp_plugin_settings_title, 'wc4bp' ); ?></h2>
 
 			<h2 class="nav-tab-wrapper">
 			<?php
@@ -58,11 +58,11 @@ class WC4BP_API_Manager_MENU {
 					if( $tab == WC4BPAM()->wc4bp_plugin_activation_tab_key ) {
 							settings_fields( WC4BPAM()->wc4bp_plugin_data_key );
 							do_settings_sections( WC4BPAM()->wc4bp_plugin_activation_tab_key );
-							submit_button( __( 'Save Changes', 'wc4bp-api-manager' ) );
+							submit_button( __( 'Save Changes', 'wc4bp' ) );
 					} else {
 							settings_fields( WC4BPAM()->wc4bp_plugin_deactivate_checkbox );
 							do_settings_sections( WC4BPAM()->wc4bp_plugin_deactivation_tab_key );
-							submit_button( __( 'Save Changes', 'wc4bp-api-manager' ) );
+							submit_button( __( 'Save Changes', 'wc4bp' ) );
 					}
 				?>
 					</div>
@@ -77,14 +77,14 @@ class WC4BP_API_Manager_MENU {
 		register_setting( WC4BPAM()->wc4bp_plugin_data_key, WC4BPAM()->wc4bp_plugin_data_key, array( $this, 'validate_options' ) );
 
 		// API Key
-		add_settings_section( WC4BPAM()->wc4bp_plugin_api_key, __( 'WC4BP API License Activation', 'wc4bp-api-manager' ), array( $this, 'wc_am_api_key_text' ), WC4BPAM()->wc4bp_plugin_activation_tab_key );
-		add_settings_field( WC4BPAM()->wc4bp_plugin_api_key, __( 'API License Key', 'wc4bp-api-manager' ), array( $this, 'wc_am_api_key_field' ), WC4BPAM()->wc4bp_plugin_activation_tab_key, WC4BPAM()->wc4bp_plugin_api_key );
-		add_settings_field( WC4BPAM()->wc4bp_plugin_activation_email, __( 'API License Email', 'wc4bp-api-manager' ), array( $this, 'wc_am_api_email_field' ), WC4BPAM()->wc4bp_plugin_activation_tab_key, WC4BPAM()->wc4bp_plugin_api_key );
+		add_settings_section( WC4BPAM()->wc4bp_plugin_api_key, __( 'WC4BP API License Activation', 'wc4bp' ), array( $this, 'wc_am_api_key_text' ), WC4BPAM()->wc4bp_plugin_activation_tab_key );
+		add_settings_field( WC4BPAM()->wc4bp_plugin_api_key, __( 'API License Key', 'wc4bp' ), array( $this, 'wc_am_api_key_field' ), WC4BPAM()->wc4bp_plugin_activation_tab_key, WC4BPAM()->wc4bp_plugin_api_key );
+		add_settings_field( WC4BPAM()->wc4bp_plugin_activation_email, __( 'API License Email', 'wc4bp' ), array( $this, 'wc_am_api_email_field' ), WC4BPAM()->wc4bp_plugin_activation_tab_key, WC4BPAM()->wc4bp_plugin_api_key );
 
 		// Activation settings
 		register_setting( WC4BPAM()->wc4bp_plugin_deactivate_checkbox, WC4BPAM()->wc4bp_plugin_deactivate_checkbox, array( $this, 'wc_am_license_key_deactivation' ) );
-		add_settings_section( 'deactivate_button', __( 'WC4BP API License Deactivation', 'wc4bp-api-manager' ), array( $this, 'wc_am_deactivate_text' ), WC4BPAM()->wc4bp_plugin_deactivation_tab_key );
-		add_settings_field( 'deactivate_button', __( 'Deactivate API License Key', 'wc4bp-api-manager' ), array( $this, 'wc_am_deactivate_textarea' ), WC4BPAM()->wc4bp_plugin_deactivation_tab_key, 'deactivate_button' );
+		add_settings_section( 'deactivate_button', __( 'WC4BP API License Deactivation', 'wc4bp' ), array( $this, 'wc_am_deactivate_text' ), WC4BPAM()->wc4bp_plugin_deactivation_tab_key );
+		add_settings_field( 'deactivate_button', __( 'Deactivate API License Key', 'wc4bp' ), array( $this, 'wc_am_deactivate_textarea' ), WC4BPAM()->wc4bp_plugin_deactivation_tab_key, 'deactivate_button' );
 
 	}
 
@@ -157,13 +157,13 @@ class WC4BP_API_Manager_MENU {
 				$activate_results = json_decode( $activate_results, true );
 
 				if ( $activate_results['activated'] == true ) {
-					add_settings_error( 'activate_text', 'activate_msg', __( 'Plugin activated. ', 'wc4bp-api-manager' ) . "{$activate_results['message']}.", 'updated' );
+					add_settings_error( 'activate_text', 'activate_msg', __( 'Plugin activated. ', 'wc4bp' ) . "{$activate_results['message']}.", 'updated' );
 					update_option( WC4BPAM()->wc4bp_plugin_activated_key, 'Activated' );
 					update_option( WC4BPAM()->wc4bp_plugin_deactivate_checkbox, 'off' );
 				}
 
 				if ( $activate_results == false ) {
-					add_settings_error( 'api_key_check_text', 'api_key_check_error', __( 'Connection failed to the License Key API server. Try again later.', 'wc4bp-api-manager' ), 'error' );
+					add_settings_error( 'api_key_check_text', 'api_key_check_error', __( 'Connection failed to the License Key API server. Try again later.', 'wc4bp' ), 'error' );
 					$options[WC4BPAM()->wc4bp_plugin_api_key] = '';
 					$options[WC4BPAM()->wc4bp_plugin_activation_email] = '';
 					update_option( WC4BPAM()->wc4bp_plugin_options[WC4BPAM()->wc4bp_plugin_activated_key], 'Deactivated' );
@@ -238,7 +238,7 @@ class WC4BP_API_Manager_MENU {
 		if ( $reset == true )
 			return true;
 
-		return add_settings_error( 'not_deactivated_text', 'not_deactivated_error', __( 'The license could not be deactivated. Use the License Deactivation tab to manually deactivate the license before activating a new license.', 'wc4bp-api-manager' ), 'updated' );
+		return add_settings_error( 'not_deactivated_text', 'not_deactivated_error', __( 'The license could not be deactivated. Use the License Deactivation tab to manually deactivate the license before activating a new license.', 'wc4bp' ), 'updated' );
 	}
 
 	// Deactivates the license key to allow key to be used on another blog
@@ -267,7 +267,7 @@ class WC4BP_API_Manager_MENU {
 
 				update_option( WC4BPAM()->wc4bp_plugin_activated_key, 'Deactivated' );
 
-				add_settings_error( 'wc_am_deactivate_text', 'deactivate_msg', __( 'Plugin license deactivated.', 'wc4bp-api-manager' ), 'updated' );
+				add_settings_error( 'wc_am_deactivate_text', 'deactivate_msg', __( 'Plugin license deactivated.', 'wc4bp' ), 'updated' );
 
 				return $options;
 			}
@@ -287,7 +287,7 @@ class WC4BP_API_Manager_MENU {
 		echo '<input type="checkbox" id="' . WC4BPAM()->wc4bp_plugin_deactivate_checkbox . '" name="' . WC4BPAM()->wc4bp_plugin_deactivate_checkbox . '" value="on"';
 		echo checked( get_option( WC4BPAM()->wc4bp_plugin_deactivate_checkbox ), 'on' );
 		echo '/>';
-		?><span class="description"><?php _e( 'Deactivates an API License Key so it can be used on another blog.', 'wc4bp-api-manager' ); ?></span>
+		?><span class="description"><?php _e( 'Deactivates an API License Key so it can be used on another blog.', 'wc4bp' ); ?></span>
 		<?php
 	}
 
