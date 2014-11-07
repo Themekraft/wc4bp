@@ -70,41 +70,50 @@ function wc4bp_register_admin_settings_sync() {
 }
 
 function wc4bp_shop_profile_sync(){ ?>
-    <b><p>Sync WooCommerce Customer Billing and shipping Address with BuddyPress</p></b>
-    <p>The billing and shipping address fields are WooCOmmerce default User fields. You can sync all default woocommerce custopmer fields with buddypress. </p>
-    During checkout or if a user edit his profile all all fields will be synced automaticly.
-    If you have alreaddy customers and start using WooCOmmerce BuddyPRess Integration on a existing store, you need to sync your user once.
+    <p><b>Sync WooCommerce Customer Billing and Shipping Address with BuddyPress.</b></p>
+    <p>The billing and shipping address fields are WooCommerce default user fields. You can sync all default WooCommerce customer fields with BuddyPress.</p>
+    <p>During checkout or if a user edit his profile all fields will be synced automaticly.</p>
+    <p>If you have already customers and start using WooCommerce BuddyPress Integration on an existing store, you need to sync your user once.</p>
+    <p>The Customer Billing and Shipping Address fields will be created in BuddyPress during the plugin installation, but the user sync can take a while depends on the size of your user base and needs to be done once after the first install.</p>
 
-    The Customer Billing and Shipping adress fields will be created in buddypress during the plugin instalation, but the user sync can take a while depance on the sice of your userbase.
+<br>
+    <a onclick="document.getElementById('wc_default_fields').style.display='';return false;" href="" style="text-decoration:none;border-bottom:1px dotted blue;">
+        Default WooCommerce Checkout Fields</a>
+    <br />
+    <div id="wc_default_fields" style="display:none;margin:15px 15px 0px 15px;padding:5px;border:1px solid #aaa;">
+        <b><p>Customer Billing Address</p></b>
+        <ul>
+            <li>First name</li>
+            <li>Last name</li>
+            <li>Company</li>
+            <li>Address 1</li>
+            <li>Address 2</li>
+            <li>City</li>
+            <li>Postcode</li>
+            <li>State/County <i>(Country or state code)</i></li>
+            <li>Country(2 letter Country code)</li>
+            <li>Telephone</li>
+            <li>Email</li>
+        </ul>
+        <b><p>Customer Shipping Address</p></b>
+        <ul>
+            <li>First name</li>
+            <li>Last name</li>
+            <li>Company</li>
+            <li>Address 1</li>
+            <li>Address 2</li>
+            <li>City</li>
+            <li>Postcode</li>
+            <li>State/County <i>(Country or state code)</i></li>
+            <li>Country(2 letter Country code)</li>
+        </ul>
+        <a onclick="document.getElementById('div_name2').style.display='none';return false;" href=""
+           style="text-decoration:none;border-bottom:1px dotted blue;">hide</a>
+    </div>
+
+<br>
 
 
-
-    <b><p>Customer Billing Address</p></b>
-    <ul>
-        <li>First name</li>
-        <li>Last name</li>
-        <li>Company</li>
-        <li>Address 1</li>
-        <li>Address 2</li>
-        <li>City</li>
-        <li>Postcode</li>
-        <li>State/County <i>(Country or state code)</i></li>
-        <li>Country(2 letter Country code)</li>
-        <li>Telephone</li>
-        <li>Email</li>
-    </ul>
-    <b><p>Customer Shipping Address</p></b>
-    <ul>
-        <li>First name</li>
-        <li>Last name</li>
-        <li>Company</li>
-        <li>Address 1</li>
-        <li>Address 2</li>
-        <li>City</li>
-        <li>Postcode</li>
-        <li>State/County <i>(Country or state code)</i></li>
-        <li>Country(2 letter Country code)</li>
-    </ul>
 
     <input type="button" id="wc4bp_sync_wc_user_with_bp_ajax" name="wc4bp_options_sync[wc_bp_sync]" class="button wc_bp_sync_all_user_data" value="Sync Now">
 
@@ -189,7 +198,6 @@ function wc4bp_sync_from_xprofile($user_id){
 
     foreach( $bf_xprofile_options as $fieldset ) :
         foreach($fieldset as $key => $field):
-xdebug_break();
             // update if it isn't empty
             if( ! empty( $field['field_id'] ) ){
                 $field_value = xprofile_get_field_data( $field['field_id'], $user_id);
@@ -244,7 +252,7 @@ function  wc4bp_sync_from_admin( $user_id ) {
 
 function select_visibility_levels($name){
 
-    $visibility_levels = '<select id="wc4bp_set_bp_field_visibility" name="wc4bp_options_sync[' . $name . ']">
+    $visibility_levels = '<select id="wc4bp_set_bp_' . $name . '" name="wc4bp_options_sync[' . $name . ']">
 
     <option value="none">Select Visibility</option>';
 
@@ -260,10 +268,8 @@ function select_visibility_levels($name){
 
 
 function  wc4bp_change_xprofile_visabilyty_by_user(){ ?>
-
     <b><p>Set the Profile Field Visibility for all Users:</p></b>
-
-    <p>You can change the Field Visability for all users. This will only work if the option if</p>
+    <p>You can change the Field Visability for all users. This will only work if the option</p>
     <p>"Allow Custom Visibility Change by User" is set to "Let members change this field's visibility"</p>
 
     <?php select_visibility_levels('visibility_levels'); ?>

@@ -4,7 +4,7 @@
  * Plugin URI:  http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author:      WC4BP Integration Dev Team ;)
- * Version:     2.0
+ * Version:     2.1
  *
  *****************************************************************************
  *
@@ -37,7 +37,7 @@ class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION 	= '2.0';
+	const VERSION 	= '2.1';
 
     /**
 	 * Minimum required WP version
@@ -278,7 +278,6 @@ class WC4BP_Loader {
         }
 	}
 
-
 	/**
 	 * Enqueue admin JS and CSS
 	 *
@@ -289,16 +288,12 @@ class WC4BP_Loader {
 
 	public function wc4bp_admin_js(){
 
-
-
 		add_thickbox();
         wp_enqueue_script('jquery');
         wp_enqueue_script('jquery-ui-core');
         wp_enqueue_script('jquery-ui-widget');
         wp_enqueue_script('jquery-ui-tabs');
         wp_enqueue_script('jquery-effects-core');
-
-
 
         wp_enqueue_script('wc4bp_admin_js', plugins_url('/admin/js/admin.js', __FILE__), array('jquery','jquery-ui-core','jquery-ui-widget', 'jquery-ui-tabs'));
         wp_enqueue_style('wc4bp_admin_css', plugins_url('/admin/css/admin.css', __FILE__));

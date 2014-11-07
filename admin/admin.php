@@ -13,14 +13,16 @@ add_action( 'admin_menu', 'wc4bp_admin_menu' );
 function wc4bp_admin_menu() {
     add_menu_page( 'WooCommerce for BuddyPress', 'WC4BP Settings', 'manage_options', 'wc4bp-options-page', 'wc4bp_screen' );
 
-    add_submenu_page( 'wc4bp-options-page'  , 'WC4BP Add Pages'     , 'Add Pages'       , 'manage_options', 'wc4bp-options-page-pages'   , 'wc4bp_screen_pages' );
+    add_submenu_page( 'wc4bp-options-page'  , 'WC4BP Integrate Pages'     , 'Integrate Pages'       , 'manage_options', 'wc4bp-options-page-pages'   , 'wc4bp_screen_pages' );
+
+    add_submenu_page( 'wc4bp-options-page'  , 'BuddyPress Profile'     , 'BuddyPress xProfile'       , 'manage_options', 'wc4bp-options-page-xprofile'   , 'wc4bp_screen_xprofile' );
 
     $wc4bp_options = get_option( 'wc4bp_options' );
     if(!isset($wc4bp_options['tab_sync_disabled']))
-        add_submenu_page( 'wc4bp-options-page'  , 'WC4BP Profile Sync'  , 'Profile Sync'    , 'manage_options', 'wc4bp-options-page-sync'   , 'wc4bp_screen_sync' );
+        add_submenu_page( 'wc4bp-options-page'  , 'WC4BP Profile Fields Sync'  , 'Profile Fields Sync'    , 'manage_options', 'wc4bp-options-page-sync'   , 'wc4bp_screen_sync' );
 
 
-    add_submenu_page( 'wc4bp-options-page'  , 'BuddyPress Profile'     , 'BuddyPress xProfile'       , 'manage_options', 'wc4bp-options-page-xprofile'   , 'wc4bp_screen_xprofile' );
+
     do_action('wc4bp_add_submenu_page');
     add_submenu_page( 'wc4bp-options-page'  , 'Delete'     , 'Delete'       , 'manage_options', 'wc4bp-options-page-delete'   , 'wc4bp_screen_delete' );
 

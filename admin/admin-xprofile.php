@@ -14,38 +14,30 @@ function wc4bp_screen_xprofile() { ?>
         <div id="poststuff">
             <div id="post-body" class="metabox-holder columns-2">
 
-                <?php
-                if(isset($_POST['bf_xprofile_options'])){
-                    update_option('bf_xprofile_options',$_POST['bf_xprofile_options']);
-                }
+                <?php if(isset($_POST['bf_xprofile_options']))
+                    update_option('bf_xprofile_options',$_POST['bf_xprofile_options']); ?>
 
-                ?>
                 <form method="post" action="?page=wc4bp-options-page-xprofile">
                 <h2>WooCommerce BuddyPress Integration Settings</h2>
                 <div id="post-body-content">
 
                 <div id="icon-options-general" class="icon32"><br></div>
 
-                        <?php wp_nonce_field( 'update-options' ); ?>
-                        <?php wc4bp_xprofile_tabs() ?>
-
-
+                    <?php wp_nonce_field( 'update-options' ); ?>
+                    <?php wc4bp_xprofile_tabs() ?>
 
                 </div>
                 <div id="postbox-container-1" class="postbox-container">
                     <div id="submitdiv" class="postbox ">
-                            <div class="handlediv" title="Click to toggle"><br></div><h3><span>Save WC xProfile Setting</span></h3>
-                            <div class="inside">
-                                <div class="submitbox" id="submitpost">
+                        <div class="handlediv" title="Click to toggle"><br></div><h3><span>Save WC xProfile Setting</span></h3>
+                        <div class="inside">
+                            <div class="submitbox" id="submitpost">
 
-                                    <input type="submit" value="Save" class="button">
-
-                                </div>
-
+                               <div style="padding: 10px;"><input type="submit" value="Save" class="button"></div>
+                                <div class="clear"></div>
                             </div>
 
-
-
+                        </div>
                     </div>
                 </div>
                 </form>
@@ -66,23 +58,6 @@ function wc4bp_register_admin_settings_xprofile() {
     add_settings_field(		'wc4bp_xprofile_options'	, '<b>Allow Custom Visibility Change by User</b>'	        , 'wc4bp_change_xprofile_allow_custom_visibility'	, 'wc4bp_options_sync' , 'section_general' );
 }
 
-
-function wc4bp_display_wc_field(){
-    $fields = wc4bp_get_customer_meta_fields();
-
-    // get the mapped fields
-    $mapped_fields =  wc4bp_get_mapped_fields();
-
-/*    echo '<pre>';
-    print_r($fields);
-    echo '<pre>';
-
-    echo '<pre>';
-    print_r($mapped_fields);
-    echo '<pre>';*/
-
-}
-
 function wc4bp_display_get_wc_field($address_fields){
     print_r($address_fields);
 }
@@ -93,17 +68,9 @@ function wc4bp_display_get_wc_field($address_fields){
  */
 function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
 
-
-
-
     $groups = BP_XProfile_Group::get(array(
         'fetch_fields' => true
-    ));
-
-//    echo '<pre>';
-//    print_r($groups);
-//    echo '</pre>';
-    ?>
+    )); ?>
 
     <div id="tabs">
         <ul id="field-group-tabs" class="nav tabs" style="display: block;">
@@ -116,8 +83,6 @@ function wc4bp_xprofile_tabs( $message = '', $type = 'error' ) {
         </ul>
 
         <?php if ( !empty( $groups ) ) : foreach ( $groups as $group ) : ?>
-
-
 
             <div id="tabs-<?php echo $group->id; ?>" class="tab-wrapper">
 
@@ -180,13 +145,7 @@ function buddyforms_xprofile_admin_field( $admin_field, $admin_group, $class = '
 
     $bf_xprofile_options = get_option('bf_xprofile_options');
 
-    $field = $admin_field;
-
-    $field_types = wc4bp_supported_field_types();
-
-    $field_type = false;
-    if(isset( $field_types[$field->type]))
-        $field_type = $field_types[$field->type];?>
+    $field = $admin_field; ?>
 
     <fieldset id="field_<?php echo esc_attr( $field->id ); ?>" class="sortable<?php echo ' ' . $field->type; if ( !empty( $class ) ) echo ' ' . $class; ?>">
         <legend><span><b><?php bp_the_profile_field_name(); ?> </b><?php if( !$field->can_delete ) : ?> <?php _e( '(Primary)', 'wc4bp' ); endif; ?> <?php if ( bp_get_the_profile_field_is_required() ) : ?><?php _e( '(Required)', 'wc4bp' ) ?><?php endif; ?></span></legend>
@@ -201,17 +160,17 @@ function buddyforms_xprofile_admin_field( $admin_field, $admin_group, $class = '
                 <input type="hidden" value="<?php echo $field->description; ?>" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][description]">
 
         <?php if($admin_group->name == 'Billing Address' || $admin_group->name == 'Shipping Address') { ?>
-            WooCommerce default field - Automatically Synced with BuddyPress
 
-        <?php }
-echo $field->type;
-        if($field_type) { ?>
+            <p>WooCommerce default field - Automatically Synced with BuddyPress</p>
+            Remove from Checkout: <input <?php isset($bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['hide']) ? checked('hide',$bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['hide']): ''; ?> type="checkbox" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][hide]" value="hide">
+        <?php } else { ?>
+
             Add to Checkout: <input <?php isset($bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['checkout']) ? checked('checkout',$bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['checkout']): ''; ?> type="checkbox" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][checkout]" value="checkout">
             Add to order emails: <input <?php isset($bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['checkout']) ? checked('checkout',$bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['checkout']): ''; ?> type="checkbox" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][checkout]" value="checkout">
             Display field value on the order edit page: <input <?php isset($bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['checkout']) ? checked('checkout',$bf_xprofile_options[esc_attr( $admin_group->id )][esc_attr( $field->id )]['checkout']): ''; ?> type="checkbox" name="bf_xprofile_options[<?php echo esc_attr( $admin_group->id ); ?>][<?php echo esc_attr( $field->id ); ?>][checkout]" value="checkout">
-        <? } else { ?>
-            File Type not supportet
+
         <?php } ?>
+
             <a target="_blank" href="?page=bp-profile-setup&group_id=<?php echo $admin_group->id; ?>&field_id=<?php echo $field->id; ?>&mode=edit_field">Edit this field</a>
             </p>
         </div>
