@@ -117,7 +117,6 @@ class WC4BP_Loader {
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php');
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-sync.php');
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-pages.php');
-            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-xprofile.php');
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-delete.php');
             require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-ajax.php');
 

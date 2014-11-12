@@ -370,19 +370,5 @@ function wc4bp_change_xprofile_allow_custom_visibility(){
 
 }
 
-function wc4bp_get_all_user(){
-
-    $all_user = get_users( array( 'fields' => array( 'ID', 'display_name' ) ) );
-
-    foreach($all_user as $key => $user){
-        echo $user->ID . ',';
-    }
-}
-
-
-add_action( 'wp_ajax_wc4bp_get_all_user', 'wc4bp_get_all_user' );
-add_action( 'wp_ajax_nopriv_wc4bp_get_all_user', 'wc4bp_get_all_user' );
-
-
 
 ?>

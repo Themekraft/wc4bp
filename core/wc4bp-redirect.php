@@ -167,6 +167,9 @@ add_filter( 'page_link', 'wc4bp_page_link_router', 10, 2 );
 * @return string
 */
 function wc4bp_get_checkout_payment_url($pay_url, $order){
+
+    $wc4bp_options	= get_option( 'wc4bp_options' );
+
 	if( isset( $wc4bp_options['tab_cart_disabled']))
 		return $order_received_url;
 		
@@ -190,6 +193,10 @@ add_filter( 'woocommerce_get_checkout_payment_url', 'wc4bp_get_checkout_payment_
 * @return string
 */
 function wc4bp_get_checkout_order_received_url($order_received_url, $order){
+    xdebug_break();
+
+    $wc4bp_options	= get_option( 'wc4bp_options' );
+
 	if( isset( $wc4bp_options['tab_cart_disabled']))
 		return $order_received_url;
 

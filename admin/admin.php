@@ -15,7 +15,7 @@ function wc4bp_admin_menu() {
 
     add_submenu_page( 'wc4bp-options-page'  , 'WC4BP Integrate Pages'     , 'Integrate Pages'       , 'manage_options', 'wc4bp-options-page-pages'   , 'wc4bp_screen_pages' );
 
-    add_submenu_page( 'wc4bp-options-page'  , 'BuddyPress Profile'     , 'BuddyPress xProfile'       , 'manage_options', 'wc4bp-options-page-xprofile'   , 'wc4bp_screen_xprofile' );
+//    add_submenu_page( 'wc4bp-options-page'  , 'BuddyPress Profile'     , 'BuddyPress xProfile'       , 'manage_options', 'wc4bp-options-page-xprofile'   , 'wc4bp_screen_xprofile' );
 
     $wc4bp_options = get_option( 'wc4bp_options' );
     if(!isset($wc4bp_options['tab_sync_disabled']))
