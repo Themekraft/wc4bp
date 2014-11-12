@@ -193,7 +193,6 @@ add_filter( 'woocommerce_get_checkout_payment_url', 'wc4bp_get_checkout_payment_
 * @return string
 */
 function wc4bp_get_checkout_order_received_url($order_received_url, $order){
-    xdebug_break();
 
     $wc4bp_options	= get_option( 'wc4bp_options' );
 
