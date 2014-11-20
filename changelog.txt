@@ -1,5 +1,5 @@
 = v2.1 =
-* Add a new feature to include BuddyPress xprofile fields into the WooCommerce checkout and hide WooCommerce customer fields from the checkout.
+* Add new hooks to create a plugin to include BuddyPress xprofile fields into the WooCommerce checkout and hide WooCommerce customer fields from the checkout.
 * rework the user sync option to work with very large user bases.
 * clean up code and ui ;)
 * fixed some smaller bugs reported by users
