@@ -193,14 +193,20 @@ add_filter( 'woocommerce_get_checkout_payment_url', 'wc4bp_get_checkout_payment_
 * @return string
 */
 function wc4bp_get_checkout_order_received_url($order_received_url, $order){
+	global $current_user;
 
-    $wc4bp_options	= get_option( 'wc4bp_options' );
+	$current_user = wp_get_current_user();
+
+	if ( !is_user_logged_in() )
+		return $order_received_url;
+
+	$wc4bp_options	= get_option( 'wc4bp_options' );
 
 	if( isset( $wc4bp_options['tab_cart_disabled']))
 		return $order_received_url;
 
-	$order_received_url = bp_loggedin_user_domain() .'shop/home/checkout/';
-	
+	$order_received_url = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login . '/shop/home/checkout/';
+
 	if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 		$order_received_url = str_replace( 'http:', 'https:', $order_received_url );
 	}
