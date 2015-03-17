@@ -239,7 +239,8 @@ class WC4BP_Component extends BP_Component
 				'parent' => $bp->my_account_menu_id,
 				'id'     => 'my-account-' . $this->id,
 				'title'  => __( 'Shop', 'wc4bp' ),
-				'href'   => trailingslashit( $shop_link )
+				'href'   => trailingslashit( $shop_link ),
+				'meta'	 => array( 'class'  => 'menupop')
 			);
 			
 			if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
