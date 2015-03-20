@@ -28,32 +28,33 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @param $value
  */
 function  wc4bp_sync_addresses_from_profile( $field_id, $value ) {
-	$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
-	$billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
 
-	if( ! in_array( bp_action_variable( 1 ), array( $shipping['group_id'], $billing['group_id'] ) ) )
-		return false;
-	
-	$context = ( $shipping['group_id'] == bp_action_variable( 1 ) ) ? 'shipping' : 'billing';
+    // get the profile fields
+    $shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
+    $billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
 
+    $shipping_key = array_search( $field_id, $shipping );
+    $billing_key = array_search( $field_id, $billing );
 
-    // group ids can have duplicate field ids, so we need to unset them here
-	unset( $shipping['group_id'] );
-	unset( $billing['group_id']  );
+    if( $shipping_key ){
+        $type       = 'shipping';
+        $field_slug = $shipping_key;
+    }
 
-	// change $$context to something else and the sky will fall on your head
+    if( $billing_key ){
+        $type       = 'billing';
+        $field_slug = $billing_key;
+    }
 
-	$key = array_search( $field_id, $$context );
+    if( ! $type )
+        return false;
 
-	if( ! $key )
-		return false;
-	
-	if( $key == 'country' ) :
-		$geo = new WC_Countries();		
-		$value = array_search( $value, $geo->countries );
-	endif;
+    if( $type == 'country' ) :
+        $geo = new WC_Countries();
+        $value = array_search( $value, $geo->countries );
+    endif;
 
-	bp_update_user_meta( bp_displayed_user_id(), $context .'_'. $key, $value );
+    bp_update_user_meta( bp_displayed_user_id(), $type . '_' . $field_slug, $value );
 }
 
 add_action( 'xprofile_profile_field_data_updated', 'wc4bp_sync_addresses_from_profile', 10, 2 );
@@ -129,26 +130,31 @@ function  wc4bp_sync_addresses_to_profile( $user_id, $_post ) {
 	$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 	$billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
 
-	// get the mapped fields
-	$mapped_fields =  wc4bp_get_mapped_fields();
-	
-	// get the types of fields to update
-	$types = array( 'billing', 'shipping' );
-	
-	foreach( $types as $type ) :
-		// get the kind of address to update
-		$kind_of = $$type;
+    $groups = BP_XProfile_Group::get(array(
+        'fetch_fields' => true
+    ));
 
-		foreach( $mapped_fields as $wc_field => $wc4bp_field ) :
-			if( isset( $_post[$type . $wc_field] ) ) :
-				// get the field id to update
-				$field_id = $kind_of[$wc4bp_field];
-				
-				if( ! empty( $field_id ) )
-					xprofile_set_field_data( $field_id, $user_id, $_post[$type . $wc_field] );
-			endif;
-		endforeach;
-	endforeach;	
+
+    if ( !empty( $groups ) ) : foreach ( $groups as $group ) :
+
+        if ( empty( $group->fields ) )
+            continue;
+
+        foreach ( $group->fields as $field ) {
+
+            $billing_key    = array_search( $field->id  , $billing  );
+            $shipping_key   = array_search( $field->id  , $shipping );
+
+            if( isset($shipping_key) )
+                xprofile_set_field_data( $field->id, $user_id, $_POST['shipping_'   . $shipping_key] );
+
+            if( isset($billing_key) )
+                xprofile_set_field_data( $field->id, $user_id, $_POST['billing_'    . $billing_key] );
+
+        }
+
+    endforeach; endif;
+
 }
 add_action( 'woocommerce_checkout_update_user_meta',  'wc4bp_sync_addresses_to_profile', 10, 2 );
 

@@ -187,12 +187,12 @@ function  wc4bp_loader_purchase_activity( $order_id ) {
 add_action( 'woocommerce_order_status_completed', 'wc4bp_loader_purchase_activity');
 
 function wc4bp_my_downloads_shortcode( $atts ){
-    return woocommerce_get_template( 'myaccount/my-downloads.php' );
+    return wc_get_template( 'myaccount/my-downloads.php' );
 }
 add_shortcode( 'wc4bp_my_downloads', 'wc4bp_my_downloads_shortcode' );
 
 function wc4bp_my_addresses_shortcode( $atts ){
-    return woocommerce_get_template( 'myaccount/my-address.php' );
+    return wc_get_template( 'myaccount/my-address.php' );
 }
 add_shortcode( 'wc4bp_my_addresses', 'wc4bp_my_addresses_shortcode' );
 
@@ -202,7 +202,7 @@ function wc4bp_my_recent_orders_shortcode( $atts ){
 
     if( !isset($bp->action_variables[1])) :
 
-        return woocommerce_get_template( 'myaccount/my-orders.php', array( 'order_count' =>  0 ));
+        return wc_get_template( 'myaccount/my-orders.php', array( 'order_count' =>  0 ));
     else:
         return do_action( 'woocommerce_view_order', $bp->action_variables[1] );
 
