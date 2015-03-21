@@ -193,60 +193,43 @@ add_action( 'wp_ajax_wc4bp_shop_profile_sync_ajax', 'wc4bp_shop_profile_sync_aja
 add_action( 'wp_ajax_nopriv_wc4bp_shop_profile_sync_ajax', 'wc4bp_shop_profile_sync_ajax' );
 
 
-function wc4bp_sync_from_xprofile($user_id){
-    $bf_xprofile_options = get_option('bf_xprofile_options');
-
-    foreach( $bf_xprofile_options as $fieldset ) :
-        foreach($fieldset as $key => $field):
-            // update if it isn't empty
-            if( ! empty( $field['field_id'] ) ){
-                $field_value = xprofile_get_field_data( $field['field_id'], $user_id);
-                $field_slug = sanitize_title($field['group_id'].'-'.$field['field_id']);
-                $old_user_meta =  get_user_meta($user_id, $field_slug, true);
-                update_user_meta( $user_id, $field_slug, $field_value );
-            }
-
-        endforeach;
-    endforeach;
-}
-
-
 function  wc4bp_sync_from_admin( $user_id ) {
 
-    // get the woocommerce fields
-    // $fields = WC_Countries::get_default_address_fields();
-    $fields = wc4bp_get_customer_meta_fields();
-
-    // get the mapped fields
-    $mapped_fields =  wc4bp_get_mapped_fields();
-
-    // get the corresponding  wc4bp fields
+    // get the profile fields
     $shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
     $billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
 
-    foreach( $fields as $type => $fieldset ) :
+    $groups = BP_XProfile_Group::get(array(
+        'fetch_fields' => true
+    ));
 
-        if( ! in_array( $type, array( 'billing', 'shipping' ) ) )
+
+    if ( !empty( $groups ) ) : foreach ( $groups as $group ) :
+
+        if ( empty( $group->fields ) )
             continue;
 
-        // get the kind of address to update
-        $kind_of = $$type;
+        foreach ( $group->fields as $field ) {
 
-        foreach( $fieldset['fields'] as $key => $field ) :
-            // update the field
+            $billing_key    = array_search( $field->id  , $billing  );
+            $shipping_key   = array_search( $field->id  , $shipping );
 
-            // get the profile field id to update
-            $mapped_key = str_replace( $type, '', $key );
+            if( $shipping_key ){
+                $type       = 'shipping';
+                $field_slug = $shipping_key;
+            }
 
-            // get the field id
-            $field_id = $kind_of[$mapped_fields[$mapped_key]];
+            if( $billing_key ){
+                $type       = 'billing';
+                $field_slug = $billing_key;
+            }
 
-            // update if it isn't empty
-            if( ! empty( $field_id ) )
-                xprofile_set_field_data( $field_id, $user_id, get_user_meta( $user_id, $key, true ) );
+            if( isset($field_slug) )
+                xprofile_set_field_data( $field->id, $user_id, get_user_meta( $user_id, $type . '_' . $field_slug, true ) );
+        }
 
-        endforeach;
-    endforeach;
+    endforeach; endif;
+
 }
 
 

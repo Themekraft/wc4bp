@@ -29,7 +29,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
  */
 function  wc4bp_sync_addresses_from_profile( $field_id, $value ) {
 
-    // get the profile fields
+      // get the profile fields
     $shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
     $billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
 
@@ -54,69 +54,12 @@ function  wc4bp_sync_addresses_from_profile( $field_id, $value ) {
         $value = array_search( $value, $geo->countries );
     endif;
 
+    // echo $type . '_' . $field_slug . ' - ' . $value.'<br>';
+
     bp_update_user_meta( bp_displayed_user_id(), $type . '_' . $field_slug, $value );
 }
 
 add_action( 'xprofile_profile_field_data_updated', 'wc4bp_sync_addresses_from_profile', 10, 2 );
-
-function  wc4bp_sync_xprofile_from_profile( $field_id, $value ) {
-
-    $bf_xprofile_options = get_option('bf_xprofile_options');
-
-    $field = new BP_XProfile_Field( $field_id );
-
-    if (isset($bf_xprofile_options[$field->group_id][$field_id])){
-        $field_slug = sanitize_title($field->group_id.'-'.$field_id);
-        bp_update_user_meta( bp_displayed_user_id(), $field_slug, $value );
-    }
-
-}
-add_action( 'xprofile_profile_field_data_updated', 'wc4bp_sync_xprofile_from_profile', 10, 2 );
-
-/**
- * Synchronize the shipping and billing address from the admin area
- * 
- * @since 	1.0.5
- * @param	int 	$user_id	The user to synchronize the fields for
- */
-function  wc4bp_sync_addresses_from_admin( $user_id ) {
-
-	// get the woocommerce fields
-    // $fields = WC_Countries::get_default_address_fields();
-    $fields = wc4bp_get_customer_meta_fields();
-
-	// get the mapped fields
-	$mapped_fields =  wc4bp_get_mapped_fields();
-	
-	// get the corresponding  wc4bp fields
-	$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
-	$billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
-
- 	foreach( $fields as $type => $fieldset ) :
-		if( ! in_array( $type, array( 'billing', 'shipping' ) ) )
-			continue;
-		
-		// get the kind of address to update
-		$kind_of = $$type;
-
- 		foreach( $fieldset['fields'] as $key => $field ) :			
-			// update the field	
- 			if( isset( $_POST[$key] ) ) :
-				// get the profile field id to update
-				$mapped_key = str_replace( $type, '', $key );
-								
-				// get the field id
-				$field_id = $kind_of[$mapped_fields[$mapped_key]];
-
-				// update if it isn't empty
-				if( ! empty( $field_id ) )
-					xprofile_set_field_data( $field_id, $user_id, $_POST[$key] );
-			endif;
- 		endforeach;
- 	endforeach;
-}
-add_action( 'personal_options_update',  'wc4bp_sync_addresses_from_admin' );
-add_action( 'edit_user_profile_update', 'wc4bp_sync_addresses_from_admin' );
 
 /**
  * Synchronize the shipping and billing address to the profile
@@ -125,7 +68,8 @@ add_action( 'edit_user_profile_update', 'wc4bp_sync_addresses_from_admin' );
  * @param	int		$user_id	The user ID to synch the address for
  * @param	array 	$_post 		All cleaned POST data
  */
-function  wc4bp_sync_addresses_to_profile( $user_id, $_post ) {
+function  wc4bp_sync_addresses_to_profile( $user_id ) {
+
 	// get the profile fields
 	$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 	$billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
@@ -145,18 +89,27 @@ function  wc4bp_sync_addresses_to_profile( $user_id, $_post ) {
             $billing_key    = array_search( $field->id  , $billing  );
             $shipping_key   = array_search( $field->id  , $shipping );
 
-            if( isset($shipping_key) )
-                xprofile_set_field_data( $field->id, $user_id, $_POST['shipping_'   . $shipping_key] );
+            if( $shipping_key ){
+                $type       = 'shipping';
+                $field_slug = $shipping_key;
+            }
 
-            if( isset($billing_key) )
-                xprofile_set_field_data( $field->id, $user_id, $_POST['billing_'    . $billing_key] );
+            if( $billing_key ){
+                $type       = 'billing';
+                $field_slug = $billing_key;
+            }
+
+            if( isset($field_slug) )
+                xprofile_set_field_data( $field->id, $user_id, $_POST[ $type . '_' . $field_slug] );
 
         }
 
     endforeach; endif;
 
 }
-add_action( 'woocommerce_checkout_update_user_meta',  'wc4bp_sync_addresses_to_profile', 10, 2 );
+add_action( 'personal_options_update'               ,  'wc4bp_sync_addresses_to_profile' , 10, 1 );
+add_action( 'edit_user_profile_update'              , 'wc4bp_sync_addresses_to_profile'  , 10, 1 );
+add_action( 'woocommerce_checkout_update_user_meta' ,  'wc4bp_sync_addresses_to_profile' , 10, 1 );
 
 /**
  * Get the mapped fields (woocommerce ->  wc4bp)
