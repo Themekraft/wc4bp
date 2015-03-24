@@ -11,6 +11,29 @@
 // No direct access is allowed
 if( ! defined( 'ABSPATH' ) ) exit;
 
+// update the default name field before xprofile_sync_wp_profile is called
+add_action( 'xprofile_updated_profile', 'wc4bp_intercept_wp_profile_sync'   , 30, 1 );
+add_action( 'bp_core_signup_user', 'wc4bp_intercept_wp_profile_sync'        , 30, 1 );
+add_action( 'bp_core_activated_user', 'wc4bp_intercept_wp_profile_sync'     , 30, 1 );
+
+function wc4bp_intercept_wp_profile_sync( $user_id ) {
+
+    if(empty($user_id))
+        return;
+
+    // get the profile fields
+    $shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
+    $billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
+
+    foreach($shipping as $key => $field_id){
+        wc4bp_sync_addresses_from_profile($user_id, $field_id, $_POST['field_' . $field_id ] );
+    }
+    foreach($billing as $key => $field_id){
+        wc4bp_sync_addresses_from_profile($user_id, $field_id, $_POST['field_' . $field_id ] );
+    }
+
+}
+
 /**
  * Synchronize the shipping and billing address from the profile
  *
@@ -27,9 +50,9 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @param $field_id
  * @param $value
  */
-function  wc4bp_sync_addresses_from_profile( $field_id, $value ) {
+function  wc4bp_sync_addresses_from_profile($user_id, $field_id, $value ) {
 
-      // get the profile fields
+    // get the profile fields
     $shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
     $billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
 
@@ -54,12 +77,23 @@ function  wc4bp_sync_addresses_from_profile( $field_id, $value ) {
         $value = array_search( $value, $geo->countries );
     endif;
 
-    // echo $type . '_' . $field_slug . ' - ' . $value.'<br>';
+    if(empty($user_id))
+        $user_id = bp_displayed_user_id();
 
-    bp_update_user_meta( bp_displayed_user_id(), $type . '_' . $field_slug, $value );
+    update_user_meta( $user_id, $type . '_' . $field_slug, $value );
 }
 
-add_action( 'xprofile_profile_field_data_updated', 'wc4bp_sync_addresses_from_profile', 10, 2 );
+
+function wc4bp_xprofile_profile_field_data_updated($field_id, $value ){
+
+    if(isset($_GET['user_id']))
+        $user_id = $_GET['user_id'];
+
+    wc4bp_sync_addresses_from_profile($user_id, $field_id, $value );
+
+}
+add_action( 'xprofile_profile_field_data_updated', 'wc4bp_xprofile_profile_field_data_updated', 10, 3 );
+
 
 /**
  * Synchronize the shipping and billing address to the profile

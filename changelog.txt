@@ -1,3 +1,5 @@
+= v2.2 =
+
 = v2.1.1 =
 
 * fixed a strange redirect issue. On some installs after the checkout the function bp_loggedin_user_domain does not work...

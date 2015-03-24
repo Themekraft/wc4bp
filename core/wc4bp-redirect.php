@@ -17,36 +17,42 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @since 1.0.6
  */
 function  wc4bp_get_redirect_link( $id = false ) {
-	global $bp, $wp;
 
-	$wc4bp_options	= get_option( 'wc4bp_options' ); 
+	$wc4bp_options          = get_option( 'wc4bp_options' );
 	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' );
 
 	if( ! $id )
 		return false;
 
-	$cart_page_id 		= wc_get_page_id( 'cart' 			 );
-	$checkout_page_id 	= wc_get_page_id( 'checkout' 		 );
-    $account_page_id 	= wc_get_page_id( 'myaccount' 		 );
+	$cart_page_id 		= wc_get_page_id( 'cart' );
+	$checkout_page_id 	= wc_get_page_id( 'checkout' );
+    $account_page_id 	= wc_get_page_id( 'myaccount' );
 
 	$link = '';
 
     switch( $id ) {
 		case $cart_page_id:
-			if( ! isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] == 'default')
-				$link = bp_loggedin_user_domain() .'shop/home/';
+			if( ! isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] == 'default'){
+
+                $link = bp_loggedin_user_domain() .'shop/home/';
+
+                if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+                    $link = str_replace( 'http:', 'https:', $link );
+                }
+
+            }
+
 			break;
 
 		case $checkout_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled'])){
-                global $wp;
 
                 $link = bp_loggedin_user_domain() .'shop/home/checkout/';
 
                 if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
                     $link = str_replace( 'http:', 'https:', $link );
                 }
-					
+
     	    }
             $link = apply_filters('wc4bp_checkout_page_link', $link);
             break;
@@ -54,8 +60,15 @@ function  wc4bp_get_redirect_link( $id = false ) {
 
 		case $account_page_id:
 
-            if( ! isset( $wc4bp_options['tab_history_disabled']))
-				$link = bp_loggedin_user_domain() .'shop/history/';
+            if( ! isset( $wc4bp_options['tab_history_disabled'])){
+
+                $link = bp_loggedin_user_domain() .'shop/history/';
+
+                if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+                    $link = str_replace( 'http:', 'https:', $link );
+                }
+
+            }
 
             $link = apply_filters('wc4bp_account_page_link', $link);
             break;
@@ -78,17 +91,9 @@ function  wc4bp_get_redirect_link( $id = false ) {
 				$slug = $post_data['post_name'];
 				$link = bp_loggedin_user_domain() .'shop/'.$attached_page['tab_slug'].'/'.$slug.'/';
 
-                /* if(isset( $wp->query_vars['order-pay'])){
-                    $link .= 'order-pay/' . $wp->query_vars['order-pay'] . '/?key=' . $_GET['key'];
+                if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+                    $link = str_replace( 'http:', 'https:', $link );
                 }
-
-                if(isset( $wp->query_vars['add-payment-method'])){
-                    $link .= 'add-payment-method/' . $wp->query_vars['add-payment-method'] . '/?key=' . $_GET['key'];
-                }
-
-                if(isset( $wp->query_vars['order-received'])){
-                    $link .= 'order-received/' . $wp->query_vars['order-received'] . '/?key=' . $_GET['key'];
-                }*/
 
 			}
 
@@ -171,7 +176,7 @@ function wc4bp_get_checkout_payment_url($pay_url, $order){
     $wc4bp_options	= get_option( 'wc4bp_options' );
 
 	if( isset( $wc4bp_options['tab_cart_disabled']))
-		return $order_received_url;
+		return $pay_url;
 		
 	$pay_url = bp_loggedin_user_domain() .'shop/home/checkout/';
 	
@@ -184,7 +189,7 @@ function wc4bp_get_checkout_payment_url($pay_url, $order){
 	  
     return $pay_url;
 }
-add_filter( 'woocommerce_get_checkout_payment_url', 'wc4bp_get_checkout_payment_url', 10, 2 );
+add_filter( 'woocommerce_get_checkout_payment_url', 'wc4bp_get_checkout_payment_url', 999, 2 );
 
 /**
 * Generates a URL for the thanks page (order received)
@@ -217,4 +222,4 @@ function wc4bp_get_checkout_order_received_url($order_received_url, $order){
     
     return $order_received_url;
 }
-add_filter( 'woocommerce_get_checkout_order_received_url', 'wc4bp_get_checkout_order_received_url', 10, 2 );
+add_filter( 'woocommerce_get_checkout_order_received_url', 'wc4bp_get_checkout_order_received_url', 999, 2 );

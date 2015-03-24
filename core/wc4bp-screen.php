@@ -212,7 +212,7 @@ function  wc4bp_output_tracking_order() {
 		do_action( 'woocommerce_track_order', $current_order->id );
 		echo '<h3>'. __( 'Your Order', 'wc4bp' ) .'<h3>';
 
-		woocommerce_get_template( 'order/tracking.php', array(
+        wc_get_template( 'order/tracking.php', array(
 			'order' => $current_order
 		) );
 	endif;
