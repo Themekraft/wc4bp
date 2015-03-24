@@ -1,5 +1,13 @@
 = v2.2 =
 
+* add 'meta'	=> array( 'class' => 'menupop')
+* rewrite of the synchronisation
+* add support for wc_get_template nd removed woocommerce_get_template
+* add ssl to all account pages if ssl is available or selected in the WooCommerce settings
+* fixed smaller bugs in the redirects
+* add support for xprofile sync during signup and edit xprofile in the wp admin
+* cleanup the code
+
 = v2.1.1 =
 
 * fixed a strange redirect issue. On some installs after the checkout the function bp_loggedin_user_domain does not work...

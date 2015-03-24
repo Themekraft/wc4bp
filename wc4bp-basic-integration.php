@@ -37,22 +37,22 @@ class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION 	= '2.1.1';
+	const VERSION 	= '2.2';
 
     /**
 	 * Minimum required WP version
 	 */
-	const MIN_WP 	= '3.4.1';
+	const MIN_WP 	= '3.9.1';
 
 	/**
 	 * Minimum required BP version
 	 */
-	const MIN_BP 	= '1.6.1';
+	const MIN_BP 	= '2.2';
 
 	/**
 	 * Minimum required woocommerce version
 	 */
-	const MIN_WOO 	= '2.1';
+	const MIN_WOO 	= '2.3';
 
 	/**
 	 * Name of the plugin folder
@@ -208,7 +208,7 @@ class WC4BP_Loader {
 		define( 'WC4BP_FOLDER'                  ,	plugin_basename( dirname( __FILE__ ) ) );
 		define( 'WC4BP_ABSPATH'                 ,	trailingslashit( str_replace( "\\", "/", WP_PLUGIN_DIR .'/'. WC4BP_FOLDER ) ) );
 		define( 'WC4BP_URLPATH'                 ,	trailingslashit( plugins_url( '/'. WC4BP_FOLDER ) ) );
-		define( 'WC4BP_ABSPATH_TEMPLATE_PATH'   , WC4BP_ABSPATH . 'templates/');
+		define( 'WC4BP_ABSPATH_TEMPLATE_PATH'   ,   WC4BP_ABSPATH . 'templates/');
 	}
 
 	/**
@@ -330,8 +330,6 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/resources/api-manager/api-
  * @todo	Write a fix to use filters rather than redeclaring these functions
  * 			which could potentially create conflicts with other plugins
  */
-//$wc4bp_options			= get_option( 'wc4bp_options' );
-//if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
 
 if( ! function_exists( 'is_checkout' ) ) :
 
@@ -370,7 +368,7 @@ function is_cart() {
 			return true;
 		endif;
 	else :
-		if( is_page( woocommerce_get_page_id( 'cart' ) ) ) :
+		if( is_page( wc_get_page_id( 'cart' ) ) ) :
 			return true;
 		endif;
 	endif;
