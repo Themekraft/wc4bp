@@ -4,7 +4,7 @@
  * Plugin URI:  http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author:      WC4BP Integration Dev Team ;)
- * Version:     2.2
+ * Version:     2.2.1
  *
  *****************************************************************************
  *
@@ -37,7 +37,7 @@ class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION 	= '2.2';
+	const VERSION 	= '2.2.1';
 
     /**
 	 * Minimum required WP version
@@ -74,25 +74,23 @@ class WC4BP_Loader {
 	public function __construct() {
 		self::$plugin_name = plugin_basename( __FILE__ );
 
-        add_action('bp_include'						, array($this, 'check_requirements'), 0);
+        add_action('bp_include'						, array($this, 'check_requirements') , 0);
 
 		// Run the activation function
-		register_activation_hook( __FILE__          , array( $this, 'activation' 			)		);
+		register_activation_hook( __FILE__          , array( $this, 'activation' ));
 
 		$this->constants();
 
-        add_action('admin_enqueue_scripts'          , array($this, 'wc4bp_admin_js') , 10 );
+        add_action('admin_enqueue_scripts'          , array($this, 'wc4bp_admin_js')    , 10 );
 
-        add_action('plugins_loaded'					, array($this, 'update') , 10 );
-		add_action('plugins_loaded'					, array($this, 'translate'));
-		add_action('bp_include'						, array($this, 'includes') , 10 );
+        add_action('plugins_loaded'					, array($this, 'update'     )       , 10 );
+		add_action('plugins_loaded'					, array($this, 'translate'  ));
+		add_action('bp_include'						, array($this, 'includes'   )       , 10 );
 
-
-
-		 /**
-		 * Deletes all data if plugin deactivated
-		 */
-		register_deactivation_hook( __FILE__        , array( $this, 'uninstall' 			)		 );
+        /**
+        * Deletes all data if plugin deactivated
+        */
+		register_deactivation_hook( __FILE__        , array( $this, 'uninstall' ));
 
 	}
 

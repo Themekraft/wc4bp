@@ -1,3 +1,8 @@
+= v2.2.1 =
+
+* moved the wc4bp_intercept_wp_profile_sync to the xprofile extension.
+* comment out woocommerce_get_checkout_payment_url filter. Not needed anymore.
+
 = v2.2 =
 
 * add 'meta'	=> array( 'class' => 'menupop')
