@@ -186,10 +186,10 @@ function wc4bp_get_checkout_payment_url($pay_url, $order){
 	
 	$pay_url = wc_get_endpoint_url( 'order-pay', $order->id, $pay_url );
 	$pay_url = add_query_arg( 'key', $order->order_key, $pay_url );  
-	  
+
     return $pay_url;
 }
-add_filter( 'woocommerce_get_checkout_payment_url', 'wc4bp_get_checkout_payment_url', 999, 2 );
+//add_filter( 'woocommerce_get_checkout_payment_url', 'wc4bp_get_checkout_payment_url', 999, 2 );
 
 /**
 * Generates a URL for the thanks page (order received)
