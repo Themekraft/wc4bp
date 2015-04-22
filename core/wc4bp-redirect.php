@@ -17,6 +17,9 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @since 1.0.6
  */
 function  wc4bp_get_redirect_link( $id = false ) {
+    global $current_user;
+
+    $current_user = wp_get_current_user();
 
 	$wc4bp_options          = get_option( 'wc4bp_options' );
 	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' );
@@ -29,12 +32,11 @@ function  wc4bp_get_redirect_link( $id = false ) {
     $account_page_id 	= wc_get_page_id( 'myaccount' );
 
 	$link = '';
-
     switch( $id ) {
 		case $cart_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] == 'default'){
 
-                $link = bp_loggedin_user_domain() .'shop/home/';
+                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login .'/shop/home/';
 
                 if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
                     $link = str_replace( 'http:', 'https:', $link );
@@ -46,8 +48,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 
 		case $checkout_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled'])){
-
-                $link = bp_loggedin_user_domain() .'shop/home/checkout/';
+                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login .'/shop/home/checkout/';
 
                 if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
                     $link = str_replace( 'http:', 'https:', $link );
@@ -62,7 +63,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 
             if( ! isset( $wc4bp_options['tab_history_disabled'])){
 
-                $link = bp_loggedin_user_domain() .'shop/history/';
+                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login .'/shop/';
 
                 if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
                     $link = str_replace( 'http:', 'https:', $link );
@@ -89,7 +90,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 			if($the_page_id == $the_courent_id){
 				$post_data = get_post($id, ARRAY_A);
 				$slug = $post_data['post_name'];
-				$link = bp_loggedin_user_domain() .'shop/'.$attached_page['tab_slug'].'/'.$slug.'/';
+				$link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login .'/shop/'.$attached_page['tab_slug'].'/'.$slug.'/';
 
                 if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
                     $link = str_replace( 'http:', 'https:', $link );
@@ -149,7 +150,6 @@ add_action( 'template_redirect', 'wc4bp_redirect_to_profile' );
  * @since 	1.0.6
  * @uses	bp_get_option()
  * @uses	is_page()
- * @uses	bp_loggedin_user_domain()
  */
 function  wc4bp_page_link_router( $link, $id )	{
 	if( ! is_user_logged_in() || is_admin() )
@@ -172,13 +172,16 @@ add_filter( 'page_link', 'wc4bp_page_link_router', 10, 2 );
 * @return string
 */
 function wc4bp_get_checkout_payment_url($pay_url, $order){
+    global $current_user;
+
+    $current_user = wp_get_current_user();
 
     $wc4bp_options	= get_option( 'wc4bp_options' );
 
 	if( isset( $wc4bp_options['tab_cart_disabled']))
 		return $pay_url;
 		
-	$pay_url = bp_loggedin_user_domain() .'shop/home/checkout/';
+	$pay_url = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login .'/shop/home/checkout/';
 	
 	if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 		$pay_url = str_replace( 'http:', 'https:', $pay_url );
