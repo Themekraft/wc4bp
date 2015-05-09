@@ -1,3 +1,8 @@
+= v2.2.2 =
+
+* changed the member link from user_login to user_nicename
+* changed bp_loggedin_user_domain to get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login
+
 = v2.2.1 =
 
 * moved the wc4bp_intercept_wp_profile_sync to the xprofile extension.
