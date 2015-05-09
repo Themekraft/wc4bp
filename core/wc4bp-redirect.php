@@ -20,6 +20,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
     global $current_user;
 
     $current_user = wp_get_current_user();
+    $userdata = get_userdata($current_user->ID);
 
 	$wc4bp_options          = get_option( 'wc4bp_options' );
 	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' );
@@ -36,7 +37,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 		case $cart_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] == 'default'){
 
-                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login .'/shop/home/';
+                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/home/';
 
                 if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
                     $link = str_replace( 'http:', 'https:', $link );
@@ -48,7 +49,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 
 		case $checkout_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled'])){
-                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login .'/shop/home/checkout/';
+                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/home/checkout/';
 
                 if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
                     $link = str_replace( 'http:', 'https:', $link );
@@ -63,7 +64,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 
             if( ! isset( $wc4bp_options['tab_history_disabled'])){
 
-                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login .'/shop/';
+                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/';
 
                 if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
                     $link = str_replace( 'http:', 'https:', $link );
@@ -90,7 +91,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 			if($the_page_id == $the_courent_id){
 				$post_data = get_post($id, ARRAY_A);
 				$slug = $post_data['post_name'];
-				$link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login .'/shop/'.$attached_page['tab_slug'].'/'.$slug.'/';
+				$link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/'.$attached_page['tab_slug'].'/'.$slug.'/';
 
                 if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
                     $link = str_replace( 'http:', 'https:', $link );
@@ -175,13 +176,14 @@ function wc4bp_get_checkout_payment_url($pay_url, $order){
     global $current_user;
 
     $current_user = wp_get_current_user();
+    $userdata = get_userdata($current_user->ID);
 
     $wc4bp_options	= get_option( 'wc4bp_options' );
 
 	if( isset( $wc4bp_options['tab_cart_disabled']))
 		return $pay_url;
 		
-	$pay_url = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login .'/shop/home/checkout/';
+	$pay_url = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/home/checkout/';
 	
 	if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 		$pay_url = str_replace( 'http:', 'https:', $pay_url );
@@ -204,6 +206,7 @@ function wc4bp_get_checkout_order_received_url($order_received_url, $order){
 	global $current_user;
 
 	$current_user = wp_get_current_user();
+    $userdata = get_userdata($current_user->ID);
 
 	if ( !is_user_logged_in() )
 		return $order_received_url;
@@ -213,7 +216,7 @@ function wc4bp_get_checkout_order_received_url($order_received_url, $order){
 	if( isset( $wc4bp_options['tab_cart_disabled']))
 		return $order_received_url;
 
-	$order_received_url = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login . '/shop/home/checkout/';
+	$order_received_url = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename . '/shop/home/checkout/';
 
 	if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 		$order_received_url = str_replace( 'http:', 'https:', $order_received_url );
