@@ -1,15 +1,17 @@
-= v2.2.2 =
+= v2.2.3 =
+* add the /history/ slug to wc4bp-redirect.
+Was deleted by mistake in the latest version and curses a issue if the history order details is displayed.
+Thanks to Bharat for pointing me on this.
 
+= v2.2.2 =
 * changed the member link from user_login to user_nicename
 * changed bp_loggedin_user_domain to get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $current_user->user_login
 
 = v2.2.1 =
-
 * moved the wc4bp_intercept_wp_profile_sync to the xprofile extension.
 * comment out woocommerce_get_checkout_payment_url filter. Not needed anymore.
 
 = v2.2 =
-
 * add 'meta'	=> array( 'class' => 'menupop')
 * rewrite of the synchronisation
 * add support for wc_get_template nd removed woocommerce_get_template
@@ -19,7 +21,6 @@
 * cleanup the code
 
 = v2.1.1 =
-
 * fixed a strange redirect issue. On some installs after the checkout the function bp_loggedin_user_domain does not work...
 
 = v2.1 =

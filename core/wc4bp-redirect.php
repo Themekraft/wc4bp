@@ -64,7 +64,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 
             if( ! isset( $wc4bp_options['tab_history_disabled'])){
 
-                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/';
+                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/history/';
 
                 if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
                     $link = str_replace( 'http:', 'https:', $link );
