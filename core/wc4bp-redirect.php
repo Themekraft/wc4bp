@@ -49,7 +49,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 
 		case $checkout_page_id:
 			if( ! isset( $wc4bp_options['tab_cart_disabled'])){
-                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/home/checkout/';
+                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/checkout/';
 
                 if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
                     $link = str_replace( 'http:', 'https:', $link );

@@ -144,6 +144,22 @@ class WC4BP_Component extends BP_Component
 		}
 
 		// Add the checkout nav item
+	    if( ! is_admin() && ! WC()->cart->is_empty()) { // if cart empty do not add.
+			//if( ! isset( $wc4bp_options['tab_checkout_disabled'])) { // @todo : need to add a setting tabs
+		        $sub_nav[] = array(
+		            'name'            => __( 'Checkout', 'wc4bp' ),
+		            'slug'            => 'checkout',
+		            'parent_url'      => $shop_link,
+		            'parent_slug'     => $this->slug,
+		            'screen_function' => 'wc4bp_screen_shopping_checkout',
+		            'position'        => 10,
+		            'item_css_id'     => 'shop-checkout',
+		            'user_has_access' => bp_is_my_profile()
+		        );
+			//}
+		}
+
+		// Add the checkout nav item
 		if( ! isset( $wc4bp_options['tab_history_disabled'])) {
 	        
 	        $sub_nav[] = array(
@@ -314,6 +330,10 @@ class WC4BP_Component extends BP_Component
 				bp_get_template_part( 'shop/member/cart' );
 				"));
 			}
+		} elseif ($bp->current_action == 'checkout') {
+			add_action('bp_template_content', create_function('', "
+			bp_get_template_part( 'shop/member/checkout' );
+			"));
 		} elseif ($bp->current_action == 'history') {
 			add_action('bp_template_content', create_function('', "
 			bp_get_template_part( 'shop/member/history' );
