@@ -143,20 +143,18 @@ class WC4BP_Component extends BP_Component
 	        );
 		}
 
-		// Add the checkout nav item
-	    if( ! is_admin() && ! WC()->cart->is_empty()) { // if cart empty do not add.
-			//if( ! isset( $wc4bp_options['tab_checkout_disabled'])) { // @todo : need to add a setting tabs
-		        $sub_nav[] = array(
-		            'name'            => __( 'Checkout', 'wc4bp' ),
-		            'slug'            => 'checkout',
-		            'parent_url'      => $shop_link,
-		            'parent_slug'     => $this->slug,
-		            'screen_function' => 'wc4bp_screen_shopping_checkout',
-		            'position'        => 10,
-		            'item_css_id'     => 'shop-checkout',
-		            'user_has_access' => bp_is_my_profile()
-		        );
-			//}
+		// Add the checkout nav item, if cart empty do not add.
+		if( ! is_admin() && ! WC()->cart->is_empty() && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+		    $sub_nav[] = array(
+		        'name'            => __( 'Checkout', 'wc4bp' ),
+		        'slug'            => 'checkout',
+		        'parent_url'      => $shop_link,
+		        'parent_slug'     => $this->slug,
+		        'screen_function' => 'wc4bp_screen_shopping_checkout',
+		        'position'        => 10,
+		        'item_css_id'     => 'shop-checkout',
+		        'user_has_access' => bp_is_my_profile()
+		    );
 		}
 
 		// Add the checkout nav item
