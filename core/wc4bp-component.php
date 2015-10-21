@@ -265,6 +265,15 @@ class WC4BP_Component extends BP_Component
 					'href'   => trailingslashit( $shop_link )
 				);
 			}
+
+			if( ! is_admin() && ! WC()->cart->is_empty() && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+				$wp_admin_nav[] = array(
+					'parent' => 'my-account-' . $this->id,
+					'id'     => 'my-account-' . $this->id . '-checkout',
+					'title'  => __( 'Checkout', 'wc4bp' ),
+					'href'   => trailingslashit( $shop_link . 'checkout' )
+				);
+			}
 			
 			if( ! isset( $wc4bp_options['tab_history_disabled'])) {
 				$wp_admin_nav[] = array(
