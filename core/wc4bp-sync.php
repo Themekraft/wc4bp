@@ -46,7 +46,7 @@ function  wc4bp_sync_addresses_from_profile($user_id, $field_id, $value ) {
         $field_slug = $billing_key;
     }
 
-    if( ! $type )
+    if( ! isset($type) )
         return false;
 
     if( $type == 'country' ) :
@@ -62,7 +62,9 @@ function  wc4bp_sync_addresses_from_profile($user_id, $field_id, $value ) {
 
 
 function wc4bp_xprofile_profile_field_data_updated($field_id, $value ){
+global $bp;
 
+    $user_id = bp_loggedin_user_id();
     if(isset($_GET['user_id']))
         $user_id = $_GET['user_id'];
 
