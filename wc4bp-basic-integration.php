@@ -157,9 +157,17 @@ class WC4BP_Loader {
 		}
 		if( defined( 'BP_VERSION' )){
 			if(function_exists('bp_is_active')){
-				if(!bp_is_active('settings')){
-					add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only with the BuddyPress Account Settings Component activated <a href="%s">Activate now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("options-general.php?page=bp-components") );' ) );
-					$error = true;
+				if(! bp_is_active('settings') && ! bp_is_active('xprofile') ){
+				add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only with the BuddyPress Extended Profiles and Account Settings Component activated <a href="%s">Activate now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("options-general.php?page=bp-components") );' ) );
+				$error = true;
+				}
+				if( ! bp_is_active('settings') && bp_is_active('xprofile') ){
+				add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only with the BuddyPress Account Settings Component activated <a href="%s">Activate now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("options-general.php?page=bp-components") );' ) );
+				$error = true;
+				}
+				if( bp_is_active('settings') && ! bp_is_active('xprofile')  ){
+				add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only with the BuddyPress Extended Profiles Component activated <a href="%s">Activate now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("options-general.php?page=bp-components") );' ) );
+				$error = true;
 				}
 			}
 		}
