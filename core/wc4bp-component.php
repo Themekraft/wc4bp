@@ -75,7 +75,7 @@ class WC4BP_Component extends BP_Component
 		if ( ! class_exists( 'BP_Theme_Compat' ) )
     		require(  WC4BP_ABSPATH .'core/wc4bp-template-compatibility.php'  );
 
-		if(!isset($wc4bp_options['tab_sync_disabled'])){
+		if(!isset($wc4bp_options['tab_sync_disabled']) || class_exists('WC4BP_xProfile')){ 
     		require(  WC4BP_ABSPATH .'core/wc4bp-sync.php'  );
 		}
 	
