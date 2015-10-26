@@ -242,7 +242,7 @@ class WC4BP_Component extends BP_Component
 			$wp_admin_nav[] = array(
 				'parent' => 'my-account-settings',
 				'id'     => 'my-account-settings-shop',
-				'title'  => __( 'Shop', 'wc4bp' ),
+				'title'  => apply_filters( 'bp_shop_settings_nav_link_label', __( 'Shop', 'wc4bp' ) ),
 				'href'   => trailingslashit( $settings_link . 'shop' )
 			);
 			
@@ -252,7 +252,7 @@ class WC4BP_Component extends BP_Component
 			$wp_admin_nav[] = array(
 				'parent' => $bp->my_account_menu_id,
 				'id'     => 'my-account-' . $this->id,
-				'title'  => __( 'Shop', 'wc4bp' ),
+				'title'  => apply_filters( 'bp_shop_nav_link_label', __( 'Shop', 'wc4bp' ) ),
 				'href'   => trailingslashit( $shop_link ),
 				'meta'	 => array( 'class'  => 'menupop')
 			);
@@ -261,7 +261,7 @@ class WC4BP_Component extends BP_Component
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
 					'id'     => 'my-account-' . $this->id . '-cart',
-					'title'  => __( 'Shopping Cart', 'wc4bp' ),
+					'title'  => apply_filters( 'bp_shop_cart_nav_link_label', __( 'Shopping Cart', 'wc4bp' ) ),
 					'href'   => trailingslashit( $shop_link )
 				);
 			}
@@ -270,7 +270,7 @@ class WC4BP_Component extends BP_Component
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
 					'id'     => 'my-account-' . $this->id . '-checkout',
-					'title'  => __( 'Checkout', 'wc4bp' ),
+					'title'  => apply_filters( 'bp_checkout_nav_link_label', __( 'Checkout', 'wc4bp' ) ),
 					'href'   => trailingslashit( $shop_link . 'checkout' )
 				);
 			}
@@ -279,7 +279,7 @@ class WC4BP_Component extends BP_Component
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
 					'id'     => 'my-account-' . $this->id . '-history',
-					'title'  => __( 'History', 'wc4bp' ),
+					'title'  => apply_filters( 'bp_history_nav_link_label', __( 'History', 'wc4bp' ) ),
 					'href'   => trailingslashit( $shop_link . 'history' )
 				);
 			}
@@ -288,7 +288,7 @@ class WC4BP_Component extends BP_Component
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
 					'id'     => 'my-account-' . $this->id . '-track',
-					'title'  => __( 'Track your order', 'wc4bp' ),
+					'title'  => apply_filters( 'bp_track_order_nav_link_label', __( 'Track your order', 'wc4bp' ) ),
 					'href'   => trailingslashit( $shop_link . 'track' )
 				);
 			}
