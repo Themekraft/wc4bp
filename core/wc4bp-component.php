@@ -118,7 +118,7 @@ class WC4BP_Component extends BP_Component
 
         // Add 'Shop' to the main navigation
         $main_nav = array(
-            'name'                          => __( 'Shop', 'wc4bp' ),
+            'name'                    		=> apply_filters( 'bp_shop_link_label', __( 'Shop', 'wc4bp' ) ),
             'slug'                          => $this->slug,
             'position'                      => 70,
             'screen_function'               => $default_screen,
@@ -132,7 +132,7 @@ class WC4BP_Component extends BP_Component
 		// Add the cart nav item
 		if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
 	        $sub_nav[] = array(
-	            'name'            => __( 'Shopping Cart', 'wc4bp' ),
+	            'name'            => apply_filters( 'bp_shop_cart_link_label', __( 'Shopping Cart', 'wc4bp' ) ),
 	            'slug'            => 'home',
 	            'parent_url'      => $shop_link,
 	            'parent_slug'     => $this->slug,
@@ -146,7 +146,7 @@ class WC4BP_Component extends BP_Component
 		// Add the checkout nav item, if cart empty do not add.
 		if( ! is_admin() && ! WC()->cart->is_empty() && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
 		    $sub_nav[] = array(
-		        'name'            => __( 'Checkout', 'wc4bp' ),
+		        'name'            => apply_filters( 'bp_checkout_link_label', __( 'Checkout', 'wc4bp' ) ),
 		        'slug'            => 'checkout',
 		        'parent_url'      => $shop_link,
 		        'parent_slug'     => $this->slug,
@@ -161,7 +161,7 @@ class WC4BP_Component extends BP_Component
 		if( ! isset( $wc4bp_options['tab_history_disabled'])) {
 	        
 	        $sub_nav[] = array(
-	            'name'            => __( 'History', 'wc4bp' ),
+	            'name'            => apply_filters( 'bp_history_link_label', __( 'History', 'wc4bp' ) ),
 	            'slug'            => 'history',
 	            'parent_url'      => $shop_link,
 	            'parent_slug'     => $this->slug,
@@ -173,22 +173,22 @@ class WC4BP_Component extends BP_Component
 		}
         // Add the checkout nav item
         if( ! isset( $wc4bp_options['tab_track_disabled'])) {
-        $sub_nav[] = array(
-            'name'            => __( 'Track your order', 'wc4bp' ),
-            'slug'            => 'track',
-            'parent_url'      => $shop_link,
-            'parent_slug'     => $this->slug,
-            'screen_function' => 'wc4bp_screen_track_order',
-            'position'        => 30,
-            'item_css_id'     => 'shop-track',
-            'user_has_access' => bp_is_my_profile()
-        );
+	        $sub_nav[] = array(
+	            'name'            => apply_filters( 'bp_track_order_link_label', __( 'Track your order', 'wc4bp' ) ),
+	            'slug'            => 'track',
+	            'parent_url'      => $shop_link,
+	            'parent_slug'     => $this->slug,
+	            'screen_function' => 'wc4bp_screen_track_order',
+	            'position'        => 30,
+	            'item_css_id'     => 'shop-track',
+	            'user_has_access' => bp_is_my_profile()
+	        );
 		}
 		
         // Add shop settings subpage
         if( ! isset( $wc4bp_options['tab_activity_disabled'])) {
 	        $sub_nav[] = array(
-	            'name'            => __( 'Shop', 'wc4bp' ),
+	            'name'            => apply_filters( 'bp_shop_settings_link_label', __( 'Shop', 'wc4bp' ) ),
 	            'slug'            => 'shop',
 	            'parent_url'      => trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug()),
 	            'parent_slug'     => bp_get_settings_slug(),
