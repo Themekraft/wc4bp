@@ -11,7 +11,11 @@
 <div id="item-body" role="main">
 	<?php do_action( 'wc4bp_before_cart_body' ); ?>
 
-	<?php echo do_shortcode( '[woocommerce_cart]' ); ?>
+	<?php if( wc4bp_is_subpage( 'checkout' ) ){  ?>
+        <?php echo do_shortcode( '[woocommerce_checkout]' ); ?>
+    <?php } else{ ?>
+	    <?php echo do_shortcode( '[woocommerce_cart]' ); ?>
+	<?php } ?>
 
 	<?php do_action( 'wc4bp_after_cart_body' ); ?>
 
