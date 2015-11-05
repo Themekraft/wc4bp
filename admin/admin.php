@@ -6,9 +6,7 @@
  * @author Sven Lehnert
  * @package WC4BP
  * @since 1.3
- */ 
-
-add_action( 'admin_menu', 'wc4bp_admin_menu' );
+ */
 
 function wc4bp_admin_menu() {
     add_menu_page( 'WooCommerce for BuddyPress', 'WC4BP Settings', 'manage_options', 'wc4bp-options-page', 'wc4bp_screen' );
@@ -27,6 +25,19 @@ function wc4bp_admin_menu() {
     add_submenu_page( 'wc4bp-options-page'  , 'Delete'     , 'Delete'       , 'manage_options', 'wc4bp-options-page-delete'   , 'wc4bp_screen_delete' );
 
 }
+add_action( 'admin_menu', 'wc4bp_admin_menu' );
+
+
+function wc4bp_admin_js_footer($hook_suffix){
+    global $hook_suffix;
+
+    if( $hook_suffix == 'toplevel_page_wc4bp-options-page'){
+      ?>
+      <script>!function(e,o,n){window.HSCW=o,window.HS=n,n.beacon=n.beacon||{};var t=n.beacon;t.userConfig={},t.readyQueue=[],t.config=function(e){this.userConfig=e},t.ready=function(e){this.readyQueue.push(e)},o.config={docs:{enabled:!0,baseUrl:"//themekraft.helpscoutdocs.com/"},contact:{enabled:!0,formId:"ef61dbbb-83ab-11e5-8846-0e599dc12a51"}};var r=e.getElementsByTagName("script")[0],c=e.createElement("script");c.type="text/javascript",c.async=!0,c.src="https://djtflbt20bdde.cloudfront.net/",r.parentNode.insertBefore(c,r)}(document,window.HSCW||{},window.HS||{});</script>
+      <?php
+    }
+}
+add_action( 'admin_footer', 'wc4bp_admin_js_footer', 10, 1 );
 
 /**
  * The Admin Page
@@ -45,20 +56,6 @@ function wc4bp_screen() { ?>
 
         <div style="overflow: auto;">
             <span style="font-size: 13px; float:right;">Proudly brought to you by <a href="http://themekraft.com/" target="_new">Themekraft</a>.</span>
-            <div style="margin: 30px 0 0 0; padding: 20px; overflow: auto; background-color: #fff; border-left: 4px solid #2ea2cc; -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1); box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);">
-                <div style="float: left; overflow: auto; border-right: 1px solid #ddd; padding: 0 20px 0 0;">
-                    <h3>Get eMail Support.</h3>
-                    <p><a class="button secondary" target="_blank"  href="https://themekraft.zendesk.com/hc/en-us/requests/new" title="Submit an email support ticket">Ask Question</a> </p>
-                </div>
-                <div style="float: left; overflow: auto; padding: 0 20px 0 20px; border-right: 1px solid #ddd;">
-                    <h3>Tell us your Ideas!</h3>
-                    <p>Add your ideas and vote for others <a title="Visit Ideas Forums" class="button button-secondary" href="https://themekraft.zendesk.com/hc/communities/public/topics/200001221-WooCommerce-BuddyPress-Integration-Ideas" target="_new">Ideas Forums</a></p>
-                </div>
-                <div style="float: left; overflow: auto; padding: 0 20px 0 20px;">
-                    <h3>Documentation</h3>
-                    <p>Find Help in the Knowledge-Base <a title="Documentation" class="button button-secondary" href="https://themekraft.zendesk.com/hc/en-us/categories/200005301-WooCommerce-BuddyPress-Integration" target="_new">Documentation</a></p>
-                </div>
-            </div>
         </div>
         <form method="post" action="options.php">
             <?php wp_nonce_field( 'update-options' ); ?>
