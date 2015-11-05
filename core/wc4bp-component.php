@@ -75,7 +75,7 @@ class WC4BP_Component extends BP_Component
 		if ( ! class_exists( 'BP_Theme_Compat' ) )
     		require(  WC4BP_ABSPATH .'core/wc4bp-template-compatibility.php'  );
 
-		if(!isset($wc4bp_options['tab_sync_disabled'])){
+		if(!isset($wc4bp_options['tab_sync_disabled']) || class_exists('WC4BP_xProfile')){ 
     		require(  WC4BP_ABSPATH .'core/wc4bp-sync.php'  );
 		}
 	
@@ -118,7 +118,7 @@ class WC4BP_Component extends BP_Component
 
         // Add 'Shop' to the main navigation
         $main_nav = array(
-            'name'                          => __( 'Shop', 'wc4bp' ),
+            'name'                    		=> apply_filters( 'bp_shop_link_label', __( 'Shop', 'wc4bp' ) ),
             'slug'                          => $this->slug,
             'position'                      => 70,
             'screen_function'               => $default_screen,
@@ -132,7 +132,7 @@ class WC4BP_Component extends BP_Component
 		// Add the cart nav item
 		if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
 	        $sub_nav[] = array(
-	            'name'            => __( 'Shopping Cart', 'wc4bp' ),
+	            'name'            => apply_filters( 'bp_shop_cart_link_label', __( 'Shopping Cart', 'wc4bp' ) ),
 	            'slug'            => 'home',
 	            'parent_url'      => $shop_link,
 	            'parent_slug'     => $this->slug,
@@ -143,11 +143,25 @@ class WC4BP_Component extends BP_Component
 	        );
 		}
 
+		// Add the checkout nav item, if cart empty do not add.
+		if( ! is_admin() && ! WC()->cart->is_empty() && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+		    $sub_nav[] = array(
+		        'name'            => apply_filters( 'bp_checkout_link_label', __( 'Checkout', 'wc4bp' ) ),
+		        'slug'            => 'checkout',
+		        'parent_url'      => $shop_link,
+		        'parent_slug'     => $this->slug,
+		        'screen_function' => 'wc4bp_screen_shopping_checkout',
+		        'position'        => 10,
+		        'item_css_id'     => 'shop-checkout',
+		        'user_has_access' => bp_is_my_profile()
+		    );
+		}
+
 		// Add the checkout nav item
 		if( ! isset( $wc4bp_options['tab_history_disabled'])) {
 	        
 	        $sub_nav[] = array(
-	            'name'            => __( 'History', 'wc4bp' ),
+	            'name'            => apply_filters( 'bp_history_link_label', __( 'History', 'wc4bp' ) ),
 	            'slug'            => 'history',
 	            'parent_url'      => $shop_link,
 	            'parent_slug'     => $this->slug,
@@ -159,22 +173,22 @@ class WC4BP_Component extends BP_Component
 		}
         // Add the checkout nav item
         if( ! isset( $wc4bp_options['tab_track_disabled'])) {
-        $sub_nav[] = array(
-            'name'            => __( 'Track your order', 'wc4bp' ),
-            'slug'            => 'track',
-            'parent_url'      => $shop_link,
-            'parent_slug'     => $this->slug,
-            'screen_function' => 'wc4bp_screen_track_order',
-            'position'        => 30,
-            'item_css_id'     => 'shop-track',
-            'user_has_access' => bp_is_my_profile()
-        );
+	        $sub_nav[] = array(
+	            'name'            => apply_filters( 'bp_track_order_link_label', __( 'Track your order', 'wc4bp' ) ),
+	            'slug'            => 'track',
+	            'parent_url'      => $shop_link,
+	            'parent_slug'     => $this->slug,
+	            'screen_function' => 'wc4bp_screen_track_order',
+	            'position'        => 30,
+	            'item_css_id'     => 'shop-track',
+	            'user_has_access' => bp_is_my_profile()
+	        );
 		}
 		
         // Add shop settings subpage
         if( ! isset( $wc4bp_options['tab_activity_disabled'])) {
 	        $sub_nav[] = array(
-	            'name'            => __( 'Shop', 'wc4bp' ),
+	            'name'            => apply_filters( 'bp_shop_settings_link_label', __( 'Shop', 'wc4bp' ) ),
 	            'slug'            => 'shop',
 	            'parent_url'      => trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug()),
 	            'parent_slug'     => bp_get_settings_slug(),
@@ -228,7 +242,7 @@ class WC4BP_Component extends BP_Component
 			$wp_admin_nav[] = array(
 				'parent' => 'my-account-settings',
 				'id'     => 'my-account-settings-shop',
-				'title'  => __( 'Shop', 'wc4bp' ),
+				'title'  => apply_filters( 'bp_shop_settings_nav_link_label', __( 'Shop', 'wc4bp' ) ),
 				'href'   => trailingslashit( $settings_link . 'shop' )
 			);
 			
@@ -238,7 +252,7 @@ class WC4BP_Component extends BP_Component
 			$wp_admin_nav[] = array(
 				'parent' => $bp->my_account_menu_id,
 				'id'     => 'my-account-' . $this->id,
-				'title'  => __( 'Shop', 'wc4bp' ),
+				'title'  => apply_filters( 'bp_shop_nav_link_label', __( 'Shop', 'wc4bp' ) ),
 				'href'   => trailingslashit( $shop_link ),
 				'meta'	 => array( 'class'  => 'menupop')
 			);
@@ -247,8 +261,17 @@ class WC4BP_Component extends BP_Component
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
 					'id'     => 'my-account-' . $this->id . '-cart',
-					'title'  => __( 'Shopping Cart', 'wc4bp' ),
+					'title'  => apply_filters( 'bp_shop_cart_nav_link_label', __( 'Shopping Cart', 'wc4bp' ) ),
 					'href'   => trailingslashit( $shop_link )
+				);
+			}
+
+			if( ! is_admin() && ! WC()->cart->is_empty() && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+				$wp_admin_nav[] = array(
+					'parent' => 'my-account-' . $this->id,
+					'id'     => 'my-account-' . $this->id . '-checkout',
+					'title'  => apply_filters( 'bp_checkout_nav_link_label', __( 'Checkout', 'wc4bp' ) ),
+					'href'   => trailingslashit( $shop_link . 'checkout' )
 				);
 			}
 			
@@ -256,7 +279,7 @@ class WC4BP_Component extends BP_Component
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
 					'id'     => 'my-account-' . $this->id . '-history',
-					'title'  => __( 'History', 'wc4bp' ),
+					'title'  => apply_filters( 'bp_history_nav_link_label', __( 'History', 'wc4bp' ) ),
 					'href'   => trailingslashit( $shop_link . 'history' )
 				);
 			}
@@ -265,7 +288,7 @@ class WC4BP_Component extends BP_Component
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
 					'id'     => 'my-account-' . $this->id . '-track',
-					'title'  => __( 'Track your order', 'wc4bp' ),
+					'title'  => apply_filters( 'bp_track_order_nav_link_label', __( 'Track your order', 'wc4bp' ) ),
 					'href'   => trailingslashit( $shop_link . 'track' )
 				);
 			}
@@ -314,6 +337,10 @@ class WC4BP_Component extends BP_Component
 				bp_get_template_part( 'shop/member/cart' );
 				"));
 			}
+		} elseif ($bp->current_action == 'checkout') {
+			add_action('bp_template_content', create_function('', "
+			bp_get_template_part( 'shop/member/checkout' );
+			"));
 		} elseif ($bp->current_action == 'history') {
 			add_action('bp_template_content', create_function('', "
 			bp_get_template_part( 'shop/member/history' );

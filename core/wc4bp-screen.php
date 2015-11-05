@@ -26,6 +26,20 @@ function  wc4bp_screen_shopping_cart() {
 }
 
 /**
+ * Screen function to display the checkout
+ *
+ * Template can be changed via the <code> wc4bp_template_member_checkout</code>
+ * filter hook. Note that template files can also be copied to the current theme.
+ *
+ * @since   1.0
+ * @uses    bp_core_load_template()
+ * @uses    apply_filters()
+ */
+function  wc4bp_screen_shopping_checkout() {
+    bp_core_load_template( apply_filters( 'wc4bp_template_member_checkout', 'shop/member/checkout' ) );
+}
+
+/**
  * Screen function to display the purchase history
  *
  * Template can be changed via the <code> wc4bp_template_member_history</code>

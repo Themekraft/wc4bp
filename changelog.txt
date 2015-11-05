@@ -1,3 +1,17 @@
+= v2.3 =
+* add the /history/ slug to wc4bp-redirect. Was deleted by mistake in the latest version and curses a issue if the history order details is displayed. Thanks to Bharat for pointing me on this.
+* New checkout tab added to BP profile to resolve conflict between cart and checkout section
+* added settings for checkout tab
+* adde the checkout top navigationb
+* fixed the sync option when wc4bp checkout manager install
+* added admin message foer all depandancies
+* small code refactor
+* added filter for tabs
+* added filter for profile nav links
+* added fix for checkout order recieve issues
+* fixed xprofile delete issues
+* fixed xprofile update and insert issues
+
 = v2.2.3 =
 * add the /history/ slug to wc4bp-redirect.
 Was deleted by mistake in the latest version and curses a issue if the history order details is displayed.

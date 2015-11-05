@@ -104,34 +104,39 @@ function wc4bp_register_admin_settings() {
  */
  
 function wc4bp_shop_tabs_disable(){
-	$wc4bp_options			= get_option( 'wc4bp_options' );
+    $wc4bp_options			= get_option( 'wc4bp_options' );
 
-	$tab_cart_disabled = 0;
-	if(isset( $wc4bp_options['tab_cart_disabled']))
-		$tab_cart_disabled = $wc4bp_options['tab_cart_disabled'];
-	
-	$tab_history_disabled = 0;
-	if(isset( $wc4bp_options['tab_history_disabled']))
-		$tab_history_disabled = $wc4bp_options['tab_history_disabled'];
-		
-	$tab_track_disabled = 0;
-	if(isset( $wc4bp_options['tab_track_disabled']))
-		$tab_track_disabled = $wc4bp_options['tab_track_disabled'];
-	
-	$tab_activity_disabled = 0;
-	if(isset( $wc4bp_options['tab_activity_disabled']))
-		$tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
+    $tab_cart_disabled = 0;
+    if(isset( $wc4bp_options['tab_cart_disabled']))
+    	$tab_cart_disabled = $wc4bp_options['tab_cart_disabled'];
 
-	?>
-	<p>By default all account related WooCommerce pages are included into the BuddyPress member profiles.</p>
+    $tab_checkout_disabled = 0;
+    if(isset( $wc4bp_options['tab_checkout_disabled']))
+        $tab_checkout_disabled = $wc4bp_options['tab_checkout_disabled'];
+
+    $tab_history_disabled = 0;
+    if(isset( $wc4bp_options['tab_history_disabled']))
+    	$tab_history_disabled = $wc4bp_options['tab_history_disabled'];
+    	
+    $tab_track_disabled = 0;
+    if(isset( $wc4bp_options['tab_track_disabled']))
+    	$tab_track_disabled = $wc4bp_options['tab_track_disabled'];
+
+    $tab_activity_disabled = 0;
+    if(isset( $wc4bp_options['tab_activity_disabled']))
+    	$tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
+
+    ?>
+    <p>By default all account related WooCommerce pages are included into the BuddyPress member profiles.</p>
 
     <p><input name='wc4bp_options[tab_cart_disabled]' type='checkbox' value='1' <?php checked( $tab_cart_disabled, 1  ) ; ?> /> <b>Turn off "Cart" tab. </b></p>
-	<p><input name='wc4bp_options[tab_history_disabled]' type='checkbox' value='1' <?php checked( $tab_history_disabled, 1  ) ; ?> /> <b>Turn off "History" tab. </b></p>
-	<p><input name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /> <b>Turn off "Track my order" tab. </b> </p>
-	
-	<p><input name='wc4bp_options[tab_activity_disabled]' type='checkbox' value='1' <?php checked( $tab_activity_disabled, 1  ) ; ?> /> <b>Turn off "Shop" Tab</b> <i>inside</i> "Settings" for the activity stream settings. </p>
+    <p><input name='wc4bp_options[tab_checkout_disabled]' type='checkbox' value='1' <?php checked( $tab_checkout_disabled, 1  ) ; ?> /> <b>Turn off "Checkout" tab. </b></p>
+    <p><input name='wc4bp_options[tab_history_disabled]' type='checkbox' value='1' <?php checked( $tab_history_disabled, 1  ) ; ?> /> <b>Turn off "History" tab. </b></p>
+    <p><input name='wc4bp_options[tab_track_disabled]' type='checkbox' value='1' <?php checked( $tab_track_disabled, 1  ) ; ?> /> <b>Turn off "Track my order" tab. </b> </p>
 
-	<?php
+    <p><input name='wc4bp_options[tab_activity_disabled]' type='checkbox' value='1' <?php checked( $tab_activity_disabled, 1  ) ; ?> /> <b>Turn off "Shop" Tab</b> <i>inside</i> "Settings" for the activity stream settings. </p>
+
+    <?php
 
 }
 
