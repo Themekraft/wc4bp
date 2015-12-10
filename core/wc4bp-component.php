@@ -144,7 +144,7 @@ class WC4BP_Component extends BP_Component
 		}
 
 		// Add the checkout nav item, if cart empty do not add.
-		if( ! is_admin() && ! WC()->cart->is_empty() && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+		if( ! is_admin() && is_object(WC()->cart) && ! WC()->cart->is_empty() && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
 		    $sub_nav[] = array(
 		        'name'            => apply_filters( 'bp_checkout_link_label', __( 'Checkout', 'wc4bp' ) ),
 		        'slug'            => 'checkout',
@@ -266,7 +266,7 @@ class WC4BP_Component extends BP_Component
 				);
 			}
 
-			if( ! is_admin() && ! WC()->cart->is_empty() && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+			if( ! is_admin() && is_object(WC()->cart) && ! WC()->cart->is_empty() && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
 					'id'     => 'my-account-' . $this->id . '-checkout',
