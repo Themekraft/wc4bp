@@ -48,15 +48,18 @@ function  wc4bp_get_redirect_link( $id = false ) {
 			break;
 
 		case $checkout_page_id:
-			if( ! isset( $wc4bp_options['tab_checkout_disabled'])){
+			if( ! isset( $wc4bp_options['tab_checkout_disabled']) && is_object(WC()->cart) && ! WC()->cart->is_empty() ){
                 $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/checkout/';
-
-                if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
-                    $link = str_replace( 'http:', 'https:', $link );
-                }
-
-    	    }
-            $link = apply_filters('wc4bp_checkout_page_link', $link);
+				if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+					$link = str_replace( 'http:', 'https:', $link );
+				}
+			} else {
+				$link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/home/';
+				if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+					$link = str_replace( 'http:', 'https:', $link );
+				}
+			}
+			$link = apply_filters('wc4bp_checkout_page_link', $link);
             break;
 
 

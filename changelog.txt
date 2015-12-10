@@ -1,5 +1,8 @@
+= v2.3.2 =
+Fixed a redirect issue if cart is empty and a checkout link is clicked.
+
 = v2.3.1 =
-check if object to prevent crashing if crone job is running.
+Check if object to prevent crashing if crone job is running.
 
 = v2.3 =
 * add the /history/ slug to wc4bp-redirect. Was deleted by mistake in the latest version and curses a issue if the history order details is displayed. Thanks to Bharat for pointing me on this.
