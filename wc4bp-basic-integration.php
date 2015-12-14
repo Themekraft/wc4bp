@@ -4,7 +4,7 @@
  * Plugin URI:  http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author:      WC4BP Integration Dev Team ;)
- * Version:     2.3.2
+ * Version:     2.3.3
  *
  *****************************************************************************
  *
@@ -37,7 +37,7 @@ class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION 	= '2.3.2';
+	const VERSION 	= '2.3.3';
 
     /**
 	 * Minimum required WP version
@@ -74,16 +74,16 @@ class WC4BP_Loader {
 	public function __construct() {
 		self::$plugin_name = plugin_basename( __FILE__ );
 
-        add_action('bp_include'						, array($this, 'check_requirements') , 0);
+    add_action('bp_include'						, array($this, 'check_requirements') , 0);
 
 		// Run the activation function
 		register_activation_hook( __FILE__          , array( $this, 'activation' ));
 
 		$this->constants();
 
-        add_action('admin_enqueue_scripts'          , array($this, 'wc4bp_admin_js')    , 10 );
+    add_action('admin_enqueue_scripts'          , array($this, 'wc4bp_admin_js')    , 10 );
 
-        add_action('plugins_loaded'					, array($this, 'update'     )       , 10 );
+    add_action('plugins_loaded'					, array($this, 'update'     )       , 10 );
 		add_action('plugins_loaded'					, array($this, 'translate'  ));
 		add_action('bp_include'						, array($this, 'includes'   )       , 10 );
 
@@ -153,7 +153,7 @@ class WC4BP_Loader {
 			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only under BuddyPress %s or higher. <a href="%s">Upgrade now</a>!\', " wc4bp" ) . \'</strong></p></div>\', WC4BP_Loader::MIN_BP, admin_url("update-core.php") );' ) );
 			$error = true;
 		}
-		
+
 		if( defined( 'BP_VERSION' )) {
 			if(function_exists('bp_is_active')) {
 				if(! bp_is_active('settings') && ! bp_is_active('xprofile') ) {

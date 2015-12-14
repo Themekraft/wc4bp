@@ -1,3 +1,6 @@
+= v2.3.3 =
+Fixed a issue from the last update. If the checkout was disabled the redirect was broken.
+
 = v2.3.2 =
 Fixed a redirect issue if cart is empty and a checkout link is clicked.
 
@@ -113,7 +116,7 @@ Thanks to Bharat for pointing me on this.
 
 = v1.1 =
 * Added: buddypress 1.7.x compatibility
-* Bugfix: reported by users see github thanks @Marco for the greate testing 
+* Bugfix: reported by users see github thanks @Marco for the greate testing
 
 = v1.0.8 =
 * Added: Only spit out Woocommerce errors on the main site, Thx Ole K Hornnes
