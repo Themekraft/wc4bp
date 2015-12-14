@@ -53,7 +53,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 				if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 					$link = str_replace( 'http:', 'https:', $link );
 				}
-			} else {
+			} elseif( ! isset( $wc4bp_options['tab_checkout_disabled']) && !is_object(WC()->cart)) {
 				$link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/home/';
 				if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 					$link = str_replace( 'http:', 'https:', $link );
@@ -80,7 +80,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 
 	}
 	if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages'])){
-					
+
 		foreach ($wc4bp_pages_options['selected_pages'] as $key => $attached_page) {
 
 			if($attached_page['children'] > 0){
@@ -90,7 +90,7 @@ function  wc4bp_get_redirect_link( $id = false ) {
 				$the_page_id	= $attached_page['page_id'];
 				$the_courent_id	= $id;
 			}
-			
+
 			if($the_page_id == $the_courent_id){
 				$post_data = get_post($id, ARRAY_A);
 				$slug = $post_data['post_name'];
@@ -109,8 +109,8 @@ function  wc4bp_get_redirect_link( $id = false ) {
 }
 
 function get_top_parent_page_id($post_id) {
-	
-	
+
+
     $ancestors = get_post_ancestors( $post_id );
 
     // Check if page is a child page (any level)
@@ -185,15 +185,15 @@ function wc4bp_get_checkout_payment_url($pay_url, $order){
 
 	if( isset( $wc4bp_options['tab_cart_disabled']))
 		return $pay_url;
-		
+
 	$pay_url = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/home/checkout/';
-	
+
 	if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 		$pay_url = str_replace( 'http:', 'https:', $pay_url );
 	}
-	
+
 	$pay_url = wc_get_endpoint_url( 'order-pay', $order->id, $pay_url );
-	$pay_url = add_query_arg( 'key', $order->order_key, $pay_url );  
+	$pay_url = add_query_arg( 'key', $order->order_key, $pay_url );
 
     return $pay_url;
 }
@@ -224,11 +224,11 @@ function wc4bp_get_checkout_order_received_url($order_received_url, $order){
 	if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 		$order_received_url = str_replace( 'http:', 'https:', $order_received_url );
 	}
-	
+
 	$order_received_url = wc_get_endpoint_url( 'order-received', $order->id, $order_received_url );
-	
+
 	$order_received_url = add_query_arg( 'key', $order->order_key, $order_received_url );
-    
+
     return $order_received_url;
 }
 add_filter( 'woocommerce_get_checkout_order_received_url', 'wc4bp_get_checkout_order_received_url', 999, 2 );
