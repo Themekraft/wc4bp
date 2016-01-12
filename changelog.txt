@@ -1,4 +1,5 @@
 = v2.3.3 =
+fixed some smaller bugs and clean up the code
 
 = v2.3.3 =
 Fixed a issue from the last update. If the checkout was disabled the redirect was broken.
