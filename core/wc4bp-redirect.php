@@ -17,10 +17,10 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @since 1.0.6
  */
 function  wc4bp_get_redirect_link( $id = false ) {
-    global $current_user;
+  global $current_user;
 
-    $current_user = wp_get_current_user();
-    $userdata = get_userdata($current_user->ID);
+  $current_user = wp_get_current_user();
+  $userdata = get_userdata($current_user->ID);
 
 	$wc4bp_options          = get_option( 'wc4bp_options' );
 	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' );
@@ -30,57 +30,54 @@ function  wc4bp_get_redirect_link( $id = false ) {
 
 	$cart_page_id 		= wc_get_page_id( 'cart' );
 	$checkout_page_id 	= wc_get_page_id( 'checkout' );
-    $account_page_id 	= wc_get_page_id( 'myaccount' );
+  $account_page_id 	= wc_get_page_id( 'myaccount' );
 
 	$link = '';
-    switch( $id ) {
-		case $cart_page_id:
-			if( ! isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] == 'default'){
+  switch( $id ) {
+	case $cart_page_id:
+		if( ! isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] == 'default'){
 
-                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/home/';
+              $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/home/';
 
-                if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
-                    $link = str_replace( 'http:', 'https:', $link );
-                }
+              if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+                  $link = str_replace( 'http:', 'https:', $link );
+              }
 
-            }
+          }
 
-			break;
+		break;
 
-		case $checkout_page_id:
-			if( ! isset( $wc4bp_options['tab_checkout_disabled']) && is_object(WC()->cart) && ! WC()->cart->is_empty() ){
-                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/checkout/';
-				if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
-					$link = str_replace( 'http:', 'https:', $link );
-				}
-			} elseif( ! isset( $wc4bp_options['tab_checkout_disabled']) && !is_object(WC()->cart)) {
-				$link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/home/';
-				if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
-					$link = str_replace( 'http:', 'https:', $link );
-				}
+	case $checkout_page_id:
+		if( ! isset( $wc4bp_options['tab_checkout_disabled']) && is_object(WC()->cart) && ! WC()->cart->is_empty() ){
+              $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/checkout/';
+			if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+				$link = str_replace( 'http:', 'https:', $link );
 			}
-			$link = apply_filters('wc4bp_checkout_page_link', $link);
-            break;
+		} elseif( ! isset( $wc4bp_options['tab_checkout_disabled']) && !is_object(WC()->cart)) {
+			$link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/home/';
+			if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+				$link = str_replace( 'http:', 'https:', $link );
+			}
+		}
+		$link = apply_filters('wc4bp_checkout_page_link', $link);
+      break;
 
+	case $account_page_id:
+          if( ! isset( $wc4bp_options['tab_history_disabled'])){
 
-		case $account_page_id:
+              $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/history/';
 
-            if( ! isset( $wc4bp_options['tab_history_disabled'])){
+              if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+                  $link = str_replace( 'http:', 'https:', $link );
+              }
 
-                $link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/history/';
+          }
 
-                if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
-                    $link = str_replace( 'http:', 'https:', $link );
-                }
-
-            }
-
-            $link = apply_filters('wc4bp_account_page_link', $link);
-            break;
-
+          $link = apply_filters('wc4bp_account_page_link', $link);
+          break;
 	}
-	if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages'])){
 
+	if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages'])){
 		foreach ($wc4bp_pages_options['selected_pages'] as $key => $attached_page) {
 
 			if($attached_page['children'] > 0){
@@ -96,20 +93,17 @@ function  wc4bp_get_redirect_link( $id = false ) {
 				$slug = $post_data['post_name'];
 				$link = get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. $userdata->user_nicename .'/shop/'.$attached_page['tab_slug'].'/'.$slug.'/';
 
-                if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
-                    $link = str_replace( 'http:', 'https:', $link );
-                }
-
+        if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+            $link = str_replace( 'http:', 'https:', $link );
+        }
 			}
 
 	 	}
 	}
-
 	return apply_filters( 'wc4bp_get_redirect_link', $link );
 }
 
 function get_top_parent_page_id($post_id) {
-
 
     $ancestors = get_post_ancestors( $post_id );
 
@@ -176,12 +170,12 @@ add_filter( 'page_link', 'wc4bp_page_link_router', 10, 2 );
 * @return string
 */
 function wc4bp_get_checkout_payment_url($pay_url, $order){
-    global $current_user;
+  global $current_user;
 
-    $current_user = wp_get_current_user();
-    $userdata = get_userdata($current_user->ID);
+  $current_user = wp_get_current_user();
+  $userdata = get_userdata($current_user->ID);
 
-    $wc4bp_options	= get_option( 'wc4bp_options' );
+  $wc4bp_options	= get_option( 'wc4bp_options' );
 
 	if( isset( $wc4bp_options['tab_cart_disabled']))
 		return $pay_url;
@@ -195,7 +189,7 @@ function wc4bp_get_checkout_payment_url($pay_url, $order){
 	$pay_url = wc_get_endpoint_url( 'order-pay', $order->id, $pay_url );
 	$pay_url = add_query_arg( 'key', $order->order_key, $pay_url );
 
-    return $pay_url;
+  return $pay_url;
 }
 //add_filter( 'woocommerce_get_checkout_payment_url', 'wc4bp_get_checkout_payment_url', 999, 2 );
 
@@ -229,6 +223,6 @@ function wc4bp_get_checkout_order_received_url($order_received_url, $order){
 
 	$order_received_url = add_query_arg( 'key', $order->order_key, $order_received_url );
 
-    return $order_received_url;
+  return $order_received_url;
 }
 add_filter( 'woocommerce_get_checkout_order_received_url', 'wc4bp_get_checkout_order_received_url', 999, 2 );

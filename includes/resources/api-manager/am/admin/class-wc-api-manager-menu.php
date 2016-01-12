@@ -21,7 +21,7 @@ class WC4BP_API_Manager_MENU {
 
 		$this->wc4bp_api_manager_key = new WC4BP_API_Manager_Key();
 
-		add_action( 'wc4bp_add_submenu_page', array( $this, 'add_menu' ) );
+		add_action( 'wc4bp_add_submenu_page', array( $this, 'add_menu' ), 999 );
 		add_action( 'admin_init', array( $this, 'load_settings' ) );
 	}
 

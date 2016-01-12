@@ -15,21 +15,19 @@
 	$wc4bp_options			= get_option( 'wc4bp_options' );
 	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' );
 
-	if(isset($bp->action_variables[0])){
-		$wp_query2 = new wp_query(
-			array(
+	if( isset($bp->action_variables[0]) ){
+		$args = array(
 		        'name'      => $bp->action_variables[0],
 		        'post_type' => 'page'
-		    )
-		);
-	} else {
-		$wp_query2 = new wp_query(
-			array(
+		    );
+	} elseif( isset($wc4bp_pages_options['selected_pages'][$bp->current_action]['page_id']) ) {
+		$args = array(
 		        'p'      => $wc4bp_pages_options['selected_pages'][$bp->current_action]['page_id'],
 		        'post_type' => 'page'
-		    )
-		);
+		    );
 	}
+	$args = apply_filters( 'wc4bp_members_plugin_template_query', $args );
+	$wp_query2 = new wp_query($args);
 
 	if ( empty($wc4bp_options['page_template']) ){
 

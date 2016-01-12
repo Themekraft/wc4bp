@@ -28,12 +28,12 @@ class WC4BP_Component extends BP_Component
      */
     function __construct() {
         parent::start( $this->id, __( 'Shop', 'wc4bp' ), WC4BP_ABSPATH );
-        
+
         $this->includes();
 
         add_action( 'bp_register_activity_actions',	array( &$this, 'register_activity_actions' ) );
-		
-		add_filter( 'bp_located_template', 			array( &$this, 'wc4bp_members_load_template_filter'), 10, 2);
+
+				add_filter( 'bp_located_template', 			array( &$this, 'wc4bp_members_load_template_filter'), 10, 2);
 
     }
 
@@ -51,16 +51,16 @@ class WC4BP_Component extends BP_Component
 
         do_action( 'wc4bp_register_activity_actions' );
     }
-    
+
     /**
      * Include files
      *
      * @since     1.0
      */
     function includes($includes = Array()) {
-        
-		$wc4bp_options			= get_option( 'wc4bp_options' ); 
-		
+
+		$wc4bp_options			= get_option( 'wc4bp_options' );
+
         $includes = array(
             'wc4bp-helpers',
             'wc4bp-conditionals',
@@ -68,17 +68,17 @@ class WC4BP_Component extends BP_Component
             'wc4bp-redirect',
             'wc4bp-deprecated',
         );
-        
+
         foreach( $includes as $file )
             require( WC4BP_ABSPATH .'core/'. $file .'.php' );
-		
+
 		if ( ! class_exists( 'BP_Theme_Compat' ) )
     		require(  WC4BP_ABSPATH .'core/wc4bp-template-compatibility.php'  );
 
-		if(!isset($wc4bp_options['tab_sync_disabled']) || class_exists('WC4BP_xProfile')){ 
+		if(!isset($wc4bp_options['tab_sync_disabled']) || class_exists('WC4BP_xProfile')){
     		require(  WC4BP_ABSPATH .'core/wc4bp-sync.php'  );
 		}
-	
+
 	}
 
     /**
@@ -107,8 +107,8 @@ class WC4BP_Component extends BP_Component
      */
     function setup_nav($main_nav = Array(), $sub_nav = Array()) {
 
-		$wc4bp_options			= get_option( 'wc4bp_options' ); 
-		$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
+		$wc4bp_options			= get_option( 'wc4bp_options' );
+		$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' );
 
 		if($wc4bp_options['tab_shop_default'] == 'default' ){
             $default_screen = 'wc4bp_screen_shopping_cart';
@@ -116,19 +116,19 @@ class WC4BP_Component extends BP_Component
             $default_screen = 'wc4bp_screen_plugins';
 		}
 
-        // Add 'Shop' to the main navigation
-        $main_nav = array(
-            'name'                    		=> apply_filters( 'bp_shop_link_label', __( 'Shop', 'wc4bp' ) ),
-            'slug'                          => $this->slug,
-            'position'                      => 70,
-            'screen_function'               => $default_screen,
-            'default_subnav_slug'           => 'home',
-            'item_css_id'                   => $this->id,
-            'show_for_displayed_user'       => false
-        );
+    // Add 'Shop' to the main navigation
+    $main_nav = array(
+        'name'                    		=> apply_filters( 'bp_shop_link_label', __( 'Shop', 'wc4bp' ) ),
+        'slug'                          => $this->slug,
+        'position'                      => 70,
+        'screen_function'               => $default_screen,
+        'default_subnav_slug'           => 'home',
+        'item_css_id'                   => $this->id,
+        'show_for_displayed_user'       => false
+    );
 
-        $shop_link = trailingslashit( bp_loggedin_user_domain() . $this->slug );
-		
+    $shop_link = trailingslashit( bp_loggedin_user_domain() . $this->slug );
+
 		// Add the cart nav item
 		if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
 	        $sub_nav[] = array(
@@ -159,7 +159,7 @@ class WC4BP_Component extends BP_Component
 
 		// Add the checkout nav item
 		if( ! isset( $wc4bp_options['tab_history_disabled'])) {
-	        
+
 	        $sub_nav[] = array(
 	            'name'            => apply_filters( 'bp_history_link_label', __( 'History', 'wc4bp' ) ),
 	            'slug'            => 'history',
@@ -184,22 +184,22 @@ class WC4BP_Component extends BP_Component
 	            'user_has_access' => bp_is_my_profile()
 	        );
 		}
-		
-        // Add shop settings subpage
-        if( ! isset( $wc4bp_options['tab_activity_disabled'])) {
-	        $sub_nav[] = array(
-	            'name'            => apply_filters( 'bp_shop_settings_link_label', __( 'Shop', 'wc4bp' ) ),
-	            'slug'            => 'shop',
-	            'parent_url'      => trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug()),
-	            'parent_slug'     => bp_get_settings_slug(),
-	            'screen_function' => 'wc4bp_screen_settings',
-	            'position'        => 30,
-	            'item_css_id'     => 'shop-settings',
-	            'user_has_access' => bp_is_my_profile()
-	        );
+
+    // Add shop settings subpage
+    if( ! isset( $wc4bp_options['tab_activity_disabled'])) {
+      $sub_nav[] = array(
+          'name'            => apply_filters( 'bp_shop_settings_link_label', __( 'Shop', 'wc4bp' ) ),
+          'slug'            => 'shop',
+          'parent_url'      => trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug()),
+          'parent_slug'     => bp_get_settings_slug(),
+          'screen_function' => 'wc4bp_screen_settings',
+          'position'        => 30,
+          'item_css_id'     => 'shop-settings',
+          'user_has_access' => bp_is_my_profile()
+      );
 		}
 		$position = 40;
-		
+
 		if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages'])){
 			foreach ($wc4bp_pages_options['selected_pages'] as $key => $attached_page) {
 				$position++;
@@ -215,23 +215,23 @@ class WC4BP_Component extends BP_Component
 		        );
 		 	}
 		}
-        do_action( 'bp_shop_setup_nav' );
-        
-        parent::setup_nav( $main_nav, $sub_nav );
-    }
 
+		$sub_nav = apply_filters( 'bp_shop_sub_nav', $sub_nav, $shop_link, $this->slug );
+    do_action( 'bp_shop_setup_nav' );
+    parent::setup_nav( $main_nav, $sub_nav );
+}
 
-	/**
-	 * Set up the Toolbar
-	 *
-	 * @global BuddyPress $bp The one true BuddyPress instance
-	 */
-	function setup_admin_bar($wp_admin_nav = Array()) {
+/**
+ * Set up the Toolbar
+ *
+ * @global BuddyPress $bp The one true BuddyPress instance
+ */
+function setup_admin_bar($wp_admin_nav = Array()) {
 		global $bp;
-		
-		$wc4bp_options			= get_option( 'wc4bp_options' ); 
-		$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' ); 
-		
+
+		$wc4bp_options			= get_option( 'wc4bp_options' );
+		$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' );
+
 		$wp_admin_nav = array();
 
 		if ( is_user_logged_in() ) {
@@ -245,9 +245,9 @@ class WC4BP_Component extends BP_Component
 				'title'  => apply_filters( 'bp_shop_settings_nav_link_label', __( 'Shop', 'wc4bp' ) ),
 				'href'   => trailingslashit( $settings_link . 'shop' )
 			);
-			
+
 			$shop_link = trailingslashit( $user_domain . $this->id );
-			
+
 			// Shop menu items
 			$wp_admin_nav[] = array(
 				'parent' => $bp->my_account_menu_id,
@@ -256,7 +256,7 @@ class WC4BP_Component extends BP_Component
 				'href'   => trailingslashit( $shop_link ),
 				'meta'	 => array( 'class'  => 'menupop')
 			);
-			
+
 			if( ! isset( $wc4bp_options['tab_cart_disabled'])) {
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
@@ -274,7 +274,7 @@ class WC4BP_Component extends BP_Component
 					'href'   => trailingslashit( $shop_link . 'checkout' )
 				);
 			}
-			
+
 			if( ! isset( $wc4bp_options['tab_history_disabled'])) {
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
@@ -283,7 +283,7 @@ class WC4BP_Component extends BP_Component
 					'href'   => trailingslashit( $shop_link . 'history' )
 				);
 			}
-			
+
 			if( ! isset( $wc4bp_options['tab_track_disabled'])) {
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
@@ -295,7 +295,7 @@ class WC4BP_Component extends BP_Component
 
 			if(isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages'])){
 				foreach ($wc4bp_pages_options['selected_pages'] as $key => $attached_page) {
-					
+
 					$wp_admin_nav[] = array(
 						'parent' => 'my-account-' . $this->id,
 						'id'     => 'my-account-' . $this->id . '-'.$attached_page['tab_slug'],
@@ -305,21 +305,21 @@ class WC4BP_Component extends BP_Component
 
 			 	}
 			}
-			
+
 		parent::setup_admin_bar( $wp_admin_nav );
 	}
-	}
+}
 
-	/**
-	 * WC4BP template loader.
-	 * @since 1.0
-	 */
-	function  wc4bp_members_load_template_filter($found_template, $templates) {
-    	global $bp;
+/**
+ * WC4BP template loader.
+ * @since 1.0
+ */
+function  wc4bp_members_load_template_filter($found_template, $templates) {
+  	global $bp;
 
-	    if ( !bp_is_current_component( 'shop' ) )
-		    return $found_template;
-	
+    if ( !bp_is_current_component( 'shop' ) )
+	    return $found_template;
+
  		bp_register_template_stack('wc4bp_members_get_template_directory', 14);
 
 		$found_template = locate_template('members/single/plugins.php', false, false);
@@ -357,7 +357,6 @@ class WC4BP_Component extends BP_Component
 
         return apply_filters('wc4bp_members_load_template_filter', $found_template);
 	}
-
 }
 
 /**
@@ -376,4 +375,3 @@ function  wc4bp_members_get_template_directory() {
 // Create the shop component
 global $bp;
 $bp->shop = new WC4BP_Component();
-?>

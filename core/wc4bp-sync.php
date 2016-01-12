@@ -62,13 +62,13 @@ function  wc4bp_sync_addresses_from_profile($user_id, $field_id, $value ) {
 
 
 function wc4bp_xprofile_profile_field_data_updated($field_id, $value ){
-global $bp;
+  global $bp;
 
-    $user_id = bp_loggedin_user_id();
-    if(isset($_GET['user_id']))
-        $user_id = $_GET['user_id'];
+  $user_id = bp_loggedin_user_id();
+  if(isset($_GET['user_id']))
+      $user_id = $_GET['user_id'];
 
-    wc4bp_sync_addresses_from_profile($user_id, $field_id, $value );
+  wc4bp_sync_addresses_from_profile($user_id, $field_id, $value );
 
 }
 add_action( 'xprofile_profile_field_data_updated', 'wc4bp_xprofile_profile_field_data_updated', 10, 3 );
@@ -76,7 +76,7 @@ add_action( 'xprofile_profile_field_data_updated', 'wc4bp_xprofile_profile_field
 
 /**
  * Synchronize the shipping and billing address to the profile
- * 
+ *
  * @since 	1.0.5
  * @param	int		$user_id	The user ID to synch the address for
  * @param	array 	$_post 		All cleaned POST data
@@ -87,35 +87,35 @@ function  wc4bp_sync_addresses_to_profile( $user_id ) {
 	$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 	$billing  = bp_get_option( 'wc4bp_billing_address_ids'  );
 
-    $groups = BP_XProfile_Group::get(array(
-        'fetch_fields' => true
-    ));
+  $groups = BP_XProfile_Group::get(array(
+      'fetch_fields' => true
+  ));
 
 
-    if ( !empty( $groups ) ) : foreach ( $groups as $group ) :
+  if ( !empty( $groups ) ) : foreach ( $groups as $group ) :
 
-        if ( empty( $group->fields ) )
-            continue;
+      if ( empty( $group->fields ) )
+          continue;
 
-        foreach ( $group->fields as $field ) {
+      foreach ( $group->fields as $field ) {
 
-            $billing_key    = array_search( $field->id  , $billing  );
-            $shipping_key   = array_search( $field->id  , $shipping );
+          $billing_key    = array_search( $field->id  , $billing  );
+          $shipping_key   = array_search( $field->id  , $shipping );
 
-            if( $shipping_key ){
-                $type       = 'shipping';
-                $field_slug = $shipping_key;
-            }
+          if( $shipping_key ){
+              $type       = 'shipping';
+              $field_slug = $shipping_key;
+          }
 
-            if( $billing_key ){
-                $type       = 'billing';
-                $field_slug = $billing_key;
-            }
+          if( $billing_key ){
+              $type       = 'billing';
+              $field_slug = $billing_key;
+          }
 
-            if( isset($field_slug) )
-                xprofile_set_field_data( $field->id, $user_id, $_POST[ $type . '_' . $field_slug] );
+          if( isset($field_slug) )
+              xprofile_set_field_data( $field->id, $user_id, $_POST[ $type . '_' . $field_slug] );
 
-        }
+      }
 
     endforeach; endif;
 
@@ -126,10 +126,10 @@ add_action( 'woocommerce_checkout_update_user_meta' ,  'wc4bp_sync_addresses_to_
 
 /**
  * Get the mapped fields (woocommerce ->  wc4bp)
- * 
+ *
  * Note that Woocommerce has 2 types of addresses, billing and shipping
  * Format: <code>billing{$key}</code> or <code>shipping{$key}</code>
- * 
+ *
  * @since 	1.0.5
  */
 function  wc4bp_get_mapped_fields() {

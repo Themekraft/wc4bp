@@ -2,7 +2,7 @@
 
 /**
  * Adding the Admin Page
- * 
+ *
  * @author Sven Lehnert
  * @package WC4BP
  * @since 1.3
@@ -13,20 +13,15 @@ function wc4bp_admin_menu() {
 
     add_submenu_page( 'wc4bp-options-page'  , 'WC4BP Integrate Pages'     , 'Integrate Pages'       , 'manage_options', 'wc4bp-options-page-pages'   , 'wc4bp_screen_pages' );
 
-//    add_submenu_page( 'wc4bp-options-page'  , 'BuddyPress Profile'     , 'BuddyPress xProfile'       , 'manage_options', 'wc4bp-options-page-xprofile'   , 'wc4bp_screen_xprofile' );
-
     $wc4bp_options = get_option( 'wc4bp_options' );
     if(!isset($wc4bp_options['tab_sync_disabled']))
         add_submenu_page( 'wc4bp-options-page'  , 'WC4BP Profile Fields Sync'  , 'Profile Fields Sync'    , 'manage_options', 'wc4bp-options-page-sync'   , 'wc4bp_screen_sync' );
-
-
 
     do_action('wc4bp_add_submenu_page');
     add_submenu_page( 'wc4bp-options-page'  , 'Delete'     , 'Delete'       , 'manage_options', 'wc4bp-options-page-delete'   , 'wc4bp_screen_delete' );
 
 }
 add_action( 'admin_menu', 'wc4bp_admin_menu' );
-
 
 function wc4bp_admin_js_footer($hook_suffix){
     global $hook_suffix;
@@ -41,12 +36,12 @@ add_action( 'admin_footer', 'wc4bp_admin_js_footer', 10, 1 );
 
 /**
  * The Admin Page
- * 
+ *
  * @author Sven Lehnert
  * @package WC4BP
  * @since 1.3
- */ 
- 
+ */
+
 function wc4bp_screen() { ?>
 
     <div class="wrap">
@@ -69,18 +64,18 @@ function wc4bp_screen() { ?>
 
 /**
  * Register the admin settings
- * 
+ *
  * @author Sven Lehnert
- * @package TK Loop Designer 
+ * @package TK Loop Designer
  * @since 1.0
- */ 
- 
+ */
+
 add_action( 'admin_init', 'wc4bp_register_admin_settings' );
 
 function wc4bp_register_admin_settings() {
-	        
+
     register_setting( 'wc4bp_options', 'wc4bp_options' );
-    
+
     // Settings fields and sections
     add_settings_section(	'section_general'	, ''							, ''	, 'wc4bp_options' );
     add_settings_section(	'section_general2'	, ''							, ''	, 'wc4bp_options' );
@@ -93,13 +88,13 @@ function wc4bp_register_admin_settings() {
 }
 
 /**
- * Do you want to use the WordPress Customizer? This is the option to turn on/off the WordPress Customizer Support.   
- * 
- * @author Sven Lehnert 
+ * Do you want to use the WordPress Customizer? This is the option to turn on/off the WordPress Customizer Support.
+ *
+ * @author Sven Lehnert
  * @package TK Loop Designer
  * @since 1.0
  */
- 
+
 function wc4bp_shop_tabs_disable(){
     $wc4bp_options			= get_option( 'wc4bp_options' );
 
@@ -114,7 +109,7 @@ function wc4bp_shop_tabs_disable(){
     $tab_history_disabled = 0;
     if(isset( $wc4bp_options['tab_history_disabled']))
     	$tab_history_disabled = $wc4bp_options['tab_history_disabled'];
-    	
+
     $tab_track_disabled = 0;
     if(isset( $wc4bp_options['tab_track_disabled']))
     	$tab_track_disabled = $wc4bp_options['tab_track_disabled'];
@@ -144,13 +139,11 @@ function wc4bp_turn_off_profile_sync(){
     if(isset( $wc4bp_options['tab_sync_disabled']))
         $tab_sync_disabled = $wc4bp_options['tab_sync_disabled']; ?>
 
-
     <p>If you disable profile sync, the billing and shipping profile groups will be deleted.</p>
     <p><i>This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit and disable all sync settings</i></p>
     <p><input name='wc4bp_options[tab_sync_disabled]' type='checkbox' value='1' <?php checked( $tab_sync_disabled, 1  ) ; ?> /> <b>Turn off WooCommerce BuddyPress Profile Sync.</b></p>
 
     <?php
-
     if(isset($tab_sync_disabled) && TRUE == $tab_sync_disabled){
         include_once( dirname( __FILE__ ) .'/wc4bp-activate.php' );
         wc4bp_cleanup();

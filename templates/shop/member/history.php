@@ -14,12 +14,10 @@
 
 	<?php do_action( 'wc4bp_before_history_body' ); ?>
 
-
 	<?php do_shortcode('[wc4bp_my_recent_orders]') ?>
 
     <?php do_action( 'woocommerce_after_my_account' ); ?>
 
 	<?php do_action( 'wc4bp_after_history_body' ); ?>
-
 
 </div><!-- #item-body -->

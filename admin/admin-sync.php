@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * The Admin Page
  *
@@ -192,7 +191,6 @@ function wc4bp_shop_profile_sync_ajax(){
 add_action( 'wp_ajax_wc4bp_shop_profile_sync_ajax', 'wc4bp_shop_profile_sync_ajax' );
 add_action( 'wp_ajax_nopriv_wc4bp_shop_profile_sync_ajax', 'wc4bp_shop_profile_sync_ajax' );
 
-
 function  wc4bp_sync_from_admin( $user_id ) {
 
     // get the profile fields
@@ -276,8 +274,6 @@ function wc4bp_change_xprofile_visabilyty_by_user_ajax($user_id){
     }
 }
 
-
-
 function wc4bp_change_xprofile_visabilyty_default(){ ?>
     <p>Set the default profile field viability to</p>
     <?php select_visibility_levels('default_visibility'); ?>
@@ -289,8 +285,6 @@ function wc4bp_change_xprofile_visabilyty_default(){ ?>
     $shipping = bp_get_option('wc4bp_shipping_address_ids');
 
     if ( isset( $wc4bp_options_sync['change_xprofile_visabilyty_field_default'] ) ) {
-
-
 
         echo '<ul>';
 
@@ -327,7 +321,6 @@ function wc4bp_change_xprofile_allow_custom_visibility(){
         <input type="submit" class="button" name="wc4bp_options_sync[allow_custom_visibility]" value="Change Now">
     </p><?php
 
-
     $billing = bp_get_option('wc4bp_billing_address_ids');
     $shipping = bp_get_option('wc4bp_shipping_address_ids');
 
@@ -352,6 +345,3 @@ function wc4bp_change_xprofile_allow_custom_visibility(){
     }
 
 }
-
-
-?>

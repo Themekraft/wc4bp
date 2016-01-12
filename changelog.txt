@@ -1,4 +1,6 @@
 = v2.3.3 =
+
+= v2.3.3 =
 Fixed a issue from the last update. If the checkout was disabled the redirect was broken.
 
 = v2.3.2 =
