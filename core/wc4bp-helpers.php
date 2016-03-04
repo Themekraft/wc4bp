@@ -13,7 +13,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Look for the templates in the proper places
- * 
+ *
  * @since 1.0
  */
 function  wc4bp_load_template_filter( $found_template, $templates ) {
@@ -21,11 +21,11 @@ function  wc4bp_load_template_filter( $found_template, $templates ) {
         foreach( (array)$templates as $template ) {
             if( file_exists( STYLESHEETPATH .'/'. $template ) )
                 $filtered_templates[] = STYLESHEETPATH .'/'. $template;
-                
+
             else
                 $filtered_templates[] = WC4BP_ABSPATH .'templates/'. $template;
         }
-    
+
         return apply_filters( 'wc4bp_load_template_filter', $filtered_templates[0] );
     }
     else
@@ -35,18 +35,18 @@ function  wc4bp_load_template_filter( $found_template, $templates ) {
 
 /**
  * Load a template in the correct order
- * 
+ *
  * @since 1.0
  */
 function  wc4bp_load_template( $template_name ) {
     global $bp;
-    
+
     if( file_exists( STYLESHEETPATH .'/'. $template_name . '.php' ) )
         $located = STYLESHEETPATH .'/'. $template_name . '.php';
-        
+
     elseif( file_exists( TEMPLATEPATH .'/'. $template_name . '.php' ) )
         $located = TEMPLATEPATH .'/'. $template_name . '.php';
-    
+
     else
         $located = WC4BP_ABSPATH .'templates/'. $template_name . '.php';
 
@@ -55,14 +55,14 @@ function  wc4bp_load_template( $template_name ) {
 
 /**
  * Adjust the checkout url to point to the profile
- * 
+ *
  * @since   1.0
  * @uses    bp_loggedin_user_domain()
  * @uses    is_user_logged_in()
  */
 function  wc4bp_checkout_url( $url ) {
-	$wc4bp_options		= get_option( 'wc4bp_options' ); 
-	
+	$wc4bp_options		= get_option( 'wc4bp_options' );
+
 	if( isset( $wc4bp_options['tab_cart_disabled']))
 		return $url;
 
@@ -77,7 +77,7 @@ function  wc4bp_checkout_url( $url ) {
 
 /**
  * Link to the user shop settings page
- * 
+ *
  * @since   unknown
  * @uses    bp_get_settings_slug()
  */
@@ -92,7 +92,7 @@ function  wc4bp_settings_link() {
  * Adds an activity stream item when a user has written a new review to a product.
  *
  * @since   unknown
- * 
+ *
  * @uses bp_is_active() Checks that the Activity component is active
  * @uses bp_activity_add() Adds an entry to the activity component tables for a specific activity
  */
@@ -102,7 +102,7 @@ function  wc4bp_loader_review_activity( $comment_id, $comment_data ) {
 
     // Get the product data
     $product = get_post( $comment_data->comment_post_ID );
-    
+
     if( $product->post_type != 'product' )
         return false;
 
@@ -123,7 +123,7 @@ function  wc4bp_loader_review_activity( $comment_id, $comment_data ) {
                                     $user_link,
                                     get_permalink($comment_data->comment_post_ID),
                                     $product->post_title
-                                ), 
+                                ),
                                 $user_id,
                                 $comment_data,
                                 $product
@@ -138,7 +138,7 @@ add_action( 'wp_insert_comment', 'wc4bp_loader_review_activity', 10, 2 );
  * Adds an activity stream item when a user has purchased a new product(s).
  *
  * @since   unknown
- * 
+ *
  * @global 	object $bp Global BuddyPress settings object
  * @uses 	bp_activity_add() Adds an entry to the activity component tables for a specific activity
  */
@@ -153,7 +153,7 @@ function  wc4bp_loader_purchase_activity( $order_id ) {
 
     if( $order->status != 'completed' )
         return false;
-    
+
     if( $order->user_id != $order->customer_user )
         return false;
 
@@ -162,11 +162,11 @@ function  wc4bp_loader_purchase_activity( $order_id ) {
     // if several products - combine them, otherwise - display the product name
     $products = $order->get_items();
     $names    = array();
-	
+
     foreach( $products as $product ){
         $names[] = '<a href="'. get_permalink( $product['item_meta']['_product_id'][0] ).'">'. $product['name'] .'</a>';
     }
-    
+
     // record the activity
     bp_activity_add( array(
         'user_id'   => $order->user_id,
@@ -175,7 +175,7 @@ function  wc4bp_loader_purchase_activity( $order_id ) {
                                 __( '%s purchased %s', 'wc4bp' ),
                                     $user_link,
                                     implode(', ', $names)
-                        	), 
+                        	),
                             $user_id,
                             $order,
                             $products

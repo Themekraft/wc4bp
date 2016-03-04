@@ -157,7 +157,7 @@ class WC4BP_Component extends BP_Component
 		    );
 		}
 
-		// Add the checkout nav item
+		// Add the history nav item
 		if( ! isset( $wc4bp_options['tab_history_disabled'])) {
 
 	        $sub_nav[] = array(
@@ -171,7 +171,7 @@ class WC4BP_Component extends BP_Component
 	            'user_has_access' => bp_is_my_profile()
 	        );
 		}
-        // Add the checkout nav item
+        // Add the Track nav item
         if( ! isset( $wc4bp_options['tab_track_disabled'])) {
 	        $sub_nav[] = array(
 	            'name'            => apply_filters( 'bp_track_order_link_label', __( 'Track your order', 'wc4bp' ) ),

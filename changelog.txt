@@ -1,4 +1,4 @@
-= v2.3.3 =
+= v2.3.4 =
 fixed some smaller bugs and clean up the code
 
 = v2.3.3 =
