@@ -135,6 +135,12 @@ div.tab-wrapper {
     font-weight: bold;
     width: 100%;
 }
+.tab-wrapper fieldset fieldset legend span span {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: auto;
+}
 .field-group fieldset:hover {
     background-color: #fafafa;
     border-color: #ccc;
@@ -244,4 +250,3 @@ textarea#group_description {
     border: 1px solid #ddd;
     width: 100%;
 }
-

@@ -1,3 +1,7 @@
+= v2.3.5 =
+change BP_MEMBERS_SLUG to $bp->pages->members->slug to avoid strange issue if people overwrite the member slug
+fixed css props to tristanpenman for the pul request ;)
+
 = v2.3.4 =
 fixed some smaller bugs and clean up the code
 
