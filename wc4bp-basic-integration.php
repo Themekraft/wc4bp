@@ -329,6 +329,35 @@ function wc4bp_plugin_name() {
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/resources/api-manager/api-manager.php');
 
+
+
+add_filter('woocommerce_is_checkout', 'wc4bp_woocommerce_is_checkout');
+
+function wc4bp_woocommerce_is_checkout($is_checkout){
+  $wc4bp_options			= get_option( 'wc4bp_options' );
+
+	if( is_user_logged_in() && ! isset($wc4bp_options['tab_checkout_disabled'] )) :
+    if( bp_is_current_component( 'shop' ) && ( bp_is_current_action( 'checkout' ) || bp_is_current_action( 'home' ) )) :
+			$is_checkout = true;
+    endif;
+	endif;
+
+  return $is_checkout;
+}
+
+add_filter('woocommerce_is_account_page', 'wc4bp_woocommerce_is_account_page');
+
+function wc4bp_woocommerce_is_account_page($is_account_page){
+
+  if( is_user_logged_in() ) :
+    if( bp_is_current_component( 'shop' ) && bp_is_current_action( 'checkout' ) ) :
+        $is_account_page = true;
+    endif;
+  endif;
+
+  return $is_account_page;
+}
+
 /**
  * The functions below do not have any filters, but can be redefined
  * Needs to happen here, so as not to cause any errors
@@ -338,29 +367,6 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/resources/api-manager/api-
  * 			which could potentially create conflicts with other plugins
  */
 
-if( ! function_exists( 'is_checkout' ) ) :
-
-/**
- * Check if we're on a checkout page
- *
- * @since 	1.0.5
- */
-function is_checkout() {
-    $wc4bp_options			= get_option( 'wc4bp_options' );
-
-	if( is_user_logged_in() && ! isset($wc4bp_options['tab_cart_disabled'] )) :
-
-        if( bp_is_current_component( 'shop' ) && (bp_is_action_variable( 'checkout' ) || bp_is_action_variable( 'cart' ) )) :
-			return true;
-        endif;
-	else :
-        return is_page( wc_get_page_id( 'checkout' ) ) ? true : false;
-	endif;
-
-	return false;
-}
-endif;
-
 if( ! function_exists( 'is_cart' ) ) :
 /**
  * Check if we're on a cart page
@@ -368,38 +374,15 @@ if( ! function_exists( 'is_cart' ) ) :
  * @since 	1.0.5
  */
 function is_cart() {
-    $wc4bp_options			= get_option( 'wc4bp_options' );
+  $wc4bp_options			= get_option( 'wc4bp_options' );
 
-    if( is_user_logged_in() && ! isset($wc4bp_options['tab_cart_disabled'] )) :
+  if( is_user_logged_in() && ! isset($wc4bp_options['tab_cart_disabled'] )) :
 		if( bp_is_current_component( 'shop' ) && ! bp_action_variables() ) :
 			return true;
 		endif;
 	else :
-		if( is_page( wc_get_page_id( 'cart' ) ) ) :
-			return true;
-		endif;
+		return is_page( wc_get_page_id( 'cart' ) ) || defined( 'WOOCOMMERCE_CART' );
 	endif;
-
-	return false;
-}
-endif;
-
-
-if( ! function_exists( 'is_account_page' ) ) :
-/**
- * Check if we're on an account page
- *
- * @since 	1.0.5
- */
-function is_account_page() {
-
-    if( is_user_logged_in() ) :
-		if( bp_is_current_component( 'shop' ) && bp_is_action_variable( 'checkout' ) ) :
-    		return true;
-		endif;
-    else :
-        return is_page( wc_get_page_id( 'myaccount' ) ) || apply_filters( 'woocommerce_is_account_page', false ) ? true : false;
-    endif;
 
 	return false;
 }
@@ -427,7 +410,6 @@ if ( ! function_exists( 'is_order_received_page' ) ) {
         endif;
 
         return false;
-
 
     }
 }
