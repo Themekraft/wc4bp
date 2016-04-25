@@ -4,7 +4,7 @@
  * Plugin URI:  http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author:      WC4BP Integration Dev Team ;)
- * Version:     2.3.5
+ * Version:     2.4
  *
  *****************************************************************************
  *
@@ -37,7 +37,7 @@ class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION 	= '2.3.5';
+	const VERSION 	= '2.4';
 
     /**
 	 * Minimum required WP version
@@ -74,18 +74,18 @@ class WC4BP_Loader {
 	public function __construct() {
 		self::$plugin_name = plugin_basename( __FILE__ );
 
-    add_action('bp_include'						, array($this, 'check_requirements') , 0);
+    add_action('bp_include'						   , array($this, 'check_requirements') , 0);
 
 		// Run the activation function
-		register_activation_hook( __FILE__          , array( $this, 'activation' ));
+		register_activation_hook( __FILE__   , array( $this, 'activation' ));
 
 		$this->constants();
 
-    add_action('admin_enqueue_scripts'          , array($this, 'wc4bp_admin_js')    , 10 );
+    add_action('admin_enqueue_scripts'  , array($this, 'wc4bp_admin_js')    , 10 );
 
     add_action('plugins_loaded'					, array($this, 'update'     )       , 10 );
 		add_action('plugins_loaded'					, array($this, 'translate'  ));
-		add_action('bp_include'						, array($this, 'includes'   )       , 10 );
+		add_action('bp_include'						  , array($this, 'includes'   )       , 10 );
 
         /**
         * Deletes all data if plugin deactivated
@@ -112,11 +112,11 @@ class WC4BP_Loader {
 		if (is_admin()){
 
 			// API License Key Registration Form
-            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php');
-            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-sync.php');
-            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-pages.php');
-            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-delete.php');
-            require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-ajax.php');
+      require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php');
+      require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-sync.php');
+      require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-pages.php');
+      require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-delete.php');
+      require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-ajax.php');
 
 		}
 
@@ -210,7 +210,7 @@ class WC4BP_Loader {
 	 * @access 	private
 	 */
 	private function constants() {
-        define( 'WC4BP_PLUGIN'                  , 	self::$plugin_name );
+    define( 'WC4BP_PLUGIN'                  , self::$plugin_name );
 		define( 'WC4BP_VERSION'                 ,	self::VERSION );
 		define( 'WC4BP_FOLDER'                  ,	plugin_basename( dirname( __FILE__ ) ) );
 		define( 'WC4BP_ABSPATH'                 ,	trailingslashit( str_replace( "\\", "/", WP_PLUGIN_DIR .'/'. WC4BP_FOLDER ) ) );
@@ -329,10 +329,8 @@ function wc4bp_plugin_name() {
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/resources/api-manager/api-manager.php');
 
-
-
+// Check if we are on checkout in profile
 add_filter('woocommerce_is_checkout', 'wc4bp_woocommerce_is_checkout');
-
 function wc4bp_woocommerce_is_checkout($is_checkout){
   $wc4bp_options			= get_option( 'wc4bp_options' );
 
@@ -345,8 +343,8 @@ function wc4bp_woocommerce_is_checkout($is_checkout){
   return $is_checkout;
 }
 
+// Check if we are on the my account page in profile
 add_filter('woocommerce_is_account_page', 'wc4bp_woocommerce_is_account_page');
-
 function wc4bp_woocommerce_is_account_page($is_account_page){
 
   if( is_user_logged_in() ) :

@@ -1,3 +1,7 @@
+= v2.4 =
+Fixed a issue where the js does not get loaded in the checkout. Lucky WC add some filter so we can rewrite this functionality to become more datable in the future
+woocommerce_is_checkout and woocommerce_is_account_page should work just fin enow if BuddyPress is enabled
+
 = v2.3.5 =
 change BP_MEMBERS_SLUG to $bp->pages->members->slug to avoid strange issue if people overwrite the member slug
 fixed css props to tristanpenman for the pul request ;)
