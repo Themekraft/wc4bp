@@ -1,22 +1,25 @@
 = v2.4 =
-Fixed a issue where the js does not get loaded in the checkout. Lucky WC add some filter so we can rewrite this functionality to become more datable in the future
-woocommerce_is_checkout and woocommerce_is_account_page should work just fin enow if BuddyPress is enabled
+* Fixed a issue where the js does not get loaded in the checkout. Lucky WC add some filter so we can rewrite this functionality to become more update save in the future
+* woocommerce_is_checkout and woocommerce_is_account_page should work just fine now if BuddyPress is enabled
+* Fixed an issue with the order received page url
+* add a missing global $bp to the wc4bp_get_checkout_order_received_url and wc4bp_get_checkout_payment_url
+* clean up the code
 
 = v2.3.5 =
-change BP_MEMBERS_SLUG to $bp->pages->members->slug to avoid strange issue if people overwrite the member slug
-fixed css props to tristanpenman for the pul request ;)
+* change BP_MEMBERS_SLUG to $bp->pages->members->slug to avoid strange issue if people overwrite the member slug
+* fixed css props to tristanpenman for the pul request ;)
 
 = v2.3.4 =
-fixed some smaller bugs and clean up the code
+* fixed some smaller bugs and clean up the code
 
 = v2.3.3 =
-Fixed a issue from the last update. If the checkout was disabled the redirect was broken.
+* Fixed a issue from the last update. If the checkout was disabled the redirect was broken.
 
 = v2.3.2 =
-Fixed a redirect issue if cart is empty and a checkout link is clicked.
+* Fixed a redirect issue if cart is empty and a checkout link is clicked.
 
 = v2.3.1 =
-Check if object to prevent crashing if crone job is running.
+* Check if object to prevent crashing if crone job is running.
 
 = v2.3 =
 * add the /history/ slug to wc4bp-redirect. Was deleted by mistake in the latest version and curses a issue if the history order details is displayed. Thanks to Bharat for pointing me on this.

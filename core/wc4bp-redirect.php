@@ -19,20 +19,21 @@ if( ! defined( 'ABSPATH' ) ) exit;
 function  wc4bp_get_redirect_link( $id = false ) {
   global $current_user, $bp;
 
+  if( ! $id )
+		return false;
+
   $current_user = wp_get_current_user();
   $userdata     = get_userdata($current_user->ID);
 
 	$wc4bp_options        = get_option( 'wc4bp_options' );
 	$wc4bp_pages_options	= get_option( 'wc4bp_pages_options' );
 
-	if( ! $id )
-		return false;
-
-	$cart_page_id 		= wc_get_page_id( 'cart' );
-	$checkout_page_id 	= wc_get_page_id( 'checkout' );
-  $account_page_id 	= wc_get_page_id( 'myaccount' );
+	$cart_page_id      = wc_get_page_id( 'cart' );
+	$checkout_page_id  = wc_get_page_id( 'checkout' );
+  $account_page_id   = wc_get_page_id( 'myaccount' );
 
 	$link = '';
+
   switch( $id ) {
 	case $cart_page_id:
 		if( ! isset( $wc4bp_options['tab_cart_disabled']) && $wc4bp_options['tab_shop_default'] == 'default'){
@@ -170,7 +171,7 @@ add_filter( 'page_link', 'wc4bp_page_link_router', 10, 2 );
 * @return string
 */
 function wc4bp_get_checkout_payment_url($pay_url, $order){
-  global $current_user;
+  global $current_user, $bp;
 
   $current_user = wp_get_current_user();
   $userdata = get_userdata($current_user->ID);
@@ -200,7 +201,7 @@ function wc4bp_get_checkout_payment_url($pay_url, $order){
 * @return string
 */
 function wc4bp_get_checkout_order_received_url($order_received_url, $order){
-	global $current_user;
+	global $current_user, $bp;
 
 	$current_user = wp_get_current_user();
     $userdata = get_userdata($current_user->ID);
@@ -222,6 +223,7 @@ function wc4bp_get_checkout_order_received_url($order_received_url, $order){
 	$order_received_url = wc_get_endpoint_url( 'order-received', $order->id, $order_received_url );
 
 	$order_received_url = add_query_arg( 'key', $order->order_key, $order_received_url );
+
 
   return $order_received_url;
 }
