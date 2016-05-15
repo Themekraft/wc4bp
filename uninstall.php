@@ -1,8 +1,8 @@
 <?php
 
 // Make sure that we are uninstalling
-if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-    exit();
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+	exit();
 }
 
 // Removes all data from the database

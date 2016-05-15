@@ -15,13 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class WC4BP_API_Manager_Key {
 
 	// API Key URL
-	public function create_software_api_url( $args ) {
-
-		$api_url = add_query_arg( 'wc-api', 'am-software-api', WC4BPAM()->upgrade_url );
-
-		return $api_url . '&' . http_build_query( $args );
-	}
-
 	public function activate( $args ) {
 
 		$defaults = array(
@@ -46,6 +39,13 @@ class WC4BP_API_Manager_Key {
 		$response = wp_remote_retrieve_body( $request );
 
 		return $response;
+	}
+
+	public function create_software_api_url( $args ) {
+
+		$api_url = add_query_arg( 'wc-api', 'am-software-api', WC4BPAM()->upgrade_url );
+
+		return $api_url . '&' . http_build_query( $args );
 	}
 
 	public function deactivate( $args ) {

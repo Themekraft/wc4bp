@@ -117,11 +117,6 @@ class WC4BP_API_Manager_Update_API_Check {
 	}
 
 	// Upgrade API URL
-	private function create_upgrade_api_url( $args ) {
-		$upgrade_url = add_query_arg( 'wc-api', 'upgrade-api', $this->upgrade_url );
-
-		return $upgrade_url . '&' . http_build_query( $args );
-	}
 
 	/**
 	 * Check for updates against the remote server.
@@ -274,6 +269,12 @@ class WC4BP_API_Manager_Update_API_Check {
 		} else {
 			return false;
 		}
+	}
+
+	private function create_upgrade_api_url( $args ) {
+		$upgrade_url = add_query_arg( 'wc-api', 'upgrade-api', $this->upgrade_url );
+
+		return $upgrade_url . '&' . http_build_query( $args );
 	}
 
 	/**

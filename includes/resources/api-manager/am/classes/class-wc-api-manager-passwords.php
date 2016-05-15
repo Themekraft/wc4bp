@@ -14,6 +14,24 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class WC4BP_API_Manager_Password_Management {
 
+	public function generate_password( $length = 12, $special_chars = true, $extra_special_chars = false ) {
+		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		if ( $special_chars )
+			$chars .= '!@#$%^&*()';
+		if ( $extra_special_chars )
+			$chars .= '-_ []{}<>~`+=,.;:/?|';
+
+		$password = '';
+		for ( $i = 0; $i < $length; $i++ ) {
+			$password .= substr($chars, self::rand(0, strlen($chars) - 1), 1);
+		}
+
+		// random_password filter was previously in random_password function which was deprecated
+		return $password;
+	}
+
+	// Creates a unique instance ID
+
 	private function rand( $min = 0, $max = 0 ) {
 		global $rnd_value;
 
@@ -48,23 +66,6 @@ class WC4BP_API_Manager_Password_Management {
 			$value = $min + ( $max - $min + 1 ) * $value / ( $max_random_number + 1 );
 
 		return abs(intval($value));
-	}
-
-	// Creates a unique instance ID
-	public function generate_password( $length = 12, $special_chars = true, $extra_special_chars = false ) {
-		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		if ( $special_chars )
-			$chars .= '!@#$%^&*()';
-		if ( $extra_special_chars )
-			$chars .= '-_ []{}<>~`+=,.;:/?|';
-
-		$password = '';
-		for ( $i = 0; $i < $length; $i++ ) {
-			$password .= substr($chars, self::rand(0, strlen($chars) - 1), 1);
-		}
-
-		// random_password filter was previously in random_password function which was deprecated
-		return $password;
 	}
 
 }
