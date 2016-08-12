@@ -196,6 +196,7 @@ function wc4bp_loader_purchase_activity( $order_id ) {
 	) );
 }
 
+// todo: Add option to the admin to deactivate activity integration
 add_action( 'woocommerce_order_status_completed', 'wc4bp_loader_purchase_activity' );
 
 function wc4bp_my_downloads_shortcode( $atts ) {
