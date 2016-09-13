@@ -25,6 +25,43 @@
  ****************************************************************************
  */
 
+
+
+
+// Create a helper function for easy SDK access.
+function wc4bp_fs() {
+	global $wc4bp_fs;
+
+	if ( ! isset( $wc4bp_fs ) ) {
+		// Include Freemius SDK.
+		require_once dirname(__FILE__) . '/admin/resources/freemius/start.php';
+
+		$wc4bp_fs = fs_dynamic_init( array(
+			'id'                => '425',
+			'slug'              => 'wc4bp',
+			'type'              => 'plugin',
+			'public_key'        => 'pk_71d28f28e3e545100e9f859cf8554',
+			'is_premium'        => true,
+			'has_addons'        => true,
+			'has_paid_plans'    => true,
+			'menu'              => array(
+				'slug'       => 'wc4bp-options-page',
+				'support'    => false,
+			),
+			// Set the SDK to work in a sandbox mode (for development & testing).
+			// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
+			'secret_key'  => 'sk_ccE(cjH4?%J)wXa@h2vV^g]jAeY$i',
+		) );
+	}
+
+	return $wc4bp_fs;
+}
+
+// Init Freemius.
+wc4bp_fs();
+
+
+
 // Needs to be rewritetn in Otto style ;-)
 if ( ! defined( 'BP_VERSION' ) ) {
 	add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
