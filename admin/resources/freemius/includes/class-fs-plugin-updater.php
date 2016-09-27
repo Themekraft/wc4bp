@@ -131,7 +131,7 @@
 		 * During development mode we want to be able updating plugin versions via our localhost repository. This
 		 * filter white-list all domains including "api.freemius".
 		 *
-		 * @link   http://www.emanueletessore.com/wordpress-download-failed-valid-url-provided/
+		 * @link  http://www.emanueletessore.com/wordpress-download-failed-valid-url-provided/
 		 *
 		 * @author Vova Feldman (@svovaf)
 		 * @since  1.0.4

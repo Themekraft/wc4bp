@@ -110,6 +110,12 @@ class WC4BP_Component extends BP_Component {
 	 * @global   object $bp
 	 */
 	function setup_nav( $main_nav = Array(), $sub_nav = Array() ) {
+		global $woocommerce;
+
+
+		if(!function_exists('bp_get_settings_slug')){
+			return;
+		}
 
 		$wc4bp_options       = get_option( 'wc4bp_options' );
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
@@ -147,8 +153,9 @@ class WC4BP_Component extends BP_Component {
 			);
 		}
 
+		global $woocommerce;
 		// Add the checkout nav item, if cart empty do not add.
-		if ( ! is_admin() && is_object( WC()->cart ) && ! WC()->cart->is_empty() && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+		if ( ! is_admin() && $woocommerce->cart->cart_contents_total != null && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
 			$sub_nav[] = array(
 				'name'            => apply_filters( 'bp_checkout_link_label', __( 'Checkout', 'wc4bp' ) ),
 				'slug'            => 'checkout',
@@ -376,7 +383,5 @@ class WC4BP_Component extends BP_Component {
 function wc4bp_members_get_template_directory() {
 	return apply_filters( 'wc4bp_members_get_template_directory', constant( 'WC4BP_ABSPATH_TEMPLATE_PATH' ) );
 }
-
-// Create the shop component
 global $bp;
 $bp->shop = new WC4BP_Component();

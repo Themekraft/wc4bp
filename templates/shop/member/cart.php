@@ -12,9 +12,9 @@
 	<?php do_action( 'wc4bp_before_cart_body' ); ?>
 
 	<?php if( wc4bp_is_subpage( 'checkout' ) ){  ?>
-        <?php echo do_shortcode( '[woocommerce_checkout]' ); ?>
-    <?php } else{ ?>
-	    <?php echo do_shortcode( '[woocommerce_cart]' ); ?>
+		<?php echo do_shortcode( '[woocommerce_checkout]' ); ?>
+	<?php } else{ ?>
+		<?php echo do_shortcode( '[woocommerce_cart]' ); ?>
 	<?php } ?>
 
 	<?php do_action( 'wc4bp_after_cart_body' ); ?>

@@ -125,8 +125,6 @@ class WC4BP_Loader {
 		add_action( 'plugins_loaded', array( $this, 'translate' ) );
 		add_action( 'bp_include', array( $this, 'includes' ), 10 );
 
-		add_action( 'admin_init', array( $this, 'edd_plugin_updater' ), 0 );
-
 		/**
 		 * Deletes all data if plugin deactivated
 		 */
@@ -148,10 +146,6 @@ class WC4BP_Loader {
 		define( 'WC4BP_URLPATH', trailingslashit( plugins_url( '/' . WC4BP_FOLDER ) ) );
 		define( 'WC4BP_ABSPATH_TEMPLATE_PATH', WC4BP_ABSPATH . 'templates/' );
 
-		// this is the URL our updater / license checker pings. This should be the URL of the site with EDD installed
-		define( 'EDD_TK_WC4BP_STORE_URL', 'https://themekraft.com' ); // IMPORTANT: change the name of this constant to something unique to prevent conflicts with other plugins using this system
-		// the name of your product. This is the title of your product in EDD and should match the download title in EDD exactly
-		define( 'EDD_TK_WC4BP_ITEM_NAME', 'WooCommerce BuddyPress Integration' ); // IMPORTANT: change the name of this constant to something unique to prevent conflicts with other plugins using this system
 	}
 
 	/**
@@ -164,15 +158,6 @@ class WC4BP_Loader {
 	 */
 	public function includes() {
 
-		if( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
-			// load our custom updater
-			include( dirname( __FILE__ ) . '/admin/resources/EDD_SL_Plugin_Updater.php' );
-		}
-
-		if ( self::$active === false ) {
-			return false;
-		}
-
 		// core component
 		require( WC4BP_ABSPATH . 'core/wc4bp-component.php' );
 
@@ -184,8 +169,6 @@ class WC4BP_Loader {
 			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-pages.php' );
 			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-delete.php' );
 			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-ajax.php' );
-			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-license.php' );
-
 
 		}
 
@@ -325,21 +308,6 @@ class WC4BP_Loader {
 		}
 	}
 
-	function edd_plugin_updater() {
-
-		// retrieve our license key from the DB
-		$license_key = trim( get_option( 'edd_wc4bp_license_key' ) );
-
-		// setup the updater
-		$edd_updater = new EDD_SL_Plugin_Updater( EDD_TK_WC4BP_STORE_URL, __FILE__, array(
-				'version' 	=> WC4BP_VERSION, 		    // current version number
-				'license' 	=> $license_key, 		    // license key (used get_option above to retrieve from DB)
-				'item_name' => EDD_TK_WC4BP_ITEM_NAME, 	// name of this plugin
-				'author' 	=> 'Sven Lehnert'           // author of this plugin
-			)
-		);
-
-	}
 
 	/**
 	 * Deletes all data if plugin deactivated
