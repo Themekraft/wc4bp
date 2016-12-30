@@ -15,7 +15,7 @@
 	 *
 	 * @var string
 	 */
-	$this_sdk_version = '1.2.0';
+	$this_sdk_version = '1.2.1.5';
 
 	#region SDK Selection Logic --------------------------------------------------------------------
 
@@ -84,9 +84,7 @@
 			}
 
 			// Refresh page.
-			if ( fs_redirect( $_SERVER['REQUEST_URI'] ) ) {
-				exit();
-			}
+			fs_redirect( $_SERVER['REQUEST_URI'] );
 		}
 	} else {
 		if ( ! function_exists( 'get_plugins' ) ) {
@@ -144,9 +142,7 @@
 				if ( fs_newest_sdk_plugin_first() ) {
 					// Refresh page after re-order to make sure activated plugin loads newest SDK.
 					if ( class_exists( 'Freemius' ) ) {
-						if ( fs_redirect( $_SERVER['REQUEST_URI'] ) ) {
-							exit();
-						}
+						fs_redirect( $_SERVER['REQUEST_URI'] );
 					}
 				}
 			}
@@ -283,23 +279,25 @@
 		 * @param bool   $is_premium Hints freemius if running the premium plugin or not.
 		 *
 		 * @return Freemius
+		 *
+		 * @deprecated Please use fs_dynamic_init().
 		 */
 		function fs_init( $slug, $plugin_id, $public_key, $is_live = true, $is_premium = true ) {
-			$fs = Freemius::instance( $slug );
+			$fs = Freemius::instance( $slug, true );
 			$fs->init( $plugin_id, $public_key, $is_live, $is_premium );
 
 			return $fs;
 		}
 
 		/**
-		 * @param array [string]string $plugin
+		 * @param array<string,string> $module Plugin or Theme details.
 		 *
 		 * @return Freemius
 		 * @throws Freemius_Exception
 		 */
-		function fs_dynamic_init( $plugin ) {
-			$fs = Freemius::instance( $plugin['slug'] );
-			$fs->dynamic_init( $plugin );
+		function fs_dynamic_init( $module ) {
+			$fs = Freemius::instance( $module['slug'], true );
+			$fs->dynamic_init( $module );
 
 			return $fs;
 		}

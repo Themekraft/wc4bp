@@ -5,6 +5,9 @@
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author:      WC4BP Integration Dev Team ;)
  * Version:     2.5
+ * Licence: GPLv3
+ * Text Domain: wc4bp
+ * Domain Path: /languages
  *
  *****************************************************************************
  *
@@ -25,9 +28,6 @@
  ****************************************************************************
  */
 
-
-
-
 // Create a helper function for easy SDK access.
 function wc4bp_fs() {
 	global $wc4bp_fs;
@@ -42,23 +42,23 @@ function wc4bp_fs() {
 			'type'              => 'plugin',
 			'public_key'        => 'pk_71d28f28e3e545100e9f859cf8554',
 			'is_premium'        => true,
+			'is_premium_only'   => false,
 			'has_addons'        => true,
 			'has_paid_plans'    => true,
 			'menu'              => array(
 				'slug'       => 'wc4bp-options-page',
 				'support'    => false,
 			),
-			// Set the SDK to work in a sandbox mode (for development & testing).
-			// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-			'secret_key'  => 'sk_ccE(cjH4?%J)wXa@h2vV^g]jAeY$i',
 		) );
 	}
 
 	return $wc4bp_fs;
 }
-
+// Load the migration tool
+require_once( dirname( __FILE__ ) . '/admin/resources/module-migration.php' );
 // Init Freemius.
 wc4bp_fs();
+
 
 
 
