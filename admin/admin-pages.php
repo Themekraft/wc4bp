@@ -260,7 +260,7 @@ function wc4bp_add_edit_entry_form( $edit = '' ) {
 	<p><b>Position</b><br>
 		<small><i>Just enter a number like 1, 2, 3..</i></small>
 		<br>
-		<input id='wc4bp_position' name='wc4bp_position' type='text' value='<?php echo $position ?>'/></p>
+		<input id='wc4bp_position' name='wc4bp_position' type='number' value='<?php echo $position ?>'/></p>
 
 
 	<?php if ( isset( $wc4bp_tab_slug ) ) {

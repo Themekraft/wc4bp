@@ -26,34 +26,37 @@ add_action( 'wp_ajax_nopriv_wc4bp_add_page', 'wc4bp_add_page' );
 
 function wc4bp_add_page( $wc4bp_page_id ) {
 
+	$page_id = false;
 	if ( isset( $_POST['wc4bp_page_id'] ) ) {
 		$page_id = $_POST['wc4bp_page_id'];
 	}
 
+	if ( empty( $page_id ) ) {
+		return;
+	}
+
 	if ( ! empty( $_POST['wc4bp_tab_name'] ) ) {
-		$tab_name = $_POST['wc4bp_tab_name'];
+		$tab_name = sanitize_text_field( $_POST['wc4bp_tab_name'] );
 	} else {
 		$tab_name = get_the_title( $page_id );
 	}
 
-	if ( isset( $_POST['wc4bp_position'] ) ) {
-		$position = $_POST['wc4bp_position'];
+	$position = intval ( $_POST['wc4bp_position'] );
+	if ( ! $position ) {
+		$position = 0;
 	}
 
-	if ( isset( $_POST['wc4bp_children'] ) ) {
-		$children = $_POST['wc4bp_children'];
+	$children = intval ( $_POST['wc4bp_children'] );
+	if ( !$children ) {
+		$children = 0;
 	}
 
 	if ( isset( $_POST['wc4bp_tab_slug'] ) ) {
-		$tab_slug = $_POST['wc4bp_tab_slug'];
+		$tab_slug = sanitize_text_field( $_POST['wc4bp_tab_slug'] );
 	}
 
 	if ( empty( $tab_slug ) ) {
 		$tab_slug = sanitize_title( $tab_name );
-	}
-
-	if ( empty( $page_id ) ) {
-		return;
 	}
 
 	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
