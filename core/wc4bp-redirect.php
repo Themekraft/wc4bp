@@ -93,10 +93,15 @@ function wc4bp_get_redirect_link( $id = false ) {
 			}
 
 			if ( $the_page_id == $the_courent_id ) {
-				$post_data = get_post( $id, ARRAY_A );
-				$slug      = $post_data['post_name'];
-				$link      = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/' . $attached_page['tab_slug'] . '/' . $slug . '/';
-
+				$post_data  = get_post( $id, ARRAY_A );
+				$slug       = $post_data['post_name'];
+				$final_slug = ( $attached_page['tab_slug'] != $slug ) ? $attached_page['tab_slug'] . '/' . $slug : $attached_page['tab_slug'];
+				$link       = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/' . $final_slug . '/';
+				
+//				$post_data = get_post( $id, ARRAY_A );
+//				$slug      = $post_data['post_name'];
+//				$link      = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/' . $attached_page['tab_slug'] . '/' . $slug . '/';
+				
 				if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 					$link = str_replace( 'http:', 'https:', $link );
 				}
@@ -107,6 +112,84 @@ function wc4bp_get_redirect_link( $id = false ) {
 
 	return apply_filters( 'wc4bp_get_redirect_link', $link );
 }
+
+
+/**
+ * Get the BP member page id as woo my_account
+ *
+ * @param $page_id
+ *
+ * @return string
+ */
+function wc4bp_my_account_page_id( $page_id ) {
+	global $bp;
+
+	$page = get_page_by_path( $bp->pages->members->slug );
+
+	return $page->ID;
+}
+
+//add_filter( 'woocommerce_get_myaccount_page_id', 'wc4bp_my_account_page_id', 10, 1 );
+
+/**
+ * Redirect WC my Account to BP member profile page
+ *
+ * @param $permalink
+ *
+ * @return string
+ */
+function wc4bp_my_account_page_permalink( $permalink ) {
+	global $current_user, $bp;
+
+	$current_user = wp_get_current_user();
+	$userdata     = get_userdata( $current_user->ID );
+
+	$account_page_id = wc_get_page_id( 'myaccount' );
+	$woo_my_account  = get_post( $account_page_id );
+
+	$permalink = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/' . $woo_my_account->post_name . '/';
+
+	return $permalink;
+}
+
+//Redirect myaccount to BP memeber
+//add_filter( 'woocommerce_get_myaccount_page_permalink', 'wc4bp_my_account_page_permalink', 10, 1 );
+
+
+function wc4bp_get_endpoint_url( $url, $endpoint, $value, $permalink ) {
+	global $current_user, $bp;
+
+	$current_user = wp_get_current_user();
+	$userdata     = get_userdata( $current_user->ID );
+
+	$base_path = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/';
+
+	switch ( $endpoint ) {
+		case "payment-methods":
+			$url = $base_path . 'payment';
+			break;
+		case "set-default-payment-method":
+		case "delete-payment-method":
+			$url = add_query_arg( $endpoint, $value, $base_path . 'payment' );
+			break;
+		case "add-payment-method":
+			$url = add_query_arg( $endpoint, "w2ewe3423ert", $base_path . 'payment/add-payment' );
+			break;
+		case "view-subscription":
+			$url = add_query_arg( $endpoint, $value, $permalink . $endpoint );
+			break;
+		case "view-order":
+			$url = add_query_arg( "id", $value, $permalink . $endpoint );
+			break;
+		case 'edit-account':
+			$url = add_query_arg( $endpoint, $value, $permalink . $endpoint );
+			break;
+	}
+
+	return $url;
+}
+
+//add_filter( 'woocommerce_get_endpoint_url', 'wc4bp_get_endpoint_url', 1, 4 );
 
 function get_top_parent_page_id( $post_id ) {
 
@@ -133,9 +216,9 @@ function get_top_parent_page_id( $post_id ) {
  * @since 1.0.6
  */
 function wc4bp_redirect_to_profile() {
-	global $post;
+	global $post, $wp_query;
 
-	if ( ! isset( $post->ID ) || ! is_user_logged_in() ) {
+	if ( ! is_user_logged_in() ) {
 		return false;
 	}
 
@@ -243,4 +326,4 @@ function wc4bp_get_checkout_order_received_url( $order_received_url, $order ) {
 	return $order_received_url;
 }
 
-add_filter( 'woocommerce_get_checkout_order_received_url', 'wc4bp_get_checkout_order_received_url', 999, 2 );
+//add_filter( 'woocommerce_get_checkout_order_received_url', 'wc4bp_get_checkout_order_received_url', 999, 2 );
