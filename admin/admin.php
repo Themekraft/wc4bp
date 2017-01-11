@@ -99,9 +99,9 @@ function wc4bp_register_admin_settings() {
 	
 	add_settings_field( 'tabs_disabled', '<b>Remove Shop Tabs</b>', 'wc4bp_shop_tabs_disable', 'wc4bp_options', 'section_general' );
 	add_settings_field( 'profile sync', '<b>Turn off the profile sync</b>', 'wc4bp_turn_off_profile_sync', 'wc4bp_options', 'section_general' );
-    
+	
 	add_settings_field( 'tabs_enable', '<b>Shop Tabs</b>', 'wc4bp_shop_tabs_enable', 'wc4bp_options', 'section_general' );
-    
+	
 	add_settings_field( 'overwrite', '<b>Overwrite the Content of your Shop Home/Main Tab</b>', 'wc4bp_overwrite_default_shop_home_tab', 'wc4bp_options', 'section_general' );
 	add_settings_field( 'template', '<b>Change the page template to be used for the attached pages.</b>', 'wc4bp_page_template', 'wc4bp_options', 'section_general' );
 	
@@ -114,15 +114,12 @@ function wc4bp_shop_tabs_enable() {
 	$end_points = wc_get_account_menu_items();
 	
 	echo '<p>My account tabs to show into Buddy Press</p>';
-	foreach ( $end_points as $end_point_key => $end_point_name ) {
-		if ( in_array( $end_point_key, apply_filters( "wc4bp_woocommerce_exclude_endpoint", array( "customer-logout" ) ) ) ) {
-			continue;
-		}
+	foreach ( WC4BP_MyAccount::get_available_endpoints() as $end_point_key => $end_point_name ) {
 		$tab_select = 0;
 		if ( isset( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
 			$tab_select = $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ];
 		}
-		echo "<p><input name='wc4bp_options[wc4bp_endpoint_" . $end_point_key . "]' type='checkbox' value='1' " . checked( $tab_select, 1 ) . " /> <b>Turn on \"" . $end_point_name . "\" tab. </b></p>";
+		echo "<p><input name='wc4bp_options[wc4bp_endpoint_" . $end_point_key . "]' type='checkbox' value='1' " . checked( $tab_select, 1, false ) . " /> <b>Turn on \"" . $end_point_name . "\" tab. </b></p>";
 	}
 }
 

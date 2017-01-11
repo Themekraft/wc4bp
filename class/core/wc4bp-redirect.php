@@ -93,14 +93,14 @@ function wc4bp_get_redirect_link( $id = false ) {
 			}
 
 			if ( $the_page_id == $the_courent_id ) {
-				$post_data  = get_post( $id, ARRAY_A );
-				$slug       = $post_data['post_name'];
-				$final_slug = ( $attached_page['tab_slug'] != $slug ) ? $attached_page['tab_slug'] . '/' . $slug : $attached_page['tab_slug'];
-				$link       = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/' . $final_slug . '/';
+//				$post_data  = get_post( $id, ARRAY_A );
+//				$slug       = $post_data['post_name'];
+//				$final_slug = ( $attached_page['tab_slug'] != $slug ) ? $attached_page['tab_slug'] . '/' . $slug : $attached_page['tab_slug'];
+//				$link       = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/' . $final_slug . '/';
 				
-//				$post_data = get_post( $id, ARRAY_A );
-//				$slug      = $post_data['post_name'];
-//				$link      = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/' . $attached_page['tab_slug'] . '/' . $slug . '/';
+				$post_data = get_post( $id, ARRAY_A );
+				$slug      = $post_data['post_name'];
+				$link      = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/' . $attached_page['tab_slug'] . '/' . $slug . '/';
 				
 				if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 					$link = str_replace( 'http:', 'https:', $link );
