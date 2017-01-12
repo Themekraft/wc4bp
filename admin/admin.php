@@ -98,15 +98,28 @@ function wc4bp_register_admin_settings() {
 	add_settings_section( 'section_general2', '', '', 'wc4bp_options' );
 	
 	add_settings_field( 'tabs_disabled', '<b>Remove Shop Tabs</b>', 'wc4bp_shop_tabs_disable', 'wc4bp_options', 'section_general' );
+	add_settings_field( 'tabs_shop', '<b>Shop Settings</b>', 'wc4bp_shop_tabs', 'wc4bp_options', 'section_general' );
 	add_settings_field( 'profile sync', '<b>Turn off the profile sync</b>', 'wc4bp_turn_off_profile_sync', 'wc4bp_options', 'section_general' );
-	
+
+
 	add_settings_field( 'tabs_enable', '<b>Shop Tabs</b>', 'wc4bp_shop_tabs_enable', 'wc4bp_options', 'section_general' );
-	
+
+
 	add_settings_field( 'overwrite', '<b>Overwrite the Content of your Shop Home/Main Tab</b>', 'wc4bp_overwrite_default_shop_home_tab', 'wc4bp_options', 'section_general' );
 	add_settings_field( 'template', '<b>Change the page template to be used for the attached pages.</b>', 'wc4bp_page_template', 'wc4bp_options', 'section_general' );
 	
 }
 
+
+function wc4bp_shop_tabs() {
+	$wc4bp_options = get_option( 'wc4bp_options' );
+
+	$tab_activity_disabled = 0;
+	if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
+		$tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
+	}
+	include_once( dirname( __FILE__ ) . '\views\html_admin_shop_tabs.php' );
+}
 
 function wc4bp_shop_tabs_enable() {
 	$wc4bp_options = get_option( 'wc4bp_options' );
@@ -152,30 +165,10 @@ function wc4bp_shop_tabs_disable() {
 	if ( isset( $wc4bp_options['tab_track_disabled'] ) ) {
 		$tab_track_disabled = $wc4bp_options['tab_track_disabled'];
 	}
-	
-	$tab_activity_disabled = 0;
-	if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
-		$tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
-	}
-	
-	?>
-    <p>By default all account related WooCommerce pages are included into the BuddyPress member profiles.</p>
 
-    <p><input name='wc4bp_options[tab_cart_disabled]' type='checkbox'
-              value='1' <?php checked( $tab_cart_disabled, 1 ); ?> /> <b>Turn off "Cart" tab. </b></p>
-    <p><input name='wc4bp_options[tab_checkout_disabled]' type='checkbox'
-              value='1' <?php checked( $tab_checkout_disabled, 1 ); ?> /> <b>Turn off "Checkout" tab. </b></p>
-    <p><input name='wc4bp_options[tab_history_disabled]' type='checkbox'
-              value='1' <?php checked( $tab_history_disabled, 1 ); ?> /> <b>Turn off "History" tab. </b></p>
-    <p><input name='wc4bp_options[tab_track_disabled]' type='checkbox'
-              value='1' <?php checked( $tab_track_disabled, 1 ); ?> /> <b>Turn off "Track my order" tab. </b></p>
 
-    <p><input name='wc4bp_options[tab_activity_disabled]' type='checkbox'
-              value='1' <?php checked( $tab_activity_disabled, 1 ); ?> /> <b>Turn off "Shop" Tab</b> <i>inside</i>
-        "Settings" for the activity stream settings. </p>
-	
-	<?php
-	
+	include_once( dirname( __FILE__ ) . '\views\html_admin_shop_disable.php' );
+
 }
 
 function wc4bp_turn_off_profile_sync() {
@@ -184,15 +177,12 @@ function wc4bp_turn_off_profile_sync() {
 	$tab_sync_disabled = 0;
 	if ( isset( $wc4bp_options['tab_sync_disabled'] ) ) {
 		$tab_sync_disabled = $wc4bp_options['tab_sync_disabled'];
-	} ?>
 
-    <p>If you disable profile sync, the billing and shipping profile groups will be deleted.</p>
-    <p><i>This will also remove the Billing Address - Shipping Address Tabs from Profile/Edit and disable all sync
-            settings</i></p>
-    <p><input name='wc4bp_options[tab_sync_disabled]' type='checkbox'
-              value='1' <?php checked( $tab_sync_disabled, 1 ); ?> /> <b>Turn off WooCommerce BuddyPress Profile
-            Sync.</b></p>
-	
+	}
+	include_once( dirname( __FILE__ ) . '\views\html_admin_profile_sync.php' );
+	?>
+  
+
 	<?php
 	if ( isset( $tab_sync_disabled ) && true == $tab_sync_disabled ) {
 		include_once( dirname( __FILE__ ) . '/wc4bp-activate.php' );
@@ -207,24 +197,12 @@ function wc4bp_turn_off_profile_sync() {
 
 function wc4bp_overwrite_default_shop_home_tab() {
 	$wc4bp_options       = get_option( 'wc4bp_options' );
-	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' ); ?>
 
-    <p>Select the tab you want to use as your Shop Home.</p>
-    <select name='wc4bp_options[tab_shop_default]'>
-		<?php
-		if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) && count( $wc4bp_pages_options['selected_pages'] ) > 0 ) {
-			echo '<option value="default" ' . selected( $wc4bp_options['tab_shop_default'], 'default', false ) . '>Default</option>';
-			foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
-				echo '<option value="' . $key . '" ' . selected( $wc4bp_options['tab_shop_default'], $key, false ) . '>' . $attached_page['tab_name'] . '</option>';
-			}
-		} else {
-			echo '<option value="default"> You need at least one Page added to Member Profiles!</option>';
-		}
-		?>
+	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 
-    </select>
-	
-	<?php
+	include_once( dirname( __FILE__ ) . '\views\html_admin_shop_home.php' );
+
+
 }
 
 
@@ -234,16 +212,10 @@ function wc4bp_page_template() {
 	$page_template = '';
 	if ( ! empty( $wc4bp_options['page_template'] ) ) {
 		$page_template = $wc4bp_options['page_template'];
-	} ?>
+	}
+	include_once( dirname( __FILE__ ) . '\views\html_admin_page_template.php' );
 
-    <p>Please keep in mind that you need to use a template part.<br> Without the header and footer added. Just the loop
-        item!</p>
-    <p>For example 'content', 'page' would check for a template content-page.php and if content-page.php not exists it
-        would look for content.php.</p>
-    <input name='wc4bp_options[page_template]' type='text' value="<?php echo $page_template ?>"/>
-	
-	
-	<?php
+
 	submit_button();
 }
 
