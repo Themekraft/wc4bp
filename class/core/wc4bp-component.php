@@ -56,15 +56,15 @@ class WC4BP_Component extends BP_Component {
 		);
 
 		foreach ( $includes as $file ) {
-			require( WC4BP_ABSPATH . 'core/' . $file . '.php' );
+			require( WC4BP_ABSPATH . 'class/core/' . $file . '.php' );
 		}
 
 		if ( ! class_exists( 'BP_Theme_Compat' ) ) {
-			require( WC4BP_ABSPATH . 'core/wc4bp-template-compatibility.php' );
+			require( WC4BP_ABSPATH . 'class/core/wc4bp-template-compatibility.php' );
 		}
 
 		if ( ! isset( $wc4bp_options['tab_sync_disabled'] ) || class_exists( 'WC4BP_xProfile' ) ) {
-			require( WC4BP_ABSPATH . 'core/wc4bp-sync.php' );
+			require( WC4BP_ABSPATH . 'class/core/wc4bp-sync.php' );
 		}
 
 	}

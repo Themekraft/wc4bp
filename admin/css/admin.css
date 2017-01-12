@@ -250,3 +250,11 @@ textarea#group_description {
     border: 1px solid #ddd;
     width: 100%;
 }
+
+span.wc4bp-my-account-page {
+    background-color: #ececec;
+    color: #000;
+    border-radius: 3px;
+    margin-left: 15px;
+    padding: 3px 6px;
+}
