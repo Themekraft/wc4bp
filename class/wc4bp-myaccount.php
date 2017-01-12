@@ -52,24 +52,35 @@ class WC4BP_MyAccount {
 	 */
 	public function process_saved_settings( $old_value, $new_value ) {
 		$wc4bp_options = get_option( 'wc4bp_options' );
-		foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
-			if ( ! empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) && $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] == "1" ) {
-				$r = wp_insert_post( array(
-					'comment_status' => 'closed',
-					'ping_status'    => 'closed',
-					'post_title'     => $end_point_value,
-					'post_name'      => 'wc4pb_' . $end_point_key,
-					'post_content'   => 'This is the shortcode',
-					'post_status'    => 'publish',
-					'post_type'      => 'page',
-					'meta_input'     => array(
-						'wc4bp-my-account-template' => 1,
-					),
-				) );
-			} else {
+		if ( empty( $wc4bp_options["tab_activity_disabled"] ) ) {
+			foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
+				$post = self::get_page_by_name( 'wc4pb_' . $end_point_key );
+				if ( ! empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) && $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] == "1" ) {
+					if ( empty( $post ) ) {
+						$r = wp_insert_post( array(
+							'comment_status' => 'closed',
+							'ping_status'    => 'closed',
+							'post_title'     => $end_point_value,
+							'post_name'      => 'wc4pb_' . $end_point_key,
+							'post_content'   => 'This is the shortcode',
+							'post_status'    => 'publish',
+							'post_type'      => 'page',
+							'meta_input'     => array(
+								'wc4bp-my-account-template' => 1,
+							),
+						) );
+					}
+				} else {
+					if ( ! empty( $post ) ) {
+						wp_delete_post( $post->ID, true );
+					}
+				}
+			}
+		} else {
+			foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
 				$post = self::get_page_by_name( 'wc4pb_' . $end_point_key );
 				if ( ! empty( $post ) ) {
-					wp_delete_post( $post->ID, true);
+					wp_delete_post( $post->ID, true );
 				}
 			}
 		}

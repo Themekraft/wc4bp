@@ -5,7 +5,7 @@
  */
 ?>
 
-<p>TatiSelect the tab you want to use as your Shop Home.</p>
+<p>Select the tab you want to use as your Shop Home.</p>
 <select name='wc4bp_options[tab_shop_default]'>
 	<?php
 	if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) && count( $wc4bp_pages_options['selected_pages'] ) > 0 ) {
