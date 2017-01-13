@@ -101,7 +101,7 @@ class wc4bp_admin {
 		add_settings_section( 'section_general2', '', '', 'wc4bp_options' );
 		
 		add_settings_field( 'tabs_shop', '<b>Shop Settings</b>', array( $this, 'wc4bp_shop_tabs' ), 'wc4bp_options', 'section_general' );
-		add_settings_field( 'tabs_enable', '<b>Shop Tabs</b>', array( $this, 'wc4bp_shop_tabs_enable', 'wc4bp_options' ), 'section_general' );
+		add_settings_field( 'tabs_enable', '<b>Shop Tabs</b>', array( $this, 'wc4bp_shop_tabs_enable'), 'wc4bp_options',  'section_general' );
 		add_settings_field( 'tabs_disabled', '<b>Remove Shop Tabs</b>', array( $this, 'wc4bp_shop_tabs_disable' ), 'wc4bp_options', 'section_general' );
 		
 		add_settings_field( 'profile sync', '<b>Turn off the profile sync</b>', array( $this, 'wc4bp_turn_off_profile_sync' ), 'wc4bp_options', 'section_general' );
