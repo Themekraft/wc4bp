@@ -26,29 +26,16 @@ class wc4bp_admin_pages {
 	 * @package WC4BP
 	 * @since 1.3
 	 */
-	public function wc4bp_screen_pages() { ?>
-
-        <div class="wrap">
-
-        <div id="icon-options-general" class="icon32"><br></div>
-        <h2>WooCommerce BuddyPress Integration Settings</h2>
-
-        <div style="overflow: auto;">
-
-            <span style="font-size: 13px; float:right;">Proudly brought to you by <a href="http://themekraft.com/" target="_new">Themekraft</a>.</span>
-
-        </div>
-        <br>
-
+	public function wc4bp_screen_pages() {
+		include_once( dirname( __FILE__ ) . '\views\html_admin_pages_screen_pages.php' );
+		?>
+		<div class="wrap">
         <form method="post" action="options.php">
 			<?php wp_nonce_field( 'update-options' ); ?>
 			<?php settings_fields( 'wc4bp_options_pages' ); ?>
 			<?php do_settings_sections( 'wc4bp_options_pages' ); ?>
-
         </form>
-
         </div><?php
-		
 	}
 	
 	/**
@@ -95,17 +82,11 @@ class wc4bp_admin_pages {
 		$track_sub_nav = '';
 		if ( isset( $options['track_sub_nav'] ) ) {
 			$track_sub_nav = $options['track_sub_nav'];
-		} ?>
+		}
 
-        <p><b>Rename Shop Parent Tab:</b><input id='text' name='wc4bp_options[shop_main_nav]' type='text' value='<?php echo $shop_main_nav; ?>'/></p>
-        <p><b>Rename Shopping Cart:</b><input id='text' name='wc4bp_options[cart_sub_nav]' type='text' value='<?php echo $cart_sub_nav; ?>'/></p>
-        <p><b>Rename History:</b><input id='text' name='wc4bp_options[history_sub_nav]' type='text' value='<?php echo $history_sub_nav; ?>'/></p>
-        <p><b>Rename Track your order:</b><input id='text' name='wc4bp_options[track_sub_nav]' type='text' value='<?php echo $track_sub_nav; ?>'/></p>
-		
-		<?php
+		include_once( dirname( __FILE__ ) . '\views\html_admin_pages_shop_pages_rename.php' );
 		
 		submit_button();
-		
 	}
 	
 	
@@ -138,65 +119,8 @@ class wc4bp_admin_pages {
 
         </style>
 
-        <h3>Add Pages to Member Profiles</h3>
-
-        <p>Integrate other pages (for example from other WooCommerce extensions) into your BuddyPress member profiles.</p>
-        <p><i>This will redirect the page to the correct profile page and add a menu item in the profile.</i></p><br>
-		
-		<?php $this->wc4bp_thickbox_page_form(); ?>
-        <table class="wp-list-table widefat fixed posts">
-
-        <thead>
-        <tr>
-            <th scope="col" id="page" class="manage-column column-comment column-n" style="">Page</th>
-            <th scope="col" id="children" class="manage-column column-status" style="">Including Children?</th>
-            <th scope="col" id="name" class="manage-column column-description" style="">Tab Name</th>
-            <th scope="col" id="slug" class="manage-column column-description" style="">Tab Slug</th>
-            <th scope="col" id="position" class="manage-column column-status" style="">Position</th>
-
-        </tr>
-        </thead>
-        <tbody id="the-list">
 		<?php
-		if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
-			foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) { ?>
-                <tr id="post-<?php echo $key ?>"
-                    class="post-<?php echo $key ?> type-page status-publish hentry alternate iedit author-self wc4bp_tr"
-                    valign="bottom">
-                    <td class="column-name">
-						<?php echo get_the_title( $attached_page['page_id'] ); ?>
-                        <div class="wc4bp-row-actions">
-							<span class="wc4bp_inline hide-if-no-js">
-								<input id="<?php echo $attached_page['tab_slug'] ?>"
-                                       alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page"
-                                       title="an existing page to your BuddyPress member profiles"
-                                       class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button"
-                                       value="Edit"/>
-							</span>
-                            <span class="trash">
-								<span id="<?php echo $key ?>" class="wc4bp_delete_page"
-                                      title="Delete this item">Delete</span>
-							</span>
-                        </div>
-                    </td>
-                    <td class="column-slug">
-						<?php echo isset( $attached_page['children'] ) && $attached_page['children'] > 0 ? 'Yes' : 'No'; ?>
-                    </td>
-                    <td class="slug column-slug">
-						<?php echo isset( $attached_page['tab_name'] ) ? $attached_page['tab_name'] : '--'; ?>
-                    </td>
-                    <td class="slug column-slug">
-						<?php echo isset( $attached_page['tab_slug'] ) ? $attached_page['tab_slug'] : '--'; ?>
-                    </td>
-                    <td class="slug column-slug">
-						<?php echo ! empty( $attached_page['position'] ) ? $attached_page['position'] : '--'; ?>
-                    </td>
-                </tr>
-				<?php
-			}
-		}
-		
-		echo '</tbody></table>';
+		include_once( dirname( __FILE__ ) . '\views\html_admin_pages_forms_table.php' );
 	}
 	
 	public function wc4bp_thickbox_page_form() {
@@ -258,15 +182,15 @@ class wc4bp_admin_pages {
 			'selected'         => $page_id
 		); ?>
 
-        <p><b>Choose an existing page</b><br>
+        <p><b><?php _e('Choose an existing page', 'wc4bp'); ?></b><br>
 			<?php wp_dropdown_pages( $args ); ?>
-            <input id='wc4bp_children' name='wc4bp_children' type='checkbox' value='1'/ <?php checked( $children, 1 ); ?>>&nbsp;<b>Include
-                Children?</b></p>
-        <p><b>Tab Name</b><i>If empty same as Pagename</i><br>
+            <input id='wc4bp_children' name='wc4bp_children' type='checkbox' value='1'/ <?php checked( $children, 1 ); ?>>&nbsp;<b><?php _e('Include
+                Children?', 'wc4bp'); ?></b></p>
+        <p><b><?php _e('Tab Name', 'wc4bp'); ?></b><i><?php _e('If empty same as Pagename', 'wc4bp'); ?></i><br>
 
             <input id='wc4bp_tab_name' name='wc4bp_tab_name' type='text' value='<?php echo $tab_name ?>'/></p>
-        <p><b>Position</b><br>
-            <small><i>Just enter a number like 1, 2, 3..</i></small>
+        <p><b><?php _e('Position', 'wc4bp'); ?></b><br>
+            <small><i><?php _e('Just enter a number like 1, 2, 3..', 'wc4bp'); ?></i></small>
             <br>
             <input id='wc4bp_position' name='wc4bp_position' type='text' value='<?php echo $position ?>'/></p>
 		

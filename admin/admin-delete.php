@@ -27,26 +27,16 @@ class wc4bp_admin_delete {
 	 * @package WC4BP
 	 * @since 1.3
 	 */
-	public function wc4bp_screen_delete() { ?>
-
-        <div class="wrap">
-
-        <div id="icon-options-general" class="icon32"><br></div>
-        <h2>WooCommerce BuddyPress Integration</h2>
-        <div style="overflow: auto;">
-
-            <span style="font-size: 13px; float:right;">Proudly brought to you by <a href="http://themekraft.com/" target="_new">Themekraft</a>.</span>
-
-        </div>
-        <br>
+	public function wc4bp_screen_delete() {
+		include_once( dirname( __FILE__ ) . '\views\html_admin_delete_screen.php' );
+		?>
+		<div>
         <form method="post" action="options.php">
 			<?php wp_nonce_field( 'update-options' ); ?>
 			<?php settings_fields( 'wc4bp_options_delete' ); ?>
 			<?php do_settings_sections( 'wc4bp_options_delete' ); ?>
-
         </form>
         </div><?php
-		
 	}
 	
 	/**
@@ -56,8 +46,8 @@ class wc4bp_admin_delete {
 	 * @package TK Loop Designer
 	 * @since 1.0
 	 */
-	
-	
+
+
 	public function wc4bp_register_admin_settings_delete() {
 		register_setting( 'wc4bp_options_delete', 'wc4bp_options_delete' );
 		
@@ -67,13 +57,8 @@ class wc4bp_admin_delete {
 	}
 	
 	public function wc4bp_delete_all_settings() {
-		$wc4bp_options_delete = get_option( 'wc4bp_options_delete' )
-		?>
+		$wc4bp_options_delete = get_option( 'wc4bp_options_delete' );
+		include_once( dirname( __FILE__ ) . '\views\html_admin_delete_all_settings.php' );
 
-        <p>Be careful! If you check this option, all settings will be deleted on the plugin deactivation.</p><br>
-        Yes I want to delete all Settings: <input type="checkbox" name="wc4bp_options_delete" value="delete" <?php checked( $wc4bp_options_delete, 'delete', true ) ?>>
-		
-		<?php
-		submit_button();
 	}
 }
