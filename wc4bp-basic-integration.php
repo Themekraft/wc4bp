@@ -25,47 +25,6 @@
  ****************************************************************************
  */
 
-
-// Create a helper function for easy SDK access.
-function wc4bp_fs() {
-	global $wc4bp_fs;
-	
-	if ( ! isset( $wc4bp_fs ) ) {
-		// Include Freemius SDK.
-		require_once dirname( __FILE__ ) . '/admin/resources/freemius/start.php';
-		
-		$wc4bp_fs = fs_dynamic_init( array(
-			'id'             => '425',
-			'slug'           => 'wc4bp',
-			'type'           => 'plugin',
-			'public_key'     => 'pk_71d28f28e3e545100e9f859cf8554',
-			'is_premium'     => true,
-			'has_addons'     => true,
-			'has_paid_plans' => true,
-			'menu'           => array(
-				'slug'    => 'wc4bp-options-page',
-				'support' => false,
-			),
-			// Set the SDK to work in a sandbox mode (for development & testing).
-			// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-			'secret_key'     => 'sk_ccE(cjH4?%J)wXa@h2vV^g]jAeY$i',
-		) );
-	}
-	
-	return $wc4bp_fs;
-}
-
-// Init Freemius.
-wc4bp_fs();
-
-
-// Needs to be rewritetn in Otto style ;-)
-if ( ! defined( 'BP_VERSION' ) ) {
-	add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
-	
-	return;
-}
-
 $GLOBALS['wc4bp_loader'] = new WC4BP_Loader();
 
 class WC4BP_Loader {
@@ -109,6 +68,16 @@ class WC4BP_Loader {
 	public function __construct() {
 		self::$plugin_name = plugin_basename( __FILE__ );
 		
+		// Init Freemius.
+		$this->wc4bp_fs();
+		
+		// Needs to be rewritetn in Otto style ;-)
+		if ( ! defined( 'BP_VERSION' ) ) {
+			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
+			
+			return;
+		}
+		
 		add_action( 'bp_include', array( $this, 'check_requirements' ), 0 );
 		
 		// Run the activation function
@@ -116,17 +85,47 @@ class WC4BP_Loader {
 		
 		$this->constants();
 		
-		add_action( 'admin_enqueue_scripts', array( $this, 'wc4bp_admin_js' ), 10 );
+		require_once( plugin_dir_path( __FILE__ ) . 'class/wc4bp-manager.php' );
+		new wc4bp_Manager();
 		
 		add_action( 'plugins_loaded', array( $this, 'update' ), 10 );
 		add_action( 'plugins_loaded', array( $this, 'translate' ) );
-		add_action( 'bp_include', array( $this, 'includes' ), 10 );
 		
 		/**
 		 * Deletes all data if plugin deactivated
 		 */
 		register_deactivation_hook( __FILE__, array( $this, 'uninstall' ) );
 		
+		
+	}
+	
+	// Create a helper function for easy SDK access.
+	public function wc4bp_fs() {
+		global $wc4bp_fs;
+		
+		if ( ! isset( $wc4bp_fs ) ) {
+			// Include Freemius SDK.
+			require_once dirname( __FILE__ ) . '/admin/resources/freemius/start.php';
+			
+			$wc4bp_fs = fs_dynamic_init( array(
+				'id'             => '425',
+				'slug'           => 'wc4bp',
+				'type'           => 'plugin',
+				'public_key'     => 'pk_71d28f28e3e545100e9f859cf8554',
+				'is_premium'     => true,
+				'has_addons'     => true,
+				'has_paid_plans' => true,
+				'menu'           => array(
+					'slug'    => 'wc4bp-options-page',
+					'support' => false,
+				),
+				// Set the SDK to work in a sandbox mode (for development & testing).
+				// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
+				'secret_key'     => 'sk_ccE(cjH4?%J)wXa@h2vV^g]jAeY$i',
+			) );
+		}
+		
+		return $wc4bp_fs;
 	}
 	
 	/**
@@ -142,36 +141,8 @@ class WC4BP_Loader {
 		define( 'WC4BP_ABSPATH', trailingslashit( str_replace( "\\", "/", WP_PLUGIN_DIR . '/' . WC4BP_FOLDER ) ) );
 		define( 'WC4BP_URLPATH', trailingslashit( plugins_url( '/' . WC4BP_FOLDER ) ) );
 		define( 'WC4BP_ABSPATH_TEMPLATE_PATH', WC4BP_ABSPATH . 'templates/' );
-		
-	}
-	
-	/**
-	 * Load all BP related files
-	 *
-	 * Attached to bp_include. Stops the plugin if certain conditions are not met.
-	 *
-	 * @since    1.0
-	 * @access    public
-	 */
-	public function includes() {
-		
-		// core component
-		require( WC4BP_ABSPATH . 'class/core/wc4bp-component.php' );
-		
-		if ( is_admin() ) {
-			
-			// API License Key Registration Form
-			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php' );
-			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-sync.php' );
-			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-pages.php' );
-			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-delete.php' );
-			require_once( plugin_dir_path( __FILE__ ) . 'admin/admin-ajax.php' );
-			
-			require_once( plugin_dir_path( __FILE__ ) . 'class/wc4bp-manager.php' );
-			new wc4bp_Manager();
-			
-		}
-		
+		define( 'WC4BP_CSS', WC4BP_URLPATH . '/admin/css/' );
+		define( 'WC4BP_JS', WC4BP_URLPATH . '/admin/js/' );
 	}
 	
 	/**
@@ -322,115 +293,5 @@ class WC4BP_Loader {
 			include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
 			wc4bp_cleanup();
 		}
-	}
-	
-	/**
-	 * Enqueue admin JS and CSS
-	 *
-	 * @author Sven Lehnert
-	 * @package WC4BP
-	 * @since 1.0
-	 */
-	
-	public function wc4bp_admin_js() {
-		
-		add_thickbox();
-		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'jquery-ui-core' );
-		wp_enqueue_script( 'jquery-ui-widget' );
-		wp_enqueue_script( 'jquery-ui-tabs' );
-		wp_enqueue_script( 'jquery-effects-core' );
-		
-		wp_enqueue_script( 'wc4bp_admin_js', plugins_url( '/admin/js/admin.js', __FILE__ ), array(
-			'jquery',
-			'jquery-ui-core',
-			'jquery-ui-widget',
-			'jquery-ui-tabs'
-		) );
-		wp_enqueue_style( 'wc4bp_admin_css', plugins_url( '/admin/css/admin.css', __FILE__ ) );
-		
-	}
-}
-
-// Check if we are on checkout in profile
-add_filter( 'woocommerce_is_checkout', 'wc4bp_woocommerce_is_checkout' );
-function wc4bp_woocommerce_is_checkout( $is_checkout ) {
-	$wc4bp_options = get_option( 'wc4bp_options' );
-	
-	if ( is_user_logged_in() && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) :
-		if ( bp_is_current_component( 'shop' ) && ( bp_is_current_action( 'checkout' ) || bp_is_current_action( 'home' ) ) ) :
-			$is_checkout = true;
-		endif;
-	endif;
-	
-	return $is_checkout;
-}
-
-// Check if we are on the my account page in profile
-add_filter( 'woocommerce_is_account_page', 'wc4bp_woocommerce_is_account_page' );
-function wc4bp_woocommerce_is_account_page( $is_account_page ) {
-	
-	if ( is_user_logged_in() ) :
-		if ( bp_is_current_component( 'shop' ) && bp_is_current_action( 'checkout' ) ) :
-			$is_account_page = true;
-		endif;
-	endif;
-	
-	return $is_account_page;
-}
-
-/**
- * The functions below do not have any filters, but can be redefined
- * Needs to happen here, so as not to cause any errors
- * Changing these functions ensures that the correct JS is being loaded
- *
- * @todo    Write a fix to use filters rather than redeclaring these functions
- *            which could potentially create conflicts with other plugins
- */
-
-if ( ! function_exists( 'is_cart' ) ) :
-	/**
-	 * Check if we're on a cart page
-	 *
-	 * @since    1.0.5
-	 */
-	function is_cart() {
-		$wc4bp_options = get_option( 'wc4bp_options' );
-		
-		if ( is_user_logged_in() && ! isset( $wc4bp_options['tab_cart_disabled'] ) ) :
-			if ( bp_is_current_component( 'shop' ) && ! bp_action_variables() ) :
-				return true;
-			endif;
-		else :
-			return is_page( wc_get_page_id( 'cart' ) ) || defined( 'WOOCOMMERCE_CART' );
-		endif;
-		
-		return false;
-	}
-endif;
-
-if ( ! function_exists( 'is_order_received_page' ) ) {
-	
-	/**
-	 * is_order_received_page - Returns true when viewing the order received page.
-	 *
-	 * @access public
-	 * @return bool
-	 */
-	function is_order_received_page() {
-		global $wp;
-		
-		if ( is_user_logged_in() ) :
-			if ( bp_is_current_component( 'shop' ) && ( bp_is_action_variable( 'checkout' ) || bp_is_action_variable( 'cart' ) ) ) :
-				return true;
-			endif;
-		else :
-			if ( is_page( wc_get_page_id( 'checkout' ) ) && isset( $wp->query_vars['order-received'] ) ):
-				return true;
-			endif;
-		endif;
-		
-		return false;
-		
 	}
 }

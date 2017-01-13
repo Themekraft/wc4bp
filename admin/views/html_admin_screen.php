@@ -3,7 +3,6 @@
  * Admin View: Template pages
  *
  */
-
 ?>
 <?php _e('Tab inside "Settings" for the activity stream settings.', 'wc4bp'); ?>
 <div class="wrap">

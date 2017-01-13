@@ -5,7 +5,7 @@
  * @subpackage     BuddyPress, Woocommerce
  * @author         GFireM
  * @copyright      2017, Themekraft
- * @link           https://github.com/Themekraft/BP-Shop-Integration
+ * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
  * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 
@@ -21,7 +21,13 @@ class wc4bp_Manager {
 		
 		//Load resources
 		require_once 'wc4bp-myaccount.php';
-		$my_account = new WC4BP_MyAccount();
+		new WC4BP_MyAccount();
+		
+		require_once 'wc4bp-woocommerce.php';
+		new wc4bp_Woocommerce();
+		
+		require_once 'wc4bp-manage-admin.php';
+		new wc4bp_Manage_Admin();
 	}
 	
 	
