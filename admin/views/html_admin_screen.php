@@ -4,7 +4,6 @@
  *
  */
 ?>
-<?php _e('Tab inside "Settings" for the activity stream settings.', 'wc4bp'); ?>
 <div class="wrap">
 
 	<div id="icon-options-general" class="icon32"><br></div>
