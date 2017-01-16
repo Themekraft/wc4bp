@@ -29,23 +29,23 @@ class wc4bp_admin {
 	 * @since 1.3
 	 */
 	public function wc4bp_admin_menu() {
-		add_menu_page( 'WooCommerce for BuddyPress', 'WC4BP Settings', 'manage_options', 'wc4bp-options-page', array( $this, 'wc4bp_screen' ) );
+		add_menu_page(  __( 'WooCommerce for BuddyPress', 'wc4bp' ), 'WC4BP Settings', 'manage_options', 'wc4bp-options-page', array( $this, 'wc4bp_screen' ) );
 		do_action( 'wc4bp_add_submenu_page' );
 		
 		require_once( WC4BP_ABSPATH . 'admin/admin-sync.php' );
 		$admin_sync          = new wc4bp_admin_sync();
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		if ( ! isset( $wc4bp_options['tab_sync_disabled'] ) ) {
-			add_submenu_page( 'wc4bp-options-page', 'WC4BP Profile Fields Sync', 'Profile Fields Sync', 'manage_options', 'wc4bp-options-page-sync', array( $admin_sync, 'wc4bp_screen_sync' ) );
+			add_submenu_page( 'wc4bp-options-page', __( 'WC4BP Profile Fields Sync','wc4bp' ), 'Profile Fields Sync', 'manage_options', 'wc4bp-options-page-sync', array( $admin_sync, 'wc4bp_screen_sync' ) );
 		}
 
 		require_once( WC4BP_ABSPATH . 'admin/admin-pages.php' );
 		$admin_pages = new wc4bp_admin_pages();
-		add_submenu_page( 'wc4bp-options-page', 'WC4BP Integrate Pages', 'Integrate Pages', 'manage_options', 'wc4bp-options-page-pages', array( $admin_pages, 'wc4bp_screen_pages' ) );
+		add_submenu_page( 'wc4bp-options-page', __('WC4BP Integrate Pages','wc4bp' ), 'Integrate Pages', 'manage_options', 'wc4bp-options-page-pages', array( $admin_pages, 'wc4bp_screen_pages' ) );
 
 		require_once( WC4BP_ABSPATH . 'admin/admin-delete.php' );
 		$admin_delete = new wc4bp_admin_delete();
-		add_submenu_page( 'wc4bp-options-page', 'Delete', 'Delete', 'manage_options', 'wc4bp-options-page-delete', array( $admin_delete, 'wc4bp_screen_delete' ) );
+		add_submenu_page( 'wc4bp-options-page',  __('Delete','wc4bp' ), 'Delete', 'manage_options', 'wc4bp-options-page-delete', array( $admin_delete, 'wc4bp_screen_delete' ) );
 
 		require_once( WC4BP_ABSPATH . 'admin/admin-ajax.php' );
 		new wc4bp_admin_ajax();
@@ -83,15 +83,6 @@ class wc4bp_admin {
 	 */
 	public function wc4bp_screen() {
 		include_once( dirname( __FILE__ ) . '\views\html_admin_screen.php' );
-		?>
-
-		<form method="post" action="options.php">
-		<?php wp_nonce_field( 'update-options' ); ?>
-		<?php settings_fields( 'wc4bp_options' ); ?>
-		<?php do_settings_sections( 'wc4bp_options' ); ?>
-		</form>
-
-		<?php
 	}
 	
 	/**
@@ -108,14 +99,13 @@ class wc4bp_admin {
 		add_settings_section( 'section_general', '', '', 'wc4bp_options' );
 		add_settings_section( 'section_general2', '', '', 'wc4bp_options' );
 
-		add_settings_field( 'tabs_shop', '<b>dddShop Settings</b>', array( $this, 'wc4bp_shop_tabs' ), 'wc4bp_options', 'section_general' );
-		add_settings_field( 'tabs_enable', '<b>Shop Tabs</b>', array( $this, 'wc4bp_shop_tabs_enable'), 'wc4bp_options',  'section_general' );
-		add_settings_field( 'tabs_disabled', '<b>Remove Shop Tabs</b>', array( $this, 'wc4bp_shop_tabs_disable' ), 'wc4bp_options', 'section_general' );
+		add_settings_field( 'tabs_shop', __( '<b>Shop Settings</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs' ), 'wc4bp_options', 'section_general' );
+		add_settings_field( 'tabs_enable',  __('<b>Shop Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs_enable'), 'wc4bp_options',  'section_general' );
+		add_settings_field( 'tabs_disabled', __('<b>Remove Shop Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs_disable' ), 'wc4bp_options', 'section_general' );
+		add_settings_field( 'profile sync', __('<b>Turn off the profile sync</b>','wc4bp' ), array( $this, 'wc4bp_turn_off_profile_sync' ), 'wc4bp_options', 'section_general' );
+		add_settings_field( 'overwrite', __('<b>Overwrite the Content of your Shop Home/Main Tab</b>','wc4bp' ), array( $this, 'wc4bp_overwrite_default_shop_home_tab' ), 'wc4bp_options', 'section_general' );
+		add_settings_field( 'template',  __('<b>Change the page template to be used for the attached pages.</b>','wc4bp' ), array( $this, 'wc4bp_page_template' ), 'wc4bp_options', 'section_general' );
 
-		add_settings_field( 'profile sync', '<b>Turn off the profile sync</b>', array( $this, 'wc4bp_turn_off_profile_sync' ), 'wc4bp_options', 'section_general' );
-
-		add_settings_field( 'overwrite', '<b>Overwrite the Content of your Shop Home/Main Tab</b>', array( $this, 'wc4bp_overwrite_default_shop_home_tab' ), 'wc4bp_options', 'section_general' );
-		add_settings_field( 'template', '<b>Change the page template to be used for the attached pages.</b>', array( $this, 'wc4bp_page_template' ), 'wc4bp_options', 'section_general' );
 	}
 	
 	public function wc4bp_shop_tabs() {

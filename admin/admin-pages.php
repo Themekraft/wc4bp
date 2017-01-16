@@ -28,14 +28,6 @@ class wc4bp_admin_pages {
 	 */
 	public function wc4bp_screen_pages() {
 		include_once( dirname( __FILE__ ) . '\views\html_admin_pages_screen_pages.php' );
-		?>
-		<div class="wrap">
-        <form method="post" action="options.php">
-			<?php wp_nonce_field( 'update-options' ); ?>
-			<?php settings_fields( 'wc4bp_options_pages' ); ?>
-			<?php do_settings_sections( 'wc4bp_options_pages' ); ?>
-        </form>
-        </div><?php
 	}
 	
 	/**

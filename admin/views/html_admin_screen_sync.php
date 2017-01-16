@@ -1,7 +1,11 @@
 <?php
 /**
- * Admin View: Template pages
- *
+ * @package        WordPress
+ * @subpackage     BuddyPress, Woocommerce
+ * @author         GFireM
+ * @copyright      2017, Themekraft
+ * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
+ * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 
 ?>
@@ -15,5 +19,14 @@
 
 	<input id="wc4bp_total_user_pages" type="hidden" value="<?php echo $total_pages ?>">
 	<div id="result"></div>
+
+	<div class="wrap">
+		<form method="post" action="options.php">
+			<?php wp_nonce_field( 'update-options' ); ?>
+			<?php settings_fields( 'wc4bp_options_sync' ); ?>
+			<?php do_settings_sections( 'wc4bp_options_sync' ); ?>
+
+		</form>
+	</div>
 </div>
 

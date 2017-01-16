@@ -1,7 +1,11 @@
 <?php
 /**
- * Admin View: Template pages
- *
+ * @package        WordPress
+ * @subpackage     BuddyPress, Woocommerce
+ * @author         GFireM
+ * @copyright      2017, Themekraft
+ * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
+ * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 
 ?>

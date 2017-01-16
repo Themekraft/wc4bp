@@ -1,7 +1,11 @@
 <?php
 /**
- * Admin View: Template pages
- *
+ * @package        WordPress
+ * @subpackage     BuddyPress, Woocommerce
+ * @author         GFireM
+ * @copyright      2017, Themekraft
+ * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
+ * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 ?>
 	<h3><?php _e('Add Pages to Member Profiles', 'wc4bp'); ?></h3>
@@ -36,7 +40,7 @@
 								<span class="wc4bp_inline hide-if-no-js">
 									<input id="<?php echo $attached_page['tab_slug'] ?>"
 									       alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page"
-									       title="an existing page to your BuddyPress member profiles"
+									       title= <?php  _e( 'an existing page to your BuddyPress member profiles', 'wc4bp' )?>
 									       class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button"
 									       value="Edit"/>
 								</span>

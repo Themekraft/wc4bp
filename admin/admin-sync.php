@@ -35,16 +35,6 @@ class wc4bp_admin_sync {
 		$count_users = count_users();
 		$total_users = $count_users['total_users'];
 		$total_pages = intval( $total_users / $number ) + 1;
-		?>
-		<div class="wrap">
-        <form method="post" action="options.php">
-			<?php wp_nonce_field( 'update-options' ); ?>
-			<?php settings_fields( 'wc4bp_options_sync' ); ?>
-			<?php do_settings_sections( 'wc4bp_options_sync' ); ?>
-
-        </form>
-        </div><?php
-		
 	}
 	
 	/**
@@ -59,14 +49,12 @@ class wc4bp_admin_sync {
 		register_setting( 'wc4bp_options_sync', 'wc4bp_options_sync' );
 		
 		// Settings fields and sections
-		add_settings_section( 'section_sync', 'Profile Field Synchronisation Settings', '', 'wc4bp_options_sync' );
-		add_settings_section( 'section_general', 'Default BuddyPress WooCommerce Profile Field Settings', '', 'wc4bp_options_sync' );
-		
-		add_settings_field( 'wc4bp_shop_profile_sync', '<b>WooCommerce BuddyPress Profile Fields Sync </b>', array( $this, 'wc4bp_shop_profile_sync' ), 'wc4bp_options_sync', 'section_sync' );
-		add_settings_field( 'wc4bp_change_xprofile_visabilyty_by_user', '<b>Change Profile Field Visibility for all Users</b>', array( $this, 'wc4bp_change_xprofile_visabilyty_by_user' ), 'wc4bp_options_sync', 'section_sync' );
-		
-		add_settings_field( 'wc4bp_change_xprofile_visabilyty_default', '<b>Set the Default Profile Fields Visibility</b>', array( $this, 'wc4bp_change_xprofile_visabilyty_default' ), 'wc4bp_options_sync', 'section_general' );
-		add_settings_field( 'wc4bp_change_xprofile_allow_custom_visibility', '<b>Allow Custom Visibility Change by User</b>', array( $this, 'wc4bp_change_xprofile_allow_custom_visibility' ), 'wc4bp_options_sync', 'section_general' );
+		add_settings_section( 'section_sync',  __( 'Profile Field Synchronisation Settings', 'wc4bp' ), '', 'wc4bp_options_sync' );
+		add_settings_section( 'section_general', __('Default BuddyPress WooCommerce Profile Field Settings', 'wc4bp' ), '', 'wc4bp_options_sync' );
+		add_settings_field( 'wc4bp_shop_profile_sync', __('<b>WooCommerce BuddyPress Profile Fields Sync </b>','wc4bp' ), array( $this, 'wc4bp_shop_profile_sync' ), 'wc4bp_options_sync', 'section_sync' );
+		add_settings_field( 'wc4bp_change_xprofile_visabilyty_by_user',  __('<b>Change Profile Field Visibility for all Users</b>','wc4bp' ), array( $this, 'wc4bp_change_xprofile_visabilyty_by_user' ), 'wc4bp_options_sync', 'section_sync' );
+		add_settings_field( 'wc4bp_change_xprofile_visabilyty_default',  __('<b>Set the Default Profile Fields Visibility</b>','wc4bp' ), array( $this, 'wc4bp_change_xprofile_visabilyty_default' ), 'wc4bp_options_sync', 'section_general' );
+		add_settings_field( 'wc4bp_change_xprofile_allow_custom_visibility', __('<b>Allow Custom Visibility Change by User</b>','wc4bp' ), array( $this, 'wc4bp_change_xprofile_allow_custom_visibility' ), 'wc4bp_options_sync', 'section_general' );
 	}
 	
 	public function wc4bp_shop_profile_sync() {
@@ -131,7 +119,7 @@ class wc4bp_admin_sync {
 		
 		$visibility_levels = '<select id="wc4bp_set_bp_' . $name . '" name="wc4bp_options_sync[' . $name . ']">
 
-    <option value="none">Select Visibility</option>';
+    <option value="none"> Select Visibility </option>';
 		
 		foreach ( bp_xprofile_get_visibility_levels() as $level ) {
 			

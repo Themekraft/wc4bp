@@ -1,7 +1,11 @@
 <?php
 /**
- * Admin View: Template pages
- *
+ * @package        WordPress
+ * @subpackage     BuddyPress, Woocommerce
+ * @author         GFireM
+ * @copyright      2017, Themekraft
+ * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
+ * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 ?>
 
@@ -13,4 +17,12 @@
 		<span style="font-size: 13px; float:right;"><?php _e('Proudly brought to you by ', 'wc4bp'); ?><a href="http://themekraft.com/" target="_new">Themekraft</a>.</span>
 	</div>
 <br>
+
+	<div class="wrap">
+		<form method="post" action="options.php">
+			<?php wp_nonce_field( 'update-options' ); ?>
+			<?php settings_fields( 'wc4bp_options_pages' ); ?>
+			<?php do_settings_sections( 'wc4bp_options_pages' ); ?>
+		</form>
+	</div>
 </div>
