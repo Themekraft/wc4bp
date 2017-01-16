@@ -1,9 +1,4 @@
-<?php
-/**
- * Admin View: Template pages
- *
- */
-?>
+
 <div class="wrap">
 
 	<div id="icon-options-general" class="icon32"><br></div>

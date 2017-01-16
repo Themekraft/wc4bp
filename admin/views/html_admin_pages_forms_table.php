@@ -1,9 +1,4 @@
-<?php
-/**
- * Admin View: Template pages
- *
- */
-?>
+
 	<h3><?php _e('Add Pages to Member Profiles', 'wc4bp'); ?></h3>
 
 	<p><?php _e('Integrate other pages (for example from other WooCommerce extensions) into your BuddyPress member profiles.', 'wc4bp'); ?></p>
@@ -36,7 +31,7 @@
 								<span class="wc4bp_inline hide-if-no-js">
 									<input id="<?php echo $attached_page['tab_slug'] ?>"
 									       alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page"
-									       title="an existing page to your BuddyPress member profiles"
+									       title= <?php  _e( 'an existing page to your BuddyPress member profiles', 'wc4bp' )?>
 									       class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button"
 									       value="Edit"/>
 								</span>

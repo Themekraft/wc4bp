@@ -1,9 +1,3 @@
-<?php
-/**
-
- */
-
-?>
 
 <input id="continue_update_paged" type="hidden" value="<?php echo $paged ?>">
 <p>

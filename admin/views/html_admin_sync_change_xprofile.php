@@ -1,10 +1,3 @@
-<?php
-/**
- * Admin View: Template pages
- *
- */
-
-?>
 
 <b>
 	<p><?php _e('Set the Profile Field Visibility for all Users:', 'wc4bp'); ?></p>
