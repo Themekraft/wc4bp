@@ -18,5 +18,4 @@
 		echo '<option value="default"> You need at least one Page added to Member Profiles!</option>';
 	}
 	?>
-
 </select>

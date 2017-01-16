@@ -83,6 +83,15 @@ class wc4bp_admin {
 	 */
 	public function wc4bp_screen() {
 		include_once( dirname( __FILE__ ) . '\views\html_admin_screen.php' );
+		?>
+
+		<form method="post" action="options.php">
+		<?php wp_nonce_field( 'update-options' ); ?>
+		<?php settings_fields( 'wc4bp_options' ); ?>
+		<?php do_settings_sections( 'wc4bp_options' ); ?>
+		</form>
+
+		<?php
 	}
 	
 	/**
@@ -93,7 +102,20 @@ class wc4bp_admin {
 	 * @since 1.0
 	 */
 	public function wc4bp_register_admin_settings() {
-		include_once( dirname( __FILE__ ) . '\views\html_admin_settings.php' );
+
+		register_setting( 'wc4bp_options', 'wc4bp_options' );
+		// Settings fields and sections
+		add_settings_section( 'section_general', '', '', 'wc4bp_options' );
+		add_settings_section( 'section_general2', '', '', 'wc4bp_options' );
+
+		add_settings_field( 'tabs_shop', '<b>dddShop Settings</b>', array( $this, 'wc4bp_shop_tabs' ), 'wc4bp_options', 'section_general' );
+		add_settings_field( 'tabs_enable', '<b>Shop Tabs</b>', array( $this, 'wc4bp_shop_tabs_enable'), 'wc4bp_options',  'section_general' );
+		add_settings_field( 'tabs_disabled', '<b>Remove Shop Tabs</b>', array( $this, 'wc4bp_shop_tabs_disable' ), 'wc4bp_options', 'section_general' );
+
+		add_settings_field( 'profile sync', '<b>Turn off the profile sync</b>', array( $this, 'wc4bp_turn_off_profile_sync' ), 'wc4bp_options', 'section_general' );
+
+		add_settings_field( 'overwrite', '<b>Overwrite the Content of your Shop Home/Main Tab</b>', array( $this, 'wc4bp_overwrite_default_shop_home_tab' ), 'wc4bp_options', 'section_general' );
+		add_settings_field( 'template', '<b>Change the page template to be used for the attached pages.</b>', array( $this, 'wc4bp_page_template' ), 'wc4bp_options', 'section_general' );
 	}
 	
 	public function wc4bp_shop_tabs() {
@@ -108,17 +130,8 @@ class wc4bp_admin {
 	
 	public function wc4bp_shop_tabs_enable() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
-		
 		$end_points = wc_get_account_menu_items();
-		
-		echo '<p>My account tabs to show into Buddy Press</p>';
-		foreach ( WC4BP_MyAccount::get_available_endpoints() as $end_point_key => $end_point_name ) {
-			$tab_select = 0;
-			if ( isset( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
-				$tab_select = $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ];
-			}
-			echo "<p><input name='wc4bp_options[wc4bp_endpoint_" . $end_point_key . "]' type='checkbox' value='1' " . checked( $tab_select, 1, false ) . " /> <b>Turn on \"" . $end_point_name . "\" tab. </b></p>";
-		}
+		include_once( dirname( __FILE__ ) . '\views\html_admin_shop_tabs_enable.php' );
 	}
 	
 	/**

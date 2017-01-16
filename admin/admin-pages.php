@@ -85,8 +85,7 @@ class wc4bp_admin_pages {
 		}
 
 		include_once( dirname( __FILE__ ) . '\views\html_admin_pages_shop_pages_rename.php' );
-		
-		submit_button();
+
 	}
 	
 	
@@ -124,18 +123,11 @@ class wc4bp_admin_pages {
 	}
 	
 	public function wc4bp_thickbox_page_form() {
-		//$options = get_option( 'wc4bp_options' );
-		?>
 
-        <div style="margin: 0 0 20px 0;">
-            <input alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page"
-                   title="Add an existing page to your BuddyPress member profiles"
-                   class="button button-secondary cptfbp_thickbox cptfbp_thickbox_add " type="button"
-                   value="Add a page to your BuddyPress Member Profiles"/>
-        </div>
-        <div id="add_page" style="display:none"></div>
-		
-		<?php
+		include_once( dirname( __FILE__ ) . '\views\html_admin_pages_thickbox.php' );
+
+		//$options = get_option( 'wc4bp_options' );
+
 	}
 	
 	public static function wc4bp_add_edit_entry_form_call( $edit = '' ) {
@@ -180,25 +172,8 @@ class wc4bp_admin_pages {
 			'name'             => "wc4bp_page_id",
 			'class'            => 'postform',
 			'selected'         => $page_id
-		); ?>
-
-        <p><b><?php _e('Choose an existing page', 'wc4bp'); ?></b><br>
-			<?php wp_dropdown_pages( $args ); ?>
-            <input id='wc4bp_children' name='wc4bp_children' type='checkbox' value='1'/ <?php checked( $children, 1 ); ?>>&nbsp;<b><?php _e('Include
-                Children?', 'wc4bp'); ?></b></p>
-        <p><b><?php _e('Tab Name', 'wc4bp'); ?></b><i><?php _e('If empty same as Pagename', 'wc4bp'); ?></i><br>
-
-            <input id='wc4bp_tab_name' name='wc4bp_tab_name' type='text' value='<?php echo $tab_name ?>'/></p>
-        <p><b><?php _e('Position', 'wc4bp'); ?></b><br>
-            <small><i><?php _e('Just enter a number like 1, 2, 3..', 'wc4bp'); ?></i></small>
-            <br>
-            <input id='wc4bp_position' name='wc4bp_position' type='text' value='<?php echo $position ?>'/></p>
-		
-		
-		<?php if ( isset( $wc4bp_tab_slug ) ) {
-			echo '<input type="hidden" id="wc4bp_tab_slug" value="' . $wc4bp_tab_slug . '" />';
-		}
-		?><input type="button" value="Save" name="add_cpt4bp_page" class="button add_cpt4bp_page btn"><?php
+		);
+		include_once( dirname( __FILE__ ) . '\views\html_admin_pages_edit_entry.php' );
 	}
 	
 	public function wc4bp_add_edit_entry_form( $edit = '' ) {
