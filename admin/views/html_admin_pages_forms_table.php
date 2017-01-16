@@ -31,13 +31,13 @@
 								<span class="wc4bp_inline hide-if-no-js">
 									<input id="<?php echo $attached_page['tab_slug'] ?>"
 									       alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page"
-									       title= <?php  _e( 'an existing page to your BuddyPress member profiles', 'wc4bp' )?>
+									       title=" <?php __e( 'an existing page to your BuddyPress member profiles', 'wc4bp' );?>"
 									       class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button"
-									       value="Edit"/>
+									       value="<?php _e('Edit', 'wc4bp' ); ?> "/>
 								</span>
 	                            <span class="trash">
 									<span id="<?php echo $key ?>" class="wc4bp_delete_page"
-									      title="Delete this item"><?php _e('Delete', 'wc4bp'); ?></span>
+									      title="<?php __e( 'Delete this item', 'wc4bp' );?>"> <?php _e('Delete', 'wc4bp'); ?></span>
 								</span>
 					</div>
 				</td>

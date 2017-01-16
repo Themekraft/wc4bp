@@ -122,7 +122,7 @@ class wc4bp_admin_sync {
         <option value="none">' . __('Select Visibility', 'wc4bp' ) . ' </option>';
 
 		foreach ( bp_xprofile_get_visibility_levels() as $level ) {
-			
+
 			$visibility_levels .= '<option value="' . $level['id'] . '" >' . $level['label'] . '</option>';
 
 		}
@@ -152,63 +152,18 @@ class wc4bp_admin_sync {
 	}
 	
 	public function wc4bp_change_xprofile_visabilyty_default() {
-		?><p><?php _e('Set the default profile field viability to', 'wc4bp'); ?></p>
-		<?php $this->select_visibility_levels( 'default_visibility' ); ?>
-        <input type="submit" class="button" name="wc4bp_options_sync[change_xprofile_visabilyty_field_default]" value="Change now">
-		<?php
 		$wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
-		
 		$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
 		$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
-		
-		if ( isset( $wc4bp_options_sync['change_xprofile_visabilyty_field_default'] ) ) {
-			
-			echo '<ul>';
-			
-			foreach ( $billing as $key => $field_id ) {
-				bp_xprofile_update_field_meta( $field_id, 'default_visibility', $wc4bp_options_sync['default_visibility'] );
-				echo '<li>billing_' . $key . ' default visibility changed to ' . $wc4bp_options_sync['default_visibility'] . '</li>';
-			}
-			echo '</ul>';
-			
-			echo '<ul>';
-			foreach ( $shipping as $key => $field_id ) {
-				bp_xprofile_update_field_meta( $field_id, 'default_visibility', $wc4bp_options_sync['default_visibility'] );
-				echo '<li>shipping_' . $key . ' default visibility changed to ' . $wc4bp_options_sync['default_visibility'] . '</li>';
-			}
-			echo '</ul>';
-			echo '<h3>All Done!</h3>';
-			unset( $wc4bp_options_sync['change_xprofile_visabilyty_field_default'] );
-			update_option( 'wc4bp_options_sync', $wc4bp_options_sync );
-		}
+
+		include_once( dirname( __FILE__ ) . '\views\html_admin_sync_change_xprofile_visabilyty.php' );
 	}
 	
 	public function wc4bp_change_xprofile_allow_custom_visibility() {
-		include_once( dirname( __FILE__ ) . '\views\html_admin_sync_change_xprofile_allow_custom.php' );
-
 		$wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
-		
 		$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
 		$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 		
-		if ( isset( $wc4bp_options_sync['allow_custom_visibility'] ) ) {
-			echo '<ul>';
-			foreach ( $billing as $key => $field_id ) {
-				bp_xprofile_update_field_meta( $field_id, 'allow_custom_visibility', $wc4bp_options_sync['custom_visibility'] );
-				echo '<li>billing_' . $key . ' default visibility changed to ' . $wc4bp_options_sync['custom_visibility'] . '</li>';
-			}
-			echo '</ul>';
-			
-			echo '<ul>';
-			foreach ( $shipping as $key => $field_id ) {
-				bp_xprofile_update_field_meta( $field_id, 'allow_custom_visibility', $wc4bp_options_sync['visibility_levels'] );
-				echo '<li>shipping_' . $key . ' default visibility changed to ' . $wc4bp_options_sync['custom_visibility'] . '</li>';
-			}
-			echo '</ul>';
-			
-			echo '<h3>All Done!</h3>';
-			unset( $wc4bp_options_sync['allow_custom_visibility'] );
-			update_option( 'wc4bp_options_sync', $wc4bp_options_sync );
-		}
+		include_once( dirname( __FILE__ ) . '\views\html_admin_sync_change_xprofile_allow_custom.php' );
 	}
 }
