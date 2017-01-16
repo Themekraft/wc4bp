@@ -19,6 +19,12 @@ class wc4bp_admin {
 		add_action( 'admin_menu', array( $this, 'wc4bp_admin_menu' ) );
 		add_action( 'admin_footer', array( $this, 'wc4bp_admin_js_footer' ), 10, 1 );
 		add_action( 'admin_init', array( $this, 'wc4bp_register_admin_settings' ) );
+		
+		require_once( WC4BP_ABSPATH . 'admin/admin-pages.php' );
+		require_once( WC4BP_ABSPATH . 'admin/admin-sync.php' );
+		require_once( WC4BP_ABSPATH . 'admin/admin-delete.php' );
+		require_once( WC4BP_ABSPATH . 'admin/admin-ajax.php' );
+		new wc4bp_admin_ajax();
 	}
 	
 	/**
@@ -31,24 +37,18 @@ class wc4bp_admin {
 	public function wc4bp_admin_menu() {
 		add_menu_page(  __( 'WooCommerce for BuddyPress', 'wc4bp' ), 'WC4BP Settings', 'manage_options', 'wc4bp-options-page', array( $this, 'wc4bp_screen' ) );
 		do_action( 'wc4bp_add_submenu_page' );
-		
-		require_once( WC4BP_ABSPATH . 'admin/admin-sync.php' );
+        
 		$admin_sync          = new wc4bp_admin_sync();
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		if ( ! isset( $wc4bp_options['tab_sync_disabled'] ) ) {
 			add_submenu_page( 'wc4bp-options-page', __( 'WC4BP Profile Fields Sync','wc4bp' ), 'Profile Fields Sync', 'manage_options', 'wc4bp-options-page-sync', array( $admin_sync, 'wc4bp_screen_sync' ) );
 		}
-
-		require_once( WC4BP_ABSPATH . 'admin/admin-pages.php' );
+        
 		$admin_pages = new wc4bp_admin_pages();
 		add_submenu_page( 'wc4bp-options-page', __('WC4BP Integrate Pages','wc4bp' ), 'Integrate Pages', 'manage_options', 'wc4bp-options-page-pages', array( $admin_pages, 'wc4bp_screen_pages' ) );
-
-		require_once( WC4BP_ABSPATH . 'admin/admin-delete.php' );
+		
 		$admin_delete = new wc4bp_admin_delete();
 		add_submenu_page( 'wc4bp-options-page',  __('Delete','wc4bp' ), 'Delete', 'manage_options', 'wc4bp-options-page-delete', array( $admin_delete, 'wc4bp_screen_delete' ) );
-
-		require_once( WC4BP_ABSPATH . 'admin/admin-ajax.php' );
-		new wc4bp_admin_ajax();
 	}
 	
 	public function wc4bp_admin_js_footer( $hook_suffix ) {

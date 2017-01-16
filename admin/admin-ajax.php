@@ -44,7 +44,6 @@ class wc4bp_admin_ajax {
 	
 	
 	public function wc4bp_edit_entry() {
-		echo "aaaa";
 		wc4bp_admin_pages::wc4bp_add_edit_entry_form_call( 'edit' );
 		die();
 	}
