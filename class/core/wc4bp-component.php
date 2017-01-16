@@ -210,6 +210,23 @@ class WC4BP_Component extends BP_Component {
 			);
 		}
 		$position = 40;
+		
+		$active_pages = WC4BP_MyAccount::get_active_endpoints();
+		if(!empty($active_pages)){
+			foreach ( $active_pages as $active_page_key => $active_page_name ) {
+				$position ++;
+				$sub_nav[] = array(
+					'name'            => $active_page_name,
+					'slug'            => "wc4bp_".$active_page_key,
+					'parent_url'      => $shop_link,
+					'parent_slug'     => $this->slug,
+					'screen_function' => 'wc4bp_screen_plugins',
+					'position'        => $position,
+					'item_css_id'     => 'shop-cart',
+					'user_has_access' => bp_is_my_profile()
+				);
+			}
+		}
 
 		if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
 			foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {

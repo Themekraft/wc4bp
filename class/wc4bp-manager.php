@@ -26,6 +26,9 @@ class wc4bp_Manager {
 		require_once 'wc4bp-woocommerce.php';
 		new wc4bp_Woocommerce();
 		
+		require_once 'wc4bp-myaccount-content.php';
+		new WC4BP_MyAccount_Content();
+		
 		require_once 'wc4bp-manage-admin.php';
 		new wc4bp_Manage_Admin();
 	}
