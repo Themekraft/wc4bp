@@ -1,9 +1,3 @@
-<?php
-/**
-
- */
-
-?>
 
 	<p><?php _e('Set custom visibility by user', 'wc4bp'); ?></p>
 	<p>

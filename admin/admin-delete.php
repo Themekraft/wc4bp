@@ -18,8 +18,7 @@ class wc4bp_admin_delete {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'wc4bp_register_admin_settings_delete' ) );
 	}
-	
-	
+
 	/**
 	 * The Admin Page
 	 *
@@ -29,14 +28,6 @@ class wc4bp_admin_delete {
 	 */
 	public function wc4bp_screen_delete() {
 		include_once( dirname( __FILE__ ) . '\views\html_admin_delete_screen.php' );
-		?>
-		<div>
-        <form method="post" action="options.php">
-			<?php wp_nonce_field( 'update-options' ); ?>
-			<?php settings_fields( 'wc4bp_options_delete' ); ?>
-			<?php do_settings_sections( 'wc4bp_options_delete' ); ?>
-        </form>
-        </div><?php
 	}
 	
 	/**
@@ -47,13 +38,12 @@ class wc4bp_admin_delete {
 	 * @since 1.0
 	 */
 
-
 	public function wc4bp_register_admin_settings_delete() {
 		register_setting( 'wc4bp_options_delete', 'wc4bp_options_delete' );
 		
 		// Settings fields and sections
-		add_settings_section( 'section_delete', 'Delete all WooCommerce BuddyPress Integration Settings on Plugin Deactivation', '', 'wc4bp_options_delete' );
-		add_settings_field( 'delete_all_settings', '<b>Delete all Settings</b>', array( $this, 'wc4bp_delete_all_settings' ), 'wc4bp_options_delete', 'section_delete' );
+		add_settings_section( 'section_delete',  __('Delete all WooCommerce BuddyPress Integration Settings on Plugin Deactivation', 'wc4bp' ), '', 'wc4bp_options_delete' );
+		add_settings_field( 'delete_all_settings', __('<b>Delete all Settings</b>', 'wc4bp' ), array( $this, 'wc4bp_delete_all_settings' ), 'wc4bp_options_delete', 'section_delete' );
 	}
 	
 	public function wc4bp_delete_all_settings() {

@@ -1,9 +1,4 @@
-<?php
-/**
- * Admin View: Template pages
- *
- */
-?>
+
 <p><?php _e('By default all account related WooCommerce pages are included into the BuddyPress member profiles.', 'wc4bp'); ?></p>
 
 <p>

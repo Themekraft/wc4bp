@@ -1,9 +1,3 @@
-<?php
-/**
- * Admin View: Template pages
- *
- */
-?>
 
 <p><?php _e('Select the tab you want to use as your Shop Home.', 'wc4bp'); ?></p>
 
@@ -15,7 +9,7 @@
 			echo '<option value="' . $key . '" ' . selected( $wc4bp_options['tab_shop_default'], $key, false ) . '>' . $attached_page['tab_name'] . '</option>';
 		}
 	} else {
-		echo '<option value="default"> You need at least one Page added to Member Profiles!</option>';
+		echo '<option value="default"> _e(\'You need at least one Page added to Member Profiles!\', \'wc4bp\');</option>';
 	}
 	?>
 
