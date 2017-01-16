@@ -1,13 +1,4 @@
-<?php
-/**
- * @package        WordPress
- * @subpackage     BuddyPress, Woocommerce
- * @author         GFireM
- * @copyright      2017, Themekraft
- * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
- * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
- */
-?>
+
 <p><?php _e('By default all account related WooCommerce pages are included into the BuddyPress member profiles.', 'wc4bp'); ?></p>
 
 <p>

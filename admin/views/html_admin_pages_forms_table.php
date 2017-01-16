@@ -1,13 +1,4 @@
-<?php
-/**
- * @package        WordPress
- * @subpackage     BuddyPress, Woocommerce
- * @author         GFireM
- * @copyright      2017, Themekraft
- * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
- * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
- */
-?>
+
 	<h3><?php _e('Add Pages to Member Profiles', 'wc4bp'); ?></h3>
 
 	<p><?php _e('Integrate other pages (for example from other WooCommerce extensions) into your BuddyPress member profiles.', 'wc4bp'); ?></p>
