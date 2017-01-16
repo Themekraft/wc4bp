@@ -118,13 +118,13 @@ class wc4bp_admin_sync {
 	public function select_visibility_levels( $name ) {
 		
 		$visibility_levels = '<select id="wc4bp_set_bp_' . $name . '" name="wc4bp_options_sync[' . $name . ']">
-
-    <option value="none"> Select Visibility </option>';
 		
+        <option value="none">' . __('Select Visibility', 'wc4bp' ) . ' </option>';
+
 		foreach ( bp_xprofile_get_visibility_levels() as $level ) {
 			
 			$visibility_levels .= '<option value="' . $level['id'] . '" >' . $level['label'] . '</option>';
-			
+
 		}
 		$visibility_levels .= '</select>';
 		
