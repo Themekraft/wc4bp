@@ -61,8 +61,8 @@ class WC4BP_MyAccount {
 							'comment_status' => 'closed',
 							'ping_status'    => 'closed',
 							'post_title'     => $end_point_value,
-							'post_name'      => 'wc4pb_' . $end_point_key,
-							'post_content'   => 'This is the shortcode',
+							'post_name'      => 'wc4bp_' . $end_point_key,
+							'post_content'   => self::get_page_content( $end_point_key ),
 							'post_status'    => 'publish',
 							'post_type'      => 'page',
 							'meta_input'     => array(
@@ -78,7 +78,7 @@ class WC4BP_MyAccount {
 			}
 		} else {
 			foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
-				$post = self::get_page_by_name( 'wc4pb_' . $end_point_key );
+				$post = self::get_page_by_name( 'wc4bp_' . $end_point_key );
 				if ( ! empty( $post ) ) {
 					wp_delete_post( $post->ID, true );
 				}
@@ -86,7 +86,35 @@ class WC4BP_MyAccount {
 		}
 	}
 	
-	static function get_page_by_name( $post_name, $output = OBJECT ) {
+	/**
+	 * Get my account pages content
+	 *
+	 * @param string $end_point_key
+	 *
+	 * @return array|String
+	 */
+	public static function get_page_content( $end_point_key = "" ) {
+		$result    = array();
+		$available = self::get_available_endpoints();
+		if ( ! empty( $available ) ) {
+			if ( empty( $end_point_key ) ) {
+				foreach ( $available as $available_key => $available_value ) {
+					$result = array_merge( $result, array(
+							$available_key => apply_filters( "wc4bp_woocommerce_endpoint_content_" . $available_key, "[" . $available_key . "]" )
+						)
+					);
+				}
+			} else {
+				if ( ! empty( $available[ $end_point_key ] ) ) {
+					$result = apply_filters( "wc4bp_woocommerce_endpoint_content_" . $end_point_key, "[" . $end_point_key . "]" );
+				}
+			}
+		}
+		
+		return $result;
+	}
+	
+	public static function get_page_by_name( $post_name, $output = OBJECT ) {
 		global $wpdb;
 		$post = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='page'", $post_name ) );
 		if ( $post ) {
@@ -110,7 +138,7 @@ class WC4BP_MyAccount {
 	
 	public static function get_available_endpoints() {
 		$end_points = wc_get_account_menu_items();
-		$exclude    = apply_filters( "wc4bp_woocommerce_exclude_endpoint", array( "customer-logout" ) );
+		$exclude    = apply_filters( "wc4bp_woocommerce_exclude_endpoint", array( "customer-logout", "dashboard" ) );
 		
 		return array_diff_key( $end_points, array_flip( $exclude ) );
 	}
