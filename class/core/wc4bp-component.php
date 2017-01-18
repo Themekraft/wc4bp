@@ -334,6 +334,17 @@ class WC4BP_Component extends BP_Component {
 				}
 			}
 
+			if ( isset( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
+				foreach ( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] as $end_point_key => $end_point_name ) {
+					$wp_admin_nav[] = array(
+						'parent' => 'my-account-' . $this->id,
+						'id'     => 'my-account-' . $this->id . '-' . $end_point_name,
+						'title'  => apply_filters( 'bp_link_label', __( 'Buddy Press', 'wc4bp' ) ),
+						'href'   => trailingslashit( $shop_link . $end_point_name )
+					);
+				}
+			}
+
 			parent::setup_admin_bar( $wp_admin_nav );
 		}
 	}
