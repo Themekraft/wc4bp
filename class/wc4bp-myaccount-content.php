@@ -18,18 +18,18 @@ class WC4BP_MyAccount_Content {
 	private $end_points;
 	
 	public function __construct() {
-		$this->end_points = array(
+		$this->end_points = apply_filters( "wc4bp_woocommerce_endpoint_key_content", array(
 			'orders',
 			'downloads',
 			'edit-address',
 			'payment-methods',
 			'edit-account'
-		);
+		));
 		foreach ( $this->end_points as $key ) {
 			add_shortcode( $key, array( $this, "process_shortcodes" ) );
 		}
 	}
-	
+
 	public function process_shortcodes( $attr, $content = "", $tag ) {
 		foreach ( $this->end_points as $key ) {
 			if ( $tag == $key ) {
