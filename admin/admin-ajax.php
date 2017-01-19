@@ -1,105 +1,123 @@
 <?php
 /**
- * Ajax call back function to add a page
- *
- * @author Sven Lehnert
- * @package WC4BP
- * @since 1.3
- */
-// add_action( 'wp_ajax_wc4bp_thickbox_add_page', 'wc4bp_thickbox_add_page' );
-// add_action( 'wp_ajax_nopriv_wc4bp_thickbox_add_page', 'wc4bp_thickbox_add_page' );
-//
-// function wc4bp_thickbox_add_page(){
-// wc4bp_add_edit_entry_form('edit');
-// die();
-// }
-
-add_action( 'wp_ajax_wc4bp_edit_entry', 'wc4bp_edit_entry' );
-add_action( 'wp_ajax_nopriv_wc4bp_edit_entry', 'wc4bp_edit_entry' );
-function wc4bp_edit_entry() {
-	wc4bp_add_edit_entry_form( 'edit' );
-	die();
-}
-
-add_action( 'wp_ajax_wc4bp_add_page', 'wc4bp_add_page' );
-add_action( 'wp_ajax_nopriv_wc4bp_add_page', 'wc4bp_add_page' );
-
-function wc4bp_add_page( $wc4bp_page_id ) {
-
-	$page_id = false;
-	if ( isset( $_POST['wc4bp_page_id'] ) ) {
-		$page_id = $_POST['wc4bp_page_id'];
-	}
-
-	if ( empty( $page_id ) ) {
-		return;
-	}
-
-	if ( ! empty( $_POST['wc4bp_tab_name'] ) ) {
-		$tab_name = sanitize_text_field( $_POST['wc4bp_tab_name'] );
-	} else {
-		$tab_name = get_the_title( $page_id );
-	}
-
-	$position = intval ( $_POST['wc4bp_position'] );
-	if ( ! $position ) {
-		$position = 0;
-	}
-
-	$children = intval ( $_POST['wc4bp_children'] );
-	if ( !$children ) {
-		$children = 0;
-	}
-
-	if ( isset( $_POST['wc4bp_tab_slug'] ) ) {
-		$tab_slug = sanitize_text_field( $_POST['wc4bp_tab_slug'] );
-	}
-
-	if ( empty( $tab_slug ) ) {
-		$tab_slug = sanitize_title( $tab_name );
-	}
-
-	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
-
-	$wc4bp_pages_options['selected_pages'][ $tab_slug ]['tab_name'] = $tab_name;
-	$wc4bp_pages_options['selected_pages'][ $tab_slug ]['tab_slug'] = $tab_slug;
-	$wc4bp_pages_options['selected_pages'][ $tab_slug ]['position'] = $position;
-	$wc4bp_pages_options['selected_pages'][ $tab_slug ]['children'] = $children;
-	$wc4bp_pages_options['selected_pages'][ $tab_slug ]['page_id']  = $page_id;
-
-	update_option( "wc4bp_pages_options", $wc4bp_pages_options );
-
-	die();
-
-}
-
-/**
- * Ajax call back function to delete a form element
- *
- * @author Sven Lehnert
- * @package WC4BP
- * @since 1.3
+ * @package        WordPress
+ * @subpackage     BuddyPress, Woocommerce
+ * @author         GFireM
+ * @copyright      2017, Themekraft
+ * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
+ * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 
-add_action( 'wp_ajax_wc4bp_delete_page', 'wc4bp_delete_page' );
-add_action( 'wp_ajax_nopriv_wc4bp_delete_page', 'wc4bp_delete_page' );
-
-function wc4bp_delete_page() {
-
-	if ( isset( $_POST['wc4bp_tab_slug'] ) ) {
-		$wc4bp_tab_slug = $_POST['wc4bp_tab_slug'];
-	}
-
-	if ( empty( $wc4bp_tab_slug ) ) {
-		return;
-	}
-
-	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
-	unset( $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ] );
-
-	update_option( "wc4bp_pages_options", $wc4bp_pages_options );
-	die();
-
+// No direct access is allowed
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
-?>
+class wc4bp_admin_ajax {
+	
+	public function __construct() {
+		add_action( 'wp_ajax_wc4bp_edit_entry', array( $this, 'wc4bp_edit_entry' ) );
+		add_action( 'wp_ajax_nopriv_wc4bp_edit_entry', array( $this, 'wc4bp_edit_entry' ) );
+		
+		add_action( 'wp_ajax_wc4bp_add_page', array( $this, 'wc4bp_add_page' ) );
+		add_action( 'wp_ajax_nopriv_wc4bp_add_page', array( $this, 'wc4bp_add_page' ) );
+		
+		add_action( 'wp_ajax_wc4bp_delete_page', array( $this, 'wc4bp_delete_page' ) );
+		add_action( 'wp_ajax_nopriv_wc4bp_delete_page', array( $this, 'wc4bp_delete_page' ) );
+		
+//		add_action( 'wp_ajax_wc4bp_thickbox_add_page', 'wc4bp_thickbox_add_page' );
+//		add_action( 'wp_ajax_nopriv_wc4bp_thickbox_add_page', 'wc4bp_thickbox_add_page' );
+	}
+	
+	
+	/**
+	 * Ajax call back function to add a page
+	 *
+	 * @author Sven Lehnert
+	 * @package WC4BP
+	 * @since 1.3
+	 */
+//	public function wc4bp_thickbox_add_page(){
+//        wc4bp_admin_pages::wc4bp_add_edit_entry_form_call( 'edit' );
+//        die();
+//    }
+	
+	
+	public function wc4bp_edit_entry() {
+		wc4bp_admin_pages::wc4bp_add_edit_entry_form_call( 'edit' );
+		die();
+	}
+	
+	
+	public function wc4bp_add_page( $wc4bp_page_id ) {
+		
+		if ( isset( $_POST['wc4bp_page_id'] ) ) {
+			$page_id = $_POST['wc4bp_page_id'];
+		}
+		
+		if ( ! empty( $_POST['wc4bp_tab_name'] ) ) {
+			$tab_name = $_POST['wc4bp_tab_name'];
+		} else {
+			$tab_name = get_the_title( $page_id );
+		}
+		
+		if ( isset( $_POST['wc4bp_position'] ) ) {
+			$position = $_POST['wc4bp_position'];
+		}
+		
+		if ( isset( $_POST['wc4bp_children'] ) ) {
+			$children = $_POST['wc4bp_children'];
+		}
+		
+		if ( isset( $_POST['wc4bp_tab_slug'] ) ) {
+			$tab_slug = $_POST['wc4bp_tab_slug'];
+		}
+		
+		if ( empty( $tab_slug ) ) {
+			$tab_slug = sanitize_title( $tab_name );
+		}
+		
+		if ( empty( $page_id ) ) {
+			return;
+		}
+		
+		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
+		
+		$wc4bp_pages_options['selected_pages'][ $tab_slug ]['tab_name'] = $tab_name;
+		$wc4bp_pages_options['selected_pages'][ $tab_slug ]['tab_slug'] = $tab_slug;
+		$wc4bp_pages_options['selected_pages'][ $tab_slug ]['position'] = $position;
+		$wc4bp_pages_options['selected_pages'][ $tab_slug ]['children'] = $children;
+		$wc4bp_pages_options['selected_pages'][ $tab_slug ]['page_id']  = $page_id;
+		
+		update_option( "wc4bp_pages_options", $wc4bp_pages_options );
+		
+		die();
+    
+	}
+	
+	/**
+	 * Ajax call back function to delete a form element
+	 *
+	 * @author Sven Lehnert
+	 * @package WC4BP
+	 * @since 1.3
+	 */
+	public function wc4bp_delete_page() {
+		
+		if ( isset( $_POST['wc4bp_tab_slug'] ) ) {
+			$wc4bp_tab_slug = $_POST['wc4bp_tab_slug'];
+		}
+		
+		if ( empty( $wc4bp_tab_slug ) ) {
+			return;
+		}
+		
+		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
+		unset( $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ] );
+		
+		update_option( "wc4bp_pages_options", $wc4bp_pages_options );
+		die();
+		
+	}
+	
+}
