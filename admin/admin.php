@@ -14,11 +14,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class wc4bp_admin {
-    
+	
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'wc4bp_admin_menu' ) );
 		add_action( 'admin_footer', array( $this, 'wc4bp_admin_js_footer' ), 10, 1 );
 		add_action( 'admin_init', array( $this, 'wc4bp_register_admin_settings' ) );
+		
+		require_once( WC4BP_ABSPATH . 'admin/admin-pages.php' );
+		require_once( WC4BP_ABSPATH . 'admin/admin-sync.php' );
+		require_once( WC4BP_ABSPATH . 'admin/admin-delete.php' );
+		require_once( WC4BP_ABSPATH . 'admin/admin-ajax.php' );
+		new wc4bp_admin_ajax();
 	}
 	
 	/**
@@ -29,26 +35,20 @@ class wc4bp_admin {
 	 * @since 1.3
 	 */
 	public function wc4bp_admin_menu() {
-		add_menu_page(  __( 'WooCommerce for BuddyPress', 'wc4bp' ), 'WC4BP Settings', 'manage_options', 'wc4bp-options-page', array( $this, 'wc4bp_screen' ) );
+		add_menu_page( __( 'WooCommerce for BuddyPress', 'wc4bp' ), 'WC4BP Settings', 'manage_options', 'wc4bp-options-page', array( $this, 'wc4bp_screen' ) );
 		do_action( 'wc4bp_add_submenu_page' );
 		
-		require_once( WC4BP_ABSPATH . 'admin/admin-sync.php' );
-		$admin_sync          = new wc4bp_admin_sync();
+		$admin_sync    = new wc4bp_admin_sync();
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		if ( ! isset( $wc4bp_options['tab_sync_disabled'] ) ) {
-			add_submenu_page( 'wc4bp-options-page', __( 'WC4BP Profile Fields Sync','wc4bp' ), 'Profile Fields Sync', 'manage_options', 'wc4bp-options-page-sync', array( $admin_sync, 'wc4bp_screen_sync' ) );
+			add_submenu_page( 'wc4bp-options-page', __( 'WC4BP Profile Fields Sync', 'wc4bp' ), 'Profile Fields Sync', 'manage_options', 'wc4bp-options-page-sync', array( $admin_sync, 'wc4bp_screen_sync' ) );
 		}
-
-		require_once( WC4BP_ABSPATH . 'admin/admin-pages.php' );
+		
 		$admin_pages = new wc4bp_admin_pages();
-		add_submenu_page( 'wc4bp-options-page', __('WC4BP Integrate Pages','wc4bp' ), 'Integrate Pages', 'manage_options', 'wc4bp-options-page-pages', array( $admin_pages, 'wc4bp_screen_pages' ) );
-
-		require_once( WC4BP_ABSPATH . 'admin/admin-delete.php' );
+		add_submenu_page( 'wc4bp-options-page', __( 'WC4BP Integrate Pages', 'wc4bp' ), 'Integrate Pages', 'manage_options', 'wc4bp-options-page-pages', array( $admin_pages, 'wc4bp_screen_pages' ) );
+		
 		$admin_delete = new wc4bp_admin_delete();
-		add_submenu_page( 'wc4bp-options-page',  __('Delete','wc4bp' ), 'Delete', 'manage_options', 'wc4bp-options-page-delete', array( $admin_delete, 'wc4bp_screen_delete' ) );
-
-		require_once( WC4BP_ABSPATH . 'admin/admin-ajax.php' );
-		new wc4bp_admin_ajax();
+		add_submenu_page( 'wc4bp-options-page', __( 'Delete', 'wc4bp' ), 'Delete', 'manage_options', 'wc4bp-options-page-delete', array( $admin_delete, 'wc4bp_screen_delete' ) );
 	}
 	
 	public function wc4bp_admin_js_footer( $hook_suffix ) {
@@ -57,19 +57,19 @@ class wc4bp_admin {
 		if ( $hook_suffix == 'toplevel_page_wc4bp-options-page' ) {
 			?>
             <script>!function (e, o, n) {
-                    window.HSCW = o, window.HS = n, n.beacon = n.beacon || {};
-                    var t = n.beacon;
-                    t.userConfig = {}, t.readyQueue = [], t.config = function (e) {
-                        this.userConfig = e
-                    }, t.ready = function (e) {
-                        this.readyQueue.push(e)
-                    }, o.config = {
-                        docs: {enabled: !0, baseUrl: "//themekraft.helpscoutdocs.com/"},
-                        contact: {enabled: !0, formId: "ef61dbbb-83ab-11e5-8846-0e599dc12a51"}
-                    };
-                    var r = e.getElementsByTagName("script")[0], c = e.createElement("script");
-                    c.type = "text/javascript", c.async = !0, c.src = "https://djtflbt20bdde.cloudfront.net/", r.parentNode.insertBefore(c, r)
-                }(document, window.HSCW || {}, window.HS || {});</script>
+					window.HSCW = o, window.HS = n, n.beacon = n.beacon || {};
+					var t = n.beacon;
+					t.userConfig = {}, t.readyQueue = [], t.config = function (e) {
+						this.userConfig = e
+					}, t.ready = function (e) {
+						this.readyQueue.push(e)
+					}, o.config = {
+						docs: {enabled: !0, baseUrl: "//themekraft.helpscoutdocs.com/"},
+						contact: {enabled: !0, formId: "ef61dbbb-83ab-11e5-8846-0e599dc12a51"}
+					};
+					var r = e.getElementsByTagName("script")[0], c = e.createElement("script");
+					c.type = "text/javascript", c.async = !0, c.src = "https://djtflbt20bdde.cloudfront.net/", r.parentNode.insertBefore(c, r)
+				}(document, window.HSCW || {}, window.HS || {});</script>
 			<?php
 		}
 	}
@@ -93,19 +93,19 @@ class wc4bp_admin {
 	 * @since 1.0
 	 */
 	public function wc4bp_register_admin_settings() {
-
+		
 		register_setting( 'wc4bp_options', 'wc4bp_options' );
 		// Settings fields and sections
 		add_settings_section( 'section_general', '', '', 'wc4bp_options' );
 		add_settings_section( 'section_general2', '', '', 'wc4bp_options' );
-
+		
 		add_settings_field( 'tabs_shop', __( '<b>Shop Settings</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs' ), 'wc4bp_options', 'section_general' );
-		add_settings_field( 'tabs_enable',  __('<b>Shop Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs_enable'), 'wc4bp_options',  'section_general' );
-		add_settings_field( 'tabs_disabled', __('<b>Remove Shop Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs_disable' ), 'wc4bp_options', 'section_general' );
-		add_settings_field( 'profile sync', __('<b>Turn off the profile sync</b>','wc4bp' ), array( $this, 'wc4bp_turn_off_profile_sync' ), 'wc4bp_options', 'section_general' );
-		add_settings_field( 'overwrite', __('<b>Overwrite the Content of your Shop Home/Main Tab</b>','wc4bp' ), array( $this, 'wc4bp_overwrite_default_shop_home_tab' ), 'wc4bp_options', 'section_general' );
-		add_settings_field( 'template',  __('<b>Change the page template to be used for the attached pages.</b>','wc4bp' ), array( $this, 'wc4bp_page_template' ), 'wc4bp_options', 'section_general' );
-
+		add_settings_field( 'tabs_enable', __( '<b>Shop Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs_enable' ), 'wc4bp_options', 'section_general' );
+		add_settings_field( 'tabs_disabled', __( '<b>Remove Shop Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs_disable' ), 'wc4bp_options', 'section_general' );
+		add_settings_field( 'profile sync', __( '<b>Turn off the profile sync</b>', 'wc4bp' ), array( $this, 'wc4bp_turn_off_profile_sync' ), 'wc4bp_options', 'section_general' );
+		add_settings_field( 'overwrite', __( '<b>Overwrite the Content of your Shop Home/Main Tab</b>', 'wc4bp' ), array( $this, 'wc4bp_overwrite_default_shop_home_tab' ), 'wc4bp_options', 'section_general' );
+		add_settings_field( 'template', __( '<b>Change the page template to be used for the attached pages.</b>', 'wc4bp' ), array( $this, 'wc4bp_page_template' ), 'wc4bp_options', 'section_general' );
+		
 	}
 	
 	public function wc4bp_shop_tabs() {
@@ -120,7 +120,7 @@ class wc4bp_admin {
 	
 	public function wc4bp_shop_tabs_enable() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
-		$end_points = wc_get_account_menu_items();
+		$end_points    = wc_get_account_menu_items();
 		include_once( dirname( __FILE__ ) . '\views\html_admin_shop_tabs_enable.php' );
 	}
 	
@@ -165,14 +165,11 @@ class wc4bp_admin {
 			$tab_sync_disabled = $wc4bp_options['tab_sync_disabled'];
 		}
 		include_once( dirname( __FILE__ ) . '\views\html_admin_profile_sync.php' );
-		?>
 		
-		<?php
+		include_once( dirname( __FILE__ ) . '/wc4bp-activate.php' );
 		if ( isset( $tab_sync_disabled ) && true == $tab_sync_disabled ) {
-			include_once( dirname( __FILE__ ) . '/wc4bp-activate.php' );
 			wc4bp_cleanup();
 		} else {
-			include_once( dirname( __FILE__ ) . '/wc4bp-activate.php' );
 			wc4bp_activate();
 		}
 		
