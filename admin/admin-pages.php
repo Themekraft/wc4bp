@@ -166,6 +166,6 @@ class wc4bp_admin_pages {
 	
 	public function wc4bp_add_edit_entry_form( $edit = '' ) {
 		self::wc4bp_add_edit_entry_form_call( $edit );
-		
 	}
+  
 }

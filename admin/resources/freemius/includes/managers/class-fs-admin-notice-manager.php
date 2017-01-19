@@ -61,7 +61,7 @@
 				if ( 0 < count( $this->_sticky_storage ) ) {
 					// If there are sticky notices for the current slug, add a callback
 					// to the AJAX action that handles message dismiss.
-					add_action( "wp_ajax_{$slug}_dismiss_notice_action", array(
+					add_action( "wp_ajax_fs_dismiss_notice_action_{$slug}", array(
 						&$this,
 						'dismiss_notice_ajax_callback'
 					) );
@@ -279,6 +279,9 @@
 		 * @param bool   $all_admin
 		 */
 		function add_sticky( $message, $id, $title = '', $type = 'success', $all_admin = false ) {
+			$message = fs_apply_filter( $this->_slug, "sticky_message_{$id}", $message );
+			$title   = fs_apply_filter( $this->_slug, "sticky_title_{$id}", $title );
+
 			$this->add( $message, $title, $type, true, $all_admin, $id );
 		}
 

@@ -92,7 +92,7 @@ class wc4bp_admin_ajax {
 		update_option( "wc4bp_pages_options", $wc4bp_pages_options );
 		
 		die();
-		
+    
 	}
 	
 	/**

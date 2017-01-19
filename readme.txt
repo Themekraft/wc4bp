@@ -5,9 +5,10 @@ Tags: buddypress, social networking, woocommerce, e-commerce
 Requires at least: WP 4.0
 Tested up to: WP 4.5.3
 Stable tag: 2.5
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WooCommerce for BuddyPress - Shop solution for your BuddyPress community.
-Integrates a WooCommerce installation with a BuddyPress social network.
+WooCommerce for BuddyPress - Shop solution for your BuddyPress community. Integrates a WooCommerce installation with a BuddyPress social network.
 
 == Description ==
 
@@ -50,3 +51,11 @@ Because we don't need any. Woocommerce takes care of that. But maybe later...
 == Languages ==
 * English
 * German
+
+== Screenshots ==
+
+1. Admin
+
+== Changelog ==
+
+2.6 first public version
