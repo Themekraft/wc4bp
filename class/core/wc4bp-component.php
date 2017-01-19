@@ -244,6 +244,26 @@ class WC4BP_Component extends BP_Component {
 			}
 		}
 
+
+		$end_point_name =  WC4BP_MyAccount::get_available_endpoints();
+		if(!empty($end_point_name)){
+			foreach ( $end_point_name as $active_point_key => $end_point_tab_name ) {
+				$position ++;
+				$sub_nav[] = array(
+					'name'            => $end_point_tab_name,
+					'slug'            => "wc4bp_".$active_point_key,
+					'parent_url'      => $shop_link,
+					'parent_slug'     => $this->slug,
+					'screen_function' => 'wc4bp_screen_plugins',
+					'position'        => $position,
+					'item_css_id'     => 'shop-cart',
+					'user_has_access' => bp_is_my_profile()
+				);
+
+			}
+
+		}
+
 		$sub_nav = apply_filters( 'bp_shop_sub_nav', $sub_nav, $shop_link, $this->slug );
 		do_action( 'bp_shop_setup_nav' );
 		parent::setup_nav( $main_nav, $sub_nav );
