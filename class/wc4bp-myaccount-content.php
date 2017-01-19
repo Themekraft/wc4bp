@@ -18,25 +18,26 @@ class WC4BP_MyAccount_Content {
 	private $end_points;
 	
 	public function __construct() {
+		/**
+		 * Apply fitlers to the endpoint shortcodes to handle woocommerce my account individual tabs
+		 */
 		$this->end_points = apply_filters( "wc4bp_woocommerce_endpoint_key_content", array(
-			'orders',
-			'downloads',
-			'edit-address',
-			'payment-methods',
-			'edit-account'
-		));
-		foreach ( $this->end_points as $key ) {
+				'orders'          => array( $this, "wc4bp_my_account_process_shortcode_orders" ),
+				'downloads'       => array( $this, "wc4bp_my_account_process_shortcode_downloads" ),
+				'edit-address'    => array( $this, "wc4bp_my_account_process_shortcode_edit_address" ),
+				'payment-methods' => array( $this, "wc4bp_my_account_process_shortcode_payment_methods" ),
+				'edit-account'    => array( $this, "wc4bp_my_account_process_shortcode_edit_account" ),
+			)
+		);
+		foreach ( $this->end_points as $key => $class ) {
 			add_shortcode( $key, array( $this, "process_shortcodes" ) );
 		}
 	}
-
+	
 	public function process_shortcodes( $attr, $content = "", $tag ) {
-		foreach ( $this->end_points as $key ) {
+		foreach ( $this->end_points as $key => $class ) {
 			if ( $tag == $key ) {
-				$fnc = "wc4bp_my_account_process_shortcode_" . str_replace( "-", "_", $key );
-				if ( method_exists( $this, $fnc ) ) {
-					call_user_func( array( $this, $fnc ), $attr, $content = "" );
-				}
+				call_user_func( $class, $attr, $content = "" );
 			}
 		}
 	}
@@ -51,7 +52,7 @@ class WC4BP_MyAccount_Content {
 		echo "Pending";
 	}
 	
-	public function wc4bp_my_account_process_shortcode_edit_address( $attr, $content ) {
+	public static function wc4bp_my_account_process_shortcode_edit_address( $attr, $content ) {
 		wc_print_notices();
 		WC_Shortcode_My_Account::edit_address();
 	}
