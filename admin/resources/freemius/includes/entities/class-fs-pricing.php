@@ -1,16 +1,16 @@
 <?php
 	/**
 	 * @package     Freemius for EDD Add-On
-	* @copyright   Copyright (c) 2015, Freemius, Inc.
-	* @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
-	* @since       1.0.0
-	*/
+	 * @copyright   Copyright (c) 2015, Freemius, Inc.
+	 * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+	 * @since       1.0.0
+	 */
 
 	if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+		exit;
 	}
 
-class FS_Pricing extends FS_Entity {
+	class FS_Pricing extends FS_Entity {
 
 		#region Properties
 

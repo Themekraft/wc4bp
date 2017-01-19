@@ -5,6 +5,9 @@
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author:      WC4BP Integration Dev Team ;)
  * Version:     2.5
+ * Licence: GPLv3
+ * Text Domain: wc4bp
+ * Domain Path: /languages
  *
  *****************************************************************************
  *
