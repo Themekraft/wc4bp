@@ -21,14 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @todo    - Also check xprofile_insert_field to see if 'type' accepts
  *              a value of 'option'
  * @since    1.0
+ *
  */
 function wc4bp_activate() {
 	global $wpdb, $bp;
 
-	if ( ! defined( 'WOOCOMMERCE_VERSION' ) ) {
-		add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration needs WooCommerce to be installed. <a href="%s">Download it now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
-
-		return;
+	if ( ! wc4bp_Manager::is_woocommerce_active() ) {
+		return false;
 	}
 
 	if ( is_multisite() ):
@@ -267,6 +266,8 @@ function wc4bp_activate() {
 		wc4bp_bp_xprofile_update_field_meta( $billing );
 		wc4bp_bp_xprofile_update_field_meta( $shipping );
 	}
+	
+	return true;
 }
 
 /**
