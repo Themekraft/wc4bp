@@ -1,5 +1,5 @@
 <div class="wrap">
-	<?php include_once 'html_admin_header.php'; ?>
+	<?php include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_header.php'; ?>
 	<br>
 
 	<div>

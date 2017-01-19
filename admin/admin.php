@@ -20,10 +20,10 @@ class wc4bp_admin {
 		add_action( 'admin_footer', array( $this, 'wc4bp_admin_js_footer' ), 10, 1 );
 		add_action( 'admin_init', array( $this, 'wc4bp_register_admin_settings' ) );
 		
-		require_once( WC4BP_ABSPATH . 'admin/admin-pages.php' );
-		require_once( WC4BP_ABSPATH . 'admin/admin-sync.php' );
-		require_once( WC4BP_ABSPATH . 'admin/admin-delete.php' );
-		require_once( WC4BP_ABSPATH . 'admin/admin-ajax.php' );
+		require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-pages.php' );
+		require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-sync.php' );
+		require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-delete.php' );
+		require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-ajax.php' );
 		new wc4bp_admin_ajax();
 	}
 	
@@ -82,7 +82,7 @@ class wc4bp_admin {
 	 * @since 1.3
 	 */
 	public function wc4bp_screen() {
-		include_once( dirname( __FILE__ ) . '\views\html_admin_screen.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_screen.php' );
 	}
 	
 	/**
@@ -115,13 +115,13 @@ class wc4bp_admin {
 		if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
 			$tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
 		}
-		include_once( dirname( __FILE__ ) . '\views\html_admin_shop_tabs.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_tabs.php' );
 	}
 	
 	public function wc4bp_shop_tabs_enable() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		$end_points    = wc_get_account_menu_items();
-		include_once( dirname( __FILE__ ) . '\views\html_admin_shop_tabs_enable.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_tabs_enable.php' );
 	}
 	
 	/**
@@ -154,7 +154,7 @@ class wc4bp_admin {
 			$tab_track_disabled = $wc4bp_options['tab_track_disabled'];
 		}
 		
-		include_once( dirname( __FILE__ ) . '\views\html_admin_shop_disable.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_disable.php' );
 	}
 	
 	public function wc4bp_turn_off_profile_sync() {
@@ -164,9 +164,9 @@ class wc4bp_admin {
 		if ( isset( $wc4bp_options['tab_sync_disabled'] ) ) {
 			$tab_sync_disabled = $wc4bp_options['tab_sync_disabled'];
 		}
-		include_once( dirname( __FILE__ ) . '\views\html_admin_profile_sync.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_profile_sync.php' );
 		
-		include_once( dirname( __FILE__ ) . '/wc4bp-activate.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_PATH . 'wc4bp-activate.php' );
 		if ( isset( $tab_sync_disabled ) && true == $tab_sync_disabled ) {
 			wc4bp_cleanup();
 		} else {
@@ -180,7 +180,7 @@ class wc4bp_admin {
 		$wc4bp_options       = get_option( 'wc4bp_options' );
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 		
-		include_once( dirname( __FILE__ ) . '\views\html_admin_shop_home.php' );
+		include_once(WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_home.php' );
 		
 	}
 	
@@ -192,7 +192,7 @@ class wc4bp_admin {
 		if ( ! empty( $wc4bp_options['page_template'] ) ) {
 			$page_template = $wc4bp_options['page_template'];
 		}
-		include_once( dirname( __FILE__ ) . '\views\html_admin_page_template.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_page_template.php' );
 		
 		submit_button();
 	}
