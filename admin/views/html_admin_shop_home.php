@@ -1,5 +1,4 @@
-
-<p><?php _e('Select the tab you want to use as your Shop Home.', 'wc4bp'); ?></p>
+<p><?php _e( 'Select the tab you want to use as your Shop Home.', 'wc4bp' ); ?></p>
 
 <select name='wc4bp_options[tab_shop_default]'>
 	<?php

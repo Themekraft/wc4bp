@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class wc4bp_admin_pages {
-    
+	
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'wc4bp_register_admin_pages_settings' ) );
 	}
@@ -75,9 +75,9 @@ class wc4bp_admin_pages {
 		if ( isset( $options['track_sub_nav'] ) ) {
 			$track_sub_nav = $options['track_sub_nav'];
 		}
-
+		
 		include_once( dirname( __FILE__ ) . '\views\html_admin_pages_shop_pages_rename.php' );
-
+		
 	}
 	
 	
@@ -109,17 +109,16 @@ class wc4bp_admin_pages {
             }
 
         </style>
-
 		<?php
 		include_once( dirname( __FILE__ ) . '\views\html_admin_pages_forms_table.php' );
 	}
 	
 	public function wc4bp_thickbox_page_form() {
-
+		
 		include_once( dirname( __FILE__ ) . '\views\html_admin_pages_thickbox.php' );
-
+		
 		//$options = get_option( 'wc4bp_options' );
-
+		
 	}
 	
 	public static function wc4bp_add_edit_entry_form_call( $edit = '' ) {
@@ -129,7 +128,7 @@ class wc4bp_admin_pages {
 		$main_nav      = '';
 		
 		if ( isset( $_POST['wc4bp_tab_slug'] ) ) {
-			$wc4bp_tab_slug = $_POST['wc4bp_tab_slug'];
+			$wc4bp_tab_slug = sanitize_text_field( $_POST['wc4bp_tab_slug'] );
 		}
 		
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
@@ -137,12 +136,10 @@ class wc4bp_admin_pages {
 		$children = 0;
 		$page_id  = '';
 		if ( isset( $wc4bp_tab_slug ) ) {
-			
 			if ( isset( $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['tab_name'] ) ) {
 				$tab_name = $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['tab_name'];
 			}
-			
-			
+            
 			if ( isset( $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['children'] ) ) {
 				$children = $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['children'];
 			}
@@ -154,7 +151,6 @@ class wc4bp_admin_pages {
 			if ( isset( $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['page_id'] ) ) {
 				$page_id = $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['page_id'];
 			}
-			
 		}
 //        echo $wc4bp_page_id;
 		$args = array(

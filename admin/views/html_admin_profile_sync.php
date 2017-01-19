@@ -1,4 +1,3 @@
-
 <p>
 	<?php _e('If you disable profile sync, the billing and shipping profile groups will be deleted.', 'wc4bp'); ?>
 </p>

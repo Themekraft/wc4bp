@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class wc4bp_admin_sync {
-    
+	
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'wc4bp_register_admin_settings_sync' ) );
 		add_action( 'wp_ajax_wc4bp_shop_profile_sync_ajax', array( $this, 'wc4bp_shop_profile_sync_ajax' ) );
@@ -31,7 +31,7 @@ class wc4bp_admin_sync {
 	 */
 	public function wc4bp_screen_sync() {
 		include_once( dirname( __FILE__ ) . '\views\html_admin_screen_sync.php' );
-		$number = 20;
+		$number      = 20;
 		$count_users = count_users();
 		$total_users = $count_users['total_users'];
 		$total_pages = intval( $total_users / $number ) + 1;
@@ -49,24 +49,24 @@ class wc4bp_admin_sync {
 		register_setting( 'wc4bp_options_sync', 'wc4bp_options_sync' );
 		
 		// Settings fields and sections
-		add_settings_section( 'section_sync',  __( 'Profile Field Synchronisation Settings', 'wc4bp' ), '', 'wc4bp_options_sync' );
-		add_settings_section( 'section_general', __('Default BuddyPress WooCommerce Profile Field Settings', 'wc4bp' ), '', 'wc4bp_options_sync' );
-		add_settings_field( 'wc4bp_shop_profile_sync', __('<b>WooCommerce BuddyPress Profile Fields Sync </b>','wc4bp' ), array( $this, 'wc4bp_shop_profile_sync' ), 'wc4bp_options_sync', 'section_sync' );
-		add_settings_field( 'wc4bp_change_xprofile_visabilyty_by_user',  __('<b>Change Profile Field Visibility for all Users</b>','wc4bp' ), array( $this, 'wc4bp_change_xprofile_visabilyty_by_user' ), 'wc4bp_options_sync', 'section_sync' );
-		add_settings_field( 'wc4bp_change_xprofile_visabilyty_default',  __('<b>Set the Default Profile Fields Visibility</b>','wc4bp' ), array( $this, 'wc4bp_change_xprofile_visabilyty_default' ), 'wc4bp_options_sync', 'section_general' );
-		add_settings_field( 'wc4bp_change_xprofile_allow_custom_visibility', __('<b>Allow Custom Visibility Change by User</b>','wc4bp' ), array( $this, 'wc4bp_change_xprofile_allow_custom_visibility' ), 'wc4bp_options_sync', 'section_general' );
+		add_settings_section( 'section_sync', __( 'Profile Field Synchronisation Settings', 'wc4bp' ), '', 'wc4bp_options_sync' );
+		add_settings_section( 'section_general', __( 'Default BuddyPress WooCommerce Profile Field Settings', 'wc4bp' ), '', 'wc4bp_options_sync' );
+		add_settings_field( 'wc4bp_shop_profile_sync', __( '<b>WooCommerce BuddyPress Profile Fields Sync </b>', 'wc4bp' ), array( $this, 'wc4bp_shop_profile_sync' ), 'wc4bp_options_sync', 'section_sync' );
+		add_settings_field( 'wc4bp_change_xprofile_visibility_by_user', __( '<b>Change Profile Field Visibility for all Users</b>', 'wc4bp' ), array( $this, 'wc4bp_change_xprofile_visibility_by_user' ), 'wc4bp_options_sync', 'section_sync' );
+		add_settings_field( 'wc4bp_change_xprofile_visibility_default', __( '<b>Set the Default Profile Fields Visibility</b>', 'wc4bp' ), array( $this, 'wc4bp_change_xprofile_visibility_default' ), 'wc4bp_options_sync', 'section_general' );
+		add_settings_field( 'wc4bp_change_xprofile_allow_custom_visibility', __( '<b>Allow Custom Visibility Change by User</b>', 'wc4bp' ), array( $this, 'wc4bp_change_xprofile_allow_custom_visibility' ), 'wc4bp_options_sync', 'section_general' );
 	}
 	
 	public function wc4bp_shop_profile_sync() {
 		include_once( dirname( __FILE__ ) . '\views\html_admin_sync_shop_profile.php' );
-
+		
 	}
 	
 	public function wc4bp_shop_profile_sync_ajax() {
-		$update_type = $_POST['update_type'];
+		$update_type = sanitize_text_field( $_POST['update_type'] );
 		
 		$number = 20;
-		$paged  = isset( $_POST['wc4bp_page'] ) ? $_POST['wc4bp_page'] : 1;
+		$paged  = isset( $_POST['wc4bp_page'] ) ? intval( sanitize_text_field( $_POST['wc4bp_page'] ) ) : 1;
 		$offset = ( $paged - 1 ) * $number;
 		$query  = get_users( '&offset=' . $offset . '&number=' . $number );
 		include_once( dirname( __FILE__ ) . '\views\html_admin_sync_shop_profile_sync_ajax.php' );
@@ -74,7 +74,6 @@ class wc4bp_admin_sync {
 	
 	
 	public function wc4bp_sync_from_admin( $user_id ) {
-		
 		// get the profile fields
 		$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 		$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
@@ -83,35 +82,33 @@ class wc4bp_admin_sync {
 			'fetch_fields' => true
 		) );
 		
-		
-		if ( ! empty( $groups ) ) : foreach ( $groups as $group ) :
-			
-			if ( empty( $group->fields ) ) {
-				continue;
+		if ( ! empty( $groups ) ) {
+			foreach ( $groups as $group ) {
+				if ( empty( $group->fields ) ) {
+					continue;
+				}
+				
+				foreach ( $group->fields as $field ) {
+					
+					$billing_key  = array_search( $field->id, $billing );
+					$shipping_key = array_search( $field->id, $shipping );
+					
+					if ( $shipping_key ) {
+						$type       = 'shipping';
+						$field_slug = $shipping_key;
+					}
+					
+					if ( $billing_key ) {
+						$type       = 'billing';
+						$field_slug = $billing_key;
+					}
+					
+					if ( isset( $field_slug ) ) {
+						xprofile_set_field_data( $field->id, $user_id, get_user_meta( $user_id, $type . '_' . $field_slug, true ) );
+					}
+				}
 			}
-			
-			foreach ( $group->fields as $field ) {
-				
-				$billing_key  = array_search( $field->id, $billing );
-				$shipping_key = array_search( $field->id, $shipping );
-				
-				if ( $shipping_key ) {
-					$type       = 'shipping';
-					$field_slug = $shipping_key;
-				}
-				
-				if ( $billing_key ) {
-					$type       = 'billing';
-					$field_slug = $billing_key;
-				}
-				
-				if ( isset( $field_slug ) ) {
-					xprofile_set_field_data( $field->id, $user_id, get_user_meta( $user_id, $type . '_' . $field_slug, true ) );
-				}
-			}
-		
-		endforeach; endif;
-		
+		}
 	}
 	
 	
@@ -119,12 +116,10 @@ class wc4bp_admin_sync {
 		
 		$visibility_levels = '<select id="wc4bp_set_bp_' . $name . '" name="wc4bp_options_sync[' . $name . ']">
 		
-        <option value="none">' . __('Select Visibility', 'wc4bp' ) . ' </option>';
-
+        <option value="none">' . __( 'Select Visibility', 'wc4bp' ) . ' </option>';
+		
 		foreach ( bp_xprofile_get_visibility_levels() as $level ) {
-
 			$visibility_levels .= '<option value="' . $level['id'] . '" >' . $level['label'] . '</option>';
-
 		}
 		$visibility_levels .= '</select>';
 		
@@ -132,12 +127,11 @@ class wc4bp_admin_sync {
 	}
 	
 	
-	public function wc4bp_change_xprofile_visabilyty_by_user() {
+	public function wc4bp_change_xprofile_visibility_by_user() {
 		include_once( dirname( __FILE__ ) . '\views\html_admin_sync_change_xprofile.php' );
 	}
 	
-	public function wc4bp_change_xprofile_visabilyty_by_user_ajax( $user_id ) {
-		
+	public function wc4bp_change_xprofile_visibility_by_user_ajax( $user_id ) {
 		// get the corresponding  wc4bp fields
 		$shipping         = bp_get_option( 'wc4bp_shipping_address_ids' );
 		$billing          = bp_get_option( 'wc4bp_billing_address_ids' );
@@ -151,18 +145,18 @@ class wc4bp_admin_sync {
 		}
 	}
 	
-	public function wc4bp_change_xprofile_visabilyty_default() {
+	public function wc4bp_change_xprofile_visibility_default() {
 		$wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
-		$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
-		$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
-
-		include_once( dirname( __FILE__ ) . '\views\html_admin_sync_change_xprofile_visabilyty.php' );
+		$billing            = bp_get_option( 'wc4bp_billing_address_ids' );
+		$shipping           = bp_get_option( 'wc4bp_shipping_address_ids' );
+		
+		include_once( dirname( __FILE__ ) . '\views\html_admin_sync_change_xprofile_visibility.php' );
 	}
 	
 	public function wc4bp_change_xprofile_allow_custom_visibility() {
 		$wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
-		$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
-		$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
+		$billing            = bp_get_option( 'wc4bp_billing_address_ids' );
+		$shipping           = bp_get_option( 'wc4bp_shipping_address_ids' );
 		
 		include_once( dirname( __FILE__ ) . '\views\html_admin_sync_change_xprofile_allow_custom.php' );
 	}
