@@ -49,6 +49,5 @@ class wc4bp_admin_delete {
 	public function wc4bp_delete_all_settings() {
 		$wc4bp_options_delete = get_option( 'wc4bp_options_delete' );
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_delete_all_settings.php' );
-
 	}
 }

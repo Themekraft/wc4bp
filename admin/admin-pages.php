@@ -77,7 +77,6 @@ class wc4bp_admin_pages {
 		}
 		
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_pages_shop_pages_rename.php' );
-		
 	}
 	
 	
@@ -111,14 +110,12 @@ class wc4bp_admin_pages {
         </style>
 		<?php
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_pages_forms_table.php' );
+
 	}
 	
 	public function wc4bp_thickbox_page_form() {
-		
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_pages_thickbox.php' );
-		
 		//$options = get_option( 'wc4bp_options' );
-		
 	}
 	
 	public static function wc4bp_add_edit_entry_form_call( $edit = '' ) {

@@ -10,4 +10,3 @@
 
 <?php $this->select_visibility_levels( 'visibility_levels' ); ?>
 <input type="button" id="wc4bp_set_bp_field_visibility" name="wc4bp_options_sync[change_xprofile_visibility]" class="button wc_bp_sync_all_user_data" value="<?php _e( "Sync Now", "wc4bp" ); ?>">
-<?php

@@ -121,6 +121,7 @@ class wc4bp_admin {
 	public function wc4bp_shop_tabs_enable() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		$end_points    = wc_get_account_menu_items();
+
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_tabs_enable.php' );
 	}
 	
@@ -153,7 +154,6 @@ class wc4bp_admin {
 		if ( isset( $wc4bp_options['tab_track_disabled'] ) ) {
 			$tab_track_disabled = $wc4bp_options['tab_track_disabled'];
 		}
-		
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_disable.php' );
 	}
 	
@@ -181,7 +181,6 @@ class wc4bp_admin {
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 		
 		include_once(WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_home.php' );
-		
 	}
 	
 	
@@ -193,7 +192,7 @@ class wc4bp_admin {
 			$page_template = $wc4bp_options['page_template'];
 		}
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_page_template.php' );
-		
+    
 		submit_button();
 	}
 }

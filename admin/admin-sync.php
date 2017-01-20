@@ -31,6 +31,7 @@ class wc4bp_admin_sync {
 	 */
 	public function wc4bp_screen_sync() {
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_screen_sync.php' );
+
 		$number      = 20;
 		$count_users = count_users();
 		$total_users = $count_users['total_users'];
@@ -59,7 +60,6 @@ class wc4bp_admin_sync {
 	
 	public function wc4bp_shop_profile_sync() {
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_sync_shop_profile.php' );
-		
 	}
 	
 	public function wc4bp_shop_profile_sync_ajax() {
@@ -69,6 +69,7 @@ class wc4bp_admin_sync {
 		$paged  = isset( $_POST['wc4bp_page'] ) ? intval( sanitize_text_field( $_POST['wc4bp_page'] ) ) : 1;
 		$offset = ( $paged - 1 ) * $number;
 		$query  = get_users( '&offset=' . $offset . '&number=' . $number );
+
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_sync_shop_profile_sync_ajax.php' );
 	}
 	
