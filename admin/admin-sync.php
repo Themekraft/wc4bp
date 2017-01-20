@@ -30,7 +30,8 @@ class wc4bp_admin_sync {
 	 * @since 1.3
 	 */
 	public function wc4bp_screen_sync() {
-		include_once( dirname( __FILE__ ) . '/views/html_admin_screen_sync.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_screen_sync.php' );
+
 		$number      = 20;
 		$count_users = count_users();
 		$total_users = $count_users['total_users'];
@@ -58,8 +59,7 @@ class wc4bp_admin_sync {
 	}
 	
 	public function wc4bp_shop_profile_sync() {
-		include_once( dirname( __FILE__ ) . '/views/html_admin_sync_shop_profile.php' );
-		
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_sync_shop_profile.php' );
 	}
 	
 	public function wc4bp_shop_profile_sync_ajax() {
@@ -69,7 +69,8 @@ class wc4bp_admin_sync {
 		$paged  = isset( $_POST['wc4bp_page'] ) ? intval( sanitize_text_field( $_POST['wc4bp_page'] ) ) : 1;
 		$offset = ( $paged - 1 ) * $number;
 		$query  = get_users( '&offset=' . $offset . '&number=' . $number );
-		include_once( dirname( __FILE__ ) . '/views/html_admin_sync_shop_profile_sync_ajax.php' );
+
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_sync_shop_profile_sync_ajax.php' );
 	}
 	
 	
@@ -128,7 +129,7 @@ class wc4bp_admin_sync {
 	
 	
 	public function wc4bp_change_xprofile_visibility_by_user() {
-		include_once( dirname( __FILE__ ) . '/views/html_admin_sync_change_xprofile.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_sync_change_xprofile.php' );
 	}
 	
 	public function wc4bp_change_xprofile_visibility_by_user_ajax( $user_id ) {
@@ -150,7 +151,7 @@ class wc4bp_admin_sync {
 		$billing            = bp_get_option( 'wc4bp_billing_address_ids' );
 		$shipping           = bp_get_option( 'wc4bp_shipping_address_ids' );
 		
-		include_once( dirname( __FILE__ ) . '/views/html_admin_sync_change_xprofile_visibility.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_sync_change_xprofile_visibility.php' );
 	}
 	
 	public function wc4bp_change_xprofile_allow_custom_visibility() {
@@ -158,6 +159,6 @@ class wc4bp_admin_sync {
 		$billing            = bp_get_option( 'wc4bp_billing_address_ids' );
 		$shipping           = bp_get_option( 'wc4bp_shipping_address_ids' );
 		
-		include_once( dirname( __FILE__ ) . '/views/html_admin_sync_change_xprofile_allow_custom.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_sync_change_xprofile_allow_custom.php' );
 	}
 }

@@ -144,6 +144,8 @@ class WC4BP_Loader {
 		define( 'WC4BP_ABSPATH', trailingslashit( str_replace( "\\", "/", WP_PLUGIN_DIR . '/' . WC4BP_FOLDER ) ) );
 		define( 'WC4BP_URLPATH', trailingslashit( plugins_url( '/' . WC4BP_FOLDER ) ) );
 		define( 'WC4BP_ABSPATH_TEMPLATE_PATH', WC4BP_ABSPATH . 'templates/' );
+		define( 'WC4BP_ABSPATH_ADMIN_PATH', WC4BP_ABSPATH . 'admin' . DIRECTORY_SEPARATOR );
+		define( 'WC4BP_ABSPATH_ADMIN_VIEWS_PATH', WC4BP_ABSPATH_ADMIN_PATH . 'views' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_CSS', WC4BP_URLPATH . '/admin/css/' );
 		define( 'WC4BP_JS', WC4BP_URLPATH . '/admin/js/' );
 	}

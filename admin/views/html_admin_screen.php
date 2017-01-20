@@ -1,6 +1,6 @@
 <div class="wrap">
 	
-	<?php include_once 'html_admin_header.php'; ?>
+	<?php include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH .'html_admin_header.php'; ?>
 
 	<form method="post" action="options.php">
 		<?php wp_nonce_field( 'update-options' ); ?>
