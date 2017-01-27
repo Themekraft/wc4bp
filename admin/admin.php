@@ -57,8 +57,8 @@ class wc4bp_admin {
 	}
 	
 	/**
-     * Add javascript to footer
-     *
+	 * Add javascript to footer
+	 *
 	 * @param $hook_suffix
 	 */
 	public function wc4bp_admin_js_footer( $hook_suffix ) {
@@ -137,7 +137,7 @@ class wc4bp_admin {
 	public function wc4bp_my_account_tabs_enable() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		$end_points    = wc_get_account_menu_items();
-
+		
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_my_account_tabs.php' );
 	}
 	
@@ -201,7 +201,16 @@ class wc4bp_admin {
 		$wc4bp_options       = get_option( 'wc4bp_options' );
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 		
-		include_once(WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_home.php' );
+		$woo_my_account = WC4BP_MyAccount::get_active_endpoints();
+		if ( ! empty( $woo_my_account ) ) {
+			foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
+				$wc4bp_pages_options["selected_pages"][ 'wc4bp_' . $active_page_key ] = array(
+					'tab_name' => $active_page_name
+				);
+			}
+		}
+		
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_home.php' );
 	}
 	
 	/**
@@ -215,7 +224,7 @@ class wc4bp_admin {
 			$page_template = $wc4bp_options['page_template'];
 		}
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_page_template.php' );
-    
+		
 		submit_button();
 	}
 }
