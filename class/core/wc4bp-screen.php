@@ -87,8 +87,10 @@ function wc4bp_screen_settings() {
 		$yes_no = array( 'yes', 'no' );
 		
 		// check that we got valid data
-		$reviews_2_activity   = ( in_array( $_POST['wc4bp']['reviews_2_activity'], $yes_no ) ) ? $_POST['wc4bp']['reviews_2_activity'] : 'yes';
-		$purchases_2_activity = ( in_array( $_POST['wc4bp']['purchases_2_activity'], $yes_no ) ) ? $_POST['wc4bp']['purchases_2_activity'] : 'yes';
+		$review2              = sanitize_text_field( $_POST['wc4bp']['reviews_2_activity'] );
+		$purchases            = sanitize_text_field( $_POST['wc4bp']['purchases_2_activity'] );
+		$reviews_2_activity   = ( in_array( $review2, $yes_no ) ) ? $review2 : 'yes';
+		$purchases_2_activity = ( in_array( $purchases, $yes_no ) ) ? $purchases : 'yes';
 		
 		do_action( 'wc4bp_pre_update_user_settings', bp_displayed_user_id(), $_POST['wc4bp'] );
 		
@@ -96,7 +98,7 @@ function wc4bp_screen_settings() {
 		bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_reviews', $reviews_2_activity );
 		bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_purchases', $purchases_2_activity );
 		
-		do_action( 'wc4bp_post_update_user_settings', bp_displayed_user_id(), $_POST['wc4bp'] );
+		do_action( 'wc4bp_post_update_user_settings', bp_displayed_user_id(), sanitize_text_field( $_POST['wc4bp'] ) );
 		
 		// Set the feedback messages
 		bp_core_add_message( __( 'Changes saved.', 'wc4bp' ) );
@@ -198,8 +200,11 @@ function wc4bp_setup_tracking_order() {
 		
 		check_admin_referer( 'bp-shop_order_tracking' );
 		
-		$order_id    = empty( $_POST['orderid'] ) ? 0 : esc_attr( $_POST['orderid'] );
-		$order_email = empty( $_POST['order_email'] ) ? '' : esc_attr( $_POST['order_email'] );
+		$post_order_id    = intval( sanitize_text_field( $_POST['orderid'] ) );
+		$post_order_email = sanitize_text_field( $_POST['order_email'] );
+		
+		$order_id    = empty( $post_order_id ) ? 0 : $post_order_id;
+		$order_email = empty( $post_order_email ) ? '' : $post_order_email;
 		
 		if ( ! $order_id ) {
 			echo '<p class="woocommerce_error">' . __( 'Please enter a valid order ID', 'wc4bp' ) . '</p>';

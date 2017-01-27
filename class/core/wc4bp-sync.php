@@ -31,51 +31,51 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param $value
  */
 function wc4bp_sync_addresses_from_profile( $user_id, $field_id, $value ) {
-
+	
 	// get the profile fields
 	$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 	$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
-
+	
 	$shipping_key = array_search( $field_id, $shipping );
 	$billing_key  = array_search( $field_id, $billing );
-
+	
 	if ( $shipping_key ) {
 		$type       = 'shipping';
 		$field_slug = $shipping_key;
 	}
-
+	
 	if ( $billing_key ) {
 		$type       = 'billing';
 		$field_slug = $billing_key;
 	}
-
+	
 	if ( ! isset( $type ) ) {
 		return false;
 	}
-
+	
 	if ( $type == 'country' ) :
 		$geo   = new WC_Countries();
 		$value = array_search( $value, $geo->countries );
 	endif;
-
+	
 	if ( empty( $user_id ) ) {
 		$user_id = bp_displayed_user_id();
 	}
-
+	
 	update_user_meta( $user_id, $type . '_' . $field_slug, $value );
 }
 
 
 function wc4bp_xprofile_profile_field_data_updated( $field_id, $value ) {
 	global $bp;
-
+	
 	$user_id = bp_loggedin_user_id();
 	if ( isset( $_GET['user_id'] ) ) {
 		$user_id = $_GET['user_id'];
 	}
-
+	
 	wc4bp_sync_addresses_from_profile( $user_id, $field_id, $value );
-
+	
 }
 
 add_action( 'xprofile_profile_field_data_updated', 'wc4bp_xprofile_profile_field_data_updated', 10, 3 );
@@ -90,45 +90,46 @@ add_action( 'xprofile_profile_field_data_updated', 'wc4bp_xprofile_profile_field
  * @param    array $_post All cleaned POST data
  */
 function wc4bp_sync_addresses_to_profile( $user_id ) {
-
+	
 	// get the profile fields
 	$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 	$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
-
+	
 	$groups = BP_XProfile_Group::get( array(
 		'fetch_fields' => true
 	) );
-
-
+	
+	
 	if ( ! empty( $groups ) ) : foreach ( $groups as $group ) :
-
+		
 		if ( empty( $group->fields ) ) {
 			continue;
 		}
-
+		
 		foreach ( $group->fields as $field ) {
-
+			
 			$billing_key  = array_search( $field->id, $billing );
 			$shipping_key = array_search( $field->id, $shipping );
-
+			
 			if ( $shipping_key ) {
 				$type       = 'shipping';
 				$field_slug = $shipping_key;
 			}
-
+			
 			if ( $billing_key ) {
 				$type       = 'billing';
 				$field_slug = $billing_key;
 			}
-
+			
 			if ( isset( $field_slug ) ) {
-				xprofile_set_field_data( $field->id, $user_id, $_POST[ $type . '_' . $field_slug ] );
+				$slug = sanitize_text_field( $_POST[ $type . '_' . $field_slug ] );
+				xprofile_set_field_data( $field->id, $user_id, $slug );
 			}
-
+			
 		}
-
+	
 	endforeach; endif;
-
+	
 }
 
 add_action( 'personal_options_update', 'wc4bp_sync_addresses_to_profile', 10, 1 );
@@ -255,6 +256,6 @@ function wc4bp_get_customer_meta_fields() {
 			)
 		)
 	) );
-
+	
 	return $show_fields;
 }

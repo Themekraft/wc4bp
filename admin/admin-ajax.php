@@ -24,7 +24,7 @@ class wc4bp_admin_ajax {
 		
 		add_action( 'wp_ajax_wc4bp_delete_page', array( $this, 'wc4bp_delete_page' ) );
 		add_action( 'wp_ajax_nopriv_wc4bp_delete_page', array( $this, 'wc4bp_delete_page' ) );
-		
+
 //		add_action( 'wp_ajax_wc4bp_thickbox_add_page', 'wc4bp_thickbox_add_page' );
 //		add_action( 'wp_ajax_nopriv_wc4bp_thickbox_add_page', 'wc4bp_thickbox_add_page' );
 	}
@@ -52,25 +52,25 @@ class wc4bp_admin_ajax {
 	public function wc4bp_add_page( $wc4bp_page_id ) {
 		
 		if ( isset( $_POST['wc4bp_page_id'] ) ) {
-			$page_id = $_POST['wc4bp_page_id'];
+			$page_id = sanitize_text_field( $_POST['wc4bp_page_id'] );
 		}
 		
 		if ( ! empty( $_POST['wc4bp_tab_name'] ) ) {
-			$tab_name = $_POST['wc4bp_tab_name'];
+			$tab_name = sanitize_text_field( [ 'wc4bp_tab_name' ] );
 		} else {
 			$tab_name = get_the_title( $page_id );
 		}
 		
 		if ( isset( $_POST['wc4bp_position'] ) ) {
-			$position = $_POST['wc4bp_position'];
+			$position = sanitize_text_field( [ 'wc4bp_position' ] );
 		}
 		
 		if ( isset( $_POST['wc4bp_children'] ) ) {
-			$children = $_POST['wc4bp_children'];
+			$children = sanitize_text_field( [ 'wc4bp_children' ] );
 		}
 		
 		if ( isset( $_POST['wc4bp_tab_slug'] ) ) {
-			$tab_slug = $_POST['wc4bp_tab_slug'];
+			$tab_slug = sanitize_text_field( [ 'wc4bp_tab_slug' ] );
 		}
 		
 		if ( empty( $tab_slug ) ) {
@@ -92,7 +92,7 @@ class wc4bp_admin_ajax {
 		update_option( "wc4bp_pages_options", $wc4bp_pages_options );
 		
 		die();
-    
+		
 	}
 	
 	/**
@@ -105,7 +105,7 @@ class wc4bp_admin_ajax {
 	public function wc4bp_delete_page() {
 		
 		if ( isset( $_POST['wc4bp_tab_slug'] ) ) {
-			$wc4bp_tab_slug = $_POST['wc4bp_tab_slug'];
+			$wc4bp_tab_slug = sanitize_text_field( [ 'wc4bp_tab_slug' ] );
 		}
 		
 		if ( empty( $wc4bp_tab_slug ) ) {
