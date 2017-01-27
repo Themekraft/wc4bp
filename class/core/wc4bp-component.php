@@ -266,13 +266,15 @@ class WC4BP_Component extends BP_Component {
 			$user_domain   = bp_loggedin_user_domain();
 			$settings_link = trailingslashit( $user_domain . BP_SETTINGS_SLUG );
 			
-			// Shop settings menu
-			$wp_admin_nav[] = array(
-				'parent' => 'my-account-settings',
-				'id'     => 'my-account-settings-shop',
-				'title'  => apply_filters( 'bp_shop_settings_nav_link_label', __( 'Shop', 'wc4bp' ) ),
-				'href'   => trailingslashit( $settings_link . 'shop' )
-			);
+			if ( ! isset( $wc4bp_options['tab_activity_disabled'] ) ) {
+				// Shop settings menu
+				$wp_admin_nav[] = array(
+					'parent' => 'my-account-settings',
+					'id'     => 'my-account-settings-shop',
+					'title'  => apply_filters( 'bp_shop_settings_nav_link_label', __( 'Shop', 'wc4bp' ) ),
+					'href'   => trailingslashit( $settings_link . 'shop' )
+				);
+			}
 			
 			$shop_link = trailingslashit( $user_domain . $this->id );
 			

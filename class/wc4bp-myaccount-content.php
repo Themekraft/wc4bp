@@ -35,10 +35,15 @@ class WC4BP_MyAccount_Content {
 	}
 	
 	public function process_shortcodes( $attr, $content = "", $tag ) {
-		foreach ( $this->end_points as $key => $class ) {
-			if ( $tag == $key ) {
-				call_user_func( $class, $attr, $content = "" );
+		try {
+			foreach ( $this->end_points as $key => $class ) {
+				if ( $tag == $key ) {
+					call_user_func( $class, $attr, $content = "" );
+				}
 			}
+		}
+		catch (Exception $exception){
+			echo $exception->getMessage();
 		}
 	}
 	
