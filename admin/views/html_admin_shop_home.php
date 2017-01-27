@@ -8,7 +8,7 @@
 			echo '<option value="' . $key . '" ' . selected( $wc4bp_options['tab_shop_default'], $key, false ) . '>' . $attached_page['tab_name'] . '</option>';
 		}
 	} else {
-		echo '<option value="default"> _e(\'You need at least one Page added to Member Profiles!\', \'wc4bp\');</option>';
+		echo '<option value="default">' . __( 'You need at least one Page added to Member Profiles!', 'wc4bp' ) . '</option>';
 	}
 	?>
 
