@@ -29,9 +29,13 @@ class wc4bp_Manage_Admin {
 	 * @access    public
 	 */
 	public function includes() {
-		
 		// core component
 		require( WC4BP_ABSPATH . 'class/core/wc4bp-component.php' );
+		
+		global $bp;
+		if ( ! isset( $bp->shop ) ) {
+			$bp->shop = new WC4BP_Component();
+		}
 		
 		if ( is_admin() ) {
 			// API License Key Registration Form

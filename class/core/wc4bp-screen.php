@@ -252,7 +252,6 @@ function wc4bp_output_tracking_order() {
 add_action( 'wc4bp_after_track_body', 'wc4bp_output_tracking_order' );
 
 function wc4bp_screen_plugins() {
-	
 	if ( bp_displayed_user_id() && bp_is_current_component( 'shop' ) && bp_current_action() ) {
 		bp_core_load_template( apply_filters( 'wc4bp_template_member_plugin', 'shop/member/plugin' ) );
 	}
