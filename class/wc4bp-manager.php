@@ -18,7 +18,6 @@ class wc4bp_Manager {
 	
 	public function __construct() {
 		
-		
 		//Load resources
 		require_once 'wc4bp-myaccount.php';
 		new WC4BP_MyAccount();
