@@ -110,7 +110,7 @@ class wc4bp_admin_pages {
         </style>
 		<?php
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_pages_forms_table.php' );
-
+		
 	}
 	
 	public function wc4bp_thickbox_page_form() {
@@ -136,7 +136,7 @@ class wc4bp_admin_pages {
 			if ( isset( $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['tab_name'] ) ) {
 				$tab_name = $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['tab_name'];
 			}
-            
+			
 			if ( isset( $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['children'] ) ) {
 				$children = $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['children'];
 			}
@@ -164,5 +164,5 @@ class wc4bp_admin_pages {
 	public function wc4bp_add_edit_entry_form( $edit = '' ) {
 		self::wc4bp_add_edit_entry_form_call( $edit );
 	}
-  
+	
 }

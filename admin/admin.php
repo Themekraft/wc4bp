@@ -1,5 +1,7 @@
 <?php
 /**
+ * Main file to handle the admin pages
+ *
  * @package        WordPress
  * @subpackage     BuddyPress, Woocommerce
  * @author         GFireM
@@ -13,6 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Class wc4bp_admin handle the admin pages
+ */
 class wc4bp_admin {
 	
 	public function __construct() {
@@ -51,6 +56,11 @@ class wc4bp_admin {
 		add_submenu_page( 'wc4bp-options-page', __( 'Delete', 'wc4bp' ), 'Delete', 'manage_options', 'wc4bp-options-page-delete', array( $admin_delete, 'wc4bp_screen_delete' ) );
 	}
 	
+	/**
+	 * Add javascript to footer
+	 *
+	 * @param $hook_suffix
+	 */
 	public function wc4bp_admin_js_footer( $hook_suffix ) {
 		global $hook_suffix;
 		
@@ -100,7 +110,7 @@ class wc4bp_admin {
 		add_settings_section( 'section_general2', '', '', 'wc4bp_options' );
 		
 		add_settings_field( 'tabs_shop', __( '<b>Shop Settings</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs' ), 'wc4bp_options', 'section_general' );
-		add_settings_field( 'tabs_enable', __( '<b>Shop Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs_enable' ), 'wc4bp_options', 'section_general' );
+		add_settings_field( 'tabs_enable', __( '<b>Remove My Account Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_my_account_tabs_enable' ), 'wc4bp_options', 'section_general' );
 		add_settings_field( 'tabs_disabled', __( '<b>Remove Shop Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs_disable' ), 'wc4bp_options', 'section_general' );
 		add_settings_field( 'profile sync', __( '<b>Turn off the profile sync</b>', 'wc4bp' ), array( $this, 'wc4bp_turn_off_profile_sync' ), 'wc4bp_options', 'section_general' );
 		add_settings_field( 'overwrite', __( '<b>Overwrite the Content of your Shop Home/Main Tab</b>', 'wc4bp' ), array( $this, 'wc4bp_overwrite_default_shop_home_tab' ), 'wc4bp_options', 'section_general' );
@@ -108,6 +118,9 @@ class wc4bp_admin {
 		
 	}
 	
+	/**
+	 * Shop settings view
+	 */
 	public function wc4bp_shop_tabs() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		
@@ -118,18 +131,20 @@ class wc4bp_admin {
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_tabs.php' );
 	}
 	
-	public function wc4bp_shop_tabs_enable() {
+	/**
+	 * Tun off woo my account tabs view
+	 */
+	public function wc4bp_my_account_tabs_enable() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		$end_points    = wc_get_account_menu_items();
-
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_tabs_enable.php' );
+		
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_my_account_tabs.php' );
 	}
 	
 	/**
 	 * Do you want to use the WordPress Customizer? This is the option to turn on/off the WordPress Customizer Support.
 	 *
 	 * @author Sven Lehnert
-	 * @package TK Loop Designer
 	 * @since 1.0
 	 */
 	public function wc4bp_shop_tabs_disable() {
@@ -157,6 +172,9 @@ class wc4bp_admin {
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_disable.php' );
 	}
 	
+	/**
+	 * Tun off profile tabs view
+	 */
 	public function wc4bp_turn_off_profile_sync() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		
@@ -176,14 +194,28 @@ class wc4bp_admin {
 		
 	}
 	
+	/**
+	 * View to select the tabs to use as home
+	 */
 	public function wc4bp_overwrite_default_shop_home_tab() {
 		$wc4bp_options       = get_option( 'wc4bp_options' );
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 		
-		include_once(WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_home.php' );
+		$woo_my_account = WC4BP_MyAccount::get_active_endpoints();
+		if ( ! empty( $woo_my_account ) ) {
+			foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
+				$wc4bp_pages_options["selected_pages"][ 'wc4bp_' . $active_page_key ] = array(
+					'tab_name' => $active_page_name
+				);
+			}
+		}
+		
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_home.php' );
 	}
 	
-	
+	/**
+	 * View to select the page view template by default
+	 */
 	public function wc4bp_page_template() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		
@@ -192,7 +224,7 @@ class wc4bp_admin {
 			$page_template = $wc4bp_options['page_template'];
 		}
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_page_template.php' );
-    
+		
 		submit_button();
 	}
 }

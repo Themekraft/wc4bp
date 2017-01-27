@@ -74,13 +74,6 @@ class WC4BP_Loader {
 		// Init Freemius.
 		$this->wc4bp_fs();
 		
-		// Needs to be rewritetn in Otto style ;-)
-		if ( ! defined( 'BP_VERSION' ) ) {
-			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
-			
-			return;
-		}
-		
 		add_action( 'bp_include', array( $this, 'check_requirements' ), 0 );
 		
 		// Run the activation function
@@ -231,14 +224,6 @@ class WC4BP_Loader {
 		load_plugin_textdomain( 'wc4bp', false, dirname( plugin_basename( __FILE__ ) ) . "/languages" );
 	}
 	
-	/**
-	 * Generate the default data arrays
-	 */
-	public function activation() {
-		include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
-		wc4bp_activate();
-	}
-	
 	/*
 	 *  Update function from version 1.3.8 to 1.4
 	 */
@@ -284,6 +269,16 @@ class WC4BP_Loader {
 		}
 	}
 	
+	/**
+	 * Generate the default data arrays
+	 */
+	public function activation() {
+		//Add all woo my account pages
+		WC4BP_MyAccount::add_all_endpoints();
+		
+		include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
+		wc4bp_activate();
+	}
 	
 	/**
 	 * Deletes all data if plugin deactivated
@@ -292,8 +287,10 @@ class WC4BP_Loader {
 	public function uninstall() {
 		global $wpdb, $blog_id;
 		
-		$wc4bp_options_delete = get_option( 'wc4bp_options_delete' );
+		//delete woo my account pages
+		WC4BP_MyAccount::remove_all_endpoints();
 		
+		$wc4bp_options_delete = get_option( 'wc4bp_options_delete' );
 		if ( $wc4bp_options_delete == 'delete' ) {
 			include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
 			wc4bp_cleanup();

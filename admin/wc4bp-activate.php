@@ -298,7 +298,6 @@ function wc4bp_cleanup() {
 		delete_option( 'wc4bp_billing_address_ids' );
 		delete_option( 'wc4bp_installed' );
 	endif;
-
 }
 
 function wc4bp_bp_xprofile_update_field_meta( $field_ids ) {
