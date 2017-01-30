@@ -37,7 +37,7 @@ class wc4bp_Manage_Admin {
 			$bp->shop = new WC4BP_Component();
 		}
 		
-		if ( is_admin() ) {
+		if ( is_admin() && wc4bp_Manager::is_woocommerce_active()) {
 			// API License Key Registration Form
 			require_once( WC4BP_ABSPATH . 'admin/admin.php' );
 			new wc4bp_admin();
