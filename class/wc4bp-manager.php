@@ -34,8 +34,6 @@ class wc4bp_Manager {
 	
 	public static function is_woocommerce_active() {
 		if ( ! defined( 'WOOCOMMERCE_VERSION' ) ) {
-			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration needs WooCommerce to be installed. <a href="%s">Download it now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
-			
 			return false;
 		}
 		

@@ -81,8 +81,17 @@ class WC4BP_Loader {
 		
 		$this->constants();
 		
-		require_once( plugin_dir_path( __FILE__ ) . 'class/wc4bp-manager.php' );
+		require_once plugin_dir_path( __FILE__ ) . 'class/class-tgm-plugin-activation.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-manager.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-required.php';
+		new WC4BP_Required();
+		
+		if(wc4bp_Manager::is_woocommerce_active()){
+			
+		}
+		
 		new wc4bp_Manager();
+		
 		
 		add_action( 'plugins_loaded', array( $this, 'update' ), 10 );
 		add_action( 'plugins_loaded', array( $this, 'translate' ) );
@@ -91,8 +100,6 @@ class WC4BP_Loader {
 		 * Deletes all data if plugin deactivated
 		 */
 		register_deactivation_hook( __FILE__, array( $this, 'uninstall' ) );
-		
-		
 	}
 	
 	// Create a helper function for easy SDK access.
@@ -136,6 +143,7 @@ class WC4BP_Loader {
 		define( 'WC4BP_FOLDER', plugin_basename( dirname( __FILE__ ) ) );
 		define( 'WC4BP_ABSPATH', trailingslashit( str_replace( "\\", "/", WP_PLUGIN_DIR . '/' . WC4BP_FOLDER ) ) );
 		define( 'WC4BP_URLPATH', trailingslashit( plugins_url( '/' . WC4BP_FOLDER ) ) );
+		define( 'WC4BP_ABSPATH_CLASS_PATH', WC4BP_ABSPATH . 'class/' );
 		define( 'WC4BP_ABSPATH_TEMPLATE_PATH', WC4BP_ABSPATH . 'templates/' );
 		define( 'WC4BP_ABSPATH_ADMIN_PATH', WC4BP_ABSPATH . 'admin' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_ABSPATH_ADMIN_VIEWS_PATH', WC4BP_ABSPATH_ADMIN_PATH . 'views' . DIRECTORY_SEPARATOR );
@@ -154,56 +162,7 @@ class WC4BP_Loader {
 	 * @return    boolean
 	 */
 	public function check_requirements() {
-		global $wp_version, $wpdb;
-		
-		$error = $check_wc = false;
-		
-		// only check WC on the main site on MS installations
-		$check_wc = true;
-		if ( is_multisite() ) :
-			$check_wc = false;
-			if ( defined( 'BLOG_ID_CURRENT_SITE' ) && $wpdb->blogid != BLOG_ID_CURRENT_SITE ) {
-				$check_wc = true;
-			}
-		endif;
-		
-		// BuddyPress checks
-		if ( ! defined( 'BP_VERSION' ) ) {
-			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
-			$error = true;
-		} elseif ( version_compare( BP_VERSION, self::MIN_BP, '>=' ) == false ) {
-			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only under BuddyPress %s or higher. <a href="%s">Upgrade now</a>!\', " wc4bp" ) . \'</strong></p></div>\', WC4BP_Loader::MIN_BP, admin_url("update-core.php") );' ) );
-			$error = true;
-		}
-		
-		if ( defined( 'BP_VERSION' ) ) {
-			if ( function_exists( 'bp_is_active' ) ) {
-				if ( ! bp_is_active( 'settings' ) && ! bp_is_active( 'xprofile' ) ) {
-					add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only with the BuddyPress Extended Profiles and Account Settings Component activated <a href="%s">Activate now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("options-general.php?page=bp-components") );' ) );
-					$error = true;
-				}
-				
-				if ( ! bp_is_active( 'settings' ) && bp_is_active( 'xprofile' ) ) {
-					add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only with the BuddyPress Account Settings Component activated <a href="%s">Activate now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("options-general.php?page=bp-components") );' ) );
-					$error = true;
-				}
-				
-				if ( bp_is_active( 'settings' ) && ! bp_is_active( 'xprofile' ) ) {
-					add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only with the BuddyPress Extended Profiles Component activated <a href="%s">Activate now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("options-general.php?page=bp-components") );' ) );
-					$error = true;
-				}
-			}
-		}
-		// Woocommerce checks
-		if ( $check_wc ) :
-			if ( ! defined( 'WOOCOMMERCE_VERSION' ) ) {
-				add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration needs WooCommerce to be installed. <a href="%s">Download it now</a>!\', " wc4bp" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
-				$error = true;
-			} elseif ( version_compare( WOOCOMMERCE_VERSION, self::MIN_WOO, '>=' ) == false ) {
-				add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only under WooCommerce %s or higher. <a href="%s">Upgrade now</a>!\', " wc4bp" ) . \'</strong></p></div>\', WC4BP_Loader::MIN_WOO, admin_url("update-core.php") );' ) );
-				$error = true;
-			}
-		endif;
+		global $wp_version;
 		
 		// WordPress check
 		if ( version_compare( $wp_version, self::MIN_WP, '>=' ) == false ) {
