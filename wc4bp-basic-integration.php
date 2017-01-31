@@ -70,36 +70,29 @@ class WC4BP_Loader {
 	
 	public function __construct() {
 		self::$plugin_name = plugin_basename( __FILE__ );
-		
-		// Init Freemius.
-		$this->wc4bp_fs();
-		
-		add_action( 'bp_include', array( $this, 'check_requirements' ), 0 );
-		
-		// Run the activation function
-		register_activation_hook( __FILE__, array( $this, 'activation' ) );
-		
 		$this->constants();
-		
 		require_once plugin_dir_path( __FILE__ ) . 'class/class-tgm-plugin-activation.php';
 		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-manager.php';
 		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-required.php';
 		new WC4BP_Required();
 		
-		if(wc4bp_Manager::is_woocommerce_active()){
+		if ( wc4bp_Manager::is_woocommerce_active() && wc4bp_Manager::is_buddypress_active() && wc4bp_Manager::is_current_active() ) {
+			// Init Freemius.
+			$this->wc4bp_fs();
 			
+			new wc4bp_Manager();
+			
+			// Run the activation function
+			register_activation_hook( __FILE__, array( $this, 'activation' ) );
+			
+			add_action( 'plugins_loaded', array( $this, 'update' ), 10 );
+			add_action( 'plugins_loaded', array( $this, 'translate' ) );
+			
+			/**
+			 * Deletes all data if plugin deactivated
+			 */
+			register_deactivation_hook( __FILE__, array( $this, 'uninstall' ) );
 		}
-		
-		new wc4bp_Manager();
-		
-		
-		add_action( 'plugins_loaded', array( $this, 'update' ), 10 );
-		add_action( 'plugins_loaded', array( $this, 'translate' ) );
-		
-		/**
-		 * Deletes all data if plugin deactivated
-		 */
-		register_deactivation_hook( __FILE__, array( $this, 'uninstall' ) );
 	}
 	
 	// Create a helper function for easy SDK access.
@@ -108,7 +101,7 @@ class WC4BP_Loader {
 		
 		if ( ! isset( $wc4bp_fs ) ) {
 			// Include Freemius SDK.
-			require_once dirname( __FILE__ ) . '/admin/resources/freemius/start.php';
+			require_once WC4BP_ABSPATH_ADMIN_PATH . 'resources/freemius/start.php';
 			
 			$wc4bp_fs = fs_dynamic_init( array(
 				'id'             => '425',
@@ -118,13 +111,13 @@ class WC4BP_Loader {
 				'is_premium'     => true,
 				'has_addons'     => true,
 				'has_paid_plans' => true,
-				'menu'           => array(
+				'menu'       => array(
 					'slug'    => 'wc4bp-options-page',
 					'support' => false,
 				),
 				// Set the SDK to work in a sandbox mode (for development & testing).
 				// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-				'secret_key'     => 'sk_ccE(cjH4?%J)wXa@h2vV^g]jAeY$i',
+				'secret_key' => 'sk_ccE(cjH4?%J)wXa@h2vV^g]jAeY$i',
 			) );
 		}
 		
@@ -149,28 +142,6 @@ class WC4BP_Loader {
 		define( 'WC4BP_ABSPATH_ADMIN_VIEWS_PATH', WC4BP_ABSPATH_ADMIN_PATH . 'views' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_CSS', WC4BP_URLPATH . '/admin/css/' );
 		define( 'WC4BP_JS', WC4BP_URLPATH . '/admin/js/' );
-	}
-	
-	/**
-	 * Check for required versions
-	 *
-	 * Checks for WP, BP, PHP and Woocommerce versions
-	 *
-	 * @since    1.0
-	 * @access    private
-	 * @global    string $wp_version Current WordPress version
-	 * @return    boolean
-	 */
-	public function check_requirements() {
-		global $wp_version;
-		
-		// WordPress check
-		if ( version_compare( $wp_version, self::MIN_WP, '>=' ) == false ) {
-			add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'WC BP Integration works only under WordPress %s or higher. <a href="%s">Upgrade now</a>!\', " wc4bp" ) . \'</strong></p></div>\', WC4BP_Loader::MIN_WP, admin_url("update-core.php") );' ) );
-			$error = true;
-		}
-		
-		self::$active = ( ! $error ) ? true : false;
 	}
 	
 	/**
