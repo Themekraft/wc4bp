@@ -39,6 +39,7 @@ if ( $my_account_page ) {
 	}
 	$args      = apply_filters( 'wc4bp_members_plugin_template_query', $args );
 }
+$bp->current_action = $action;
 
 ?>
 <div id="item-body" role="main">

@@ -25,6 +25,52 @@ class WC4BP_MyAccount {
 		add_filter( 'the_title', array( $this, 'add_title_mark' ), 10, 2 );
 		
 		add_filter( 'esc_html', array( $this, "esc_html_for_title" ), 10, 2 );
+		
+
+		add_filter( 'woocommerce_get_myaccount_page_permalink', array( $this, 'my_account_page_permalink' ), 10, 1 );
+		add_filter( 'woocommerce_get_myaccount_page_id', array( $this, 'my_account_page_id' ), 10, 1 );
+	}
+	
+	/**
+	 * Redirect WC my Account to BP member profile page
+	 *
+	 * @param $permalink
+	 *
+	 * @return string
+	 */
+	public function my_account_page_permalink( $permalink ) {
+		global $current_user, $bp;
+		
+		$current_user = wp_get_current_user();
+		$userdata     = get_userdata( $current_user->ID );
+		
+		$wc4bp_endpoint = WC4BP_MyAccount::get_active_endpoints();
+		
+		if ( ! empty( $wc4bp_endpoint ) ) {
+			foreach ( $wc4bp_endpoint as $active_page_key => $active_page_name ) {
+				if($bp->current_action == $active_page_key){
+					$permalink = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename.'/shop/'.$bp->current_action;
+					break;
+				}
+			}
+		}
+		
+		return $permalink;
+	}
+	
+	/**
+	 * Get the BP member page id
+	 *
+	 * @param $page_id
+	 *
+	 * @return string
+	 */
+	public function my_account_page_id( $page_id ) {
+		global $bp;
+		
+		$page = get_page_by_path( "member" );
+		
+		return $page->ID;
 	}
 	
 	public function esc_html_for_title( $safe_text, $text ) {
@@ -56,7 +102,7 @@ class WC4BP_MyAccount {
 			foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
 				$post = self::get_page_by_name( 'wc4bp_' . $end_point_key );
 				if ( ! empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] && $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] == "1" ) ) {
-					if ( !empty( $post ) ) {
+					if ( ! empty( $post ) ) {
 						wp_delete_post( $post->ID, true );
 					}
 				} else {
@@ -83,7 +129,7 @@ class WC4BP_MyAccount {
 		}
 	}
 	
-	public static function add_all_endpoints(){
+	public static function add_all_endpoints() {
 		foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
 			$post = self::get_page_by_name( 'wc4bp_' . $end_point_key );
 			if ( empty( $post ) ) {
@@ -105,7 +151,7 @@ class WC4BP_MyAccount {
 		}
 	}
 	
-	public static function remove_all_endpoints(){
+	public static function remove_all_endpoints() {
 		foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
 			$post = self::get_page_by_name( 'wc4bp_' . $end_point_key );
 			if ( ! empty( $post ) ) {
