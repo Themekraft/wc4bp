@@ -146,9 +146,8 @@ class WC4BP_Component extends BP_Component {
 			);
 		}
 		
-		global $woocommerce;
 		// Add the checkout nav item, if cart empty do not add.
-		if ( ! is_admin() && $woocommerce->cart->cart_contents_total != null && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+		if ( ! is_admin() && WC()->cart->get_cart_contents_count() > 0 && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
 			$sub_nav[] = array(
 				'name'            => apply_filters( 'bp_checkout_link_label', __( 'Checkout', 'wc4bp' ) ),
 				'slug'            => 'checkout',
