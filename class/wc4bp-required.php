@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC4BP_Required {
 	
 	public function __construct() {
+		
 		add_action( 'init', array( $this, 'setup_init' ), 1, 1 );
 	}
 	
@@ -26,6 +27,30 @@ class WC4BP_Required {
 			return;
 		}
 		add_action( 'tgmpa_register', array( $this, 'setup_and_check' ) );
+		add_action( 'in_admin_footer', array( $this, 'remove_woo_footer' ) );
+	}
+	
+	public function remove_woo_footer() {
+		$current_screen = get_current_screen();
+		if ( isset( $current_screen->id ) && $current_screen->id == 'admin_page_wc4bp-install-plugins' && class_exists( 'WC_Admin' ) ) {
+			$this->remove_anonymous_callback_hook( 'admin_footer_text', 'WC_Admin', 'admin_footer_text' );
+		}
+	}
+	
+	private function remove_anonymous_callback_hook( $tag, $class, $method ) {
+		$filters = $GLOBALS['wp_filter'][ $tag ];
+		
+		if ( empty ( $filters ) || empty( $filters->callbacks ) ) {
+			return;
+		}
+		
+		foreach ( $filters->callbacks as $priority => $filter ) {
+			foreach ( $filter as $identifier => $function ) {
+				if ( is_array( $function ) && is_a( $function['function'][0], $class ) && $method === $function['function'][1] ) {
+					remove_filter( $tag, array( $function['function'][0], $method ), $priority );
+				}
+			}
+		}
 	}
 	
 	public function setup_and_check() {
