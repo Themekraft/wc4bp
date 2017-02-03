@@ -26,9 +26,55 @@ class WC4BP_MyAccount {
 		
 		add_filter( 'esc_html', array( $this, "esc_html_for_title" ), 10, 2 );
 		
-
+		add_filter( 'woocommerce_get_endpoint_url', array( $this, 'endpoint_url' ), 1, 4 );
+		
 		add_filter( 'woocommerce_get_myaccount_page_permalink', array( $this, 'my_account_page_permalink' ), 10, 1 );
 		add_filter( 'woocommerce_get_myaccount_page_id', array( $this, 'my_account_page_id' ), 10, 1 );
+		
+		add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url' ), 10, 2 );
+	}
+	
+	public function get_base_url( $endpoint ) {
+		return bp_core_get_user_domain( bp_loggedin_user_id() ) . "shop/" . $endpoint;
+	}
+	
+	/**
+	 * Change url for view order endpoint.
+	 *
+	 * @param $view_order_url
+	 * @param $order
+	 *
+	 * @return string
+	 */
+	public function get_view_order_url( $view_order_url, $order ) {
+		$view_order_url = wc_get_endpoint_url( 'view-order', $order->id, $this->get_base_url( 'wc4bp_orders' ) );
+		return $view_order_url;
+	}
+	
+	public function endpoint_url( $url, $endpoint, $value, $permalink ) {
+		if ( wc4bp_Manager::is_current_active() ) {
+			global $current_user, $bp;
+			
+			$current_user = wp_get_current_user();
+			$userdata     = get_userdata( $current_user->ID );
+			
+			$base_path = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/';
+			
+			switch ( $endpoint ) {
+				case "payment-methods":
+					$url = $base_path . 'payment';
+					break;
+				case "set-default-payment-method":
+				case "delete-payment-method":
+					$url = add_query_arg( $endpoint, $value, $base_path . 'payment' );
+					break;
+				case "add-payment-method":
+					$url = add_query_arg( $endpoint, "w2ewe3423ert", $base_path . 'payment/add-payment' );
+					break;
+			}
+		}
+		
+		return $url;
 	}
 	
 	/**
@@ -48,8 +94,8 @@ class WC4BP_MyAccount {
 		
 		if ( ! empty( $wc4bp_endpoint ) ) {
 			foreach ( $wc4bp_endpoint as $active_page_key => $active_page_name ) {
-				if($bp->current_action == $active_page_key){
-					$permalink = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename.'/shop/'.$bp->current_action;
+				if ( $bp->current_action == $active_page_key ) {
+					$permalink = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/' . $bp->current_action;
 					break;
 				}
 			}
@@ -66,10 +112,7 @@ class WC4BP_MyAccount {
 	 * @return string
 	 */
 	public function my_account_page_id( $page_id ) {
-		global $bp;
-		
 		$page = get_page_by_path( "member" );
-		
 		return $page->ID;
 	}
 	
