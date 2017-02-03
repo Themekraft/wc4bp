@@ -53,8 +53,8 @@ class WC4BP_MyAccount_Content {
 	}
 	
 	public function wc4bp_my_account_process_shortcode_downloads( $attr, $content ) {
-		//TODO need to implement
-		echo "Pending";
+		wc_print_notices();
+		woocommerce_account_downloads();
 	}
 	
 	public static function wc4bp_my_account_process_shortcode_edit_address( $attr, $content ) {

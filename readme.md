@@ -1,16 +1,8 @@
-=== WooCommerce for Buddypress ===
-https://travis-ci.org/gfirem/wc4bp.svg?branch=master
-Contributors: themekraft, svenl77, slava, travel-junkie, kishores
-Tags: buddypress, social networking, woocommerce, e-commerce
-Requires at least: WP 4.0
-Tested up to: WP 4.5.3
-Stable tag: 2.5
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+[![Build Status](https://travis-ci.org/gfirem/wc4bp.svg?branch=master)](https://travis-ci.org/gfirem/wc4bp)
 
-WooCommerce for BuddyPress - Shop solution for your BuddyPress community. Integrates a WooCommerce installation with a BuddyPress social network.
+## WooCommerce for Buddypress
 
-== Description ==
+Contributors: @themekraft, @svenl77, @slava, @travel-junkie, @kishores
 
 Takes a WooCommerce installation and moves all shopping cart and checkout pages into a users BuddyPress profile.
 
@@ -32,30 +24,25 @@ If you turn off BuddyPress for some reason, or the user don't want to become a m
 Easy to use:
 No configuration needed. Just activate. That's it!
 
-Installation:
+#####Installation:
 The installation is very simple:
 Just activate the plugin and it will work. There are no admin options needed.
 
-== Installation ==
 1. Download the plugin
 2. Upload to wp-content/plugins/
 3. Activate in the backend
 4. Done... No options available!
 
-== Frequently Asked Questions ==
+#####Frequently Asked Questions 
 
-= Why no options? =
+* Why no options?
 
-Because we don't need any. Woocommerce takes care of that. But maybe later...
+	* Because we don't need any. Woocommerce takes care of that. But maybe later...
 
-== Languages ==
+#####Languages
 * English
 * German
 
-== Screenshots ==
-
-1. Admin
-
-== Changelog ==
+#####Changelog
 
 2.6 first public version

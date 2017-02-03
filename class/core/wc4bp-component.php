@@ -360,17 +360,17 @@ class WC4BP_Component extends BP_Component {
 		$found_template = locate_template( 'members/single/plugins.php', false, false );
 		
 		$wc4bp_options = get_option( 'wc4bp_options' );
-		$cart_page_id     = wc_get_page_id( 'cart' );
-		$cart_page  = get_post( $cart_page_id, ARRAY_A );
-		$cart_slug       = $cart_page['post_name'];
-		$path = 'shop/member/plugin';
+		$cart_page_id  = wc_get_page_id( 'cart' );
+		$cart_page     = get_post( $cart_page_id, ARRAY_A );
+		$cart_slug     = $cart_page['post_name'];
+		$path          = 'shop/member/plugin';
 		switch ( $bp->current_action ) {
 			case 'home':
 				if ( $wc4bp_options['tab_shop_default'] != 'default' ) {
 					$bp->current_action = $wc4bp_options['tab_shop_default'];
 				} else {
 					$bp->current_action = $cart_slug;
-					$path = 'shop/member/cart';
+					$path               = 'shop/member/cart';
 				}
 				break;
 			case 'cart':

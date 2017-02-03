@@ -1,0 +1,14 @@
+{
+	"name": "wc4bp",
+	"description": "WooCommerce for BuddyPress - Shop solution for your BuddyPress community. Integrates a WooCommerce installation with a BuddyPress social network.",
+	"keywords": [
+		"buddypress", "social networking", "woocommerce", "e-commerce"
+	],
+	"homepage": "http://www.themekraft.com",
+	"license": "GPL-2.0+",
+	"type": "wordpress-plugin",
+	"require": {
+		"composer/installers": "~1.0",
+		"xrstf/composer-php52": "^1.0.19"
+	}
+}
