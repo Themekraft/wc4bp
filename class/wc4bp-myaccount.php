@@ -15,12 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC4BP_MyAccount {
 	
-	protected $base_html = '<span class=\'wc4bp-my-account-page\'>wc4bp</span>';
-	
+	protected $base_html;
+	public static $prefix;
 	protected $current_title;
 	
 	public function __construct() {
-		
+		self::$prefix    = apply_filters( 'wc4bp_my_account_prefix', 'aaaa' );
+		$this->base_html = '<span class=\'wc4bp-my-account-page\'>' . self::get_prefix() . '</span>';
+		self::$prefix .= '_';
 		add_action( 'update_option_wc4bp_options', array( $this, "process_saved_settings" ), 10, 2 );
 		add_filter( 'the_title', array( $this, 'add_title_mark' ), 10, 2 );
 		
@@ -47,7 +49,8 @@ class WC4BP_MyAccount {
 	 * @return string
 	 */
 	public function get_view_order_url( $view_order_url, $order ) {
-		$view_order_url = wc_get_endpoint_url( 'view-order', $order->id, $this->get_base_url( 'wc4bp_orders' ) );
+		$view_order_url = wc_get_endpoint_url( 'view-order', $order->id, $this->get_base_url( self::get_prefix() . 'orders' ) );
+		
 		return $view_order_url;
 	}
 	
@@ -113,6 +116,7 @@ class WC4BP_MyAccount {
 	 */
 	public function my_account_page_id( $page_id ) {
 		$page = get_page_by_path( "member" );
+		
 		return $page->ID;
 	}
 	
@@ -143,7 +147,7 @@ class WC4BP_MyAccount {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		if ( empty( $wc4bp_options["tab_activity_disabled"] ) ) {
 			foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
-				$post = self::get_page_by_name( 'wc4bp_' . $end_point_key );
+				$post = self::get_page_by_name( self::get_prefix() . $end_point_key );
 				if ( ! empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] && $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] == "1" ) ) {
 					if ( ! empty( $post ) ) {
 						wp_delete_post( $post->ID, true );
@@ -155,7 +159,7 @@ class WC4BP_MyAccount {
 								'comment_status' => 'closed',
 								'ping_status'    => 'closed',
 								'post_title'     => $end_point_value,
-								'post_name'      => 'wc4bp_' . $end_point_key,
+								'post_name'      => self::get_prefix() . $end_point_key,
 								'post_content'   => self::get_page_content( $end_point_key ),
 								'post_status'    => 'publish',
 								'post_type'      => 'page',
@@ -172,16 +176,20 @@ class WC4BP_MyAccount {
 		}
 	}
 	
+	public static function get_prefix() {
+		return self::$prefix;
+	}
+	
 	public static function add_all_endpoints() {
 		foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
-			$post = self::get_page_by_name( 'wc4bp_' . $end_point_key );
+			$post = self::get_page_by_name( self::get_prefix() . $end_point_key );
 			if ( empty( $post ) ) {
 				$r = wp_insert_post(
 					array(
 						'comment_status' => 'closed',
 						'ping_status'    => 'closed',
 						'post_title'     => $end_point_value,
-						'post_name'      => 'wc4bp_' . $end_point_key,
+						'post_name'      => self::get_prefix(). $end_point_key,
 						'post_content'   => self::get_page_content( $end_point_key ),
 						'post_status'    => 'publish',
 						'post_type'      => 'page',
@@ -196,7 +204,7 @@ class WC4BP_MyAccount {
 	
 	public static function remove_all_endpoints() {
 		foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
-			$post = self::get_page_by_name( 'wc4bp_' . $end_point_key );
+			$post = self::get_page_by_name( self::get_prefix() . $end_point_key );
 			if ( ! empty( $post ) ) {
 				wp_delete_post( $post->ID, true );
 			}

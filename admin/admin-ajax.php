@@ -56,21 +56,21 @@ class wc4bp_admin_ajax {
 		}
 		
 		if ( ! empty( $_POST['wc4bp_tab_name'] ) ) {
-			$tab_name = sanitize_text_field( [ 'wc4bp_tab_name' ] );
+			$tab_name = sanitize_text_field( $_POST[ 'wc4bp_tab_name' ] );
 		} else {
 			$tab_name = get_the_title( $page_id );
 		}
 		
 		if ( isset( $_POST['wc4bp_position'] ) ) {
-			$position = sanitize_text_field( [ 'wc4bp_position' ] );
+			$position = sanitize_text_field( $_POST[ 'wc4bp_position' ] );
 		}
 		
 		if ( isset( $_POST['wc4bp_children'] ) ) {
-			$children = sanitize_text_field( [ 'wc4bp_children' ] );
+			$children = sanitize_text_field( $_POST[ 'wc4bp_children' ] );
 		}
 		
 		if ( isset( $_POST['wc4bp_tab_slug'] ) ) {
-			$tab_slug = sanitize_text_field( [ 'wc4bp_tab_slug' ] );
+			$tab_slug = sanitize_text_field( $_POST[ 'wc4bp_tab_slug' ] );
 		}
 		
 		if ( empty( $tab_slug ) ) {
@@ -105,7 +105,7 @@ class wc4bp_admin_ajax {
 	public function wc4bp_delete_page() {
 		
 		if ( isset( $_POST['wc4bp_tab_slug'] ) ) {
-			$wc4bp_tab_slug = sanitize_text_field( [ 'wc4bp_tab_slug' ] );
+			$wc4bp_tab_slug = sanitize_text_field( $_POST[ 'wc4bp_tab_slug' ] );
 		}
 		
 		if ( empty( $wc4bp_tab_slug ) ) {

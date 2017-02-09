@@ -22,7 +22,6 @@ class wc4bp_admin {
 	
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'wc4bp_admin_menu' ) );
-		add_action( 'admin_footer', array( $this, 'wc4bp_admin_js_footer' ), 10, 1 );
 		add_action( 'admin_init', array( $this, 'wc4bp_register_admin_settings' ) );
 		
 		require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-pages.php' );
@@ -55,35 +54,7 @@ class wc4bp_admin {
 		$admin_delete = new wc4bp_admin_delete();
 		add_submenu_page( 'wc4bp-options-page', __( 'Delete', 'wc4bp' ), 'Delete', 'manage_options', 'wc4bp-options-page-delete', array( $admin_delete, 'wc4bp_screen_delete' ) );
 	}
-	
-	/**
-	 * Add javascript to footer
-	 *
-	 * @param $hook_suffix
-	 */
-	public function wc4bp_admin_js_footer( $hook_suffix ) {
-		global $hook_suffix;
-		
-		if ( $hook_suffix == 'toplevel_page_wc4bp-options-page' ) {
-			?>
-            <script>!function (e, o, n) {
-					window.HSCW = o, window.HS = n, n.beacon = n.beacon || {};
-					var t = n.beacon;
-					t.userConfig = {}, t.readyQueue = [], t.config = function (e) {
-						this.userConfig = e
-					}, t.ready = function (e) {
-						this.readyQueue.push(e)
-					}, o.config = {
-						docs: {enabled: !0, baseUrl: "//themekraft.helpscoutdocs.com/"},
-						contact: {enabled: !0, formId: "ef61dbbb-83ab-11e5-8846-0e599dc12a51"}
-					};
-					var r = e.getElementsByTagName("script")[0], c = e.createElement("script");
-					c.type = "text/javascript", c.async = !0, c.src = "https://djtflbt20bdde.cloudfront.net/", r.parentNode.insertBefore(c, r)
-				}(document, window.HSCW || {}, window.HS || {});</script>
-			<?php
-		}
-	}
-	
+    
 	/**
 	 * The Admin Page
 	 *
@@ -204,7 +175,7 @@ class wc4bp_admin {
 		$woo_my_account = WC4BP_MyAccount::get_active_endpoints();
 		if ( ! empty( $woo_my_account ) ) {
 			foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
-				$wc4bp_pages_options["selected_pages"][ 'wc4bp_' . $active_page_key ] = array(
+				$wc4bp_pages_options["selected_pages"][ WC4BP_MyAccount::get_prefix(). $active_page_key ] = array(
 					'tab_name' => $active_page_name
 				);
 			}

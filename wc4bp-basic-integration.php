@@ -76,7 +76,7 @@ class WC4BP_Loader {
 		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-required.php';
 		new WC4BP_Required();
 		
-		if ( wc4bp_Manager::is_woocommerce_active() && wc4bp_Manager::is_buddypress_active() && wc4bp_Manager::is_current_active() ) {
+		if ( wc4bp_Manager::is_woocommerce_active() && wc4bp_Manager::is_buddypress_active() ) {
 			// Init Freemius.
 			$this->wc4bp_fs();
 			

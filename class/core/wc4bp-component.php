@@ -206,10 +206,11 @@ class WC4BP_Component extends BP_Component {
 		$active_pages = WC4BP_MyAccount::get_active_endpoints();
 		if ( ! empty( $active_pages ) ) {
 			foreach ( $active_pages as $active_page_key => $active_page_name ) {
+				$page_slug = WC4BP_MyAccount::get_prefix() . $active_page_key;
 				$position ++;
 				$sub_nav[] = array(
 					'name'            => $active_page_name,
-					'slug'            => "wc4bp_" . $active_page_key,
+					'slug'            => $page_slug,
 					'parent_url'      => $shop_link,
 					'parent_slug'     => $this->slug,
 					'screen_function' => 'wc4bp_screen_plugins',
@@ -320,9 +321,9 @@ class WC4BP_Component extends BP_Component {
 				foreach ( $active_pages as $active_page_key => $active_page_name ) {
 					$wp_admin_nav[] = array(
 						'parent' => 'my-account-' . $this->id,
-						'id'     => 'my-account-' . $this->id . '-' . "wc4bp_" . $active_page_key,
+						'id'     => 'my-account-' . $this->id . '-' . WC4BP_MyAccount::get_prefix() . $active_page_key,
 						'title'  => $active_page_name,
-						'href'   => trailingslashit( $shop_link . "wc4bp_" . $active_page_key )
+						'href'   => trailingslashit( $shop_link . WC4BP_MyAccount::get_prefix() . $active_page_key )
 					);
 				}
 			}

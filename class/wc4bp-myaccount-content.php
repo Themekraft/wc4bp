@@ -41,8 +41,7 @@ class WC4BP_MyAccount_Content {
 					call_user_func( $class, $attr, $content = "" );
 				}
 			}
-		}
-		catch (Exception $exception){
+		} catch ( Exception $exception ) {
 			echo $exception->getMessage();
 		}
 	}
