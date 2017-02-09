@@ -14,9 +14,11 @@
 	$my_account_page     = 0;
 	if ( ! empty( $available_endpoint ) ) {
 		foreach ( $available_endpoint as $available_endpoint_key => $available_endpoint_name ) {
-			if ( $action == "wc4bp_" . $available_endpoint_key ) {
+		    $current_page = WC4BP_MyAccount::get_prefix() . $available_endpoint_key;
+			if ( $action == $current_page ) {
 				$my_account_page = 1;
-				if ( $action == 'wc4bp_orders' && ! empty( $bp_action_variables ) ) {
+				$order_page = WC4BP_MyAccount::get_prefix() . 'orders';
+				if ( $action == $order_page && ! empty( $bp_action_variables ) ) {
 					foreach ( $bp_action_variables as $var ) {
 						if ( $var == 'view-order' ) {
 							$my_account_page = 2;
@@ -34,7 +36,7 @@
 			$args = array( 'pagename' => $action );
 			break;
 		case 2:
-			woocommerce_account_view_order( get_query_var('view-order') );
+			woocommerce_account_view_order( get_query_var( 'view-order' ) );
 			break;
 		default:
 			$wc4bp_options       = get_option( 'wc4bp_options' );
