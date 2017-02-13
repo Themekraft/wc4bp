@@ -16,27 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class wc4bp_Manage_Admin {
 	
 	public function __construct() {
-		add_action( 'bp_include', array( $this, 'includes' ), 10 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'wc4bp_admin_js' ), 10 );
-	}
-	
-	/**
-	 * Load all BP related files and admin
-	 *
-	 * Attached to bp_include. Stops the plugin if certain conditions are not met.
-	 *
-	 * @since    1.0
-	 * @access    public
-	 */
-	public function includes() {
-		// core component
-		require( WC4BP_ABSPATH . 'class/core/wc4bp-component.php' );
-		
-		global $bp;
-		if ( ! isset( $bp->shop ) ) {
-			$bp->shop = new WC4BP_Component();
-		}
-		
 		if ( is_admin() && wc4bp_Manager::is_woocommerce_active()) {
 			// API License Key Registration Form
 			require_once( WC4BP_ABSPATH . 'admin/admin.php' );

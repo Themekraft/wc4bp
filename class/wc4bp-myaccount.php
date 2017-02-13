@@ -115,9 +115,14 @@ class WC4BP_MyAccount {
 	 * @return string
 	 */
 	public function my_account_page_id( $page_id ) {
-		$page = get_page_by_path( "member" );
+		global $bp;
+		$page = get_page_by_path( $bp->pages->members->slug );
 		
-		return $page->ID;
+		if ( ! empty( $page ) ) {
+			return $page->ID;
+		} else {
+			return $page_id;
+		}
 	}
 	
 	public function esc_html_for_title( $safe_text, $text ) {
@@ -129,9 +134,10 @@ class WC4BP_MyAccount {
 	}
 	
 	public function add_title_mark( $title, $id ) {
+		global $pagenow;
 		$titles    = self::get_active_endpoints();
 		$post_meta = get_post_meta( $id, 'wc4bp-my-account-template', true );
-		if ( ! empty( $titles ) && in_array( $title, $titles ) && ! empty( $post_meta ) ) {
+		if ( $pagenow == 'edit.php' && $_GET['post_type'] == 'page' && ! empty( $titles ) && in_array( $title, $titles ) && ! empty( $post_meta ) ) {
 			$title               = $title . $this->base_html;
 			$this->current_title = $title;
 		}
@@ -189,7 +195,7 @@ class WC4BP_MyAccount {
 						'comment_status' => 'closed',
 						'ping_status'    => 'closed',
 						'post_title'     => $end_point_value,
-						'post_name'      => self::get_prefix(). $end_point_key,
+						'post_name'      => self::get_prefix() . $end_point_key,
 						'post_content'   => self::get_page_content( $end_point_key ),
 						'post_status'    => 'publish',
 						'post_type'      => 'page',

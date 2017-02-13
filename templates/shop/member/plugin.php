@@ -30,7 +30,7 @@
 			}
 		}
 	}
-	
+	$args = array();
 	switch ( $my_account_page ) {
 		case 1:
 			$args = array( 'pagename' => $action );
