@@ -145,19 +145,24 @@ class WC4BP_Component extends BP_Component {
 				'user_has_access' => bp_is_my_profile()
 			);
 		}
-		
+		global $woocommerce;
 		// Add the checkout nav item, if cart empty do not add.
-		if ( ! is_admin() && WC()->cart->get_cart_contents_count() > 0 && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
-			$sub_nav[] = array(
-				'name'            => apply_filters( 'bp_checkout_link_label', __( 'Checkout', 'wc4bp' ) ),
-				'slug'            => 'checkout',
-				'parent_url'      => $shop_link,
-				'parent_slug'     => $this->slug,
-				'screen_function' => 'wc4bp_screen_shopping_checkout',
-				'position'        => 10,
-				'item_css_id'     => 'shop-checkout',
-				'user_has_access' => bp_is_my_profile()
-			);
+		/** @var WC_Session_Handler $wc_session_data */
+		$wc_session_data = $woocommerce->session;
+		if ( ! empty( $wc_session_data ) ) {
+			$session_cart = $wc_session_data->get( 'cart' );
+			if ( ! is_admin() && ! empty( $session_cart ) && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+				$sub_nav[] = array(
+					'name'            => apply_filters( 'bp_checkout_link_label', __( 'Checkout', 'wc4bp' ) ),
+					'slug'            => 'checkout',
+					'parent_url'      => $shop_link,
+					'parent_slug'     => $this->slug,
+					'screen_function' => 'wc4bp_screen_shopping_checkout',
+					'position'        => 10,
+					'item_css_id'     => 'shop-checkout',
+					'user_has_access' => bp_is_my_profile()
+				);
+			}
 		}
 		
 		// Add the history nav item
