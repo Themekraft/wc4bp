@@ -104,20 +104,21 @@ class WC4BP_Loader {
 			require_once WC4BP_ABSPATH_ADMIN_PATH . 'resources/freemius/start.php';
 			
 			$wc4bp_fs = fs_dynamic_init( array(
-				'id'             => '425',
-				'slug'           => 'wc4bp',
-				'type'           => 'plugin',
-				'public_key'     => 'pk_71d28f28e3e545100e9f859cf8554',
-				'is_premium'     => true,
-				'has_addons'     => true,
-				'has_paid_plans' => true,
-				'menu'       => array(
+				'id'                  => '425',
+				'slug'                => 'wc4bp',
+				'type'                => 'plugin',
+				'public_key'          => 'pk_71d28f28e3e545100e9f859cf8554',
+				'is_premium'          => true,
+				'has_premium_version' => false,
+				'has_addons'          => true,
+				'has_paid_plans'      => true,
+				'menu'                => array(
 					'slug'    => 'wc4bp-options-page',
 					'support' => false,
 				),
 				// Set the SDK to work in a sandbox mode (for development & testing).
 				// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-				'secret_key' => 'sk_ccE(cjH4?%J)wXa@h2vV^g]jAeY$i',
+				'secret_key'          => 'sk_ccE(cjH4?%J)wXa@h2vV^g]jAeY$i',
 			) );
 		}
 		
@@ -205,6 +206,8 @@ class WC4BP_Loader {
 	public function activation() {
 		//Add all woo my account pages
 		WC4BP_MyAccount::add_all_endpoints();
+		
+		flush_rewrite_rules();
 		
 		include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
 		wc4bp_activate();

@@ -175,7 +175,7 @@ class wc4bp_admin {
 		$woo_my_account = WC4BP_MyAccount::get_active_endpoints();
 		if ( ! empty( $woo_my_account ) ) {
 			foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
-				$wc4bp_pages_options["selected_pages"][ WC4BP_MyAccount::get_prefix(). $active_page_key ] = array(
+				$wc4bp_pages_options["selected_pages"][ wc4bp_Manager::get_prefix(). $active_page_key ] = array(
 					'tab_name' => $active_page_name
 				);
 			}

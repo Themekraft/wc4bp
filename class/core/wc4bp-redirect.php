@@ -199,6 +199,10 @@ function wc4bp_redirect_to_profile() {
 		return false;
 	}
 	
+	if(empty($post) || !is_object($post)){
+		return false;
+	}
+	
 	$link = wc4bp_get_redirect_link( $post->ID );
 	
 	if ( ! empty( $link ) ) :
