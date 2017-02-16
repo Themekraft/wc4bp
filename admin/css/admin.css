@@ -258,3 +258,21 @@ span.wc4bp-my-account-page {
     margin-left: 15px;
     padding: 3px 6px;
 }
+
+tr.wc4bp-disabled th label b::after, p.wc4bp-disabled::after {
+    width: 72px;
+    height: 25px;
+    padding: 0;
+    clear: both;
+    display: inline;
+    float: left;
+    content: "Pro Feature";
+    text-align: center;
+    font-size: 11px;
+    line-height: 2.1;
+    background: rgba(255, 24, 46, 0.56);
+    color: #fff;
+    border-radius: 5px;
+    position: relative;
+    margin-right: 10px;
+}

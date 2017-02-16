@@ -236,7 +236,7 @@ class WC4BP_Loader {
 		WC4BP_MyAccount::remove_all_endpoints();
 		
 		$wc4bp_options_delete = get_option( 'wc4bp_options_delete' );
-		if ( $wc4bp_options_delete == 'delete' ) {
+		if ( $wc4bp_options_delete ) {
 			include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
 			wc4bp_cleanup();
 		}
