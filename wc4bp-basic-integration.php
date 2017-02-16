@@ -62,6 +62,11 @@ class WC4BP_Loader {
 	static $active = false;
 	
 	/**
+	 * @var Freemius
+	 */
+	public static $freemius;
+	
+	/**
 	 * Initiate the class
 	 *
 	 * @package WooCommerce for BuddyPress
@@ -78,7 +83,7 @@ class WC4BP_Loader {
 		
 		if ( wc4bp_Manager::is_woocommerce_active() && wc4bp_Manager::is_buddypress_active() ) {
 			// Init Freemius.
-			$this->wc4bp_fs();
+			self::$freemius = $this->wc4bp_fs();
 			
 			new wc4bp_Manager();
 			
@@ -143,6 +148,13 @@ class WC4BP_Loader {
 		define( 'WC4BP_ABSPATH_ADMIN_VIEWS_PATH', WC4BP_ABSPATH_ADMIN_PATH . 'views' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_CSS', WC4BP_URLPATH . '/admin/css/' );
 		define( 'WC4BP_JS', WC4BP_URLPATH . '/admin/js/' );
+	}
+	
+	/**
+	 * @return Freemius
+	 */
+	public static function getFreemius() {
+		return self::$freemius;
 	}
 	
 	/**
