@@ -16,12 +16,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class wc4bp_Manager {
 	
+	/**
+	 * Prefix used to mark the pages for my account
+	 *
+	 * @var String
+	 */
+	public static $prefix;
+	
 	public function __construct() {
 		//Load resources
 		require_once 'wc4bp-myaccount.php';
 		require_once 'wc4bp-woocommerce.php';
 		require_once 'wc4bp-myaccount-content.php';
 		require_once 'wc4bp-manage-admin.php';
+		
+		self::$prefix = apply_filters( 'wc4bp_my_account_prefix', 'wc4pb' );
 		
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'bp_include', array( $this, 'includes' ), 10 );
@@ -35,6 +44,14 @@ class wc4bp_Manager {
 			new WC4BP_MyAccount_Content();
 			new wc4bp_Manage_Admin();
 		}
+	}
+	
+	public static function get_prefix() {
+		return self::$prefix . '_';
+	}
+	
+	public static function get_suffix() {
+		return self::$prefix;
 	}
 	
 	/**

@@ -15,10 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class wc4bp_admin_pages {
 	
-	public function __construct() {
-		add_action( 'admin_init', array( $this, 'wc4bp_register_admin_pages_settings' ) );
-	}
-	
 	/**
 	 * The Admin Page
 	 *
@@ -26,7 +22,8 @@ class wc4bp_admin_pages {
 	 * @package WC4BP
 	 * @since 1.3
 	 */
-	public function wc4bp_screen_pages() {
+	public function wc4bp_screen_pages($active_tab) {
+	    $this->wc4bp_register_admin_pages_settings();
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_pages_screen_pages.php' );
 	}
 	
@@ -38,14 +35,9 @@ class wc4bp_admin_pages {
 	 * @since 1.0
 	 */
 	public function wc4bp_register_admin_pages_settings() {
-		
-		register_setting( 'wc4bp_options_pages', 'wc4bp_options_pages' );
-		
 		// Settings fields and sections
 		add_settings_section( 'section_general', '', array( $this, 'wc4bp_shop_pages_add' ), 'wc4bp_options_pages' );
-		
 		//add_settings_field(		'pages_add'	, '<b>Add New pages</b>' , 'wc4bp_shop_pages_add'	, 'wc4bp_options_pages' , 'section_general' );
-		
 	}
 	
 	public function wc4bp_shop_pages_add() {

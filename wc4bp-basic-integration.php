@@ -62,6 +62,11 @@ class WC4BP_Loader {
 	static $active = false;
 	
 	/**
+	 * @var Freemius
+	 */
+	public static $freemius;
+	
+	/**
 	 * Initiate the class
 	 *
 	 * @package WooCommerce for BuddyPress
@@ -78,7 +83,7 @@ class WC4BP_Loader {
 		
 		if ( wc4bp_Manager::is_woocommerce_active() && wc4bp_Manager::is_buddypress_active() ) {
 			// Init Freemius.
-			$this->wc4bp_fs();
+			self::$freemius = $this->wc4bp_fs();
 			
 			new wc4bp_Manager();
 			
@@ -104,20 +109,21 @@ class WC4BP_Loader {
 			require_once WC4BP_ABSPATH_ADMIN_PATH . 'resources/freemius/start.php';
 			
 			$wc4bp_fs = fs_dynamic_init( array(
-				'id'             => '425',
-				'slug'           => 'wc4bp',
-				'type'           => 'plugin',
-				'public_key'     => 'pk_71d28f28e3e545100e9f859cf8554',
-				'is_premium'     => true,
-				'has_addons'     => true,
-				'has_paid_plans' => true,
-				'menu'       => array(
+				'id'                  => '425',
+				'slug'                => 'wc4bp',
+				'type'                => 'plugin',
+				'public_key'          => 'pk_71d28f28e3e545100e9f859cf8554',
+				'is_premium'          => true,
+				'has_premium_version' => false,
+				'has_addons'          => true,
+				'has_paid_plans'      => true,
+				'menu'                => array(
 					'slug'    => 'wc4bp-options-page',
 					'support' => false,
 				),
 				// Set the SDK to work in a sandbox mode (for development & testing).
 				// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-				'secret_key' => 'sk_ccE(cjH4?%J)wXa@h2vV^g]jAeY$i',
+				'secret_key'          => 'sk_ccE(cjH4?%J)wXa@h2vV^g]jAeY$i',
 			) );
 		}
 		
@@ -142,6 +148,13 @@ class WC4BP_Loader {
 		define( 'WC4BP_ABSPATH_ADMIN_VIEWS_PATH', WC4BP_ABSPATH_ADMIN_PATH . 'views' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_CSS', WC4BP_URLPATH . '/admin/css/' );
 		define( 'WC4BP_JS', WC4BP_URLPATH . '/admin/js/' );
+	}
+	
+	/**
+	 * @return Freemius
+	 */
+	public static function getFreemius() {
+		return self::$freemius;
 	}
 	
 	/**
@@ -206,6 +219,8 @@ class WC4BP_Loader {
 		//Add all woo my account pages
 		WC4BP_MyAccount::add_all_endpoints();
 		
+		flush_rewrite_rules();
+		
 		include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
 		wc4bp_activate();
 	}
@@ -221,7 +236,7 @@ class WC4BP_Loader {
 		WC4BP_MyAccount::remove_all_endpoints();
 		
 		$wc4bp_options_delete = get_option( 'wc4bp_options_delete' );
-		if ( $wc4bp_options_delete == 'delete' ) {
+		if ( $wc4bp_options_delete ) {
 			include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
 			wc4bp_cleanup();
 		}

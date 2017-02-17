@@ -39,22 +39,10 @@ class wc4bp_admin {
 	 * @since 1.3
 	 */
 	public function wc4bp_admin_menu() {
-		add_menu_page( __( 'WooCommerce for BuddyPress', 'wc4bp' ), 'WC4BP Settings', 'manage_options', 'wc4bp-options-page', array( $this, 'wc4bp_screen' ) );
+		add_menu_page( __( 'WooCommerce for BuddyPress', 'wc4bp' ), __( 'WC4BP Settings', 'wc4bp' ), 'manage_options', 'wc4bp-options-page', array( $this, 'wc4bp_screen' ) );
 		do_action( 'wc4bp_add_submenu_page' );
-		
-		$admin_sync    = new wc4bp_admin_sync();
-		$wc4bp_options = get_option( 'wc4bp_options' );
-		if ( ! isset( $wc4bp_options['tab_sync_disabled'] ) ) {
-			add_submenu_page( 'wc4bp-options-page', __( 'WC4BP Profile Fields Sync', 'wc4bp' ), 'Profile Fields Sync', 'manage_options', 'wc4bp-options-page-sync', array( $admin_sync, 'wc4bp_screen_sync' ) );
-		}
-		
-		$admin_pages = new wc4bp_admin_pages();
-		add_submenu_page( 'wc4bp-options-page', __( 'WC4BP Integrate Pages', 'wc4bp' ), 'Integrate Pages', 'manage_options', 'wc4bp-options-page-pages', array( $admin_pages, 'wc4bp_screen_pages' ) );
-		
-		$admin_delete = new wc4bp_admin_delete();
-		add_submenu_page( 'wc4bp-options-page', __( 'Delete', 'wc4bp' ), 'Delete', 'manage_options', 'wc4bp-options-page-delete', array( $admin_delete, 'wc4bp_screen_delete' ) );
 	}
-    
+	
 	/**
 	 * The Admin Page
 	 *
@@ -63,7 +51,31 @@ class wc4bp_admin {
 	 * @since 1.3
 	 */
 	public function wc4bp_screen() {
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_screen.php' );
+		$active_tab = 'generic';
+		if ( ! empty( $_GET['tab'] ) ) {
+			$active_tab = $_GET['tab'];
+		}
+		switch ( $active_tab ) {
+			case 'generic';
+				include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_screen.php' );
+				break;
+			case 'page-sync';
+				$admin_sync    = new wc4bp_admin_sync();
+				$wc4bp_options = get_option( 'wc4bp_options' );
+				if ( ! isset( $wc4bp_options['tab_sync_disabled'] ) ) {
+					$admin_sync->wc4bp_screen_sync($active_tab);
+				}
+				break;
+			case 'integrate-pages';
+				$admin_pages = new wc4bp_admin_pages();
+				$admin_pages->wc4bp_screen_pages($active_tab);
+				break;
+			case 'delete';
+				$admin_delete = new wc4bp_admin_delete();
+				$admin_delete->wc4bp_screen_delete($active_tab);
+				break;
+		}
+		
 	}
 	
 	/**
@@ -74,7 +86,8 @@ class wc4bp_admin {
 	 * @since 1.0
 	 */
 	public function wc4bp_register_admin_settings() {
-		
+		register_setting( 'wc4bp_options_delete', 'wc4bp_options_delete' );
+		register_setting( 'wc4bp_options_pages', 'wc4bp_options_pages' );
 		register_setting( 'wc4bp_options', 'wc4bp_options' );
 		// Settings fields and sections
 		add_settings_section( 'section_general', '', '', 'wc4bp_options' );
@@ -175,7 +188,7 @@ class wc4bp_admin {
 		$woo_my_account = WC4BP_MyAccount::get_active_endpoints();
 		if ( ! empty( $woo_my_account ) ) {
 			foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
-				$wc4bp_pages_options["selected_pages"][ WC4BP_MyAccount::get_prefix(). $active_page_key ] = array(
+				$wc4bp_pages_options["selected_pages"][ wc4bp_Manager::get_prefix() . $active_page_key ] = array(
 					'tab_name' => $active_page_name
 				);
 			}

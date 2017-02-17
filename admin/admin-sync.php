@@ -15,8 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class wc4bp_admin_sync {
 	
-	public function __construct() {
-		add_action( 'admin_init', array( $this, 'wc4bp_register_admin_settings_sync' ) );
+	public function init() {
 		add_action( 'wp_ajax_wc4bp_shop_profile_sync_ajax', array( $this, 'wc4bp_shop_profile_sync_ajax' ) );
 		add_action( 'wp_ajax_nopriv_wc4bp_shop_profile_sync_ajax', array( $this, 'wc4bp_shop_profile_sync_ajax' ) );
 	}
@@ -29,13 +28,16 @@ class wc4bp_admin_sync {
 	 * @package WC4BP
 	 * @since 1.3
 	 */
-	public function wc4bp_screen_sync() {
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_screen_sync.php' );
-		
+	public function wc4bp_screen_sync($active_tab) {
+		$this->init();
+		$this->wc4bp_register_admin_settings_sync();
 		$number      = 20;
 		$count_users = count_users();
 		$total_users = $count_users['total_users'];
 		$total_pages = intval( $total_users / $number ) + 1;
+		
+		
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_screen_sync.php' );
 	}
 	
 	/**
