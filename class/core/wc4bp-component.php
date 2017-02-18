@@ -290,7 +290,7 @@ class WC4BP_Component extends BP_Component {
 					'parent' => 'my-account-' . $this->id,
 					'id'     => 'my-account-' . $this->id . '-cart',
 					'title'  => apply_filters( 'bp_shop_cart_nav_link_label', __( 'Shopping Cart', 'wc4bp' ) ),
-					'href'   => trailingslashit( $shop_link )
+					'href'   => trailingslashit( $shop_link . 'cart' )
 				);
 			}
 			

@@ -32,23 +32,26 @@ function wc4bp_get_redirect_link( $id = false ) {
 	$wc4bp_options       = get_option( 'wc4bp_options' );
 	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 	
-	$shop_id          = wc_get_page_id( 'cart' );
+	$shop_id          = wc_get_page_id( 'shop' );
 	$cart_page_id     = wc_get_page_id( 'cart' );
 	$checkout_page_id = wc_get_page_id( 'checkout' );
 	$account_page_id  = wc_get_page_id( 'myaccount' );
 	
-	$granted_wc_page_id = array( $shop_id, $cart_page_id, $account_page_id );
+	$granted_wc_page_id = array( $shop_id, $account_page_id );
 	if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
 		$granted_wc_page_id[] = $checkout_page_id;
 	}
+	if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
+		$granted_wc_page_id[] = $cart_page_id;
+	}
 	
 	$link = false;
-	if ( ! empty( $action ) && in_array( $id, $granted_wc_page_id ) ) {
+	if ( in_array( $id, $granted_wc_page_id ) ) {
 		$link = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/';
 		switch ( $id ) {
 			case $cart_page_id:
-				if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) && $wc4bp_options['tab_shop_default'] == 'default' ) {
-					$link .= 'home/';
+				if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
+					$link .= 'cart/';
 				}
 				break;
 			
@@ -62,7 +65,7 @@ function wc4bp_get_redirect_link( $id = false ) {
 				break;
 			
 			case $account_page_id:
-				if ( ! isset( $wc4bp_options['tab_history_disabled'] ) ) {
+				if ( ! isset( $wc4bp_options['tab_history_disabled'] ) && ! empty( $action ) ) {
 					$link .= $action . '/';
 				}
 				$link = apply_filters( 'wc4bp_account_page_link', $link );
