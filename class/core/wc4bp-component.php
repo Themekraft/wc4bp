@@ -65,6 +65,7 @@ class WC4BP_Component extends BP_Component {
 		
 		if ( ! isset( $wc4bp_options['tab_sync_disabled'] ) || class_exists( 'WC4BP_xProfile' ) ) {
 			require( WC4BP_ABSPATH . 'class/core/wc4bp-sync.php' );
+			new wc4bp_Sync();
 		}
 		
 	}
