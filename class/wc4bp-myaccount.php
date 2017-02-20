@@ -30,7 +30,7 @@ class WC4BP_MyAccount {
 		
 		add_filter( 'woocommerce_get_myaccount_page_permalink', array( $this, 'my_account_page_permalink' ), 10, 1 );
 		add_filter( 'woocommerce_get_myaccount_page_id', array( $this, 'my_account_page_id' ), 10, 1 );
-		
+
 		add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url' ), 10, 2 );
 	}
 	

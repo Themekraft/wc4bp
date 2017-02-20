@@ -32,16 +32,26 @@ function wc4bp_get_redirect_link( $id = false ) {
 	$wc4bp_options       = get_option( 'wc4bp_options' );
 	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 	
+	$shop_id          = wc_get_page_id( 'shop' );
 	$cart_page_id     = wc_get_page_id( 'cart' );
 	$checkout_page_id = wc_get_page_id( 'checkout' );
 	$account_page_id  = wc_get_page_id( 'myaccount' );
 	
-	$link = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/';
-	if ( ! empty( $action ) ) {
+	$granted_wc_page_id = array( $shop_id, $account_page_id );
+	if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+		$granted_wc_page_id[] = $checkout_page_id;
+	}
+	if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
+		$granted_wc_page_id[] = $cart_page_id;
+	}
+	
+	$link = false;
+	if ( in_array( $id, $granted_wc_page_id ) ) {
+		$link = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/';
 		switch ( $id ) {
 			case $cart_page_id:
-				if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) && $wc4bp_options['tab_shop_default'] == 'default' ) {
-					$link .= 'home/';
+				if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
+					$link .= 'cart/';
 				}
 				break;
 			
@@ -55,7 +65,7 @@ function wc4bp_get_redirect_link( $id = false ) {
 				break;
 			
 			case $account_page_id:
-				if ( ! isset( $wc4bp_options['tab_history_disabled'] ) ) {
+				if ( ! isset( $wc4bp_options['tab_history_disabled'] ) && ! empty( $action ) ) {
 					$link .= $action . '/';
 				}
 				$link = apply_filters( 'wc4bp_account_page_link', $link );
@@ -64,7 +74,6 @@ function wc4bp_get_redirect_link( $id = false ) {
 		
 		if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
 			foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
-				
 				if ( $attached_page['children'] > 0 ) {
 					$the_page_id    = get_top_parent_page_id( $attached_page['page_id'] );
 					$the_courent_id = get_top_parent_page_id( $id );
@@ -90,101 +99,16 @@ function wc4bp_get_redirect_link( $id = false ) {
 	return apply_filters( 'wc4bp_get_redirect_link', $link );
 }
 
-
-/**
- * Get the BP member page id as woo my_account
- *
- * @param $page_id
- *
- * @return string
- */
-function wc4bp_my_account_page_id( $page_id ) {
-	global $bp;
-	
-	$page = get_page_by_path( $bp->pages->members->slug );
-	
-	return $page->ID;
-}
-
-//add_filter( 'woocommerce_get_myaccount_page_id', 'wc4bp_my_account_page_id', 10, 1 );
-
-/**
- * Redirect WC my Account to BP member profile page
- *
- * @param $permalink
- *
- * @return string
- */
-function wc4bp_my_account_page_permalink( $permalink ) {
-	global $current_user, $bp;
-	
-	$current_user = wp_get_current_user();
-	$userdata     = get_userdata( $current_user->ID );
-	
-	$account_page_id = wc_get_page_id( 'myaccount' );
-	$woo_my_account  = get_post( $account_page_id );
-	
-	$permalink = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/' . $woo_my_account->post_name . '/';
-	
-	return $permalink;
-}
-
-//Redirect myaccount to BP memeber
-//add_filter( 'woocommerce_get_myaccount_page_permalink', 'wc4bp_my_account_page_permalink', 10, 1 );
-
-
-function wc4bp_get_endpoint_url( $url, $endpoint, $value, $permalink ) {
-	global $current_user, $bp;
-	
-	$current_user = wp_get_current_user();
-	$userdata     = get_userdata( $current_user->ID );
-	
-	$base_path = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/';
-	
-	switch ( $endpoint ) {
-		case "payment-methods":
-			$url = $base_path . 'payment';
-			break;
-		case "set-default-payment-method":
-		case "delete-payment-method":
-			$url = add_query_arg( $endpoint, $value, $base_path . 'payment' );
-			break;
-		case "add-payment-method":
-			$url = add_query_arg( $endpoint, "w2ewe3423ert", $base_path . 'payment/add-payment' );
-			break;
-		case "view-subscription":
-			$url = add_query_arg( $endpoint, $value, $permalink . $endpoint );
-			break;
-		case "view-order":
-			$url = add_query_arg( "id", $value, $permalink . $endpoint );
-			break;
-		case 'edit-account':
-			$url = add_query_arg( $endpoint, $value, $permalink . $endpoint );
-			break;
-	}
-	
-	return $url;
-}
-
-//add_filter( 'woocommerce_get_endpoint_url', 'wc4bp_get_endpoint_url', 1, 4 );
-
 function get_top_parent_page_id( $post_id ) {
-	
 	$ancestors = get_post_ancestors( $post_id );
-	
 	// Check if page is a child page (any level)
 	if ( $ancestors ) {
-		
-		//  Grab the ID of top-level page from the tree
+		// Grab the ID of top-level page from the tree
 		return end( $ancestors );
-		
 	} else {
-		
 		// Page is the top level, so use  it's own id
 		return $post_id;
-		
 	}
-	
 }
 
 /**
@@ -199,7 +123,7 @@ function wc4bp_redirect_to_profile() {
 		return false;
 	}
 	
-	if(empty($post) || !is_object($post)){
+	if ( empty( $post ) || ! is_object( $post ) ) {
 		return false;
 	}
 	
