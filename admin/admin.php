@@ -20,6 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class wc4bp_admin {
 	
+	public static $slug = 'wc4bp-options-page';
+	
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'wc4bp_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'wc4bp_register_admin_settings' ) );
@@ -32,6 +34,13 @@ class wc4bp_admin {
 	}
 	
 	/**
+	 * @return string
+	 */
+	public static function getSlug() {
+		return self::$slug;
+	}
+	
+	/**
 	 * Adding the Admin Page
 	 *
 	 * @author Sven Lehnert
@@ -39,7 +48,7 @@ class wc4bp_admin {
 	 * @since 1.3
 	 */
 	public function wc4bp_admin_menu() {
-		add_menu_page( __( 'WooCommerce for BuddyPress', 'wc4bp' ), __( 'WC4BP Settings', 'wc4bp' ), 'manage_options', 'wc4bp-options-page', array( $this, 'wc4bp_screen' ) );
+		add_menu_page( __( 'WooCommerce for BuddyPress', 'wc4bp' ), __( 'WC4BP Settings', 'wc4bp' ), 'manage_options', self::getSlug(), array( $this, 'wc4bp_screen' ) );
 		do_action( 'wc4bp_add_submenu_page' );
 	}
 	
