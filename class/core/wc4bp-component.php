@@ -376,8 +376,18 @@ class WC4BP_Component extends BP_Component {
 				if ( $wc4bp_options['tab_shop_default'] != 'default' ) {
 					$bp->current_action = $wc4bp_options['tab_shop_default'];
 				} else {
-					$bp->current_action = $cart_slug;
-					$path               = 'shop/member/cart';
+					if ( empty( $wc4bp_options['tab_cart_disabled'] ) ) {
+						$bp->current_action = $cart_slug;
+						$path               = 'shop/member/cart';
+					}
+					else{
+						$wc_active_endpoints = WC4BP_MyAccount::get_active_endpoints();
+						if ( ! empty( $wc_active_endpoints ) && count( $wc_active_endpoints ) > 1 ) {
+							reset( $wc_active_endpoints );
+							$page_name = wc4bp_Manager::get_prefix() . key( $wc_active_endpoints );
+							$bp->current_action = $page_name;
+						}
+					}
 				}
 				break;
 			case 'cart':

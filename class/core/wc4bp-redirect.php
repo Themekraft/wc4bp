@@ -64,7 +64,7 @@ function wc4bp_get_redirect_link( $id = false ) {
 				break;
 			
 			case $account_page_id:
-				if ( ! isset( $wc4bp_options['tab_history_disabled'] ) && ! empty( $action ) ) {
+				if ( ! empty( $action ) ) {
 					$link .= $action . '/';
 				}
 				$link = apply_filters( 'wc4bp_account_page_link', $link );
