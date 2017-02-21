@@ -5,7 +5,7 @@ foreach ( WC4BP_MyAccount::get_available_endpoints() as $end_point_key => $end_p
 	if ( isset( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
 		$tab_select = $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ];
 	}
-	echo "<p><input name='wc4bp_options[wc4bp_endpoint_" . $end_point_key . "]' type='checkbox' value='1' " . checked( $tab_select, 1, false ) . " /> <b>Turn off '" . $end_point_name . "' tab. </b></p>";
+	echo "<p " . $this->disable_class_tag( 'p' ) . "><input " . $this->disable_input_tag( 'checkbox' ) . " name='wc4bp_options[wc4bp_endpoint_" . $end_point_key . "]' type='checkbox' value='1' " . checked( $tab_select, 1, false ) . " /> <b>Turn off '" . $end_point_name . "' tab. </b></p>";
 }
 
 
