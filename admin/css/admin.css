@@ -275,4 +275,5 @@ tr.wc4bp-disabled th label b::after, p.wc4bp-disabled::after {
     border-radius: 5px;
     position: relative;
     margin-right: 10px;
+    margin-bottom: 3px;
 }

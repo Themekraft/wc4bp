@@ -25,6 +25,7 @@ class wc4bp_Manager {
 	
 	public function __construct() {
 		//Load resources
+		require_once 'wc4bp-base.php';
 		require_once 'wc4bp-myaccount.php';
 		require_once 'wc4bp-woocommerce.php';
 		require_once 'wc4bp-myaccount-content.php';

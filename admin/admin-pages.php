@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class wc4bp_admin_pages {
+class wc4bp_admin_pages extends wc4bp_base {
 	
 	/**
 	 * The Admin Page

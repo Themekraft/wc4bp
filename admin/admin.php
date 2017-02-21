@@ -18,11 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class wc4bp_admin handle the admin pages
  */
-class wc4bp_admin {
+class wc4bp_admin extends wc4bp_base {
 	
 	public static $slug = 'wc4bp-options-page';
 	
 	public function __construct() {
+		parent::__construct();
 		add_action( 'admin_menu', array( $this, 'wc4bp_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'wc4bp_register_admin_settings' ) );
 		
@@ -98,7 +99,7 @@ class wc4bp_admin {
 		register_setting( 'wc4bp_options_delete', 'wc4bp_options_delete' );
 		register_setting( 'wc4bp_options_pages', 'wc4bp_options_pages' );
 		register_setting( 'wc4bp_options', 'wc4bp_options' );
-		// Settings fields and sections
+		
 		add_settings_section( 'section_general', '', '', 'wc4bp_options' );
 		add_settings_section( 'section_general2', '', '', 'wc4bp_options' );
 		
@@ -116,7 +117,7 @@ class wc4bp_admin {
 	 */
 	public function wc4bp_shop_tabs() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
-		
+
 		$tab_activity_disabled = 0;
 		if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
 			$tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
