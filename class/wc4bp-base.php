@@ -25,14 +25,14 @@ class wc4bp_base {
 		if ( ! $debug ) {
 			$this->is_paying       = WC4BP_Loader::getFreemius()->is_paying();
 			$this->is_free         = WC4BP_Loader::getFreemius()->is_free_plan();
-			$this->is_start        = WC4BP_Loader::getFreemius()->is_plan( 'starter' );
-			$this->is_professional = WC4BP_Loader::getFreemius()->is_plan( 'professional' );
+			$this->is_start        = WC4BP_Loader::getFreemius()->is_plan( $this->starter_plan_id );
+			$this->is_professional = WC4BP_Loader::getFreemius()->is_plan( $this->professional_plan_id );
 			$this->is_premium_only = WC4BP_Loader::getFreemius()->is__premium_only();
 			return;
 		} else if ( ! is_array( $debug ) ) {
-//			$debug = array( 'is_paying' => false, 'is_free_plan' => true, 'starter' => false, 'professional' => false, 'is_premium_only' => false );
-//			$debug = array( 'is_paying' => true, 'is_free_plan' => false, 'starter' => true, 'professional' => false, 'is_premium_only' => true );
-			$debug = array( 'is_paying' => true, 'is_free_plan' => false, 'starter' => false, 'professional' => true, 'is_premium_only' => true );
+//			$debug = array( 'is_paying' => false, 'is_free_plan' => true, 'starter' => false, 'professional' => false, 'is_premium_only' => false ); //Free
+//			$debug = array( 'is_paying' => true, 'is_free_plan' => false, 'starter' => true, 'professional' => false, 'is_premium_only' => true ); //Starter
+			$debug = array( 'is_paying' => true, 'is_free_plan' => false, 'starter' => false, 'professional' => true, 'is_premium_only' => true );//Professional
 		}
 		$this->is_paying       = $debug['is_paying'];
 		$this->is_free         = $debug['is_free_plan'];
