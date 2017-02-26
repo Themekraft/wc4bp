@@ -122,7 +122,7 @@ class wc4bp_admin extends wc4bp_base {
 		if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
 			$tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
 		}
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_tabs.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_tabs.php' );
 	}
 	
 	/**
@@ -132,7 +132,7 @@ class wc4bp_admin extends wc4bp_base {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		$end_points    = wc_get_account_menu_items();
 		
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_my_account_tabs.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_my_account_tabs.php' );
 	}
 	
 	/**
@@ -163,7 +163,7 @@ class wc4bp_admin extends wc4bp_base {
 		if ( isset( $wc4bp_options['tab_track_disabled'] ) ) {
 			$tab_track_disabled = $wc4bp_options['tab_track_disabled'];
 		}
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_disable.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_disable.php' );
 	}
 	
 	/**
@@ -176,7 +176,7 @@ class wc4bp_admin extends wc4bp_base {
 		if ( isset( $wc4bp_options['tab_sync_disabled'] ) ) {
 			$tab_sync_disabled = $wc4bp_options['tab_sync_disabled'];
 		}
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_profile_sync.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_profile_sync.php' );
 		
 		include_once( WC4BP_ABSPATH_ADMIN_PATH . 'wc4bp-activate.php' );
 		if ( isset( $tab_sync_disabled ) && true == $tab_sync_disabled ) {
@@ -204,7 +204,7 @@ class wc4bp_admin extends wc4bp_base {
 			}
 		}
 		
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_shop_home.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_home.php' );
 	}
 	
 	/**
@@ -217,7 +217,7 @@ class wc4bp_admin extends wc4bp_base {
 		if ( ! empty( $wc4bp_options['page_template'] ) ) {
 			$page_template = $wc4bp_options['page_template'];
 		}
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_page_template.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_page_template.php' );
 		
 		submit_button();
 	}
