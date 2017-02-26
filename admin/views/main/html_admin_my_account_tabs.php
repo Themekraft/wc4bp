@@ -1,4 +1,5 @@
 <?php
+/** @var wc4bp_admin $this */
 _e( '<p>By default all account related WooCommerce pages are included into the BuddyPress member profiles.</p>', 'wc4bp' );
 foreach ( WC4BP_MyAccount::get_available_endpoints() as $end_point_key => $end_point_name ) {
 	$tab_select = 0;

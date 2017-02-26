@@ -9,6 +9,8 @@
  * Text Domain: wc4bp
  * Domain Path: /languages
  *
+ * @fs_premium_only /class/wc4bp-myaccount.php,
+ *
  *****************************************************************************
  *
  * This script is free software; you can redistribute it and/or modify
@@ -77,6 +79,7 @@ class WC4BP_Loader {
 		self::$plugin_name = plugin_basename( __FILE__ );
 		$this->constants();
 		require_once plugin_dir_path( __FILE__ ) . 'class/class-tgm-plugin-activation.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-base.php';
 		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-manager.php';
 		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-required.php';
 		new WC4BP_Required();
@@ -216,25 +219,26 @@ class WC4BP_Loader {
 	 * Generate the default data arrays
 	 */
 	public function activation() {
-		//Add all woo my account pages
-		WC4BP_MyAccount::add_all_endpoints();
-		
-		flush_rewrite_rules();
-		
+		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
+			//Add all woo my account pages
+			WC4BP_MyAccount::add_all_endpoints();
+			flush_rewrite_rules();
+		}
 		include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
 		wc4bp_activate();
 	}
 	
 	/**
 	 * Deletes all data if plugin deactivated
+	 *
 	 * @return void
 	 */
 	public function uninstall() {
 		global $wpdb, $blog_id;
-		
-		//delete woo my account pages
-		WC4BP_MyAccount::remove_all_endpoints();
-		
+		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
+			//delete woo my account pages
+			WC4BP_MyAccount::remove_all_endpoints();
+		}
 		$wc4bp_options_delete = get_option( 'wc4bp_options_delete' );
 		if ( $wc4bp_options_delete ) {
 			include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
