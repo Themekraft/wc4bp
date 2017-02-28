@@ -184,8 +184,6 @@ class wc4bp_admin extends wc4bp_base {
 		} else {
 			wc4bp_activate();
 		}
-		
-		
 	}
 	
 	/**
@@ -195,12 +193,14 @@ class wc4bp_admin extends wc4bp_base {
 		$wc4bp_options       = get_option( 'wc4bp_options' );
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 		
-		$woo_my_account = WC4BP_MyAccount::get_active_endpoints();
-		if ( ! empty( $woo_my_account ) ) {
-			foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
-				$wc4bp_pages_options["selected_pages"][ wc4bp_Manager::get_prefix() . $active_page_key ] = array(
-					'tab_name' => $active_page_name
-				);
+		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
+			$woo_my_account = WC4BP_MyAccount::get_active_endpoints();
+			if ( ! empty( $woo_my_account ) ) {
+				foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
+					$wc4bp_pages_options["selected_pages"][ wc4bp_Manager::get_prefix() . $active_page_key ] = array(
+						'tab_name' => $active_page_name
+					);
+				}
 			}
 		}
 		
