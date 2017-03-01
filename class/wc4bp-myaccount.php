@@ -152,28 +152,31 @@ class WC4BP_MyAccount {
 	public function process_saved_settings__premium_only( $old_value, $new_value ) {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		if ( empty( $wc4bp_options["tab_activity_disabled"] ) ) {
-			foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
-				$post = self::get_page_by_name__premium_only( wc4bp_Manager::get_prefix() . $end_point_key );
-				if ( ! empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] && $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] == "1" ) ) {
-					if ( ! empty( $post ) ) {
-						wp_delete_post( $post->ID, true );
-					}
-				} else {
-					if ( empty( $post ) ) {
-						$r = wp_insert_post(
-							array(
-								'comment_status' => 'closed',
-								'ping_status'    => 'closed',
-								'post_title'     => $end_point_value,
-								'post_name'      => wc4bp_Manager::get_prefix() . $end_point_key,
-								'post_content'   => self::get_page_content__premium_only( $end_point_key ),
-								'post_status'    => 'publish',
-								'post_type'      => 'page',
-								'meta_input'     => array(
-									'wc4bp-my-account-template' => 1,
-								),
-							)
-						);
+			$available_endpoints = self::get_available_endpoints();
+			if ( ! empty( $available_endpoints ) ) {
+				foreach ( $available_endpoints as $end_point_key => $end_point_value ) {
+					$post = self::get_page_by_name__premium_only( wc4bp_Manager::get_prefix() . $end_point_key );
+					if ( ! empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] && $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] == "1" ) ) {
+						if ( ! empty( $post ) ) {
+							wp_delete_post( $post->ID, true );
+						}
+					} else {
+						if ( empty( $post ) ) {
+							$r = wp_insert_post(
+								array(
+									'comment_status' => 'closed',
+									'ping_status'    => 'closed',
+									'post_title'     => $end_point_value,
+									'post_name'      => wc4bp_Manager::get_prefix() . $end_point_key,
+									'post_content'   => self::get_page_content__premium_only( $end_point_key ),
+									'post_status'    => 'publish',
+									'post_type'      => 'page',
+									'meta_input'     => array(
+										'wc4bp-my-account-template' => 1,
+									),
+								)
+							);
+						}
 					}
 				}
 			}
@@ -183,33 +186,39 @@ class WC4BP_MyAccount {
 	}
 	
 	public static function add_all_endpoints__premium_only() {
-		foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
-			$page_name = wc4bp_Manager::get_prefix() . $end_point_key;
-			$post      = self::get_page_by_name__premium_only( $page_name );
-			if ( empty( $post ) ) {
-				$r = wp_insert_post(
-					array(
-						'comment_status' => 'closed',
-						'ping_status'    => 'closed',
-						'post_title'     => $end_point_value,
-						'post_name'      => $page_name,
-						'post_content'   => self::get_page_content__premium_only( $end_point_key ),
-						'post_status'    => 'publish',
-						'post_type'      => 'page',
-						'meta_input'     => array(
-							'wc4bp-my-account-template' => 1,
-						),
-					)
-				);
+		$available_endpoints = self::get_available_endpoints();
+		if ( ! empty( $available_endpoints ) ) {
+			foreach ( $available_endpoints as $end_point_key => $end_point_value ) {
+				$page_name = wc4bp_Manager::get_prefix() . $end_point_key;
+				$post      = self::get_page_by_name__premium_only( $page_name );
+				if ( empty( $post ) ) {
+					$r = wp_insert_post(
+						array(
+							'comment_status' => 'closed',
+							'ping_status'    => 'closed',
+							'post_title'     => $end_point_value,
+							'post_name'      => $page_name,
+							'post_content'   => self::get_page_content__premium_only( $end_point_key ),
+							'post_status'    => 'publish',
+							'post_type'      => 'page',
+							'meta_input'     => array(
+								'wc4bp-my-account-template' => 1,
+							),
+						)
+					);
+				}
 			}
 		}
 	}
 	
 	public static function remove_all_endpoints__premium_only() {
-		foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
-			$post = self::get_page_by_name__premium_only( wc4bp_Manager::get_prefix() . $end_point_key );
-			if ( ! empty( $post ) ) {
-				wp_delete_post( $post->ID, true );
+		$available_endpoints = self::get_available_endpoints();
+		if ( ! empty( $available_endpoints ) ) {
+			foreach ( $available_endpoints as $end_point_key => $end_point_value ) {
+				$post = self::get_page_by_name__premium_only( wc4bp_Manager::get_prefix() . $end_point_key );
+				if ( ! empty( $post ) ) {
+					wp_delete_post( $post->ID, true );
+				}
 			}
 		}
 	}
@@ -255,9 +264,12 @@ class WC4BP_MyAccount {
 	public static function get_active_endpoints__premium_only() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		$result        = array();
-		foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
-			if ( empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
-				$result[ $end_point_key ] = $end_point_value;
+		$available     = self::get_available_endpoints();
+		if ( ! empty( $available ) ) {
+			foreach ( $available as $end_point_key => $end_point_value ) {
+				if ( empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
+					$result[ $end_point_key ] = $end_point_value;
+				}
 			}
 		}
 		
