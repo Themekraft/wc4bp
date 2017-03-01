@@ -21,17 +21,19 @@ class WC4BP_MyAccount {
 	
 	public function __construct() {
 		$this->base_html = '<span class=\'wc4bp-my-account-page\'>' . wc4bp_Manager::get_suffix() . '</span>';
-		add_action( 'update_option_wc4bp_options', array( $this, "process_saved_settings" ), 10, 2 );
-		add_filter( 'the_title', array( $this, 'add_title_mark' ), 10, 2 );
+		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+			add_filter( 'the_title', array( $this, 'add_title_mark__premium_only' ), 10, 2 );
+			add_filter( 'esc_html', array( $this, "esc_html_for_title__premium_only" ), 10, 2 );
+			add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url__premium_only' ), 10, 2 );
+			add_filter( 'woocommerce_get_myaccount_page_id', array( $this, 'my_account_page_id__premium_only' ), 10, 1 );
+			add_filter( 'woocommerce_get_myaccount_page_permalink', array( $this, 'my_account_page_permalink__premium_only' ), 10, 1 );
+			add_filter( 'woocommerce_get_endpoint_url', array( $this, 'endpoint_url__premium_only' ), 1, 4 );
+			add_action( 'update_option_wc4bp_options', array( $this, "process_saved_settings__premium_only" ), 10, 2 );
+		}
+		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
+			
+		}
 		
-		add_filter( 'esc_html', array( $this, "esc_html_for_title" ), 10, 2 );
-		
-		add_filter( 'woocommerce_get_endpoint_url', array( $this, 'endpoint_url' ), 1, 4 );
-		
-		add_filter( 'woocommerce_get_myaccount_page_permalink', array( $this, 'my_account_page_permalink' ), 10, 1 );
-		add_filter( 'woocommerce_get_myaccount_page_id', array( $this, 'my_account_page_id' ), 10, 1 );
-
-		add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url' ), 10, 2 );
 	}
 	
 	public function get_base_url( $endpoint ) {
@@ -46,13 +48,13 @@ class WC4BP_MyAccount {
 	 *
 	 * @return string
 	 */
-	public function get_view_order_url( $view_order_url, $order ) {
+	public function get_view_order_url__premium_only( $view_order_url, $order ) {
 		$view_order_url = wc_get_endpoint_url( 'view-order', $order->id, $this->get_base_url( wc4bp_Manager::get_prefix() . 'orders' ) );
 		
 		return $view_order_url;
 	}
 	
-	public function endpoint_url( $url, $endpoint, $value, $permalink ) {
+	public function endpoint_url__premium_only( $url, $endpoint, $value, $permalink ) {
 		if ( wc4bp_Manager::is_current_active() ) {
 			global $current_user, $bp;
 			
@@ -85,7 +87,7 @@ class WC4BP_MyAccount {
 	 *
 	 * @return string
 	 */
-	public function my_account_page_permalink( $permalink ) {
+	public function my_account_page_permalink__premium_only( $permalink ) {
 		global $current_user, $bp;
 		
 		$current_user = wp_get_current_user();
@@ -112,7 +114,7 @@ class WC4BP_MyAccount {
 	 *
 	 * @return string
 	 */
-	public function my_account_page_id( $page_id ) {
+	public function my_account_page_id__premium_only( $page_id ) {
 		global $bp;
 		$page = get_page_by_path( $bp->pages->members->slug );
 		
@@ -123,7 +125,7 @@ class WC4BP_MyAccount {
 		}
 	}
 	
-	public function esc_html_for_title( $safe_text, $text ) {
+	public function esc_html_for_title__premium_only( $safe_text, $text ) {
 		if ( ! empty( $this->current_title ) && $text == $this->current_title ) {
 			return $text;
 		}
@@ -131,7 +133,7 @@ class WC4BP_MyAccount {
 		return $safe_text;
 	}
 	
-	public function add_title_mark( $title, $id ) {
+	public function add_title_mark__premium_only( $title, $id ) {
 		global $pagenow;
 		$titles    = self::get_active_endpoints();
 		$post_meta = get_post_meta( $id, 'wc4bp-my-account-template', true );
@@ -147,7 +149,7 @@ class WC4BP_MyAccount {
 	 * @param $old_value
 	 * @param $new_value
 	 */
-	public function process_saved_settings( $old_value, $new_value ) {
+	public function process_saved_settings__premium_only( $old_value, $new_value ) {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		if ( empty( $wc4bp_options["tab_activity_disabled"] ) ) {
 			foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {

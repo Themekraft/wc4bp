@@ -12,23 +12,25 @@
 	$bp_action_variables = $bp->action_variables;
 	$wc4bp_options       = get_option( 'wc4bp_options' );
 	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
-	$available_endpoint  = WC4BP_MyAccount::get_active_endpoints();
-	$my_account_page     = 0;
-	if ( ! empty( $available_endpoint ) ) {
-		foreach ( $available_endpoint as $available_endpoint_key => $available_endpoint_name ) {
-			$current_page = wc4bp_Manager::get_prefix() . $available_endpoint_key;
-			if ( $action == $current_page ) {
-				$my_account_page = 1;
-				$order_page      = wc4bp_Manager::get_prefix() . 'orders';
-				if ( $action == $order_page && ! empty( $bp_action_variables ) ) {
-					foreach ( $bp_action_variables as $var ) {
-						if ( $var == 'view-order' ) {
-							$my_account_page = 2;
-							break;
+	$my_account_page    = 0;
+	if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+		$available_endpoint = WC4BP_MyAccount::get_active_endpoints();
+		if ( ! empty( $available_endpoint ) ) {
+			foreach ( $available_endpoint as $available_endpoint_key => $available_endpoint_name ) {
+				$current_page = wc4bp_Manager::get_prefix() . $available_endpoint_key;
+				if ( $action == $current_page ) {
+					$my_account_page = 1;
+					$order_page      = wc4bp_Manager::get_prefix() . 'orders';
+					if ( $action == $order_page && ! empty( $bp_action_variables ) ) {
+						foreach ( $bp_action_variables as $var ) {
+							if ( $var == 'view-order' ) {
+								$my_account_page = 2;
+								break;
+							}
 						}
 					}
+					break;
 				}
-				break;
 			}
 		}
 	}

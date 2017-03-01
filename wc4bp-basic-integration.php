@@ -9,7 +9,7 @@
  * Text Domain: wc4bp
  * Domain Path: /languages
  *
- * @fs_premium_only /class/wc4bp-myaccount.php,
+ * @fs_premium_only /class/wc4bp-myaccount-content.php,
  *
  *****************************************************************************
  *
