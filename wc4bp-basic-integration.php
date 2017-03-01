@@ -99,7 +99,9 @@ class WC4BP_Loader {
 			/**
 			 * Deletes all data if plugin deactivated
 			 */
-			register_deactivation_hook( __FILE__, array( $this, 'uninstall' ) );
+			register_deactivation_hook( __FILE__, array( $this, 'deactivation' ) );
+			
+			self::getFreemius()->add_action('after_uninstall', array($this, 'uninstall_cleanup') );
 		}
 	}
 	
@@ -230,7 +232,7 @@ class WC4BP_Loader {
 	 *
 	 * @return void
 	 */
-	public function uninstall() {
+	public function deactivation() {
 		global $wpdb, $blog_id;
 		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 			//delete woo my account pages
@@ -241,5 +243,25 @@ class WC4BP_Loader {
 			include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
 			wc4bp_cleanup();
 		}
+	}
+	
+	/**
+	 * Clean the related plugins data when it is uninstall
+	 */
+	public function uninstall_cleanup(){
+		// Removes all data from the database
+		delete_option( 'wc4bp_installed' );
+		delete_option( 'wc4bp_shipping_address_ids' );
+		delete_option( 'wc4bp_billing_address_ids' );
+		delete_option( 'wc4bp_options' );
+		delete_option( 'woocommerce-buddypress-integration' );
+		delete_option( 'wc4bp-basic-integration' );
+		delete_option( 'wc4bp_api_manager_instance' );
+		delete_option( 'wc4bp_api_manager_deactivate_checkbox' );
+		delete_option( 'wc4bp_api_manager_activated' );
+		delete_option( 'wc4bp_api_manager_version' );
+		delete_option( 'wc4bp_api_manager_checkbox' );
+		delete_option( 'wc4bp_options_sync' );
+		delete_option( 'wc4bp_options_tabs' );
 	}
 }
