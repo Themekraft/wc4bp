@@ -68,7 +68,7 @@ class wc4bp_admin_pages extends wc4bp_base {
 			$track_sub_nav = $options['track_sub_nav'];
 		}
 		
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_pages_shop_pages_rename.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'pages/html_admin_pages_shop_pages_rename.php' );
 	}
 	
 	
@@ -101,12 +101,12 @@ class wc4bp_admin_pages extends wc4bp_base {
 
         </style>
 		<?php
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_pages_forms_table.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'pages/html_admin_pages_forms_table.php' );
 		
 	}
 	
 	public function wc4bp_thickbox_page_form() {
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_pages_thickbox.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'pages/html_admin_pages_thickbox.php' );
 		//$options = get_option( 'wc4bp_options' );
 	}
 	
@@ -150,7 +150,7 @@ class wc4bp_admin_pages extends wc4bp_base {
 			'class'            => 'postform',
 			'selected'         => $page_id
 		);
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_pages_edit_entry.php' );
+		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'pages/html_admin_pages_edit_entry.php' );
 	}
 	
 	public function wc4bp_add_edit_entry_form( $edit = '' ) {

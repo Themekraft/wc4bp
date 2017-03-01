@@ -29,13 +29,9 @@ class WC4BP_Component extends BP_Component {
 	 */
 	function __construct() {
 		parent::start( $this->id, __( 'Shop', 'wc4bp' ), WC4BP_ABSPATH );
-		
 		$this->includes();
-		
 		add_action( 'bp_register_activity_actions', array( $this, 'register_activity_actions' ) );
-		
 		add_filter( 'bp_located_template', array( $this, 'wc4bp_members_load_template_filter' ), 10, 2 );
-		
 	}
 	
 	/**
@@ -122,7 +118,9 @@ class WC4BP_Component extends BP_Component {
 		
 		// Add 'Shop' to the main navigation
 		$main_nav = array(
-			'name'                    => apply_filters( 'bp_shop_link_label', __( 'Shop', 'wc4bp' ) ),
+			'name'                    =>
+				( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) ?
+					apply_filters( 'bp_shop_link_label', __( 'Shop', 'wc4bp' ) ) : __( 'Shop', 'wc4bp' ),
 			'slug'                    => $this->slug,
 			'position'                => 70,
 			'screen_function'         => 'wc4bp_screen_plugins',
@@ -136,7 +134,8 @@ class WC4BP_Component extends BP_Component {
 		// Add the cart nav item
 		if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
 			$sub_nav[] = array(
-				'name'            => apply_filters( 'bp_shop_cart_link_label', __( 'Shopping Cart', 'wc4bp' ) ),
+				'name'            => ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) ?
+					apply_filters( 'bp_shop_cart_link_label', __( 'Shopping Cart', 'wc4bp' ) ) : __( 'Shopping Cart', 'wc4bp' ),
 				'slug'            => 'cart',
 				'parent_url'      => $shop_link,
 				'parent_slug'     => $this->slug,
@@ -154,7 +153,8 @@ class WC4BP_Component extends BP_Component {
 			$session_cart = $wc_session_data->get( 'cart' );
 			if ( ! is_admin() && ! empty( $session_cart ) && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
 				$sub_nav[] = array(
-					'name'            => apply_filters( 'bp_checkout_link_label', __( 'Checkout', 'wc4bp' ) ),
+					'name'            => ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) ?
+						apply_filters( 'bp_checkout_link_label', __( 'Checkout', 'wc4bp' ) ) : __( 'Checkout', 'wc4bp' ),
 					'slug'            => 'checkout',
 					'parent_url'      => $shop_link,
 					'parent_slug'     => $this->slug,
@@ -170,7 +170,8 @@ class WC4BP_Component extends BP_Component {
 		if ( ! isset( $wc4bp_options['tab_history_disabled'] ) ) {
 			
 			$sub_nav[] = array(
-				'name'            => apply_filters( 'bp_history_link_label', __( 'History', 'wc4bp' ) ),
+				'name'            => ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) ?
+					apply_filters( 'bp_history_link_label', __( 'History', 'wc4bp' ) ) : __( 'History', 'wc4bp' ),
 				'slug'            => 'history',
 				'parent_url'      => $shop_link,
 				'parent_slug'     => $this->slug,
@@ -183,7 +184,8 @@ class WC4BP_Component extends BP_Component {
 		// Add the Track nav item
 		if ( ! isset( $wc4bp_options['tab_track_disabled'] ) ) {
 			$sub_nav[] = array(
-				'name'            => apply_filters( 'bp_track_order_link_label', __( 'Track your order', 'wc4bp' ) ),
+				'name'            => ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) ?
+					apply_filters( 'bp_track_order_link_label', __( 'Track your order', 'wc4bp' ) ) : __( 'Track your order', 'wc4bp' ),
 				'slug'            => 'track',
 				'parent_url'      => $shop_link,
 				'parent_slug'     => $this->slug,
@@ -197,7 +199,8 @@ class WC4BP_Component extends BP_Component {
 		// Add shop settings subpage
 		if ( ! isset( $wc4bp_options['tab_activity_disabled'] ) ) {
 			$sub_nav[] = array(
-				'name'            => apply_filters( 'bp_shop_settings_link_label', __( 'Shop', 'wc4bp' ) ),
+				'name'            => ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) ?
+					apply_filters( 'bp_shop_settings_link_label', __( 'Shop', 'wc4bp' ) ) : __( 'Shop', 'wc4bp' ),
 				'slug'            => 'shop',
 				'parent_url'      => trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug() ),
 				'parent_slug'     => bp_get_settings_slug(),
@@ -208,25 +211,25 @@ class WC4BP_Component extends BP_Component {
 			);
 		}
 		$position = 40;
-		
-		$active_pages = WC4BP_MyAccount::get_active_endpoints();
-		if ( ! empty( $active_pages ) ) {
-			foreach ( $active_pages as $active_page_key => $active_page_name ) {
-				$page_slug = wc4bp_Manager::get_prefix() . $active_page_key;
-				$position ++;
-				$sub_nav[] = array(
-					'name'            => $active_page_name,
-					'slug'            => $page_slug,
-					'parent_url'      => $shop_link,
-					'parent_slug'     => $this->slug,
-					'screen_function' => 'wc4bp_screen_plugins',
-					'position'        => $position,
-					'item_css_id'     => 'shop-cart',
-					'user_has_access' => bp_is_my_profile()
-				);
+		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+			$active_pages = WC4BP_MyAccount::get_active_endpoints__premium_only();
+			if ( ! empty( $active_pages ) ) {
+				foreach ( $active_pages as $active_page_key => $active_page_name ) {
+					$page_slug = wc4bp_Manager::get_prefix() . $active_page_key;
+					$position ++;
+					$sub_nav[] = array(
+						'name'            => $active_page_name,
+						'slug'            => $page_slug,
+						'parent_url'      => $shop_link,
+						'parent_slug'     => $this->slug,
+						'screen_function' => 'wc4bp_screen_plugins',
+						'position'        => $position,
+						'item_css_id'     => 'shop-cart',
+						'user_has_access' => bp_is_my_profile()
+					);
+				}
 			}
 		}
-		
 		if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
 			foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
 				$position ++;
@@ -270,7 +273,8 @@ class WC4BP_Component extends BP_Component {
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-settings',
 					'id'     => 'my-account-settings-shop',
-					'title'  => apply_filters( 'bp_shop_settings_nav_link_label', __( 'Shop', 'wc4bp' ) ),
+					'title'  => ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) ?
+						apply_filters( 'bp_shop_settings_nav_link_label', __( 'Shop', 'wc4bp' ) ) : __( 'Shop', 'wc4bp' ),
 					'href'   => trailingslashit( $settings_link . 'shop' )
 				);
 			}
@@ -281,7 +285,8 @@ class WC4BP_Component extends BP_Component {
 			$wp_admin_nav[] = array(
 				'parent' => $bp->my_account_menu_id,
 				'id'     => 'my-account-' . $this->id,
-				'title'  => apply_filters( 'bp_shop_nav_link_label', __( 'Shop', 'wc4bp' ) ),
+				'title'  => ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) ?
+					apply_filters( 'bp_shop_nav_link_label', __( 'Shop', 'wc4bp' ) ) : __( 'Shop', 'wc4bp' ),
 				'href'   => trailingslashit( $shop_link ),
 				'meta'   => array( 'class' => 'menupop' )
 			);
@@ -290,7 +295,8 @@ class WC4BP_Component extends BP_Component {
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
 					'id'     => 'my-account-' . $this->id . '-cart',
-					'title'  => apply_filters( 'bp_shop_cart_nav_link_label', __( 'Shopping Cart', 'wc4bp' ) ),
+					'title'  => ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) ?
+						apply_filters( 'bp_shop_cart_nav_link_label', __( 'Shopping Cart', 'wc4bp' ) ) : __( 'Shopping Cart', 'wc4bp' ),
 					'href'   => trailingslashit( $shop_link . 'cart' )
 				);
 			}
@@ -299,7 +305,8 @@ class WC4BP_Component extends BP_Component {
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
 					'id'     => 'my-account-' . $this->id . '-checkout',
-					'title'  => apply_filters( 'bp_checkout_nav_link_label', __( 'Checkout', 'wc4bp' ) ),
+					'title'  => ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) ?
+						apply_filters( 'bp_checkout_nav_link_label', __( 'Checkout', 'wc4bp' ) ) : __( 'Checkout', 'wc4bp' ),
 					'href'   => trailingslashit( $shop_link . 'checkout' )
 				);
 			}
@@ -308,7 +315,8 @@ class WC4BP_Component extends BP_Component {
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
 					'id'     => 'my-account-' . $this->id . '-history',
-					'title'  => apply_filters( 'bp_history_nav_link_label', __( 'History', 'wc4bp' ) ),
+					'title'  => ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) ?
+						apply_filters( 'bp_history_nav_link_label', __( 'History', 'wc4bp' ) ) : __( 'History', 'wc4bp' ),
 					'href'   => trailingslashit( $shop_link . 'history' )
 				);
 			}
@@ -317,23 +325,24 @@ class WC4BP_Component extends BP_Component {
 				$wp_admin_nav[] = array(
 					'parent' => 'my-account-' . $this->id,
 					'id'     => 'my-account-' . $this->id . '-track',
-					'title'  => apply_filters( 'bp_track_order_nav_link_label', __( 'Track your order', 'wc4bp' ) ),
+					'title'  => ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) ?
+						apply_filters( 'bp_track_order_nav_link_label', __( 'Track your order', 'wc4bp' ) ) : __( 'Track your order', 'wc4bp' ),
 					'href'   => trailingslashit( $shop_link . 'track' )
 				);
 			}
-			
-			$active_pages = WC4BP_MyAccount::get_active_endpoints();
-			if ( ! empty( $active_pages ) ) {
-				foreach ( $active_pages as $active_page_key => $active_page_name ) {
-					$wp_admin_nav[] = array(
-						'parent' => 'my-account-' . $this->id,
-						'id'     => 'my-account-' . $this->id . '-' . wc4bp_Manager::get_prefix() . $active_page_key,
-						'title'  => $active_page_name,
-						'href'   => trailingslashit( $shop_link . wc4bp_Manager::get_prefix() . $active_page_key )
-					);
+			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+				$active_pages = WC4BP_MyAccount::get_active_endpoints__premium_only();
+				if ( ! empty( $active_pages ) ) {
+					foreach ( $active_pages as $active_page_key => $active_page_name ) {
+						$wp_admin_nav[] = array(
+							'parent' => 'my-account-' . $this->id,
+							'id'     => 'my-account-' . $this->id . '-' . wc4bp_Manager::get_prefix() . $active_page_key,
+							'title'  => $active_page_name,
+							'href'   => trailingslashit( $shop_link . wc4bp_Manager::get_prefix() . $active_page_key )
+						);
+					}
 				}
 			}
-			
 			if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
 				foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
 					
@@ -346,7 +355,6 @@ class WC4BP_Component extends BP_Component {
 					
 				}
 			}
-			
 			parent::setup_admin_bar( $wp_admin_nav );
 		}
 	}
@@ -379,13 +387,14 @@ class WC4BP_Component extends BP_Component {
 					if ( empty( $wc4bp_options['tab_cart_disabled'] ) ) {
 						$bp->current_action = $cart_slug;
 						$path               = 'shop/member/cart';
-					}
-					else{
-						$wc_active_endpoints = WC4BP_MyAccount::get_active_endpoints();
-						if ( ! empty( $wc_active_endpoints ) && count( $wc_active_endpoints ) > 1 ) {
-							reset( $wc_active_endpoints );
-							$page_name = wc4bp_Manager::get_prefix() . key( $wc_active_endpoints );
-							$bp->current_action = $page_name;
+					} else {
+						if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+							$wc_active_endpoints = WC4BP_MyAccount::get_active_endpoints__premium_only();
+							if ( ! empty( $wc_active_endpoints ) && count( $wc_active_endpoints ) > 1 ) {
+								reset( $wc_active_endpoints );
+								$page_name          = wc4bp_Manager::get_prefix() . key( $wc_active_endpoints );
+								$bp->current_action = $page_name;
+							}
 						}
 					}
 				}

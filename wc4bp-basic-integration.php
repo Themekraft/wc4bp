@@ -9,6 +9,8 @@
  * Text Domain: wc4bp
  * Domain Path: /languages
  *
+ * @fs_premium_only /class/wc4bp-myaccount-content.php,
+ *
  *****************************************************************************
  *
  * This script is free software; you can redistribute it and/or modify
@@ -77,6 +79,7 @@ class WC4BP_Loader {
 		self::$plugin_name = plugin_basename( __FILE__ );
 		$this->constants();
 		require_once plugin_dir_path( __FILE__ ) . 'class/class-tgm-plugin-activation.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-base.php';
 		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-manager.php';
 		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-required.php';
 		new WC4BP_Required();
@@ -144,8 +147,8 @@ class WC4BP_Loader {
 		define( 'WC4BP_URLPATH', trailingslashit( plugins_url( '/' . WC4BP_FOLDER ) ) );
 		define( 'WC4BP_ABSPATH_CLASS_PATH', WC4BP_ABSPATH . 'class/' );
 		define( 'WC4BP_ABSPATH_TEMPLATE_PATH', WC4BP_ABSPATH . 'templates/' );
-		define( 'WC4BP_ABSPATH_ADMIN_PATH', WC4BP_ABSPATH . 'admin' . DIRECTORY_SEPARATOR );
-		define( 'WC4BP_ABSPATH_ADMIN_VIEWS_PATH', WC4BP_ABSPATH_ADMIN_PATH . 'views' . DIRECTORY_SEPARATOR );
+		define( 'WC4BP_ABSPATH_ADMIN_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR );
+		define( 'WC4BP_ABSPATH_ADMIN_VIEWS_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_CSS', WC4BP_URLPATH . '/admin/css/' );
 		define( 'WC4BP_JS', WC4BP_URLPATH . '/admin/js/' );
 	}
@@ -216,25 +219,26 @@ class WC4BP_Loader {
 	 * Generate the default data arrays
 	 */
 	public function activation() {
-		//Add all woo my account pages
-		WC4BP_MyAccount::add_all_endpoints();
-		
-		flush_rewrite_rules();
-		
+		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
+			//Add all woo my account pages
+			WC4BP_MyAccount::add_all_endpoints__premium_only();
+			flush_rewrite_rules();
+		}
 		include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
 		wc4bp_activate();
 	}
 	
 	/**
 	 * Deletes all data if plugin deactivated
+	 *
 	 * @return void
 	 */
 	public function uninstall() {
 		global $wpdb, $blog_id;
-		
-		//delete woo my account pages
-		WC4BP_MyAccount::remove_all_endpoints();
-		
+		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
+			//delete woo my account pages
+			WC4BP_MyAccount::remove_all_endpoints__premium_only();
+		}
 		$wc4bp_options_delete = get_option( 'wc4bp_options_delete' );
 		if ( $wc4bp_options_delete ) {
 			include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );

@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class wc4bp_admin_ajax {
+class wc4bp_admin_ajax extends wc4bp_base {
 	
 	public function __construct() {
 		add_action( 'wp_ajax_wc4bp_edit_entry', array( $this, 'wc4bp_edit_entry' ) );
