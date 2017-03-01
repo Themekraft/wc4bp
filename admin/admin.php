@@ -85,7 +85,6 @@ class wc4bp_admin extends wc4bp_base {
 				$admin_delete->wc4bp_screen_delete( $active_tab );
 				break;
 		}
-		
 	}
 	
 	/**
@@ -99,6 +98,7 @@ class wc4bp_admin extends wc4bp_base {
 		register_setting( 'wc4bp_options_delete', 'wc4bp_options_delete' );
 		register_setting( 'wc4bp_options_pages', 'wc4bp_options_pages' );
 		register_setting( 'wc4bp_options', 'wc4bp_options' );
+		register_setting( 'wc4bp_options_sync', 'wc4bp_options_sync' );
 		
 		add_settings_section( 'section_general', '', '', 'wc4bp_options' );
 		add_settings_section( 'section_general2', '', '', 'wc4bp_options' );

@@ -48,9 +48,6 @@ class wc4bp_admin_sync extends wc4bp_base {
 	 * @since 1.0
 	 */
 	public function wc4bp_register_admin_settings_sync() {
-		
-		register_setting( 'wc4bp_options_sync', 'wc4bp_options_sync' );
-		
 		// Settings fields and sections
 		add_settings_section( 'section_sync', __( 'Profile Field Synchronisation Settings', 'wc4bp' ), '', 'wc4bp_options_sync' );
 		add_settings_section( 'section_general', __( 'Default BuddyPress WooCommerce Profile Field Settings', 'wc4bp' ), '', 'wc4bp_options_sync' );
