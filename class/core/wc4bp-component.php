@@ -210,7 +210,7 @@ class WC4BP_Component extends BP_Component {
 			}
 			$position = 40;
 			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-				$active_pages = WC4BP_MyAccount::get_active_endpoints();
+				$active_pages = WC4BP_MyAccount::get_active_endpoints__premium_only();
 				if ( ! empty( $active_pages ) ) {
 					foreach ( $active_pages as $active_page_key => $active_page_name ) {
 						$page_slug = wc4bp_Manager::get_prefix() . $active_page_key;
@@ -325,7 +325,7 @@ class WC4BP_Component extends BP_Component {
 					);
 				}
 				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-					$active_pages = WC4BP_MyAccount::get_active_endpoints();
+					$active_pages = WC4BP_MyAccount::get_active_endpoints__premium_only();
 					if ( ! empty( $active_pages ) ) {
 						foreach ( $active_pages as $active_page_key => $active_page_name ) {
 							$wp_admin_nav[] = array(
@@ -384,7 +384,7 @@ class WC4BP_Component extends BP_Component {
 						$path               = 'shop/member/cart';
 					} else {
 						if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-							$wc_active_endpoints = WC4BP_MyAccount::get_active_endpoints();
+							$wc_active_endpoints = WC4BP_MyAccount::get_active_endpoints__premium_only();
 							if ( ! empty( $wc_active_endpoints ) && count( $wc_active_endpoints ) > 1 ) {
 								reset( $wc_active_endpoints );
 								$page_name          = wc4bp_Manager::get_prefix() . key( $wc_active_endpoints );

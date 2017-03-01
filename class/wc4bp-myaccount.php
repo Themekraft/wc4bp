@@ -93,7 +93,7 @@ class WC4BP_MyAccount {
 		$current_user = wp_get_current_user();
 		$userdata     = get_userdata( $current_user->ID );
 		
-		$wc4bp_endpoint = WC4BP_MyAccount::get_active_endpoints();
+		$wc4bp_endpoint = WC4BP_MyAccount::get_active_endpoints__premium_only();
 		
 		if ( ! empty( $wc4bp_endpoint ) ) {
 			foreach ( $wc4bp_endpoint as $active_page_key => $active_page_name ) {
@@ -135,7 +135,7 @@ class WC4BP_MyAccount {
 	
 	public function add_title_mark__premium_only( $title, $id ) {
 		global $pagenow;
-		$titles    = self::get_active_endpoints();
+		$titles    = self::get_active_endpoints__premium_only();
 		$post_meta = get_post_meta( $id, 'wc4bp-my-account-template', true );
 		if ( $pagenow == 'edit.php' && $_GET['post_type'] == 'page' && ! empty( $titles ) && in_array( $title, $titles ) && ! empty( $post_meta ) ) {
 			$title               = $title . $this->base_html;
@@ -153,7 +153,7 @@ class WC4BP_MyAccount {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		if ( empty( $wc4bp_options["tab_activity_disabled"] ) ) {
 			foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
-				$post = self::get_page_by_name( wc4bp_Manager::get_prefix() . $end_point_key );
+				$post = self::get_page_by_name__premium_only( wc4bp_Manager::get_prefix() . $end_point_key );
 				if ( ! empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] && $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] == "1" ) ) {
 					if ( ! empty( $post ) ) {
 						wp_delete_post( $post->ID, true );
@@ -166,7 +166,7 @@ class WC4BP_MyAccount {
 								'ping_status'    => 'closed',
 								'post_title'     => $end_point_value,
 								'post_name'      => wc4bp_Manager::get_prefix() . $end_point_key,
-								'post_content'   => self::get_page_content( $end_point_key ),
+								'post_content'   => self::get_page_content__premium_only( $end_point_key ),
 								'post_status'    => 'publish',
 								'post_type'      => 'page',
 								'meta_input'     => array(
@@ -178,14 +178,14 @@ class WC4BP_MyAccount {
 				}
 			}
 		} else {
-			self::remove_all_endpoints();
+			self::remove_all_endpoints__premium_only();
 		}
 	}
 	
-	public static function add_all_endpoints() {
+	public static function add_all_endpoints__premium_only() {
 		foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
 			$page_name = wc4bp_Manager::get_prefix() . $end_point_key;
-			$post      = self::get_page_by_name( $page_name );
+			$post      = self::get_page_by_name__premium_only( $page_name );
 			if ( empty( $post ) ) {
 				$r = wp_insert_post(
 					array(
@@ -193,7 +193,7 @@ class WC4BP_MyAccount {
 						'ping_status'    => 'closed',
 						'post_title'     => $end_point_value,
 						'post_name'      => $page_name,
-						'post_content'   => self::get_page_content( $end_point_key ),
+						'post_content'   => self::get_page_content__premium_only( $end_point_key ),
 						'post_status'    => 'publish',
 						'post_type'      => 'page',
 						'meta_input'     => array(
@@ -205,9 +205,9 @@ class WC4BP_MyAccount {
 		}
 	}
 	
-	public static function remove_all_endpoints() {
+	public static function remove_all_endpoints__premium_only() {
 		foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {
-			$post = self::get_page_by_name( wc4bp_Manager::get_prefix() . $end_point_key );
+			$post = self::get_page_by_name__premium_only( wc4bp_Manager::get_prefix() . $end_point_key );
 			if ( ! empty( $post ) ) {
 				wp_delete_post( $post->ID, true );
 			}
@@ -221,7 +221,7 @@ class WC4BP_MyAccount {
 	 *
 	 * @return array|String
 	 */
-	public static function get_page_content( $end_point_key = "" ) {
+	public static function get_page_content__premium_only( $end_point_key = "" ) {
 		$result    = array();
 		$available = self::get_available_endpoints();
 		if ( ! empty( $available ) ) {
@@ -242,7 +242,7 @@ class WC4BP_MyAccount {
 		return $result;
 	}
 	
-	public static function get_page_by_name( $post_name, $output = OBJECT ) {
+	public static function get_page_by_name__premium_only( $post_name, $output = OBJECT ) {
 		global $wpdb;
 		$post = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='page'", $post_name ) );
 		if ( $post ) {
@@ -252,7 +252,7 @@ class WC4BP_MyAccount {
 		return null;
 	}
 	
-	public static function get_active_endpoints() {
+	public static function get_active_endpoints__premium_only() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		$result        = array();
 		foreach ( self::get_available_endpoints() as $end_point_key => $end_point_value ) {

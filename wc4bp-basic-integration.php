@@ -221,7 +221,7 @@ class WC4BP_Loader {
 	public function activation() {
 		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 			//Add all woo my account pages
-			WC4BP_MyAccount::add_all_endpoints();
+			WC4BP_MyAccount::add_all_endpoints__premium_only();
 			flush_rewrite_rules();
 		}
 		include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
@@ -237,7 +237,7 @@ class WC4BP_Loader {
 		global $wpdb, $blog_id;
 		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 			//delete woo my account pages
-			WC4BP_MyAccount::remove_all_endpoints();
+			WC4BP_MyAccount::remove_all_endpoints__premium_only();
 		}
 		$wc4bp_options_delete = get_option( 'wc4bp_options_delete' );
 		if ( $wc4bp_options_delete ) {
