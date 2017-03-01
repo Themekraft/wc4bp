@@ -123,10 +123,7 @@ class WC4BP_Loader {
 				'menu'                => array(
 					'slug'    => 'wc4bp-options-page',
 					'support' => false,
-				),
-				// Set the SDK to work in a sandbox mode (for development & testing).
-				// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-				'secret_key'          => 'sk_ccE(cjH4?%J)wXa@h2vV^g]jAeY$i',
+				)
 			) );
 		}
 		
