@@ -29,13 +29,9 @@ class WC4BP_Component extends BP_Component {
 	 */
 	function __construct() {
 		parent::start( $this->id, __( 'Shop', 'wc4bp' ), WC4BP_ABSPATH );
-		
 		$this->includes();
-		
 		add_action( 'bp_register_activity_actions', array( $this, 'register_activity_actions' ) );
-		
 		add_filter( 'bp_located_template', array( $this, 'wc4bp_members_load_template_filter' ), 10, 2 );
-		
 	}
 	
 	/**
@@ -111,7 +107,6 @@ class WC4BP_Component extends BP_Component {
 	 * @global   object $bp
 	 */
 	function setup_nav( $main_nav = Array(), $sub_nav = Array() ) {
-		if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
 			global $woocommerce;
 			
 			if ( ! function_exists( 'bp_get_settings_slug' ) ) {
@@ -246,7 +241,6 @@ class WC4BP_Component extends BP_Component {
 			
 			$sub_nav = apply_filters( 'bp_shop_sub_nav', $sub_nav, $shop_link, $this->slug );
 			do_action( 'bp_shop_setup_nav' );
-		}
 		parent::setup_nav( $main_nav, $sub_nav );
 	}
 	
@@ -264,7 +258,6 @@ class WC4BP_Component extends BP_Component {
 		$wp_admin_nav = array();
 		
 		if ( is_user_logged_in() ) {
-			if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
 				$user_domain   = bp_loggedin_user_domain();
 				$settings_link = trailingslashit( $user_domain . BP_SETTINGS_SLUG );
 				
@@ -349,7 +342,6 @@ class WC4BP_Component extends BP_Component {
 						
 					}
 				}
-			}
 			parent::setup_admin_bar( $wp_admin_nav );
 		}
 	}
