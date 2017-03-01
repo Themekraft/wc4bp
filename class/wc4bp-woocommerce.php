@@ -18,11 +18,13 @@ class wc4bp_Woocommerce {
 	public function __construct() {
 		// Check if we are on checkout in profile
 		add_filter( 'woocommerce_is_checkout', array( $this, 'wc4bp_woocommerce_is_checkout' ) );
-		// Check if we are on the my account page in profile
-		add_filter( 'woocommerce_is_account_page', array( $this, 'wc4bp_woocommerce_is_account_page' ) );
+		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+			// Check if we are on the my account page in profile
+			add_filter( 'woocommerce_is_account_page', array( $this, 'wc4bp_woocommerce_is_account_page__premium_only' ) );
+		}
 	}
 	
-	public function wc4bp_woocommerce_is_account_page( $is_account_page ) {
+	public function wc4bp_woocommerce_is_account_page__premium_only( $is_account_page ) {
 		
 		if ( is_user_logged_in() ) {
 			if ( bp_is_current_component( 'shop' ) && bp_is_current_action( 'checkout' ) ) {

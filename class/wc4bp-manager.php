@@ -45,7 +45,6 @@ class wc4bp_Manager {
 			}
 			new WC4BP_MyAccount();
 			new wc4bp_Woocommerce();
-			
 			new wc4bp_Manage_Admin();
 		}
 	}
