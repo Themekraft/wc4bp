@@ -1,5 +1,5 @@
 jQuery(document).ready(function(){
-
+	/* <fs_premium_only> */
 	jQuery('.cptfbp_thickbox_add').click(function(){	
 		
 		var action = jQuery(this);
@@ -97,6 +97,7 @@ jQuery(document).ready(function(){
 
 	});
 
+	/* </fs_premium_only> */
 
     jQuery(function() {
         jQuery( "#tabs" ).tabs();

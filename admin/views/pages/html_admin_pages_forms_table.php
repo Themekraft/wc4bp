@@ -16,6 +16,7 @@
     </thead>
     <tbody id="the-list">
 	<?php
+    
 	if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) :
 		foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ):
 			?>
