@@ -3,8 +3,8 @@
  * Plugin Name: WC4BP -> WooCommerce BuddyPress Integration
  * Plugin URI:  http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
- * Author:      WC4BP Integration Dev Team ;)
- * Version:     2.5
+ * Author:      Sven Lehnert
+ * Version:     3.0
  * Licence: GPLv3
  * Text Domain: wc4bp
  * Domain Path: /languages
@@ -36,7 +36,7 @@ class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION = '2.5';
+	const VERSION = '3.0';
 	
 	/**
 	 * Minimum required WP version
