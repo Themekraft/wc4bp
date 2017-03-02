@@ -85,7 +85,6 @@ class wc4bp_admin extends wc4bp_base {
 				$admin_delete->wc4bp_screen_delete( $active_tab );
 				break;
 		}
-		
 	}
 	
 	/**
@@ -99,6 +98,7 @@ class wc4bp_admin extends wc4bp_base {
 		register_setting( 'wc4bp_options_delete', 'wc4bp_options_delete' );
 		register_setting( 'wc4bp_options_pages', 'wc4bp_options_pages' );
 		register_setting( 'wc4bp_options', 'wc4bp_options' );
+		register_setting( 'wc4bp_options_sync', 'wc4bp_options_sync' );
 		
 		add_settings_section( 'section_general', '', '', 'wc4bp_options' );
 		add_settings_section( 'section_general2', '', '', 'wc4bp_options' );
@@ -117,8 +117,8 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_shop_tabs() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
+		$tab_activity_disabled = 0;
 		if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
-			$tab_activity_disabled = 0;
 			if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
 				$tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
 			}
@@ -144,23 +144,24 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_shop_tabs_disable() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
+		$tab_cart_disabled = 0;
+		$tab_checkout_disabled = 0;
+		$tab_history_disabled = 0;
+		$tab_track_disabled = 0;
 		if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
-			$tab_cart_disabled = 0;
+			
 			if ( isset( $wc4bp_options['tab_cart_disabled'] ) ) {
 				$tab_cart_disabled = $wc4bp_options['tab_cart_disabled'];
 			}
 			
-			$tab_checkout_disabled = 0;
 			if ( isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
 				$tab_checkout_disabled = $wc4bp_options['tab_checkout_disabled'];
 			}
 			
-			$tab_history_disabled = 0;
 			if ( isset( $wc4bp_options['tab_history_disabled'] ) ) {
 				$tab_history_disabled = $wc4bp_options['tab_history_disabled'];
 			}
 			
-			$tab_track_disabled = 0;
 			if ( isset( $wc4bp_options['tab_track_disabled'] ) ) {
 				$tab_track_disabled = $wc4bp_options['tab_track_disabled'];
 			}

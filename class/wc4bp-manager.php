@@ -44,8 +44,8 @@ class wc4bp_Manager {
 			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
 				new WC4BP_MyAccount_Content();
 			}
-			new WC4BP_MyAccount();
 			new wc4bp_Woocommerce();
+			new WC4BP_MyAccount();
 			new wc4bp_Manage_Admin();
 		}
 	}

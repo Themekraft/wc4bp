@@ -22,6 +22,7 @@ class wc4bp_Woocommerce {
 			// Check if we are on the my account page in profile
 			add_filter( 'woocommerce_is_account_page', array( $this, 'wc4bp_woocommerce_is_account_page__premium_only' ) );
 		}
+		add_filter( 'woocommerce_get_endpoint_url', array( $this, 'endpoint_url' ), 1, 4 );
 	}
 	
 	public function wc4bp_woocommerce_is_account_page__premium_only( $is_account_page ) {
@@ -45,5 +46,34 @@ class wc4bp_Woocommerce {
 		}
 		
 		return $is_checkout;
+	}
+	
+	public function endpoint_url( $url, $endpoint, $value, $permalink ) {
+		global $current_user, $bp, $wp;
+		
+		$current_user = wp_get_current_user();
+		$userdata     = get_userdata( $current_user->ID );
+		
+		$base_path = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/';
+		
+		switch ( $endpoint ) {
+			case "payment-methods":
+				$url = $base_path . 'payment';
+				break;
+			case 'order-received':
+				$checkout_page_id = wc_get_page_id( 'checkout' );
+				$checkout_page    = get_post( $checkout_page_id );
+				$url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' . $endpoint . '/' . $value;
+				break;
+			case "set-default-payment-method":
+			case "delete-payment-method":
+				$url = add_query_arg( $endpoint, $value, $base_path . 'payment' );
+				break;
+			case "add-payment-method":
+				$url = add_query_arg( $endpoint, "w2ewe3423ert", $base_path . 'payment/add-payment' );
+				break;
+		}
+		
+		return $url;
 	}
 }
