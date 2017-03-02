@@ -27,13 +27,8 @@ class WC4BP_MyAccount {
 			add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url__premium_only' ), 10, 2 );
 			add_filter( 'woocommerce_get_myaccount_page_id', array( $this, 'my_account_page_id__premium_only' ), 10, 1 );
 			add_filter( 'woocommerce_get_myaccount_page_permalink', array( $this, 'my_account_page_permalink__premium_only' ), 10, 1 );
-			add_filter( 'woocommerce_get_endpoint_url', array( $this, 'endpoint_url__premium_only' ), 1, 4 );
 			add_action( 'update_option_wc4bp_options', array( $this, "process_saved_settings__premium_only" ), 10, 2 );
 		}
-		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
-			
-		}
-		
 	}
 	
 	public function get_base_url( $endpoint ) {
@@ -52,32 +47,6 @@ class WC4BP_MyAccount {
 		$view_order_url = wc_get_endpoint_url( 'view-order', $order->id, $this->get_base_url( wc4bp_Manager::get_prefix() . 'orders' ) );
 		
 		return $view_order_url;
-	}
-	
-	public function endpoint_url__premium_only( $url, $endpoint, $value, $permalink ) {
-		if ( wc4bp_Manager::is_current_active() ) {
-			global $current_user, $bp;
-			
-			$current_user = wp_get_current_user();
-			$userdata     = get_userdata( $current_user->ID );
-			
-			$base_path = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/';
-			
-			switch ( $endpoint ) {
-				case "payment-methods":
-					$url = $base_path . 'payment';
-					break;
-				case "set-default-payment-method":
-				case "delete-payment-method":
-					$url = add_query_arg( $endpoint, $value, $base_path . 'payment' );
-					break;
-				case "add-payment-method":
-					$url = add_query_arg( $endpoint, "w2ewe3423ert", $base_path . 'payment/add-payment' );
-					break;
-			}
-		}
-		
-		return $url;
 	}
 	
 	/**

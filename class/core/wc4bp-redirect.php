@@ -19,9 +19,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.6
  */
 function wc4bp_get_redirect_link( $id = false ) {
-	global $current_user, $bp;
+	global $current_user, $bp, $wp;
 	
 	if ( ! $id ) {
+		return false;
+	}
+	
+	if ( ( ( isset( $wp->query_vars['name'] ) && $wp->query_vars['name'] == 'order-received' ) || isset( $wp->query_vars['order-received'] ) ) ) {
 		return false;
 	}
 	
