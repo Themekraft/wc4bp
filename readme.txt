@@ -1,5 +1,5 @@
 === WooCommerce for Buddypress ===
-https://travis-ci.org/gfirem/wc4bp.svg?branch=master
+
 Contributors: themekraft, svenl77, gfirem, slava, shabushabu, kishores
 Tags: buddypress, social networking, woocommerce, e-commerce
 Requires at least: WP 4.0
