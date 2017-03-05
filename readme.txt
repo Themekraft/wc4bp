@@ -12,28 +12,40 @@ WooCommerce for BuddyPress - Shop solution for your BuddyPress community. Integr
 
 == Description ==
 
-Create a seamless customer experience and get more engagement on your site. Integrate your WooCommerce Store and your BuddyPress Community, seamlessly.
-Sync customer data. Show purchase history, product downloads and more in your BuddyPress member profiles. Make all customer relevant data accessible from one place. Add pages from other WooCommerce extensions right into your BuddyPress member profiles.
+Seamless combine ‘WooCommerce for Buddypress’ with your BuddyPress community to your store which delivers an amazing customer experience by letting your customers engage more with their users on your site.
+
+---
+
+Sync customer data: Show purchase history, product downloads and more in your BuddyPress member profiles. Make all customer relevant data accessible from one place. Add pages from other WooCommerce extensions right into your BuddyPress member profiles.
+
+---
 
 > #### Push your online shop and products to a new level.
 > * Empower your customers to become more involved and interact with other users, your products and brand, or even contribute in product development.
 > * Perfect for marketplaces, membership sites, digital products, auction sites or any kind of subscription site!
 
+---
+
 > #### All Plugin Features in Detail
-> * Easy to use. No configuration needed. Just activate. That’s it!
+> * Easy to use. No configuration needed. Just activate it. That’s it!
 > * Member data: Edit your shipping and billing address directly in your member profile and find all personal information in one place.
 > * Checkout: Find your cart in your member profile.
-> * Purchase history: Find your payment history and acces your downloads from your member profile.
+> * Purchase history: Find your payment history and access your downloads from your member profile.
 > * View of a single purchase in member profile
 > * Track your order in your profile, with your order ID.
 > * Activity Stream Integration
-> * All reviews written by customers are posted to the activity stream. All purchases the customers have made are posted to the activity stream.
-> * Members can choose if they want their reviews and purchase activities to be shown in the activity stream or not.
-> * Synchronizing It synchronizes all WooCommerce data with your BuddyPress data. If you register a new account via the checkout or add data like your billing address etc. the plugin will handle all the communication between WooCommerce and BuddyPress and keep the data synchronized.
-> * Fallback save! If you turn off BuddyPress for some reason, or the user don’t want to become a member the plugin fall back to the regular WooCommerce pages.
+> * Always stay informed with the activity stream! All activities like reviews written by customers or purchases made by your customers are posted to the activity stream.
+> * Manage notifications: Members can choose if they want their reviews and purchased activities to be shown in the activity stream or not.
+> * Synchronization: It synchronizes all WooCommerce data with your BuddyPress data. If you register a new account via the checkout or add data like your billing address etc. the plugin will handle all the communication between WooCommerce and BuddyPress and keep the data synchronized.
+> * Fallback save! If you turn off BuddyPress for some reason, or the user don’t want to become a member the plugin falls back to the regular WooCommerce pages.
+
+---
 
 > #### AddOns
-WC4BP -> Checkout Manager
+Install Plugin WC4BP - a checkout manager
+What the plugin does: Add your BuddyPress Member Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
+
+---
 
 == Installation ==
 1. Download the plugin
