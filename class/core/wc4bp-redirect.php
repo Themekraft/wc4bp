@@ -36,11 +36,12 @@ function wc4bp_get_redirect_link( $id = false ) {
 	$wc4bp_options       = get_option( 'wc4bp_options' );
 	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 	
-	$cart_page_id     = wc_get_page_id( 'cart' );
-	$checkout_page_id = wc_get_page_id( 'checkout' );
-	$account_page_id  = wc_get_page_id( 'myaccount' );
+	$my_account_page_id = get_option( 'woocommerce_myaccount_page_id' );
+	$cart_page_id       = wc_get_page_id( 'cart' );
+	$checkout_page_id   = wc_get_page_id( 'checkout' );
+	$account_page_id    = wc_get_page_id( 'myaccount' );
 	
-	$granted_wc_page_id = array( $account_page_id );
+	$granted_wc_page_id = array( $account_page_id, $my_account_page_id );
 	if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
 		$granted_wc_page_id[] = $checkout_page_id;
 	}
