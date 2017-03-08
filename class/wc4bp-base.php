@@ -85,7 +85,7 @@ class wc4bp_base {
 	}
 	
 	public function needs_upgrade() {
-		return ( $this->is_free || $this->is_start );
+		return ( $this->is_free || $this->is_start ) && ! $this->is_professional;
 	}
 	
 	
