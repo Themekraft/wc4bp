@@ -13,7 +13,7 @@
 	$wc4bp_options       = get_option( 'wc4bp_options' );
 	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 	$my_account_page    = 0;
-	if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+	if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 		$available_endpoint = WC4BP_MyAccount::get_active_endpoints__premium_only();
 		if ( ! empty( $available_endpoint ) ) {
 			foreach ( $available_endpoint as $available_endpoint_key => $available_endpoint_name ) {

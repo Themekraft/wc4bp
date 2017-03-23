@@ -25,7 +25,7 @@ class wc4bp_Manager {
 	
 	public function __construct() {
 		//Load resources
-		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 			require_once 'wc4bp-myaccount-content.php';
 			self::$prefix = apply_filters( 'wc4bp_my_account_prefix', 'wc4pb' );
 		}
@@ -41,7 +41,7 @@ class wc4bp_Manager {
 	public function init() {
 		$cu = get_current_user_id();
 		if ( $cu > 0 ) {
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 				new WC4BP_MyAccount_Content();
 			}
 			new wc4bp_Woocommerce();

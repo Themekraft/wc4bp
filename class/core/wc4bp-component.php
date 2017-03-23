@@ -234,7 +234,7 @@ class WC4BP_Component extends BP_Component {
 			);
 		}
 		$position = 40;
-		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 			$active_pages = WC4BP_MyAccount::get_active_endpoints__premium_only();
 			if ( ! empty( $active_pages ) ) {
 				foreach ( $active_pages as $active_page_key => $active_page_name ) {
@@ -377,7 +377,7 @@ class WC4BP_Component extends BP_Component {
 					'href'   => trailingslashit( $shop_link . 'track' )
 				);
 			}
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 				$active_pages = WC4BP_MyAccount::get_active_endpoints__premium_only();
 				if ( ! empty( $active_pages ) ) {
 					foreach ( $active_pages as $active_page_key => $active_page_name ) {
