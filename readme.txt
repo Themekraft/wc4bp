@@ -3,8 +3,8 @@
 Contributors: themekraft, svenl77, gfirem, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
-Tested up to: WP 4.7.2
-Stable tag: 3.0.1
+Tested up to: WP 4.7.3
+Stable tag: 3.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,10 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
+
+= 3.0.2 24.03.2017 =
+* Fixing the disable my account tabs in the free version.
+* Now the my account tabs is showing to starter plan, and only is possible to disabled it in professional.
 
 = 3.0.1 08.03.2017 =
 * Fixing the go pro tab
