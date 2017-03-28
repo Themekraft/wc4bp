@@ -17,7 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC4BP_Required {
 	
 	public function __construct() {
-		
 		add_action( 'init', array( $this, 'setup_init' ), 1, 1 );
 	}
 	
