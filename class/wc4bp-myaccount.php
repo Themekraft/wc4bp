@@ -125,7 +125,7 @@ class WC4BP_MyAccount {
 			if ( ! empty( $available_endpoints ) ) {
 				foreach ( $available_endpoints as $end_point_key => $end_point_value ) {
 					$post = self::get_page_by_name__premium_only( wc4bp_Manager::get_prefix() . $end_point_key );
-					if ( ! empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] && $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] == "1" ) ) {
+					if ( ! empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) && $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] == "1" ) {
 						if ( ! empty( $post ) ) {
 							wp_delete_post( $post->ID, true );
 						}
