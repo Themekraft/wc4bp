@@ -19,7 +19,7 @@ class WC4BP_MyAccount_Content {
 	
 	public function __construct() {
 		/**
-		 * Apply fitlers to the endpoint shortcodes to handle woocommerce my account individual tabs
+		 * Apply filters to the endpoint shortcodes to handle woocommerce my account individual tabs
 		 */
 		$this->end_points = apply_filters( "wc4bp_woocommerce_endpoint_key_content", array(
 				'orders'          => array( $this, "wc4bp_my_account_process_shortcode_orders" ),

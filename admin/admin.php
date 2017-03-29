@@ -116,7 +116,7 @@ class wc4bp_admin extends wc4bp_base {
 	 * Shop settings view
 	 */
 	public function wc4bp_shop_tabs() {
-		$wc4bp_options = get_option( 'wc4bp_options' );
+		$wc4bp_options         = get_option( 'wc4bp_options' );
 		$tab_activity_disabled = 0;
 		if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
 			if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
@@ -143,11 +143,11 @@ class wc4bp_admin extends wc4bp_base {
 	 * @since 1.0
 	 */
 	public function wc4bp_shop_tabs_disable() {
-		$wc4bp_options = get_option( 'wc4bp_options' );
-		$tab_cart_disabled = 0;
+		$wc4bp_options         = get_option( 'wc4bp_options' );
+		$tab_cart_disabled     = 0;
 		$tab_checkout_disabled = 0;
-		$tab_history_disabled = 0;
-		$tab_track_disabled = 0;
+		$tab_history_disabled  = 0;
+		$tab_track_disabled    = 0;
 		if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
 			
 			if ( isset( $wc4bp_options['tab_cart_disabled'] ) ) {

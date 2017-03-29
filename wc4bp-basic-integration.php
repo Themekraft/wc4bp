@@ -79,30 +79,40 @@ class WC4BP_Loader {
 	public function __construct() {
 		self::$plugin_name = plugin_basename( __FILE__ );
 		$this->constants();
-		require_once plugin_dir_path( __FILE__ ) . 'class/class-tgm-plugin-activation.php';
-		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-base.php';
-		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-manager.php';
-		require_once plugin_dir_path( __FILE__ ) . 'class/wc4bp-required.php';
-		new WC4BP_Required();
+		require_once dirname( __FILE__ ) . '/class/includes/WP_Requirements.php';
+		require_once dirname( __FILE__ ) . '/class/includes/class-tgm-plugin-activation.php';
+		require_once dirname( __FILE__ ) . '/class/wc4bp-base.php';
+		require_once dirname( __FILE__ ) . '/class/wc4bp-manager.php';
+		require_once dirname( __FILE__ ) . '/class/wc4bp-required-php.php';
+		require_once dirname( __FILE__ ) . '/class/wc4bp-required.php';
+		$requirements = new WC4BP_Required_PHP( 'wc4bp' );
 		
-		if ( wc4bp_Manager::is_woocommerce_active() && wc4bp_Manager::is_buddypress_active() ) {
-			// Init Freemius.
-			self::$freemius = $this->wc4bp_fs();
-			
-			new wc4bp_Manager();
-			
-			// Run the activation function
-			register_activation_hook( __FILE__, array( $this, 'activation' ) );
-			
-			add_action( 'plugins_loaded', array( $this, 'update' ), 10 );
-			add_action( 'plugins_loaded', array( $this, 'translate' ) );
-			
-			/**
-			 * Deletes all data if plugin deactivated
-			 */
-			register_deactivation_hook( __FILE__, array( $this, 'deactivation' ) );
-			
-			self::getFreemius()->add_action('after_uninstall', array($this, 'uninstall_cleanup') );
+		if ( $requirements->satisfied() ) {
+			new WC4BP_Required();
+			if ( wc4bp_Manager::is_woocommerce_active() && wc4bp_Manager::is_buddypress_active() ) {
+				// Init Freemius.
+				self::$freemius = $this->wc4bp_fs();
+				//Adding edd migration code
+				require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/client-migration/edd.php';
+				
+				new wc4bp_Manager();
+				
+				// Run the activation function
+				register_activation_hook( __FILE__, array( $this, 'activation' ) );
+				
+				add_action( 'plugins_loaded', array( $this, 'update' ), 10 );
+				add_action( 'plugins_loaded', array( $this, 'translate' ) );
+				
+				/**
+				 * Deletes all data if plugin deactivated
+				 */
+				register_deactivation_hook( __FILE__, array( $this, 'deactivation' ) );
+				
+				self::getFreemius()->add_action( 'after_uninstall', array( $this, 'uninstall_cleanup' ) );
+			}
+		} else {
+			$fauxPlugin = new WP_Faux_Plugin( __( 'GFireM Fields', 'wc4bp' ), $requirements->getResults() );
+			$fauxPlugin->show_result( plugin_basename( __FILE__ ) );
 		}
 	}
 	
@@ -112,7 +122,7 @@ class WC4BP_Loader {
 		
 		if ( ! isset( $wc4bp_fs ) ) {
 			// Include Freemius SDK.
-			require_once WC4BP_ABSPATH_ADMIN_PATH . 'resources/freemius/start.php';
+			require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/freemius/start.php';
 			
 			$wc4bp_fs = fs_dynamic_init( array(
 				'id'                  => '425',
@@ -140,13 +150,12 @@ class WC4BP_Loader {
 	 * @access    private
 	 */
 	private function constants() {
-		define( 'WC4BP_PLUGIN', self::$plugin_name );
 		define( 'WC4BP_VERSION', self::VERSION );
 		define( 'WC4BP_FOLDER', plugin_basename( dirname( __FILE__ ) ) );
-		define( 'WC4BP_ABSPATH', trailingslashit( str_replace( "\\", "/", WP_PLUGIN_DIR . '/' . WC4BP_FOLDER ) ) );
+		define( 'WC4BP_ABSPATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_URLPATH', trailingslashit( plugins_url( '/' . WC4BP_FOLDER ) ) );
-		define( 'WC4BP_ABSPATH_CLASS_PATH', WC4BP_ABSPATH . 'class/' );
-		define( 'WC4BP_ABSPATH_TEMPLATE_PATH', WC4BP_ABSPATH . 'templates/' );
+		define( 'WC4BP_ABSPATH_CLASS_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR );
+		define( 'WC4BP_ABSPATH_TEMPLATE_PATH', WC4BP_ABSPATH . 'templates' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_ABSPATH_ADMIN_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_ABSPATH_ADMIN_VIEWS_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_CSS', WC4BP_URLPATH . '/admin/css/' );
@@ -249,7 +258,7 @@ class WC4BP_Loader {
 	/**
 	 * Clean the related plugins data when it is uninstall
 	 */
-	public function uninstall_cleanup(){
+	public function uninstall_cleanup() {
 		// Removes all data from the database
 		delete_option( 'wc4bp_installed' );
 		delete_option( 'wc4bp_shipping_address_ids' );
