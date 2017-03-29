@@ -14,13 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class wc4bp_admin_delete extends wc4bp_base {
-
+	
 	/**
 	 * The Admin Page
 	 *
 	 * @author Sven Lehnert
 	 * @package WC4BP
 	 * @since 1.3
+	 *
+	 * @param $active_tab
 	 */
 	public function wc4bp_screen_delete($active_tab) {
 		$this->wc4bp_register_admin_settings_delete();
