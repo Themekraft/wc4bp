@@ -110,7 +110,7 @@ class WC4BP_Loader {
 				self::getFreemius()->add_action( 'after_uninstall', array( $this, 'uninstall_cleanup' ) );
 			}
 		} else {
-			$fauxPlugin = new WP_Faux_Plugin( __( 'GFireM Fields', 'wc4bp' ), $requirements->getResults() );
+			$fauxPlugin = new WP_Faux_Plugin( __( 'WC4BP -> WooCommerce BuddyPress Integration', 'wc4bp' ), $requirements->getResults() );
 			$fauxPlugin->show_result( plugin_basename( __FILE__ ) );
 		}
 	}
