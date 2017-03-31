@@ -216,12 +216,12 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 			$plugins_not_version = implode( ', ', $this->notVersion );
 			if ( ! empty( $this->notFound ) ) {
 				$plugins_not_found = implode( '</li><li class="requirement_sub_item">', $this->notFound );
-				$result .= "<ul class='requirement_sub_list'>" . sprintf( wc4bp_requirements::_t( " Not Found: %s" ), '<li class="requirement_sub_item">' . $plugins_not_found . '</li>' ) . "</ul>";
+				$result            .= "<ul class='requirement_sub_list'>" . sprintf( wc4bp_requirements::_t( " Not Found: %s" ), '<li class="requirement_sub_item">' . $plugins_not_found . '</li>' ) . "</ul>";
 			}
 			
 			if ( ! empty( $this->notVersion ) ) {
 				$plugins_not_version = implode( '</li><li class="requirement_sub_item">', $this->notVersion );
-				$result .= "<ul class='requirement_sub_list'>" . sprintf( wc4bp_requirements::_t( " Requirement Version Fail: %s" ), '<li class="requirement_sub_item">' . $plugins_not_version . '</li>' ) . "</ul>";
+				$result              .= "<ul class='requirement_sub_list'>" . sprintf( wc4bp_requirements::_t( " Requirement Version Fail: %s" ), '<li class="requirement_sub_item">' . $plugins_not_version . '</li>' ) . "</ul>";
 			}
 			
 			return $result;
@@ -339,18 +339,14 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 		 */
 		public function show_result( $file ) {
 			if ( is_multisite() ) {
-				add_action( 'network_admin_notices', function () {
-					echo $this->resultsToNotice();
-				} );
+				add_action( 'network_admin_notices', array( $this, 'show_notice' ) );
 				$plugins = get_site_option( 'active_sitewide_plugins' );
 				if ( isset( $plugins[ $file ] ) ) {
 					unset( $plugins[ $file ] );
 					$result = update_site_option( 'active_sitewide_plugins', $plugins );
 				}
 			} else {
-				add_action( 'admin_notices', function () {
-					echo $this->resultsToNotice();
-				} );
+				add_action( 'admin_notices', array( $this, 'show_notice' ) );
 				$plugins = get_option( 'active_plugins' );
 				foreach ( $plugins as $key => $name ) {
 					if ( $name == $file ) {
@@ -360,6 +356,10 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 					}
 				}
 			}
+		}
+		
+		public function show_notice() {
+			echo $this->resultsToNotice();
 		}
 	}
 	
