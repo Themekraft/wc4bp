@@ -14,9 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class WC4BP_Required_PHP extends WP_Requirements {
+class WC4BP_Required_PHP extends wc4bp_requirements {
 	
-	public function __construct( $text_domain = 'WP_Requirements' ) {
+	public function __construct( $text_domain = 'wc4bp_requirements' ) {
 		parent::__construct( $text_domain );
 	}
 	
