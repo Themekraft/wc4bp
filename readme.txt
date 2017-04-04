@@ -4,7 +4,7 @@ Contributors: themekraft, svenl77, gfirem, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
 Tested up to: WP 4.7.3
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,8 @@ Sync customer data: Show purchase history, product downloads and more in your Bu
 That allows you a quick great overview about the engagement level of your customers & users and let’s you manage your site more efficiently.
 
 ---
+
+== Frequently Asked Questions ==
 
 > #### Push your online shop and products to a new level
 > * Empower your customers to become more involved and interact with other users, your products and brand, or even contribute in product development.
@@ -102,6 +104,11 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
+
+= 3.0.4 01.04.2017 =
+* Fixing incompatibility for the requirement library
+* Fixing the name of the plugin when check the php version and wordpress
+* Refactoring to support old php version
 
 = 3.0.3 29.03.2017 =
 * Cleaning the code, checking the php 5.3 compatibility
