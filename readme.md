@@ -1,5 +1,5 @@
 
-https://travis-ci.org/Themekraft/wc4bp.svg?branch=master
+[![Build Status](https://travis-ci.org/Themekraft/wc4bp.svg?branch=master)](https://travis-ci.org/Themekraft/wc4bp)
 
 ## WooCommerce for Buddypress
 
