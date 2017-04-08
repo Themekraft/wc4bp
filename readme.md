@@ -1,4 +1,5 @@
 
+https://travis-ci.org/Themekraft/wc4bp.svg?branch=master
 
 ## WooCommerce for Buddypress
 
