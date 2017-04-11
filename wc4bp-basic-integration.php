@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: WC4BP -> WooCommerce BuddyPress Integration
- * Plugin URI:  https://themekraft.com/products/woocommerce-buddypress-integration/
+ * Plugin URI: https://themekraft.com/woocommerce-buddypress-integration/
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author: ThemeKraft
- * Author URI: https://themekraft.com/
+ * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
  * Version: 3.0.4
  * Licence: GPLv3
  * Text Domain: wc4bp

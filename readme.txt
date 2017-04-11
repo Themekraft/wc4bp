@@ -23,12 +23,11 @@ That allows you a quick great overview about the engagement level of your custom
 
 ---
 
-== Frequently Asked Questions ==
-
 > #### Push your online shop and products to a new level
 > * Empower your customers to become more involved and interact with other users, your products and brand, or even contribute in product development.
 > * Perfect for marketplaces, membership sites, digital products, auction sites or any kind of subscription site!
 > * Secure your data
+
 
 ---
 
@@ -52,6 +51,11 @@ That allows you a quick great overview about the engagement level of your custom
 Overview over the plugin options [youtube https://www.youtube.com/watch?v=DtPk-WKo8ww&feature=youtu.be]
 
 ---
+
+### Blog Posts
+[Why You Should Build Your Online Shop With WordPress, BuddyPress and WooCommerce](https://themekraft.com/why-you-should-build-your-online-shop-with-wordpress-buddypress-and-woocommerce/)
+
+
 
 > #### AddOns
 > * WC4BP -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
