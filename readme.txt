@@ -3,8 +3,8 @@
 Contributors: themekraft, svenl77, gfirem, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
-Tested up to: WP 4.7.2
-Stable tag: 3.0.1
+Tested up to: WP 4.7.3
+Stable tag: 3.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,7 @@ That allows you a quick great overview about the engagement level of your custom
 > * Perfect for marketplaces, membership sites, digital products, auction sites or any kind of subscription site!
 > * Secure your data
 
+
 ---
 
 > #### All Plugin Features in Detail
@@ -50,6 +51,11 @@ That allows you a quick great overview about the engagement level of your custom
 Overview over the plugin options [youtube https://www.youtube.com/watch?v=DtPk-WKo8ww&feature=youtu.be]
 
 ---
+
+### Blog Posts
+[Why You Should Build Your Online Shop With WordPress, BuddyPress and WooCommerce](https://themekraft.com/why-you-should-build-your-online-shop-with-wordpress-buddypress-and-woocommerce/)
+
+
 
 > #### AddOns
 > * WC4BP -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
@@ -102,6 +108,20 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
+
+= 3.0.4 01.04.2017 =
+* Fixing incompatibility for the requirement library
+* Fixing the name of the plugin when check the php version and wordpress
+* Refactoring to support old php version
+
+= 3.0.3 29.03.2017 =
+* Cleaning the code, checking the php 5.3 compatibility
+* Adding php and WordPress check minimum version. Cleaning the code and refactoring.
+* Refactoring the code. Integrating EDD with freemius.
+
+= 3.0.2 24.03.2017 =
+* Fixing the disable my account tabs in the free version.
+* Now the my account tabs is showing to starter plan, and only is possible to disabled it in professional.
 
 = 3.0.1 08.03.2017 =
 * Fixing the go pro tab
