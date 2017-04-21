@@ -4,7 +4,7 @@ Contributors: themekraft, svenl77, gfirem, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
 Tested up to: WP 4.7.3
-Stable tag: 3.0.4
+Stable tag: 3.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,12 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
+
+= 3.0.5 21.04.2017 =
+* Updated Freemius
+* Added new do action wc4bp_core_fs_loaded
+* Readme and author url update
+* Multiple smaller fixes
 
 = 3.0.4 01.04.2017 =
 * Fixing incompatibility for the requirement library
