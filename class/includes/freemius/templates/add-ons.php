@@ -123,6 +123,17 @@
 
 			var interval = setInterval(function () {
 				// Open add-on information page.
+				<?php
+				/**
+				 * @author Vova Feldman
+				 *
+				 * This code does NOT expose an XSS vulnerability because:
+				 *  1. This page only renders for admins, so if an attacker manage to get
+				 *     admin access, they can do more harm.
+				 *  2. This code won't be rendered unless $open_addon_slug matches any of
+				 *     the plugin's add-ons slugs.
+				 */
+				?>
 				$('.fs-card[data-slug=<?php echo $open_addon_slug ?>] a').click();
 				if ($('#TB_iframeContent').length > 0) {
 					clearInterval(interval);
@@ -143,3 +154,12 @@
 			<?php endif ?>
 		})(jQuery);
 	</script>
+<?php
+	$params = array(
+		'page'           => 'addons',
+		'module_id'      => $fs->get_id(),
+		'module_slug'    => $slug,
+		'module_version' => $fs->get_plugin_version(),
+	);
+	fs_require_template( 'powered-by.php', $params );
+?>
