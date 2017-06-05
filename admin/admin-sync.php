@@ -15,11 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class wc4bp_admin_sync extends wc4bp_base {
 	
-	public function init() {
-		add_action( 'wp_ajax_wc4bp_shop_profile_sync_ajax', array( $this, 'wc4bp_shop_profile_sync_ajax' ) );
-		add_action( 'wp_ajax_nopriv_wc4bp_shop_profile_sync_ajax', array( $this, 'wc4bp_shop_profile_sync_ajax' ) );
-	}
 	
+
 	
 	/**
 	 * The Admin Page
@@ -29,7 +26,7 @@ class wc4bp_admin_sync extends wc4bp_base {
 	 * @since 1.3
 	 */
 	public function wc4bp_screen_sync($active_tab) {
-		$this->init();
+		
 		$this->wc4bp_register_admin_settings_sync();
 		$number      = 20;
 		$count_users = count_users();
