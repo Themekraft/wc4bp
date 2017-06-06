@@ -106,7 +106,7 @@ class WC4BP_MyAccount {
 		global $pagenow;
 		$titles    = self::get_active_endpoints__premium_only();
 		$post_meta = get_post_meta( $id, 'wc4bp-my-account-template', true );
-		if ( $pagenow == 'edit.php' && isset( $_GET['post_type'] ) && $_GET['post_type']  == 'page' && ! empty( $titles ) && in_array( $title, $titles ) && ! empty( $post_meta ) ) {
+		if ( $pagenow == 'edit.php' && ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'page' ) && ! empty( $titles ) && in_array( $title, $titles ) && ! empty( $post_meta ) ) {
 			$title               = $title . $this->base_html;
 			$this->current_title = $title;
 		}
