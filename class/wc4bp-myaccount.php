@@ -39,12 +39,12 @@ class WC4BP_MyAccount {
 	 * Change url for view order endpoint.
 	 *
 	 * @param $view_order_url
-	 * @param $order
+	 * @param WC_Order $order
 	 *
 	 * @return string
 	 */
 	public function get_view_order_url__premium_only( $view_order_url, $order ) {
-		$view_order_url = wc_get_endpoint_url( 'view-order', $order->id, $this->get_base_url( wc4bp_Manager::get_prefix() . 'orders' ) );
+		$view_order_url = wc_get_endpoint_url( 'view-order', $order->get_id(), $this->get_base_url( wc4bp_Manager::get_prefix() . 'orders' ) );
 		
 		return $view_order_url;
 	}
@@ -106,7 +106,7 @@ class WC4BP_MyAccount {
 		global $pagenow;
 		$titles    = self::get_active_endpoints__premium_only();
 		$post_meta = get_post_meta( $id, 'wc4bp-my-account-template', true );
-		if ( $pagenow == 'edit.php' && isset( $_GET['post_type'] ) && $_GET['post_type']  == 'page' && ! empty( $titles ) && in_array( $title, $titles ) && ! empty( $post_meta ) ) {
+		if ( $pagenow == 'edit.php' && ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'page' ) && ! empty( $titles ) && in_array( $title, $titles ) && ! empty( $post_meta ) ) {
 			$title               = $title . $this->base_html;
 			$this->current_title = $title;
 		}
