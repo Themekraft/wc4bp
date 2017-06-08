@@ -195,6 +195,9 @@ class wc4bp_admin extends wc4bp_base {
 	public function wc4bp_overwrite_default_shop_home_tab() {
 		$wc4bp_options       = get_option( 'wc4bp_options' );
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
+		if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
+			$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
+		}
 		
 		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 			$woo_my_account = WC4BP_MyAccount::get_active_endpoints__premium_only();

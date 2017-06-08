@@ -115,9 +115,11 @@ class WC4BP_Component extends BP_Component {
 		
 		$wc4bp_options       = get_option( 'wc4bp_options' );
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
+		if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
+			$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
+		}
 		
 		// Add 'Shop' to the main navigation
-		
 		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
 			$name = apply_filters( 'bp_shop_link_label', __( 'Shop', 'wc4bp' ) );
 		} else {
@@ -256,9 +258,10 @@ class WC4BP_Component extends BP_Component {
 		if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
 			foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
 				$position ++;
+				$post      = get_post( $attached_page['page_id'] );
 				$sub_nav[] = array(
 					'name'            => $attached_page['tab_name'],
-					'slug'            => $attached_page['tab_slug'],
+					'slug'            => esc_html( $post->post_name ),
 					'parent_url'      => $shop_link,
 					'parent_slug'     => $this->slug,
 					'screen_function' => 'wc4bp_screen_plugins',
@@ -284,6 +287,9 @@ class WC4BP_Component extends BP_Component {
 		
 		$wc4bp_options       = get_option( 'wc4bp_options' );
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
+		if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
+			$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
+		}
 		
 		$wp_admin_nav = array();
 		

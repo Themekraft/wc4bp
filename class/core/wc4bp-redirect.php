@@ -35,6 +35,9 @@ function wc4bp_get_redirect_link( $id = false ) {
 	
 	$wc4bp_options       = get_option( 'wc4bp_options' );
 	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
+	if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
+		$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
+	}
 	
 	$my_account_page_id = get_option( 'woocommerce_myaccount_page_id' );
 	$cart_page_id       = wc_get_page_id( 'cart' );
@@ -85,12 +88,10 @@ function wc4bp_get_redirect_link( $id = false ) {
 					$the_page_id    = $attached_page['page_id'];
 					$the_courent_id = $id;
 				}
-				
 				if ( $the_page_id == $the_courent_id ) {
-					$post_data  = get_post( $id, ARRAY_A );
-					$slug       = $post_data['post_name'];
-					$final_slug = ( $attached_page['tab_slug'] != $slug ) ? $attached_page['tab_slug'] . '/' . $slug : $attached_page['tab_slug'];
-					$link .= $final_slug . '/';
+					$post_data  = get_post( $id );
+					$final_slug = ( $attached_page['tab_slug'] != $post_data->post_name ) ? $attached_page['tab_slug'] . '/' . $post_data->post_name : $attached_page['tab_slug'];
+					$link       .= $final_slug . '/';
 				}
 			}
 		}

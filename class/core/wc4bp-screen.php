@@ -215,7 +215,7 @@ function wc4bp_setup_tracking_order() {
 		} else {
 			$order = new WC_Order( apply_filters( 'woocommerce_shortcode_order_tracking_order_id', $order_id ) );
 			
-			if ( $order->id && $order_email ) {
+			if ( $order->get_id() && $order_email ) {
 				if ( strtolower( $order->billing_email ) == strtolower( $order_email ) ) {
 					$current_order = $order;
 				} else {
@@ -240,7 +240,7 @@ function wc4bp_output_tracking_order() {
 	global $current_order;
 	
 	if ( $current_order instanceof WC_Order ) :
-		do_action( 'woocommerce_track_order', $current_order->id );
+		do_action( 'woocommerce_track_order', $current_order->get_id() );
 		echo '<h3>' . __( 'Your Order', 'wc4bp' ) . '<h3>';
 		
 		wc_get_template( 'order/tracking.php', array(
