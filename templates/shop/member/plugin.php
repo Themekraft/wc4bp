@@ -12,7 +12,10 @@
 	$bp_action_variables = $bp->action_variables;
 	$wc4bp_options       = get_option( 'wc4bp_options' );
 	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
-	$my_account_page    = 0;
+	if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
+		$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
+	}
+	$my_account_page = 0;
 	if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 		$available_endpoint = WC4BP_MyAccount::get_active_endpoints__premium_only();
 		if ( ! empty( $available_endpoint ) ) {
@@ -43,16 +46,19 @@
 			woocommerce_account_view_order( get_query_var( 'view-order' ) );
 			break;
 		default:
-			if ( isset( $bp_action_variables[0] ) ) {
-				$args = array(
-					'name'      => $bp_action_variables[0],
-					'post_type' => 'page'
-				);
-			} else if ( isset( $wc4bp_pages_options['selected_pages'][ $bp->current_action ]['page_id'] ) ) {
-				$args = array(
-					'p'         => $wc4bp_pages_options['selected_pages'][ $bp->current_action ]['page_id'],
-					'post_type' => 'page'
-				);
+			$page    = get_page_by_path( $bp->current_action );
+			if ( ! empty( $page ) ) {
+				if ( isset( $bp_action_variables[0] ) ) {
+					$args = array(
+						'name'      => $bp_action_variables[0],
+						'post_type' => 'page'
+					);
+				} else if ( isset( $wc4bp_pages_options['selected_pages'][ $page->ID ]['page_id'] ) ) {
+					$args = array(
+						'p'         => $wc4bp_pages_options['selected_pages'][ $page->ID ]['page_id'],
+						'post_type' => 'page'
+					);
+				}
 			}
 			$args = apply_filters( 'wc4bp_members_plugin_template_query', $args );
 	}

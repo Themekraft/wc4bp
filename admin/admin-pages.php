@@ -75,6 +75,9 @@ class wc4bp_admin_pages extends wc4bp_base {
 	public function wc4bp_get_forms_table() {
 		//6$wc4bp_options			= get_option( 'wc4bp_options' );
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
+		if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
+			$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
+		}
 		
 		// echo '<pre>';
 		// print_r($wc4bp_pages_options);
@@ -121,6 +124,9 @@ class wc4bp_admin_pages extends wc4bp_base {
 		}
 		
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
+		if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
+			$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
+		}
 		
 		$children = 0;
 		$page_id  = '';

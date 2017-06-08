@@ -16,7 +16,7 @@
     </thead>
     <tbody id="the-list">
 	<?php
-    
+	
 	if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) :
 		foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ):
 			?>
@@ -28,7 +28,7 @@
                             <input id="<?php echo $attached_page['tab_slug'] ?>" alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="<?php _e( 'an existing page to your BuddyPress member profiles', 'wc4bp' ); ?>" class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button" value="<?php _e( 'Edit', 'wc4bp' ); ?> "/>
                         </span>
                         <span class="trash">
-                            <span id="<?php echo $key ?>" class="wc4bp_delete_page" title="<?php _e( 'Delete this item', 'wc4bp' ); ?>"> <?php _e( 'Delete', 'wc4bp' ); ?></span>
+                            <span id="<?php echo esc_attr( $attached_page['page_id'] ) ?>" class="wc4bp_delete_page" title="<?php _e( 'Delete this item', 'wc4bp' ); ?>"> <?php _e( 'Delete', 'wc4bp' ); ?></span>
                         </span>
                     </div>
                 </td>
@@ -39,7 +39,10 @@
 					<?php echo isset( $attached_page['tab_name'] ) ? $attached_page['tab_name'] : '--'; ?>
                 </td>
                 <td class="slug column-slug">
-					<?php echo isset( $attached_page['tab_slug'] ) ? $attached_page['tab_slug'] : '--'; ?>
+					<?php
+					$slug = apply_filters( 'editable_slug', $attached_page['tab_slug'], get_post( $attached_page['page_id'] ) );
+					echo isset( $attached_page['tab_slug'] ) ? esc_html( $slug ) : '--';
+					?>
                 </td>
                 <td class="slug column-slug">
 					<?php echo ! empty( $attached_page['position'] ) ? $attached_page['position'] : '--'; ?>
