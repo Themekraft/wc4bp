@@ -66,7 +66,7 @@
 	if ( $my_account_page <= 1 ) {
 		$wp_query2 = new wp_query( $args );
 		if ( ! empty( $wp_query2->posts ) ) {
-			if ( empty( $wc4bp_options['page_template'] ) ) {
+			if ( empty( $wc4bp_pages_options['page_template'] ) ) {
 				$old_post = $post;
 				$post     = $wp_query2->posts[0];
 				setup_postdata( $post ); ?>
@@ -93,7 +93,7 @@
 				$post = $old_post;
 			} else {
 				$wp_query = $wp_query2;
-				get_template_part( $wc4bp_options['page_template'] );
+				get_template_part( $wc4bp_pages_options['page_template'] );
 			}
 		} else {
 			$wp_query2->set_404();
