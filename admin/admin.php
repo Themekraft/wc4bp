@@ -108,7 +108,6 @@ class wc4bp_admin extends wc4bp_base {
 		add_settings_field( 'tabs_disabled', __( '<b>Remove Shop Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs_disable' ), 'wc4bp_options', 'section_general' );
 		add_settings_field( 'profile sync', __( '<b>Turn off the profile sync</b>', 'wc4bp' ), array( $this, 'wc4bp_turn_off_profile_sync' ), 'wc4bp_options', 'section_general' );
 		add_settings_field( 'overwrite', __( '<b>Overwrite the Content of your Shop Home/Main Tab</b>', 'wc4bp' ), array( $this, 'wc4bp_overwrite_default_shop_home_tab' ), 'wc4bp_options', 'section_general' );
-		add_settings_field( 'template', __( '<b>Change the page template to be used for the attached pages.</b>', 'wc4bp' ), array( $this, 'wc4bp_page_template' ), 'wc4bp_options', 'section_general' );
 		
 	}
 	
@@ -211,20 +210,5 @@ class wc4bp_admin extends wc4bp_base {
 		}
 		
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_home.php' );
-	}
-	
-	/**
-	 * View to select the page view template by default
-	 */
-	public function wc4bp_page_template() {
-		$wc4bp_options = get_option( 'wc4bp_options' );
-		
-		$page_template = '';
-		if ( ! empty( $wc4bp_options['page_template'] ) ) {
-			$page_template = $wc4bp_options['page_template'];
-		}
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_page_template.php' );
-		
-		submit_button();
 	}
 }
