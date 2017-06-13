@@ -15,9 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class wc4bp_admin_sync extends wc4bp_base {
 	
-	
-
-	
 	/**
 	 * The Admin Page
 	 *
@@ -32,7 +29,6 @@ class wc4bp_admin_sync extends wc4bp_base {
 		$count_users = count_users();
 		$total_users = $count_users['total_users'];
 		$total_pages = intval( $total_users / $number ) + 1;
-		
 		
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_screen_sync.php' );
 	}
