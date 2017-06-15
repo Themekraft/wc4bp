@@ -3,8 +3,8 @@
 Contributors: themekraft, svenl77, gfirem, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
-Tested up to: WP 4.7.4
-Stable tag: 3.0.6
+Tested up to: WP 4.8
+Stable tag: 3.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,8 +109,20 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 
 == Changelog ==
 
+= 3.0.7 15.06.2017 =
+* Added an extra check to avoid notice in the page loop in the WordPress backend.
+* Fixed an issue with WooCommerce 3.0. The BP fields on the checkout disappeared.
+* Fixed an issue when try to "Sync Profile Fields" returned value of 0.
+* Fixed Redundant code to sync xprofile
+* Fixed order id for compatibility with woo 3.0
+* Fixed the check for post_type in the post list when add the mark #73
+* Resolving the issue to delete integrated page with encoding characters and fix the component to show the content #74
+* Fix sync BuddyPress sync fields #75
+* Moving the template page option to the integrate page tab #66
+* Refactoring the code. Improve the activation/deactivation hooks. #78
+
 = 3.0.6 25.04.2017 =
-Adding the remove function for the integrate pages
+* Adding the remove function for the integrate pages
 
 = 3.0.5 21.04.2017 =
 * Updated Freemius
