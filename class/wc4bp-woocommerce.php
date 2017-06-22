@@ -64,6 +64,7 @@ class wc4bp_Woocommerce {
 				$checkout_page_id = wc_get_page_id( 'checkout' );
 				$checkout_page    = get_post( $checkout_page_id );
 				$url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' . $endpoint . '/' . $value;
+				$url = $base_path .'/wc4pb_orders/view-order/'.$value;
 				break;
 			case "set-default-payment-method":
 			case "delete-payment-method":
