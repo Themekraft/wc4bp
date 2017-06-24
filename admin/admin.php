@@ -210,5 +210,7 @@ class wc4bp_admin extends wc4bp_base {
 		}
 		
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_home.php' );
+		
+		submit_button();
 	}
 }
