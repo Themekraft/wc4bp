@@ -68,7 +68,15 @@ function wc4bp_get_redirect_link( $id = false ) {
 				} else if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) && ! is_object( WC()->cart ) ) {
 					$link .= 'home/';
 				}
+				$checkout_page_id = wc_get_page_id( 'checkout' );
+				$checkout_page    = get_post( $checkout_page_id );
+				$url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' ;
+				$payment_created_account = $bp->unfiltered_uri[0];
+
 				$link = apply_filters( 'wc4bp_checkout_page_link', $link );
+                if ($payment_created_account==$checkout_page->post_name){
+                    $link=$url;
+                }
 				break;
 			
 			case $account_page_id:
@@ -153,6 +161,7 @@ function wc4bp_page_link_router( $link, $id ) {
 	if ( ! is_user_logged_in() || is_admin() ) {
 		return $link;
 	}
+
 	
 	$new_link = wc4bp_get_redirect_link( $id );
 	
