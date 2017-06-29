@@ -457,6 +457,9 @@ class WC4BP_Component extends BP_Component {
 					}
 				}
 				break;
+            case 'wc4pb_subscriptions':
+                $path = 'shop/member/subscription';
+                break;
 			case 'cart':
 				$path = 'shop/member/cart';
 				break;
