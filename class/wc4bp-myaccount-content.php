@@ -27,7 +27,8 @@ class WC4BP_MyAccount_Content {
 				'edit-address'    => array( $this, "wc4bp_my_account_process_shortcode_edit_address" ),
 				'payment-methods' => array( $this, "wc4bp_my_account_process_shortcode_payment_methods" ),
 				'edit-account'    => array( $this, "wc4bp_my_account_process_shortcode_edit_account" ),
-                'woo_subscriptions_page'=>array($this,"wc4bp_my_account_process_shortcode_subscriptions_page")
+                'woo_subscriptions_page'=>array($this,"wc4bp_my_account_process_shortcode_subscriptions_page"),
+                'woo_subscriptions_view_page'=>array($this,"wc4bp_my_account_process_shortcode_subscriptions_view_page")
 			)
 		);
 		foreach ( $this->end_points as $key => $class ) {
@@ -47,6 +48,10 @@ class WC4BP_MyAccount_Content {
 		}
 	}
 
+    public function wc4bp_my_account_process_shortcode_subscriptions_view_page( $attr, $content = "" ) {
+        wc_print_notices();
+        wc_get_template( 'myaccount/view-subscription.php', array(), '', plugin_dir_path( WC_Subscriptions::$plugin_file ) . 'templates/' );
+    }
 	public function  wc4bp_my_account_process_shortcode_subscriptions_page($attr, $content){
         wc_print_notices();
         wc_get_template( 'myaccount/subscriptions.php', array(), '', plugin_dir_path( WC_Subscriptions::$plugin_file ) . 'templates/' );

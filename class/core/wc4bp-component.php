@@ -458,7 +458,15 @@ class WC4BP_Component extends BP_Component {
 				}
 				break;
             case 'wc4pb_subscriptions':
-                $path = 'shop/member/subscription';
+                $is_view_subscription = array_search('view-subscription',$bp->unfiltered_uri);
+                //$view_subscription_value = isset($bp->unfiltered_uri[5]) ? $bp->unfiltered_uri[5] : null;
+                if ($is_view_subscription!= false){
+                    $path = 'shop/member/view-subscription';
+                }
+                else{
+                    $path = 'shop/member/subscription';
+                }
+
                 break;
 			case 'cart':
 				$path = 'shop/member/cart';
