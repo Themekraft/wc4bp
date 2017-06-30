@@ -9,6 +9,7 @@
     <a href="?page=<?php echo wc4bp_admin::getSlug(); ?>&tab=page-sync" class="nav-tab <?php echo $active_tab == 'page-sync' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Profile Fields Sync', 'wc4bp' ) ?></a>
     <a href="?page=<?php echo wc4bp_admin::getSlug(); ?>&tab=integrate-pages" class="nav-tab <?php echo $active_tab == 'integrate-pages' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Integrate Pages', 'wc4bp' ) ?></a>
     <a href="?page=<?php echo wc4bp_admin::getSlug(); ?>&tab=delete" class="nav-tab <?php echo $active_tab == 'delete' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Delete', 'wc4bp' ) ?></a>
+    <a href="?page=<?php echo wc4bp_admin::getSlug(); ?>&tab=subscription" class="nav-tab <?php echo $active_tab == 'subscription' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Subscription', 'wc4bp' ) ?></a>
     <?php /** @var wc4bp_admin $this */	if ( $this->needs_upgrade() ) : ?>
         <a href="?page=wc4bp-options-page-pricing" class="nav-tab"><font color="#b22222"><?php _e( 'Go Professional!!!', 'wc4bp' ) ?></font></a>
 	<?php endif; ?>
