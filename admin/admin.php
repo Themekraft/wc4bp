@@ -31,7 +31,6 @@ class wc4bp_admin extends wc4bp_base {
 		require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-sync.php' );
 		require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-delete.php' );
 		require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-ajax.php' );
-        require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin_subscription.php' );
 		new wc4bp_admin_ajax();
 	}
 	
@@ -85,11 +84,6 @@ class wc4bp_admin extends wc4bp_base {
 				$admin_delete = new wc4bp_admin_delete();
 				$admin_delete->wc4bp_screen_delete( $active_tab );
 				break;
-            case 'subscription':
-                $admin_subscription = new wc4bp_admin_subscription();
-                $admin_subscription->wc4bp_screen_subscription( $active_tab );
-
-                break;
 		}
 	}
 	

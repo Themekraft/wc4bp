@@ -36,8 +36,21 @@ class wc4bp_Manager {
 		
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'bp_include', array( $this, 'includes' ), 10 );
+        add_filter( 'wc4bp_account_menu_items', array( $this, 'wc4bp_add_menu_items' ) );
+
 	}
-	
+
+    public function wc4bp_add_menu_items( $menu_items ) {
+
+        // Add our menu item after the Orders tab if it exists, otherwise just add it to the end
+        if ( array_key_exists( 'orders', $menu_items ) ) {
+            $menu_items = wcs_array_insert_after( 'orders', $menu_items, 'subscriptions', __( 'Subscriptions', 'woocommerce-subscriptions' ) );
+        } else {
+            $menu_items['subscriptions'] = __( 'Subscriptions', 'woocommerce-subscriptions' );
+        }
+
+        return $menu_items;
+    }
 	public function init() {
 		$cu = get_current_user_id();
 		if ( $cu > 0 ) {
