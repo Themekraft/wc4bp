@@ -461,10 +461,12 @@ class WC4BP_Component extends BP_Component {
                 $is_view_subscription = array_search('view-subscription',$bp->unfiltered_uri);
                 //$view_subscription_value = isset($bp->unfiltered_uri[5]) ? $bp->unfiltered_uri[5] : null;
                 if ($is_view_subscription!= false){
-                    $path = 'shop/member/view-subscription';
+                    $path = apply_filters('wc4bp_view_subscription_page',$path);
                 }
                 else{
-                    $path = 'shop/member/subscription';
+
+                    $path = apply_filters('wc4bp_subscription_page',$path);
+
                 }
 
                 break;
