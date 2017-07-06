@@ -36,8 +36,11 @@ class wc4bp_Manager {
 		
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'bp_include', array( $this, 'includes' ), 10 );
+
+
 	}
-	
+
+
 	public function init() {
 		$cu = get_current_user_id();
 		if ( $cu > 0 ) {
