@@ -69,12 +69,12 @@ Overview over the plugin options [youtube https://www.youtube.com/watch?v=DtPk-W
 ---
 
 > #### Submit Issues - Contribute
-> * Pull request are welcome. BuddyForms is community driven and developed on [Github](https://github.com/Themekraft/wc4bp)
+> * Pull request are welcome. WC4BP is community driven and developed on [Github](https://github.com/Themekraft/wc4bp)
 
 ---
 
 > #### Demo Site
-> * Feel free to test BuddyForms on our Demo Site: [WC4BP Demo](https://addendio.com/try-plugin/?slug=wc4bp)
+> * Feel free to test WC4BP on our Demo Site: [WC4BP Demo](https://addendio.com/try-plugin/?slug=wc4bp)
 
 ---
 
