@@ -69,12 +69,12 @@ Overview over the plugin options [youtube https://www.youtube.com/watch?v=DtPk-W
 ---
 
 > #### Submit Issues - Contribute
-> * Pull request are welcome. BuddyForms is community driven and developed on [Github](https://github.com/Themekraft/wc4bp)
+> * Pull request are welcome. WC4BP is community driven and developed on [Github](https://github.com/Themekraft/wc4bp)
 
 ---
 
 > #### Demo Site
-> * Feel free to test BuddyForms on our Demo Site: [WC4BP Demo](https://addendio.com/try-plugin/?slug=wc4bp)
+> * Feel free to test WC4BP on our Demo Site: [WC4BP Demo](https://addendio.com/try-plugin/?slug=wc4bp)
 
 ---
 
@@ -99,7 +99,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 == Screenshots ==
 
 1. Admin Settings General
-2. Profile Field Synchronisation Settings
+2. Profile Field Synchronization Settings
 3. Add Pages to Member Profiles
 4. Profile Cart
 5. Checkout
@@ -137,12 +137,12 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 
 = 3.0.4 01.04.2017 =
 * Fixing incompatibility for the requirement library
-* Fixing the name of the plugin when check the php version and wordpress
-* Refactoring to support old php version
+* Fixing the name of the plugin when checking the PHP version and WordPress
+* Refactoring to support old PHP version
 
 = 3.0.3 29.03.2017 =
-* Cleaning the code, checking the php 5.3 compatibility
-* Adding php and WordPress check minimum version. Cleaning the code and refactoring.
+* Cleaning the code, checking the PHP 5.3 compatibility
+* Adding PHP and WordPress check minimum version. Cleaning the code and refactoring.
 * Refactoring the code. Integrating EDD with freemius.
 
 = 3.0.2 24.03.2017 =
@@ -157,7 +157,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Version 3.0 is a complete rewrite of the old 2.x version and the first public version.
 * WC endpoint modifications
 * Refactoring and cleaning the code
-* Added sanitise check to the page settings - Sanitizing all $_POST
+* Added sanitize check to the page settings - Sanitizing all $_POST
 * Add a filter to change the wc4bp_ slug in the url. Fixed the generation of the pages. Adding the filter to the page mark.
 * Add settings options to show my account pages
 * Adding options to enabled the wc endpoints
