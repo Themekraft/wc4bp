@@ -21,6 +21,7 @@ class WC4BP_Component extends BP_Component {
 	 * @since   1.0
 	 */
 	public $id = 'shop';
+    public $template_directory;
 	
 	/**
 	 * Start the shop component creation process
@@ -422,68 +423,56 @@ class WC4BP_Component extends BP_Component {
 		if ( ! bp_is_current_component( 'shop' ) ) {
 			return $found_template;
 		}
-		
-		bp_register_template_stack( array( $this, 'wc4bp_members_get_template_directory' ), 14 );
-		
-		$found_template = locate_template( 'members/single/plugins.php', false, false );
-		
-		$wc4bp_options = get_option( 'wc4bp_options' );
-		$cart_page_id  = wc_get_page_id( 'cart' );
-		$cart_page     = get_post( $cart_page_id, ARRAY_A );
-		$cart_slug     = $cart_page['post_name'];
-		$path          = 'shop/member/plugin';
-		switch ( $bp->current_action ) {
-			case 'home':
-				if ( $wc4bp_options['tab_shop_default'] != 'default' ) {
-					$bp->current_action = $wc4bp_options['tab_shop_default'];
-				} else {
-					if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-						if ( empty( $wc4bp_options['tab_cart_disabled'] ) ) {
-							$bp->current_action = $cart_slug;
-							$path               = 'shop/member/cart';
-						}
-					} else {
-						if ( empty( $wc4bp_options['tab_cart_disabled'] ) ) {
-							$bp->current_action = $cart_slug;
-							$path               = 'shop/member/cart';
-						} else {
-							$wc_active_endpoints = WC4BP_MyAccount::get_active_endpoints__premium_only();
-							if ( ! empty( $wc_active_endpoints ) && count( $wc_active_endpoints ) > 1 ) {
-								reset( $wc_active_endpoints );
-								$page_name          = wc4bp_Manager::get_prefix() . key( $wc_active_endpoints );
-								$bp->current_action = $page_name;
-							}
-						}
-					}
-				}
-				break;
-            case 'wc4pb_subscriptions':
-                $is_view_subscription = array_search('view-subscription',$bp->unfiltered_uri);
-                //$view_subscription_value = isset($bp->unfiltered_uri[5]) ? $bp->unfiltered_uri[5] : null;
-                if ($is_view_subscription!= false){
-                    $path = apply_filters('wc4bp_view_subscription_page',$path);
-                }
-                else{
+        $path                     = 'shop/member/plugin';
+        $this->template_directory = apply_filters( 'wc4bp_members_get_template_directory', constant( 'WC4BP_ABSPATH_TEMPLATE_PATH' ) );
+        $path                     = apply_filters( 'wc4bp_load_template_path', $path, $this->template_directory );
+        bp_register_template_stack( array( $this, 'wc4bp_members_get_template_directory' ), 14 );
+        if($bp->current_action == 'home' ||$bp->current_action == 'cart' ||$bp->current_action == 'checkout' ||$bp->current_action == 'history' || $bp->current_action  =='track' ) {
 
-                    $path = apply_filters('wc4bp_subscription_page',$path);
-
-                }
-
-                break;
-			case 'cart':
-				$path = 'shop/member/cart';
-				break;
-			case 'checkout':
-				$path = 'shop/member/checkout';
-				break;
-			case 'history':
-				$path = 'shop/member/history';
-				break;
-			case 'track':
-				$path = 'shop/member/track';
-				break;
-		}
-		
+            $found_template = locate_template('members/single/plugins.php', false, false);
+            $wc4bp_options = get_option('wc4bp_options');
+            $cart_page_id = wc_get_page_id('cart');
+            $cart_page = get_post($cart_page_id, ARRAY_A);
+            $cart_slug = $cart_page['post_name'];
+            switch ($bp->current_action) {
+                case 'home':
+                    if ($wc4bp_options['tab_shop_default'] != 'default') {
+                        $bp->current_action = $wc4bp_options['tab_shop_default'];
+                    } else {
+                        if (WC4BP_Loader::getFreemius()->is_plan__premium_only(wc4bp_base::$professional_plan_id)) {
+                            if (empty($wc4bp_options['tab_cart_disabled'])) {
+                                $bp->current_action = $cart_slug;
+                                $path = 'shop/member/cart';
+                            }
+                        } else {
+                            if (empty($wc4bp_options['tab_cart_disabled'])) {
+                                $bp->current_action = $cart_slug;
+                                $path = 'shop/member/cart';
+                            } else {
+                                $wc_active_endpoints = WC4BP_MyAccount::get_active_endpoints__premium_only();
+                                if (!empty($wc_active_endpoints) && count($wc_active_endpoints) > 1) {
+                                    reset($wc_active_endpoints);
+                                    $page_name = wc4bp_Manager::get_prefix() . key($wc_active_endpoints);
+                                    $bp->current_action = $page_name;
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case 'cart':
+                    $path = 'shop/member/cart';
+                    break;
+                case 'checkout':
+                    $path = 'shop/member/checkout';
+                    break;
+                case 'history':
+                    $path = 'shop/member/history';
+                    break;
+                case 'track':
+                    $path = 'shop/member/track';
+                    break;
+            }
+        }
 		add_action( 'bp_template_content',
 			create_function( '', "bp_get_template_part( '" . $path . "' );" )
 		);
@@ -501,6 +490,6 @@ class WC4BP_Component extends BP_Component {
 	 * @return string
 	 */
 	public function wc4bp_members_get_template_directory() {
-		return apply_filters( 'wc4bp_members_get_template_directory', constant( 'WC4BP_ABSPATH_TEMPLATE_PATH' ) );
+        return $this->template_directory;
 	}
 }

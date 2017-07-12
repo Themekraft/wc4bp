@@ -248,7 +248,7 @@ class WC4BP_MyAccount {
 	public static function get_available_endpoints() {
 		if ( wc4bp_Manager::is_woocommerce_active() ) {
 			$end_points = wc_get_account_menu_items();
-			$end_points = apply_filters( 'wc4bp_subscription_menu_items', $end_points );
+			$end_points = apply_filters( 'wc4bp_add_endpoint', $end_points );
 			$exclude    = apply_filters( "wc4bp_woocommerce_exclude_endpoint", array( "customer-logout", "dashboard" ) );
 			
 			return array_diff_key( $end_points, array_flip( $exclude ) );
