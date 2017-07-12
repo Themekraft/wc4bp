@@ -2,7 +2,7 @@
     <p><?php _e( 'Set the Profile Field Visibility for all Users:', 'wc4bp' ); ?></p>
 </b>
 <p>
-	<?php _e( 'You can change the Field Visability for all users. This will only work if the option', 'wc4bp' ); ?>
+	<?php _e( 'You can change the Field Visibility for all users. This will only work if the option', 'wc4bp' ); ?>
 </p>
 <p>
 	<?php _e( '"Allow Custom Visibility Change by User" is set to "Let members change this field\'s visibility"', 'wc4bp' ); ?>

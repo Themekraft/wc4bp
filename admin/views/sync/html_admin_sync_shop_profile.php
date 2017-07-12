@@ -6,7 +6,7 @@
             customer fields with BuddyPress.', 'wc4bp' ); ?>
 </p>
 <p>
-	<?php _e( 'During checkout or if a user edit his profile all fields will be synced automaticly.', 'wc4bp' ); ?>
+	<?php _e( 'During checkout or if a user edits his profile all fields will be synced automatically.', 'wc4bp' ); ?>
 </p>
 <p>
 	<?php _e( 'If you have already customers and start using WooCommerce BuddyPress Integration on an existing store, you need 
