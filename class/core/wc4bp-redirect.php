@@ -25,6 +25,10 @@ function wc4bp_get_redirect_link( $id = false ) {
 		return false;
 	}
 	
+	if('members' == bp_current_component()){
+		return false;
+	}
+	
 	if ( ( ( isset( $wp->query_vars['name'] ) && $wp->query_vars['name'] == 'order-received' ) || isset( $wp->query_vars['order-received'] ) ) ) {
 		return false;
 	}
@@ -161,7 +165,6 @@ function wc4bp_page_link_router( $link, $id ) {
 	if ( ! is_user_logged_in() || is_admin() ) {
 		return $link;
 	}
-
 	
 	$new_link = wc4bp_get_redirect_link( $id );
 	
