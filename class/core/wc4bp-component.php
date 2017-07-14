@@ -106,15 +106,19 @@ class WC4BP_Component extends BP_Component {
 	 *
 	 * @since    1.0
 	 * @global   object $bp
+	 * @return bool
 	 */
 	function setup_nav( $main_nav = Array(), $sub_nav = Array() ) {
 		global $woocommerce;
 		
 		if ( ! function_exists( 'bp_get_settings_slug' ) ) {
-			return;
+			return false;
 		}
 		
 		$wc4bp_options       = get_option( 'wc4bp_options' );
+		if(!empty($wc4bp_options['tab_activity_disabled']) && $wc4bp_options['tab_activity_disabled'] == '1'){
+			return false;
+		}
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 		if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
 			$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
@@ -287,6 +291,9 @@ class WC4BP_Component extends BP_Component {
 		global $bp;
 		
 		$wc4bp_options       = get_option( 'wc4bp_options' );
+		if(!empty($wc4bp_options['tab_activity_disabled']) && $wc4bp_options['tab_activity_disabled'] == '1'){
+			return false;
+		}
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 		if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
 			$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
