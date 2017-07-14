@@ -26,14 +26,15 @@ class WC4BP_MyAccount_Content {
 				'downloads'       => array( $this, "wc4bp_my_account_process_shortcode_downloads" ),
 				'edit-address'    => array( $this, "wc4bp_my_account_process_shortcode_edit_address" ),
 				'payment-methods' => array( $this, "wc4bp_my_account_process_shortcode_payment_methods" ),
-				'edit-account'    => array( $this, "wc4bp_my_account_process_shortcode_edit_account" ),
+				'edit-account'    => array( $this, "wc4bp_my_account_process_shortcode_edit_account" )
+
 			)
 		);
 		foreach ( $this->end_points as $key => $class ) {
 			add_shortcode( $key, array( $this, "process_shortcodes" ) );
 		}
 	}
-	
+
 	public function process_shortcodes( $attr, $content = "", $tag ) {
 		try {
 			foreach ( $this->end_points as $key => $class ) {
@@ -45,7 +46,8 @@ class WC4BP_MyAccount_Content {
 			echo $exception->getMessage();
 		}
 	}
-	
+
+
 	public function wc4bp_my_account_process_shortcode_orders( $attr, $content ) {
 		wc_print_notices();
 		woocommerce_account_orders( 1 );//TODO get the current page

@@ -71,7 +71,7 @@ function wc4bp_get_redirect_link( $id = false ) {
 				$checkout_page_id = wc_get_page_id( 'checkout' );
 				$checkout_page    = get_post( $checkout_page_id );
 				$url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' ;
-				$payment_created_account = $bp->unfiltered_uri[0];
+				$payment_created_account = isset($bp->unfiltered_uri[0]) ? $bp->unfiltered_uri[0] : '';
 
 				$link = apply_filters( 'wc4bp_checkout_page_link', $link );
                 if ($payment_created_account==$checkout_page->post_name){
