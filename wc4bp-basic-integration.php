@@ -99,12 +99,12 @@ class WC4BP_Loader {
 				new wc4bp_Manager();
 				
 				// Run the activation function
-				register_activation_hook( $this->get_plugins_path(), array( $this, 'activation' ) );
+				register_activation_hook( __FILE__, array( $this, 'activation' ) );
 				
 				/**
 				 * Deletes all data if plugin deactivated
 				 */
-				register_deactivation_hook( $this->get_plugins_path(), array( $this, 'deactivation' ) );
+				register_deactivation_hook( __FILE__, array( $this, 'deactivation' ) );
 				
 				add_action( 'plugins_loaded', array( $this, 'update' ), 10 );
 				add_action( 'plugins_loaded', array( $this, 'translate' ) );
@@ -115,14 +115,6 @@ class WC4BP_Loader {
 			$fauxPlugin = new WP_Faux_Plugin( __( 'WC4BP -> WooCommerce BuddyPress Integration', 'wc4bp' ), $requirements->getResults() );
 			$fauxPlugin->show_result( plugin_basename( __FILE__ ) );
 		}
-	}
-	
-	private function get_plugins_path(){
-		$plugins_path = 'wc4bp/wc4bp-basic-integration.php';
-		if($this->wc4bp_fs()->is_paying()){
-			$plugins_path = 'wc4bp-premium/wc4bp-basic-integration.php';
-		}
-		return $plugins_path;
 	}
 	
 	// Create a helper function for easy SDK access.
