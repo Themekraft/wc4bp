@@ -25,6 +25,11 @@ function wc4bp_get_redirect_link( $id = false ) {
 		return false;
 	}
 	
+	$wc4bp_options = get_option( 'wc4bp_options' );
+	if ( ! empty( $wc4bp_options['tab_activity_disabled'] ) ) {
+		return false;
+	}
+	
 	if ( ( ( isset( $wp->query_vars['name'] ) && $wp->query_vars['name'] == 'order-received' ) || isset( $wp->query_vars['order-received'] ) ) ) {
 		return false;
 	}

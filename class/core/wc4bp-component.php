@@ -116,7 +116,7 @@ class WC4BP_Component extends BP_Component {
 		}
 		
 		$wc4bp_options       = get_option( 'wc4bp_options' );
-		if(!empty($wc4bp_options['tab_activity_disabled']) && $wc4bp_options['tab_activity_disabled'] == '1'){
+		if(!empty($wc4bp_options['tab_activity_disabled'])){
 			return false;
 		}
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
@@ -291,7 +291,7 @@ class WC4BP_Component extends BP_Component {
 		global $bp;
 		
 		$wc4bp_options       = get_option( 'wc4bp_options' );
-		if(!empty($wc4bp_options['tab_activity_disabled']) && $wc4bp_options['tab_activity_disabled'] == '1'){
+		if(!empty($wc4bp_options['tab_activity_disabled'])){
 			return false;
 		}
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
