@@ -1,10 +1,10 @@
 === WooCommerce BuddyPress Integration ===
 
-Contributors: themekraft, svenl77, gfirem, shabushabu, kishores
+Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores,
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
 Tested up to: WP 4.8
-Stable tag: 3.0.8
+Stable tag: 3.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,16 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
+
+= 3.0.9 July 18.2017 =
+* Fixed Spelling and Capitalizations props @garrett-eclipse
+* Add new filter wc4bp_add_endpoint to add custom endpoints from other WooCommerce Extensions
+* Fixing the turn off shop options from the settings. The sub tabs got broken if shop settings got deactivated.
+* Fixed a redirect issue
+* Multiples fixing
+* Updating the readme to hold new work conventions. props @gfirem for improving the workflow with gitflow
+* Changing the initialization hook. Checking if the shop if enabled to process the links.
+* Checking if xprofile is active in buddypress
 
 = 3.0.8 Jun 27.2017 =
 * Updated freemius
