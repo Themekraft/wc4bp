@@ -160,15 +160,15 @@ function wc4bp_loader_purchase_activity( $order_id ) {
 
 	$order = new WC_Order( $order_id );
 
-	if ( $order->status != 'completed' ) {
+	if ( $order->get_status() != 'completed' ) {
 		return false;
 	}
 
-	if ( $order->user_id != $order->customer_user ) {
+	if ( $order->get_user_id() != $order->get_customer_id() ) {
 		return false;
 	}
 
-	$user_link = bp_core_get_userlink( $order->customer_user );
+	$user_link = bp_core_get_userlink( $order->get_customer_id() );
 
 	// if several products - combine them, otherwise - display the product name
 	$products = $order->get_items();
@@ -180,7 +180,7 @@ function wc4bp_loader_purchase_activity( $order_id ) {
 
 	// record the activity
 	bp_activity_add( array(
-		'user_id'   => $order->user_id,
+		'user_id'   => $order->get_user_id(),
 		'action'    => apply_filters( 'wc4bp_loader_purchase_activity_action',
 			sprintf(
 				__( '%s purchased %s', 'wc4bp' ),

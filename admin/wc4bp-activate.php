@@ -118,7 +118,7 @@ function wc4bp_activate() {
 		// we need to query directly as xprofile_insert_field
 		// does not accept 'option' as type
 		$counter = 1;
-		foreach ( $geo->countries as $country_code => $country ) :
+		foreach ( $geo->get_countries() as $country_code => $country ) :
 			$is_default = ( $country_code == $default_country ) ? 1 : 0;
 			$wpdb->query( $wpdb->prepare( "
 				INSERT INTO {$bp->profile->table_name_fields}
@@ -225,7 +225,7 @@ function wc4bp_activate() {
 		// we need to query directly as xprofile_insert_field
 		// does not accept 'option' as type
 		$counter = 1;
-		foreach ( $geo->countries as $country_code => $country ) :
+		foreach ( $geo->get_countries() as $country_code => $country ) :
 			$is_default = ( $country_code == $default_country ) ? 1 : 0;
 			$wpdb->query( $wpdb->prepare( "
 				INSERT INTO {$bp->profile->table_name_fields}

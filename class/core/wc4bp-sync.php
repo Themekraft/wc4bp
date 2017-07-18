@@ -72,7 +72,7 @@ class wc4bp_Sync {
 		
 		if ( $shipping_key == 'country' || $billing_key == 'country' ) {
 			$geo   = new WC_Countries();
-			$value = array_search( $value, $geo->countries );
+			$value = array_search( $value, $geo->get_countries() );
 		}
 		
 		if ( empty( $user_id ) ) {
@@ -132,7 +132,7 @@ class wc4bp_Sync {
 							if ( ! empty( $_POST[ $type . '_' . $field_slug ] ) ) {
 								if ( $field_slug == 'country' ) {
 									$geo  = new WC_Countries();
-									$slug = $geo->countries[ $_POST[ $type . '_' . $field_slug ] ];
+									$slug = $geo->get_countries()[ $_POST[ $type . '_' . $field_slug ] ];
 								} else {
 									$slug = sanitize_text_field( $_POST[ $type . '_' . $field_slug ] );
 								}
