@@ -72,7 +72,7 @@ class wc4bp_Sync {
 		
 		if ( $shipping_key == 'country' || $billing_key == 'country' ) {
 			$geo   = new WC_Countries();
-			$value = array_search( $value, $geo->countries );
+			$value = array_search( $value, $geo->get_countries() );
 		}
 		
 		if ( empty( $user_id ) ) {
@@ -103,54 +103,46 @@ class wc4bp_Sync {
 	 * @param    int $user_id The user ID to synch the address for
 	 */
 	public function wc4bp_sync_addresses_to_profile( $user_id ) {
-		// get the profile fields
-		$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
-		$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
-		
-		unset( $shipping['group_id'] );
-		unset( $billing['group_id'] );
-		
-		$groups = BP_XProfile_Group::get( array(
-			'fetch_fields' => true
-		) );
-		
-		if ( ! empty( $groups ) ) {
-			foreach ( $groups as $group ) {
-				if ( empty( $group->fields ) ) {
-					continue;
-				}
-				
-				foreach ( $group->fields as $field ) {
-					$billing_key  = array_search( $field->id, $billing );
-					$shipping_key = array_search( $field->id, $shipping );
-					
-					if ( $shipping_key ) {
-						$type       = 'shipping';
-						$field_slug = $shipping_key;
+		if ( bp_is_active( 'xprofile' ) ) {
+			// get the profile fields
+			$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
+			$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
+			unset( $shipping['group_id'] );
+			unset( $billing['group_id'] );
+			$groups = BP_XProfile_Group::get( array(
+				'fetch_fields' => true
+			) );
+			if ( ! empty( $groups ) ) {
+				foreach ( $groups as $group ) {
+					if ( empty( $group->fields ) ) {
+						continue;
 					}
-					
-					if ( $billing_key ) {
-						$type       = 'billing';
-						$field_slug = $billing_key;
-					}
-					
-					if ( isset( $field_slug ) ) {
-						if ( ! empty( $_POST[ $type . '_' . $field_slug ] ) ) {
-							if ( $field_slug == 'country' ) {
-								$geo   = new WC_Countries();
-								$slug = $geo->countries[$_POST[ $type . '_' . $field_slug ]];
+					foreach ( $group->fields as $field ) {
+						$billing_key  = array_search( $field->id, $billing );
+						$shipping_key = array_search( $field->id, $shipping );
+						if ( $shipping_key ) {
+							$type       = 'shipping';
+							$field_slug = $shipping_key;
+						}
+						if ( $billing_key ) {
+							$type       = 'billing';
+							$field_slug = $billing_key;
+						}
+						if ( isset( $field_slug ) ) {
+							if ( ! empty( $_POST[ $type . '_' . $field_slug ] ) ) {
+								if ( $field_slug == 'country' ) {
+									$geo  = new WC_Countries();
+									$slug = $geo->get_countries()[ $_POST[ $type . '_' . $field_slug ] ];
+								} else {
+									$slug = sanitize_text_field( $_POST[ $type . '_' . $field_slug ] );
+								}
+								xprofile_set_field_data( $field->id, $user_id, $slug );
 							}
-							else{
-								$slug = sanitize_text_field( $_POST[ $type . '_' . $field_slug ] );
-							}
-							
-							xprofile_set_field_data( $field->id, $user_id, $slug );
 						}
 					}
 				}
 			}
 		}
-		
 	}
 	
 	/**

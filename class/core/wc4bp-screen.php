@@ -216,7 +216,7 @@ function wc4bp_setup_tracking_order() {
 			$order = new WC_Order( apply_filters( 'woocommerce_shortcode_order_tracking_order_id', $order_id ) );
 			
 			if ( $order->get_id() && $order_email ) {
-				if ( strtolower( $order->billing_email ) == strtolower( $order_email ) ) {
+				if ( strtolower( $order->get_billing_email() ) == strtolower( $order_email ) ) {
 					$current_order = $order;
 				} else {
 					echo '<p class="woocommerce_error">' . __( 'You are not allowed to view this order.', 'wc4bp' ) . '</p>';
