@@ -52,7 +52,7 @@ class WC4BP_Loader {
 	/**
 	 * Minimum required woocommerce version
 	 */
-	const MIN_WOO = '2.4';
+	const MIN_WOO = '3.1';
 	
 	/**
 	 * Name of the plugin folder
