@@ -53,198 +53,225 @@ function wc4bp_activate() {
 	$billing = array();
 
 	if ( bp_is_active( 'xprofile' ) ) {
-		$billing['group_id'] = xprofile_insert_field_group( array(
-			'name' => 'Billing Address'
-		) );
+        $insert_billing_group = true;
+        $insert_shipping_group = true;
+        //Get all the groups from the database
+        $groups = BP_XProfile_Group::get( array(
+            'fetch_fields' => true
+        ) );
+        //look if a record with the billing code already exist
+        foreach ($groups as $current) {
+            if ($current->description=='billing'){
+                //If exist a record with the billing code take it, and avoid insert a new one
+                $insert_billing_group = false;
+                $billing = $current;
+                break;
+            }
+        }
 
-		$billing['first_name'] = xprofile_insert_field( array(
-			'field_group_id' => $billing['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'First Name',
-			'field_order'    => 1,
-			'is_required'    => 1
-		) );
-		$billing['last_name']  = xprofile_insert_field( array(
-			'field_group_id' => $billing['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'Last Name',
-			'field_order'    => 2,
-			'is_required'    => 1
-		) );
-		$billing['company']    = xprofile_insert_field( array(
-			'field_group_id' => $billing['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'Company',
-			'field_order'    => 3,
-			'is_required'    => 0
-		) );
-		$billing['address_1']  = xprofile_insert_field( array(
-			'field_group_id' => $billing['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'Address 1',
-			'field_order'    => 4,
-			'is_required'    => 1
-		) );
-		$billing['address_2']  = xprofile_insert_field( array(
-			'field_group_id' => $billing['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'Address 2',
-			'field_order'    => 5,
-			'is_required'    => 0
-		) );
-		$billing['city']       = xprofile_insert_field( array(
-			'field_group_id' => $billing['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'City',
-			'field_order'    => 6,
-			'is_required'    => 1
-		) );
-		$billing['postcode']   = xprofile_insert_field( array(
-			'field_group_id' => $billing['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'Postcode',
-			'field_order'    => 7,
-			'is_required'    => 1
-		) );
-		$billing['country']    = xprofile_insert_field( array(
-			'field_group_id' => $billing['group_id'],
-			'type'           => 'selectbox',
-			'order_by'       => 'asc',
-			'name'           => 'Country',
-			'is_required'    => 1,
-			'field_order'    => 8
-		) );
+        if($insert_billing_group) {
+            $billing['group_id'] = xprofile_insert_field_group(array(
+                'name' => 'Billing Address'
+            ));
 
-		// we need to query directly as xprofile_insert_field
-		// does not accept 'option' as type
-		$counter = 1;
-		foreach ( $geo->get_countries() as $country_code => $country ) :
-			$is_default = ( $country_code == $default_country ) ? 1 : 0;
-			$wpdb->query( $wpdb->prepare( "
+            $billing['first_name'] = xprofile_insert_field(array(
+                'field_group_id' => $billing['group_id'],
+                'type' => 'textbox',
+                'name' => 'First Name',
+                'field_order' => 1,
+                'is_required' => 1
+            ));
+            $billing['last_name'] = xprofile_insert_field(array(
+                'field_group_id' => $billing['group_id'],
+                'type' => 'textbox',
+                'name' => 'Last Name',
+                'field_order' => 2,
+                'is_required' => 1
+            ));
+            $billing['company'] = xprofile_insert_field(array(
+                'field_group_id' => $billing['group_id'],
+                'type' => 'textbox',
+                'name' => 'Company',
+                'field_order' => 3,
+                'is_required' => 0
+            ));
+            $billing['address_1'] = xprofile_insert_field(array(
+                'field_group_id' => $billing['group_id'],
+                'type' => 'textbox',
+                'name' => 'Address 1',
+                'field_order' => 4,
+                'is_required' => 1
+            ));
+            $billing['address_2'] = xprofile_insert_field(array(
+                'field_group_id' => $billing['group_id'],
+                'type' => 'textbox',
+                'name' => 'Address 2',
+                'field_order' => 5,
+                'is_required' => 0
+            ));
+            $billing['city'] = xprofile_insert_field(array(
+                'field_group_id' => $billing['group_id'],
+                'type' => 'textbox',
+                'name' => 'City',
+                'field_order' => 6,
+                'is_required' => 1
+            ));
+            $billing['postcode'] = xprofile_insert_field(array(
+                'field_group_id' => $billing['group_id'],
+                'type' => 'textbox',
+                'name' => 'Postcode',
+                'field_order' => 7,
+                'is_required' => 1
+            ));
+            $billing['country'] = xprofile_insert_field(array(
+                'field_group_id' => $billing['group_id'],
+                'type' => 'selectbox',
+                'order_by' => 'asc',
+                'name' => 'Country',
+                'is_required' => 1,
+                'field_order' => 8
+            ));
+
+            // we need to query directly as xprofile_insert_field
+            // does not accept 'option' as type
+            $counter = 1;
+            foreach ($geo->get_countries() as $country_code => $country) :
+                $is_default = ($country_code == $default_country) ? 1 : 0;
+                $wpdb->query($wpdb->prepare("
 				INSERT INTO {$bp->profile->table_name_fields}
 				(group_id, parent_id, type, name, description, is_required, option_order, is_default_option)
 				VALUES
 				(%d, %d, 'option', %s, '', 0, %d, %d)",
-				$billing['group_id'], $billing['country'], $country, $counter, $is_default
-			) );
-			$counter ++;
-		endforeach;
+                    $billing['group_id'], $billing['country'], $country, $counter, $is_default
+                ));
+                $counter++;
+            endforeach;
 
-		$billing['state'] = xprofile_insert_field( array(
-			'field_group_id' => $billing['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'State',
-			'field_order'    => 9,
-			'is_required'    => 1
-		) );
-		$billing['email'] = xprofile_insert_field( array(
-			'field_group_id' => $billing['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'Email Address',
-			'field_order'    => 10,
-			'is_required'    => 1
-		) );
-		$billing['phone'] = xprofile_insert_field( array(
-			'field_group_id' => $billing['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'Phone',
-			'field_order'    => 11,
-			'is_required'    => 1
-		) );
-		$billing['fax']   = xprofile_insert_field( array(
-			'field_group_id' => $billing['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'Fax',
-			'field_order'    => 12,
-			'is_required'    => 0
-		) );
-
+            $billing['state'] = xprofile_insert_field(array(
+                'field_group_id' => $billing['group_id'],
+                'type' => 'textbox',
+                'name' => 'State',
+                'field_order' => 9,
+                'is_required' => 1
+            ));
+            $billing['email'] = xprofile_insert_field(array(
+                'field_group_id' => $billing['group_id'],
+                'type' => 'textbox',
+                'name' => 'Email Address',
+                'field_order' => 10,
+                'is_required' => 1
+            ));
+            $billing['phone'] = xprofile_insert_field(array(
+                'field_group_id' => $billing['group_id'],
+                'type' => 'textbox',
+                'name' => 'Phone',
+                'field_order' => 11,
+                'is_required' => 1
+            ));
+            $billing['fax'] = xprofile_insert_field(array(
+                'field_group_id' => $billing['group_id'],
+                'type' => 'textbox',
+                'name' => 'Fax',
+                'field_order' => 12,
+                'is_required' => 0
+            ));
+        }
 		$shipping = array();
-		$shipping['group_id'] = xprofile_insert_field_group( array(
-			'name' => 'Shipping Address'
-		) );
+        //Look if exist a record with the shipping code
+        foreach ($groups as $current) {
+            if ($current->description=='shipping'){
+                // If exist a record with the shipping code take it and avoid inserting a new one
+                $insert_shipping_group = false;
+                $shipping = $current;
+                break;
+            }
+        }
+        if ($insert_shipping_group) {
+            $shipping['group_id'] = xprofile_insert_field_group(array(
+                'name' => 'Shipping Address'
+            ));
 
-		$shipping['first_name'] = xprofile_insert_field( array(
-			'field_group_id' => $shipping['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'First Name',
-			'field_order'    => 1,
-			'is_required'    => 1
-		) );
-		$shipping['last_name']  = xprofile_insert_field( array(
-			'field_group_id' => $shipping['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'Last Name',
-			'field_order'    => 2,
-			'is_required'    => 1
-		) );
-		$shipping['company']    = xprofile_insert_field( array(
-			'field_group_id' => $shipping['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'Company',
-			'field_order'    => 3,
-			'is_required'    => 0
-		) );
-		$shipping['address_1']  = xprofile_insert_field( array(
-			'field_group_id' => $shipping['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'Address 1',
-			'field_order'    => 4,
-			'is_required'    => 1
-		) );
-		$shipping['address_2']  = xprofile_insert_field( array(
-			'field_group_id' => $shipping['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'Address 2',
-			'field_order'    => 5,
-			'is_required'    => 0
-		) );
-		$shipping['city']       = xprofile_insert_field( array(
-			'field_group_id' => $shipping['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'City',
-			'field_order'    => 6,
-			'is_required'    => 1
-		) );
-		$shipping['postcode']   = xprofile_insert_field( array(
-			'field_group_id' => $shipping['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'Postcode',
-			'field_order'    => 7,
-			'is_required'    => 1
-		) );
-		$shipping['country']    = xprofile_insert_field( array(
-			'field_group_id' => $shipping['group_id'],
-			'order_by'       => 'asc',
-			'type'           => 'selectbox',
-			'name'           => 'Country',
-			'is_required'    => 1,
-			'field_order'    => 8
-		) );
+            $shipping['first_name'] = xprofile_insert_field(array(
+                'field_group_id' => $shipping['group_id'],
+                'type' => 'textbox',
+                'name' => 'First Name',
+                'field_order' => 1,
+                'is_required' => 1
+            ));
+            $shipping['last_name'] = xprofile_insert_field(array(
+                'field_group_id' => $shipping['group_id'],
+                'type' => 'textbox',
+                'name' => 'Last Name',
+                'field_order' => 2,
+                'is_required' => 1
+            ));
+            $shipping['company'] = xprofile_insert_field(array(
+                'field_group_id' => $shipping['group_id'],
+                'type' => 'textbox',
+                'name' => 'Company',
+                'field_order' => 3,
+                'is_required' => 0
+            ));
+            $shipping['address_1'] = xprofile_insert_field(array(
+                'field_group_id' => $shipping['group_id'],
+                'type' => 'textbox',
+                'name' => 'Address 1',
+                'field_order' => 4,
+                'is_required' => 1
+            ));
+            $shipping['address_2'] = xprofile_insert_field(array(
+                'field_group_id' => $shipping['group_id'],
+                'type' => 'textbox',
+                'name' => 'Address 2',
+                'field_order' => 5,
+                'is_required' => 0
+            ));
+            $shipping['city'] = xprofile_insert_field(array(
+                'field_group_id' => $shipping['group_id'],
+                'type' => 'textbox',
+                'name' => 'City',
+                'field_order' => 6,
+                'is_required' => 1
+            ));
+            $shipping['postcode'] = xprofile_insert_field(array(
+                'field_group_id' => $shipping['group_id'],
+                'type' => 'textbox',
+                'name' => 'Postcode',
+                'field_order' => 7,
+                'is_required' => 1
+            ));
+            $shipping['country'] = xprofile_insert_field(array(
+                'field_group_id' => $shipping['group_id'],
+                'order_by' => 'asc',
+                'type' => 'selectbox',
+                'name' => 'Country',
+                'is_required' => 1,
+                'field_order' => 8
+            ));
 
-		// we need to query directly as xprofile_insert_field
-		// does not accept 'option' as type
-		$counter = 1;
-		foreach ( $geo->get_countries() as $country_code => $country ) :
-			$is_default = ( $country_code == $default_country ) ? 1 : 0;
-			$wpdb->query( $wpdb->prepare( "
+            // we need to query directly as xprofile_insert_field
+            // does not accept 'option' as type
+            $counter = 1;
+            foreach ($geo->get_countries() as $country_code => $country) :
+                $is_default = ($country_code == $default_country) ? 1 : 0;
+                $wpdb->query($wpdb->prepare("
 				INSERT INTO {$bp->profile->table_name_fields}
 				(group_id, parent_id, type, name, description, is_required, option_order, is_default_option)
 				VALUES
 				(%d, %d, 'option', %s, '', 0, %d, %d)",
-				$shipping['group_id'], $shipping['country'], $country, $counter, $is_default
-			) );
-			$counter ++;
-		endforeach;
+                    $shipping['group_id'], $shipping['country'], $country, $counter, $is_default
+                ));
+                $counter++;
+            endforeach;
 
-		$shipping['state'] = xprofile_insert_field( array(
-			'field_group_id' => $shipping['group_id'],
-			'type'           => 'textbox',
-			'name'           => 'State',
-			'field_order'    => 9,
-			'is_required'    => 1
-		) );
-
+            $shipping['state'] = xprofile_insert_field(array(
+                'field_group_id' => $shipping['group_id'],
+                'type' => 'textbox',
+                'name' => 'State',
+                'field_order' => 9,
+                'is_required' => 1
+            ));
+        }
 		if ( is_multisite() ):
 			// set the plugin to be installed
 			update_blog_option( BP_ROOT_BLOG, 'wc4bp_installed', true );
