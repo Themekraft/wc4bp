@@ -71,7 +71,8 @@ function wc4bp_activate() {
 
         if($insert_billing_group) {
             $billing['group_id'] = xprofile_insert_field_group(array(
-                'name' => 'Billing Address'
+                'name' => 'Billing Address',
+                'description' => 'billing'//WE USE THE DESCRIPTION FIELD AS KEY,FOR UNIQUE CODE
             ));
 
             $billing['first_name'] = xprofile_insert_field(array(
@@ -188,7 +189,8 @@ function wc4bp_activate() {
         }
         if ($insert_shipping_group) {
             $shipping['group_id'] = xprofile_insert_field_group(array(
-                'name' => 'Shipping Address'
+                'name' => 'Shipping Address',
+                'description' => 'shipping'//WE USE THE DESCRIPTION FIELD AS KEY,FOR UNIQUE CODE
             ));
 
             $shipping['first_name'] = xprofile_insert_field(array(
