@@ -194,6 +194,7 @@ class wc4bp_admin extends wc4bp_base {
 	public function wc4bp_overwrite_default_shop_home_tab() {
 		$wc4bp_options       = get_option( 'wc4bp_options' );
 		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
+        $tab_activity_disabled = 0;
 		if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
 			$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
 		}
@@ -207,6 +208,31 @@ class wc4bp_admin extends wc4bp_base {
 					);
 				}
 			}
+			// Add the shop tab to the array
+            if (empty($wc4bp_options['tab_cart_disabled'])) {
+                $wc4bp_pages_options["selected_pages"][ "cart"] = array(
+                    'tab_name' => "Cart"
+                );
+            }
+            if (empty($wc4bp_options['tab_checkout_disabled'])) {
+                $wc4bp_pages_options["selected_pages"][ "checkout"] = array(
+                    'tab_name' => "Checkout"
+                );
+            }
+            if (empty($wc4bp_options['tab_history_disabled'])) {
+                $wc4bp_pages_options["selected_pages"][ "history"] = array(
+                    'tab_name' => "History"
+                );
+            }
+            if (empty($wc4bp_options['tab_track_disabled'])) {
+                $wc4bp_pages_options["selected_pages"][ "track"] = array(
+                    'tab_name' => "Track my order"
+                );
+            }
+
+            if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
+                $tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
+            }
 		}
 		
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_home.php' );

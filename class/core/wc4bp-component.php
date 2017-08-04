@@ -445,6 +445,20 @@ class WC4BP_Component extends BP_Component {
                 case 'home':
                     if ($wc4bp_options['tab_shop_default'] != 'default') {
                         $bp->current_action = $wc4bp_options['tab_shop_default'];
+                        switch ( $bp->current_action ){
+                            case 'cart':
+                                $path = 'shop/member/cart';
+                                break;
+                            case 'checkout':
+                                $path = 'shop/member/checkout';
+                                break;
+                            case 'history':
+                                $path = 'shop/member/history';
+                                break;
+                            case 'track':
+                                $path = 'shop/member/track';
+                                break;
+                        }
                     } else {
                         if (WC4BP_Loader::getFreemius()->is_plan__premium_only(wc4bp_base::$professional_plan_id)) {
                             if (empty($wc4bp_options['tab_cart_disabled'])) {
@@ -457,6 +471,17 @@ class WC4BP_Component extends BP_Component {
                                     reset($wc_active_endpoints);
                                     $page_name = wc4bp_Manager::get_prefix() . key($wc_active_endpoints);
                                     $bp->current_action = $page_name;
+                                }else{
+
+                                    if (empty($wc4bp_options['tab_checkout_disabled'])) {
+                                        $path = 'shop/member/checkout';
+                                    }
+                                    if (empty($wc4bp_options['tab_history_disabled'])) {
+                                        $path = 'shop/member/history';
+                                    }
+                                    if (empty($wc4bp_options['tab_track_disabled'])) {
+                                        $path = 'shop/member/track';
+                                    }
                                 }
                             }
                         } else {
