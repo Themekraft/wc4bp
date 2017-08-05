@@ -115,13 +115,26 @@ class wc4bp_admin extends wc4bp_base {
 	 * Shop settings view
 	 */
 	public function wc4bp_shop_tabs() {
+
 		$wc4bp_options         = get_option( 'wc4bp_options' );
 		$tab_activity_disabled = 0;
-		if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
-			if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
-				$tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
-			}
-		}
+		//Get all actives tabs and custom pages
+        $wc4bp_pages_options = $this->get_pages_option();
+
+		// If all the tabs are disabled and there is not custom pages, Turn off 'Shop'
+		if (is_array( $wc4bp_pages_options ) && count( $wc4bp_pages_options ) == 0 ){
+            $tab_activity_disabled = 1;
+        }
+        else{
+            if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
+                if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
+                    $tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
+                }
+            }
+        }
+
+
+
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_tabs.php' );
 	}
 	
@@ -193,10 +206,20 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_overwrite_default_shop_home_tab() {
 		$wc4bp_options       = get_option( 'wc4bp_options' );
-		$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
+		$custom_pages       = get_option( 'wc4bp_pages_options' );
+		$wc4bp_pages_options = array();
         $tab_activity_disabled = 0;
-		if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
-			$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
+		if ( ! empty( $custom_pages ) && is_string( $custom_pages ) ) {
+			$custom_pages_temp = json_decode( $custom_pages, true );
+            if ( isset( $custom_pages_temp['selected_pages'] ) && is_array( $custom_pages_temp['selected_pages'] ) ) {
+
+                foreach ( $custom_pages_temp['selected_pages'] as $key => $attached_page ) {
+                    $wc4bp_pages_options["selected_pages"][$attached_page['tab_slug'] ] = array(
+                        'tab_name' => $attached_page['tab_name']
+                    );
+
+                }
+            }
 		}
 		
 		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
@@ -230,13 +253,65 @@ class wc4bp_admin extends wc4bp_base {
                 );
             }
 
-            if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
-                $tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
-            }
+
 		}
 		
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_home.php' );
 		
 		submit_button();
 	}
+	public function get_pages_option(){
+        $wc4bp_options       = get_option( 'wc4bp_options' );
+        $custom_pages       = get_option( 'wc4bp_pages_options' );
+        $wc4bp_pages_options = array();
+        $tab_activity_disabled = 0;
+        if ( ! empty( $custom_pages ) && is_string( $custom_pages ) ) {
+            $custom_pages_temp = json_decode( $custom_pages, true );
+            if ( isset( $custom_pages_temp['selected_pages'] ) && is_array( $custom_pages_temp['selected_pages'] ) ) {
+
+                foreach ( $custom_pages_temp['selected_pages'] as $key => $attached_page ) {
+                    $wc4bp_pages_options["selected_pages"][$attached_page['tab_slug'] ] = array(
+                        'tab_name' => $attached_page['tab_name']
+                    );
+
+                }
+            }
+        }
+
+        if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
+            $woo_my_account = WC4BP_MyAccount::get_active_endpoints__premium_only();
+            if ( ! empty( $woo_my_account ) ) {
+                foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
+                    $wc4bp_pages_options["selected_pages"][ wc4bp_Manager::get_prefix() . $active_page_key ] = array(
+                        'tab_name' => $active_page_name
+                    );
+                }
+            }
+            // Add the shop tab to the array
+            if (empty($wc4bp_options['tab_cart_disabled'])) {
+                $wc4bp_pages_options["selected_pages"][ "cart"] = array(
+                    'tab_name' => "Cart"
+                );
+            }
+            if (empty($wc4bp_options['tab_checkout_disabled'])) {
+                $wc4bp_pages_options["selected_pages"][ "checkout"] = array(
+                    'tab_name' => "Checkout"
+                );
+            }
+            if (empty($wc4bp_options['tab_history_disabled'])) {
+                $wc4bp_pages_options["selected_pages"][ "history"] = array(
+                    'tab_name' => "History"
+                );
+            }
+            if (empty($wc4bp_options['tab_track_disabled'])) {
+                $wc4bp_pages_options["selected_pages"][ "track"] = array(
+                    'tab_name' => "Track my order"
+                );
+            }
+
+
+        }
+
+        return $wc4bp_pages_options;
+    }
 }

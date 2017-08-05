@@ -482,6 +482,19 @@ class WC4BP_Component extends BP_Component {
                                     if (empty($wc4bp_options['tab_track_disabled'])) {
                                         $path = 'shop/member/track';
                                     }
+                                    $wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
+                                    if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
+                                        $wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
+                                    }
+                                    if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
+
+                                        foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
+
+                                            $bp->current_action = $attached_page['tab_slug'];
+                                            break;
+                                        }
+                                    }
+
                                 }
                             }
                         } else {
