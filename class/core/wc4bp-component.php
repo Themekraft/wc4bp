@@ -467,7 +467,7 @@ class WC4BP_Component extends BP_Component {
                             }
                             else{
                                 $wc_active_endpoints = WC4BP_MyAccount::get_active_endpoints__premium_only();
-                                if (!empty($wc_active_endpoints) && count($wc_active_endpoints) > 1) {
+                                if (!empty($wc_active_endpoints) && count($wc_active_endpoints) > 0) {
                                     reset($wc_active_endpoints);
                                     $page_name = wc4bp_Manager::get_prefix() . key($wc_active_endpoints);
                                     $bp->current_action = $page_name;
