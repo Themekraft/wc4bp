@@ -124,6 +124,8 @@ class wc4bp_admin extends wc4bp_base {
 		// If all the tabs are disabled and there is not custom pages, Turn off 'Shop'
 		if (is_array( $wc4bp_pages_options ) && count( $wc4bp_pages_options ) == 0 ){
             $tab_activity_disabled = 1;
+            $wc4bp_options['tab_activity_disabled'] = 1;
+            update_option( 'wc4bp_options', $wc4bp_options );
         }
         else{
             if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
@@ -252,6 +254,7 @@ class wc4bp_admin extends wc4bp_base {
                     'tab_name' => "Track my order"
                 );
             }
+
 
 
 		}
