@@ -135,7 +135,7 @@ function get_top_parent_page_id( $post_id ) {
  * @since 1.0.6
  */
 function wc4bp_redirect_to_profile() {
-	global $post, $wp_query;
+	global $post, $wp_query,$bp;
 	
 	if ( ! is_user_logged_in() ) {
 		return false;
@@ -144,6 +144,7 @@ function wc4bp_redirect_to_profile() {
 	if ( empty( $post ) || ! is_object( $post ) ) {
 		return false;
 	}
+
 	
 	$link = wc4bp_get_redirect_link( $post->ID );
 	
@@ -163,11 +164,18 @@ add_action( 'template_redirect', 'wc4bp_redirect_to_profile' );
  * @uses    is_page()
  */
 function wc4bp_page_link_router( $link, $id ) {
+    global $bp;
 	if ( ! is_user_logged_in() || is_admin() ) {
 		return $link;
 	}
+	//Search in all the actives BPress pages for the current id
+    foreach ($bp->pages as $page_key=>$page_data){
+	    //if the current id is in the BP pages, do not redirect the link, maintain the BP link
+        if($page_data->id == $id ){
+            return $link;
+        }
+    }
 
-	
 	$new_link = wc4bp_get_redirect_link( $id );
 	
 	if ( ! empty( $new_link ) ) {
