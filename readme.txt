@@ -4,7 +4,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
 Tested up to: WP 4.8
-Stable tag: 3.0.11
+Stable tag: 3.0.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,17 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
+
+= 3.0.12 12 August 2017 =
+* Adjust the default tab logic. If the cart tab is disabled, the next active tab is set as default tab. If no other tab was previously set as defaut.
+* Added missing string translation
+* Removing the edd migration
+* when working with the free version, put the option 'Select the tab you want to use as your Shop Home' disabled
+* add the shops tab to the 'Select the tab you want to use as your Shop Home.' dropdown
+* now when all the tabs are disabled, if there are custom page, it shows as default tab. when all the tabs are disbled and no custom page were added, the shop turn of until a tab or custom page is enabled
+* customizing the messages for the requirement library
+* save all the settings in a single action
+* maintain the buddyPress pages with their BPress links
 
 = 3.0.11 1 August 2017 =
 * Added the groups creation verification, to avoid creating duplicates when upgrading plugin versions
