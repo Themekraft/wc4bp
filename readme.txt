@@ -110,7 +110,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 == Changelog ==
 
 = 3.0.12 12 August 2017 =
-* Adjust the default tab logic. If the cart tab is disabled, the next active tab is set as default tab. If no other tab was previously set as defaut.
+* Adjust the default tab logic. If the cart tab is disabled, the next active tab is set as default tab. If no other tab was previously set as default.
 * Added missing string translation
 * Removing the edd migration
 * when working with the free version, put the option 'Select the tab you want to use as your Shop Home' disabled
@@ -118,7 +118,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * now when all the tabs are disabled, if there are custom page, it shows as default tab. when all the tabs are disbled and no custom page were added, the shop turn of until a tab or custom page is enabled
 * customizing the messages for the requirement library
 * save all the settings in a single action
-* maintain the buddyPress pages with their BPress links
+* maintain the BuddyPress pages with their bbPress links
 
 = 3.0.11 1 August 2017 =
 * Added the groups creation verification, to avoid creating duplicates when upgrading plugin versions
