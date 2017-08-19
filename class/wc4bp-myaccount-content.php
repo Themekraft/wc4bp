@@ -26,7 +26,9 @@ class WC4BP_MyAccount_Content {
 				'downloads'       => array( $this, "wc4bp_my_account_process_shortcode_downloads" ),
 				'edit-address'    => array( $this, "wc4bp_my_account_process_shortcode_edit_address" ),
 				'payment-methods' => array( $this, "wc4bp_my_account_process_shortcode_payment_methods" ),
-				'edit-account'    => array( $this, "wc4bp_my_account_process_shortcode_edit_account" )
+				'edit-account'    => array( $this, "wc4bp_my_account_process_shortcode_edit_account" ),
+                'add-payment-methods' => array( $this, "wc4bp_my_account_process_shortcode_add_payment_methods" ),
+
 
 			)
 		);
@@ -65,8 +67,20 @@ class WC4BP_MyAccount_Content {
 	
 	public function wc4bp_my_account_process_shortcode_payment_methods( $attr, $content ) {
 		wc_print_notices();
-		woocommerce_account_payment_methods();
+
+
+		if(isset($_GET['add-payment-method'])){
+            woocommerce_account_add_payment_method();
+        }
+        else{
+            woocommerce_account_payment_methods();
+        }
+
+
 	}
+	public function wc4bp_my_account_process_shortcode_add_payment_methods($attr, $content){
+        woocommerce_account_add_payment_method();
+    }
 	
 	public function wc4bp_my_account_process_shortcode_edit_account( $attr, $content ) {
 		wc_print_notices();

@@ -48,7 +48,7 @@ function wc4bp_get_redirect_link( $id = false ) {
 	$cart_page_id       = wc_get_page_id( 'cart' );
 	$checkout_page_id   = wc_get_page_id( 'checkout' );
 	$account_page_id    = wc_get_page_id( 'myaccount' );
-	
+
 	$granted_wc_page_id = array( $account_page_id, $my_account_page_id );
 	if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
 		$granted_wc_page_id[] = $checkout_page_id;
@@ -168,6 +168,7 @@ function wc4bp_page_link_router( $link, $id ) {
 	if ( ! is_user_logged_in() || is_admin() ) {
 		return $link;
 	}
+    $end_points = wc_get_account_menu_items();
 	//Search in all the actives BPress pages for the current id
     foreach ($bp->pages as $page_key=>$page_data){
 	    //if the current id is in the BP pages, do not redirect the link, maintain the BP link
