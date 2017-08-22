@@ -118,25 +118,22 @@ class wc4bp_admin extends wc4bp_base {
 
 		$wc4bp_options         = get_option( 'wc4bp_options' );
 		$tab_activity_disabled = 0;
-		//Get all actives tabs and custom pages
-        $wc4bp_pages_options = $this->get_pages_option();
+        if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
+            //Get all actives tabs and custom pages
+            $wc4bp_pages_options = $this->get_pages_option();
+            // If all the tabs are disabled and there is not custom pages, Turn off 'Shop'
+            if (is_array($wc4bp_pages_options) && count($wc4bp_pages_options) == 0) {
+                $tab_activity_disabled = 1;
+                $wc4bp_options['tab_activity_disabled'] = 1;
+                update_option('wc4bp_options', $wc4bp_options);
+            } else {
 
-		// If all the tabs are disabled and there is not custom pages, Turn off 'Shop'
-		if (is_array( $wc4bp_pages_options ) && count( $wc4bp_pages_options ) == 0 ){
-            $tab_activity_disabled = 1;
-           $wc4bp_options['tab_activity_disabled'] = 1;
-            update_option( 'wc4bp_options', $wc4bp_options );
-        }
-        else{
-            if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
-                if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
+                if (isset($wc4bp_options['tab_activity_disabled'])) {
                     $tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
                 }
+
             }
         }
-
-
-
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_tabs.php' );
 	}
 	
