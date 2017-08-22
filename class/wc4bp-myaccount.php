@@ -102,7 +102,7 @@ class WC4BP_MyAccount {
 		return $safe_text;
 	}
 	
-	public function add_title_mark__premium_only( $title, $id ) {
+	public function add_title_mark__premium_only( $title, $id = null ) {
 		global $pagenow;
 		$titles    = self::get_active_endpoints__premium_only();
 		$post_meta = get_post_meta( $id, 'wc4bp-my-account-template', true );
