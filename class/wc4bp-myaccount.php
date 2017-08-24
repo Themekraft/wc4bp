@@ -246,11 +246,14 @@ class WC4BP_MyAccount {
 	}
 	public static function get_available_endpoints() {
 		if ( wc4bp_Manager::is_woocommerce_active() ) {
-			$granted_endpoints = array( 'orders', 'downloads', 'edit-address', 'payment-methods', 'edit-account' );
-			$end_points        = wc_get_account_menu_items();
-			$end_points        = array_intersect_key( $end_points, array_flip( $granted_endpoints ) );
-			$end_points        = apply_filters( 'wc4bp_add_endpoint', $end_points );
-			
+			$end_points = wp_cache_get( 'wc4bp_get_available_endpoints', 'wc4bp' );
+			if ( ! $end_points ) {
+				$granted_endpoints = array( 'orders', 'downloads', 'edit-address', 'payment-methods', 'edit-account' );
+				$end_points        = wc_get_account_menu_items();
+				$end_points        = array_intersect_key( $end_points, array_flip( $granted_endpoints ) );
+				$end_points        = apply_filters( 'wc4bp_add_endpoint', $end_points );
+				wp_cache_add( 'wc4bp_get_available_endpoints', $end_points, 'wc4bp' );
+			}
 			return $end_points;
 		} else {
 			return array();
