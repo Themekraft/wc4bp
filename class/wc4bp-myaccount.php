@@ -231,14 +231,18 @@ class WC4BP_MyAccount {
 	}
 	
 	public static function get_active_endpoints__premium_only() {
-		$wc4bp_options = get_option( 'wc4bp_options' );
 		$result        = array();
 		$available     = self::get_available_endpoints();
 		if ( ! empty( $available ) ) {
-			foreach ( $available as $end_point_key => $end_point_value ) {
-				if ( empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
-					$result[ $end_point_key ] = $end_point_value;
+			$result = wp_cache_get( 'wc4bp_get_active_endpoints', 'wc4bp' );
+			if ( ! $result ) {
+				$wc4bp_options = get_option( 'wc4bp_options' );
+				foreach ( $available as $end_point_key => $end_point_value ) {
+					if ( empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
+						$result[ $end_point_key ] = $end_point_value;
+					}
 				}
+				wp_cache_add( 'wc4bp_get_active_endpoints', $result, 'wc4bp' );
 			}
 		}
 		
