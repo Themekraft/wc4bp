@@ -164,25 +164,23 @@ add_action( 'template_redirect', 'wc4bp_redirect_to_profile' );
  * @uses    is_page()
  */
 function wc4bp_page_link_router( $link, $id ) {
-    global $bp;
+	global $bp;
 	if ( ! is_user_logged_in() || is_admin() ) {
 		return $link;
 	}
-    $end_points = wc_get_account_menu_items();
-	//Search in all the actives BPress pages for the current id
-    foreach ($bp->pages as $page_key=>$page_data){
-	    //if the current id is in the BP pages, do not redirect the link, maintain the BP link
-        if($page_data->id == $id ){
-            return $link;
-        }
-    }
-
+	if ( ! empty( $bp ) && ! empty( $bp->pages ) ) {
+		//Search in all the actives BPress pages for the current id
+		foreach ( $bp->pages as $page_key => $page_data ) {
+			//if the current id is in the BP pages, do not redirect the link, maintain the BP link
+			if ( $page_data->id == $id ) {
+				return $link;
+			}
+		}
+	}
 	$new_link = wc4bp_get_redirect_link( $id );
-	
 	if ( ! empty( $new_link ) ) {
 		$link = $new_link;
 	}
-	
 	return apply_filters( 'wc4bp_router_link', $link );
 }
 
