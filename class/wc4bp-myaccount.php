@@ -244,17 +244,16 @@ class WC4BP_MyAccount {
 		
 		return $result;
 	}
-
-    public static function get_available_endpoints() {
-        if ( wc4bp_Manager::is_woocommerce_active() ) {
-            $end_points = wc_get_account_menu_items();
-            $end_points = apply_filters( 'wc4bp_add_endpoint', $end_points );
-            $exclude    = apply_filters( "wc4bp_woocommerce_exclude_endpoint", array( "customer-logout", "dashboard" ) );
-
-            return array_diff_key( $end_points, array_flip( $exclude ) );
-
-        } else {
-            return array();
-        }
-    }
+	public static function get_available_endpoints() {
+		if ( wc4bp_Manager::is_woocommerce_active() ) {
+			$granted_endpoints = array( 'orders', 'downloads', 'edit-address', 'payment-methods', 'edit-account' );
+			$end_points        = wc_get_account_menu_items();
+			$end_points        = array_intersect_key( $end_points, array_flip( $granted_endpoints ) );
+			$end_points        = apply_filters( 'wc4bp_add_endpoint', $end_points );
+			
+			return $end_points;
+		} else {
+			return array();
+		}
+	}
 }
