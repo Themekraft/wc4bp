@@ -21,13 +21,6 @@ jobs:
     working_directory: ~/repo
 
     steps:
-      -run:
-        name: Installing WP-CLI
-        shell: /bin/sh
-        command: |
-          echo Installing WP-CLI
-
-
       - checkout
 
       # Download and cache dependencies
