@@ -8,7 +8,6 @@
 	"license": "GPL-2.0+",
 	"type": "wordpress-plugin",
 	"require": {
-		"composer/installers": "~1.0",
-		"xrstf/composer-php52": "^1.0.19"
+
 	}
 }
