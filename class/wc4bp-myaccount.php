@@ -102,7 +102,7 @@ class WC4BP_MyAccount {
 		return $safe_text;
 	}
 	
-	public function add_title_mark__premium_only( $title, $id ) {
+	public function add_title_mark__premium_only( $title, $id = null ) {
 		global $pagenow;
 		$titles    = self::get_active_endpoints__premium_only();
 		$post_meta = get_post_meta( $id, 'wc4bp-my-account-template', true );
@@ -231,30 +231,36 @@ class WC4BP_MyAccount {
 	}
 	
 	public static function get_active_endpoints__premium_only() {
-		$wc4bp_options = get_option( 'wc4bp_options' );
 		$result        = array();
 		$available     = self::get_available_endpoints();
 		if ( ! empty( $available ) ) {
-			foreach ( $available as $end_point_key => $end_point_value ) {
-				if ( empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
-					$result[ $end_point_key ] = $end_point_value;
+			$result = wp_cache_get( 'wc4bp_get_active_endpoints', 'wc4bp' );
+			if ( ! $result ) {
+				$wc4bp_options = get_option( 'wc4bp_options' );
+				foreach ( $available as $end_point_key => $end_point_value ) {
+					if ( empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
+						$result[ $end_point_key ] = $end_point_value;
+					}
 				}
+				wp_cache_add( 'wc4bp_get_active_endpoints', $result, 'wc4bp' );
 			}
 		}
 		
 		return $result;
 	}
-
-    public static function get_available_endpoints() {
-        if ( wc4bp_Manager::is_woocommerce_active() ) {
-            $end_points = wc_get_account_menu_items();
-            $end_points = apply_filters( 'wc4bp_add_endpoint', $end_points );
-            $exclude    = apply_filters( "wc4bp_woocommerce_exclude_endpoint", array( "customer-logout", "dashboard" ) );
-
-            return array_diff_key( $end_points, array_flip( $exclude ) );
-
-        } else {
-            return array();
-        }
-    }
+	public static function get_available_endpoints() {
+		if ( wc4bp_Manager::is_woocommerce_active() ) {
+			$end_points = wp_cache_get( 'wc4bp_get_available_endpoints', 'wc4bp' );
+			if ( ! $end_points ) {
+				$granted_endpoints = array( 'orders', 'downloads', 'edit-address', 'payment-methods', 'edit-account' );
+				$end_points        = wc_get_account_menu_items();
+				$end_points        = array_intersect_key( $end_points, array_flip( $granted_endpoints ) );
+				$end_points        = apply_filters( 'wc4bp_add_endpoint', $end_points );
+				wp_cache_add( 'wc4bp_get_available_endpoints', $end_points, 'wc4bp' );
+			}
+			return $end_points;
+		} else {
+			return array();
+		}
+	}
 }

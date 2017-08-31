@@ -23,8 +23,20 @@ class wc4bp_Woocommerce {
 			add_filter( 'woocommerce_is_account_page', array( $this, 'wc4bp_woocommerce_is_account_page__premium_only' ) );
 		}
 		add_filter( 'woocommerce_get_endpoint_url', array( $this, 'endpoint_url' ), 1, 4 );
+        add_filter( 'woocommerce_available_payment_gateways', array( $this, 'available_payment_gateways' ), 1, 1 );
 	}
-	
+
+	public function available_payment_gateways($_available_gateways){
+        $available_gateways = array();
+        foreach ($_available_gateways as $key=>$gateway ){
+            if ( $gateway->supports( 'add_payment_method' ) || $gateway->supports( 'tokenization' ) ) {
+                $available_gateways[$key]=$gateway;
+
+            }
+        }
+
+        return $available_gateways;
+    }
 	public function wc4bp_woocommerce_is_account_page__premium_only( $is_account_page ) {
 		
 		if ( is_user_logged_in() ) {
@@ -75,7 +87,7 @@ class wc4bp_Woocommerce {
 				$url = add_query_arg( $endpoint, $value, $base_path . 'payment' );
 				break;
 			case "add-payment-method":
-				$url = add_query_arg( $endpoint, "w2ewe3423ert", $base_path . 'payment/add-payment' );
+				$url = add_query_arg( $endpoint, "w2ewe3423ert", $base_path . 'wc4pb_payment-methods' );
 				break;
 		}
 		
