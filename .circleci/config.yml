@@ -13,8 +13,11 @@ jobs:
 
     steps:
       - checkout
-      - run: echo 127.0.0.1 circlehost | sudo tee -a /etc/hosts
-      - run: command: mysql -u ubuntu -e "create database wordpress"
+      - run: |
+          echo 127.0.0.1 circlehost | sudo tee -a /etc/hosts
+
+      - run: |
+          mysql -u ubuntu -e "create database wordpress"
 
       - run: |
           curl -O "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
