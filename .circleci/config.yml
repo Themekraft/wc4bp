@@ -24,9 +24,12 @@ jobs:
 
         - run:
           name: wp-cli
-          command: |
-          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          command: curl -O "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
           chmod +x wp-cli.phar
+
+        - run:
+          name: wp-cli-permission
+          command: chmod +x wp-cli.phar
 
         - run:
           name: install-wp
