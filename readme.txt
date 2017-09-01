@@ -3,7 +3,7 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores,
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
-Tested up to: WP 4.8
+Tested up to: WP 4.8.1
 Stable tag: 3.0.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,18 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
+
+= 3.0.13 31 August 2017 =
+* Fixed add-payment-method page
+* Fixed an issue related to the hook the_title form wp. In some instance the post_id come empty and trow a warning.
+* Fixed free version problem add WC4BP_Loader::getFreemius()->is__premium_only() to avoid premium code insert into free version
+* Limit the woocommerce endpoint to only the basic implemented for core.
+* Implemented a cache for the function where the core get the endpoints
+* Implemented a cache for the functions referent to the endpoints
+* Fixing a waring, reported from h-20409
+* Integrated with circleCi add new CircleCI settings
+* Adding the git ignore file.
+* Integrating wp unit test
 
 = 3.0.12 12 August 2017 =
 * Adjust the default tab logic. If the cart tab is disabled, the next active tab is set as default tab. If no other tab was previously set as default.
