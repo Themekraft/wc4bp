@@ -22,24 +22,24 @@ jobs:
           name: database
           command: mysql -u ubuntu -e "create database wordpress"
 
-        -run:
+        - run:
           name: wp-cli
           command: |
           curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
           chmod +x wp-cli.phar
 
-        -run:
+        - run:
           name: install-wp
           command: ./wp-cli.phar core download --allow-root --path=wordpress
 
-        -run:
+        - run:
           name: clone-core
           command: git clone git@github.com:Themekraft/wc4bp.git wordpress/wp-content/plugins/wc4bp-premium
 
-        -run:
+        - run:
           name: activate-core
           command: ./wp-cli.phar plugin activate wc4bp-premium --path=wordpress
 
-        -run:
+        - run:
           name: check
           command: ./wp-cli.phar plugin list --path=wordpress
