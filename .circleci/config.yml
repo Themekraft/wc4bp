@@ -14,28 +14,20 @@ jobs:
     steps:
       - checkout
       - run: echo 127.0.0.1 circlehost | sudo tee -a /etc/hosts
-      - run:
-        name: database
-        command: mysql -u ubuntu -e "create database wordpress"
+      - run: command: mysql -u ubuntu -e "create database wordpress"
 
-      - run:
-        name: wp-cli
-        command: |
+      - run: |
           curl -O "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
           chmod +x wp-cli.phar
 
-      - run:
-        name: install-wp
-        command: ./wp-cli.phar core download --allow-root --path=wordpress
+      - run: |
+          ./wp-cli.phar core download --allow-root --path=wordpress
 
-      - run:
-        name: clone-core
-        command: git clone git@github.com:Themekraft/wc4bp.git wordpress/wp-content/plugins/wc4bp-premium
+      - run: |
+          git clone git@github.com:Themekraft/wc4bp.git wordpress/wp-content/plugins/wc4bp-premium
 
-      - run:
-        name: activate-core
-        command: ./wp-cli.phar plugin activate wc4bp-premium --path=wordpress
+      - run: |
+          ./wp-cli.phar plugin activate wc4bp-premium --path=wordpress
 
-      - run:
-        name: check
-        command: ./wp-cli.phar plugin list --path=wordpress
+      - run: |
+          ./wp-cli.phar plugin list --path=wordpress
