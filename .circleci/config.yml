@@ -2,8 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/php:7.1-apache-node-browsers
-      - image: circleci/mysql:5.7.18
+      - image: ubuntu/xenial-20170710
 
     branches:
       only:
@@ -13,6 +12,9 @@ jobs:
 
     steps:
       - checkout
+      - run: |
+          echo 127.0.0.1 circlehost | sudo tee -a /etc/hosts
+
       - run: |
           echo 127.0.0.1 circlehost | sudo tee -a /etc/hosts
 
