@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ubuntu/xenial-20170710
+      - image: ubuntu/xenial
 
     branches:
       only:
