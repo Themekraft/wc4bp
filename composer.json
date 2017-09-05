@@ -10,6 +10,8 @@
 	"require-dev": {
 		"phpunit/phpunit": "^6.1",
 		"squizlabs/php_codesniffer":"~2.0",
-		"wp-coding-standards/wpcs":"*"
+		"wp-coding-standards/wpcs":"*",
+		"wp-cli/wp-cli" : "~0.22",
+		"psy/psysh" : "~0.6"
 	}
 }
