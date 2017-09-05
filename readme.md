@@ -1,4 +1,4 @@
-https://app.codeship.com/projects/918f5b60-7309-0135-803a-0e96b9c00ff8/status?branch=master
+[ ![Codeship Status for Themekraft/wc4bp](https://app.codeship.com/projects/918f5b60-7309-0135-803a-0e96b9c00ff8/status?branch=master)](https://app.codeship.com/projects/243716)
 
 ## WooCommerce for Buddypress (wc4bp)
 Contributors: @themekraft, @svenl77, @slava, @travel-junkie, @kishores, @marin250189, @gfirem
