@@ -223,7 +223,7 @@ class WC4BP_Component extends BP_Component {
 		}
 		
 		// Add shop settings subpage
-		if ( ! isset( $wc4bp_options['tab_activity_disabled'] ) ) {
+		if ( ! isset( $wc4bp_options['disable_shop_settings_tab'] ) ) {
 			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
 				$name = apply_filters( 'bp_shop_settings_link_label', __( 'Shop', 'wc4bp' ) );
 			} else {
@@ -305,7 +305,7 @@ class WC4BP_Component extends BP_Component {
 			$user_domain   = bp_loggedin_user_domain();
 			$settings_link = trailingslashit( $user_domain . BP_SETTINGS_SLUG );
 			
-			if ( ! isset( $wc4bp_options['tab_activity_disabled'] ) ) {
+			if ( ! isset( $wc4bp_options['disable_shop_settings_tab'] ) ) {
 				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
 					$title = apply_filters( 'bp_shop_settings_nav_link_label', __( 'Shop', 'wc4bp' ) );
 				} else {
