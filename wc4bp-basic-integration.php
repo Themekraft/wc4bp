@@ -62,7 +62,7 @@ class WC4BP_Loader {
 	/**
 	 * Can the plugin be executed
 	 */
-	static $active = false
+	static $active = falsasdcd ..
 	
 	/**
 	 * @var Freemius
