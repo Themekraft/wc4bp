@@ -25,11 +25,9 @@
     "scripts":{
         "package": "sh package.sh",
         "test": [
-        	"#IF NOT WORK REVIEW THE TEST COMMAND REVIEW YOUR TEST DATABASE AND CREDENTIALS#",
+        	"#IF NOT WORK REVIEW ALL NECESSARY ARE SET TO RUN PHPUNIT, CHECK THE README#",
             "SHELL_INTERACTIVE=1",
-            "cd ../../../..",
-            "vagrant ssh -- 'cd /var/www/html/wp-content/plugins/wc4bp-premium; bash bin/install-wp-tests.sh wordpress_test user 'userpass' localhost latest true;'",
-            "vagrant ssh -- -t '/home/vagrant/.composer/vendor/bin/phpunit -c /var/www/html/wp-content/plugins/wc4bp-premium/phpunit.xml.dist --colors=always;'"
+            "php vendor/bin/phpunit --color"
         ],
         "start": [
             "cd ../../../..",
