@@ -275,5 +275,5 @@ class WC4BP_Loader {
 		delete_option( 'wc4bp_options_sync' );
 		delete_option( 'wc4bp_options_tabs' );
 		delete_option( 'wc4bp_pages_options' );
-	}
+	};
 }
