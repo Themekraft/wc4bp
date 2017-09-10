@@ -1,8 +1,8 @@
 pre-commit:
     enabled: true
     execute:
-        composer: true
-        jsonlint: true
+        composer: false
+        jsonlint: false
         phplint: true
         phpmd:
             enabled: false
@@ -22,7 +22,7 @@ pre-commit:
         phpunit:
             enabled: true
             random-mode: false
-            options: null
+            options: '--debug'
             strict-coverage:
                 enabled: false
                 minimum: null

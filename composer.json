@@ -43,5 +43,8 @@
 		"post-update-cmd": [
 		  	"PhpGitHooks\\Infrastructure\\Composer\\ConfiguratorScript::buildConfig"
 		]
+    },
+    "config": {
+        "bin-dir": "vendor/bin"
     }
 }
