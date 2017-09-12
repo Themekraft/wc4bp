@@ -1,9 +1,9 @@
 pre-commit:
     enabled: true
     execute:
-        composer: true
-        jsonlint: true
-        phplint: true
+        composer: false
+        jsonlint: false
+        phplint: false
         phpmd:
             enabled: false
             options: null
@@ -20,7 +20,7 @@ pre-commit:
                 symfony: true
             options: null
         phpunit:
-            enabled: true
+            enabled: false
             random-mode: false
             options: '--debug'
             strict-coverage:
