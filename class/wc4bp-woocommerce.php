@@ -76,7 +76,8 @@ class wc4bp_Woocommerce {
 		
 		switch ( $endpoint ) {
 			case "payment-methods":
-				$url = $base_path . 'payment';
+				//$url = $base_path . 'payment';
+                $url = add_query_arg( $endpoint, "w2ewe3423ert", $base_path . 'wc4pb_payment-methods' );
 				break;
 			case 'order-received':
 				$checkout_page_id = wc_get_page_id( 'checkout' );
