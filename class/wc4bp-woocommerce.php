@@ -27,14 +27,20 @@ class wc4bp_Woocommerce {
 	}
 
 	public function available_payment_gateways($_available_gateways){
+        global $bp;
+        $c_action= $bp->current_action;
         $available_gateways = array();
-        foreach ($_available_gateways as $key=>$gateway ){
-            if ( $gateway->supports( 'add_payment_method' ) || $gateway->supports( 'tokenization' ) ) {
-                $available_gateways[$key]=$gateway;
+        if($c_action ==='wc4pb_payment-methods'){
+            foreach ($_available_gateways as $key=>$gateway ){
+                if ( $gateway->supports( 'add_payment_method' ) || $gateway->supports( 'tokenization' ) ) {
+                    $available_gateways[$key]=$gateway;
 
+                }
             }
-        }
+        }else{
 
+            $available_gateways = $_available_gateways;
+        }
         return $available_gateways;
     }
 	public function wc4bp_woocommerce_is_account_page__premium_only( $is_account_page ) {
