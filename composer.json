@@ -1,16 +1,47 @@
 {
-	"name": "wc4bp",
-	"description": "WooCommerce for BuddyPress - Shop solution for your BuddyPress community. Integrates a WooCommerce installation with a BuddyPress social network.",
-	"keywords": [
-		"buddypress", "social networking", "woocommerce", "e-commerce"
-	],
-	"homepage": "http://www.themekraft.com",
-	"license": "GPL-2.0+",
-	"type": "wordpress-plugin",
-	"require-dev": {
-		"phpunit/phpunit": "^6.1",
-		"squizlabs/php_codesniffer":"~2.0",
-		"wp-coding-standards/wpcs":"*",
-		"wp-cli/wp-cli": "v1.3.0"
-	}
+    "name": "themekraft/wc4bp",
+    "description": "WooCommerce for BuddyPress - Shop solution for your BuddyPress community. Integrates a WooCommerce installation with a BuddyPress social network.",
+    "keywords": [
+        "buddypress", "social networking", "woocommerce", "e-commerce"
+    ],
+    "homepage": "http://www.themekraft.com",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Sven Lehnert",
+            "email": "svenl@themekraft.com"
+        },
+        {
+            "name": "Guillermo Figueroa Mesa",
+            "email": "gfirem@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "require-dev": {
+        "bruli/php-git-hooks": "^5.1"
+    },
+    "scripts":{
+        "package": "sh package.sh",
+        "test": [
+        	"#IF NOT WORK REVIEW ALL NECESSARY ARE SET TO RUN PHPUNIT, CHECK THE README#",
+            "SHELL_INTERACTIVE=1",
+            "php vendor/bin/phpunit --color"
+        ],
+        "start": [
+            "cd ../../../..",
+            "vagrant up"
+        ],
+        "stop": [
+            "cd ../../../..",
+            "vagrant halt"
+        ],
+		"post-install-cmd": [
+		  	"PhpGitHooks\\Infrastructure\\Composer\\ConfiguratorScript::buildConfig"
+		],
+		"post-update-cmd": [
+		  	"PhpGitHooks\\Infrastructure\\Composer\\ConfiguratorScript::buildConfig"
+		]
+    }
 }

@@ -1,0 +1,53 @@
+pre-commit:
+    enabled: true
+    execute:
+        composer: false
+        jsonlint: false
+        phplint: false
+        phpmd:
+            enabled: false
+            options: null
+        phpcs:
+            enabled: false
+            standard: WordPress-VIP
+            ignore: ''
+        php-cs-fixer:
+            enabled: false
+            levels:
+                psr0: true
+                psr1: true
+                psr2: true
+                symfony: true
+            options: null
+        phpunit:
+            enabled: false
+            random-mode: false
+            options: '--debug'
+            strict-coverage:
+                enabled: false
+                minimum: null
+            guard-coverage:
+                enabled: false
+                message: null
+    message:
+        right-message: 'HEY, GOOD JOB!!'
+        error-message: 'FIX YOUR FUCKING CODE!!'
+commit-msg:
+    enabled: false
+    regular-expression: null
+pre-push:
+    enabled: false
+    execute:
+        phpunit:
+            enabled: false
+            random-mode: false
+            options: null
+            strict-coverage:
+                enabled: false
+                minimum: null
+            guard-coverage:
+                enabled: false
+                message: null
+    message:
+        right-message: ''
+        error-message: ''
