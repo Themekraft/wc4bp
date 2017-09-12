@@ -70,6 +70,12 @@ class WC4BP_MyAccount_Content {
 
 
 		if(isset($_GET['add-payment-method'])){
+            $suffix       = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+            $path = WC()->plugin_url() . 'assets/js/frontend/add-payment-method' . $suffix . '.js';
+            $deps =  array( 'jquery', 'woocommerce' );
+            $version = WC()->version;
+            wp_register_script('wc-add-payment-method', $path, $deps, $version,true );
+            wp_enqueue_script( 'wc-add-payment-method' );
             woocommerce_account_add_payment_method();
         }
         else{
