@@ -472,7 +472,6 @@ class WC4BP_Component extends BP_Component {
                                     $page_name = wc4bp_Manager::get_prefix() . key($wc_active_endpoints);
                                     $bp->current_action = $page_name;
                                 }else{
-
                                     if (empty($wc4bp_options['tab_checkout_disabled'])) {
                                         $path = 'shop/member/checkout';
                                     }
@@ -494,7 +493,6 @@ class WC4BP_Component extends BP_Component {
                                             break;
                                         }
                                     }
-
                                 }
                             }
                         } else {

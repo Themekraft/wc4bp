@@ -232,11 +232,6 @@ class wc4bp_admin extends wc4bp_base {
 					);
 				}
 			}
-
-			//If wc4bp['tab_shop_default'] is empty add a default value to avoid offset warning
-			if ( ! isset( $wc4bp_options['tab_shop_default'] ) ) {
-				$wc4bp_options['tab_shop_default'] = 'default';
-			}
 			// Add the shop tab to the array
             if (empty($wc4bp_options['tab_cart_disabled'])) {
                 $wc4bp_pages_options["selected_pages"][ "cart"] = array(
@@ -258,6 +253,17 @@ class wc4bp_admin extends wc4bp_base {
                     'tab_name' => "Track my order"
                 );
             }
+			//If wc4bp['tab_shop_default'] is empty add a default value to avoid offset warning
+			if ( ! isset( $wc4bp_options['tab_shop_default'] ) ) {
+				$wc4bp_options['tab_shop_default'] = 'default';
+			} else {
+				if ( ! array_key_exists( $wc4bp_options['tab_shop_default'], $wc4bp_pages_options["selected_pages"] ) ) {
+					$wc4bp_options['tab_shop_default'] = 'default';
+					update_option('wc4bp_options', $wc4bp_options);
+				}
+			}
+		} else {
+			$wc4bp_options['tab_shop_default'] = 'default';
 		}
 		
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_home.php' );
