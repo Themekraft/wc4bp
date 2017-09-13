@@ -209,18 +209,16 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_overwrite_default_shop_home_tab() {
 		$wc4bp_options       = get_option( 'wc4bp_options' );
-		$custom_pages       = get_option( 'wc4bp_pages_options' );
+		$custom_pages        = get_option( 'wc4bp_pages_options' );
 		$wc4bp_pages_options = array();
         $tab_activity_disabled = 0;
 		if ( ! empty( $custom_pages ) && is_string( $custom_pages ) ) {
 			$custom_pages_temp = json_decode( $custom_pages, true );
             if ( isset( $custom_pages_temp['selected_pages'] ) && is_array( $custom_pages_temp['selected_pages'] ) ) {
-
                 foreach ( $custom_pages_temp['selected_pages'] as $key => $attached_page ) {
                     $wc4bp_pages_options["selected_pages"][$attached_page['tab_slug'] ] = array(
                         'tab_name' => $attached_page['tab_name']
                     );
-
                 }
             }
 		}
@@ -236,7 +234,9 @@ class wc4bp_admin extends wc4bp_base {
 			}
 
 			//If wc4bp['tab_shop_default'] is empty add a default value to avoid offset warning
-            $wc4bp_options['tab_shop_default']='default';
+			if ( ! isset( $wc4bp_options['tab_shop_default'] ) ) {
+				$wc4bp_options['tab_shop_default'] = 'default';
+			}
 			// Add the shop tab to the array
             if (empty($wc4bp_options['tab_cart_disabled'])) {
                 $wc4bp_pages_options["selected_pages"][ "cart"] = array(
@@ -258,9 +258,6 @@ class wc4bp_admin extends wc4bp_base {
                     'tab_name' => "Track my order"
                 );
             }
-
-
-
 		}
 		
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_home.php' );
