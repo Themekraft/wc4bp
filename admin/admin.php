@@ -115,10 +115,15 @@ class wc4bp_admin extends wc4bp_base {
 	 * Shop settings view
 	 */
 	public function wc4bp_shop_tabs() {
-
-		$wc4bp_options         = get_option( 'wc4bp_options' );
-		$tab_activity_disabled = 0;
+		$wc4bp_options             = get_option( 'wc4bp_options' );
+		$tab_activity_disabled     = 0;
 		$disable_shop_settings_tab = 0;
+		if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
+			$tab_activity_disabled = 1;
+		}
+		if ( isset( $wc4bp_options['disable_shop_settings_tab'] ) ) {
+			$disable_shop_settings_tab = 1;
+		}
         if ( WC4BP_Loader::getFreemius()->is_plan__premium_only(wc4bp_base::$professional_plan_id)) {
             //Get all actives tabs and custom pages
             $wc4bp_pages_options = $this->get_pages_option();
