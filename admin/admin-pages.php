@@ -36,25 +36,8 @@ class wc4bp_admin_pages extends wc4bp_base {
 	 */
 	public function wc4bp_register_admin_pages_settings() {
 		add_settings_section( 'section_general1', '', '', 'wc4bp_options_pages' );
-		add_settings_field( 'template', __( '<b>Change the page template to be used for the attached pages.</b>', 'wc4bp' ), array( $this, 'wc4bp_page_template' ), 'wc4bp_options_pages', 'section_general1' );
-		
 		// Settings fields and sections
 		add_settings_section( 'section_general', '', array( $this, 'wc4bp_shop_pages_add' ), 'wc4bp_options_pages' );
-	}
-	
-	/**
-	 * View to select the page view template by default
-	 */
-	public function wc4bp_page_template() {
-		$wc4bp_options = get_option( 'wc4bp_options_pages' );
-		
-		$page_template = '';
-		if ( ! empty( $wc4bp_options['page_template'] ) ) {
-			$page_template = $wc4bp_options['page_template'];
-		}
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_page_template.php' );
-		
-		submit_button();
 	}
 	
 	public function wc4bp_shop_pages_add() {
