@@ -115,10 +115,15 @@ class wc4bp_admin extends wc4bp_base {
 	 * Shop settings view
 	 */
 	public function wc4bp_shop_tabs() {
-
-		$wc4bp_options         = get_option( 'wc4bp_options' );
-		$tab_activity_disabled = 0;
+		$wc4bp_options             = get_option( 'wc4bp_options' );
+		$tab_activity_disabled     = 0;
 		$disable_shop_settings_tab = 0;
+		if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
+			$tab_activity_disabled = 1;
+		}
+		if ( isset( $wc4bp_options['disable_shop_settings_tab'] ) ) {
+			$disable_shop_settings_tab = 1;
+		}
         if ( WC4BP_Loader::getFreemius()->is_plan__premium_only(wc4bp_base::$professional_plan_id)) {
             //Get all actives tabs and custom pages
             $wc4bp_pages_options = $this->get_pages_option();
@@ -209,18 +214,16 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_overwrite_default_shop_home_tab() {
 		$wc4bp_options       = get_option( 'wc4bp_options' );
-		$custom_pages       = get_option( 'wc4bp_pages_options' );
+		$custom_pages        = get_option( 'wc4bp_pages_options' );
 		$wc4bp_pages_options = array();
         $tab_activity_disabled = 0;
 		if ( ! empty( $custom_pages ) && is_string( $custom_pages ) ) {
 			$custom_pages_temp = json_decode( $custom_pages, true );
             if ( isset( $custom_pages_temp['selected_pages'] ) && is_array( $custom_pages_temp['selected_pages'] ) ) {
-
                 foreach ( $custom_pages_temp['selected_pages'] as $key => $attached_page ) {
                     $wc4bp_pages_options["selected_pages"][$attached_page['tab_slug'] ] = array(
                         'tab_name' => $attached_page['tab_name']
                     );
-
                 }
             }
 		}
@@ -234,9 +237,6 @@ class wc4bp_admin extends wc4bp_base {
 					);
 				}
 			}
-
-			//If wc4bp['tab_shop_default'] is empty add a default value to avoid offset warning
-            $wc4bp_options['tab_shop_default']='default';
 			// Add the shop tab to the array
             if (empty($wc4bp_options['tab_cart_disabled'])) {
                 $wc4bp_pages_options["selected_pages"][ "cart"] = array(
@@ -258,9 +258,17 @@ class wc4bp_admin extends wc4bp_base {
                     'tab_name' => "Track my order"
                 );
             }
-
-
-
+			//If wc4bp['tab_shop_default'] is empty add a default value to avoid offset warning
+			if ( ! isset( $wc4bp_options['tab_shop_default'] ) ) {
+				$wc4bp_options['tab_shop_default'] = 'default';
+			} else {
+				if ( ! array_key_exists( $wc4bp_options['tab_shop_default'], $wc4bp_pages_options["selected_pages"] ) ) {
+					$wc4bp_options['tab_shop_default'] = 'default';
+					update_option('wc4bp_options', $wc4bp_options);
+				}
+			}
+		} else {
+			$wc4bp_options['tab_shop_default'] = 'default';
 		}
 		
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_home.php' );
