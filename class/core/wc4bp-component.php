@@ -264,15 +264,10 @@ class WC4BP_Component extends BP_Component {
 			foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
 				$position ++;
 				$post      = get_post( $attached_page['page_id'] );
-				$parent_url = $shop_link;
-                $shop_page_id       = wc_get_page_id( 'shop' );
-                if($shop_page_id==$attached_page['page_id']){
-                    $parent_url =  get_bloginfo( 'url' ).'/';
-                }
 				$sub_nav[] = array(
 					'name'            => $attached_page['tab_name'],
 					'slug'            => esc_html( $post->post_name ),
-					'parent_url'      => $parent_url,
+					'parent_url'      => $shop_link,
 					'parent_slug'     => $this->slug,
 					'screen_function' => 'wc4bp_screen_plugins',
 					'position'        => $position,
