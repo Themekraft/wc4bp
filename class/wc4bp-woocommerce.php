@@ -27,14 +27,20 @@ class wc4bp_Woocommerce {
 	}
 
 	public function available_payment_gateways($_available_gateways){
+        global $bp;
+        $c_action= $bp->current_action;
         $available_gateways = array();
-        foreach ($_available_gateways as $key=>$gateway ){
-            if ( $gateway->supports( 'add_payment_method' ) || $gateway->supports( 'tokenization' ) ) {
-                $available_gateways[$key]=$gateway;
+        if($c_action ==='wc4pb_payment-methods'){
+            foreach ($_available_gateways as $key=>$gateway ){
+                if ( $gateway->supports( 'add_payment_method' ) || $gateway->supports( 'tokenization' ) ) {
+                    $available_gateways[$key]=$gateway;
 
+                }
             }
-        }
+        }else{
 
+            $available_gateways = $_available_gateways;
+        }
         return $available_gateways;
     }
 	public function wc4bp_woocommerce_is_account_page__premium_only( $is_account_page ) {
@@ -70,7 +76,8 @@ class wc4bp_Woocommerce {
 		
 		switch ( $endpoint ) {
 			case "payment-methods":
-				$url = $base_path . 'payment';
+				//$url = $base_path . 'payment';
+                $url = add_query_arg( $endpoint, "w2ewe3423ert", $base_path . 'wc4pb_payment-methods' );
 				break;
 			case 'order-received':
 				$checkout_page_id = wc_get_page_id( 'checkout' );

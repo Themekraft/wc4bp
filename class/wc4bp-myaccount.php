@@ -24,10 +24,13 @@ class WC4BP_MyAccount {
 		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 			add_filter( 'the_title', array( $this, 'add_title_mark__premium_only' ), 10, 2 );
 			add_filter( 'esc_html', array( $this, "esc_html_for_title__premium_only" ), 10, 2 );
-			add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url__premium_only' ), 10, 2 );
-			add_filter( 'woocommerce_get_myaccount_page_id', array( $this, 'my_account_page_id__premium_only' ), 10, 1 );
-			add_filter( 'woocommerce_get_myaccount_page_permalink', array( $this, 'my_account_page_permalink__premium_only' ), 10, 1 );
-			add_action( 'update_option_wc4bp_options', array( $this, "process_saved_settings__premium_only" ), 10, 2 );
+			$wc4bp_options = get_option( 'wc4bp_options' );
+			if ( empty( $wc4bp_options['tab_activity_disabled'] ) ) {
+				add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url__premium_only' ), 10, 2 );
+				add_filter( 'woocommerce_get_myaccount_page_id', array( $this, 'my_account_page_id__premium_only' ), 10, 1 );
+				add_filter( 'woocommerce_get_myaccount_page_permalink', array( $this, 'my_account_page_permalink__premium_only' ), 10, 1 );
+				add_action( 'update_option_wc4bp_options', array( $this, "process_saved_settings__premium_only" ), 10, 2 );
+			}
 		}
 	}
 	

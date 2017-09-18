@@ -111,17 +111,12 @@ jQuery(document).ready(function () {
 	});
 
 	jQuery('.wc_bp_sync_all_user_data').click(function () {
-
 		update_type = jQuery(this).attr('id');
-		visibility_level = jQuery('#' + update_type).val();
-
-		if (visibility_level == 'none') {
-			alert(visibility_level);
-		}
+		visibility_level = jQuery('#' + update_type + '_options').val();
 
 		wc4bp_total_user_pages = jQuery('#wc4bp_total_user_pages').val();
 		wc4bp_this_user_pages = 0;
-		wc4bp_update_user(update_type);
+		wc4bp_update_user();
 	});
 
 });
