@@ -3,7 +3,7 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores,
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
-Tested up to: WP 4.8.1
+Tested up to: WP 4.8.2
 Stable tag: 3.0.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -109,16 +109,25 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 
 == Changelog ==
 
-= 3.0.13 31 August 2017 =
+= 3.0.13 19 September 2017 =
+* Fixing  Profile Field Visibility for all Users, inside the Profile Syn tab
 * Fixed add-payment-method page
+* Fixing the redirection to not affect the woocommerce my account if the shop is disable
+* Fixing the Disable Shop Tab option to work in all plans
+* Fixing the option to Overwrite the Content of your Shop Home/Main Tab to keep the value when the user save it in the admin
+* Remove the template option from the Integrate Pages tab and move it to a hook, now is possible to do the same function using the filter wc4bp_custom_page_template
+* Fixing the option to delete a payment inside tab Payment method
+* Fixing the payment methods to show in the checkout process
+* Fixing the option Turn off 'Shop' Tab inside "Settings" for the activity stream settings
+* Fixing the duplicate Save Button inside the Shop Setting view
+* Adding a new option to disable all function related to woocommerce, with this option checked all tabs will be disable
+* Fixing the error Illegal string offset 'tab_activity_disabled' for free version
 * Fixed an issue related to the hook the_title form wp. In some instance the post_id come empty and trow a warning.
 * Fixed free version problem add WC4BP_Loader::getFreemius()->is__premium_only() to avoid premium code insert into free version
 * Limit the woocommerce endpoint to only the basic implemented for core.
 * Implemented a cache for the function where the core get the endpoints
 * Implemented a cache for the functions referent to the endpoints
 * Fixing a waring, reported from h-20409
-* Integrated with circleCi add new CircleCI settings
-* Adding the git ignore file.
 * Integrating wp unit test
 
 = 3.0.12 12 August 2017 =
