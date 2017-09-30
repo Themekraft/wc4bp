@@ -127,7 +127,7 @@ class WC4BP_MyAccount {
 			$available_endpoints = self::get_available_endpoints();
 			if ( ! empty( $available_endpoints ) ) {
 				foreach ( $available_endpoints as $end_point_key => $end_point_value ) {
-					$post = self::get_page_by_name__premium_only( wc4bp_Manager::get_prefix() . $end_point_key );
+					$post = self::get_page_by_name( wc4bp_Manager::get_prefix() . $end_point_key );
 					if ( ! empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) && $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] == "1" ) {
 						if ( ! empty( $post ) ) {
 							wp_delete_post( $post->ID, true );
@@ -162,7 +162,7 @@ class WC4BP_MyAccount {
 		if ( ! empty( $available_endpoints ) ) {
 			foreach ( $available_endpoints as $end_point_key => $end_point_value ) {
 				$page_name = wc4bp_Manager::get_prefix() . $end_point_key;
-				$post      = self::get_page_by_name__premium_only( $page_name );
+				$post      = self::get_page_by_name( $page_name );
 				if ( empty( $post ) ) {
 					$r = wp_insert_post(
 						array(
@@ -187,7 +187,7 @@ class WC4BP_MyAccount {
 		$available_endpoints = self::get_available_endpoints();
 		if ( ! empty( $available_endpoints ) ) {
 			foreach ( $available_endpoints as $end_point_key => $end_point_value ) {
-				$post = self::get_page_by_name__premium_only( wc4bp_Manager::get_prefix() . $end_point_key );
+				$post = self::get_page_by_name( wc4bp_Manager::get_prefix() . $end_point_key );
 				if ( ! empty( $post ) ) {
 					wp_delete_post( $post->ID, true );
 				}
@@ -223,7 +223,7 @@ class WC4BP_MyAccount {
 		return $result;
 	}
 	
-	public static function get_page_by_name__premium_only( $post_name, $output = OBJECT ) {
+	public static function get_page_by_name( $post_name, $output = OBJECT ) {
 		global $wpdb;
 		$post = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='page'", $post_name ) );
 		if ( $post ) {

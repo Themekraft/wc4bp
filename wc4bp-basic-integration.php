@@ -117,6 +117,10 @@ class WC4BP_Loader {
 		}
 	}
 	
+	public function get_version() {
+		return self::VERSION;
+	}
+	
 	// Create a helper function for easy SDK access.
 	public function wc4bp_fs() {
 		global $wc4bp_fs;
@@ -151,6 +155,7 @@ class WC4BP_Loader {
 	 * @access    private
 	 */
 	private function constants() {
+//		define( 'WP_FS__DEV_MODE', true );
 		define( 'WC4BP_VERSION', self::VERSION );
 		define( 'WC4BP_FOLDER', plugin_basename( dirname( __FILE__ ) ) );
 		define( 'WC4BP_ABSPATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR );
