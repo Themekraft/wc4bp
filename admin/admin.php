@@ -275,11 +275,18 @@ class wc4bp_admin extends wc4bp_base {
 		
 		submit_button();
 	}
+
+    /**
+     * Return array with all the  actives tabs and custom pages.
+     * @return array
+     */
 	public function get_pages_option(){
         $wc4bp_options       = get_option( 'wc4bp_options' );
         $custom_pages       = get_option( 'wc4bp_pages_options' );
         $wc4bp_pages_options = array();
         $tab_activity_disabled = 0;
+
+        //Add the customs page to the array
         if ( ! empty( $custom_pages ) && is_string( $custom_pages ) ) {
             $custom_pages_temp = json_decode( $custom_pages, true );
             if ( isset( $custom_pages_temp['selected_pages'] ) && is_array( $custom_pages_temp['selected_pages'] ) ) {
@@ -292,6 +299,8 @@ class wc4bp_admin extends wc4bp_base {
                 }
               }
             }
+
+            //Add the actives my account pages to the option array
             $woo_my_account = WC4BP_MyAccount::get_active_endpoints__premium_only();
             if ( ! empty( $woo_my_account ) ) {
                 foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
@@ -300,7 +309,7 @@ class wc4bp_admin extends wc4bp_base {
                     );
                 }
             }
-            // Add the shop tab to the array
+            // Add the shop tabs to the array
             if (empty($wc4bp_options['tab_cart_disabled'])) {
                 $wc4bp_pages_options["selected_pages"][ "cart"] = array(
                     'tab_name' => "Cart"

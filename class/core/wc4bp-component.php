@@ -443,6 +443,8 @@ class WC4BP_Component extends BP_Component {
             $cart_slug = $cart_page['post_name'];
             switch ($bp->current_action) {
                 case 'home':
+                    //If the Default Tab option is different that the value 'default'
+                    // show as Default Tab the value of the Default Tab Option.
                     if ($wc4bp_options['tab_shop_default'] != 'default') {
                         $bp->current_action = $wc4bp_options['tab_shop_default'];
                         switch ( $bp->current_action ){
@@ -461,17 +463,22 @@ class WC4BP_Component extends BP_Component {
                         }
                     } else {
                         if (WC4BP_Loader::getFreemius()->is_plan__premium_only(wc4bp_base::$professional_plan_id)) {
+                           //If The Shopping Cart is enable set it as Default Tab
                             if (empty($wc4bp_options['tab_cart_disabled'])) {
                                 $bp->current_action = $cart_slug;
                                 $path = 'shop/member/cart';
                             }
                             else{
                                 $wc_active_endpoints = WC4BP_MyAccount::get_active_endpoints__premium_only();
+                                //If the Shopping Cart is disable and there is at least one active endpoint
+                                // Set the first active endpoint as default tab
                                 if (!empty($wc_active_endpoints) && count($wc_active_endpoints) > 0) {
                                     reset($wc_active_endpoints);
                                     $page_name = wc4bp_Manager::get_prefix() . key($wc_active_endpoints);
                                     $bp->current_action = $page_name;
                                 }else{
+                                    // If there is not at least one active endpoint
+                                    // Set as default tab the first avaliabe shop page
                                     if (empty($wc4bp_options['tab_checkout_disabled'])) {
                                         $path = 'shop/member/checkout';
                                     }

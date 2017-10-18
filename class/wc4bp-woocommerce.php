@@ -12,7 +12,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
+//Manage Woocommerce hooks
 class wc4bp_Woocommerce {
 	
 	public function __construct() {
@@ -24,12 +24,19 @@ class wc4bp_Woocommerce {
 		}
 		add_filter( 'woocommerce_get_endpoint_url', array( $this, 'endpoint_url' ), 1, 4 );
         add_filter( 'woocommerce_available_payment_gateways', array( $this, 'available_payment_gateways' ), 1, 1 );
+
 	}
 
+	/**
+	 * Return a list of  payment gateways that supports 'add_payment_method'
+     * @param array $_available_gateways
+	 * @return array
+	 * */
 	public function available_payment_gateways($_available_gateways){
         global $bp;
         $c_action= $bp->current_action;
         $available_gateways = array();
+        //If the current BuddyPress action is wc4pb_payment-methods then apply the conditional block
         if($c_action ==='wc4pb_payment-methods'){
             foreach ($_available_gateways as $key=>$gateway ){
                 if ( $gateway->supports( 'add_payment_method' ) || $gateway->supports( 'tokenization' ) ) {

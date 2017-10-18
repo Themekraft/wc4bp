@@ -68,7 +68,8 @@ class WC4BP_MyAccount_Content {
 	public function wc4bp_my_account_process_shortcode_payment_methods( $attr, $content ) {
 		wc_print_notices();
 
-
+        //If the current endpoint_url is add-payment-method then add the Woocommerce
+        // requiered JS for this endpoint and show the Add Payment Method Form
 		if(isset($_GET['add-payment-method'])){
             $suffix       = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
             $path = WC()->plugin_url() . 'assets/js/frontend/add-payment-method' . $suffix . '.js';
