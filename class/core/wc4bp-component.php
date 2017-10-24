@@ -64,6 +64,7 @@ class WC4BP_Component extends BP_Component {
 			require( WC4BP_ABSPATH . 'class/core/wc4bp-sync.php' );
 			new wc4bp_Sync();
 		}
+        new wc4bp_redirect();
 		
 	}
 	

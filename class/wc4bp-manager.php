@@ -34,6 +34,7 @@ class wc4bp_Manager {
 		require_once 'wc4bp-woocommerce.php';
 		require_once 'wc4bp-manage-admin.php';
 		require_once 'wc4bp-redefine-functions.php';
+      //  require_once 'core/wc4bp-redirect.php';
 		
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'bp_include', array( $this, 'includes' ), 10 );
@@ -50,6 +51,7 @@ class wc4bp_Manager {
 			new wc4bp_Woocommerce();
 			new WC4BP_MyAccount();
 			new wc4bp_Manage_Admin();
+			//new wc4bp_redirect();
 		}
 	}
 	
