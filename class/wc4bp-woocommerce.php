@@ -50,6 +50,10 @@ class wc4bp_Woocommerce {
         }
         return $available_gateways;
     }
+    /*
+     * @param  is_account_page
+     * @return true if is an woocommerce account page
+     *  */
 	public function wc4bp_woocommerce_is_account_page__premium_only( $is_account_page ) {
 		
 		if ( is_user_logged_in() ) {
@@ -60,7 +64,12 @@ class wc4bp_Woocommerce {
 		
 		return $is_account_page;
 	}
-	
+
+	/*
+	 * @param is_checkout
+	 *
+	 * @return true if is the woocommerce checkout page
+	 * */
 	public function wc4bp_woocommerce_is_checkout( $is_checkout ) {
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		
@@ -72,7 +81,14 @@ class wc4bp_Woocommerce {
 		
 		return $is_checkout;
 	}
-	
+
+	/*
+	 * @param url
+	 * @param endpoint
+	 * @param value
+	 * @param permalink
+	 * @return the url of the woocommerce endpoint
+	*/
 	public function endpoint_url( $url, $endpoint, $value, $permalink ) {
 		global $current_user, $bp, $wp;
 		
