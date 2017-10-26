@@ -64,6 +64,7 @@ class WC4BP_Component extends BP_Component {
 			require( WC4BP_ABSPATH . 'class/core/wc4bp-sync.php' );
 			new wc4bp_Sync();
 		}
+		new wc4bp_screen();
 		
 	}
 	
@@ -134,7 +135,7 @@ class WC4BP_Component extends BP_Component {
 			'name'                    => $name,
 			'slug'                    => $this->slug,
 			'position'                => 70,
-			'screen_function'         => 'wc4bp_screen_plugins',
+			'screen_function'         => array('wc4bp_screen','wc4bp_screen_plugins') ,
 			'default_subnav_slug'     => 'home',
 			'item_css_id'             => $this->id,
 			'show_for_displayed_user' => false
@@ -154,7 +155,7 @@ class WC4BP_Component extends BP_Component {
 				'slug'            => 'cart',
 				'parent_url'      => $shop_link,
 				'parent_slug'     => $this->slug,
-				'screen_function' => 'wc4bp_screen_shopping_cart',
+				'screen_function' => array('wc4bp_screen','wc4bp_screen_shopping_cart'),
 				'position'        => 10,
 				'item_css_id'     => 'shop-cart',
 				'user_has_access' => bp_is_my_profile()
@@ -177,7 +178,7 @@ class WC4BP_Component extends BP_Component {
 					'slug'            => 'checkout',
 					'parent_url'      => $shop_link,
 					'parent_slug'     => $this->slug,
-					'screen_function' => 'wc4bp_screen_shopping_checkout',
+					'screen_function' => array('wc4bp_screen','wc4bp_screen_shopping_checkout'),
 					'position'        => 10,
 					'item_css_id'     => 'shop-checkout',
 					'user_has_access' => bp_is_my_profile()
@@ -197,7 +198,7 @@ class WC4BP_Component extends BP_Component {
 				'slug'            => 'history',
 				'parent_url'      => $shop_link,
 				'parent_slug'     => $this->slug,
-				'screen_function' => 'wc4bp_screen_history',
+				'screen_function' => array('wc4bp_screen','wc4bp_screen_history'),
 				'position'        => 30,
 				'item_css_id'     => 'shop-history',
 				'user_has_access' => bp_is_my_profile()
@@ -215,7 +216,7 @@ class WC4BP_Component extends BP_Component {
 				'slug'            => 'track',
 				'parent_url'      => $shop_link,
 				'parent_slug'     => $this->slug,
-				'screen_function' => 'wc4bp_screen_track_order',
+				'screen_function' => array('wc4bp_screen','wc4bp_screen_track_order'),
 				'position'        => 30,
 				'item_css_id'     => 'shop-track',
 				'user_has_access' => bp_is_my_profile()
@@ -234,7 +235,7 @@ class WC4BP_Component extends BP_Component {
 				'slug'            => 'shop',
 				'parent_url'      => trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug() ),
 				'parent_slug'     => bp_get_settings_slug(),
-				'screen_function' => 'wc4bp_screen_settings',
+				'screen_function' =>array('wc4bp_screen','wc4bp_screen_settings'),
 				'position'        => 30,
 				'item_css_id'     => 'shop-settings',
 				'user_has_access' => bp_is_my_profile()
@@ -252,7 +253,7 @@ class WC4BP_Component extends BP_Component {
 						'slug'            => $page_slug,
 						'parent_url'      => $shop_link,
 						'parent_slug'     => $this->slug,
-						'screen_function' => 'wc4bp_screen_plugins',
+						'screen_function' => array('wc4bp_screen','wc4bp_screen_plugins'),
 						'position'        => $position,
 						'item_css_id'     => 'shop-cart',
 						'user_has_access' => bp_is_my_profile()
@@ -269,7 +270,7 @@ class WC4BP_Component extends BP_Component {
 					'slug'            => esc_html( $post->post_name ),
 					'parent_url'      => $shop_link,
 					'parent_slug'     => $this->slug,
-					'screen_function' => 'wc4bp_screen_plugins',
+					'screen_function' => array('wc4bp_screen','wc4bp_screen_plugins'),
 					'position'        => $position,
 					'item_css_id'     => 'shop-cart',
 					'user_has_access' => bp_is_my_profile()
