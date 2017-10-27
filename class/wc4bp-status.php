@@ -11,9 +11,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
 class WC4BP_Status {
 	private $status_handler;
-	
+
 	public function __construct() {
 		require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/class-wp-plugin-status.php';
 		$this->status_handler = WpPluginStatusFactory::build_manager( array(
@@ -22,15 +23,28 @@ class WC4BP_Status {
 		add_action( 'init', array( $this, 'set_status_options' ), 1, 1 );
 		add_filter( 'wp_plugin_status_data', array( $this, 'status_data' ) );
 	}
-	
+
 	public function set_status_options() {
 		// Only Check for requirements in the admin
 		if ( ! is_admin() ) {
 			return;
 		}
 	}
-	
+
 	public function status_data( $data ) {
+		/** @var WC4BP_Exception_Handler $error_handler */
+		$error_handler = WC4BP_Exception_Handler::get_instance();
+		$errors_list   = $error_handler->get_exception_list();
+		$errors        = array();
+		$i             = 0;
+		foreach ( $errors_list as $time => $item ) {
+			$i ++;
+			$date                       = date( 'm/d/Y h:m:s', $time );
+			$errors[ $date . '-' . $i ] = wp_json_encode( $item );
+		}
+		if ( ! empty( $errors ) ) {
+			$data['Errors'] = $errors;
+		}
 		$data['WC4BP']              = array(
 			'version' => $GLOBALS['wc4bp_loader']->get_version(),
 		);
@@ -48,7 +62,7 @@ class WC4BP_Status {
 		$data['Shop Tabs']                                        = array();
 		$data['Turn off the profile sync']                        = array();
 		$data['Overwrite the Content of your Shop Home/Main Tab'] = array();
-		
+
 		return $data;
 	}
 }
