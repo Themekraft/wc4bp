@@ -23,7 +23,7 @@ class wc4bp_redirect
 
     function wc4bp_page_link_router($link, $id)
     {
-        global $bp;
+        global $bp,$wp_query;;
         if (!is_user_logged_in() || is_admin()) {
             return $link;
         }
@@ -36,6 +36,7 @@ class wc4bp_redirect
                 }
             }
         }
+
         $new_link = $this->wc4bp_get_redirect_link($id);
         if (!empty($new_link)) {
             $link = $new_link;
@@ -58,7 +59,7 @@ class wc4bp_redirect
 
     function wc4bp_get_redirect_link($id = false)
     {
-        global $current_user, $bp, $wp;
+        global $current_user, $bp, $wp,$wp_query;
 
         if (!$id) {
             return false;
@@ -84,6 +85,7 @@ class wc4bp_redirect
         }
 
         $my_account_page_id = get_option('woocommerce_myaccount_page_id');
+        $woocommerce_myaccount = get_post($my_account_page_id);
         $cart_page_id = wc_get_page_id('cart');
         $checkout_page_id = wc_get_page_id('checkout');
         $account_page_id = wc_get_page_id('myaccount');
@@ -129,6 +131,9 @@ class wc4bp_redirect
                     }
                     $link = apply_filters('wc4bp_account_page_link', $link);
                     break;
+                case $my_account_page_id:
+
+                    break;
             }
 
             if (isset($wc4bp_pages_options['selected_pages']) && is_array($wc4bp_pages_options['selected_pages'])) {
@@ -167,8 +172,21 @@ class wc4bp_redirect
         if (empty($post) || !is_object($post)) {
             return false;
         }
+        $query=$wp_query->query;
+        if(isset($query['pagename'])){
 
+            $pagename= $query['pagename'];
+            $my_account_page_id = get_option('woocommerce_myaccount_page_id');
+            $woo_my = get_post($my_account_page_id);
+            if($woo_my->post_name == $pagename){
+                if(isset($query['view-subscription'])){
+                    $id = $query['view-subscription'];
+                    $link = get_bloginfo( 'url' ) . '/' . $woo_my->post_name . '/view-subscription/'.$id;
 
+                        return $link;
+                }
+            }
+        }
         $link = $this->wc4bp_get_redirect_link($post->ID);
 
         if (!empty($link)) :
