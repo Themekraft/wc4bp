@@ -78,6 +78,7 @@ class WC4BP_MyAccount_Content {
 		}
 	}
 
+
 	public function wc4bp_my_account_process_shortcode_payment_methods( $attr, $content ) {
 		try {
 			wc_print_notices();
