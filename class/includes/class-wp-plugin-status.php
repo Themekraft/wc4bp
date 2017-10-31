@@ -240,10 +240,7 @@ if ( ! class_exists( 'WpPluginStatus100', false ) ) {
                                 result['value'] = IsJsonString(value) ? JSON.parse(value) : value;
                                 final_result.push(result);
                             });
-                            console.log(final_result);
                             var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(final_result));
-//                            var dataStr = dataStr.replace(/\\/g, "");
-//                            var dataStr = dataStr.replace(/\/g, "");
                             btn_export.attr("href", dataStr);
                             btn_export.attr("download", "status.json");
                         }

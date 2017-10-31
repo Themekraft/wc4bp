@@ -84,7 +84,7 @@ class WC4BP_Exception_Handler {
 	/**
 	 * Return an instance of this class.
 	 *
-	 * @return object A single instance of this class.
+	 * @return WC4BP_Exception_Handler A single instance of this class.
 	 */
 	public static function get_instance() {
 		// If the single instance hasn't been set, set it now.

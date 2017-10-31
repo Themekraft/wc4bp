@@ -17,20 +17,29 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Look for the templates in the proper places
  *
  * @since 1.0
+ *
+ * @param $found_template
+ * @param $templates
+ *
+ * @return mixed|void
  */
 function wc4bp_load_template_filter( $found_template, $templates ) {
-	if ( bp_is_current_component( 'shop' ) ) {
-		foreach ( (array) $templates as $template ) {
-			if ( file_exists( STYLESHEETPATH . '/' . $template ) ) {
-				$filtered_templates[] = STYLESHEETPATH . '/' . $template;
-			} else {
-				$filtered_templates[] = WC4BP_ABSPATH . 'templates/' . $template;
+	try {
+		if ( bp_is_current_component( 'shop' ) ) {
+			foreach ( (array) $templates as $template ) {
+				if ( file_exists( STYLESHEETPATH . '/' . $template ) ) {
+					$filtered_templates[] = STYLESHEETPATH . '/' . $template;
+				} else {
+					$filtered_templates[] = WC4BP_ABSPATH . 'templates/' . $template;
+				}
 			}
-		}
 
-		return apply_filters( 'wc4bp_load_template_filter', $filtered_templates[0] );
-	} else {
-		return $found_template;
+			return apply_filters( 'wc4bp_load_template_filter', $filtered_templates[0] );
+		} else {
+			return $found_template;
+		}
+	} catch ( Exception $exception ) {
+		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 	}
 }
 
@@ -42,17 +51,21 @@ function wc4bp_load_template_filter( $found_template, $templates ) {
  * @since 1.0
  */
 function wc4bp_load_template( $template_name ) {
-	global $bp;
+	try {
+		global $bp;
 
-	if ( file_exists( STYLESHEETPATH . '/' . $template_name . '.php' ) ) {
-		$located = STYLESHEETPATH . '/' . $template_name . '.php';
-	} elseif ( file_exists( TEMPLATEPATH . '/' . $template_name . '.php' ) ) {
-		$located = TEMPLATEPATH . '/' . $template_name . '.php';
-	} else {
-		$located = WC4BP_ABSPATH . 'templates/' . $template_name . '.php';
+		if ( file_exists( STYLESHEETPATH . '/' . $template_name . '.php' ) ) {
+			$located = STYLESHEETPATH . '/' . $template_name . '.php';
+		} elseif ( file_exists( TEMPLATEPATH . '/' . $template_name . '.php' ) ) {
+			$located = TEMPLATEPATH . '/' . $template_name . '.php';
+		} else {
+			$located = WC4BP_ABSPATH . 'templates/' . $template_name . '.php';
+		}
+
+		include( $located );
+	} catch ( Exception $exception ) {
+		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 	}
-
-	include( $located );
 }
 
 /**
@@ -61,17 +74,28 @@ function wc4bp_load_template( $template_name ) {
  * @since   1.0
  * @uses    bp_loggedin_user_domain()
  * @uses    is_user_logged_in()
+ *
+ * @param $url
+ *
+ * @return mixed
  */
 function wc4bp_checkout_url( $url ) {
-	$wc4bp_options = get_option( 'wc4bp_options' );
+	$default = $url;
+	try {
+		$wc4bp_options = get_option( 'wc4bp_options' );
 
-	if ( isset( $wc4bp_options['tab_cart_disabled'] ) ) {
-		return $url;
+		if ( isset( $wc4bp_options['tab_cart_disabled'] ) ) {
+			return $url;
+		}
+
+		echo $url;
+
+		return ( is_user_logged_in() ) ? apply_filters( 'wc4bp_checkout_url', bp_loggedin_user_domain() . 'shop/home/checkout/' ) : $url;
+	} catch ( Exception $exception ) {
+		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+
+		return $default;
 	}
-
-	echo $url;
-
-	return ( is_user_logged_in() ) ? apply_filters( 'wc4bp_checkout_url', bp_loggedin_user_domain() . 'shop/home/checkout/' ) : $url;
 }
 
 //add_filter( 'woocommerce_get_checkout_url', 'wc4bp_checkout_url' );
@@ -98,45 +122,54 @@ function wc4bp_get_settings_link() {
  *
  * @uses bp_is_active() Checks that the Activity component is active
  * @uses bp_activity_add() Adds an entry to the activity component tables for a specific activity
+ *
+ * @param $comment_id
+ * @param $comment_data
+ *
+ * @return bool
  */
 function wc4bp_loader_review_activity( $comment_id, $comment_data ) {
-	if ( ! bp_is_active( 'activity' ) ) {
-		return false;
-	}
+	try {
+		if ( ! bp_is_active( 'activity' ) ) {
+			return false;
+		}
 
-	// Get the product data
-	$product = get_post( $comment_data->comment_post_ID );
+		// Get the product data
+		$product = get_post( $comment_data->comment_post_ID );
 
-	if ( $product->post_type != 'product' ) {
-		return false;
-	}
+		if ( $product->post_type != 'product' ) {
+			return false;
+		}
 
-	$user_id = apply_filters( 'wc4bp_loader_review_activity_user_id', $comment_data->user_id );
+		$user_id = apply_filters( 'wc4bp_loader_review_activity_user_id', $comment_data->user_id );
 
-	// check that user enabled updating the activity stream
-	if ( bp_get_user_meta( $user_id, 'notification_activity_shop_reviews', true ) == 'no' ) {
-		return false;
-	}
+		// check that user enabled updating the activity stream
+		if ( bp_get_user_meta( $user_id, 'notification_activity_shop_reviews', true ) == 'no' ) {
+			return false;
+		}
 
-	$user_link = bp_core_get_userlink( $user_id );
+		$user_link = bp_core_get_userlink( $user_id );
 
-	// record the activity
-	bp_activity_add( array(
-		'user_id'   => $user_id,
-		'action'    => apply_filters( 'wc4bp_loader_review_activity_action',
-			sprintf(
-				__( '%s wrote a review about <a href="%s">%s</a>', 'wc4bp' ),
-				$user_link,
-				get_permalink( $comment_data->comment_post_ID ),
-				$product->post_title
+		// record the activity
+		bp_activity_add( array(
+			'user_id'   => $user_id,
+			'action'    => apply_filters( 'wc4bp_loader_review_activity_action',
+				sprintf(
+					__( '%s wrote a review about <a href="%s">%s</a>', 'wc4bp' ),
+					$user_link,
+					get_permalink( $comment_data->comment_post_ID ),
+					$product->post_title
+				),
+				$user_id,
+				$comment_data,
+				$product
 			),
-			$user_id,
-			$comment_data,
-			$product
-		),
-		'component' => 'shop',
-		'type'      => 'new_shop_review'
-	) );
+			'component' => 'shop',
+			'type'      => 'new_shop_review',
+		) );
+	} catch ( Exception $exception ) {
+		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+	}
 }
 
 add_action( 'wp_insert_comment', 'wc4bp_loader_review_activity', 10, 2 );
@@ -147,53 +180,60 @@ add_action( 'wp_insert_comment', 'wc4bp_loader_review_activity', 10, 2 );
  * @since   unknown
  *
  * @global    object $bp Global BuddyPress settings object
+ * @return bool
+ * @global    object $bp Global BuddyPress settings object
+ * @global    object $bp Global BuddyPress settings object
  * @uses    bp_activity_add() Adds an entry to the activity component tables for a specific activity
  */
 function wc4bp_loader_purchase_activity( $order_id ) {
-	if ( ! is_user_logged_in() ) {
-		return false;
-	}
+	try {
+		if ( ! is_user_logged_in() ) {
+			return false;
+		}
 
-	if ( ! bp_is_active( 'activity' ) ) {
-		return false;
-	}
+		if ( ! bp_is_active( 'activity' ) ) {
+			return false;
+		}
 
-	$order = new WC_Order( $order_id );
+		$order = new WC_Order( $order_id );
 
-	if ( $order->get_status() != 'completed' ) {
-		return false;
-	}
+		if ( $order->get_status() != 'completed' ) {
+			return false;
+		}
 
-	if ( $order->get_user_id() != $order->get_customer_id() ) {
-		return false;
-	}
+		if ( $order->get_user_id() != $order->get_customer_id() ) {
+			return false;
+		}
 
-	$user_link = bp_core_get_userlink( $order->get_customer_id() );
+		$user_link = bp_core_get_userlink( $order->get_customer_id() );
 
-	// if several products - combine them, otherwise - display the product name
-	$products = $order->get_items();
-	$names    = array();
+		// if several products - combine them, otherwise - display the product name
+		$products = $order->get_items();
+		$names    = array();
 
-	foreach ( $products as $product ) {
-		$names[] = '<a href="' . get_permalink( $product['item_meta']['_product_id'][0] ) . '">' . $product['name'] . '</a>';
-	}
+		foreach ( $products as $product ) {
+			$names[] = '<a href="' . get_permalink( $product['item_meta']['_product_id'][0] ) . '">' . $product['name'] . '</a>';
+		}
 
-	// record the activity
-	bp_activity_add( array(
-		'user_id'   => $order->get_user_id(),
-		'action'    => apply_filters( 'wc4bp_loader_purchase_activity_action',
-			sprintf(
-				__( '%s purchased %s', 'wc4bp' ),
-				$user_link,
-				implode( ', ', $names )
+		// record the activity
+		bp_activity_add( array(
+			'user_id'   => $order->get_user_id(),
+			'action'    => apply_filters( 'wc4bp_loader_purchase_activity_action',
+				sprintf(
+					__( '%s purchased %s', 'wc4bp' ),
+					$user_link,
+					implode( ', ', $names )
+				),
+				$user_id,
+				$order,
+				$products
 			),
-			$user_id,
-			$order,
-			$products
-		),
-		'component' => 'shop',
-		'type'      => 'new_shop_purchase'
-	) );
+			'component' => 'shop',
+			'type'      => 'new_shop_purchase',
+		) );
+	} catch ( Exception $exception ) {
+		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+	}
 }
 
 // todo: Add option to the admin to deactivate activity integration
@@ -212,17 +252,16 @@ function wc4bp_my_addresses_shortcode( $atts ) {
 add_shortcode( 'wc4bp_my_addresses', 'wc4bp_my_addresses_shortcode' );
 
 function wc4bp_my_recent_orders_shortcode( $atts ) {
-
-	global $bp;
-
-	if ( ! isset( $bp->action_variables[1] ) ) :
-
-		return wc_get_template( 'myaccount/my-orders.php', array( 'order_count' => 0 ) );
-	else:
-		return do_action( 'woocommerce_view_order', $bp->action_variables[1] );
-
-	endif;
-
+	try {
+		global $bp;
+		if ( ! isset( $bp->action_variables[1] ) ) {
+			return wc_get_template( 'myaccount/my-orders.php', array( 'order_count' => 0 ) );
+		} else {
+			return do_action( 'woocommerce_view_order', $bp->action_variables[1] );
+		}
+	} catch ( Exception $exception ) {
+		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+	}
 }
 
 add_shortcode( 'wc4bp_my_recent_orders', 'wc4bp_my_recent_orders_shortcode' );
