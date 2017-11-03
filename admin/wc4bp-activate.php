@@ -313,22 +313,44 @@ function wc4bp_cleanup() {
 	try {
 		if ( is_multisite() ) {
 			if ( bp_is_active( 'xprofile' ) ) {
-				xprofile_delete_field_group( get_blog_option( BP_ROOT_BLOG, 'wc4bp_shipping_address_ids' ) );
-				xprofile_delete_field_group( get_blog_option( BP_ROOT_BLOG, 'wc4bp_billing_address_ids' ) );
+				$wc4bp_shipping_address_ids = get_blog_option( BP_ROOT_BLOG, 'wc4bp_shipping_address_ids' );
+				if ( ! empty( $wc4bp_shipping_address_ids ) && ! empty( $wc4bp_shipping_address_ids['group_id'] ) ) {
+					$result_delete_field_1 = xprofile_delete_field_group( $wc4bp_shipping_address_ids['group_id'] );
+					if ( ! empty( $result_delete_field_1 ) ) {
+						$delete_result_1 = delete_blog_option( BP_ROOT_BLOG, 'wc4bp_shipping_address_ids' );
+					}
+				}
+				$wc4bp_billing_address_ids = get_blog_option( BP_ROOT_BLOG, 'wc4bp_billing_address_ids' );
+				if ( ! empty( $wc4bp_billing_address_ids ) && ! empty( $wc4bp_billing_address_ids['group_id'] ) ) {
+					$result_delete_field_2 = xprofile_delete_field_group( $wc4bp_billing_address_ids['group_id'] );
+					if ( ! empty( $result_delete_field_2 ) ) {
+						$delete_result_2 = delete_blog_option( BP_ROOT_BLOG, 'wc4bp_billing_address_ids' );
+					}
+				}
 			}
-
-			delete_blog_option( BP_ROOT_BLOG, 'wc4bp_shipping_address_ids' );
-			delete_blog_option( BP_ROOT_BLOG, 'wc4bp_billing_address_ids' );
-			delete_blog_option( BP_ROOT_BLOG, 'wc4bp_installed' );
+			if ( ! empty( $delete_result_1 ) && ! empty( $delete_result_2 ) ) {
+				delete_blog_option( BP_ROOT_BLOG, 'wc4bp_installed' );
+			}
 		} else {
 			if ( bp_is_active( 'xprofile' ) ) {
-				xprofile_delete_field_group( get_option( 'wc4bp_shipping_address_ids' ) );
-				xprofile_delete_field_group( get_option( 'wc4bp_billing_address_ids' ) );
+				$wc4bp_shipping_address_ids = get_option( 'wc4bp_shipping_address_ids' );
+				if ( ! empty( $wc4bp_shipping_address_ids ) && ! empty( $wc4bp_shipping_address_ids['group_id'] ) ) {
+					$result_delete_field_1 = xprofile_delete_field_group( $wc4bp_shipping_address_ids['group_id'] );
+					if ( ! empty( $result_delete_field_1 ) ) {
+						$delete_result_1 = delete_option( 'wc4bp_shipping_address_ids' );
+					}
+				}
+				$wc4bp_billing_address_ids = get_option( 'wc4bp_billing_address_ids' );
+				if ( ! empty( $wc4bp_billing_address_ids ) && ! empty( $wc4bp_billing_address_ids['group_id'] ) ) {
+					$result_delete_field_2 = xprofile_delete_field_group( $wc4bp_billing_address_ids['group_id'] );
+					if ( ! empty( $result_delete_field_2 ) ) {
+						$delete_result_2 = delete_option( 'wc4bp_billing_address_ids' );
+					}
+				}
+				if ( ! empty( $delete_result_1 ) && ! empty( $delete_result_2 ) ) {
+					delete_option( 'wc4bp_installed' );
+				}
 			}
-
-			delete_option( 'wc4bp_shipping_address_ids' );
-			delete_option( 'wc4bp_billing_address_ids' );
-			delete_option( 'wc4bp_installed' );
 		}
 	} catch ( Exception $exception ) {
 		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
