@@ -37,10 +37,11 @@ class wc4bp_Sync {
 	 * @uses    bp_action_variable()
 	 * @uses    bp_displayed_user_id()
 	 *
+	 * @param $user_id
 	 * @param $field_id
 	 * @param $value
 	 *
-	 * @return bool|null
+	 * @return bool
 	 */
 	static function wc4bp_sync_addresses_from_profile( $user_id, $field_id, $value ) {
 		try {
@@ -48,18 +49,31 @@ class wc4bp_Sync {
 			$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 			$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
 
-			unset( $shipping['group_id'] );
-			unset( $billing['group_id'] );
+			if ( is_array( $shipping ) ) {
+				if ( isset( $shipping['group_id'] ) ) {
+					unset( $shipping['group_id'] );
+				}
+				$shipping_key = array_search( $field_id, $shipping );
+			} elseif ( isset( $shipping->group_id ) ) {
+				unset( $shipping->group_id );
+				$shipping_key = self::extract_field( $field_id, $shipping->fields );
+			}
+			if ( is_array( $billing ) ) {
+				if ( isset( $billing['group_id'] ) ) {
+					unset( $billing['group_id'] );
+				}
+				$billing_key  = array_search( $field_id, $billing );
+			} elseif ( isset( $billing->group_id ) ) {
+				unset( $billing->group_id );
+				$billing_key  = self::extract_field( $field_id, $shipping->fields );
+			}
 
-			$shipping_key = array_search( $field_id, $shipping );
-			$billing_key  = array_search( $field_id, $billing );
-
-			if ( $shipping_key ) {
+			if ( ! empty( $shipping_key ) ) {
 				$type       = 'shipping';
 				$field_slug = $shipping_key;
 			}
 
-			if ( $billing_key ) {
+			if ( ! empty( $billing_key ) ) {
 				$type       = 'billing';
 				$field_slug = $billing_key;
 			}
@@ -68,7 +82,7 @@ class wc4bp_Sync {
 				return false;
 			}
 
-			if ( $shipping_key == 'country' || $billing_key == 'country' ) {
+			if ( 'country' == $shipping_key || 'country' == $billing_key ) {
 				$geo   = new WC_Countries();
 				$value = array_search( $value, $geo->get_countries() );
 			}
@@ -77,10 +91,24 @@ class wc4bp_Sync {
 				$user_id = bp_displayed_user_id();
 			}
 
-			update_user_meta( $user_id, $type . '_' . $field_slug, $value );
+			return update_user_meta( $user_id, $type . '_' . $field_slug, $value );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
+	}
+
+	public static function extract_field( $field_id, $array_of_fields ) {
+		if ( is_array( $array_of_fields ) ) {
+			foreach ( $array_of_fields as $array_of_field ) {
+				if ( $array_of_field instanceof BP_XProfile_Field ) {
+					if ( $array_of_field->id === $field_id ) {
+						return $array_of_field->Name;
+					}
+				}
+			}
+		}
+
+		return false;
 	}
 
 

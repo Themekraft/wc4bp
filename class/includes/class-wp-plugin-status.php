@@ -251,6 +251,9 @@ if ( ! class_exists( 'WpPluginStatus100', false ) ) {
                         <tr>
                             <th colspan="2"><h2 style="float:left; display: inline"><?php echo esc_attr( $section_key ); ?></h2>
                                 <div style="float:right; display: inline; margin-right: 20px;">
+									<?php if ( $section_key === 'Errors' ): ?>
+                                        <a class="button-primary" onclick="clean_error(this);">Clean</a>
+									<?php endif; ?>
                                     <a class="button-primary" onclick="export_status(this);" value="status_values_<?php echo $this->get_section_id( $section_key ); ?>" id="export_status_<?php echo $this->get_section_id( $section_key ); ?>">Export</a>
                                 </div>
                             </th>
