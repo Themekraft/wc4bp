@@ -168,21 +168,21 @@ class wc4bp_redirect {
 		if ( empty( $post ) || ! is_object( $post ) ) {
 			return false;
 		}
-		$query = $wp_query->query;
-		if ( isset( $query['pagename'] ) ) {
+        // If the URL is from an original woocommerce uri, then do not redirect to BuddyPress
+        $my_account_page_id = get_option('woocommerce_myaccount_page_id');
+        if( $my_account_page_id == $post->ID){
 
-			$pagename           = $query['pagename'];
-			$my_account_page_id = get_option( 'woocommerce_myaccount_page_id' );
-			$woo_my             = get_post( $my_account_page_id );
-			if ( $woo_my->post_name == $pagename ) {
-				if ( isset( $query['view-subscription'] ) ) {
-					$id   = $query['view-subscription'];
-					$link = get_bloginfo( 'url' ) . '/' . $woo_my->post_name . '/view-subscription/' . $id;
+            $uri ='';
+            foreach ($bp->unfiltered_uri as $key=>$value){
+                $uri .=$value.'/';
+            }
+            if(!empty($uri)){
 
-					return $link;
-				}
-			}
-		}
+                $link = get_bloginfo( 'url' ) . '/'.$uri;
+                return $link;
+            }
+
+        }
 		$link = $this->wc4bp_get_redirect_link( $post->ID );
 
 		if ( ! empty( $link ) ) :
