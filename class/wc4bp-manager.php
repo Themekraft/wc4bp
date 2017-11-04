@@ -28,7 +28,7 @@ class wc4bp_Manager {
 			//Load resources
 			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 				require_once 'wc4bp-myaccount-content.php';
-				self::$prefix = apply_filters( 'wc4bp_my_account_prefix', 'wc4bp' );
+				self::$prefix = apply_filters( 'wc4bp_my_account_prefix', 'wc4pb' );
 			}
 			require_once 'wc4bp-myaccount.php';
 			require_once 'wc4bp-myaccount-private.php';
