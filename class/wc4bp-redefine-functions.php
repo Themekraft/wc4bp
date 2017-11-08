@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * This file is to override functions and keep the compatibility with older ones
+ */
 if ( ! function_exists( 'is_cart' ) ) {
 	/**
 	 * Check if we're on a cart page
