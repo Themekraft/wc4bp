@@ -48,117 +48,123 @@ class wc4bp_redirect {
 	 * @return bool|string
 	 */
 	public function redirect_link( $post_id = false ) {
-		if ( empty( $post_id ) ) {
-			return false;
-		}
-		global $bp;
-		if ( ! empty( $bp->pages ) ) {
-			//Search in all the actives BPress pages for the current id
-			foreach ( $bp->pages as $page_key => $page_data ) {
-				//if the current id is in the BP pages, do not redirect the link, maintain the BP link
-				if ( intval( $page_data->id ) === intval( $post_id ) ) {
+		try {
+			if ( empty( $post_id ) ) {
+				return false;
+			}
+			global $bp;
+			if ( ! empty( $bp->pages ) ) {
+				//Search in all the actives BPress pages for the current id
+				foreach ( $bp->pages as $page_key => $page_data ) {
+					//if the current id is in the BP pages, do not redirect the link, maintain the BP link
+					if ( intval( $page_data->id ) === intval( $post_id ) ) {
+						return false;
+					}
+				}
+				$wc4bp_options = get_option( 'wc4bp_options' );
+				if ( ! empty( $wc4bp_options['tab_activity_disabled'] ) ) {
 					return false;
 				}
-			}
-			$wc4bp_options = get_option( 'wc4bp_options' );
-			if ( ! empty( $wc4bp_options['tab_activity_disabled'] ) ) {
-				return false;
-			}
-			global $wp;
-			if ( ( isset( $wp->query_vars['name'] ) && 'order-received' === $wp->query_vars['name'] ) || isset( $wp->query_vars['order-received'] ) ) {
-				return false;
-			}
-			$action              = bp_current_action();
-			$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
-			if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
-				$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
-			}
-			$cart_page_id                   = wc_get_page_id( 'cart' );
-			$checkout_page_id               = wc_get_page_id( 'checkout' );
-			$account_page_id                = wc_get_page_id( 'myaccount' );
-			$granted_selected_pages_id      = array();
-			$granted_wc_my_account_pages_id = array();
-			$granted_wc_pages_id            = array( intval( $account_page_id ) );
-			if ( ! empty( $wc4bp_pages_options['selected_pages'] ) ) {
-				foreach ( $wc4bp_pages_options['selected_pages'] as $selected_page ) {
-					if ( $selected_page['children'] > 0 ) {
-						$parent_id                               = $this->get_top_parent_page_id( $selected_page['page_id'] );
-						$granted_wc_pages_id[]                   = $parent_id;
-						$granted_selected_pages_id[ $parent_id ] = $selected_page;
-					} else {
-						$granted_wc_pages_id[]                                  = $selected_page['page_id'];
-						$granted_selected_pages_id[ $selected_page['page_id'] ] = $selected_page;
+				global $wp;
+				if ( ( isset( $wp->query_vars['name'] ) && 'order-received' === $wp->query_vars['name'] ) || isset( $wp->query_vars['order-received'] ) ) {
+					return false;
+				}
+				$action              = bp_current_action();
+				$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
+				if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
+					$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
+				}
+				$cart_page_id                   = wc_get_page_id( 'cart' );
+				$checkout_page_id               = wc_get_page_id( 'checkout' );
+				$account_page_id                = wc_get_page_id( 'myaccount' );
+				$granted_selected_pages_id      = array();
+				$granted_wc_my_account_pages_id = array();
+				$granted_wc_pages_id            = array( intval( $account_page_id ) );
+				if ( ! empty( $wc4bp_pages_options['selected_pages'] ) ) {
+					foreach ( $wc4bp_pages_options['selected_pages'] as $selected_page ) {
+						if ( $selected_page['children'] > 0 ) {
+							$parent_id                               = $this->get_top_parent_page_id( $selected_page['page_id'] );
+							$granted_wc_pages_id[]                   = $parent_id;
+							$granted_selected_pages_id[ $parent_id ] = $selected_page;
+						} else {
+							$granted_wc_pages_id[]                                  = $selected_page['page_id'];
+							$granted_selected_pages_id[ $selected_page['page_id'] ] = $selected_page;
+						}
 					}
 				}
-			}
-			$available = WC4BP_MyAccount::get_available_endpoints();
-			if ( ! empty( $available ) ) {
-				foreach ( $available as $end_point_key => $end_point_value ) {
-					if ( empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
-						$post                                        = WC4BP_MyAccount::get_page_by_name( wc4bp_Manager::get_prefix() . $end_point_key );
-						$granted_wc_pages_id[]                       = $post->ID;
-						$granted_wc_my_account_pages_id[ $post->ID ] = $post;
+				$available = WC4BP_MyAccount::get_available_endpoints();
+				if ( ! empty( $available ) ) {
+					foreach ( $available as $end_point_key => $end_point_value ) {
+						if ( empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
+							$post                                        = WC4BP_MyAccount::get_page_by_name( wc4bp_Manager::get_prefix() . $end_point_key );
+							$granted_wc_pages_id[]                       = $post->ID;
+							$granted_wc_my_account_pages_id[ $post->ID ] = $post;
+						}
 					}
 				}
-			}
-			if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
-				$granted_wc_pages_id[] = $checkout_page_id;
-			}
-			if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
-				$granted_wc_pages_id[] = $cart_page_id;
-			}
-			if ( in_array( $post_id, $granted_wc_pages_id, true ) ) {
-				switch ( $post_id ) {
-					case $cart_page_id:
-						if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
-							return $this->convert_url( 'cart' );
-						}
-						break;
-					case $checkout_page_id:
-						$checkout_url = '';
-						if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) && is_object( WC()->cart ) && ! WC()->cart->is_empty() ) {
-							$checkout_url = 'checkout';
-						} elseif ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) && ! is_object( WC()->cart ) ) {
-							$checkout_url = 'home';
-						}
-						$checkout_page           = get_post( $checkout_page_id );
-						$url                     = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name;
-						$payment_created_account = isset( $bp->unfiltered_uri[0] ) ? $bp->unfiltered_uri[0] : '';
-						$checkout_url            = apply_filters( 'wc4bp_checkout_page_link', $checkout_url );
-						if ( $payment_created_account === $checkout_page->post_name ) {
-							$checkout_url = $url;
-						}
+				if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+					$granted_wc_pages_id[] = $checkout_page_id;
+				}
+				if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
+					$granted_wc_pages_id[] = $cart_page_id;
+				}
+				if ( in_array( $post_id, $granted_wc_pages_id, true ) ) {
+					switch ( $post_id ) {
+						case $cart_page_id:
+							if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
+								return $this->convert_url( 'cart' );
+							}
+							break;
+						case $checkout_page_id:
+							$checkout_url = '';
+							if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) && is_object( WC()->cart ) && ! WC()->cart->is_empty() ) {
+								$checkout_url = 'checkout';
+							} elseif ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) && ! is_object( WC()->cart ) ) {
+								$checkout_url = 'home';
+							}
+							$checkout_page           = get_post( $checkout_page_id );
+							$url                     = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name;
+							$payment_created_account = isset( $bp->unfiltered_uri[0] ) ? $bp->unfiltered_uri[0] : '';
+							$checkout_url            = apply_filters( 'wc4bp_checkout_page_link', $checkout_url );
+							if ( $payment_created_account === $checkout_page->post_name ) {
+								$checkout_url = $url;
+							}
 
-						return $this->convert_url( $checkout_url );
-						break;
-					case $account_page_id:
-						return $this->convert_url();
-						break;
-				}
-				if ( ! empty( $granted_selected_pages_id ) ) {
-					$parent_post_id = $this->get_top_parent_page_id( $post_id );
-					foreach ( $granted_selected_pages_id as $select_page_id => $select_page ) {
-						if ( $select_page_id === $parent_post_id || $select_page_id === $post_id ) {
-							$post_data  = get_post( $post_id );
-							$final_slug = ( $select_page['tab_slug'] !== $post_data->post_name ) ? $select_page['tab_slug'] . '/' . $post_data->post_name : $select_page['tab_slug'];
+							return $this->convert_url( $checkout_url );
+							break;
+						case $account_page_id:
+							return $this->convert_url();
+							break;
+					}
+					if ( ! empty( $granted_selected_pages_id ) ) {
+						$parent_post_id = $this->get_top_parent_page_id( $post_id );
+						foreach ( $granted_selected_pages_id as $select_page_id => $select_page ) {
+							if ( $select_page_id === $parent_post_id || $select_page_id === $post_id ) {
+								$post_data  = get_post( $post_id );
+								$final_slug = ( $select_page['tab_slug'] !== $post_data->post_name ) ? $select_page['tab_slug'] . '/' . $post_data->post_name : $select_page['tab_slug'];
 
-							return $this->convert_url( $final_slug );
+								return $this->convert_url( $final_slug );
+							}
 						}
 					}
-				}
-				if ( ! empty( $granted_wc_my_account_pages_id ) ) {
-					foreach ( $granted_wc_my_account_pages_id as $wc_my_account_page_id => $wc_my_account_page ) {
-						if ( $wc_my_account_page_id === $post_id ) {
-							return $this->convert_url( $wc_my_account_page->post_name );
+					if ( ! empty( $granted_wc_my_account_pages_id ) ) {
+						foreach ( $granted_wc_my_account_pages_id as $wc_my_account_page_id => $wc_my_account_page ) {
+							if ( $wc_my_account_page_id === $post_id ) {
+								return $this->convert_url( $wc_my_account_page->post_name );
+							}
 						}
 					}
-				}
 
-				return false;
+					return false;
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}
-		} else {
+		} catch ( Exception $exception ) {
+			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+
 			return false;
 		}
 	}
