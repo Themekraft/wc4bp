@@ -28,7 +28,6 @@ class WC4BP_MyAccount {
 				$wc4bp_options = get_option( 'wc4bp_options' );
 				if ( empty( $wc4bp_options['tab_activity_disabled'] ) ) {
 					add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url__premium_only' ), 10, 2 );
-					add_filter( 'woocommerce_get_myaccount_page_id', array( $this, 'my_account_page_id__premium_only' ), 10, 1 );
 					add_filter( 'woocommerce_get_myaccount_page_permalink', array( $this, 'my_account_page_permalink__premium_only' ), 10, 1 );
 					add_action( 'update_option_wc4bp_options', array( $this, 'process_saved_settings__premium_only' ), 10, 2 );
 				}
@@ -79,17 +78,14 @@ class WC4BP_MyAccount {
 	public function my_account_page_permalink__premium_only( $permalink ) {
 		$result = $permalink;
 		try {
-			global $current_user, $bp;
-
-			$current_user = wp_get_current_user();
-			$user_data    = get_userdata( $current_user->ID );
+			global $bp;
 
 			$wc4bp_endpoint = WC4BP_MyAccount::get_active_endpoints__premium_only();
 
 			if ( ! empty( $wc4bp_endpoint ) ) {
 				foreach ( $wc4bp_endpoint as $active_page_key => $active_page_name ) {
-					if ( $bp->current_action == $active_page_key ) {
-						$result = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $user_data->user_nicename . '/shop/' . $bp->current_action;//TODO this need to be full dynamic
+					if ( $bp->current_action === $active_page_key ) {
+						$result = wc4bp_redirect::get_base_url() . $bp->current_action;
 						break;
 					}
 				}
@@ -100,30 +96,6 @@ class WC4BP_MyAccount {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 
 			return $permalink;
-		}
-	}
-
-	/**
-	 * Get the BP member page id
-	 *
-	 * @param $page_id
-	 *
-	 * @return string
-	 */
-	public function my_account_page_id__premium_only( $page_id ) {
-		try {
-			global $bp;
-			$page = get_page_by_path( $bp->pages->members->slug );
-
-			if ( ! empty( $page ) ) {
-				return $page->ID;
-			} else {
-				return $page_id;
-			}
-		} catch ( Exception $exception ) {
-			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-
-			return $page_id;
 		}
 	}
 
@@ -168,7 +140,7 @@ class WC4BP_MyAccount {
 	public function process_saved_settings__premium_only( $old_value, $new_value ) {
 		try {
 			$wc4bp_options = get_option( 'wc4bp_options' );
-			if ( empty( $wc4bp_options["tab_activity_disabled"] ) ) {
+			if ( empty( $wc4bp_options['tab_activity_disabled'] ) ) {
 				$available_endpoints = self::get_available_endpoints();
 				if ( ! empty( $available_endpoints ) ) {
 					foreach ( $available_endpoints as $end_point_key => $end_point_value ) {
@@ -287,7 +259,7 @@ class WC4BP_MyAccount {
 	public static function get_page_by_name( $post_name, $output = OBJECT ) {
 		try {
 			global $wpdb;
-			$post = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='page'", $post_name ) );
+			$post = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='page'", array( $post_name ) ) );
 			if ( $post ) {
 				return get_post( $post, $output );
 			}
