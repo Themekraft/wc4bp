@@ -130,29 +130,34 @@ class wc4bp_admin extends wc4bp_base {
 			$wc4bp_options             = get_option( 'wc4bp_options' );
 			$tab_activity_disabled     = 0;
 			$disable_shop_settings_tab = 0;
+			$tab_my_account_disabled   = 0;
 			if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
 				$tab_activity_disabled = 1;
 			}
 			if ( isset( $wc4bp_options['disable_shop_settings_tab'] ) ) {
 				$disable_shop_settings_tab = 1;
 			}
+			if ( isset( $wc4bp_options['tab_my_account_disabled'] ) ) {
+				$tab_my_account_disabled = 1;
+			}
 			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
 				//Get all actives tabs and custom pages
 				$wc4bp_pages_options = $this->get_pages_option();
 				// If all the tabs are disabled and there is not custom pages, Turn off 'Shop'
-				if ( is_array( $wc4bp_pages_options ) && count( $wc4bp_pages_options ) == 0 ) {
+				if ( is_array( $wc4bp_pages_options ) && count( $wc4bp_pages_options ) === 0 ) {
 					$tab_activity_disabled                  = 1;
 					$wc4bp_options['tab_activity_disabled'] = 1;
 					update_option( 'wc4bp_options', $wc4bp_options );
 				} else {
-
 					if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
 						$tab_activity_disabled = $wc4bp_options['tab_activity_disabled'];
 					}
 					if ( isset( $wc4bp_options['disable_shop_settings_tab'] ) ) {
 						$disable_shop_settings_tab = $wc4bp_options['disable_shop_settings_tab'];
 					}
-
+					if ( isset( $wc4bp_options['tab_my_account_disabled'] ) ) {
+						$tab_my_account_disabled = $wc4bp_options['tab_my_account_disabled'];
+					}
 				}
 			}
 			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_tabs.php' );
@@ -189,19 +194,15 @@ class wc4bp_admin extends wc4bp_base {
 			$tab_history_disabled  = 0;
 			$tab_track_disabled    = 0;
 			if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
-
 				if ( isset( $wc4bp_options['tab_cart_disabled'] ) ) {
 					$tab_cart_disabled = $wc4bp_options['tab_cart_disabled'];
 				}
-
 				if ( isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
 					$tab_checkout_disabled = $wc4bp_options['tab_checkout_disabled'];
 				}
-
 				if ( isset( $wc4bp_options['tab_history_disabled'] ) ) {
 					$tab_history_disabled = $wc4bp_options['tab_history_disabled'];
 				}
-
 				if ( isset( $wc4bp_options['tab_track_disabled'] ) ) {
 					$tab_track_disabled = $wc4bp_options['tab_track_disabled'];
 				}

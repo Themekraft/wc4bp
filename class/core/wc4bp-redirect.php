@@ -31,7 +31,7 @@ class wc4bp_redirect {
 	 *
 	 * @return string
 	 */
-	public function get_base_url() {
+	public static function get_base_url() {
 		global $bp;
 		$current_user = wp_get_current_user();
 		$user_data    = get_userdata( $current_user->ID );
@@ -69,7 +69,6 @@ class wc4bp_redirect {
 				if ( ( isset( $wp->query_vars['name'] ) && 'order-received' === $wp->query_vars['name'] ) || isset( $wp->query_vars['order-received'] ) ) {
 					return false;
 				}
-				$action              = bp_current_action();
 				$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 				if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
 					$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
@@ -83,12 +82,12 @@ class wc4bp_redirect {
 				if ( ! empty( $wc4bp_pages_options['selected_pages'] ) ) {
 					foreach ( $wc4bp_pages_options['selected_pages'] as $selected_page ) {
 						if ( $selected_page['children'] > 0 ) {
-							$parent_id                               = $this->get_top_parent_page_id( $selected_page['page_id'] );
+							$parent_id                               = intval( $this->get_top_parent_page_id( $selected_page['page_id'] ) );
 							$granted_wc_pages_id[]                   = $parent_id;
 							$granted_selected_pages_id[ $parent_id ] = $selected_page;
 						} else {
-							$granted_wc_pages_id[]                                  = $selected_page['page_id'];
-							$granted_selected_pages_id[ $selected_page['page_id'] ] = $selected_page;
+							$granted_wc_pages_id[]                                            = intval( $selected_page['page_id'] );
+							$granted_selected_pages_id[ intval( $selected_page['page_id'] ) ] = $selected_page;
 						}
 					}
 				}
@@ -133,13 +132,15 @@ class wc4bp_redirect {
 							return $this->convert_url( $checkout_url );
 							break;
 						case $account_page_id:
-							return $this->convert_url();
+							if ( ! isset( $wc4bp_options['tab_my_account_disabled'] ) ) {
+								return $this->convert_url();
+							}
 							break;
 					}
 					if ( ! empty( $granted_selected_pages_id ) ) {
 						$parent_post_id = $this->get_top_parent_page_id( $post_id );
 						foreach ( $granted_selected_pages_id as $select_page_id => $select_page ) {
-							if ( $select_page_id === $parent_post_id || $select_page_id === $post_id ) {
+							if ( $select_page_id === $parent_post_id ) {
 								$post_data  = get_post( $post_id );
 								$final_slug = ( $select_page['tab_slug'] !== $post_data->post_name ) ? $select_page['tab_slug'] . '/' . $post_data->post_name : $select_page['tab_slug'];
 
@@ -174,7 +175,7 @@ class wc4bp_redirect {
 		if ( ! empty( $add_url ) ) {
 			$suffix = $add_url . '/';
 		}
-		$link = $this->get_base_url() . $suffix;
+		$link = self::get_base_url() . $suffix;
 		if ( 'yes' === get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 			$link = str_replace( 'http:', 'https:', $link );
 		}
