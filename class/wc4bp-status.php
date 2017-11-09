@@ -22,6 +22,63 @@ class WC4BP_Status {
 		) );
 		add_action( 'init', array( $this, 'set_status_options' ), 1, 1 );
 		add_filter( 'wp_plugin_status_data', array( $this, 'status_data' ) );
+		add_filter( 'wp_plugin_status_append_js', array( $this, 'append_js' ) );
+		add_filter( 'wp_plugin_status_header_append_html', array( $this, 'append_header_button' ), 10, 2 );
+		add_action( 'wp_ajax_clean_errors_status', array( $this, 'clean_errors_status' ) );
+	}
+
+	public function clean_errors_status() {
+		try {
+			if ( ! defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+				return;
+			}
+			check_ajax_referer( 'clean_status', 'nonce' );
+			$result = WC4BP_Exception_Handler::clean_exceptions();
+			wp_send_json( intval( $result ) );
+		} catch ( Exception $exception ) {
+			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+		}
+	}
+
+	public function append_js() {
+		$nonce = wp_create_nonce( 'clean_status' );
+		$js    = <<<EOD
+function clear_error_status(element) {
+    jQuery(element).text('Cleaning...');
+    var error_table = jQuery('#status_errors');
+    jQuery.ajax({
+        type: 'POST', url: ajaxurl,
+        data: {
+            action: 'clean_errors_status',
+            nonce: '{$nonce}'
+        },
+        success: function (response) {
+            if (response) {
+                response = JSON.parse(response);
+                if(response > 0){
+                    error_table.hide();
+                }
+            }
+        }
+    });
+}
+EOD;
+
+		return $js;
+	}
+
+	public function append_header_button( $section_key, $string_html ) {
+		ob_start(); ?>
+        <div style="float:right; display: inline; margin-right: 20px;">
+			<?php if ( 'Errors' === $section_key ) : ?>
+                <a class="button-primary" onclick="clear_error_status(this);">Clean</a>
+			<?php endif; ?>
+            <a class="button-primary" onclick="export_status(this);" value="status_values_<?php echo esc_attr( strtolower( sanitize_title( $section_key ) ) ); ?>" id="export_status_<?php echo esc_attr( strtolower( sanitize_title( $section_key ) ) ); ?>">Export</a>
+        </div>
+		<?php
+		$string_buffer = ob_get_clean();
+
+		return $string_buffer;
 	}
 
 	public function set_status_options() {

@@ -244,18 +244,19 @@ if ( ! class_exists( 'WpPluginStatus100', false ) ) {
                             btn_export.attr("href", dataStr);
                             btn_export.attr("download", "status.json");
                         }
+						<?php echo apply_filters( 'wp_plugin_status_append_js', '' ); ?>
                     </script>
 					<?php foreach ( $data as $section_key => $section_values ): ?>
                     <table class="wc_status_table widefat" cellspacing="0" id="status_<?php echo $this->get_section_id( $section_key ); ?>">
                         <thead>
                         <tr>
                             <th colspan="2"><h2 style="float:left; display: inline"><?php echo esc_attr( $section_key ); ?></h2>
+								<?php ob_start(); ?>
                                 <div style="float:right; display: inline; margin-right: 20px;">
-									<?php if ( $section_key === 'Errors' ): ?>
-                                        <a class="button-primary" onclick="clean_error(this);">Clean</a>
-									<?php endif; ?>
                                     <a class="button-primary" onclick="export_status(this);" value="status_values_<?php echo $this->get_section_id( $section_key ); ?>" id="export_status_<?php echo $this->get_section_id( $section_key ); ?>">Export</a>
                                 </div>
+								<?php $string_buffer = ob_get_clean(); ?>
+								<?php echo apply_filters( 'wp_plugin_status_header_append_html', $section_key, $string_buffer ); ?>
                             </th>
                         </tr>
                         </thead>

@@ -93,6 +93,7 @@ class WC4BP_Loader {
 		try {
 			self::$plugin_name = plugin_basename( __FILE__ );
 			$this->constants();
+			require_once dirname( __FILE__ ) . '/class/includes/class-request-helper.php';
 			require_once dirname( __FILE__ ) . '/class/includes/wc4bp_requirements.php';
 			require_once dirname( __FILE__ ) . '/class/includes/class-tgm-plugin-activation.php';
 			require_once dirname( __FILE__ ) . '/class/wc4bp-base.php';

@@ -73,12 +73,10 @@ class WC4BP_Exception_Handler {
 		}
 	}
 
-	public function clean_exceptions() {
-		if ( ! empty( $register_exceptions ) ) {
-			return delete_option( $this->exception_list_name );
-		} else {
-			return false;
-		}
+	public static function clean_exceptions() {
+		$list_name = self::get_instance()->exception_list_name;
+
+		return delete_option( $list_name );
 	}
 
 	/**
