@@ -264,12 +264,12 @@ class WC4BP_MyAccount {
 	public static function get_page_by_name( $post_name, $output = OBJECT ) {
 		try {
 			global $wpdb;
-			$result = wp_cache_get( 'wc4bp_get_page_by_name', 'wc4bp' );
+			$result = wp_cache_get( 'wc4bp_get_page_by_name_' . $post_name, 'wc4bp' );
 			if ( false === $result ) {
 				$post = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='page'", array( $post_name ) ) );
 				if ( $post ) {
 					$post_result = get_post( $post, $output );
-					wp_cache_add( 'wc4bp_get_page_by_name', $post_result, 'wc4bp' );
+					wp_cache_add( 'wc4bp_get_page_by_name_' . $post_name, $post_result, 'wc4bp' );
 
 					return $post_result;
 				}
