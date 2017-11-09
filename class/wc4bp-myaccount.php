@@ -118,11 +118,16 @@ class WC4BP_MyAccount {
 		$default = $title;
 		try {
 			global $pagenow;
-			$titles    = self::get_active_endpoints__premium_only();
-			$post_meta = get_post_meta( $id, 'wc4bp-my-account-template', true );
-			if ( $pagenow == 'edit.php' && ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'page' ) && ! empty( $titles ) && in_array( $title, $titles ) && ! empty( $post_meta ) ) {
-				$title               = $title . $this->base_html;
-				$this->current_title = $title;
+			$post_type = Request_Helper::simple_get( 'post_type' );
+			if ( 'edit.php' === $pagenow && ! empty( $post_type ) && 'page' === $post_type ) {
+				$titles = self::get_active_endpoints__premium_only();
+				if ( ! empty( $titles ) && in_array( $title, $titles, true ) ) {
+					$post_meta = get_post_meta( $id, 'wc4bp-my-account-template', true );
+					if ( ! empty( $post_meta ) ) {
+						$title               = $title . $this->base_html;
+						$this->current_title = $title;
+					}
+				}
 			}
 
 			return $title;
@@ -259,10 +264,18 @@ class WC4BP_MyAccount {
 	public static function get_page_by_name( $post_name, $output = OBJECT ) {
 		try {
 			global $wpdb;
-			$post = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='page'", array( $post_name ) ) );
-			if ( $post ) {
-				return get_post( $post, $output );
+			$result = wp_cache_get( 'wc4bp_get_page_by_name', 'wc4bp' );
+			if ( false === $result ) {
+				$post = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='page'", array( $post_name ) ) );
+				if ( $post ) {
+					$post_result = get_post( $post, $output );
+					wp_cache_add( 'wc4bp_get_page_by_name', $post_result, 'wc4bp' );
+
+					return $post_result;
+				}
 			}
+
+			return $result;
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
@@ -276,7 +289,7 @@ class WC4BP_MyAccount {
 			$available = self::get_available_endpoints();
 			if ( ! empty( $available ) ) {
 				$result = wp_cache_get( 'wc4bp_get_active_endpoints', 'wc4bp' );
-				if ( ! $result ) {
+				if ( false === $result ) {
 					$wc4bp_options = get_option( 'wc4bp_options' );
 					foreach ( $available as $end_point_key => $end_point_value ) {
 						if ( empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
@@ -299,7 +312,7 @@ class WC4BP_MyAccount {
 		try {
 			if ( wc4bp_Manager::is_woocommerce_active() ) {
 				$end_points = wp_cache_get( 'wc4bp_get_available_endpoints', 'wc4bp' );
-				if ( ! $end_points ) {
+				if ( false === $end_points ) {
 					$granted_endpoints = array( 'orders', 'downloads', 'edit-address', 'payment-methods', 'edit-account' );
 					$end_points        = wc_get_account_menu_items();
 					$end_points        = array_intersect_key( $end_points, array_flip( $granted_endpoints ) );
