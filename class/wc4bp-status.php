@@ -25,6 +25,33 @@ class WC4BP_Status {
 		add_filter( 'wp_plugin_status_append_js', array( $this, 'append_js' ) );
 		add_filter( 'wp_plugin_status_header_append_html', array( $this, 'append_header_button' ), 10, 2 );
 		add_action( 'wp_ajax_clean_errors_status', array( $this, 'clean_errors_status' ) );
+		add_action( 'wp_loaded', array( $this, 'notice_errors' ) );
+	}
+
+	public function notice_errors() {
+		$errors = WC4BP_Exception_Handler::get_instance()->get_exception_list();
+		if ( ! empty( $errors ) ) {
+			$message = sprintf( "<a href='%s'>Some issues need your attention, check our Error section.</a>", admin_url( 'admin.php?page=wc4bp-options-page_status#status_error_bookmark' ) );
+			$this->admin_notice( $message );
+		}
+	}
+
+	/**
+	 * Add admin notices to single site or multisite
+	 *
+	 * @param        $message
+	 * @param string $type
+	 */
+	public function admin_notice( $message, $type = 'error' ) {
+		if ( is_multisite() ) {
+			add_action( 'network_admin_notices', function () use ( $message, $type ) {
+				echo '<div class="' . esc_attr( $type ) . '"><b>WC4BP -> WooCommerce BuddyPress Integration</b>: ' . $message . '</div>';
+			} );
+		} else {
+			add_action( 'admin_notices', function () use ( $message, $type ) {
+				echo '<div class="' . esc_attr( $type ) . '"><b>WC4BP -> WooCommerce BuddyPress Integration</b>: ' . $message . '</div>';
+			} );
+		}
 	}
 
 	public function clean_errors_status() {
@@ -70,6 +97,7 @@ EOD;
 	public function append_header_button( $section_key, $string_html ) {
 		ob_start(); ?>
         <div style="float:right; display: inline; margin-right: 20px;">
+            <a></a>
 			<?php if ( 'Errors' === $section_key ) : ?>
                 <a class="button-primary" onclick="clear_error_status(this);">Clean</a>
 			<?php endif; ?>
