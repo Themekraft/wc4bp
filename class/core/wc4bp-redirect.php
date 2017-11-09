@@ -32,10 +32,7 @@ class wc4bp_redirect {
 	 * @return string
 	 */
 	public static function get_base_url() {
-		global $bp;
-		$current_user = wp_get_current_user();
-		$user_data    = get_userdata( $current_user->ID );
-		$base_url     = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $user_data->user_nicename . '/shop/';
+		$base_url = bp_core_get_user_domain( bp_loggedin_user_id() ) . 'shop/';
 
 		return $base_url;
 	}

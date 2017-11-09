@@ -39,7 +39,7 @@ class WC4BP_MyAccount {
 
 	public function get_base_url( $endpoint ) {
 		try {
-			return bp_core_get_user_domain( bp_loggedin_user_id() ) . 'shop/' . $endpoint; //TODO this need to be dynamic
+			return bp_core_get_user_domain( bp_loggedin_user_id() ) . 'shop/' . $endpoint;
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 
@@ -56,7 +56,6 @@ class WC4BP_MyAccount {
 	 * @return string
 	 */
 	public function get_view_order_url__premium_only( $view_order_url, $order ) {
-		$result = $view_order_url;
 		try {
 			$result = wc_get_endpoint_url( 'view-order', $order->get_id(), $this->get_base_url( wc4bp_Manager::get_prefix() . 'orders' ) );
 
@@ -102,7 +101,7 @@ class WC4BP_MyAccount {
 	public function esc_html_for_title__premium_only( $safe_text, $text ) {
 		$default = $safe_text;
 		try {
-			if ( ! empty( $this->current_title ) && $text == $this->current_title ) {
+			if ( ! empty( $this->current_title ) && $text === $this->current_title ) {
 				return $text;
 			}
 
