@@ -143,6 +143,7 @@ class WC4BP_MyAccount {
 	 */
 	public function process_saved_settings__premium_only( $old_value, $new_value ) {
 		try {
+			wp_cache_delete( 'wc4bp_my_account_prefix', 'wc4bp' );
 			$wc4bp_options = get_option( 'wc4bp_options' );
 			if ( empty( $wc4bp_options['tab_activity_disabled'] ) ) {
 				$available_endpoints = self::get_available_endpoints();
@@ -169,6 +170,24 @@ class WC4BP_MyAccount {
 										),
 									)
 								);
+							}
+						}
+						if ( isset( $new_value['my_account_prefix'] ) ) {
+							$delete_old_page = false;
+							if ( isset( $old_value['my_account_prefix'] ) && $old_value['my_account_prefix'] !== $new_value['my_account_prefix'] ) {
+								$delete_old_page = true;
+							} else {
+								if ( wc4bp_Manager::$prefix !== $new_value['my_account_prefix'] ) {
+									$delete_old_page = true;
+								}
+							}
+							if ( $delete_old_page ) {
+								$old_prefix = ( empty( $old_value['my_account_prefix'] ) ) ? wc4bp_Manager::$prefix : $old_value['my_account_prefix'];
+								$old_post   = self::get_page_by_name( $old_prefix . '_' . $end_point_key );
+								if ( ! empty( $old_post ) ) {
+									wp_delete_post( $old_post->ID );
+									wp_cache_delete( 'wc4bp_get_page_by_name_' . $old_post->post_name, 'wc4bp' );
+								}
 							}
 						}
 					}
@@ -219,12 +238,20 @@ class WC4BP_MyAccount {
 					$post = self::get_page_by_name( wc4bp_Manager::get_prefix() . $end_point_key );
 					if ( ! empty( $post ) ) {
 						wp_delete_post( $post->ID, true );
+						wp_cache_delete( 'wc4bp_get_page_by_name_' . $post->post_name, 'wc4bp' );
 					}
 				}
+				self::clean_my_account_cached();
 			}
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
+	}
+
+	public static function clean_my_account_cached() {
+		wp_cache_delete( 'wc4bp_get_active_endpoints', 'wc4bp' );
+		wp_cache_delete( 'wc4bp_get_available_endpoints', 'wc4bp' );
+		wp_cache_delete( 'wc4bp_my_account_prefix', 'wc4bp' );
 	}
 
 	/**

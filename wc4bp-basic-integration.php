@@ -265,6 +265,7 @@ class WC4BP_Loader {
 		try {
 			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 				//Add all woo my account pages
+				WC4BP_MyAccount::clean_my_account_cached();
 				WC4BP_MyAccount::add_all_endpoints__premium_only();
 				flush_rewrite_rules();
 			}
@@ -291,6 +292,8 @@ class WC4BP_Loader {
 			if ( $wc4bp_options_delete ) {
 				include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
 				wc4bp_cleanup();
+				WC4BP_MyAccount::clean_my_account_cached();
+				self::uninstall_cleanup();
 			}
 		} catch ( Exception $exception ) {
 			self::get_exception_handler()->save_exception( $exception->getTrace() );
@@ -324,6 +327,7 @@ class WC4BP_Loader {
 			delete_option( 'wc4bp_options_sync' );
 			delete_option( 'wc4bp_options_tabs' );
 			delete_option( 'wc4bp_pages_options' );
+			delete_option( 'wc4bp_options_delete' );
 		} catch ( Exception $exception ) {
 			self::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
