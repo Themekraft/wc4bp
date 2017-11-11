@@ -112,23 +112,29 @@ EOD;
 		if ( ! empty( $errors ) ) {
 			$data['Errors'] = $errors;
 		}
-		$data['WC4BP']              = array(
+		$data['WC4BP'] = array(
 			'version' => $GLOBALS['wc4bp_loader']->get_version(),
 		);
-		$wc4bp_options              = get_option( 'wc4bp_options' );
-		$all_endpoints              = WC4BP_MyAccount::get_available_endpoints();
-		$endpoint_my_account_status = array();
+
+		$wc4bp_options                                   = get_option( 'wc4bp_options' );
+		$shop_settings['is_shop_off']                    = empty( $wc4bp_options['tab_activity_disabled'] ) ? 'false' : 'true';
+		$shop_settings['is_shop_inside_setting_off']     = empty( $wc4bp_options['disable_shop_settings_tab'] ) ? 'false' : 'true';
+		$shop_settings['is_woo_my_account_redirect_off'] = empty( $wc4bp_options['tab_my_account_disabled'] ) ? 'false' : 'true';
+		$shop_settings['woo_page_prefix']                = ( isset( $wc4bp_options['my_account_prefix'] ) ) ? $wc4bp_options['my_account_prefix'] : 'default';
+		$shop_settings['is_cart_off']                    = empty( $wc4bp_options['tab_cart_disabled'] ) ? 'false' : 'true';
+		$shop_settings['is_checkout_off']                = empty( $wc4bp_options['tab_checkout_disabled'] ) ? 'false' : 'true';
+		$shop_settings['is_history_off']                 = empty( $wc4bp_options['tab_history_disabled'] ) ? 'false' : 'true';
+		$shop_settings['is_track_off']                   = empty( $wc4bp_options['tab_track_disabled'] ) ? 'false' : 'true';
+		$shop_settings['is_woo_sync_off']                = empty( $wc4bp_options['tab_sync_disabled'] ) ? 'false' : 'true';
+		$shop_settings['tab_shop_default']               = ( isset( $wc4bp_options['tab_shop_default'] ) ) ? $wc4bp_options['tab_shop_default'] : 'default';
+		$all_endpoints                                   = WC4BP_MyAccount::get_available_endpoints();
 		foreach ( $all_endpoints as $endpoint_key => $endpoint_name ) {
-			$endpoint_my_account_status[ $endpoint_key ]                 = $endpoint_name;
-			$endpoint_my_account_status[ $endpoint_key . '_off' ]        = ( isset( $wc4bp_options[ 'wc4bp_endpoint_' . $endpoint_key ] ) ) ? 'true' : 'false';
-			$post                                                        = WC4BP_MyAccount::get_page_by_name( wc4bp_Manager::get_prefix() . $endpoint_key );
-			$endpoint_my_account_status[ $endpoint_key . '_page_exist' ] = ( empty( $post ) ) ? 'false' : 'true';
+			$shop_settings[ $endpoint_key ]                  = $endpoint_name;
+			$shop_settings[ 'is_' . $endpoint_key . '_off' ] = ( isset( $wc4bp_options[ 'wc4bp_endpoint_' . $endpoint_key ] ) ) ? 'true' : 'false';
+			$post                                            = WC4BP_MyAccount::get_page_by_name( wc4bp_Manager::get_prefix() . $endpoint_key );
+			$shop_settings[ $endpoint_key . '_page_exist' ]  = ( empty( $post ) ) ? 'false' : 'true';
 		}
-		$data['Shop Settings']                                    = array();
-		$data['My Account Tabs']                                  = $endpoint_my_account_status;
-		$data['Shop Tabs']                                        = array();
-		$data['Turn off the profile sync']                        = array();
-		$data['Overwrite the Content of your Shop Home/Main Tab'] = array();
+		$data['WC4BP Settings'] = $shop_settings;
 
 		return $data;
 	}
