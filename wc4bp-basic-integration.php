@@ -100,8 +100,8 @@ class WC4BP_Loader {
 			require_once dirname( __FILE__ ) . '/class/wc4bp-manager.php';
 			require_once dirname( __FILE__ ) . '/class/wc4bp-required-php.php';
 			require_once dirname( __FILE__ ) . '/class/wc4bp-required.php';
+			require_once dirname( __FILE__ ) . '/class/wc4bp-upgrade.php';
 			$requirements = new WC4BP_Required_PHP( 'wc4bp' );
-
 			if ( $requirements->satisfied() ) {
 				new WC4BP_Required();
 				if ( wc4bp_Manager::is_woocommerce_active() && wc4bp_Manager::is_buddypress_active() ) {
@@ -110,12 +110,10 @@ class WC4BP_Loader {
 					do_action( 'wc4bp_core_fs_loaded' );
 					//Adding edd migration code
 					require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/client-migration/edd.php';
-
 					new wc4bp_Manager();
-
+					new WC4BP_Upgrade( plugin_basename( dirname( __FILE__ ) ) );
 					// Run the activation function
 					register_activation_hook( __FILE__, array( $this, 'activation' ) );
-
 					/**
 					 * Deletes all data if plugin deactivated
 					 */
@@ -185,6 +183,7 @@ class WC4BP_Loader {
 		define( 'WC4BP_ABSPATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_URLPATH', trailingslashit( plugins_url( '/' . WC4BP_FOLDER ) ) );
 		define( 'WC4BP_ABSPATH_CLASS_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR );
+		define( 'WC4BP_ABSPATH_PATCH_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'patch' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_ABSPATH_TEMPLATE_PATH', WC4BP_ABSPATH . 'templates' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_ABSPATH_ADMIN_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_ABSPATH_ADMIN_VIEWS_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR );
@@ -283,7 +282,6 @@ class WC4BP_Loader {
 	 */
 	public function deactivation() {
 		try {
-			global $wpdb, $blog_id;
 			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
 				//delete woo my account pages
 				WC4BP_MyAccount::remove_all_endpoints__premium_only();

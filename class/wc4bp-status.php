@@ -32,25 +32,7 @@ class WC4BP_Status {
 		$errors = WC4BP_Exception_Handler::get_instance()->get_exception_list();
 		if ( ! empty( $errors ) ) {
 			$message = sprintf( "<a href='%s'>Some issues need your attention, check our Error section.</a>", admin_url( 'admin.php?page=wc4bp-options-page_status#status_error_bookmark' ) );
-			$this->admin_notice( $message );
-		}
-	}
-
-	/**
-	 * Add admin notices to single site or multisite
-	 *
-	 * @param        $message
-	 * @param string $type
-	 */
-	public function admin_notice( $message, $type = 'error' ) {
-		if ( is_multisite() ) {
-			add_action( 'network_admin_notices', function () use ( $message, $type ) {
-				echo '<div class="' . esc_attr( $type ) . '"><b>WC4BP -> WooCommerce BuddyPress Integration</b>: ' . $message . '</div>';
-			} );
-		} else {
-			add_action( 'admin_notices', function () use ( $message, $type ) {
-				echo '<div class="' . esc_attr( $type ) . '"><b>WC4BP -> WooCommerce BuddyPress Integration</b>: ' . $message . '</div>';
-			} );
+			wc4bp_Manager::admin_notice( $message );
 		}
 	}
 
