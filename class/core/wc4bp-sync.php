@@ -62,10 +62,10 @@ class wc4bp_Sync {
 				if ( isset( $billing['group_id'] ) ) {
 					unset( $billing['group_id'] );
 				}
-				$billing_key  = array_search( $field_id, $billing );
+				$billing_key = array_search( $field_id, $billing );
 			} elseif ( isset( $billing->group_id ) ) {
 				unset( $billing->group_id );
-				$billing_key  = self::extract_field( $field_id, $shipping->fields );
+				$billing_key = self::extract_field( $field_id, $shipping->fields );
 			}
 
 			if ( ! empty( $shipping_key ) ) {
@@ -115,12 +115,7 @@ class wc4bp_Sync {
 	function wc4bp_xprofile_profile_field_data_updated( $field_id, $value ) {
 		try {
 			global $bp;
-
-			$user_id = bp_loggedin_user_id();
-			if ( isset( $_GET['user_id'] ) ) {
-				$user_id = $_GET['user_id'];
-			}
-
+			$user_id = Request_Helper::simple_get( 'user_id', 'sanitize_text_field', bp_loggedin_user_id() );
 			self::wc4bp_sync_addresses_from_profile( $user_id, $field_id, $value );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );

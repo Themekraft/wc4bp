@@ -66,10 +66,7 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_screen() {
 		try {
-			$active_tab = 'generic';
-			if ( ! empty( $_GET['tab'] ) ) {
-				$active_tab = $_GET['tab'];
-			}
+			$active_tab = Request_Helper::simple_get( 'tab', 'sanitize_text_field', 'generic' );
 			switch ( $active_tab ) {
 				case 'generic':
 					include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_screen.php' );
