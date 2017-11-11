@@ -1,6 +1,7 @@
 <?php /** @var wc4bp_admin $this */ ?>
 <p <?php echo $this->disable_class_tag( 'p', wc4bp_base::$starter_plan_id ); ?>></p>
 <label>
+    <p><?php _e( 'This option override the default tab to show when the user click in the Shop tab.', 'wc4bp' ); ?></p>
     <select <?php echo $this->disable_input_tag( 'checkbox', wc4bp_base::$starter_plan_id ); ?> name='wc4bp_options[tab_shop_default]'>
 		<?php
 		if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) && count( $wc4bp_pages_options['selected_pages'] ) > 0 ) {
@@ -15,5 +16,4 @@
 		?>
 
     </select>
-    <p><?php _e( 'This option override the default tab to show when the user click in the Shop tab.', 'wc4bp' ); ?></p>
 </label>

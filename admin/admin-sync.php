@@ -48,9 +48,9 @@ class wc4bp_admin_sync extends wc4bp_base {
 				// Settings fields and sections
 				add_settings_section( 'section_sync', __( 'Profile Field Synchronisation Settings', 'wc4bp' ), '', 'wc4bp_options_sync' );
 				add_settings_section( 'section_general', __( 'Default BuddyPress WooCommerce Profile Field Settings', 'wc4bp' ), '', 'wc4bp_options_sync' );
-				add_settings_field( 'wc4bp_shop_profile_sync', __( '<b>WooCommerce BuddyPress Profile Fields Sync </b>', 'wc4bp' ), array( $this, 'wc4bp_shop_profile_sync' ), 'wc4bp_options_sync', 'section_sync' );
-				add_settings_field( 'wc4bp_change_xprofile_visibility_by_user', __( '<b>Change Profile Field Visibility for all Users</b>', 'wc4bp' ), array( $this, 'wc4bp_change_xprofile_visibility_by_user' ), 'wc4bp_options_sync', 'section_sync' );
-				add_settings_field( 'wc4bp_change_xprofile_visibility_default', __( '<b>Set the Default Profile Fields Visibility</b>', 'wc4bp' ), array( $this, 'wc4bp_change_xprofile_visibility_default' ), 'wc4bp_options_sync', 'section_general' );
+				add_settings_field( 'wc4bp_shop_profile_sync', __( '<b>Woo & BP Profile Fields Sync </b>', 'wc4bp' ), array( $this, 'wc4bp_shop_profile_sync' ), 'wc4bp_options_sync', 'section_sync' );
+				add_settings_field( 'wc4bp_change_xprofile_visibility_by_user', __( '<b>Profile Field Visibility</b>', 'wc4bp' ), array( $this, 'wc4bp_change_xprofile_visibility_by_user' ), 'wc4bp_options_sync', 'section_sync' );
+				add_settings_field( 'wc4bp_change_xprofile_visibility_default', __( '<b>Default Profile Fields Visibility</b>', 'wc4bp' ), array( $this, 'wc4bp_change_xprofile_visibility_default' ), 'wc4bp_options_sync', 'section_general' );
 				add_settings_field( 'wc4bp_change_xprofile_allow_custom_visibility', __( '<b>Allow Custom Visibility Change by User</b>', 'wc4bp' ), array( $this, 'wc4bp_change_xprofile_allow_custom_visibility' ), 'wc4bp_options_sync', 'section_general' );
 			}
 		} catch ( Exception $exception ) {
@@ -59,7 +59,7 @@ class wc4bp_admin_sync extends wc4bp_base {
 	}
 
 	public function need_xprofile() {
-		echo __( '<p><strong>The options in this tab need xProfile be activated in BuddyPress.</strong></p>', 'wc4bp' );
+		_e( '<p><strong>The options in this tab need xProfile be activated in BuddyPress.</strong></p>', 'wc4bp' );
 	}
 
 	public function wc4bp_shop_profile_sync() {
