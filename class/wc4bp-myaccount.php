@@ -177,7 +177,7 @@ class WC4BP_MyAccount {
 							if ( isset( $old_value['my_account_prefix'] ) && $old_value['my_account_prefix'] !== $new_value['my_account_prefix'] ) {
 								$delete_old_page = true;
 							} else {
-								if ( wc4bp_Manager::$prefix !== $new_value['my_account_prefix'] ) {
+								if ( ! isset( $old_value['my_account_prefix'] ) && wc4bp_Manager::$prefix !== $new_value['my_account_prefix'] ) {
 									$delete_old_page = true;
 								}
 							}
