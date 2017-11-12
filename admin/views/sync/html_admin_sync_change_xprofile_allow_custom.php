@@ -1,4 +1,4 @@
-<p><?php _e( 'Set custom visibility by user', 'wc4bp' ); ?></p>
+<p><?php _e( 'Allow if the user can change the Field visibility.', 'wc4bp' ); ?></p>
 <p>
 	<select name="wc4bp_options_sync[custom_visibility]">
 		<option value="allowed" <?php echo selected( $wc4bp_options_sync['custom_visibility'], 'allowed', false ); ?>>

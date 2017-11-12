@@ -147,7 +147,7 @@ if ( ! function_exists( 'bp_get_template_locations' ) ) :
 		$locations = array(
 			'buddypress',
 			'community',
-			''
+			'',
 		);
 
 		return apply_filters( 'bp_get_template_locations', $locations, $templates );

@@ -15,52 +15,72 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class wc4bp_Manager {
-	
+
 	/**
 	 * Prefix used to mark the pages for my account
 	 *
 	 * @var String
 	 */
-	public static $prefix;
-	
+	public static $prefix = 'wc4bp';
+
 	public function __construct() {
-		//Load resources
-		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
-			require_once 'wc4bp-myaccount-content.php';
-			self::$prefix = apply_filters( 'wc4bp_my_account_prefix', 'wc4pb' );
+		try {
+			//Load resources
+			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
+				require_once 'wc4bp-myaccount-content.php';
+			}
+			require_once 'wc4bp-myaccount.php';
+			require_once 'wc4bp-myaccount-private.php';
+			require_once 'wc4bp-woocommerce.php';
+			require_once 'wc4bp-manage-admin.php';
+			require_once 'wc4bp-redefine-functions.php';
+			require_once 'wc4bp-status.php';
+
+			add_action( 'init', array( $this, 'init' ) );
+			add_action( 'bp_include', array( $this, 'includes' ), 10 );
+		} catch ( Exception $exception ) {
+			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
-		require_once 'wc4bp-myaccount.php';
-		require_once 'wc4bp-myaccount-private.php';
-		require_once 'wc4bp-woocommerce.php';
-		require_once 'wc4bp-manage-admin.php';
-		require_once 'wc4bp-redefine-functions.php';
-		
-		add_action( 'init', array( $this, 'init' ) );
-		add_action( 'bp_include', array( $this, 'includes' ), 10 );
 	}
 
 
 	public function init() {
-		new WC4BP_MyAccount_Private();
-		$cu = get_current_user_id();
-		if ( $cu > 0 ) {
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
-				new WC4BP_MyAccount_Content();
+		try {
+			new WC4BP_MyAccount_Private();
+			$cu = get_current_user_id();
+			if ( $cu > 0 ) {
+				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
+					new WC4BP_MyAccount_Content();
+				}
+				new wc4bp_Woocommerce();
+				new WC4BP_MyAccount();
+				new wc4bp_Manage_Admin();
+				new WC4BP_Status();
 			}
-			new wc4bp_Woocommerce();
-			new WC4BP_MyAccount();
-			new wc4bp_Manage_Admin();
+		} catch ( Exception $exception ) {
+			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-	
+
 	public static function get_prefix() {
-		return self::$prefix . '_';
+		$prefix = wp_cache_get( 'wc4bp_my_account_prefix', 'wc4bp' );
+		if ( false === $prefix ) {
+			$wc4bp_options = get_option( 'wc4bp_options' );
+			if ( ! empty( $wc4bp_options['my_account_prefix'] ) ) {
+				$prefix = $wc4bp_options['my_account_prefix'];
+			} else {
+				$prefix = self::$prefix;
+			}
+			wp_cache_add( 'wc4bp_my_account_prefix', $prefix, 'wc4bp' );
+		}
+
+		return $prefix . '_';
 	}
-	
+
 	public static function get_suffix() {
 		return self::$prefix;
 	}
-	
+
 	/**
 	 * Load all BP related files and admin
 	 *
@@ -70,34 +90,38 @@ class wc4bp_Manager {
 	 * @access    public
 	 */
 	public function includes() {
-		// core component
-		require( WC4BP_ABSPATH . 'class/core/wc4bp-component.php' );
-		
-		global $bp;
-		if ( ! isset( $bp->shop ) ) {
-			$bp->shop = new WC4BP_Component();
+		try {
+			// core component
+			require( WC4BP_ABSPATH . 'class/core/wc4bp-component.php' );
+
+			global $bp;
+			if ( ! isset( $bp->shop ) ) {
+				$bp->shop = new WC4BP_Component();
+			}
+		} catch ( Exception $exception ) {
+			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-	
+
 	public static function load_plugins_dependency() {
 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	}
-	
+
 	public static function is_woocommerce_active() {
 		self::load_plugins_dependency();
-		
+
 		return is_plugin_active( 'woocommerce/woocommerce.php' );
 	}
-	
+
 	public static function is_buddypress_active() {
 		self::load_plugins_dependency();
-		
+
 		return is_plugin_active( 'buddypress/bp-loader.php' );
 	}
-	
+
 	public static function is_current_active() {
 		self::load_plugins_dependency();
-		
+
 		return is_plugin_active( 'wc4bp/wc4bp-basic-integration.php' );
 	}
 }
