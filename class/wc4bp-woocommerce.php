@@ -16,7 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 //Manage Woocommerce hooks
 class wc4bp_Woocommerce {
 
+	private $wc4bp_options;
+
 	public function __construct() {
+		$this->wc4bp_options = get_option( 'wc4bp_options' );
 		// Check if we are on checkout in profile
 		add_filter( 'woocommerce_is_checkout', array( $this, 'wc4bp_woocommerce_is_checkout' ) );
 		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
@@ -83,9 +86,7 @@ class wc4bp_Woocommerce {
 	public function wc4bp_woocommerce_is_checkout( $is_checkout ) {
 		$default = $is_checkout;
 		try {
-			$wc4bp_options = get_option( 'wc4bp_options' );
-
-			if ( is_user_logged_in() && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+			if ( is_user_logged_in() && ! isset( $this->wc4bp_options['tab_checkout_disabled'] ) ) {
 				if ( bp_is_current_component( 'shop' ) && ( bp_is_current_action( 'checkout' ) || bp_is_current_action( 'home' ) ) ) {
 					$is_checkout = true;
 				}
@@ -109,25 +110,19 @@ class wc4bp_Woocommerce {
 	public function endpoint_url( $url, $endpoint, $value, $permalink ) {
 		$default = $url;
 		try {
-			global $current_user, $bp, $wp;
-
-			$current_user = wp_get_current_user();
-			$user_data    = get_userdata( $current_user->ID );
-
-			$base_path = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $user_data->user_nicename . '/shop/';//TODO we need to put a dynamic value here
-
+			$base_path = wc4bp_redirect::get_base_url();
+			$woo_page_prefix = wc4bp_Manager::get_prefix();
 			switch ( $endpoint ) {
 				case 'payment-methods':
-					//$url = $base_path . 'payment';
-					$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . 'wc4pb_payment-methods' );//TODO we need to put a dynamic value here
+					$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . $woo_page_prefix . 'payment-methods' );
 					break;
 				case 'order-received':
 					$checkout_page_id = wc_get_page_id( 'checkout' );
 					$checkout_page    = get_post( $checkout_page_id );
 					$url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' . $endpoint . '/' . $value;
 					//If checkout page do not exist, assign this url.
-					if ( $checkout_page_id == - 1 ) {
-						$url = $base_path . '/wc4pb_orders/view-order/' . $value;//TODO this is wrong
+					if ( - 1 === $checkout_page_id ) {
+						$url = $base_path . '/' . $woo_page_prefix . '_orders/view-order/' . $value;
 					}
 					break;
 				case 'set-default-payment-method':
@@ -135,10 +130,9 @@ class wc4bp_Woocommerce {
 					$url = add_query_arg( $endpoint, $value, $base_path . 'payment' );
 					break;
 				case 'add-payment-method':
-					$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . 'wc4pb_payment-methods' );//TODO we need to put a dynamic value here
+					$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . $woo_page_prefix . 'payment-methods' );
 					break;
 			}
-
 			return $url;
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );

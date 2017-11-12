@@ -77,6 +77,24 @@ class wc4bp_Manager {
 		return $prefix . '_';
 	}
 
+	/**
+	 * Add admin notices to single site or multisite
+	 *
+	 * @param        $message
+	 * @param string $type
+	 */
+	public static function admin_notice( $message, $type = 'error' ) {
+		if ( is_multisite() ) {
+			add_action( 'network_admin_notices', function () use ( $message, $type ) {
+				echo '<div class="' . esc_attr( $type ) . '"><b>WC4BP -> WooCommerce BuddyPress Integration</b>: ' . $message . '</div>';
+			} );
+		} else {
+			add_action( 'admin_notices', function () use ( $message, $type ) {
+				echo '<div class="' . esc_attr( $type ) . '"><b>WC4BP -> WooCommerce BuddyPress Integration</b>: ' . $message . '</div>';
+			} );
+		}
+	}
+
 	public static function get_suffix() {
 		return self::$prefix;
 	}
