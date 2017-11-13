@@ -25,15 +25,6 @@ class WC4BP_Status {
 		add_filter( 'wp_plugin_status_append_js', array( $this, 'append_js' ) );
 		add_filter( 'wp_plugin_status_header_append_html', array( $this, 'append_header_button' ), 10, 2 );
 		add_action( 'wp_ajax_clean_errors_status', array( $this, 'clean_errors_status' ) );
-		add_action( 'wp_loaded', array( $this, 'notice_errors' ) );
-	}
-
-	public function notice_errors() {
-		$errors = WC4BP_Exception_Handler::get_instance()->get_exception_list();
-		if ( ! empty( $errors ) ) {
-			$message = sprintf( "<a href='%s'>Some issues need your attention, check our Error section.</a>", admin_url( 'admin.php?page=wc4bp-options-page_status#status_error_bookmark' ) );
-			wc4bp_Manager::admin_notice( $message );
-		}
 	}
 
 	public function clean_errors_status() {
