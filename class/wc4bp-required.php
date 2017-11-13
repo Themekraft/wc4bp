@@ -73,7 +73,7 @@ class WC4BP_Required {
 				array(
 					'name'     => 'WooCommerce',
 					'slug'     => 'woocommerce',
-					'version'  => '2.4',
+					'version'  => '3.1',
 					'required' => true,
 				),
 			);
