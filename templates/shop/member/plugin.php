@@ -20,10 +20,10 @@
 		$available_endpoint = WC4BP_MyAccount::get_active_endpoints__premium_only();
 		if ( ! empty( $available_endpoint ) ) {
 			foreach ( $available_endpoint as $available_endpoint_key => $available_endpoint_name ) {
-				$current_page = wc4bp_Manager::get_prefix() . $available_endpoint_key;
+				$current_page = $available_endpoint_key;
 				if ( $action == $current_page ) {
 					$my_account_page = 1;
-					$order_page      = wc4bp_Manager::get_prefix() . 'orders';
+					$order_page      = 'orders';
 					if ( $action == $order_page && ! empty( $bp_action_variables ) ) {
 						foreach ( $bp_action_variables as $var ) {
 							if ( $var == 'view-order' ) {

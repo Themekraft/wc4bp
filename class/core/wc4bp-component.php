@@ -228,6 +228,90 @@ class WC4BP_Component extends BP_Component {
 					'user_has_access' => bp_is_my_profile(),
 				);
 			}
+			//************************************************************
+			// Add the Order nav item
+//			if ( ! isset( $wc4bp_options['tab_track_disabled'] ) ) {
+			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+				$name = apply_filters( 'bp_orders_link_label', __( 'Order', 'wc4bp' ) );
+			} else {
+				$name = __( 'Order', 'wc4bp' );
+			}
+			$sub_nav[] = array(
+				'name'            => $name,
+				'slug'            => 'orders',
+				'parent_url'      => $shop_link,
+				'parent_slug'     => $this->slug,
+				'screen_function' => 'wc4bp_screen_orders',
+				'position'        => 30,
+				'item_css_id'     => 'shop-track',
+				'user_has_access' => bp_is_my_profile(),
+			);
+
+			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+				$name = apply_filters( 'bp_downloads_link_label', __( 'Downloads', 'wc4bp' ) );
+			} else {
+				$name = __( 'Downloads', 'wc4bp' );
+			}
+			$sub_nav[] = array(
+				'name'            => $name,
+				'slug'            => 'downloads',
+				'parent_url'      => $shop_link,
+				'parent_slug'     => $this->slug,
+				'screen_function' => 'wc4bp_screen_downloads',
+				'position'        => 30,
+				'item_css_id'     => 'shop-track',
+				'user_has_access' => bp_is_my_profile(),
+			);
+
+			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+				$name = apply_filters( 'bp_edit_account_link_label', __( 'Edit Account', 'wc4bp' ) );
+			} else {
+				$name = __( 'Edit Account', 'wc4bp' );
+			}
+			$sub_nav[] = array(
+				'name'            => $name,
+				'slug'            => 'edit-account',
+				'parent_url'      => $shop_link,
+				'parent_slug'     => $this->slug,
+				'screen_function' => 'wc4bp_screen_edit_account',
+				'position'        => 30,
+				'item_css_id'     => 'shop-track',
+				'user_has_access' => bp_is_my_profile(),
+			);
+
+			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+				$name = apply_filters( 'bp_edit_address_link_label', __( 'Edit Address', 'wc4bp' ) );
+			} else {
+				$name = __( 'Edit Address', 'wc4bp' );
+			}
+			$sub_nav[] = array(
+				'name'            => $name,
+				'slug'            => 'edit-address',
+				'parent_url'      => $shop_link,
+				'parent_slug'     => $this->slug,
+				'screen_function' => 'wc4bp_screen_edit_address',
+				'position'        => 30,
+				'item_css_id'     => 'shop-track',
+				'user_has_access' => bp_is_my_profile(),
+			);
+
+			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+				$name = apply_filters( 'bp_payment_method_link_label', __( 'Payment Method', 'wc4bp' ) );
+			} else {
+				$name = __( 'Payment Method', 'wc4bp' );
+			}
+			$sub_nav[] = array(
+				'name'            => $name,
+				'slug'            => 'payment-methods',
+				'parent_url'      => $shop_link,
+				'parent_slug'     => $this->slug,
+				'screen_function' => 'wc4bp_screen_edit_payment_methods',
+				'position'        => 30,
+				'item_css_id'     => 'shop-track',
+				'user_has_access' => bp_is_my_profile(),
+			);
+
+//			} ************************************************************
 			// Add shop settings subpage
 			if ( ! isset( $wc4bp_options['disable_shop_settings_tab'] ) ) {
 				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
@@ -247,25 +331,6 @@ class WC4BP_Component extends BP_Component {
 				);
 			}
 			$position = 40;
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
-				$active_pages = WC4BP_MyAccount::get_active_endpoints__premium_only();
-				if ( ! empty( $active_pages ) ) {
-					foreach ( $active_pages as $active_page_key => $active_page_name ) {
-						$page_slug = wc4bp_Manager::get_prefix() . $active_page_key;
-						$position ++;
-						$sub_nav[] = array(
-							'name'            => $active_page_name,
-							'slug'            => $page_slug,
-							'parent_url'      => $shop_link,
-							'parent_slug'     => $this->slug,
-							'screen_function' => 'wc4bp_screen_plugins',
-							'position'        => $position,
-							'item_css_id'     => 'shop-cart',
-							'user_has_access' => bp_is_my_profile(),
-						);
-					}
-				}
-			}
 			if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
 				foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
 					$position ++;
@@ -395,19 +460,67 @@ class WC4BP_Component extends BP_Component {
 						'href'   => trailingslashit( $shop_link . 'track' ),
 					);
 				}
-				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
-					$active_pages = WC4BP_MyAccount::get_active_endpoints__premium_only();
-					if ( ! empty( $active_pages ) ) {
-						foreach ( $active_pages as $active_page_key => $active_page_name ) {
-							$wp_admin_nav[] = array(
-								'parent' => 'my-account-' . $this->id,
-								'id'     => 'my-account-' . $this->id . '-' . wc4bp_Manager::get_prefix() . $active_page_key,
-								'title'  => $active_page_name,
-								'href'   => trailingslashit( $shop_link . wc4bp_Manager::get_prefix() . $active_page_key ),
-							);
-						}
-					}
+				//******************************************************
+				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+					$title = apply_filters( 'bp_order_nav_link_label', __( 'Order', 'wc4bp' ) );
+				} else {
+					$title = __( 'Order', 'wc4bp' );
 				}
+				$wp_admin_nav[] = array(
+					'parent' => 'my-account-' . $this->id,
+					'id'     => 'my-account-' . $this->id . '-orders',
+					'title'  => $title,
+					'href'   => trailingslashit( $shop_link . 'orders' ),
+				);
+
+				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+					$title = apply_filters( 'bp_downloads_nav_link_label', __( 'Downloads', 'wc4bp' ) );
+				} else {
+					$title = __( 'Downloads', 'wc4bp' );
+				}
+				$wp_admin_nav[] = array(
+					'parent' => 'my-account-' . $this->id,
+					'id'     => 'my-account-' . $this->id . '-downloads',
+					'title'  => $title,
+					'href'   => trailingslashit( $shop_link . 'downloads' ),
+				);
+
+				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+					$title = apply_filters( 'bp_edit_account_nav_link_label', __( 'Edit Account', 'wc4bp' ) );
+				} else {
+					$title = __( 'Edit Account', 'wc4bp' );
+				}
+				$wp_admin_nav[] = array(
+					'parent' => 'my-account-' . $this->id,
+					'id'     => 'my-account-' . $this->id . '-edit-account',
+					'title'  => $title,
+					'href'   => trailingslashit( $shop_link . 'edit-account' ),
+				);
+
+				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+					$title = apply_filters( 'bp_edit_address_nav_link_label', __( 'Edit Address', 'wc4bp' ) );
+				} else {
+					$title = __( 'Edit Address', 'wc4bp' );
+				}
+				$wp_admin_nav[] = array(
+					'parent' => 'my-account-' . $this->id,
+					'id'     => 'my-account-' . $this->id . '-edit-address',
+					'title'  => $title,
+					'href'   => trailingslashit( $shop_link . 'edit-address' ),
+				);
+
+				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+					$title = apply_filters( 'bp_payment_methods_nav_link_label', __( 'Payment Method', 'wc4bp' ) );
+				} else {
+					$title = __( 'Payment Method', 'wc4bp' );
+				}
+				$wp_admin_nav[] = array(
+					'parent' => 'my-account-' . $this->id,
+					'id'     => 'my-account-' . $this->id . '-payment-methods',
+					'title'  => $title,
+					'href'   => trailingslashit( $shop_link . 'payment-methods' ),
+				);
+				//******************************************************
 				if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
 					foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
 						$wp_admin_nav[] = array(
@@ -444,7 +557,7 @@ class WC4BP_Component extends BP_Component {
 			$this->template_directory = apply_filters( 'wc4bp_members_get_template_directory', constant( 'WC4BP_ABSPATH_TEMPLATE_PATH' ) );
 			$path                     = apply_filters( 'wc4bp_load_template_path', $path, $this->template_directory );
 			bp_register_template_stack( array( $this, 'wc4bp_members_get_template_directory' ), 14 );
-			if ( $bp->current_action == 'home' || $bp->current_action == 'cart' || $bp->current_action == 'checkout' || $bp->current_action == 'history' || $bp->current_action == 'track' ) {
+			if ( in_array( $bp->current_action, wc4bp_Manager::available_endpoint(), true ) ) {
 				$found_template = locate_template( 'members/single/plugins.php', false, false );
 				$wc4bp_options  = get_option( 'wc4bp_options' );
 				$cart_page_id   = wc_get_page_id( 'cart' );
@@ -467,6 +580,30 @@ class WC4BP_Component extends BP_Component {
 								case 'track':
 									$path = 'shop/member/track';
 									break;
+								case 'orders':
+									$page                = 'orders';
+									$bp_action_variables = $bp->action_variables;
+									if ( ! empty( $bp_action_variables ) ) {
+										foreach ( $bp_action_variables as $var ) {
+											if ( 'view-order' === $var ) {
+												$page = 'view-order';
+												break;
+											}
+										}
+									}
+									break;
+								case 'downloads':
+									$path = 'shop/member/downloads';
+									break;
+								case 'edit-account':
+									$path = 'shop/member/edit-account';
+									break;
+								case 'edit-address':
+									$path = 'shop/member/edit-address';
+									break;
+								case 'payment-methods':
+									$path = 'shop/member/payment-methods';
+									break;
 							}
 						} else {
 							if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
@@ -477,7 +614,7 @@ class WC4BP_Component extends BP_Component {
 									$wc_active_endpoints = WC4BP_MyAccount::get_active_endpoints__premium_only();
 									if ( ! empty( $wc_active_endpoints ) && count( $wc_active_endpoints ) > 0 ) {
 										reset( $wc_active_endpoints );
-										$page_name          = wc4bp_Manager::get_prefix() . key( $wc_active_endpoints );
+										$page_name          = key( $wc_active_endpoints );
 										$bp->current_action = $page_name;
 									} else {
 										if ( empty( $wc4bp_options['tab_checkout_disabled'] ) ) {
@@ -510,7 +647,7 @@ class WC4BP_Component extends BP_Component {
 										$wc_active_endpoints = WC4BP_MyAccount::get_active_endpoints__premium_only();
 										if ( ! empty( $wc_active_endpoints ) && count( $wc_active_endpoints ) > 1 ) {
 											reset( $wc_active_endpoints );
-											$page_name          = wc4bp_Manager::get_prefix() . key( $wc_active_endpoints );
+											$page_name          = key( $wc_active_endpoints );
 											$bp->current_action = $page_name;
 										}
 									}
@@ -529,6 +666,31 @@ class WC4BP_Component extends BP_Component {
 						break;
 					case 'track':
 						$path = 'shop/member/track';
+						break;
+					case 'orders':
+						$page                = 'orders';
+						$bp_action_variables = $bp->action_variables;
+						if ( ! empty( $bp_action_variables ) ) {
+							foreach ( $bp_action_variables as $var ) {
+								if ( 'view-order' === $var ) {
+									$page = 'view-order';
+									break;
+								}
+							}
+						}
+						$path = 'shop/member/' . $page;
+						break;
+					case 'downloads':
+						$path = 'shop/member/downloads';
+						break;
+					case 'edit-account':
+						$path = 'shop/member/edit-account';
+						break;
+					case 'edit-address':
+						$path = 'shop/member/edit-address';
+						break;
+					case 'payment-methods':
+						$path = 'shop/member/payment-methods';
 						break;
 				}
 			}

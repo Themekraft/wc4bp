@@ -142,4 +142,12 @@ class wc4bp_Manager {
 
 		return is_plugin_active( 'wc4bp/wc4bp-basic-integration.php' );
 	}
+
+	public static function available_endpoint() {
+		$shop_tabs    = array( 'home', 'cart', 'checkout', 'history', 'track',  );
+		$account_tabs = WC4BP_MyAccount::get_available_endpoints();
+		$result       = array_merge( $shop_tabs, array_keys( $account_tabs ) );
+
+		return $result;
+	}
 }

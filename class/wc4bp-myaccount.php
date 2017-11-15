@@ -23,13 +23,13 @@ class WC4BP_MyAccount {
 		try {
 			$this->base_html = '<span class=\'wc4bp-my-account-page\'>' . wc4bp_Manager::get_suffix() . '</span>';
 			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
-				add_filter( 'the_title', array( $this, 'add_title_mark__premium_only' ), 10, 2 );
-				add_filter( 'esc_html', array( $this, 'esc_html_for_title__premium_only' ), 10, 2 );
+//				add_filter( 'the_title', array( $this, 'add_title_mark__premium_only' ), 10, 2 );
+//				add_filter( 'esc_html', array( $this, 'esc_html_for_title__premium_only' ), 10, 2 );
 				$wc4bp_options = get_option( 'wc4bp_options' );
 				if ( empty( $wc4bp_options['tab_activity_disabled'] ) ) {
 					add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url__premium_only' ), 10, 2 );
 					add_filter( 'woocommerce_get_myaccount_page_permalink', array( $this, 'my_account_page_permalink__premium_only' ), 10, 1 );
-					add_action( 'update_option_wc4bp_options', array( $this, 'process_saved_settings__premium_only' ), 10, 2 );
+//					add_action( 'update_option_wc4bp_options', array( $this, 'process_saved_settings__premium_only' ), 10, 2 );
 				}
 			}
 		} catch ( Exception $exception ) {
@@ -37,9 +37,13 @@ class WC4BP_MyAccount {
 		}
 	}
 
-	public function get_base_url( $endpoint ) {
+	public function get_base_url( $endpoint = '' ) {
 		try {
-			return bp_core_get_user_domain( bp_loggedin_user_id() ) . 'shop/' . $endpoint;
+			if ( ! empty( $endpoint ) ) {
+				$endpoint = '/' . $endpoint;
+			}
+
+			return bp_core_get_user_domain( bp_loggedin_user_id() ) . 'shop' . $endpoint;
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 
@@ -57,7 +61,7 @@ class WC4BP_MyAccount {
 	 */
 	public function get_view_order_url__premium_only( $view_order_url, $order ) {
 		try {
-			$result = wc_get_endpoint_url( 'view-order', $order->get_id(), $this->get_base_url( wc4bp_Manager::get_prefix() . 'orders' ) );
+			$result = wc_get_endpoint_url( 'view-order', $order->get_id(), $this->get_base_url('orders') );
 
 			return $result;
 		} catch ( Exception $exception ) {
@@ -138,6 +142,8 @@ class WC4BP_MyAccount {
 	}
 
 	/**
+	 * Save changes in the settings related to woocommerce my account tabs
+	 *
 	 * @param $old_value
 	 * @param $new_value
 	 */
@@ -334,6 +340,9 @@ class WC4BP_MyAccount {
 		}
 	}
 
+	/**
+	 * @return array
+	 */
 	public static function get_available_endpoints() {
 		try {
 			if ( wc4bp_Manager::is_woocommerce_active() ) {

@@ -70,6 +70,76 @@ function wc4bp_screen_track_order() {
 }
 
 /**
+ * Screen function to display the order list
+ *
+ * Template can be changed via the <code> wc4bp_template_member_order</code>
+ * filter hook. Note that template files can also be copied to the current theme.
+ *
+ * @since    1.0
+ * @uses    bp_core_load_template()
+ * @uses    apply_filters()
+ */
+function wc4bp_screen_orders() {
+	bp_core_load_template( apply_filters( 'wc4bp_template_member_order', 'shop/member/orders' ) );
+}
+
+/**
+ * Screen function to display the download list
+ *
+ * Template can be changed via the <code> wc4bp_template_member_download</code>
+ * filter hook. Note that template files can also be copied to the current theme.
+ *
+ * @since    1.0
+ * @uses    bp_core_load_template()
+ * @uses    apply_filters()
+ */
+function wc4bp_screen_downloads() {
+	bp_core_load_template( apply_filters( 'wc4bp_template_member_download', 'shop/member/download' ) );
+}
+
+/**
+ * Screen function to display the edit account
+ *
+ * Template can be changed via the <code> wc4bp_template_member_edit_account</code>
+ * filter hook. Note that template files can also be copied to the current theme.
+ *
+ * @since    1.0
+ * @uses    bp_core_load_template()
+ * @uses    apply_filters()
+ */
+function wc4bp_screen_edit_account() {
+	bp_core_load_template( apply_filters( 'wc4bp_template_member_edit_account', 'shop/member/edit-account' ) );
+}
+
+/**
+ * Screen function to display the edit address
+ *
+ * Template can be changed via the <code> wc4bp_template_member_edit_address</code>
+ * filter hook. Note that template files can also be copied to the current theme.
+ *
+ * @since    1.0
+ * @uses    bp_core_load_template()
+ * @uses    apply_filters()
+ */
+function wc4bp_screen_edit_address() {
+	bp_core_load_template( apply_filters( 'wc4bp_template_member_edit_address', 'shop/member/edit-address' ) );
+}
+
+/**
+ * Screen function to display the payment methods
+ *
+ * Template can be changed via the <code> wc4bp_template_member_payment_methods</code>
+ * filter hook. Note that template files can also be copied to the current theme.
+ *
+ * @since    1.0
+ * @uses    bp_core_load_template()
+ * @uses    apply_filters()
+ */
+function wc4bp_screen_edit_payment_methods() {
+	bp_core_load_template( apply_filters( 'wc4bp_template_member_payment_methods', 'shop/member/payment-methods' ) );
+}
+
+/**
  * Display shop settings that can be changed by a user
  * Save the settings
  *

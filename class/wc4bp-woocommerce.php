@@ -43,7 +43,7 @@ class wc4bp_Woocommerce {
 			global $bp;
 			$c_action           = $bp->current_action;
 			$available_gateways = array();
-			if ( 'wc4pb_payment-methods' === $c_action ) {
+			if ( 'payment-methods' === $c_action ) {
 				foreach ( $_available_gateways as $key => $gateway ) {
 					if ( $gateway->supports( 'add_payment_method' ) || $gateway->supports( 'tokenization' ) ) {
 						$available_gateways[ $key ] = $gateway;
@@ -111,10 +111,9 @@ class wc4bp_Woocommerce {
 		$default = $url;
 		try {
 			$base_path = wc4bp_redirect::get_base_url();
-			$woo_page_prefix = wc4bp_Manager::get_prefix();
 			switch ( $endpoint ) {
 				case 'payment-methods':
-					$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . $woo_page_prefix . 'payment-methods' );
+					$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . 'payment-methods' );
 					break;
 				case 'order-received':
 					$checkout_page_id = wc_get_page_id( 'checkout' );
@@ -122,7 +121,7 @@ class wc4bp_Woocommerce {
 					$url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' . $endpoint . '/' . $value;
 					//If checkout page do not exist, assign this url.
 					if ( - 1 === $checkout_page_id ) {
-						$url = $base_path . '/' . $woo_page_prefix . '_orders/view-order/' . $value;
+						$url = $base_path . '/orders/view-order/' . $value;
 					}
 					break;
 				case 'set-default-payment-method':
@@ -130,9 +129,10 @@ class wc4bp_Woocommerce {
 					$url = add_query_arg( $endpoint, $value, $base_path . 'payment' );
 					break;
 				case 'add-payment-method':
-					$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . $woo_page_prefix . 'payment-methods' );
+					$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . 'payment-methods' );
 					break;
 			}
+
 			return $url;
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
