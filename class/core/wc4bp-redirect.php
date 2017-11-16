@@ -23,7 +23,16 @@ class wc4bp_redirect {
 
 	public function __construct() {
 		add_action( 'template_redirect', array( $this, 'wc4bp_redirect_to_profile' ) );
+		add_action( 'template_redirect', array( $this, 'redirect_edit_address' ), 1 );
 		add_filter( 'page_link', array( $this, 'wc4bp_page_link_router' ), 9999, 2 );//High priority to take precedent over other plugins
+	}
+
+	public function redirect_edit_address() {
+		global $wp;
+		$edit_address_action = Request_Helper::get_post_param( 'action' );
+		if ( array_key_exists( 'edit-address', $wp->query_vars ) && 'edit_address' === $edit_address_action ) {
+			$wp->query_vars['edit-address'] = 'billing';
+		}
 	}
 
 	/**
@@ -49,7 +58,7 @@ class wc4bp_redirect {
 			if ( empty( $post_id ) ) {
 				return false;
 			}
-			global $bp;
+			global $bp, $wp;
 			if ( ! empty( $bp->pages ) ) {
 				//Search in all the actives BPress pages for the current id
 				foreach ( $bp->pages as $page_key => $page_data ) {
@@ -62,7 +71,6 @@ class wc4bp_redirect {
 				if ( ! empty( $wc4bp_options['tab_activity_disabled'] ) ) {
 					return false;
 				}
-				global $wp;
 				if ( ( isset( $wp->query_vars['name'] ) && 'order-received' === $wp->query_vars['name'] ) || isset( $wp->query_vars['order-received'] ) ) {
 					return false;
 				}
