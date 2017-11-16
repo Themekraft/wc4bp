@@ -591,6 +591,7 @@ class WC4BP_Component extends BP_Component {
 											}
 										}
 									}
+									$path = 'shop/member/' . $page;
 									break;
 								case 'downloads':
 									$path = 'shop/member/downloads';

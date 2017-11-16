@@ -62,7 +62,7 @@
 			}
 			$args = apply_filters( 'wc4bp_members_plugin_template_query', $args );
 	}
-	
+
 	if ( $my_account_page <= 1 ) {
 		$wp_query2 = new wp_query( $args );
 		if ( ! empty( $wp_query2->posts ) ) {
@@ -88,7 +88,7 @@
                     </div><!-- .entry-content -->
 					<?php edit_post_link( __( 'Edit', 'wc4bp' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
                 </article><!-- #post-## -->
-				
+
 				<?php
 				wp_reset_postdata();
 				$post = $old_post;
