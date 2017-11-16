@@ -135,7 +135,7 @@ function wc4bp_screen_edit_address() {
  * @uses    bp_core_load_template()
  * @uses    apply_filters()
  */
-function wc4bp_screen_edit_payment_methods() {
+function wc4bp_screen_payment_methods() {
 	bp_core_load_template( apply_filters( 'wc4bp_template_member_payment_methods', 'shop/member/payment-methods' ) );
 }
 

@@ -110,14 +110,16 @@ class WC4BP_Component extends BP_Component {
 	}
 
 	public function get_nav_item( $shop_link, $key, $title ) {
+		$id = str_replace( '-', '_', $key );
+
 		return array(
 			'name'            => $title,
 			'slug'            => $key,
 			'parent_url'      => $shop_link,
 			'parent_slug'     => $this->slug,
-			'screen_function' => 'wc4bp_screen_' . $key,
+			'screen_function' => 'wc4bp_screen_' . $id,
 			'position'        => 10,
-			'item_css_id'     => 'shop-' . $key,
+			'item_css_id'     => 'shop-' . $id,
 			'user_has_access' => bp_is_my_profile(),
 		);
 	}
