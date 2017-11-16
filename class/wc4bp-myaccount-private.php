@@ -21,7 +21,7 @@ class WC4BP_MyAccount_Private {
 		try {
 			$pages = WC4BP_MyAccount::get_available_endpoints();
 			foreach ( $pages as $end_point_key => $end_point_value ) {
-				if ( is_page( wc4bp_Manager::get_prefix() . $end_point_key ) && ! is_user_logged_in() ) {
+				if ( is_page( $end_point_key ) && ! is_user_logged_in() ) {
 					add_filter( 'the_content', array( $this, 'restrict_content' ), 999 );
 				}
 			}

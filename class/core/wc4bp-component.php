@@ -109,6 +109,19 @@ class WC4BP_Component extends BP_Component {
 		}
 	}
 
+	public function get_nav_item( $shop_link, $key, $title ) {
+		return array(
+			'name'            => $title,
+			'slug'            => $key,
+			'parent_url'      => $shop_link,
+			'parent_slug'     => $this->slug,
+			'screen_function' => 'wc4bp_screen_' . $key,
+			'position'        => 10,
+			'item_css_id'     => 'shop-' . $key,
+			'user_has_access' => bp_is_my_profile(),
+		);
+	}
+
 	/**
 	 * Setup BuddyBar navigation
 	 *
@@ -150,166 +163,201 @@ class WC4BP_Component extends BP_Component {
 				'show_for_displayed_user' => false,
 			);
 			$shop_link = trailingslashit( bp_loggedin_user_domain() . $this->slug );
-			// Add the cart nav item
-			if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
-				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-					$name = apply_filters( 'bp_shop_cart_link_label', __( 'Shopping Cart', 'wc4bp' ) );
-				} else {
-					$name = __( 'Shopping Cart', 'wc4bp' );
-				}
-				$sub_nav[] = array(
-					'name'            => $name,
-					'slug'            => 'cart',
-					'parent_url'      => $shop_link,
-					'parent_slug'     => $this->slug,
-					'screen_function' => 'wc4bp_screen_shopping_cart',
-					'position'        => 10,
-					'item_css_id'     => 'shop-cart',
-					'user_has_access' => bp_is_my_profile(),
-				);
-			}
-			global $woocommerce;
-			// Add the checkout nav item, if cart empty do not add.
-			/** @var WC_Session_Handler $wc_session_data */
-			$wc_session_data = $woocommerce->session;
-			if ( ! empty( $wc_session_data ) ) {
-				$session_cart = $wc_session_data->get( 'cart' );
-				if ( ! is_admin() && ! empty( $session_cart ) && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
-					if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-						$name = apply_filters( 'bp_checkout_link_label', __( 'Checkout', 'wc4bp' ) );
-					} else {
-						$name = __( 'Checkout', 'wc4bp' );
+
+			//All endpoints
+			$endpoints = wc4bp_Manager::available_endpoint();
+			foreach ( $endpoints as $key => $title ) {
+				if ( in_array( $key, array( 'cart', 'checkout', 'track', 'history' ), true ) ) {
+					if ( ! isset( $wc4bp_options[ 'tab_' . $key . '_disabled' ] ) ) {
+						switch ( $key ) {
+							case 'checkout':
+								global $woocommerce;
+								// Add the checkout nav item, if cart empty do not add.
+								/** @var WC_Session_Handler $wc_session_data */
+								$wc_session_data = $woocommerce->session;
+								if ( ! empty( $wc_session_data ) ) {
+									$session_cart = $wc_session_data->get( 'cart' );
+									if ( ! is_admin() && ! empty( $session_cart ) ) {
+										$sub_nav[] = $this->get_nav_item( $shop_link, $key, $title );
+									}
+								}
+								break;
+							case 'cart':
+							case 'history':
+							case 'track':
+								$sub_nav[] = $this->get_nav_item( $shop_link, $key, $title );
+								break;
+						}
 					}
-					$sub_nav[] = array(
-						'name'            => $name,
-						'slug'            => 'checkout',
-						'parent_url'      => $shop_link,
-						'parent_slug'     => $this->slug,
-						'screen_function' => 'wc4bp_screen_shopping_checkout',
-						'position'        => 10,
-						'item_css_id'     => 'shop-checkout',
-						'user_has_access' => bp_is_my_profile(),
-					);
+				} elseif ( in_array( $key, array( 'orders', 'downloads', 'edit-address', 'payment-methods', 'edit-account' ), true ) ) {
+					if ( empty( $wc4bp_options[ 'wc4bp_endpoint_' . $key ] ) ) {
+						$sub_nav[] = $this->get_nav_item( $shop_link, $key, $title );
+					}
 				}
 			}
+
+			// Add the cart nav item
+//			if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
+//				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+//					$name = apply_filters( 'bp_cart_link_label', __( 'Shopping Cart', 'wc4bp' ) );
+//				} else {
+//					$name = __( 'Shopping Cart', 'wc4bp' );
+//				}
+//				$sub_nav[] = array(
+//					'name'            => $name,
+//					'slug'            => 'cart',
+//					'parent_url'      => $shop_link,
+//					'parent_slug'     => $this->slug,
+//					'screen_function' => 'wc4bp_screen_cart',
+//					'position'        => 10,
+//					'item_css_id'     => 'shop-cart',
+//					'user_has_access' => bp_is_my_profile(),
+//				);
+//			}
+//			global $woocommerce;
+//			// Add the checkout nav item, if cart empty do not add.
+//			/** @var WC_Session_Handler $wc_session_data */
+//			$wc_session_data = $woocommerce->session;
+//			if ( ! empty( $wc_session_data ) ) {
+//				$session_cart = $wc_session_data->get( 'cart' );
+//				if ( ! is_admin() && ! empty( $session_cart ) && ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+//					if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+//						$name = apply_filters( 'bp_checkout_link_label', __( 'Checkout', 'wc4bp' ) );
+//					} else {
+//						$name = __( 'Checkout', 'wc4bp' );
+//					}
+//					$sub_nav[] = array(
+//						'name'            => $name,
+//						'slug'            => 'checkout',
+//						'parent_url'      => $shop_link,
+//						'parent_slug'     => $this->slug,
+//						'screen_function' => 'wc4bp_screen_checkout',
+//						'position'        => 10,
+//						'item_css_id'     => 'shop-checkout',
+//						'user_has_access' => bp_is_my_profile(),
+//					);
+//				}
+//			}
 			// Add the history nav item
-			if ( ! isset( $wc4bp_options['tab_history_disabled'] ) ) {
-				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-					$name = apply_filters( 'bp_history_link_label', __( 'History', 'wc4bp' ) );
-				} else {
-					$name = __( 'History', 'wc4bp' );
-				}
-				$sub_nav[] = array(
-					'name'            => $name,
-					'slug'            => 'history',
-					'parent_url'      => $shop_link,
-					'parent_slug'     => $this->slug,
-					'screen_function' => 'wc4bp_screen_history',
-					'position'        => 30,
-					'item_css_id'     => 'shop-history',
-					'user_has_access' => bp_is_my_profile(),
-				);
-			}
-			// Add the Track nav item
-			if ( ! isset( $wc4bp_options['tab_track_disabled'] ) ) {
-				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-					$name = apply_filters( 'bp_track_order_link_label', __( 'Track your order', 'wc4bp' ) );
-				} else {
-					$name = __( 'Track your order', 'wc4bp' );
-				}
-				$sub_nav[] = array(
-					'name'            => $name,
-					'slug'            => 'track',
-					'parent_url'      => $shop_link,
-					'parent_slug'     => $this->slug,
-					'screen_function' => 'wc4bp_screen_track_order',
-					'position'        => 30,
-					'item_css_id'     => 'shop-track',
-					'user_has_access' => bp_is_my_profile(),
-				);
-			}
+//			if ( ! isset( $wc4bp_options['tab_history_disabled'] ) ) {
+//				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+//					$name = apply_filters( 'bp_history_link_label', __( 'History', 'wc4bp' ) );
+//				} else {
+//					$name = __( 'History', 'wc4bp' );
+//				}
+//				$sub_nav[] = array(
+//					'name'            => $name,
+//					'slug'            => 'history',
+//					'parent_url'      => $shop_link,
+//					'parent_slug'     => $this->slug,
+//					'screen_function' => 'wc4bp_screen_history',
+//					'position'        => 30,
+//					'item_css_id'     => 'shop-history',
+//					'user_has_access' => bp_is_my_profile(),
+//				);
+//			}
+//			// Add the Track nav item
+//			if ( ! isset( $wc4bp_options['tab_track_disabled'] ) ) {
+//				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+//					$name = apply_filters( 'bp_track_order_link_label', __( 'Track your order', 'wc4bp' ) );
+//				} else {
+//					$name = __( 'Track your order', 'wc4bp' );
+//				}
+//				$sub_nav[] = array(
+//					'name'            => $name,
+//					'slug'            => 'track',
+//					'parent_url'      => $shop_link,
+//					'parent_slug'     => $this->slug,
+//					'screen_function' => 'wc4bp_screen_track',
+//					'position'        => 30,
+//					'item_css_id'     => 'shop-track',
+//					'user_has_access' => bp_is_my_profile(),
+//				);
+//			}
+
+
 			//************************************************************
 			// Add the Order nav item
 //			if ( ! isset( $wc4bp_options['tab_track_disabled'] ) ) {
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-				$name = apply_filters( 'bp_orders_link_label', __( 'Order', 'wc4bp' ) );
-			} else {
-				$name = __( 'Order', 'wc4bp' );
-			}
-			$sub_nav[] = array(
-				'name'            => $name,
-				'slug'            => 'orders',
-				'parent_url'      => $shop_link,
-				'parent_slug'     => $this->slug,
-				'screen_function' => 'wc4bp_screen_orders',
-				'position'        => 30,
-				'item_css_id'     => 'shop-track',
-				'user_has_access' => bp_is_my_profile(),
-			);
-
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-				$name = apply_filters( 'bp_downloads_link_label', __( 'Downloads', 'wc4bp' ) );
-			} else {
-				$name = __( 'Downloads', 'wc4bp' );
-			}
-			$sub_nav[] = array(
-				'name'            => $name,
-				'slug'            => 'downloads',
-				'parent_url'      => $shop_link,
-				'parent_slug'     => $this->slug,
-				'screen_function' => 'wc4bp_screen_downloads',
-				'position'        => 30,
-				'item_css_id'     => 'shop-track',
-				'user_has_access' => bp_is_my_profile(),
-			);
-
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-				$name = apply_filters( 'bp_edit_account_link_label', __( 'Edit Account', 'wc4bp' ) );
-			} else {
-				$name = __( 'Edit Account', 'wc4bp' );
-			}
-			$sub_nav[] = array(
-				'name'            => $name,
-				'slug'            => 'edit-account',
-				'parent_url'      => $shop_link,
-				'parent_slug'     => $this->slug,
-				'screen_function' => 'wc4bp_screen_edit_account',
-				'position'        => 30,
-				'item_css_id'     => 'shop-track',
-				'user_has_access' => bp_is_my_profile(),
-			);
-
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-				$name = apply_filters( 'bp_edit_address_link_label', __( 'Edit Address', 'wc4bp' ) );
-			} else {
-				$name = __( 'Edit Address', 'wc4bp' );
-			}
-			$sub_nav[] = array(
-				'name'            => $name,
-				'slug'            => 'edit-address',
-				'parent_url'      => $shop_link,
-				'parent_slug'     => $this->slug,
-				'screen_function' => 'wc4bp_screen_edit_address',
-				'position'        => 30,
-				'item_css_id'     => 'shop-track',
-				'user_has_access' => bp_is_my_profile(),
-			);
-
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-				$name = apply_filters( 'bp_payment_method_link_label', __( 'Payment Method', 'wc4bp' ) );
-			} else {
-				$name = __( 'Payment Method', 'wc4bp' );
-			}
-			$sub_nav[] = array(
-				'name'            => $name,
-				'slug'            => 'payment-methods',
-				'parent_url'      => $shop_link,
-				'parent_slug'     => $this->slug,
-				'screen_function' => 'wc4bp_screen_edit_payment_methods',
-				'position'        => 30,
-				'item_css_id'     => 'shop-track',
-				'user_has_access' => bp_is_my_profile(),
-			);
+//			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+//				$name = apply_filters( 'bp_orders_link_label', __( 'Order', 'wc4bp' ) );
+//			} else {
+//				$name = __( 'Order', 'wc4bp' );
+//			}
+//			$sub_nav[] = array(
+//				'name'            => $name,
+//				'slug'            => 'orders',
+//				'parent_url'      => $shop_link,
+//				'parent_slug'     => $this->slug,
+//				'screen_function' => 'wc4bp_screen_orders',
+//				'position'        => 30,
+//				'item_css_id'     => 'shop-track',
+//				'user_has_access' => bp_is_my_profile(),
+//			);
+//
+//			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+//				$name = apply_filters( 'bp_downloads_link_label', __( 'Downloads', 'wc4bp' ) );
+//			} else {
+//				$name = __( 'Downloads', 'wc4bp' );
+//			}
+//			$sub_nav[] = array(
+//				'name'            => $name,
+//				'slug'            => 'downloads',
+//				'parent_url'      => $shop_link,
+//				'parent_slug'     => $this->slug,
+//				'screen_function' => 'wc4bp_screen_downloads',
+//				'position'        => 30,
+//				'item_css_id'     => 'shop-track',
+//				'user_has_access' => bp_is_my_profile(),
+//			);
+//
+//			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+//				$name = apply_filters( 'bp_edit_account_link_label', __( 'Edit Account', 'wc4bp' ) );
+//			} else {
+//				$name = __( 'Edit Account', 'wc4bp' );
+//			}
+//			$sub_nav[] = array(
+//				'name'            => $name,
+//				'slug'            => 'edit-account',
+//				'parent_url'      => $shop_link,
+//				'parent_slug'     => $this->slug,
+//				'screen_function' => 'wc4bp_screen_edit_account',
+//				'position'        => 30,
+//				'item_css_id'     => 'shop-track',
+//				'user_has_access' => bp_is_my_profile(),
+//			);
+//
+//			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+//				$name = apply_filters( 'bp_edit_address_link_label', __( 'Edit Address', 'wc4bp' ) );
+//			} else {
+//				$name = __( 'Edit Address', 'wc4bp' );
+//			}
+//			$sub_nav[] = array(
+//				'name'            => $name,
+//				'slug'            => 'edit-address',
+//				'parent_url'      => $shop_link,
+//				'parent_slug'     => $this->slug,
+//				'screen_function' => 'wc4bp_screen_edit_address',
+//				'position'        => 30,
+//				'item_css_id'     => 'shop-track',
+//				'user_has_access' => bp_is_my_profile(),
+//			);
+//
+//			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+//				$name = apply_filters( 'bp_payment_method_link_label', __( 'Payment Method', 'wc4bp' ) );
+//			} else {
+//				$name = __( 'Payment Method', 'wc4bp' );
+//			}
+//			$sub_nav[] = array(
+//				'name'            => $name,
+//				'slug'            => 'payment-methods',
+//				'parent_url'      => $shop_link,
+//				'parent_slug'     => $this->slug,
+//				'screen_function' => 'wc4bp_screen_edit_payment_methods',
+//				'position'        => 30,
+//				'item_css_id'     => 'shop-track',
+//				'user_has_access' => bp_is_my_profile(),
+//			);
 
 //			} ************************************************************
 			// Add shop settings subpage
@@ -557,7 +605,7 @@ class WC4BP_Component extends BP_Component {
 			$this->template_directory = apply_filters( 'wc4bp_members_get_template_directory', constant( 'WC4BP_ABSPATH_TEMPLATE_PATH' ) );
 			$path                     = apply_filters( 'wc4bp_load_template_path', $path, $this->template_directory );
 			bp_register_template_stack( array( $this, 'wc4bp_members_get_template_directory' ), 14 );
-			if ( in_array( $bp->current_action, wc4bp_Manager::available_endpoint(), true ) ) {
+			if ( in_array( $bp->current_action, array_keys( wc4bp_Manager::available_endpoint() ), true ) ) {
 				$found_template = locate_template( 'members/single/plugins.php', false, false );
 				$wc4bp_options  = get_option( 'wc4bp_options' );
 				$cart_page_id   = wc_get_page_id( 'cart' );

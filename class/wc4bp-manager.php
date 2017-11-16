@@ -144,9 +144,25 @@ class wc4bp_Manager {
 	}
 
 	public static function available_endpoint() {
-		$shop_tabs    = array( 'home', 'cart', 'checkout', 'history', 'track' );
+		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+			$shop_tabs = array(
+				'home'     => apply_filters( 'bp_shop_link_label', __( 'Shop', 'wc4bp' ) ),
+				'cart'     => apply_filters( 'bp_cart_link_label', __( 'Shopping Cart', 'wc4bp' ) ),
+				'checkout' => apply_filters( 'bp_checkout_link_label', __( 'Checkout', 'wc4bp' ) ),
+				'history'  => apply_filters( 'bp_history_link_label', __( 'History', 'wc4bp' ) ),
+				'track'    => apply_filters( 'bp_track_link_label', __( 'Track your order', 'wc4bp' ) ),
+			);
+		} else {
+			$shop_tabs = array(
+				'home'     => __( 'Shop', 'wc4bp' ),
+				'cart'     => __( 'Shopping Cart', 'wc4bp' ),
+				'checkout' => __( 'Checkout', 'wc4bp' ),
+				'history'  => __( 'History', 'wc4bp' ),
+				'track'    => __( 'Track your order', 'wc4bp' ),
+			);
+		}
 		$account_tabs = WC4BP_MyAccount::get_available_endpoints();
-		$result       = array_merge( $shop_tabs, array_keys( $account_tabs ) );
+		$result       = array_merge( $shop_tabs, $account_tabs );
 
 		return $result;
 	}

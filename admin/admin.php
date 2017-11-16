@@ -164,7 +164,7 @@ class wc4bp_admin extends wc4bp_base {
 	}
 
 	/**
-	 * Tun off woo my account tabs view
+	 * Turn off woo my account tabs view
 	 */
 	public function wc4bp_my_account_tabs_enable() {
 		try {
@@ -258,7 +258,7 @@ class wc4bp_admin extends wc4bp_base {
 				$woo_my_account = WC4BP_MyAccount::get_active_endpoints__premium_only();
 				if ( ! empty( $woo_my_account ) ) {
 					foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
-						$wc4bp_pages_options['selected_pages'][ wc4bp_Manager::get_prefix() . $active_page_key ] = array(
+						$wc4bp_pages_options['selected_pages'][ $active_page_key ] = array(
 							'tab_name' => $active_page_name,
 						);
 					}
@@ -334,7 +334,7 @@ class wc4bp_admin extends wc4bp_base {
 			$woo_my_account = WC4BP_MyAccount::get_active_endpoints__premium_only();
 			if ( ! empty( $woo_my_account ) ) {
 				foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
-					$wc4bp_pages_options['selected_pages'][ wc4bp_Manager::get_prefix() . $active_page_key ] = array(
+					$wc4bp_pages_options['selected_pages'][ $active_page_key ] = array(
 						'tab_name' => $active_page_name,
 					);
 				}

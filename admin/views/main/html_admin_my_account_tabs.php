@@ -1,6 +1,6 @@
 <?php
 /** @var wc4bp_admin $this */
-_e( '<p>By default all account related <b>WooCommerce My Account</b> Tabs are included into the BuddyPress member profiles. When you turn off one of the above, the Tabs will disappear and Page(s) will be complete remove.</p>', 'wc4bp' );
+_e( '<p>By default all account related <b>WooCommerce My Account</b> Tabs are included into the BuddyPress member profiles. When you <b>Turn off</b> one of the next, the Tab(s) will disappear.</p>', 'wc4bp' );
 foreach ( WC4BP_MyAccount::get_available_endpoints() as $end_point_key => $end_point_name ) {
 	$tab_select = 0;
 	if ( isset( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {

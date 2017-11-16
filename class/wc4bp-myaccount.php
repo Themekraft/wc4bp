@@ -15,21 +15,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC4BP_MyAccount {
 
-	protected $base_html;
 	public static $prefix;
 	protected $current_title;
 
 	public function __construct() {
 		try {
-			$this->base_html = '<span class=\'wc4bp-my-account-page\'>' . wc4bp_Manager::get_suffix() . '</span>';
 			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
-//				add_filter( 'the_title', array( $this, 'add_title_mark__premium_only' ), 10, 2 );
-//				add_filter( 'esc_html', array( $this, 'esc_html_for_title__premium_only' ), 10, 2 );
 				$wc4bp_options = get_option( 'wc4bp_options' );
 				if ( empty( $wc4bp_options['tab_activity_disabled'] ) ) {
 					add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url__premium_only' ), 10, 2 );
 					add_filter( 'woocommerce_get_myaccount_page_permalink', array( $this, 'my_account_page_permalink__premium_only' ), 10, 1 );
-//					add_action( 'update_option_wc4bp_options', array( $this, 'process_saved_settings__premium_only' ), 10, 2 );
 				}
 			}
 		} catch ( Exception $exception ) {
@@ -61,7 +56,7 @@ class WC4BP_MyAccount {
 	 */
 	public function get_view_order_url__premium_only( $view_order_url, $order ) {
 		try {
-			$result = wc_get_endpoint_url( 'view-order', $order->get_id(), $this->get_base_url('orders') );
+			$result = wc_get_endpoint_url( 'view-order', $order->get_id(), $this->get_base_url( 'orders' ) );
 
 			return $result;
 		} catch ( Exception $exception ) {
@@ -99,110 +94,6 @@ class WC4BP_MyAccount {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 
 			return $permalink;
-		}
-	}
-
-	public function esc_html_for_title__premium_only( $safe_text, $text ) {
-		$default = $safe_text;
-		try {
-			if ( ! empty( $this->current_title ) && $text === $this->current_title ) {
-				return $text;
-			}
-
-			return $safe_text;
-		} catch ( Exception $exception ) {
-			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-
-			return $default;
-		}
-	}
-
-	public function add_title_mark__premium_only( $title, $id = null ) {
-		$default = $title;
-		try {
-			global $pagenow;
-			$post_type = Request_Helper::simple_get( 'post_type' );
-			if ( 'edit.php' === $pagenow && ! empty( $post_type ) && 'page' === $post_type ) {
-				$titles = self::get_active_endpoints__premium_only();
-				if ( ! empty( $titles ) && in_array( $title, $titles, true ) ) {
-					$post_meta = get_post_meta( $id, 'wc4bp-my-account-template', true );
-					if ( ! empty( $post_meta ) ) {
-						$title               = $title . $this->base_html;
-						$this->current_title = $title;
-					}
-				}
-			}
-
-			return $title;
-		} catch ( Exception $exception ) {
-			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-
-			return $default;
-		}
-	}
-
-	/**
-	 * Save changes in the settings related to woocommerce my account tabs
-	 *
-	 * @param $old_value
-	 * @param $new_value
-	 */
-	public function process_saved_settings__premium_only( $old_value, $new_value ) {
-		try {
-			wp_cache_delete( 'wc4bp_my_account_prefix', 'wc4bp' );
-			$wc4bp_options = get_option( 'wc4bp_options' );
-			if ( empty( $wc4bp_options['tab_activity_disabled'] ) ) {
-				$available_endpoints = self::get_available_endpoints();
-				if ( ! empty( $available_endpoints ) ) {
-					foreach ( $available_endpoints as $end_point_key => $end_point_value ) {
-						$post = self::get_page_by_name( wc4bp_Manager::get_prefix() . $end_point_key );
-						if ( ! empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) && $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] == "1" ) {
-							if ( ! empty( $post ) ) {
-								wp_delete_post( $post->ID, true );
-							}
-						} else {
-							if ( empty( $post ) ) {
-								$r = wp_insert_post(
-									array(
-										'comment_status' => 'closed',
-										'ping_status'    => 'closed',
-										'post_title'     => $end_point_value,
-										'post_name'      => wc4bp_Manager::get_prefix() . $end_point_key,
-										'post_content'   => self::get_page_content__premium_only( $end_point_key ),
-										'post_status'    => 'publish',
-										'post_type'      => 'page',
-										'meta_input'     => array(
-											'wc4bp-my-account-template' => 1,
-										),
-									)
-								);
-							}
-						}
-						if ( isset( $new_value['my_account_prefix'] ) ) {
-							$delete_old_page = false;
-							if ( isset( $old_value['my_account_prefix'] ) && $old_value['my_account_prefix'] !== $new_value['my_account_prefix'] ) {
-								$delete_old_page = true;
-							} else {
-								if ( ! isset( $old_value['my_account_prefix'] ) && wc4bp_Manager::$prefix !== $new_value['my_account_prefix'] ) {
-									$delete_old_page = true;
-								}
-							}
-							if ( $delete_old_page ) {
-								$old_prefix = ( empty( $old_value['my_account_prefix'] ) ) ? wc4bp_Manager::$prefix : $old_value['my_account_prefix'];
-								$old_post   = self::get_page_by_name( $old_prefix . '_' . $end_point_key );
-								if ( ! empty( $old_post ) ) {
-									wp_delete_post( $old_post->ID );
-									wp_cache_delete( 'wc4bp_get_page_by_name_' . $old_post->post_name, 'wc4bp' );
-								}
-							}
-						}
-					}
-				}
-			} else {
-				self::remove_all_endpoints__premium_only();
-			}
-		} catch ( Exception $exception ) {
-			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
 
