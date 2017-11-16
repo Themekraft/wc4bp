@@ -110,29 +110,10 @@ class wc4bp_admin extends wc4bp_base {
 			add_settings_section( 'section_general2', '', '', 'wc4bp_options' );
 
 			add_settings_field( 'tabs_shop', __( '<b>Shop Settings</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs' ), 'wc4bp_options', 'section_general' );
-			add_settings_field( 'prefix', __( 'My Account Page Prefix', 'wc4bp' ), array( $this, 'wc4bp_prefix' ), 'wc4bp_options', 'section_general' );
 			add_settings_field( 'tabs_enable', __( '<b>Remove My Account Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_my_account_tabs_enable' ), 'wc4bp_options', 'section_general' );
 			add_settings_field( 'tabs_disabled', __( '<b>Remove Shop Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs_disable' ), 'wc4bp_options', 'section_general' );
 			add_settings_field( 'profile sync', __( '<b>Turn off the Profile Sync</b>', 'wc4bp' ), array( $this, 'wc4bp_turn_off_profile_sync' ), 'wc4bp_options', 'section_general' );
 			add_settings_field( 'overwrite', __( '<b>Default Shop Tab</b>', 'wc4bp' ), array( $this, 'wc4bp_overwrite_default_shop_home_tab' ), 'wc4bp_options', 'section_general' );
-		} catch ( Exception $exception ) {
-			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-		}
-	}
-
-	public function wc4bp_prefix() {
-		try {
-			$wc4bp_options     = get_option( 'wc4bp_options' );
-			$my_account_prefix = '';
-			if ( ! isset( $wc4bp_options['my_account_prefix'] ) ) {
-				$my_account_prefix = 'wc4bp';
-			}
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-				if ( isset( $wc4bp_options['my_account_prefix'] ) ) {
-					$my_account_prefix = $wc4bp_options['my_account_prefix'];
-				}
-			}
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_prefix.php' );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
