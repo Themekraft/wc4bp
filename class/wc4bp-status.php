@@ -118,14 +118,7 @@ EOD;
 		$shop_settings['is_track_off']                   = empty( $wc4bp_options['tab_track_disabled'] ) ? 'false' : 'true';
 		$shop_settings['is_woo_sync_off']                = empty( $wc4bp_options['tab_sync_disabled'] ) ? 'false' : 'true';
 		$shop_settings['tab_shop_default']               = ( isset( $wc4bp_options['tab_shop_default'] ) ) ? $wc4bp_options['tab_shop_default'] : 'default';
-		$all_endpoints                                   = WC4BP_MyAccount::get_available_endpoints();
-		foreach ( $all_endpoints as $endpoint_key => $endpoint_name ) {
-			$shop_settings[ $endpoint_key ]                  = $endpoint_name;
-			$shop_settings[ 'is_' . $endpoint_key . '_off' ] = ( isset( $wc4bp_options[ 'wc4bp_endpoint_' . $endpoint_key ] ) ) ? 'true' : 'false';
-			$post                                            = WC4BP_MyAccount::get_page_by_name( wc4bp_Manager::get_prefix() . $endpoint_key );
-			$shop_settings[ $endpoint_key . '_page_exist' ]  = ( empty( $post ) ) ? 'false' : 'true';
-		}
-		$data['WC4BP Settings'] = $shop_settings;
+		$data['WC4BP Settings']                          = $shop_settings;
 
 		return $data;
 	}
