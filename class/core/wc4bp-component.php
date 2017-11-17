@@ -496,7 +496,7 @@ class WC4BP_Component extends BP_Component {
 							break;
 					}
 				}
-			} elseif ( in_array( $key, array( 'orders', 'downloads', 'edit-address', 'payment-methods', 'edit-account' ), true ) ) {
+			} elseif ( in_array( $key, array( 'subscriptions','orders', 'downloads', 'edit-address', 'payment-methods', 'edit-account' ), true ) ) {
 				if ( empty( $this->wc4bp_options[ 'wc4bp_endpoint_' . $key ] ) ) {
 					$sub_nav[] = $this->$item_function( $parent, $key, $title );
 				}

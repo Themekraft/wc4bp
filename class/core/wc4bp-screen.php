@@ -138,6 +138,9 @@ function wc4bp_screen_edit_address() {
 function wc4bp_screen_payment_methods() {
 	bp_core_load_template( apply_filters( 'wc4bp_template_member_payment_methods', 'shop/member/payment-methods' ) );
 }
+function wc4bp_screen_subscriptions() {
+    bp_core_load_template( apply_filters( 'wc4bp_template_member_subscriptions', 'shop/member/plugin' ) );
+}
 
 /**
  * Display shop settings that can be changed by a user
