@@ -24,7 +24,7 @@ class WC4BP_MyAccount {
 				$wc4bp_options = get_option( 'wc4bp_options' );
 				if ( empty( $wc4bp_options['tab_activity_disabled'] ) ) {
 					add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url__premium_only' ), 10, 2 );
-					add_filter( 'woocommerce_get_myaccount_page_permalink', array( $this, 'my_account_page_permalink__premium_only' ), 10, 1 );
+//					add_filter( 'woocommerce_get_myaccount_page_permalink', array( $this, 'my_account_page_permalink__premium_only' ), 10, 1 );
 				}
 			}
 		} catch ( Exception $exception ) {
