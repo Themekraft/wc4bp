@@ -21,10 +21,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 class wc4bp_admin extends wc4bp_base {
 
 	public static $slug = 'wc4bp-options-page';
+	private $wc4bp_options;
 
 	public function __construct() {
 		try {
 			parent::__construct();
+			$this->wc4bp_options = get_option( 'wc4bp_options' );
 			add_action( 'admin_menu', array( $this, 'wc4bp_admin_menu' ) );
 			add_action( 'admin_init', array( $this, 'wc4bp_register_admin_settings' ) );
 
@@ -72,11 +74,8 @@ class wc4bp_admin extends wc4bp_base {
 					include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_screen.php' );
 					break;
 				case 'page-sync':
-					$admin_sync    = new wc4bp_admin_sync();
-					$wc4bp_options = get_option( 'wc4bp_options' );
-					if ( ! isset( $wc4bp_options['tab_sync_disabled'] ) ) {
-						$admin_sync->wc4bp_screen_sync( $active_tab );
-					}
+					$admin_sync = new wc4bp_admin_sync();
+					$admin_sync->wc4bp_screen_sync( $active_tab, $this->wc4bp_options );
 					break;
 				case 'integrate-pages':
 					$admin_pages = new wc4bp_admin_pages();

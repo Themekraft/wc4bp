@@ -20,7 +20,7 @@ class wc4bp_admin_sync extends wc4bp_base {
 	 * @package WC4BP
 	 * @since   1.3
 	 */
-	public function wc4bp_screen_sync( $active_tab ) {
+	public function wc4bp_screen_sync( $active_tab, $wc4bp_options ) {
 		try {
 			$this->wc4bp_register_admin_settings_sync();
 			$number      = 20;
