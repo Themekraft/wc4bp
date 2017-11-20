@@ -42,7 +42,7 @@ class WC4BP_MyAccount_Content {
 		try {
 			foreach ( $this->end_points as $key => $class ) {
 				if ( $tag == $key ) {
-					call_user_func( $class, $attr, $content = '' );
+					call_user_func( $class, $attr, $content );
 				}
 			}
 		} catch ( Exception $exception ) {
