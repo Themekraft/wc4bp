@@ -49,9 +49,7 @@ class wc4bp_Manager {
 			new WC4BP_MyAccount_Private();
 			$cu = get_current_user_id();
 			if ( $cu > 0 ) {
-				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
-					new WC4BP_MyAccount_Content();
-				}
+				new WC4BP_MyAccount_Content();
 				new wc4bp_Woocommerce();
 				new WC4BP_MyAccount();
 				new wc4bp_Manage_Admin();
