@@ -10,8 +10,10 @@
 ?>
 <div class="entry-content">
     <div id="item-body" role="main">
-		<?php do_action( 'wc4bp_before_edit_address_body' ); ?>
-		<?php echo do_shortcode( '[edit-address]' ); ?>
-		<?php do_action( 'wc4bp_after_edit_address_body' ); ?>
+        <div class="woocommerce">
+			<?php do_action( 'wc4bp_before_edit_address_body' ); ?>
+			<?php echo do_shortcode( '[edit-address]' ); ?>
+			<?php do_action( 'wc4bp_after_edit_address_body' ); ?>
+        </div>
     </div>
 </div>

@@ -44,7 +44,7 @@ class wc4bp_Woocommerce {
 			global $bp;
 			$c_action           = $bp->current_action;
 			$available_gateways = array();
-			if ( 'payment-methods' === $c_action ) {
+			if ( 'payment-methods' === $c_action && ! isset( $this->wc4bp_options['wc4bp_endpoint_payment-methods'] ) ) {
 				foreach ( $_available_gateways as $key => $gateway ) {
 					if ( $gateway->supports( 'add_payment_method' ) || $gateway->supports( 'tokenization' ) ) {
 						$available_gateways[ $key ] = $gateway;
@@ -114,26 +114,36 @@ class wc4bp_Woocommerce {
 			$base_path = wc4bp_redirect::get_base_url();
 			switch ( $endpoint ) {
 				case 'edit-address':
-					$url = $base_path . $endpoint . '/' . $value;
+					if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_edit-address'] ) ) {
+						$url = $base_path . $endpoint . '/' . $value;
+					}
 					break;
 				case 'payment-methods':
-					$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . 'payment-methods' );
+					if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_payment-methods'] ) ) {
+						$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . 'payment-methods' );
+					}
 					break;
 				case 'order-received':
-					$checkout_page_id = wc_get_page_id( 'checkout' );
-					$checkout_page    = get_post( $checkout_page_id );
-					$url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' . $endpoint . '/' . $value;
-					//If checkout page do not exist, assign this url.
-					if ( - 1 === $checkout_page_id ) {
-						$url = $base_path . '/orders/view-order/' . $value;
+					if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_orders'] ) ) {
+						$checkout_page_id = wc_get_page_id( 'checkout' );
+						$checkout_page    = get_post( $checkout_page_id );
+						$url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' . $endpoint . '/' . $value;
+						//If checkout page do not exist, assign this url.
+						if ( - 1 === $checkout_page_id ) {
+							$url = $base_path . '/orders/view-order/' . $value;
+						}
 					}
 					break;
 				case 'set-default-payment-method':
 				case 'delete-payment-method':
-					$url = add_query_arg( $endpoint, $value, $base_path . 'payment' );
+					if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_payment-methods'] ) ) {
+						$url = add_query_arg( $endpoint, $value, $base_path . 'payment' );
+					}
 					break;
 				case 'add-payment-method':
-					$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . 'payment-methods' );
+					if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_payment-methods'] ) ) {
+						$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . 'payment-methods' );
+					}
 					break;
 			}
 

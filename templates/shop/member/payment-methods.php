@@ -10,8 +10,10 @@
 ?>
 <div class="entry-content">
     <div id="item-body" role="main">
-		<?php do_action( 'wc4bp_before_payment_methods_body' ); ?>
-		<?php echo do_shortcode( '[payment-methods]' ); ?>
-		<?php do_action( 'wc4bp_after_payment_methods_body' ); ?>
+        <div class="woocommerce">
+			<?php do_action( 'wc4bp_before_payment_methods_body' ); ?>
+			<?php echo do_shortcode( '[payment-methods]' ); ?>
+			<?php do_action( 'wc4bp_after_payment_methods_body' ); ?>
+        </div>
     </div>
 </div>

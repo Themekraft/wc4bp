@@ -9,9 +9,11 @@
  */
 ?>
 <div class="entry-content">
-<div id="item-body" role="main">
-	<?php do_action( 'wc4bp_before_edit_account_body' ); ?>
-	<?php echo do_shortcode( '[edit-account]' ); ?>
-	<?php do_action( 'wc4bp_after_edit_account_body' ); ?>
-</div>
+    <div id="item-body" role="main">
+        <div class="woocommerce">
+			<?php do_action( 'wc4bp_before_edit_account_body' ); ?>
+			<?php echo do_shortcode( '[edit-account]' ); ?>
+			<?php do_action( 'wc4bp_after_edit_account_body' ); ?>
+        </div>
+    </div>
 </div>

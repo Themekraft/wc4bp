@@ -10,8 +10,10 @@
 ?>
 <div class="entry-content">
     <div id="item-body" role="main">
-		<?php do_action( 'wc4bp_before_downloads_body' ); ?>
-		<?php echo do_shortcode( '[downloads]' ); ?>
-		<?php do_action( 'wc4bp_after_downloads_body' ); ?>
+        <div class="woocommerce">
+			<?php do_action( 'wc4bp_before_downloads_body' ); ?>
+			<?php echo do_shortcode( '[downloads]' ); ?>
+			<?php do_action( 'wc4bp_after_downloads_body' ); ?>
+        </div>
     </div>
 </div>

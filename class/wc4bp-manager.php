@@ -26,9 +26,7 @@ class wc4bp_Manager {
 	public function __construct() {
 		try {
 			//Load resources
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
-				require_once 'wc4bp-myaccount-content.php';
-			}
+			require_once 'wc4bp-myaccount-content.php';
 			require_once 'wc4bp-myaccount.php';
 			require_once 'wc4bp-myaccount-private.php';
 			require_once 'wc4bp-woocommerce.php';
@@ -49,6 +47,9 @@ class wc4bp_Manager {
 			new WC4BP_MyAccount_Private();
 			$cu = get_current_user_id();
 			if ( $cu > 0 ) {
+				$wc_path = WooCommerce::instance()->plugin_path();
+				include_once( $wc_path . '/includes/class-wc-frontend-scripts.php' );
+				WC_Frontend_Scripts::init();
 				new WC4BP_MyAccount_Content();
 				new wc4bp_Woocommerce();
 				new WC4BP_MyAccount();

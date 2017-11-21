@@ -10,8 +10,10 @@
 ?>
 <div class="entry-content">
     <div id="item-body" role="main">
-		<?php do_action( 'wc4bp_before_orders_body' ); ?>
-		<?php echo do_shortcode( '[orders]' ); ?>
-		<?php do_action( 'wc4bp_after_orders_body' ); ?>
+        <div class="woocommerce">
+			<?php do_action( 'wc4bp_before_orders_body' ); ?>
+			<?php echo do_shortcode( '[orders]' ); ?>
+			<?php do_action( 'wc4bp_after_orders_body' ); ?>
+        </div>
     </div>
 </div>

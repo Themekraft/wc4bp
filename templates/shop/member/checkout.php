@@ -10,11 +10,12 @@
 ?>
 <div class="entry-content">
     <div id="item-body" role="main">
-		<?php do_action( 'wc4bp_before_checkout_body' ); ?>
+        <div class="woocommerce">
+			<?php do_action( 'wc4bp_before_checkout_body' ); ?>
 
-		<?php echo do_shortcode( '[woocommerce_checkout]' ); ?>
+			<?php echo do_shortcode( '[woocommerce_checkout]' ); ?>
 
-		<?php do_action( 'wc4bp_after_checkout_body' ); ?>
-
+			<?php do_action( 'wc4bp_after_checkout_body' ); ?>
+        </div>
     </div><!-- #item-body -->
 </div>
