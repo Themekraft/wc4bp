@@ -35,24 +35,8 @@ if ( ! class_exists( 'WC4BP_3013' ) ) {
 					if ( ! empty( $posts ) ) {
 						foreach ( $posts as $post ) {
 							if ( isset( $post->ID ) ) {
-								$post     = get_post( intval( $post->ID ) );
-								$new_name = str_replace( 'wc4pb', 'wc4bp', $post->post_name );
-								$guid     = str_replace( 'wc4pb', 'wc4bp', $post->guid );
-								global $wpdb;
-								$result = $wpdb->update( $wpdb->posts,
-									array(
-										'post_name' => $new_name,
-										'guid'      => $guid,
-									),
-									array(
-										'ID' => intval( $post->ID ),
-									),
-									array( '%s', '%s' ),
-									array( '%d' )
-								);
-								if ( false === $result ) {
-									return false;
-								}
+								$post = get_post( intval( $post->ID ) );
+								wp_delete_post( $post->ID, true );
 								wp_cache_delete( 'wc4bp_get_page_by_name_' . $post->post_name, 'wc4bp' );
 							}
 						}
