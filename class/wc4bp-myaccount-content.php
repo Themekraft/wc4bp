@@ -70,14 +70,14 @@ class WC4BP_MyAccount_Content {
 	}
 
 	public static function wc4bp_my_account_process_shortcode_edit_address( $attr, $content ) {
-	    global $wp;
+		global $wp;
 		try {
 			wc_print_notices();
 			$load_address = '';
-            if ( isset($wp->query_vars['edit-address'])){
-                $load_address = $wp->query_vars['edit-address'];
-            }
-			WC_Shortcode_My_Account::edit_address($load_address);
+			if ( isset( $wp->query_vars['edit-address'] ) ) {
+				$load_address = $wp->query_vars['edit-address'];
+			}
+			WC_Shortcode_My_Account::edit_address( $load_address );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}

@@ -113,10 +113,9 @@ class wc4bp_Woocommerce {
 		try {
 			$base_path = wc4bp_redirect::get_base_url();
 			switch ( $endpoint ) {
-                case 'edit-address':
-                    $url = $base_path . $endpoint .'/'.$value;
-                    break;
-
+				case 'edit-address':
+					$url = $base_path . $endpoint . '/' . $value;
+					break;
 				case 'payment-methods':
 					$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . 'payment-methods' );
 					break;
