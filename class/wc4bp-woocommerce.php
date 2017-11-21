@@ -26,6 +26,7 @@ class wc4bp_Woocommerce {
 			// Check if we are on the my account page in profile
 			add_filter( 'woocommerce_is_account_page', array( $this, 'wc4bp_woocommerce_is_account_page__premium_only' ) );
 		}
+
 		add_filter( 'woocommerce_get_endpoint_url', array( $this, 'endpoint_url' ), 1, 4 );
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'available_payment_gateways' ), 1, 1 );
 	}
@@ -112,6 +113,10 @@ class wc4bp_Woocommerce {
 		try {
 			$base_path = wc4bp_redirect::get_base_url();
 			switch ( $endpoint ) {
+                case 'edit-address':
+                    $url = $base_path . $endpoint .'/'.$value;
+                    break;
+
 				case 'payment-methods':
 					$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . 'payment-methods' );
 					break;
