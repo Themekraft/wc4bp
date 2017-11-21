@@ -309,136 +309,51 @@ class WC4BP_Component extends BP_Component {
 				$cart_page_id   = wc_get_page_id( 'cart' );
 				$cart_page      = get_post( $cart_page_id, ARRAY_A );
 				$cart_slug      = $cart_page['post_name'];
-				switch ( $bp->current_action ) {
-					case 'home':
-						if ( $this->wc4bp_options['tab_shop_default'] != 'default' ) {
-							$bp->current_action = $this->wc4bp_options['tab_shop_default'];
-							switch ( $bp->current_action ) {
-								case 'cart':
-									$path = 'shop/member/cart';
-									break;
-								case 'checkout':
-									$path = 'shop/member/checkout';
-									break;
-								case 'history':
-									$path = 'shop/member/history';
-									break;
-								case 'track':
-									$path = 'shop/member/track';
-									break;
-								case 'orders':
-									$page                = 'orders';
-									$bp_action_variables = $bp->action_variables;
-									if ( ! empty( $bp_action_variables ) ) {
-										foreach ( $bp_action_variables as $var ) {
-											if ( 'view-order' === $var ) {
-												$page = 'view-order';
-												break;
-											}
-										}
+				if ( 'home' === $bp->current_action ) {
+					if ( isset( $this->wc4bp_options[ 'wc4bp_endpoint_' . $this->wc4bp_options['tab_shop_default'] ] ) || 'default' === $this->wc4bp_options['tab_shop_default'] ) {
+						//Determine what is default
+						if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+							$wc4bp_pages_options = array();
+							$endpoints = wc4bp_Manager::get_shop_endpoints();
+							if ( isset( $endpoints['home'] ) ) {
+								unset( $endpoints['home'] );
+							}
+							if ( isset( $endpoints['checkout'] ) ) {
+								unset( $endpoints['checkout'] );
+							}
+							foreach ( $endpoints as $active_page_key => $active_page_name ) {
+								if ( ! isset( $this->wc4bp_options[ 'tab_' . $active_page_key . '_disabled' ] ) ) {
+									$wc4bp_pages_options[] = $active_page_key;
+								}
+							}
+							$woo_endpoints = WC4BP_MyAccount::get_available_endpoints();
+							foreach ( $woo_endpoints as $active_page_key => $active_page_name ) {
+								if ( ! isset( $this->wc4bp_options[ 'wc4bp_endpoint_' . $active_page_key ] ) ) {
+									$wc4bp_pages_options[] = $active_page_key;
+								}
+							}
+							$custom_pages        = get_option( 'wc4bp_pages_options' );
+							if ( ! empty( $custom_pages ) && is_string( $custom_pages ) ) {
+								$custom_pages_temp = json_decode( $custom_pages, true );
+								if ( isset( $custom_pages_temp['selected_pages'] ) && is_array( $custom_pages_temp['selected_pages'] ) ) {
+									foreach ( $custom_pages_temp['selected_pages'] as $key => $attached_page ) {
+										$wc4bp_pages_options[] = $attached_page['tab_slug'];
 									}
-									$path = 'shop/member/' . $page;
-									break;
-								case 'downloads':
-									$path = 'shop/member/downloads';
-									break;
-								case 'edit-account':
-									$path = 'shop/member/edit-account';
-									break;
-								case 'edit-address':
-									$path = 'shop/member/edit-address';
-									break;
-								case 'payment-methods':
-									$path = 'shop/member/payment-methods';
-									break;
+								}
+							}
+							if ( ! empty( $wc4bp_pages_options ) ) {
+								$bp->current_action = $wc4bp_pages_options[0];
+							} else {
+								$bp->current_action = 'cart';
 							}
 						} else {
-							if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-								if ( empty( $this->wc4bp_options['tab_cart_disabled'] ) ) {
-									$bp->current_action = $cart_slug;
-									$path               = 'shop/member/cart';
-								} else {
-									$wc_active_endpoints = WC4BP_MyAccount::get_active_endpoints__premium_only();
-									if ( ! empty( $wc_active_endpoints ) && count( $wc_active_endpoints ) > 0 ) {
-										reset( $wc_active_endpoints );
-										$page_name          = key( $wc_active_endpoints );
-										$bp->current_action = $page_name;
-									} else {
-										if ( empty( $this->wc4bp_options['tab_checkout_disabled'] ) ) {
-											$path = 'shop/member/checkout';
-										}
-										if ( empty( $this->wc4bp_options['tab_history_disabled'] ) ) {
-											$path = 'shop/member/history';
-										}
-										if ( empty( $this->wc4bp_options['tab_track_disabled'] ) ) {
-											$path = 'shop/member/track';
-										}
-										if ( ! empty( $this->wc4bp_pages_options ) && is_string( $this->wc4bp_pages_options ) ) {
-											$wc4bp_pages_options = json_decode( $this->wc4bp_pages_options, true );
-										}
-										if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
-											foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
-												$bp->current_action = $attached_page['tab_slug'];
-												break;
-											}
-										}
-									}
-								}
-							} else {
-								if ( empty( $this->wc4bp_options['tab_cart_disabled'] ) ) {
-									$bp->current_action = $cart_slug;
-									$path               = 'shop/member/cart';
-								} else {
-									if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-										$wc_active_endpoints = WC4BP_MyAccount::get_active_endpoints__premium_only();
-										if ( ! empty( $wc_active_endpoints ) && count( $wc_active_endpoints ) > 1 ) {
-											reset( $wc_active_endpoints );
-											$page_name          = key( $wc_active_endpoints );
-											$bp->current_action = $page_name;
-										}
-									}
-								}
-							}
+							$bp->current_action = 'cart';
 						}
-						break;
-					case 'cart':
-						$path = 'shop/member/cart';
-						break;
-					case 'checkout':
-						$path = 'shop/member/checkout';
-						break;
-					case 'history':
-						$path = 'shop/member/history';
-						break;
-					case 'track':
-						$path = 'shop/member/track';
-						break;
-					case 'orders':
-						$page                = 'orders';
-						$bp_action_variables = $bp->action_variables;
-						if ( ! empty( $bp_action_variables ) ) {
-							foreach ( $bp_action_variables as $var ) {
-								if ( 'view-order' === $var ) {
-									$page = 'view-order';
-									break;
-								}
-							}
-						}
-						$path = 'shop/member/' . $page;
-						break;
-					case 'downloads':
-						$path = 'shop/member/downloads';
-						break;
-					case 'edit-account':
-						$path = 'shop/member/edit-account';
-						break;
-					case 'edit-address':
-						$path = 'shop/member/edit-address';
-						break;
-					case 'payment-methods':
-						$path = 'shop/member/payment-methods';
-						break;
+					} else {
+						$bp->current_action = $this->wc4bp_options['tab_shop_default'];
+					}
 				}
+				$path = $this->get_endpoint_path( $bp->current_action );
 			}
 			add_action( 'bp_template_content',
 				create_function( '', "bp_get_template_part( '" . $path . "' );" )
@@ -448,6 +363,51 @@ class WC4BP_Component extends BP_Component {
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
+	}
+
+	public function get_endpoint_path( $endpoint ) {
+		global $bp;
+		switch ( $endpoint ) {
+			case 'cart':
+				$path = 'shop/member/cart';
+				break;
+			case 'checkout':
+				$path = 'shop/member/checkout';
+				break;
+			case 'track':
+				$path = 'shop/member/track';
+				break;
+			case 'orders':
+				$page                = 'orders';
+				$bp_action_variables = $bp->action_variables;
+				if ( ! empty( $bp_action_variables ) ) {
+					foreach ( $bp_action_variables as $var ) {
+						if ( 'view-order' === $var ) {
+							$page = 'view-order';
+							break;
+						}
+					}
+				}
+				$path = 'shop/member/' . $page;
+				break;
+			case 'downloads':
+				$path = 'shop/member/downloads';
+				break;
+			case 'edit-account':
+				$path = 'shop/member/edit-account';
+				break;
+			case 'edit-address':
+				$path = 'shop/member/edit-address';
+				break;
+			case 'payment-methods':
+				$path = 'shop/member/payment-methods';
+				break;
+			default:
+				$path = 'shop/member/plugin';
+				break;
+		}
+
+		return $path;
 	}
 
 	/**

@@ -287,9 +287,12 @@ class wc4bp_admin extends wc4bp_base {
 				if ( ! isset( $wc4bp_options['tab_shop_default'] ) ) {
 					$wc4bp_options['tab_shop_default'] = 'default';
 				} else {
-					if ( ! array_key_exists( $wc4bp_options['tab_shop_default'], $wc4bp_pages_options['selected_pages'] ) ) {
+					if ( ! empty( $wc4bp_pages_options['selected_pages'] ) ) {
+						if ( ! array_key_exists( $wc4bp_options['tab_shop_default'], $wc4bp_pages_options['selected_pages'] ) ) {
+							$wc4bp_options['tab_shop_default'] = 'default';
+						}
+					} else {
 						$wc4bp_options['tab_shop_default'] = 'default';
-						update_option( 'wc4bp_options', $wc4bp_options );
 					}
 				}
 			} else {
