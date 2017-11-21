@@ -36,7 +36,7 @@ if ( ! class_exists( 'WC4BP_3013' ) ) {
 						foreach ( $posts as $post ) {
 							if ( isset( $post->ID ) ) {
 								$post = get_post( intval( $post->ID ) );
-								wp_delete_post( $post->ID, true );
+								wp_delete_post( $post->ID );
 								wp_cache_delete( 'wc4bp_get_page_by_name_' . $post->post_name, 'wc4bp' );
 							}
 						}
