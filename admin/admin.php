@@ -187,7 +187,6 @@ class wc4bp_admin extends wc4bp_base {
 			$wc4bp_options         = get_option( 'wc4bp_options' );
 			$tab_cart_disabled     = 0;
 			$tab_checkout_disabled = 0;
-			$tab_history_disabled  = 0;
 			$tab_track_disabled    = 0;
 			if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
 				if ( isset( $wc4bp_options['tab_cart_disabled'] ) ) {
@@ -195,9 +194,6 @@ class wc4bp_admin extends wc4bp_base {
 				}
 				if ( isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
 					$tab_checkout_disabled = $wc4bp_options['tab_checkout_disabled'];
-				}
-				if ( isset( $wc4bp_options['tab_history_disabled'] ) ) {
-					$tab_history_disabled = $wc4bp_options['tab_history_disabled'];
 				}
 				if ( isset( $wc4bp_options['tab_track_disabled'] ) ) {
 					$tab_track_disabled = $wc4bp_options['tab_track_disabled'];
@@ -271,11 +267,6 @@ class wc4bp_admin extends wc4bp_base {
 				if ( empty( $wc4bp_options['tab_checkout_disabled'] ) ) {
 					$wc4bp_pages_options['selected_pages']['checkout'] = array(
 						'tab_name' => 'Checkout',
-					);
-				}
-				if ( empty( $wc4bp_options['tab_history_disabled'] ) ) {
-					$wc4bp_pages_options['selected_pages']['history'] = array(
-						'tab_name' => 'History',
 					);
 				}
 				if ( empty( $wc4bp_options['tab_track_disabled'] ) ) {
