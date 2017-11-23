@@ -402,9 +402,16 @@ class WC4BP_Component extends BP_Component {
 			case 'payment-methods':
 				$path = 'shop/member/payment-methods';
 				break;
+            case 'subscriptions' :
+                $path = 'shop/member/plugin';
+                $path = apply_filters( 'wc4bp_load_template_path',$path, $this->template_directory );
+                $path = $this->template_directory.$path;
+                break;
+
 			default:
 				$path = 'shop/member/plugin';
 				break;
+
 		}
 
 		return $path;
