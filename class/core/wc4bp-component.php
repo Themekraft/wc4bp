@@ -121,7 +121,7 @@ class WC4BP_Component extends BP_Component {
 			'slug'            => $slug,
 			'parent_url'      => $shop_link,
 			'parent_slug'     => $this->slug,
-			'screen_function' => apply_filters( 'wc4bp_screen_function', $id, $title, $screen_function ),
+			'screen_function' => apply_filters( 'wc4bp_screen_function', $screen_function, $id ),
 			'position'        => 10,
 			'item_css_id'     => 'shop-' . $id,
 			'user_has_access' => bp_is_my_profile(),
