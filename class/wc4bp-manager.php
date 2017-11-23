@@ -142,7 +142,7 @@ class wc4bp_Manager {
 		return is_plugin_active( 'wc4bp/wc4bp-basic-integration.php' );
 	}
 
-	public static function get_shop_endpoints() {
+	public static function get_shop_endpoints( $include_home = true ) {
 		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
 			$shop_tabs = array(
 				'home'     => apply_filters( 'bp_shop_link_label', __( 'Shop', 'wc4bp' ) ),
@@ -157,6 +157,9 @@ class wc4bp_Manager {
 				'checkout' => __( 'Checkout', 'wc4bp' ),
 				'track'    => __( 'Track your order', 'wc4bp' ),
 			);
+		}
+		if ( ! $include_home ) {
+			unset( $shop_tabs['home'] );
 		}
 
 		return $shop_tabs;

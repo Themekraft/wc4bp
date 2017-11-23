@@ -121,7 +121,7 @@ class WC4BP_Component extends BP_Component {
 			'slug'            => $slug,
 			'parent_url'      => $shop_link,
 			'parent_slug'     => $this->slug,
-			'screen_function' => $screen_function,
+			'screen_function' => apply_filters( 'wc4bp_screen_function', $id, $title, $screen_function ),
 			'position'        => 10,
 			'item_css_id'     => 'shop-' . $id,
 			'user_has_access' => bp_is_my_profile(),
@@ -302,7 +302,6 @@ class WC4BP_Component extends BP_Component {
 			}
 			$path                     = 'shop/member/plugin';
 			$this->template_directory = apply_filters( 'wc4bp_members_get_template_directory', constant( 'WC4BP_ABSPATH_TEMPLATE_PATH' ) );
-			$path                     = apply_filters( 'wc4bp_load_template_path', $path, $this->template_directory );
 			bp_register_template_stack( array( $this, 'wc4bp_members_get_template_directory' ), 14 );
 			if ( in_array( $bp->current_action, array_keys( wc4bp_Manager::available_endpoint() ), true ) ) {
 				$found_template = locate_template( 'members/single/plugins.php', false, false );
@@ -314,10 +313,7 @@ class WC4BP_Component extends BP_Component {
 						//Determine what is default
 						if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
 							$wc4bp_pages_options = array();
-							$endpoints = wc4bp_Manager::get_shop_endpoints();
-							if ( isset( $endpoints['home'] ) ) {
-								unset( $endpoints['home'] );
-							}
+							$endpoints           = wc4bp_Manager::get_shop_endpoints( false );
 							if ( isset( $endpoints['checkout'] ) ) {
 								unset( $endpoints['checkout'] );
 							}
@@ -332,7 +328,7 @@ class WC4BP_Component extends BP_Component {
 									$wc4bp_pages_options[] = $active_page_key;
 								}
 							}
-							$custom_pages        = get_option( 'wc4bp_pages_options' );
+							$custom_pages = get_option( 'wc4bp_pages_options' );
 							if ( ! empty( $custom_pages ) && is_string( $custom_pages ) ) {
 								$custom_pages_temp = json_decode( $custom_pages, true );
 								if ( isset( $custom_pages_temp['selected_pages'] ) && is_array( $custom_pages_temp['selected_pages'] ) ) {
@@ -402,18 +398,13 @@ class WC4BP_Component extends BP_Component {
 			case 'payment-methods':
 				$path = 'shop/member/payment-methods';
 				break;
-            case 'subscriptions' :
-                $path = 'shop/member/plugin';
-                $path = apply_filters( 'wc4bp_load_template_path',$path, $this->template_directory );
-                break;
-
 			default:
 				$path = 'shop/member/plugin';
 				break;
 
 		}
 
-		return $path;
+		return apply_filters( 'wc4bp_load_template_path', $path, $this->template_directory );
 	}
 
 	/**
@@ -437,10 +428,12 @@ class WC4BP_Component extends BP_Component {
 	 * @return array
 	 */
 	public function get_endpoints( $sub_nav, $parent, $is_tabs = true ) {
-		$endpoints     = wc4bp_Manager::available_endpoint();
-		$item_function = ( $is_tabs ) ? 'get_nav_item' : 'get_admin_bar_item';
+		$endpoints       = wc4bp_Manager::available_endpoint();
+		$item_function   = ( $is_tabs ) ? 'get_nav_item' : 'get_admin_bar_item';
+		$shop_endpoints  = wc4bp_Manager::get_shop_endpoints( false );
+		$my_account_tabs = WC4BP_MyAccount::get_available_endpoints();
 		foreach ( $endpoints as $key => $title ) {
-			if ( in_array( $key, array( 'cart', 'checkout', 'track', 'history' ), true ) ) {
+			if ( array_key_exists( $key, $shop_endpoints ) ) {
 				if ( ! isset( $this->wc4bp_options[ 'tab_' . $key . '_disabled' ] ) ) {
 					switch ( $key ) {
 						case 'checkout':
@@ -462,7 +455,7 @@ class WC4BP_Component extends BP_Component {
 							break;
 					}
 				}
-			} elseif ( in_array( $key, array( 'subscriptions', 'orders', 'downloads', 'edit-address', 'payment-methods', 'edit-account' ), true ) ) {
+			} elseif ( array_key_exists( $key, $my_account_tabs ) ) {
 				if ( empty( $this->wc4bp_options[ 'wc4bp_endpoint_' . $key ] ) ) {
 					$sub_nav[] = $this->$item_function( $parent, $key, $title );
 				}

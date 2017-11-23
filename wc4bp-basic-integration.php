@@ -10,8 +10,6 @@
  * Text Domain: wc4bp
  * Domain Path: /languages
  *
- * @fs_premium_only /class/wc4bp-myaccount-content.php,
- *
  *****************************************************************************
  *
  * This script is free software; you can redistribute it and/or modify

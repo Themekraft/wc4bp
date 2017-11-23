@@ -69,12 +69,11 @@ class wc4bp_redirect {
 				if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
 					$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
 				}
-				$cart_page_id                   = wc_get_page_id( 'cart' );
-				$checkout_page_id               = wc_get_page_id( 'checkout' );
-				$account_page_id                = wc_get_page_id( 'myaccount' );
-				$granted_selected_pages_id      = array();
-				$granted_wc_my_account_pages_id = array();
-				$granted_wc_pages_id            = array( intval( $account_page_id ) );
+				$cart_page_id              = wc_get_page_id( 'cart' );
+				$checkout_page_id          = wc_get_page_id( 'checkout' );
+				$account_page_id           = wc_get_page_id( 'myaccount' );
+				$granted_selected_pages_id = array();
+				$granted_wc_pages_id       = array( intval( $account_page_id ) );
 				if ( ! empty( $wc4bp_pages_options['selected_pages'] ) ) {
 					foreach ( $wc4bp_pages_options['selected_pages'] as $selected_page ) {
 						if ( $selected_page['children'] > 0 ) {
@@ -87,18 +86,6 @@ class wc4bp_redirect {
 						}
 					}
 				}
-//				$available = WC4BP_MyAccount::get_available_endpoints();
-//				if ( ! empty( $available ) ) {
-//					foreach ( $available as $end_point_key => $end_point_value ) {
-//						if ( empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
-//							$post = WC4BP_MyAccount::get_page_by_name( wc4bp_Manager::get_prefix() . $end_point_key );
-//							if ( $post ) {
-//								$granted_wc_pages_id[]                       = $post->ID;
-//								$granted_wc_my_account_pages_id[ $post->ID ] = $post;
-//							}
-//						}
-//					}
-//				}
 				if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
 					$granted_wc_pages_id[] = $checkout_page_id;
 				}
@@ -146,13 +133,6 @@ class wc4bp_redirect {
 							}
 						}
 					}
-//					if ( ! empty( $granted_wc_my_account_pages_id ) ) {
-//						foreach ( $granted_wc_my_account_pages_id as $wc_my_account_page_id => $wc_my_account_page ) {
-//							if ( $wc_my_account_page_id === $post_id ) {
-//								return $this->convert_url( $wc_my_account_page->post_name );
-//							}
-//						}
-//					}
 
 					return false;
 				} else {
