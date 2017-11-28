@@ -109,6 +109,23 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 
 == Changelog ==
 
+= 3.0.14 27 November 2017 =
+* Create the status menu option.
+* Optimize all related to the my-account.
+* Optimize the Redirection.
+* Fixing the activation and deactivations for the profile field sync
+* Removing pages for Woocommerce My Account integrations.
+* Optimize My Account.
+* Adding cache.
+* Improving the UX of the WC4BP Setting Tab.
+* Fixing the function to load the payment method screen.
+* Fixing the edit page to edit the Shipping and Billing group.
+* Adding a message to the sync tab when the user disable the Turn off the Profile Sync.
+* Enabling short-codes for woocommerce my account in the free version.
+* Removing history. Fixing the default shop in the setting and the front.
+* Adding a patch to remove the old pages.
+* Fixing the css of all woocommerce view.
+
 = 3.0.13 19 September 2017 =
 * Fixing  Profile Field Visibility for all Users, inside the Profile Syn tab
 * Fixed add-payment-method page
