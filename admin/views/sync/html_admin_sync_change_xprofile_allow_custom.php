@@ -1,4 +1,4 @@
-<p><?php _e( 'Set custom visibility by user', 'wc4bp' ); ?></p>
+<p><?php _e( 'Allow if the user can change the Field visibility.', 'wc4bp' ); ?></p>
 <p>
 	<select name="wc4bp_options_sync[custom_visibility]">
 		<option value="allowed" <?php echo selected( $wc4bp_options_sync['custom_visibility'], 'allowed', false ); ?>>
@@ -23,7 +23,7 @@ if ( bp_is_active( 'xprofile' ) ) {
 		echo '</ul>';
 		echo '<ul>';
 		foreach ( $shipping as $key => $field_id ) {
-			bp_xprofile_update_field_meta( $field_id, 'allow_custom_visibility', $wc4bp_options_sync['visibility_levels'] );
+			bp_xprofile_update_field_meta( $field_id, 'allow_custom_visibility', $wc4bp_options_sync['custom_visibility'] );
 			echo sprintf( __( '<li>shipping_%s default visibility changed to %s</li>', 'wc4bp' ), $key, $wc4bp_options_sync['custom_visibility'] );
 		}
 		echo '</ul>';

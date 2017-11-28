@@ -17,6 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Conditional to check what page the user is on
  *
  * @since    1.0
+ *
+ * @param $page
+ *
+ * @return bool
  */
 function wc4bp_is_page( $page ) {
 	if ( bp_is_current_component( 'shop' ) && bp_is_current_action( $page ) ) {
@@ -30,6 +34,10 @@ function wc4bp_is_page( $page ) {
  * Conditional to check what page the user is on
  *
  * @since    1.0
+ *
+ * @param $sub
+ *
+ * @return bool
  */
 function wc4bp_is_subpage( $sub ) {
 
@@ -44,6 +52,10 @@ function wc4bp_is_subpage( $sub ) {
  * Conditional to check what page the user is on
  *
  * @since    1.0
+ *
+ * @param $sub
+ *
+ * @return bool
  */
 function wc4bp_is_subsubpage( $sub ) {
 	if ( bp_is_current_component( 'shop' ) && bp_is_action_variable( $sub, 1 ) ) {

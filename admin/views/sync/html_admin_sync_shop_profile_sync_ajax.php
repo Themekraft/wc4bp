@@ -1,3 +1,4 @@
+<?php /** @var wc4bp_admin_sync $this */?>
 <input id="continue_update_paged" type="hidden" value="<?php echo $paged ?>">
 <p>
 	<?php _e( 'If the Update stops for some reason you can continue the update manually', 'wc4bp' ); ?>

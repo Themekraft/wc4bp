@@ -20,10 +20,10 @@
 		$available_endpoint = WC4BP_MyAccount::get_active_endpoints__premium_only();
 		if ( ! empty( $available_endpoint ) ) {
 			foreach ( $available_endpoint as $available_endpoint_key => $available_endpoint_name ) {
-				$current_page = wc4bp_Manager::get_prefix() . $available_endpoint_key;
+				$current_page = $available_endpoint_key;
 				if ( $action == $current_page ) {
 					$my_account_page = 1;
-					$order_page      = wc4bp_Manager::get_prefix() . 'orders';
+					$order_page      = 'orders';
 					if ( $action == $order_page && ! empty( $bp_action_variables ) ) {
 						foreach ( $bp_action_variables as $var ) {
 							if ( $var == 'view-order' ) {
@@ -62,11 +62,12 @@
 			}
 			$args = apply_filters( 'wc4bp_members_plugin_template_query', $args );
 	}
-	
+
 	if ( $my_account_page <= 1 ) {
 		$wp_query2 = new wp_query( $args );
 		if ( ! empty( $wp_query2->posts ) ) {
-			if ( empty( $wc4bp_pages_options['page_template'] ) ) {
+			$custom_page_template = apply_filters('wc4bp_custom_page_template', '');
+			if ( empty( $custom_page_template ) ) {
 				$old_post = $post;
 				$post     = $wp_query2->posts[0];
 				setup_postdata( $post ); ?>
@@ -87,13 +88,13 @@
                     </div><!-- .entry-content -->
 					<?php edit_post_link( __( 'Edit', 'wc4bp' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
                 </article><!-- #post-## -->
-				
+
 				<?php
 				wp_reset_postdata();
 				$post = $old_post;
 			} else {
 				$wp_query = $wp_query2;
-				get_template_part( $wc4bp_pages_options['page_template'] );
+				get_template_part( $custom_page_template );
 			}
 		} else {
 			$wp_query2->set_404();

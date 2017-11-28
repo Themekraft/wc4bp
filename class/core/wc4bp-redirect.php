@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package        WordPress
  * @subpackage    BuddyPress, Woocommerce
@@ -14,174 +15,215 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Get the redirect link
+ * This class handle all core redirection and url replace
  *
- * @since 1.0.6
+ * Class wc4bp_redirect
  */
-function wc4bp_get_redirect_link( $id = false ) {
-	global $current_user, $bp, $wp;
-	
-	if ( ! $id ) {
-		return false;
-	}
-	
-	$wc4bp_options = get_option( 'wc4bp_options' );
-	if ( ! empty( $wc4bp_options['tab_activity_disabled'] ) ) {
-		return false;
-	}
-	
-	if ( ( ( isset( $wp->query_vars['name'] ) && $wp->query_vars['name'] == 'order-received' ) || isset( $wp->query_vars['order-received'] ) ) ) {
-		return false;
-	}
-	
-	$action       = bp_current_action();
-	$current_user = wp_get_current_user();
-	$userdata     = get_userdata( $current_user->ID );
-	
-	$wc4bp_options       = get_option( 'wc4bp_options' );
-	$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
-	if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
-		$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
-	}
-	
-	$my_account_page_id = get_option( 'woocommerce_myaccount_page_id' );
-	$cart_page_id       = wc_get_page_id( 'cart' );
-	$checkout_page_id   = wc_get_page_id( 'checkout' );
-	$account_page_id    = wc_get_page_id( 'myaccount' );
+class wc4bp_redirect {
 
-	$granted_wc_page_id = array( $account_page_id, $my_account_page_id );
-	if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
-		$granted_wc_page_id[] = $checkout_page_id;
+	public function __construct() {
+		add_action( 'template_redirect', array( $this, 'wc4bp_redirect_to_profile' ) );
+		add_filter( 'page_link', array( $this, 'wc4bp_page_link_router' ), 9999, 2 );//High priority to take precedent over other plugins
 	}
-	if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
-		$granted_wc_page_id[] = $cart_page_id;
-	}
-	
-	$link = false;
-	if ( in_array( $id, $granted_wc_page_id ) ) {
-		$link = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/shop/';
-		switch ( $id ) {
-			case $cart_page_id:
-				if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
-					$link .= 'cart/';
-				}
-				break;
-			
-			case $checkout_page_id:
-				if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) && is_object( WC()->cart ) && ! WC()->cart->is_empty() ) {
-					$link .= 'checkout/';
-				} else if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) && ! is_object( WC()->cart ) ) {
-					$link .= 'home/';
-				}
-				$checkout_page_id = wc_get_page_id( 'checkout' );
-				$checkout_page    = get_post( $checkout_page_id );
-				$url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' ;
-				$payment_created_account = isset($bp->unfiltered_uri[0]) ? $bp->unfiltered_uri[0] : '';
 
-				$link = apply_filters( 'wc4bp_checkout_page_link', $link );
-                if ($payment_created_account==$checkout_page->post_name){
-                    $link=$url;
-                }
-				break;
-			
-			case $account_page_id:
-				if ( ! empty( $action ) ) {
-					$link .= $action . '/';
-				}
-				$link = apply_filters( 'wc4bp_account_page_link', $link );
-				break;
-		}
-		
-		if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
-			foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
-				if ( $attached_page['children'] > 0 ) {
-					$the_page_id    = get_top_parent_page_id( $attached_page['page_id'] );
-					$the_courent_id = get_top_parent_page_id( $id );
-				} else {
-					$the_page_id    = $attached_page['page_id'];
-					$the_courent_id = $id;
-				}
-				if ( $the_page_id == $the_courent_id ) {
-					$post_data  = get_post( $id );
-					$final_slug = ( $attached_page['tab_slug'] != $post_data->post_name ) ? $attached_page['tab_slug'] . '/' . $post_data->post_name : $attached_page['tab_slug'];
-					$link       .= $final_slug . '/';
-				}
+	/**
+	 * Get base url for all redirection
+	 *
+	 * @return string
+	 */
+	public static function get_base_url() {
+		$base_url = bp_core_get_user_domain( bp_loggedin_user_id() ) . 'shop/';
+
+		return $base_url;
+	}
+
+	/**
+	 * Process the url for given post id
+	 *
+	 * @param bool $post_id
+	 *
+	 * @return bool|string
+	 */
+	public function redirect_link( $post_id = false ) {
+		try {
+			if ( empty( $post_id ) ) {
+				return false;
 			}
+			global $bp, $wp;
+			if ( ! empty( $bp->pages ) ) {
+				//Search in all the actives BPress pages for the current id
+				foreach ( $bp->pages as $page_key => $page_data ) {
+					//if the current id is in the BP pages, do not redirect the link, maintain the BP link
+					if ( intval( $page_data->id ) === intval( $post_id ) ) {
+						return false;
+					}
+				}
+				$wc4bp_options = get_option( 'wc4bp_options' );
+				if ( ! empty( $wc4bp_options['tab_activity_disabled'] ) ) {
+					return false;
+				}
+				if ( ( isset( $wp->query_vars['name'] ) && 'order-received' === $wp->query_vars['name'] ) || isset( $wp->query_vars['order-received'] ) ) {
+					return false;
+				}
+				$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
+				if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
+					$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
+				}
+				$cart_page_id              = wc_get_page_id( 'cart' );
+				$checkout_page_id          = wc_get_page_id( 'checkout' );
+				$account_page_id           = wc_get_page_id( 'myaccount' );
+				$granted_selected_pages_id = array();
+				$granted_wc_pages_id       = array( intval( $account_page_id ) );
+				if ( ! empty( $wc4bp_pages_options['selected_pages'] ) ) {
+					foreach ( $wc4bp_pages_options['selected_pages'] as $selected_page ) {
+						if ( $selected_page['children'] > 0 ) {
+							$parent_id                               = intval( $this->get_top_parent_page_id( $selected_page['page_id'] ) );
+							$granted_wc_pages_id[]                   = $parent_id;
+							$granted_selected_pages_id[ $parent_id ] = $selected_page;
+						} else {
+							$granted_wc_pages_id[]                                            = intval( $selected_page['page_id'] );
+							$granted_selected_pages_id[ intval( $selected_page['page_id'] ) ] = $selected_page;
+						}
+					}
+				}
+				if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
+					$granted_wc_pages_id[] = $checkout_page_id;
+				}
+				if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
+					$granted_wc_pages_id[] = $cart_page_id;
+				}
+				if ( in_array( $post_id, $granted_wc_pages_id, true ) ) {
+					switch ( $post_id ) {
+						case $cart_page_id:
+							if ( ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
+								return $this->convert_url( 'cart' );
+							}
+							break;
+						case $checkout_page_id:
+							$checkout_url = '';
+							if ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) && is_object( WC()->cart ) && ! WC()->cart->is_empty() ) {
+								$checkout_url = 'checkout';
+							} elseif ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) && ! is_object( WC()->cart ) ) {
+								$checkout_url = 'home';
+							}
+							$checkout_page           = get_post( $checkout_page_id );
+							$url                     = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name;
+							$payment_created_account = isset( $bp->unfiltered_uri[0] ) ? $bp->unfiltered_uri[0] : '';
+							$checkout_url            = apply_filters( 'wc4bp_checkout_page_link', $checkout_url );
+							if ( $payment_created_account === $checkout_page->post_name ) {
+								$checkout_url = $url;
+							}
+
+							return $this->convert_url( $checkout_url );
+							break;
+						case $account_page_id:
+							if ( ! isset( $wc4bp_options['tab_my_account_disabled'] ) ) {
+								return $this->convert_url();
+							}
+							break;
+					}
+					if ( ! empty( $granted_selected_pages_id ) ) {
+						$parent_post_id = $this->get_top_parent_page_id( $post_id );
+						foreach ( $granted_selected_pages_id as $select_page_id => $select_page ) {
+							if ( $select_page_id === $parent_post_id ) {
+								$post_data  = get_post( $post_id );
+								$final_slug = ( $select_page['tab_slug'] !== $post_data->post_name ) ? $select_page['tab_slug'] . '/' . $post_data->post_name : $select_page['tab_slug'];
+
+								return $this->convert_url( $final_slug );
+							}
+						}
+					}
+
+					return false;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		} catch ( Exception $exception ) {
+			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+
+			return false;
 		}
-		
-		if ( 'yes' == get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+	}
+
+	private function convert_url( $add_url = '' ) {
+		$suffix = '';
+		if ( ! empty( $add_url ) ) {
+			$suffix = $add_url . '/';
+		}
+		$link = self::get_base_url() . $suffix;
+		if ( 'yes' === get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 			$link = str_replace( 'http:', 'https:', $link );
 		}
-	}
-	
-	return apply_filters( 'wc4bp_get_redirect_link', $link );
-}
 
-function get_top_parent_page_id( $post_id ) {
-	$ancestors = get_post_ancestors( $post_id );
-	// Check if page is a child page (any level)
-	if ( $ancestors ) {
-		// Grab the ID of top-level page from the tree
-		return end( $ancestors );
-	} else {
-		// Page is the top level, so use  it's own id
-		return $post_id;
-	}
-}
-
-/**
- * Redirect the user to their respective profile page
- *
- * @since 1.0.6
- */
-function wc4bp_redirect_to_profile() {
-	global $post, $wp_query,$bp;
-	
-	if ( ! is_user_logged_in() ) {
-		return false;
-	}
-	
-	if ( empty( $post ) || ! is_object( $post ) ) {
-		return false;
+		return apply_filters( 'wc4bp_get_redirect_link', $link );
 	}
 
-	
-	$link = wc4bp_get_redirect_link( $post->ID );
-	
-	if ( ! empty( $link ) ) :
-		wp_safe_redirect( $link );
-		exit;
-	endif;
-}
+	/**
+	 * Change core related urls
+	 *
+	 * @param $link
+	 * @param $id
+	 *
+	 * @return mixed
+	 */
+	function wc4bp_page_link_router( $link, $id ) {
+		//if user is not logged or is in the backend in exit
+		if ( ! is_user_logged_in() || is_admin() ) {
+			return $link;
+		}
 
-add_action( 'template_redirect', 'wc4bp_redirect_to_profile' );
+		$new_link = $this->redirect_link( $id );
+		if ( ! empty( $new_link ) ) {
+			$link = $new_link;
+		}
 
-/**
- * Link router function
- *
- * @since    1.0.6
- * @uses    bp_get_option()
- * @uses    is_page()
- */
-function wc4bp_page_link_router( $link, $id ) {
-	global $bp;
-	if ( ! is_user_logged_in() || is_admin() ) {
-		return $link;
+		return apply_filters( 'wc4bp_router_link', $link );
 	}
-	if ( ! empty( $bp ) && ! empty( $bp->pages ) ) {
-		//Search in all the actives BPress pages for the current id
-		foreach ( $bp->pages as $page_key => $page_data ) {
-			//if the current id is in the BP pages, do not redirect the link, maintain the BP link
-			if ( $page_data->id == $id ) {
-				return $link;
-			}
+
+	/**
+	 * Redirect core related urls
+	 *
+	 * @return bool
+	 */
+	function wc4bp_redirect_to_profile() {
+		global $post;
+		//if user is not logged or is in the backend in exit
+		if ( ! is_user_logged_in() || is_admin() ) {
+			return false;
+		}
+		//if post is empty exit
+		if ( empty( $post ) ) {
+			return false;
+		}
+		$link = $this->redirect_link( $post->ID );
+
+		if ( ! empty( $link ) ) {
+			wp_safe_redirect( $link );
+			exit;
+		} else {
+			return false;
 		}
 	}
-	$new_link = wc4bp_get_redirect_link( $id );
-	if ( ! empty( $new_link ) ) {
-		$link = $new_link;
-	}
-	return apply_filters( 'wc4bp_router_link', $link );
-}
 
-add_filter( 'page_link', 'wc4bp_page_link_router', 10, 2 );
+	/**
+	 * Get the top parent of a post id
+	 *
+	 * @param $post_id
+	 *
+	 * @return mixed
+	 */
+	function get_top_parent_page_id( $post_id ) {
+		$ancestors = get_post_ancestors( $post_id );
+		// Check if page is a child page (any level)
+		if ( $ancestors ) {
+			// Grab the ID of top-level page from the tree
+			return end( $ancestors );
+		} else {
+			// Page is the top level, so use  it's own id
+			return $post_id;
+		}
+	}
+}

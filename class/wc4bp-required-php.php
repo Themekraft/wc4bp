@@ -15,11 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class WC4BP_Required_PHP extends wc4bp_requirements {
-	
+
 	public function __construct( $text_domain = 'wc4bp_requirements' ) {
 		parent::__construct( $text_domain );
 	}
-	
+
 	/**
 	 * Set the plugins requirements
 	 *
@@ -33,6 +33,7 @@ class WC4BP_Required_PHP extends wc4bp_requirements {
 		$requirement                 = new WP_WordPress_Requirement();
 		$requirement->minimumVersion = '4.6.2';
 		array_push( $requirements, $requirement );
+
 		return $requirements;
 	}
 }
