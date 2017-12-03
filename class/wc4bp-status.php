@@ -49,6 +49,50 @@ class WC4BP_Status {
 		$shop_settings['tab_shop_default']               = ( isset( $wc4bp_options['tab_shop_default'] ) ) ? $wc4bp_options['tab_shop_default'] : 'default';
 		$data['WC4BP Settings']                          = $shop_settings;
 
+		$shipping          = bp_get_option( 'wc4bp_shipping_address_ids' );
+		$billing           = bp_get_option( 'wc4bp_billing_address_ids' );
+		$exist_group_in_bp = array();
+		$exist_field_in_bp = array();
+		//Get BP XProfield groups
+		$groups = BP_XProfile_Group::get( array(
+			'fetch_fields' => true,
+		) );
+		/** @var BP_XProfile_Group $group */
+		foreach ( $groups as $group ) {
+			if ( wc4bp_Sync::wc4bp_is_invalid_xprofile_group( $group ) ) {
+				continue;
+			}
+			$exist_group_in_bp[ $group->description ] = $group;
+			/** @var BP_XProfile_Field $field */
+			foreach ( $group->fields as $field ) {
+				$billing_key  = array_search( $field->id, $billing, true );
+				$shipping_key = array_search( $field->id, $shipping, true );
+				if ( $shipping_key || $billing_key ) {
+					$exist_field_in_bp[ $group->description ][ $field->id ] = $field;
+				}
+			}
+		}
+
+		$xprofiels_settings['shipping_array'] = is_array( $shipping ) ? 'true' : 'false';
+		$xprofiels_settings['billing_array']  = is_array( $billing ) ? 'true' : 'false';
+		/**
+		 * @var string $key
+		 * @var BP_XProfile_Group $item
+		 */
+		foreach ( $exist_group_in_bp as $key => $item ) {
+			$xprofiels_settings[ $key ] = $item->name;
+			if ( is_array( $exist_field_in_bp[ $key ] ) ) {
+				/**
+				 * @var integer $field_id
+				 * @var BP_XProfile_Field $field_data
+				 */
+				foreach ( $exist_field_in_bp[ $key ] as $field_id => $field_data ) {
+					$xprofiels_settings[ $key . '_' . $field_data->name ] = $field_data->id;
+				}
+			}
+		}
+		$data['WC4BP XProfield Details'] = $xprofiels_settings;
+
 		return $data;
 	}
 }
