@@ -364,6 +364,7 @@ function wc4bp_cleanup() {
 				if ( ! empty( $delete_result_1 ) && ! empty( $delete_result_2 ) ) {
 					delete_option( 'wc4bp_installed' );
 				}
+				wc4bp_Sync::clean_xprofield_fields_cached();
 			}
 		}
 	} catch ( Exception $exception ) {

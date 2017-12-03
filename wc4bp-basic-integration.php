@@ -278,6 +278,8 @@ class WC4BP_Loader {
 		try {
 			$wc4bp_options_delete = get_option( 'wc4bp_options_delete' );
 			if ( $wc4bp_options_delete ) {
+				include_once( dirname( __FILE__ ) . '/class/core/wc4bp-sync.php' );
+				wc4bp_Sync::clean_xprofield_fields_cached();
 				WC4BP_MyAccount::clean_my_account_cached();
 				self::uninstall_cleanup();
 			}

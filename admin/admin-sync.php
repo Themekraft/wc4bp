@@ -87,8 +87,9 @@ class wc4bp_admin_sync extends wc4bp_base {
 		try {
 			if ( bp_is_active( 'xprofile' ) ) {
 				// get the profile fields
-				$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
-				$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
+				$ids      = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
+				$shipping = $ids['shipping'];
+				$billing  = $ids['billing'];
 				$groups   = BP_XProfile_Group::get( array(
 					'fetch_fields' => true,
 				) );
@@ -98,8 +99,8 @@ class wc4bp_admin_sync extends wc4bp_base {
 							continue;
 						}
 						foreach ( $group->fields as $field ) {
-							$billing_key  = array_search( $field->id, $billing );
-							$shipping_key = array_search( $field->id, $shipping );
+							$billing_key  = array_search( $field->id, $billing, true );
+							$shipping_key = array_search( $field->id, $shipping, true );
 							if ( $shipping_key ) {
 								$type       = 'shipping';
 								$field_slug = $shipping_key;
@@ -151,8 +152,9 @@ class wc4bp_admin_sync extends wc4bp_base {
 		try {
 			if ( bp_is_active( 'xprofile' ) ) {
 				// get the corresponding  wc4bp fields
-				$shipping         = bp_get_option( 'wc4bp_shipping_address_ids' );
-				$billing          = bp_get_option( 'wc4bp_billing_address_ids' );
+				$ids              = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
+				$shipping         = $ids['shipping'];
+				$billing          = $ids['billing'];
 				$visibility_level = sanitize_text_field( $_POST['visibility_level'] );
 				foreach ( $shipping as $key => $field_id ) {
 					xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
@@ -169,8 +171,9 @@ class wc4bp_admin_sync extends wc4bp_base {
 	public function wc4bp_change_xprofile_visibility_default() {
 		try {
 			$wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
-			$billing            = bp_get_option( 'wc4bp_billing_address_ids' );
-			$shipping           = bp_get_option( 'wc4bp_shipping_address_ids' );
+			$ids      = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
+			$shipping = $ids['shipping'];
+			$billing  = $ids['billing'];
 			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'sync/html_admin_sync_change_xprofile_visibility.php' );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
@@ -180,8 +183,9 @@ class wc4bp_admin_sync extends wc4bp_base {
 	public function wc4bp_change_xprofile_allow_custom_visibility() {
 		try {
 			$wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
-			$billing            = bp_get_option( 'wc4bp_billing_address_ids' );
-			$shipping           = bp_get_option( 'wc4bp_shipping_address_ids' );
+			$ids      = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
+			$shipping = $ids['shipping'];
+			$billing  = $ids['billing'];
 			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'sync/html_admin_sync_change_xprofile_allow_custom.php' );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );

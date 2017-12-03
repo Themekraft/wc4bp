@@ -52,8 +52,9 @@ class wc4bp_Sync {
 	static function wc4bp_sync_addresses_from_profile( $user_id, $field_id, $value ) {
 		try {
 			// get the profile fields
-			$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
-			$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
+			$ids      = self::wc4bp_get_xprofield_fields_ids();
+			$shipping = $ids['shipping'];
+			$billing  = $ids['billing'];
 
 			if ( is_array( $shipping ) ) {
 				if ( isset( $shipping['group_id'] ) ) {
@@ -130,6 +131,21 @@ class wc4bp_Sync {
 		}
 	}
 
+	public static function wc4bp_get_xprofield_fields_ids() {
+		$result = wp_cache_get( 'wc4bp_get_xprofield_fields_ids', 'wc4bp' );
+		if ( false === $result ) {
+			$result['shipping'] = bp_get_option( 'wc4bp_shipping_address_ids' );
+			$result['billing']  = bp_get_option( 'wc4bp_billing_address_ids' );
+			wp_cache_add( 'wc4bp_get_xprofield_fields_ids', $result, 'wc4bp' );
+		}
+
+		return $result;
+	}
+
+	public static function clean_xprofield_fields_cached() {
+		wp_cache_delete( 'wc4bp_get_xprofield_fields_ids', 'wc4bp' );
+	}
+
 	/**
 	 * Synchronize the shipping and billing address to the profile
 	 *
@@ -141,8 +157,9 @@ class wc4bp_Sync {
 		try {
 			if ( bp_is_active( 'xprofile' ) ) {
 				// get the profile fields
-				$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
-				$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
+				$ids      = self::wc4bp_get_xprofield_fields_ids();
+				$shipping = $ids['shipping'];
+				$billing  = $ids['billing'];
 				$groups   = BP_XProfile_Group::get( array(
 					'fetch_fields' => true,
 				) );
@@ -346,7 +363,7 @@ class wc4bp_Sync {
 						'label'       => __( 'Email Address', 'wc4bp' ),
 						'description' => '',
 					),
-					'billing_fax'      => array(
+					'billing_fax'        => array(
 						'label'       => __( 'Fax', 'wc4bp' ),
 						'description' => '',
 					),
