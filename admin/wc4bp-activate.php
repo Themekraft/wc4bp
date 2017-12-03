@@ -27,6 +27,8 @@ function wc4bp_activate() {
 	try {
 		global $wpdb, $bp;
 
+		$wc4bp_sync = new wc4bp_Sync( false );
+
 		if ( ! wc4bp_Manager::is_woocommerce_active() ) {
 			return false;
 		}
@@ -61,11 +63,19 @@ function wc4bp_activate() {
 				'fetch_fields' => true,
 			) );
 			//look if a record with the billing code already exist
+			/** @var BP_XProfile_Group $current */
 			foreach ( $groups as $current ) {
-				if ( 'billing' == $current->description ) {
+				if ( apply_filters( 'wc4bp_billing_group_id', 'billing' ) === $current->description ) {
 					//If exist a record with the billing code take it, and avoid insert a new one
 					$insert_billing_group = false;
-					$billing              = $current;
+					$type                 = $current->description;
+					/** @var BP_XProfile_Field $field */
+					foreach ( $current->fields as $field ) {
+						$slug = $wc4bp_sync->get_slug_of_field( $type, $field->name, true );
+						if ( false !== $slug ) {
+							$billing[ $slug ] = $field->id;
+						}
+					}
 					break;
 				}
 			}
@@ -148,39 +158,47 @@ function wc4bp_activate() {
 				$billing['state'] = xprofile_insert_field( array(
 					'field_group_id' => $billing['group_id'],
 					'type'           => 'textbox',
-					'name'           => __( 'State', 'wc4bp' ),
+					'name'           => __( 'State/County', 'wc4bp' ),
 					'field_order'    => 9,
-					'is_required'    => 1
+					'is_required'    => 1,
 				) );
 				$billing['email'] = xprofile_insert_field( array(
 					'field_group_id' => $billing['group_id'],
 					'type'           => 'textbox',
 					'name'           => __( 'Email Address', 'wc4bp' ),
 					'field_order'    => 10,
-					'is_required'    => 1
+					'is_required'    => 1,
 				) );
 				$billing['phone'] = xprofile_insert_field( array(
 					'field_group_id' => $billing['group_id'],
 					'type'           => 'textbox',
 					'name'           => __( 'Phone', 'wc4bp' ),
 					'field_order'    => 11,
-					'is_required'    => 1
+					'is_required'    => 1,
 				) );
 				$billing['fax']   = xprofile_insert_field( array(
 					'field_group_id' => $billing['group_id'],
 					'type'           => 'textbox',
 					'name'           => __( 'Fax', 'wc4bp' ),
 					'field_order'    => 12,
-					'is_required'    => 0
+					'is_required'    => 0,
 				) );
 			}
 			$shipping = array();
 			//Look if exist a record with the shipping code
+			/** @var BP_XProfile_Group $current */
 			foreach ( $groups as $current ) {
-				if ( 'shipping' == $current->description ) {
+				if ( apply_filters( 'wc4bp_shipping_group_id', 'shipping' ) === $current->description ) {
 					// If exist a record with the shipping code take it and avoid inserting a new one
 					$insert_shipping_group = false;
-					$shipping              = $current;
+					$type                  = $current->description;
+					/** @var BP_XProfile_Field $field */
+					foreach ( $current->fields as $field ) {
+						$slug = $wc4bp_sync->get_slug_of_field( $type, $field->name, true );
+						if ( false !== $slug ) {
+							$shipping[ $slug ] = $field->id;
+						}
+					}
 					break;
 				}
 			}
@@ -262,7 +280,7 @@ function wc4bp_activate() {
 				$shipping['state'] = xprofile_insert_field( array(
 					'field_group_id' => $shipping['group_id'],
 					'type'           => 'textbox',
-					'name'           => __( 'State', 'wc4bp' ),
+					'name'           => __( 'State/County', 'wc4bp' ),
 					'field_order'    => 9,
 					'is_required'    => 1,
 				) );
@@ -284,7 +302,7 @@ function wc4bp_activate() {
 			}
 
 			update_option( 'wc4bp_options', array(
-				'tab_shop_default' => 'default'
+				'tab_shop_default' => 'default',
 			) );
 
 			wc4bp_bp_xprofile_update_field_meta( $billing );
@@ -302,46 +320,42 @@ function wc4bp_activate() {
 }
 
 /**
- * Uninstall routine
+ * Clean routine
  *
- * Cleans up after uninstalling the plugin. Removes options
- * and BP profile groups plus associated data
+ * Cleans up after uninstalling the plugin or onSync. Removes options and BP profile groups (Shipping/Billing) plus associated data
  *
- * @since    1.0
  */
 function wc4bp_cleanup() {
 	try {
-		if ( is_multisite() ) {
-			if ( bp_is_active( 'xprofile' ) ) {
+		if ( function_exists( 'xprofile_delete_field_group' ) ) { //Proceed if the function exist
+			if ( is_multisite() ) {
 				$wc4bp_shipping_address_ids = get_blog_option( BP_ROOT_BLOG, 'wc4bp_shipping_address_ids' );
-				if ( ! empty( $wc4bp_shipping_address_ids ) && ! empty( $wc4bp_shipping_address_ids['group_id'] ) ) {
+				if ( is_array( $wc4bp_shipping_address_ids ) && ! empty( $wc4bp_shipping_address_ids ) && ! empty( $wc4bp_shipping_address_ids['group_id'] ) ) {
 					$result_delete_field_1 = xprofile_delete_field_group( $wc4bp_shipping_address_ids['group_id'] );
 					if ( ! empty( $result_delete_field_1 ) ) {
 						$delete_result_1 = delete_blog_option( BP_ROOT_BLOG, 'wc4bp_shipping_address_ids' );
 					}
 				}
 				$wc4bp_billing_address_ids = get_blog_option( BP_ROOT_BLOG, 'wc4bp_billing_address_ids' );
-				if ( ! empty( $wc4bp_billing_address_ids ) && ! empty( $wc4bp_billing_address_ids['group_id'] ) ) {
+				if ( is_array( $wc4bp_billing_address_ids ) && ! empty( $wc4bp_billing_address_ids ) && ! empty( $wc4bp_billing_address_ids['group_id'] ) ) {
 					$result_delete_field_2 = xprofile_delete_field_group( $wc4bp_billing_address_ids['group_id'] );
 					if ( ! empty( $result_delete_field_2 ) ) {
 						$delete_result_2 = delete_blog_option( BP_ROOT_BLOG, 'wc4bp_billing_address_ids' );
 					}
 				}
-			}
-			if ( ! empty( $delete_result_1 ) && ! empty( $delete_result_2 ) ) {
-				delete_blog_option( BP_ROOT_BLOG, 'wc4bp_installed' );
-			}
-		} else {
-			if ( bp_is_active( 'xprofile' ) ) {
+				if ( ! empty( $delete_result_1 ) && ! empty( $delete_result_2 ) ) {
+					delete_blog_option( BP_ROOT_BLOG, 'wc4bp_installed' );
+				}
+			} else {
 				$wc4bp_shipping_address_ids = get_option( 'wc4bp_shipping_address_ids' );
-				if ( ! empty( $wc4bp_shipping_address_ids ) && ! empty( $wc4bp_shipping_address_ids['group_id'] ) ) {
+				if ( is_array( $wc4bp_shipping_address_ids ) && ! empty( $wc4bp_shipping_address_ids ) && ! empty( $wc4bp_shipping_address_ids['group_id'] ) ) {
 					$result_delete_field_1 = xprofile_delete_field_group( $wc4bp_shipping_address_ids['group_id'] );
 					if ( ! empty( $result_delete_field_1 ) ) {
 						$delete_result_1 = delete_option( 'wc4bp_shipping_address_ids' );
 					}
 				}
 				$wc4bp_billing_address_ids = get_option( 'wc4bp_billing_address_ids' );
-				if ( ! empty( $wc4bp_billing_address_ids ) && ! empty( $wc4bp_billing_address_ids['group_id'] ) ) {
+				if ( is_array( $wc4bp_billing_address_ids ) && ! empty( $wc4bp_billing_address_ids ) && ! empty( $wc4bp_billing_address_ids['group_id'] ) ) {
 					$result_delete_field_2 = xprofile_delete_field_group( $wc4bp_billing_address_ids['group_id'] );
 					if ( ! empty( $result_delete_field_2 ) ) {
 						$delete_result_2 = delete_option( 'wc4bp_billing_address_ids' );

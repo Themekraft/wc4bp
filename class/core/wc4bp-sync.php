@@ -15,7 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class wc4bp_Sync {
 
-	public function __construct() {
+	public function __construct( $init = true ) {
+		if ( $init ) {
+			$this->init();
+		}
+	}
+
+	private function init() {
 		add_action( 'xprofile_profile_field_data_updated', array( $this, 'wc4bp_xprofile_profile_field_data_updated' ), 10, 3 );
 		add_action( 'personal_options_update', array( $this, 'wc4bp_sync_addresses_to_profile' ), 10, 1 );
 		add_action( 'edit_user_profile_update', array( $this, 'wc4bp_sync_addresses_to_profile' ), 10, 1 );
@@ -53,7 +59,7 @@ class wc4bp_Sync {
 				if ( isset( $shipping['group_id'] ) ) {
 					unset( $shipping['group_id'] );
 				}
-				$shipping_key = array_search( $field_id, $shipping );
+				$shipping_key = array_search( $field_id, $shipping, true );
 			} elseif ( isset( $shipping->group_id ) ) {
 				unset( $shipping->group_id );
 				$shipping_key = self::extract_field( $field_id, $shipping->fields );
@@ -62,7 +68,7 @@ class wc4bp_Sync {
 				if ( isset( $billing['group_id'] ) ) {
 					unset( $billing['group_id'] );
 				}
-				$billing_key = array_search( $field_id, $billing );
+				$billing_key = array_search( $field_id, $billing, true );
 			} elseif ( isset( $billing->group_id ) ) {
 				unset( $billing->group_id );
 				$billing_key = self::extract_field( $field_id, $shipping->fields );
@@ -82,9 +88,9 @@ class wc4bp_Sync {
 				return false;
 			}
 
-			if ( 'country' == $shipping_key || 'country' == $billing_key ) {
+			if ( 'country' === $shipping_key || 'country' === $billing_key ) {
 				$geo   = new WC_Countries();
-				$value = array_search( $value, $geo->get_countries() );
+				$value = array_search( $value, $geo->get_countries(), true );
 			}
 
 			if ( empty( $user_id ) ) {
@@ -95,6 +101,8 @@ class wc4bp_Sync {
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
+
+		return false;
 	}
 
 	public static function extract_field( $field_id, $array_of_fields ) {
@@ -135,37 +143,32 @@ class wc4bp_Sync {
 				// get the profile fields
 				$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
 				$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
-				unset( $shipping['group_id'] );
-				unset( $billing['group_id'] );
-				$groups = BP_XProfile_Group::get( array(
+				$groups   = BP_XProfile_Group::get( array(
 					'fetch_fields' => true,
 				) );
-				if ( ! empty( $groups ) ) {
-					foreach ( $groups as $group ) {
-						if ( empty( $group->fields ) ) {
-							continue;
-						}
-						foreach ( $group->fields as $field ) {
-							$billing_key  = array_search( $field->id, $billing );
-							$shipping_key = array_search( $field->id, $shipping );
-							if ( $shipping_key ) {
-								$type       = 'shipping';
-								$field_slug = $shipping_key;
-							}
-							if ( $billing_key ) {
-								$type       = 'billing';
-								$field_slug = $billing_key;
-							}
-							if ( isset( $field_slug ) ) {
-								if ( ! empty( $_POST[ $type . '_' . $field_slug ] ) ) {
-									if ( $field_slug == 'country' ) {
-										$geo       = new WC_Countries();
-										$countries = $geo->get_countries();
-										$slug      = $countries[ $_POST[ $type . '_' . $field_slug ] ];
-									} else {
-										$slug = sanitize_text_field( $_POST[ $type . '_' . $field_slug ] );
+				if ( ! empty( $shipping ) && ! empty( $billing ) ) {
+					if ( is_array( $shipping ) && is_array( $billing ) ) {
+						unset( $shipping['group_id'] );
+						unset( $billing['group_id'] );
+						if ( ! empty( $groups ) ) {
+							foreach ( $groups as $group ) {
+								if ( self::wc4bp_is_invalid_xprofile_group( $group ) ) {
+									continue;
+								}
+								foreach ( $group->fields as $field ) {
+									$billing_key  = array_search( $field->id, $billing, true );
+									$shipping_key = array_search( $field->id, $shipping, true );
+									if ( $shipping_key ) {
+										$type       = 'shipping';
+										$field_slug = $shipping_key;
 									}
-									xprofile_set_field_data( $field->id, $user_id, $slug );
+									if ( $billing_key ) {
+										$type       = 'billing';
+										$field_slug = $billing_key;
+									}
+									if ( isset( $field_slug ) ) {
+										$this->wc4bp_update_field( $type, $field_slug, $user_id, $field );
+									}
 								}
 							}
 						}
@@ -175,6 +178,82 @@ class wc4bp_Sync {
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
+	}
+
+	public static function wc4bp_is_invalid_xprofile_group( $group ) {
+		return ( empty( $group->fields ) || ( apply_filters( 'wc4bp_billing_group_id', 'billing' ) !== $group->description && apply_filters( 'wc4bp_shipping_group_id', 'shipping' ) !== $group->description ) );
+	}
+
+	private function wc4bp_update_field( $type, $field_slug, $user_id, $field, $use_prefix = false ) {
+		try {
+			$country_slug     = ( $use_prefix ) ? $type . '_country' : 'country';
+			$final_field_slug = ( ! $use_prefix ) ? $type . '_' . $field_slug : $field_slug;
+			if ( ! empty( $_POST[ $final_field_slug ] ) ) {
+				if ( $field_slug == $country_slug ) {
+					$geo       = new WC_Countries();
+					$countries = $geo->get_countries();
+					$value     = $countries[ $_POST[ $final_field_slug ] ];
+				} else {
+					$value = sanitize_text_field( $_POST[ $final_field_slug ] );
+				}
+				xprofile_set_field_data( $field->id, $user_id, $value );
+			}
+		} catch ( Exception $exception ) {
+			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+		}
+	}
+
+	/**
+	 * Check if field exist in the array of fields
+	 *
+	 * @param $fields
+	 * @param $id
+	 *
+	 * @return bool
+	 */
+	public function exist_in_group( $fields, $id ) {
+		try {
+			/** @var BP_XProfile_Field $field */
+			foreach ( $fields as $field ) {
+				if ( is_object( $field ) ) {
+					if ( $field->id === $id ) {
+						return true;
+					}
+				}
+			}
+		} catch ( Exception $exception ) {
+			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get the field key by the name, base on the internal model
+	 *
+	 * @param string $group ['billing'|'shipping']
+	 * @param string $name
+	 * @param bool $remove_group_from_name
+	 *
+	 * @return bool|string
+	 */
+	public function get_slug_of_field( $group, $name, $remove_group_from_name = false ) {
+		try {
+			$model = $this->wc4bp_get_customer_meta_fields();
+			if ( is_array( $model ) && isset( $model[ $group ] ) ) {
+				foreach ( $model[ $group ]['fields'] as $field_key => $field_data ) {
+					if ( stripos( $field_data['label'], $name ) !== false ) {
+						$final_key = ( $remove_group_from_name ) ? str_replace( $group . '_', '', $field_key ) : $field_key;
+
+						return $final_key;
+					}
+				}
+			}
+		} catch ( Exception $exception ) {
+			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+		}
+
+		return false;
 	}
 
 	/**
@@ -224,11 +303,11 @@ class wc4bp_Sync {
 				'title'  => __( 'Customer Billing Address', 'wc4bp' ),
 				'fields' => array(
 					'billing_first_name' => array(
-						'label'       => __( 'First name', 'wc4bp' ),
+						'label'       => __( 'First Name', 'wc4bp' ),
 						'description' => '',
 					),
 					'billing_last_name'  => array(
-						'label'       => __( 'Last name', 'wc4bp' ),
+						'label'       => __( 'Last Name', 'wc4bp' ),
 						'description' => '',
 					),
 					'billing_company'    => array(
@@ -260,11 +339,15 @@ class wc4bp_Sync {
 						'description' => '2 letter Country code',
 					),
 					'billing_phone'      => array(
-						'label'       => __( 'Telephone', 'wc4bp' ),
+						'label'       => __( 'Phone', 'wc4bp' ),
 						'description' => '',
 					),
 					'billing_email'      => array(
-						'label'       => __( 'Email', 'wc4bp' ),
+						'label'       => __( 'Email Address', 'wc4bp' ),
+						'description' => '',
+					),
+					'billing_fax'      => array(
+						'label'       => __( 'Fax', 'wc4bp' ),
 						'description' => '',
 					),
 				),
@@ -273,11 +356,11 @@ class wc4bp_Sync {
 				'title'  => __( 'Customer Shipping Address', 'wc4bp' ),
 				'fields' => array(
 					'shipping_first_name' => array(
-						'label'       => __( 'First name', 'wc4bp' ),
+						'label'       => __( 'First Name', 'wc4bp' ),
 						'description' => '',
 					),
 					'shipping_last_name'  => array(
-						'label'       => __( 'Last name', 'wc4bp' ),
+						'label'       => __( 'Last Name', 'wc4bp' ),
 						'description' => '',
 					),
 					'shipping_company'    => array(

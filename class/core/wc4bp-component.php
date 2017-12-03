@@ -54,6 +54,7 @@ class WC4BP_Component extends BP_Component {
 				'wc4bp-screen',
 				'wc4bp-redirect',
 				'wc4bp-deprecated',
+				'wc4bp-sync',
 			);
 			foreach ( $includes as $file ) {
 				require( WC4BP_ABSPATH . 'class/core/' . $file . '.php' );
@@ -61,10 +62,7 @@ class WC4BP_Component extends BP_Component {
 			if ( ! class_exists( 'BP_Theme_Compat' ) ) {
 				require( WC4BP_ABSPATH . 'class/core/wc4bp-template-compatibility.php' );
 			}
-			if ( ! isset( $this->wc4bp_options['tab_sync_disabled'] ) || class_exists( 'WC4BP_xProfile' ) ) {
-				require( WC4BP_ABSPATH . 'class/core/wc4bp-sync.php' );
-				new wc4bp_Sync();
-			}
+			new wc4bp_Sync();
 			new wc4bp_redirect();
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );

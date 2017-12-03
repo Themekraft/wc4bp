@@ -94,7 +94,7 @@ class wc4bp_admin_sync extends wc4bp_base {
 				) );
 				if ( ! empty( $groups ) ) {
 					foreach ( $groups as $group ) {
-						if ( empty( $group->fields ) ) {
+						if ( wc4bp_Sync::wc4bp_is_invalid_xprofile_group( $group ) ) {
 							continue;
 						}
 						foreach ( $group->fields as $field ) {
