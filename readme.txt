@@ -4,7 +4,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
 Tested up to: WP 4.8.2
-Stable tag: 3.0.14
+Stable tag: 3.0.14.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,17 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
+
+= 3.0.14.1 3 December 2017 =
+* Now the plugins not delete the fields when uninstall, only when the user stop the sync.
+* The plugins reuse the groups and the fields if they exist, it use the description of the groups as key for it.
+* Ensuring the plugins only modify the fields belong to shipping and billing groups.
+* Cleaning the activation and deactivation to not create/delete the old pages.
+* Changing the core to be responsible to update the bp/user profield fields, not the x-profile.
+* Disabling the error handler. To improve when massive error comes.
+* Fixing the header of the status section to improve the filter to add custom attributes to the header of each section.
+* Adding extra information to the status section related to the buddypress xprofield groups and fields. This time get all groups and fields.
+* Optimizing the load of the xprofield field ids from our settings to use a cached version.
 
 = 3.0.14 27 November 2017 =
 * Create the status menu option.

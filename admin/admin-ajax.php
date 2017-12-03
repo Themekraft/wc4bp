@@ -73,8 +73,9 @@ class wc4bp_admin_ajax extends wc4bp_base {
 		try {
 			// get the corresponding  wc4bp fields
 			if ( bp_is_active( 'xprofile' ) ) {
-				$shipping         = bp_get_option( 'wc4bp_shipping_address_ids' );
-				$billing          = bp_get_option( 'wc4bp_billing_address_ids' );
+				$ids              = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
+				$shipping         = $ids['shipping'];
+				$billing          = $ids['billing'];
 				$visibility_level = sanitize_text_field( $_POST['visibility_level'] );
 				foreach ( $shipping as $key => $field_id ) {
 					xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
@@ -92,19 +93,20 @@ class wc4bp_admin_ajax extends wc4bp_base {
 		try {
 			if ( bp_is_active( 'xprofile' ) ) {
 				// get the profile fields
-				$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
-				$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
+				$ids      = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
+				$shipping = $ids['shipping'];
+				$billing  = $ids['billing'];
 				$groups   = BP_XProfile_Group::get( array(
 					'fetch_fields' => true,
 				) );
 				if ( ! empty( $groups ) ) {
 					foreach ( $groups as $group ) {
-						if ( empty( $group->fields ) ) {
+						if ( wc4bp_Sync::wc4bp_is_invalid_xprofile_group( $group ) ) {
 							continue;
 						}
 						foreach ( $group->fields as $field ) {
-							$billing_key  = array_search( $field->id, $billing );
-							$shipping_key = array_search( $field->id, $shipping );
+							$billing_key  = array_search( $field->id, $billing, true );
+							$shipping_key = array_search( $field->id, $shipping, true );
 							if ( $shipping_key ) {
 								$type       = 'shipping';
 								$field_slug = $shipping_key;

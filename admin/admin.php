@@ -217,9 +217,9 @@ class wc4bp_admin extends wc4bp_base {
 				$tab_sync_disabled = $wc4bp_options['tab_sync_disabled'];
 			}
 			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_profile_sync.php' );
-
+			include_once( WC4BP_ABSPATH_CLASS_PATH . '/core/wc4bp-sync.php' );
 			include_once( WC4BP_ABSPATH_ADMIN_PATH . 'wc4bp-activate.php' );
-			if ( isset( $tab_sync_disabled ) && true == $tab_sync_disabled ) {
+			if ( isset( $tab_sync_disabled ) && true === $tab_sync_disabled ) {
 				wc4bp_cleanup();
 			} else {
 				wc4bp_activate();

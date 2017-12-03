@@ -25,7 +25,7 @@ class WC4BP_Exception_Handler {
 		$this->exception_list_name = $prefix . '_' . $this->exception_list_name;
 		$this->internal_prefix     = $prefix . '_' . $this->internal_prefix;
 		$this->load_exceptions_list();
-		set_error_handler( array( $this, 'error_handler' ) );
+//		set_error_handler( array( $this, 'error_handler' ) );
 	}
 
 	public function error_handler( $number, $message, $file, $line ) {
@@ -42,7 +42,7 @@ class WC4BP_Exception_Handler {
 		if ( ! empty( $trace ) ) {
 			$this->exception_list[ time() ] = $trace;
 
-			return $this->register_exception();
+			return true;
 		} else {
 			return false;
 		}
