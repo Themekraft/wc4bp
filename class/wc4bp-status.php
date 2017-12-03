@@ -53,22 +53,30 @@ class WC4BP_Status {
 		$billing           = bp_get_option( 'wc4bp_billing_address_ids' );
 		$exist_group_in_bp = array();
 		$exist_field_in_bp = array();
+		$no_internal_group = array();
+		$no_internal_field = array();
 		//Get BP XProfield groups
 		$groups = BP_XProfile_Group::get( array(
 			'fetch_fields' => true,
 		) );
 		/** @var BP_XProfile_Group $group */
 		foreach ( $groups as $group ) {
+			$group_id = ( empty( $group->description ) ) ? $group->id : $group->description;
 			if ( wc4bp_Sync::wc4bp_is_invalid_xprofile_group( $group ) ) {
-				continue;
-			}
-			$exist_group_in_bp[ $group->description ] = $group;
-			/** @var BP_XProfile_Field $field */
-			foreach ( $group->fields as $field ) {
-				$billing_key  = array_search( $field->id, $billing, true );
-				$shipping_key = array_search( $field->id, $shipping, true );
-				if ( $shipping_key || $billing_key ) {
-					$exist_field_in_bp[ $group->description ][ $field->id ] = $field;
+				$no_internal_group[ $group_id ] = $group;
+				/** @var BP_XProfile_Field $field */
+				foreach ( $group->fields as $field ) {
+					$no_internal_field[ $group_id ][ $field->id ] = $field;
+				}
+			} else {
+				$exist_group_in_bp[ $group_id ] = $group;
+				/** @var BP_XProfile_Field $field */
+				foreach ( $group->fields as $field ) {
+					$billing_key  = array_search( $field->id, $billing, true );
+					$shipping_key = array_search( $field->id, $shipping, true );
+					if ( $shipping_key || $billing_key ) {
+						$exist_field_in_bp[ $group_id ][ $field->id ] = $field;
+					}
 				}
 			}
 		}
@@ -87,7 +95,23 @@ class WC4BP_Status {
 				 * @var BP_XProfile_Field $field_data
 				 */
 				foreach ( $exist_field_in_bp[ $key ] as $field_id => $field_data ) {
-					$xprofiels_settings[ $key . '_' . $field_data->name ] = $field_data->id;
+					$xprofiels_settings[ $key . '_' . $field_data->name ] = $field_data->id . ' (required:' . $field_data->is_required . ')';
+				}
+			}
+		}
+		/**
+		 * @var string $key
+		 * @var BP_XProfile_Group $item
+		 */
+		foreach ( $no_internal_group as $key => $item ) {
+			$xprofiels_settings[ $key ] = $item->name;
+			if ( is_array( $no_internal_field[ $key ] ) ) {
+				/**
+				 * @var integer $field_id
+				 * @var BP_XProfile_Field $field_data
+				 */
+				foreach ( $no_internal_field[ $key ] as $field_id => $field_data ) {
+					$xprofiels_settings[ $key . '_' . $field_data->name ] = $field_data->id . ' (required:' . $field_data->is_required . ')';
 				}
 			}
 		}
