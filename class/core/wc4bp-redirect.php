@@ -111,7 +111,7 @@ class wc4bp_redirect {
 							$payment_created_account = isset( $bp->unfiltered_uri[0] ) ? $bp->unfiltered_uri[0] : '';
 							$checkout_url            = apply_filters( 'wc4bp_checkout_page_link', $checkout_url );
 							if ( $payment_created_account === $checkout_page->post_name ) {
-								$checkout_url = $url;
+								return $url;
 							}
 
 							return $this->convert_url( $checkout_url );
