@@ -113,6 +113,9 @@ class wc4bp_Woocommerce {
 		try {
 			$base_path = wc4bp_redirect::get_base_url();
 			switch ( $endpoint ) {
+                case 'orders':
+                    $url = $base_path . $endpoint . '/' . $value;
+                    break;
 				case 'edit-address':
 					if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_edit-address'] ) ) {
 						$url = $base_path . $endpoint . '/' . $value;
