@@ -1,3 +1,4 @@
+<?php settings_errors(); ?>
 <div id="icon-options-general" class="icon32"><br></div>
 <h2> <?php _e( 'WooCommerce BuddyPress Integration', 'wc4bp' ); ?></h2>
 <div style="overflow: auto;">
