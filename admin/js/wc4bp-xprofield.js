@@ -11,7 +11,7 @@ jQuery(document).ready(function () {
             jQuery("a[href='users.php?page=bp-profile-setup&group_id=" + value + "&mode=add_field']")
                 .attr('href', 'admin.php?page=wc4bp-options-page&tab=generic')
                 .text('WC4BP Settings');
-            jQuery("a[href='users.php?page=bp-profile-setup&mode=edit_group&group_id=" + value + "']").css('visibility','hidden');
+            jQuery("a[href='users.php?page=bp-profile-setup&mode=edit_group&group_id=" + value + "']").remove();
             jQuery("#tabs-"+value+">p").text(text);
         });
     }

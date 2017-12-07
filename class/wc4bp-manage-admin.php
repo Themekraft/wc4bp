@@ -53,7 +53,6 @@ class wc4bp_Manage_Admin {
 			) );
 			wp_enqueue_style( 'wc4bp_admin_css', WC4BP_CSS . 'admin.css' );
 			if ( 'users_page_bp-profile-setup' === $hook ) {
-
 				$fields = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
 				if ( ! empty( $fields ) ) {
 					if ( ! empty( $fields['shipping']['first_name'] ) && ! empty( $fields['billing']['first_name'] ) ) {
