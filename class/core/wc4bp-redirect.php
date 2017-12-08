@@ -46,10 +46,16 @@ class wc4bp_redirect {
 	 */
 	public function redirect_link( $post_id = false ) {
 		try {
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+				return false;
+			}
 			if ( empty( $post_id ) ) {
 				return false;
 			}
 			global $bp, $wp;
+			if ( ( isset( $wp->query_vars['name'] ) && 'order-received' === $wp->query_vars['name'] ) || isset( $wp->query_vars['order-received'] ) ) {
+				return false;
+			}
 			if ( ! empty( $bp->pages ) ) {
 				//Search in all the actives BPress pages for the current id
 				foreach ( $bp->pages as $page_key => $page_data ) {
@@ -60,9 +66,6 @@ class wc4bp_redirect {
 				}
 				$wc4bp_options = get_option( 'wc4bp_options' );
 				if ( ! empty( $wc4bp_options['tab_activity_disabled'] ) ) {
-					return false;
-				}
-				if ( ( isset( $wp->query_vars['name'] ) && 'order-received' === $wp->query_vars['name'] ) || isset( $wp->query_vars['order-received'] ) ) {
 					return false;
 				}
 				$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
