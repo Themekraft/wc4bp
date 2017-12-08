@@ -1,7 +1,7 @@
 #!/bin/bash
 wd=$PWD
 pluginfolder=$wd
-originalfoldername=$(basename "$pluginfolder"| awk -F'-' '{print $1}')
+originalfoldername=$(basename "$pluginfolder"| awk -F' ' '{print $1}')
 packagename=$originalfoldername
 
 r=$(( RANDOM % 10 ));

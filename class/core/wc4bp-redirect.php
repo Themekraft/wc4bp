@@ -22,8 +22,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 class wc4bp_redirect {
 
 	public function __construct() {
+		add_filter( 'logout_url', array( $this, 'my_logout_page' ), 9999, 2 );
 		add_action( 'template_redirect', array( $this, 'wc4bp_redirect_to_profile' ) );
 		add_filter( 'page_link', array( $this, 'wc4bp_page_link_router' ), 9999, 2 );//High priority to take precedent over other plugins
+	}
+
+	function my_logout_page( $logout_url, $redirect ) {
+		global $bp, $wp;
+		$suffix      = '';
+		$prefix      = '';
+		$extra_param = explode( '&', $logout_url );
+		if ( isset( $extra_param[1] ) ) {
+			$param_data = explode( '=', $extra_param[1] );
+			$suffix     = $param_data[0];
+			$prefix     = $param_data[1];
+		}
+		$url = get_bloginfo( 'url' ) . '/wp-login.php?action=logout&' . $suffix . '=' . $prefix;
+
+		return $url;
 	}
 
 	/**
@@ -46,10 +62,16 @@ class wc4bp_redirect {
 	 */
 	public function redirect_link( $post_id = false ) {
 		try {
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+				return false;
+			}
 			if ( empty( $post_id ) ) {
 				return false;
 			}
 			global $bp, $wp;
+			if ( ( isset( $wp->query_vars['name'] ) && 'order-received' === $wp->query_vars['name'] ) || isset( $wp->query_vars['order-received'] ) ) {
+				return false;
+			}
 			if ( ! empty( $bp->pages ) ) {
 				//Search in all the actives BPress pages for the current id
 				foreach ( $bp->pages as $page_key => $page_data ) {
@@ -60,9 +82,6 @@ class wc4bp_redirect {
 				}
 				$wc4bp_options = get_option( 'wc4bp_options' );
 				if ( ! empty( $wc4bp_options['tab_activity_disabled'] ) ) {
-					return false;
-				}
-				if ( ( isset( $wp->query_vars['name'] ) && 'order-received' === $wp->query_vars['name'] ) || isset( $wp->query_vars['order-received'] ) ) {
 					return false;
 				}
 				$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
@@ -111,7 +130,7 @@ class wc4bp_redirect {
 							$payment_created_account = isset( $bp->unfiltered_uri[0] ) ? $bp->unfiltered_uri[0] : '';
 							$checkout_url            = apply_filters( 'wc4bp_checkout_page_link', $checkout_url );
 							if ( $payment_created_account === $checkout_page->post_name ) {
-								$checkout_url = $url;
+								return $url;
 							}
 
 							return $this->convert_url( $checkout_url );

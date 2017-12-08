@@ -52,9 +52,14 @@ class WC4BP_MyAccount_Content {
 
 
 	public function wc4bp_my_account_process_shortcode_orders( $attr, $content ) {
+	    global $wp;
 		try {
 			wc_print_notices();
-			woocommerce_account_orders( 1 );//TODO get the current page
+            $current_page = 1;
+            if ( isset( $wp->query_vars['orders'] ) ) {
+                $current_page = $wp->query_vars['orders'];
+            }
+			woocommerce_account_orders( $current_page );//TODO get the current page
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
