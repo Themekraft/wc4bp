@@ -27,7 +27,9 @@ class wc4bp_redirect {
 		add_filter( 'page_link', array( $this, 'wc4bp_page_link_router' ), 9999, 2 );//High priority to take precedent over other plugins
 	}
     function my_logout_page( $logout_url, $redirect ) {
-        return $logout_url;
+
+	    $url = get_bloginfo( 'url' ) .'/wp-login.php?action=logout';
+        return $url;
     }
 
 	/**
