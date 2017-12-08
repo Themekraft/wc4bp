@@ -22,9 +22,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class wc4bp_redirect {
 
 	public function __construct() {
+        add_filter( 'logout_url',array( $this, 'my_logout_page' ) , 9999, 2 );
 		add_action( 'template_redirect', array( $this, 'wc4bp_redirect_to_profile' ) );
 		add_filter( 'page_link', array( $this, 'wc4bp_page_link_router' ), 9999, 2 );//High priority to take precedent over other plugins
 	}
+    function my_logout_page( $logout_url, $redirect ) {
+        return $logout_url;
+    }
 
 	/**
 	 * Get base url for all redirection
