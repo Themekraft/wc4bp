@@ -138,8 +138,8 @@ class wc4bp_admin_pages extends wc4bp_base {
 			$position      = '';
 			$main_nav      = '';
 
-			if ( isset( $_POST['wc4bp_tab_slug'] ) ) {
-				$wc4bp_tab_slug = sanitize_text_field( $_POST['wc4bp_tab_slug'] );
+			if ( ! empty( Request_Helper::get_post_param('wc4bp_tab_slug') ) ) {
+				$wc4bp_tab_slug = sanitize_text_field( Request_Helper::get_post_param('wc4bp_tab_slug') );
 			}
 
 			$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );

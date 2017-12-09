@@ -153,23 +153,23 @@ function wc4bp_screen_settings() {
 
 		do_action( 'wc4bp_screen_settings' );
 
-		if ( isset( $_POST['wc4bp'] ) && ! empty( $_POST['wc4bp'] ) ) {
+		if (! empty( Request_Helper::get_post_param('wc4bp') ) ) {
 			// default values
 			$yes_no = array( 'yes', 'no' );
 
 			// check that we got valid data
-			$review2              = sanitize_text_field( $_POST['wc4bp']['reviews_2_activity'] );
-			$purchases            = sanitize_text_field( $_POST['wc4bp']['purchases_2_activity'] );
+			$review2              = sanitize_text_field( Request_Helper::get_post_param('wc4bp')['reviews_2_activity'] );
+			$purchases            = sanitize_text_field( Request_Helper::get_post_param('wc4bp')['purchases_2_activity'] );
 			$reviews_2_activity   = ( in_array( $review2, $yes_no ) ) ? $review2 : 'yes';
 			$purchases_2_activity = ( in_array( $purchases, $yes_no ) ) ? $purchases : 'yes';
 
-			do_action( 'wc4bp_pre_update_user_settings', bp_displayed_user_id(), $_POST['wc4bp'] );
+			do_action( 'wc4bp_pre_update_user_settings', bp_displayed_user_id(), Request_Helper::get_post_param('wc4bp') );
 
 			// save them
 			bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_reviews', $reviews_2_activity );
 			bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_purchases', $purchases_2_activity );
 
-			do_action( 'wc4bp_post_update_user_settings', bp_displayed_user_id(), sanitize_text_field( $_POST['wc4bp'] ) );
+			do_action( 'wc4bp_post_update_user_settings', bp_displayed_user_id(), sanitize_text_field( Request_Helper::get_post_param('wc4bp') ) );
 
 			// Set the feedback messages
 			bp_core_add_message( __( 'Changes saved.', 'wc4bp' ) );
@@ -271,11 +271,11 @@ function wc4bp_setup_tracking_order() {
 		if ( ! wc4bp_is_page( 'track' ) ) {
 			return false;
 		}
-		if ( isset( $_POST['track'] ) ) {
+		if ( ! empty( Request_Helper::get_post_param('track') ) ) {
 			global $current_order;
 			check_admin_referer( 'bp-shop_order_tracking' );
-			$post_order_id    = intval( sanitize_text_field( $_POST['orderid'] ) );
-			$post_order_email = sanitize_text_field( $_POST['order_email'] );
+			$post_order_id    = intval( sanitize_text_field( Request_Helper::get_post_param('orderid') ) );
+			$post_order_email = sanitize_text_field( Request_Helper::get_post_param('order_email') );
 			$order_id         = empty( $post_order_id ) ? 0 : $post_order_id;
 			$order_email      = empty( $post_order_email ) ? '' : $post_order_email;
 			if ( ! $order_id ) {

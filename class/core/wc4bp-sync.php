@@ -205,13 +205,13 @@ class wc4bp_Sync {
 		try {
 			$country_slug     = ( $use_prefix ) ? $type . '_country' : 'country';
 			$final_field_slug = ( ! $use_prefix ) ? $type . '_' . $field_slug : $field_slug;
-			if ( ! empty( $_POST[ $final_field_slug ] ) ) {
+			if ( ! empty( Request_Helper::get_post_param( $final_field_slug ) ) ) {
 				if ( $field_slug == $country_slug ) {
 					$geo       = new WC_Countries();
 					$countries = $geo->get_countries();
-					$value     = $countries[ $_POST[ $final_field_slug ] ];
+					$value     = $countries[ Request_Helper::get_post_param( $final_field_slug ) ];
 				} else {
-					$value = sanitize_text_field( $_POST[ $final_field_slug ] );
+					$value = sanitize_text_field( Request_Helper::get_post_param( $final_field_slug ) );
 				}
 				xprofile_set_field_data( $field->id, $user_id, $value );
 			}

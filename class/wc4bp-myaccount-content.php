@@ -92,7 +92,8 @@ class WC4BP_MyAccount_Content {
 	public function wc4bp_my_account_process_shortcode_payment_methods( $attr, $content ) {
 		try {
 			wc_print_notices();
-			if ( isset( $_GET['add-payment-method'] ) ) {
+			$result = Request_Helper::simple_get('add-payment-method');
+			if (!empty($result) )  {
 				$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 				$path    = WC()->plugin_url() . 'assets/js/frontend/add-payment-method' . $suffix . '.js';
 				$deps    = array( 'jquery', 'woocommerce' );

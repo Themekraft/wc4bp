@@ -72,9 +72,10 @@ class wc4bp_admin_sync extends wc4bp_base {
 
 	public function wc4bp_shop_profile_sync_ajax() {
 		try {
-			$update_type = sanitize_text_field( $_POST['update_type'] );
+
+			$update_type = sanitize_text_field(Request_Helper::get_post_param('update_type') );
 			$number      = 20;
-			$paged       = isset( $_POST['wc4bp_page'] ) ? intval( sanitize_text_field( $_POST['wc4bp_page'] ) ) : 1;
+			$paged       = empty(Request_Helper::get_post_param('wc4bp_page'))== false ? intval( sanitize_text_field( Request_Helper::get_post_param('wc4bp_page') ) ) : 1;
 			$offset      = ( $paged - 1 ) * $number;
 			$query       = get_users( '&offset=' . $offset . '&number=' . $number );
 			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'sync/html_admin_sync_shop_profile_sync_ajax.php' );
@@ -155,7 +156,7 @@ class wc4bp_admin_sync extends wc4bp_base {
 				$ids              = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
 				$shipping         = $ids['shipping'];
 				$billing          = $ids['billing'];
-				$visibility_level = sanitize_text_field( $_POST['visibility_level'] );
+				$visibility_level = sanitize_text_field( Request_Helper::get_post_param('visibility_level') );
 				foreach ( $shipping as $key => $field_id ) {
 					xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
 				}
