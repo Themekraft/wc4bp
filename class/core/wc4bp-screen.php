@@ -147,29 +147,36 @@ function wc4bp_screen_payment_methods() {
  */
 function wc4bp_screen_settings() {
 	try {
-		if ( ! bp_is_settings_component() || bp_current_action() != 'shop' ) {
+		if ( ! bp_is_settings_component() || bp_current_action() !== 'shop' ) {
 			return false;
 		}
 
 		do_action( 'wc4bp_screen_settings' );
 
-		if (! empty( Request_Helper::get_post_param('wc4bp') ) ) {
+		$wc4bp_values = Request_Helper::get_post_param( 'wc4bp' );
+		if ( ! empty( $wc4bp_values ) ) {
 			// default values
 			$yes_no = array( 'yes', 'no' );
 
 			// check that we got valid data
-			$review2              = sanitize_text_field( Request_Helper::get_post_param('wc4bp')['reviews_2_activity'] );
-			$purchases            = sanitize_text_field( Request_Helper::get_post_param('wc4bp')['purchases_2_activity'] );
-			$reviews_2_activity   = ( in_array( $review2, $yes_no ) ) ? $review2 : 'yes';
-			$purchases_2_activity = ( in_array( $purchases, $yes_no ) ) ? $purchases : 'yes';
+			$review2 = '';
+			if ( ! empty( $wc4bp_values['reviews_2_activity'] ) ) {
+				$review2 = $wc4bp_values['reviews_2_activity'];
+			}
+			$purchases = '';
+			if ( ! empty( $wc4bp_values['purchases_2_activity'] ) ) {
+				$purchases = $wc4bp_values['purchases_2_activity'];
+			}
+			$reviews_2_activity   = ( in_array( $review2, $yes_no, true ) ) ? $review2 : 'yes';
+			$purchases_2_activity = ( in_array( $purchases, $yes_no, true ) ) ? $purchases : 'yes';
 
-			do_action( 'wc4bp_pre_update_user_settings', bp_displayed_user_id(), Request_Helper::get_post_param('wc4bp') );
+			do_action( 'wc4bp_pre_update_user_settings', bp_displayed_user_id(), $wc4bp_values );
 
 			// save them
 			bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_reviews', $reviews_2_activity );
 			bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_purchases', $purchases_2_activity );
 
-			do_action( 'wc4bp_post_update_user_settings', bp_displayed_user_id(), sanitize_text_field( Request_Helper::get_post_param('wc4bp') ) );
+			do_action( 'wc4bp_post_update_user_settings', bp_displayed_user_id(), $wc4bp_values );
 
 			// Set the feedback messages
 			bp_core_add_message( __( 'Changes saved.', 'wc4bp' ) );
@@ -182,9 +189,14 @@ function wc4bp_screen_settings() {
 		add_action( 'bp_template_content', 'wc4bp_screen_settings_content' );
 
 		bp_core_load_template( apply_filters( 'wc4bp_screen_settings', 'members/single/plugins' ) );
+
 	} catch ( Exception $exception ) {
 		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+
+		return false;
 	}
+
+	return true;
 }
 
 /**
@@ -230,18 +242,14 @@ function wc4bp_screen_settings_content() {
                 <tr id="shop-notification-settings-reviews">
                     <td></td>
                     <td><?php _e( 'Post to activity stream all reviews written by me', 'wc4bp' ) ?></td>
-                    <td class="yes"><input type="radio" name=" wc4bp[reviews_2_activity]"
-                                           value="yes" <?php checked( $shop_reviews, 'yes', true ) ?>/></td>
-                    <td class="no"><input type="radio" name=" wc4bp[reviews_2_activity]"
-                                          value="no" <?php checked( $shop_reviews, 'no', true ) ?>/></td>
+                    <td class="yes"><input type="radio" name="wc4bp[reviews_2_activity]" value="yes" <?php checked( $shop_reviews, 'yes', true ) ?>/></td>
+                    <td class="no"><input type="radio" name="wc4bp[reviews_2_activity]" value="no" <?php checked( $shop_reviews, 'no', true ) ?>/></td>
                 </tr>
                 <tr id="shop-notification-settings-purchases">
                     <td></td>
                     <td><?php _e( 'Post to activity stream all purchases I\'ve made', 'wc4bp' ) ?></td>
-                    <td class="yes"><input type="radio" name=" wc4bp[purchases_2_activity]"
-                                           value="yes" <?php checked( $shop_purchases, 'yes', true ) ?>/></td>
-                    <td class="no"><input type="radio" name=" wc4bp[purchases_2_activity]"
-                                          value="no" <?php checked( $shop_purchases, 'no', true ) ?>/></td>
+                    <td class="yes"><input type="radio" name="wc4bp[purchases_2_activity]" value="yes" <?php checked( $shop_purchases, 'yes', true ) ?>/></td>
+                    <td class="no"><input type="radio" name="wc4bp[purchases_2_activity]" value="no" <?php checked( $shop_purchases, 'no', true ) ?>/></td>
                 </tr>
 
 				<?php do_action( 'wc4bp_screen_notification_activity_settings' ); ?>
@@ -271,11 +279,11 @@ function wc4bp_setup_tracking_order() {
 		if ( ! wc4bp_is_page( 'track' ) ) {
 			return false;
 		}
-		if ( ! empty( Request_Helper::get_post_param('track') ) ) {
+		if ( isset( $_POST['track'] ) ) {
 			global $current_order;
 			check_admin_referer( 'bp-shop_order_tracking' );
-			$post_order_id    = intval( sanitize_text_field( Request_Helper::get_post_param('orderid') ) );
-			$post_order_email = sanitize_text_field( Request_Helper::get_post_param('order_email') );
+			$post_order_id    = intval( sanitize_text_field( $_POST['orderid'] ) );
+			$post_order_email = sanitize_text_field( $_POST['order_email'] );
 			$order_id         = empty( $post_order_id ) ? 0 : $post_order_id;
 			$order_email      = empty( $post_order_email ) ? '' : $post_order_email;
 			if ( ! $order_id ) {
