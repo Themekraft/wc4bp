@@ -279,11 +279,12 @@ function wc4bp_setup_tracking_order() {
 		if ( ! wc4bp_is_page( 'track' ) ) {
 			return false;
 		}
-		if ( isset( $_POST['track'] ) ) {
+		$track = Request_Helper::get_post_param( 'track' );
+		if ( ! empty( $track ) ) {
 			global $current_order;
 			check_admin_referer( 'bp-shop_order_tracking' );
-			$post_order_id    = intval( sanitize_text_field( $_POST['orderid'] ) );
-			$post_order_email = sanitize_text_field( $_POST['order_email'] );
+			$post_order_id    = Request_Helper::get_post_param( 'track', 0, 'intval' );
+			$post_order_email = Request_Helper::get_post_param( 'order_email' );
 			$order_id         = empty( $post_order_id ) ? 0 : $post_order_id;
 			$order_email      = empty( $post_order_email ) ? '' : $post_order_email;
 			if ( ! $order_id ) {
@@ -293,7 +294,7 @@ function wc4bp_setup_tracking_order() {
 			} else {
 				$order = new WC_Order( apply_filters( 'woocommerce_shortcode_order_tracking_order_id', $order_id ) );
 				if ( $order->get_id() && $order_email ) {
-					if ( strtolower( $order->get_billing_email() ) == strtolower( $order_email ) ) {
+					if ( strtolower( $order->get_billing_email() ) === strtolower( $order_email ) ) {
 						$current_order = $order;
 					} else {
 						echo '<p class="woocommerce_error">' . __( 'You are not allowed to view this order.', 'wc4bp' ) . '</p>';
