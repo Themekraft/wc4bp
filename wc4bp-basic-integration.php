@@ -43,12 +43,11 @@ if ( class_exists( 'WC4BP_Exception_Handler' ) ) {
 	$GLOBALS['wc4bp_loader'] = new WC4BP_Loader();
 }
 
-
 class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION = '3.0.14.1';
+	const VERSION = '3.0.14.2';
 
 	/**
 	 * Minimum required WP version

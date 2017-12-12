@@ -3,7 +3,7 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores,
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
-Tested up to: WP 4.8.2
+Tested up to: WP 4.9
 Stable tag: 3.0.14.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -114,9 +114,8 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Changing the option to show inside the groups generated in buddypress by the plugins.
 * Add admin notices in settings.
 * Fixing the 404 in checkout when the user register the account in the process.
-* Solved 404 on logout.
+* Adding space in the admin before the link of ThemKraft
 *
-
 
 = 3.0.14.1 3 December 2017 =
 * Now the plugins not delete the fields when uninstall, only when the user stop the sync.
