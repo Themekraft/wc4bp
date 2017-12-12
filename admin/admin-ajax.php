@@ -57,9 +57,10 @@ class wc4bp_admin_ajax extends wc4bp_base {
 
 	public function wc4bp_shop_profile_sync_ajax() {
 		try {
+			$wc4bp_page  = Request_Helper::get_post_param( 'wc4bp_page' );
 			$update_type = Request_Helper::get_post_param( 'update_type' );
 			$number      = 20;
-			$paged       = empty( Request_Helper::get_post_param('wc4bp_page' )) == false  ? intval( sanitize_text_field( Request_Helper::get_post_param('wc4bp_page' ) ) ) : 1;
+			$paged       = ! empty( $wc4bp_page ) ? intval( $wc4bp_page ) : 1;
 			$offset      = ( $paged - 1 ) * $number;
 			$query       = get_users( '&offset=' . $offset . '&number=' . $number );
 
@@ -76,7 +77,7 @@ class wc4bp_admin_ajax extends wc4bp_base {
 				$ids              = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
 				$shipping         = $ids['shipping'];
 				$billing          = $ids['billing'];
-				$visibility_level = sanitize_text_field( Request_Helper::get_post_param('visibility_level') );
+				$visibility_level = sanitize_text_field( Request_Helper::get_post_param( 'visibility_level' ) );
 				foreach ( $shipping as $key => $field_id ) {
 					xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
 				}
@@ -129,34 +130,20 @@ class wc4bp_admin_ajax extends wc4bp_base {
 
 	public function wc4bp_add_page( $wc4bp_page_id ) {
 		try {
-			$position = '';
-			$children = '';
-			if ( !empty( Request_Helper::get_post_param('wc4bp_page_id') ) ) {
-				$page_id = sanitize_text_field( Request_Helper::get_post_param('wc4bp_page_id') );
-			}
+			$position = Request_Helper::get_post_param( 'wc4bp_position' );
+			$children = Request_Helper::get_post_param( 'wc4bp_children' );
+			$page_id  = Request_Helper::get_post_param( 'wc4bp_page_id' );
 
 			if ( empty( $page_id ) ) {
 				return;
 			}
 
-			if ( ! empty( Request_Helper::get_post_param('wc4bp_tab_name') ) ) {
-				$tab_name = sanitize_text_field( Request_Helper::get_post_param('wc4bp_tab_name') );
-			} else {
+			$tab_name = Request_Helper::get_post_param( 'wc4bp_tab_name' );
+			if ( empty( $tab_name ) ) {
 				$tab_name = get_the_title( $page_id );
 			}
 
-			if ( ! empty( Request_Helper::get_post_param('wc4bp_position') ) ) {
-				$position = sanitize_text_field( Request_Helper::get_post_param('wc4bp_position') );
-			}
-
-			if ( ! empty( Request_Helper::get_post_param('wc4bp_children') ) ) {
-				$children = sanitize_text_field( Request_Helper::get_post_param('wc4bp_children') );
-			}
-
-			if (! empty( Request_Helper::get_post_param('wc4bp_tab_slug') ) ) {
-				$tab_slug = sanitize_text_field( Request_Helper::get_post_param('wc4bp_tab_slug') );
-			}
-
+			$tab_slug = Request_Helper::get_post_param( 'wc4bp_tab_slug' );
 			if ( empty( $tab_slug ) && ! empty( $tab_name ) ) {
 				$post     = get_post( $page_id );
 				$tab_slug = $post->post_name;
@@ -191,9 +178,7 @@ class wc4bp_admin_ajax extends wc4bp_base {
 	 */
 	public function wc4bp_delete_page() {
 		try {
-			if (! empty( Request_Helper::get_post_param('wc4bp_tab_id') ) ) {
-				$page_id = sanitize_text_field( Request_Helper::get_post_param('wc4bp_tab_id') );
-			}
+			$page_id = Request_Helper::get_post_param( 'wc4bp_tab_id' );
 
 			if ( empty( $page_id ) ) {
 				return;

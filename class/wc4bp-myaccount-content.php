@@ -52,13 +52,13 @@ class WC4BP_MyAccount_Content {
 
 
 	public function wc4bp_my_account_process_shortcode_orders( $attr, $content ) {
-	    global $wp;
+		global $wp;
 		try {
 			wc_print_notices();
-            $current_page = 1;
-            if ( isset( $wp->query_vars['orders'] ) ) {
-                $current_page = $wp->query_vars['orders'];
-            }
+			$current_page = 1;
+			if ( isset( $wp->query_vars['orders'] ) ) {
+				$current_page = $wp->query_vars['orders'];
+			}
 			woocommerce_account_orders( $current_page );//TODO get the current page
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
@@ -92,8 +92,8 @@ class WC4BP_MyAccount_Content {
 	public function wc4bp_my_account_process_shortcode_payment_methods( $attr, $content ) {
 		try {
 			wc_print_notices();
-			$result = Request_Helper::simple_get('add-payment-method');
-			if (!empty($result) )  {
+			$result = Request_Helper::simple_get( 'add-payment-method' );
+			if ( ! empty( $result ) ) {
 				$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 				$path    = WC()->plugin_url() . 'assets/js/frontend/add-payment-method' . $suffix . '.js';
 				$deps    = array( 'jquery', 'woocommerce' );

@@ -72,10 +72,10 @@ class wc4bp_admin_sync extends wc4bp_base {
 
 	public function wc4bp_shop_profile_sync_ajax() {
 		try {
-
-			$update_type = sanitize_text_field(Request_Helper::get_post_param('update_type') );
+			$wc4bp_page  = Request_Helper::get_post_param( 'wc4bp_page' );
+			$update_type = Request_Helper::get_post_param( 'update_type' );
 			$number      = 20;
-			$paged       = empty(Request_Helper::get_post_param('wc4bp_page'))== false ? intval( sanitize_text_field( Request_Helper::get_post_param('wc4bp_page') ) ) : 1;
+			$paged       = ! empty( $wc4bp_page ) ? intval( $wc4bp_page ) : 1;
 			$offset      = ( $paged - 1 ) * $number;
 			$query       = get_users( '&offset=' . $offset . '&number=' . $number );
 			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'sync/html_admin_sync_shop_profile_sync_ajax.php' );
@@ -156,12 +156,14 @@ class wc4bp_admin_sync extends wc4bp_base {
 				$ids              = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
 				$shipping         = $ids['shipping'];
 				$billing          = $ids['billing'];
-				$visibility_level = sanitize_text_field( Request_Helper::get_post_param('visibility_level') );
-				foreach ( $shipping as $key => $field_id ) {
-					xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
-				}
-				foreach ( $billing as $key => $field_id ) {
-					xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
+				$visibility_level = Request_Helper::get_post_param( 'visibility_level' );
+				if ( ! empty( $visibility_level ) ) {
+					foreach ( $shipping as $key => $field_id ) {
+						xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
+					}
+					foreach ( $billing as $key => $field_id ) {
+						xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
+					}
 				}
 			}
 		} catch ( Exception $exception ) {
@@ -172,9 +174,9 @@ class wc4bp_admin_sync extends wc4bp_base {
 	public function wc4bp_change_xprofile_visibility_default() {
 		try {
 			$wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
-			$ids      = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
-			$shipping = $ids['shipping'];
-			$billing  = $ids['billing'];
+			$ids                = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
+			$shipping           = $ids['shipping'];
+			$billing            = $ids['billing'];
 			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'sync/html_admin_sync_change_xprofile_visibility.php' );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
@@ -184,9 +186,9 @@ class wc4bp_admin_sync extends wc4bp_base {
 	public function wc4bp_change_xprofile_allow_custom_visibility() {
 		try {
 			$wc4bp_options_sync = get_option( 'wc4bp_options_sync' );
-			$ids      = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
-			$shipping = $ids['shipping'];
-			$billing  = $ids['billing'];
+			$ids                = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
+			$shipping           = $ids['shipping'];
+			$billing            = $ids['billing'];
 			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'sync/html_admin_sync_change_xprofile_allow_custom.php' );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
