@@ -32,9 +32,27 @@ class WC4BP_Status {
 	}
 
 	public function status_data( $data ) {
-		$data['WC4BP'] = array(
-			'version' => $GLOBALS['wc4bp_loader']->get_version(),
+		$versions = array(
+			'WC4BP' => $GLOBALS['wc4bp_loader']->get_version(),
 		);
+		if ( defined( 'BP_PLUGIN_DIR' ) ) {
+			$bp_loader = constant( 'BP_PLUGIN_DIR' ) . DIRECTORY_SEPARATOR . 'bp-loader.php';
+			if ( file_exists( $bp_loader ) ) {
+				$buddypress = get_plugin_data( constant( 'BP_PLUGIN_DIR' ) . DIRECTORY_SEPARATOR . 'bp-loader.php' );
+				if ( ! empty( $buddypress ) ) {
+					$versions['BuddyPress'] = ( ! empty( $buddypress['Version'] ) ) ? $buddypress['Version'] : '-';
+				}
+			}
+		}
+		if ( defined( 'WC_PLUGIN_FILE' ) ) {
+			if ( file_exists( WC_PLUGIN_FILE ) ) {
+				$woocommerce_data = get_plugin_data( WC_PLUGIN_FILE );
+				if ( ! empty( $woocommerce_data ) ) {
+					$versions['Woocommerce'] = ( ! empty( $woocommerce_data['Version'] ) ) ? $woocommerce_data['Version'] : '-';
+				}
+			}
+		}
+		$data['Versions'] = $versions;
 
 		$wc4bp_options                                   = get_option( 'wc4bp_options' );
 		$shop_settings['is_shop_off']                    = empty( $wc4bp_options['tab_activity_disabled'] ) ? 'false' : 'true';
