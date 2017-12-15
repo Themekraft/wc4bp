@@ -14,8 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC4BP_Revision {
 	public function __construct() {
-		$wc4bp_review       = get_option( 'wc4bp-review' );
-		$wc4bp_review_later = get_option( 'wc4bp-review-later' );
+		if ( is_admin() ) {
+			return false;
+		}
+		$user_id = get_current_user_id();
+		if ( 0 !== $user_id ) {
+			return false;
+		}
+		$wc4bp_review       = get_user_meta( $user_id, 'wc4bp-review', true );
+		$wc4bp_review_later = get_user_meta( $user_id, 'wc4bp-review-later', true );
 		$time_result        = false;
 		if ( ! empty( $wc4bp_review_later ) ) {
 			$wc4bp_review_now = new DateTime( 'now' );
@@ -53,22 +60,26 @@ class WC4BP_Revision {
 
 	public function wc4bp_revision_trigger() {
 		if ( ! defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			return;
+			return false;
+		}
+		$user_id = get_current_user_id();
+		if ( 0 !== $user_id ) {
+			return false;
 		}
 		check_ajax_referer( 'wc4bp_review_nonce', 'nonce' );
 		$trigger = Request_Helper::get_post_param( 'trigger' );
 		if ( ! empty( $trigger ) ) {
 			switch ( $trigger ) {
 				case 'review':
-					update_option( 'wc4bp-review', true );
+					update_user_meta( $user_id, 'wc4bp-review', true );
 					break;
 				case 'later':
 					$remind = new DateTime( 'now' );
 					$remind->add( new DateInterval( 'P5D' ) );
-					update_option( 'wc4bp-review-later', $remind );
+					update_user_meta( $user_id, 'wc4bp-review-later', $remind );
 					break;
 				case 'already':
-					update_option( 'wc4bp-review', true );
+					update_user_meta( $user_id, 'wc4bp-review', true );
 					break;
 			}
 		}
