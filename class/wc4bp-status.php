@@ -65,7 +65,19 @@ class WC4BP_Status {
 		$shop_settings['is_track_off']                   = empty( $wc4bp_options['tab_track_disabled'] ) ? 'false' : 'true';
 		$shop_settings['is_woo_sync_off']                = empty( $wc4bp_options['tab_sync_disabled'] ) ? 'false' : 'true';
 		$shop_settings['tab_shop_default']               = ( isset( $wc4bp_options['tab_shop_default'] ) ) ? $wc4bp_options['tab_shop_default'] : 'default';
-		$data['WC4BP Settings']                          = $shop_settings;
+		$user_id                                         = get_current_user_id();
+		$wc4bp_review                                    = false;
+		$wc4bp_review_later                              = false;
+		if ( $user_id > 0 ) {
+			$wc4bp_review       = get_user_meta( $user_id, 'wc4bp-review', true );
+			$wc4bp_review_later = get_user_meta( $user_id, 'wc4bp-review-later', true );
+			if ( ! empty( $wc4bp_review_later ) && $wc4bp_review_later instanceof DateTime ) {
+				$wc4bp_review_later = $wc4bp_review_later->format( 'Y-m-d H:i:s' );
+			}
+		}
+		$shop_settings['review']       = ( ! empty( $wc4bp_review ) ) ? $wc4bp_review : 'false';
+		$shop_settings['review-later'] = ( ! empty( $wc4bp_review_later ) ) ? $wc4bp_review_later : 'false';
+		$data['WC4BP Settings']        = $shop_settings;
 
 		$shipping          = bp_get_option( 'wc4bp_shipping_address_ids' );
 		$billing           = bp_get_option( 'wc4bp_billing_address_ids' );

@@ -14,13 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC4BP_Revision {
 	public function __construct() {
-		if ( is_admin() ) {
-			return false;
-		}
-		$user_id = get_current_user_id();
-		if ( 0 !== $user_id ) {
-			return false;
-		}
+		$user_id            = get_current_user_id();
 		$wc4bp_review       = get_user_meta( $user_id, 'wc4bp-review', true );
 		$wc4bp_review_later = get_user_meta( $user_id, 'wc4bp-review-later', true );
 		$time_result        = false;
@@ -29,8 +23,8 @@ class WC4BP_Revision {
 			$time_comparison  = $wc4bp_review_now->diff( $wc4bp_review_later );
 			$time_result      = ( 1 === $time_comparison->invert );
 		}
-		if ( false === $wc4bp_review ) {
-			if ( false !== $time_result || false === $wc4bp_review_later ) {
+		if ( empty( $wc4bp_review ) ) {
+			if ( false !== $time_result || empty( $wc4bp_review_later ) ) {
 				add_action( 'admin_notices', array( $this, 'ask_for_revision' ) );
 				add_action( 'network_admin_notices', array( $this, 'ask_for_revision' ) );
 				add_action( 'admin_enqueue_scripts', array( $this, 'revision_script' ), 10 );
@@ -63,9 +57,6 @@ class WC4BP_Revision {
 			return false;
 		}
 		$user_id = get_current_user_id();
-		if ( 0 !== $user_id ) {
-			return false;
-		}
 		check_ajax_referer( 'wc4bp_review_nonce', 'nonce' );
 		$trigger = Request_Helper::get_post_param( 'trigger' );
 		if ( ! empty( $trigger ) ) {
