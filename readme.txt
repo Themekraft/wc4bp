@@ -111,6 +111,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 = 3.0.15.2 18 December 2017 =
 * Fixing the revision for each user.
 * Adding the revision option to the status section.
+* Changing the requirement text for one generic.
 
 = 3.0.15 14 December 2017 =
 * fix Error 404 in order-received.
