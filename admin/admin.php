@@ -343,11 +343,6 @@ class wc4bp_admin extends wc4bp_base {
 					'tab_name' => 'Checkout',
 				);
 			}
-			if ( empty( $wc4bp_options['tab_history_disabled'] ) ) {
-				$wc4bp_pages_options['selected_pages']['history'] = array(
-					'tab_name' => 'History',
-				);
-			}
 			if ( empty( $wc4bp_options['tab_track_disabled'] ) ) {
 				$wc4bp_pages_options['selected_pages']['track'] = array(
 					'tab_name' => 'Track my order',

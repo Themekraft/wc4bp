@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param $found_template
  * @param $templates
  *
- * @return mixed|void
+ * @return mixed
  */
 function wc4bp_load_template_filter( $found_template, $templates ) {
 	try {
@@ -212,7 +212,7 @@ function wc4bp_loader_purchase_activity( $order_id ) {
 		$names    = array();
 
 		foreach ( $products as $product ) {
-			$names[] = '<a href="' . get_permalink( $product['item_meta']['_product_id'][0] ) . '">' . $product['name'] . '</a>';
+            $names[] = '<a href="' . $product->get_product()->get_permalink() . '">' . $product->get_product()->get_name() . '</a>';
 		}
 
 		// record the activity
@@ -224,7 +224,7 @@ function wc4bp_loader_purchase_activity( $order_id ) {
 					$user_link,
 					implode( ', ', $names )
 				),
-				$user_id,
+                $order->get_user_id(),
 				$order,
 				$products
 			),

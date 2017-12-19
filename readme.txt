@@ -3,8 +3,8 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores,
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
-Tested up to: WP 4.8.2
-Stable tag: 3.0.14.2
+Tested up to: WP 4.9
+Stable tag: 3.0.15.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,15 +108,24 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
-= 3.0.14.2 8 December 2017 =
+= 3.0.15.3 19 December 2017 =
+* Fixing 404 in Activity Stream
+
+= 3.0.15.2 18 December 2017 =
+* Fixing the revision for each user.
+* Adding the revision option to the status section.
+* Changing the requirement text for one generic.
+
+= 3.0.15 14 December 2017 =
 * fix Error 404 in order-received.
 * Solved Fix then pagination for the order page.
 * Changing the option to show inside the groups generated in buddypress by the plugins.
 * Add admin notices in settings.
 * Fixing the 404 in checkout when the user register the account in the process.
-* Solved 404 on logout.
-*
-
+* Adding space in the admin before the link of ThemKraft.
+* Adding a notice to ask for revision.
+* Adding WC and BP version to the status menu.
+* Fixing the Shop disable when all tabs are disabled.
 
 = 3.0.14.1 3 December 2017 =
 * Now the plugins not delete the fields when uninstall, only when the user stop the sync.

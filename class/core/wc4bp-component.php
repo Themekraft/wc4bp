@@ -338,7 +338,7 @@ class WC4BP_Component extends BP_Component {
 							if ( ! empty( $wc4bp_pages_options ) ) {
 								$bp->current_action = $wc4bp_pages_options[0];
 							} else {
-								$bp->current_action = 'cart';
+								$bp->current_action = '';
 							}
 						} else {
 							$bp->current_action = 'cart';

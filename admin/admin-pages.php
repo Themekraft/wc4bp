@@ -138,9 +138,7 @@ class wc4bp_admin_pages extends wc4bp_base {
 			$position      = '';
 			$main_nav      = '';
 
-			if ( isset( $_POST['wc4bp_tab_slug'] ) ) {
-				$wc4bp_tab_slug = sanitize_text_field( $_POST['wc4bp_tab_slug'] );
-			}
+			$wc4bp_tab_slug = Request_Helper::get_post_param( 'wc4bp_tab_slug' );
 
 			$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 			if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
@@ -149,7 +147,7 @@ class wc4bp_admin_pages extends wc4bp_base {
 
 			$children = 0;
 			$page_id  = '';
-			if ( isset( $wc4bp_tab_slug ) ) {
+			if ( ! empty( $wc4bp_tab_slug ) ) {
 				if ( isset( $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['tab_name'] ) ) {
 					$tab_name = $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['tab_name'];
 				}
@@ -166,7 +164,7 @@ class wc4bp_admin_pages extends wc4bp_base {
 					$page_id = $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['page_id'];
 				}
 			}
-//        echo $wc4bp_page_id;
+
 			$args = array(
 				'echo'             => true,
 				'sort_column'      => 'post_title',

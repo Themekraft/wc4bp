@@ -22,6 +22,8 @@ class wc4bp_Manage_Admin {
 				// API License Key Registration Form
 				require_once( WC4BP_ABSPATH . 'admin/admin.php' );
 				new wc4bp_admin();
+				require_once( WC4BP_ABSPATH . 'admin/wc4bp-revision.php' );
+				new WC4BP_Revision();
 			}
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );

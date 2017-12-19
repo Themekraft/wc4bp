@@ -290,7 +290,8 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 		}
 		
 		function isErrorScraper() {
-			return isset( $_GET['action'] ) && $_GET['action'] === 'error_scrape';
+            $result = Request_Helper::simple_get('action');
+			return $result === 'error_scrape';
 		}
 		
 		function resultsToNotice() {

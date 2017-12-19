@@ -114,8 +114,9 @@ if ( ! class_exists( 'WpPluginStatus100', false ) ) {
 
 		public function status_view() {
 			$active_tab = 'generic';
-			if ( isset( $_GET['tab'] ) ) {
-				$get_tabs = sanitize_title( $_GET['tab'] );
+			$result     = Request_Helper::simple_get( 'tab' );
+			if ( ! empty( $result ) ) {
+				$get_tabs = $result;
 				if ( ! empty( $get_tabs ) && ( 'generic' === $get_tabs || 'status' === $get_tabs || 'tools' === $get_tabs ) ) {
 					$active_tab = $get_tabs;
 				}
