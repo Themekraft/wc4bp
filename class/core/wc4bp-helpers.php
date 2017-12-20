@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param $found_template
  * @param $templates
  *
- * @return mixed|void
+ * @return mixed
  */
 function wc4bp_load_template_filter( $found_template, $templates ) {
 	try {
