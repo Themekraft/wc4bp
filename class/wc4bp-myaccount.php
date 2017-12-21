@@ -21,11 +21,9 @@ class WC4BP_MyAccount {
 
 	public function __construct() {
 		try {
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$starter_plan_id ) ) {
-				$this->wc4bp_options = get_option( 'wc4bp_options' );
-				if ( empty( $this->wc4bp_options['tab_activity_disabled'] ) ) {
-					add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url__premium_only' ), 10, 2 );
-				}
+			$this->wc4bp_options = get_option( 'wc4bp_options' );
+			if ( empty( $this->wc4bp_options['tab_activity_disabled'] ) ) {
+				add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url' ), 10, 2 );
 			}
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
@@ -54,7 +52,7 @@ class WC4BP_MyAccount {
 	 *
 	 * @return string
 	 */
-	public function get_view_order_url__premium_only( $view_order_url, $order ) {
+	public function get_view_order_url( $view_order_url, $order ) {
 		try {
 			if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_orders'] ) ) {
 				$view_order_url = wc_get_endpoint_url( 'view-order', $order->get_id(), $this->get_base_url( 'orders' ) );

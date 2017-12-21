@@ -3,8 +3,8 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores,
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
-Tested up to: WP 4.9
-Stable tag: 3.0.15.3
+Tested up to: WP 4.9.1
+Stable tag: 3.0.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,10 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
+= 3.0.16 21 December 2017 =
+* Fixing a 404 error in orders details for the free version.
+* Solved HTTP request of WC checkout page leads to INET_E_REDIRECT_FAILED with WC4BP plugin activated.
+
 = 3.0.15.3 19 December 2017 =
 * Fixing 404 in Activity Stream
 
