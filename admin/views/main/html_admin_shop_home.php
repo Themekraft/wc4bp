@@ -11,7 +11,7 @@
 			}
 		} else {
 			$wc4bp_options["tab_activity_disabled"] = 1;
-			echo '<option value="default">' . __( 'You need at least one Page added to Member Profiles!', 'wc4bp' ) . '</option>';
+			echo '<option value="default">' . _e( 'You need at least one Page added to Member Profiles!', 'wc4bp' ) . '</option>';
 		}
 		?>
 
