@@ -112,18 +112,40 @@ class wc4bp_Woocommerce {
 		$default = $url;
 		try {
 			$base_path = wc4bp_redirect::get_base_url();
+			// variable to store the value of the tab_my_account_disabled option
+            // This option check id woocommerce my-account redirection is Turned off
+
+            $woocommerce_redirection_off = false;
+            if(isset( $this->wc4bp_options['tab_my_account_disabled'])){
+
+                // If the value is equal to 1 then the redirection is OFF
+                $woocommerce_redirection_off = $this->wc4bp_options['tab_my_account_disabled'];
+                if( $woocommerce_redirection_off == '1'){
+                    $woocommerce_redirection_off = true;
+                }
+            }
 			switch ( $endpoint ) {
                 case 'orders':
-                    $url = $base_path . $endpoint . '/' . $value;
+                    if($woocommerce_redirection_off == false){
+                        $url = $base_path . $endpoint . '/' . $value;
+                    }
+
                     break;
 				case 'edit-address':
 					if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_edit-address'] ) ) {
-						$url = $base_path . $endpoint . '/' . $value;
+                        if($woocommerce_redirection_off == false) {
+                            $url = $base_path . $endpoint . '/' . $value;
+                        }
 					}
 					break;
 				case 'payment-methods':
 					if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_payment-methods'] ) ) {
+                        if($woocommerce_redirection_off == false) {
 						$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . 'payment-methods' );
+                        }
+                        else{
+                            $url = add_query_arg( $endpoint, 'w2ewe3423ert', $url . 'payment-methods' );
+                        }
 					}
 					break;
 				case 'order-received':
@@ -132,18 +154,29 @@ class wc4bp_Woocommerce {
 					$url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' . $endpoint . '/' . $value;
 					//If checkout page do not exist, assign this url.
 					if ( - 1 === $checkout_page_id ) {
-						$url = $base_path . '/orders/view-order/' . $value;
+                        if($woocommerce_redirection_off == false) {
+                            $url = $base_path . '/orders/view-order/' . $value;
+                        }
 					}
 					break;
 				case 'set-default-payment-method':
 				case 'delete-payment-method':
 					if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_payment-methods'] ) ) {
-						$url = add_query_arg( $endpoint, $value, $base_path . 'payment' );
+                        if($woocommerce_redirection_off == false) {
+                            $url = add_query_arg($endpoint, $value, $base_path . 'payment');
+                        }else{
+
+                            $url = add_query_arg($endpoint, $value,  $url . 'payment');
+                        }
 					}
 					break;
 				case 'add-payment-method':
 					if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_payment-methods'] ) ) {
+                        if($woocommerce_redirection_off == false) {
 						$url = add_query_arg( $endpoint, 'w2ewe3423ert', $base_path . 'payment-methods' );
+                        }else{
+                            $url = add_query_arg( $endpoint, 'w2ewe3423ert', $url . 'payment-methods' );
+                        }
 					}
 					break;
 			}
