@@ -27,17 +27,13 @@ class wc4bp_Woocommerce {
 			add_filter( 'woocommerce_is_account_page', array( $this, 'wc4bp_woocommerce_is_account_page__premium_only' ) );
 		}
 
-		add_filter('woocommerce_get_view_order_url',array($this,'get_view_order_url'),9,2);
+		//add_filter('woocommerce_get_view_order_url',array($this,'get_view_order_url'),9,2);
 
 		add_filter( 'woocommerce_get_endpoint_url', array( $this, 'endpoint_url' ), 1, 4 );
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'available_payment_gateways' ), 1, 1 );
 	}
 
-	function get_view_order_url($url,$value){
 
-	    return $url;
-
-    }
 
 	/**
 	 * Return a list of  payment gateways that supports 'add_payment_method'
@@ -141,7 +137,7 @@ class wc4bp_Woocommerce {
                     break;
                 case 'view-order':
                     if($woocommerce_redirection_off == false){
-                        $url = $base_path . $endpoint . '/' . $value;
+                        //$url = $base_path . $endpoint . '/' . $value;
                     }
                     else{
                         $account_page_id  = wc_get_page_id( 'myaccount' );
