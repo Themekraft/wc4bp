@@ -2,18 +2,18 @@
     <div class="review-notice-logo"><span class="dashicons dashicons-chart-line"></span></div>
     <div class="review-notice-message">
         <strong>WC4BP -> WooCommerce BuddyPress Integration</strong>  <br>
-        Hey, you just updated to the 3.0.15 version – that’s awesome! <img draggable="false" class="emoji" alt="🎉" src="https://s.w.org/images/core/emoji/2.3/svg/1f389.svg"> Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.<br/>
+        <?php _e( ' Hey, you just updated to the 3.0.15 version – that’s awesome!', 'wc4bp' ); ?> <img draggable="false" class="emoji" alt="🎉" src="https://s.w.org/images/core/emoji/2.3/svg/1f389.svg"> <?php  _e(' Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.','wc4bp'); ?><br/>
         ~ <a target="_blank" href="http://themekraft.com/">ThemeKraft Team</a>
     </div>
     <div class="review-notice-cta">
         <button class="review-notice-dismiss" data-action="review">
-            Ok, you deserve it
+            <?php _e( ' Ok, you deserve it', 'wc4bp' ); ?>
         </button>
         <button class="review-notice-dismiss" data-action="later">
-            Nope, maybe later
+            <?php _e( ' Nope, maybe later', 'wc4bp' ); ?>
         </button>
         <button class="review-notice-dismiss" data-action="already">
-            I already did
+            <?php _e( ' I already did', 'wc4bp' ); ?>
         </button>
     </div>
 </div>
