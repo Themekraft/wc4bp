@@ -113,18 +113,6 @@ class wc4bp_Woocommerce {
 		$default = $url;
 		try {
 			$base_path = wc4bp_redirect::get_base_url();
-			// variable to store the value of the tab_my_account_disabled option
-            // This option check id woocommerce my-account redirection is Turned off
-
-            $woocommerce_redirection_off = false;
-            if(isset( $this->wc4bp_options['tab_my_account_disabled'])){
-
-                // If the value is equal to 1 then the redirection is OFF
-                $woocommerce_redirection_off = $this->wc4bp_options['tab_my_account_disabled'];
-                if( $woocommerce_redirection_off == '1'){
-                    $woocommerce_redirection_off = true;
-                }
-            }
 			switch ( $endpoint ) {
 				case 'orders':
 					$url = $base_path . $endpoint . '/' . $value;
