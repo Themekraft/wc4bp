@@ -1,0 +1,404 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce BuddyPress Integration v2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2018-01-04 19:11+0100\n"
+"Last-Translator: admin <mail@sven-lehnert.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.0.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Textdomain-Support: yes\n"
+"Language: fr_FR\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ wc4bp
+#: admin/admin-pages.php:215
+msgid "none"
+msgstr "aucun"
+
+# @ wc4bp
+#: admin/admin-xprofile.php:119 admin/admin-xprofile.php:195
+msgid "(Primary)"
+msgstr "(Principale)"
+
+# @ wc4bp
+#: admin/admin-xprofile.php:163
+msgid "There are no fields in this group."
+msgstr "Il n'y a pas de champs dans ce groupe."
+
+# @ wc4bp
+#: admin/admin-xprofile.php:172
+msgid "You have no groups."
+msgstr "Vous n'avez aucun groupe."
+
+# @ wc4bp
+#: admin/admin-xprofile.php:173
+msgid "Add New Group"
+msgstr "Ajout d'un nouveau groupe"
+
+# @ wc4bp
+#: admin/admin-xprofile.php:195
+msgid "(Required)"
+msgstr "(Requis)"
+
+# @ wc4bp
+#: core/wc4bp-component.php:30 core/wc4bp-component.php:122
+#: core/wc4bp-component.php:178 core/wc4bp-component.php:232
+#: core/wc4bp-component.php:242
+msgid "Shop"
+msgstr "Boutique"
+
+# @ wc4bp
+#: core/wc4bp-component.php:49
+msgid "New review created"
+msgstr "Un nouvel avis a été émis"
+
+# @ wc4bp
+#: core/wc4bp-component.php:50
+msgid "New purchase made"
+msgstr "Un nouvel achat a été fait"
+
+# @ wc4bp
+#: core/wc4bp-component.php:136 core/wc4bp-component.php:250
+msgid "Shopping Cart"
+msgstr "Panier d'achat"
+
+# @ wc4bp
+#: core/wc4bp-component.php:151 core/wc4bp-component.php:259
+msgid "History"
+msgstr "Historique"
+
+# @ wc4bp
+#: core/wc4bp-component.php:164 core/wc4bp-component.php:268
+#: templates/shop/member/track.php:16
+msgid "Track your order"
+msgstr "Suivre votre commande"
+
+# @ wc4bp
+#: core/wc4bp-helpers.php:122
+#, php-format
+msgid "%s wrote a review about <a href=\"%s\">%s</a>"
+msgstr "%s a écrit un avis à propos de <a href=\"%s\">%s</a>"
+
+# @ wc4bp
+#: core/wc4bp-helpers.php:175
+#, php-format
+msgid "%s purchased %s"
+msgstr "%s a acheté %s"
+
+# @ wc4bp
+#: core/wc4bp-screen.php:85
+msgid "Changes saved."
+msgstr "Changements sauvegardés."
+
+# @ wc4bp
+#: core/wc4bp-screen.php:103
+msgid "Shop Settings"
+msgstr "Réglage de la boutique"
+
+# @ wc4bp
+#: core/wc4bp-screen.php:129
+msgid "Activity Stream"
+msgstr "Flux d'activité"
+
+# @ wc4bp
+#: core/wc4bp-screen.php:130
+msgid "Yes"
+msgstr "Oui"
+
+# @ wc4bp
+#: core/wc4bp-screen.php:131
+msgid "No"
+msgstr "Non"
+
+# @ wc4bp
+#: core/wc4bp-screen.php:138
+msgid "Post to activity stream all reviews written by me"
+msgstr "Publier sur le flux d'activité tous les avis que j'ai fait"
+
+# @ wc4bp
+#: core/wc4bp-screen.php:144
+msgid "Post to activity stream all purchases I've made"
+msgstr "Publier sur le flux d'activité tous les achats que j'ai fait"
+
+# @ wc4bp
+#: core/wc4bp-screen.php:156
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:61
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:65
+msgid "Save Changes"
+msgstr "Sauver les changements"
+
+# @ wc4bp
+#: core/wc4bp-screen.php:181
+msgid "Please enter a valid order ID"
+msgstr "Saisissez un identifiant de commande valide"
+
+# @ wc4bp
+#: core/wc4bp-screen.php:184
+msgid "Please enter a valid order email"
+msgstr "Saisissez une adresse email valide"
+
+# @ wc4bp
+#: core/wc4bp-screen.php:193
+msgid "You are not allowed to view this order."
+msgstr "Vous n'êtes pas autorisé à voir cette commande."
+
+# @ wc4bp
+#: core/wc4bp-screen.php:196
+msgid "Sorry, we could not find that order id in our database."
+msgstr "Désolé, nous ne trouvons pas cette commande dans notre base de données."
+
+# @ wc4bp
+#: core/wc4bp-screen.php:213
+msgid "Your Order"
+msgstr "Votre commande"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:185
+msgid "Customer Billing Address"
+msgstr "Adresse de facturation du client"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:188 core/wc4bp-sync.php:237
+msgid "First name"
+msgstr "Prénom"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:192 core/wc4bp-sync.php:241
+msgid "Last name"
+msgstr "Nom"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:196 core/wc4bp-sync.php:245
+msgid "Company"
+msgstr "Entreprise"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:200 core/wc4bp-sync.php:249
+msgid "Address 1"
+msgstr "Adresse 1"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:204 core/wc4bp-sync.php:253
+msgid "Address 2"
+msgstr "Adresse 2"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:208 core/wc4bp-sync.php:257
+msgid "City"
+msgstr "Ville"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:212 core/wc4bp-sync.php:261
+msgid "Postcode"
+msgstr "Code postal"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:216 core/wc4bp-sync.php:265
+msgid "State/County"
+msgstr "Etat/Région"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:220 core/wc4bp-sync.php:269
+msgid "Country"
+msgstr "Pays"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:224
+msgid "Telephone"
+msgstr "Téléphone"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:228
+msgid "Email"
+msgstr "Email"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:234
+msgid "Customer Shipping Address"
+msgstr "Adresse de livraison du client"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:266
+msgid "State/County or state code"
+msgstr "Etat/région ou code associé"
+
+# @ wc4bp
+#: core/wc4bp-sync.php:270
+msgid "2 letter Country code"
+msgstr "Code Pays au format à 2 lettres"
+
+# @ default
+#: core/wc4bp-xprofile.php:67
+msgid "Please enter something into this new shiny field."
+msgstr "Saisissez quelque chose dans le champ en surbrillance."
+
+# @ wc4bp
+#: core/wc4bp-xprofile.php:238
+msgid "required"
+msgstr "requis"
+
+# @ default
+#: core/wc4bp-xprofile.php:263
+msgid "How'd you First find us?"
+msgstr "Comment vous avez nous connu ?"
+
+# @ wc4bp
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:80
+msgid "WC4BP API License Activation"
+msgstr "Activation de votre licence WC4BP API"
+
+# @ wc4bp
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:81
+msgid "API License Key"
+msgstr "Clé de licence API"
+
+# @ wc4bp
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:82
+msgid "API License Email"
+msgstr "Adresse email de validation de la licence API"
+
+# @ wc4bp
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:86
+msgid "WC4BP API License Deactivation"
+msgstr "Désactivation de votre licence WC4BP API"
+
+# @ wc4bp
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:87
+msgid "Deactivate API License Key"
+msgstr "Désactivation de la clé de licence API"
+
+# @ wc4bp
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:160
+msgid "Plugin activated. "
+msgstr "L'extension a été activée. "
+
+# @ wc4bp
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:166
+msgid "Connection failed to the License Key API server. Try again later."
+msgstr "La connexion au serveur de clé de licence API a échouée. Essayez plus tard."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:241
+msgid "The license could not be deactivated. Use the License Deactivation tab to manually deactivate the license before activating a new license."
+msgstr "La licence ne peut être désactivée. Utilisez l'onglet de désactivation de la licence pour désactiver manuellement la licence avant d'en activer une nouvelle."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:270
+msgid "Plugin license deactivated."
+msgstr "La licence de l'extension est désactivée."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:290
+msgid "Deactivates an API License Key so it can be used on another blog."
+msgstr "Désactive la clé de licence API afin de l'utiliser sur un autre blog."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:400
+#, php-format
+msgid "The license key for %s has expired. You can reactivate or purchase a license key from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr "La clé de licence pour %s a expirée. Vous pouvez réactiver ou acheter une clé de licence depuis votre <a href=\"%s\" target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:415
+#, php-format
+msgid "The subscription for %s is on-hold. You can reactivate the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr "L'abonnement pour %s est en attente. Vous pouvez réactiver votre abonnement depuis votre <a href=\"%s\" target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:430
+#, php-format
+msgid "The subscription for %s has been cancelled. You can renew the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>. A new license key will be emailed to you after your order has been completed."
+msgstr "L'abonnement pour %s a été annulé. Vous pouvez renouveler l'abonnement depuis votre  <a href=\"%s\" target=\"_blank\">espace client</a>. Une nouvelle clé de licence vous sera envoyée par email après votre commande."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:445
+#, php-format
+msgid "The subscription for %s has expired. You can reactivate the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr "L'abonnement pour %s a expiré. Vous pouvez réactiver votre abonnement depuis votre <a href=\"%s\" target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:460
+#, php-format
+msgid "The subscription for %s has been suspended. You can reactivate the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr "L'abonnement pour %s a été suspendu. Vous pouvez réactiver votre abonnement depuis votre <a href=\"%s\" target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:475
+#, php-format
+msgid "The subscription for %s is still pending. You can check on the status of the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr "L'abonnement pour %s n'est toujours pas validé. Vous pouvez vérifier l'état de votre abonnement dans votre <a href=\"%s\" target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:490
+#, php-format
+msgid "The subscription for %s has been placed in the trash and will be deleted soon. You can purchase a new subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr "L'abonnement pour %s a été placé dans la corbeille et sera bientôt détruit. Vous pouvez acheter un nouvel abonnement depuis votre  <a href=\"%s\" target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:505
+#, php-format
+msgid "A subscription for %s could not be found. You can purchase a subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr "Un abonnement à  %s ne peut être trouvé. Vous pouvez acheter un abonnement depuis votre  <a href=\"%s\" target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:520
+#, php-format
+msgid "A license key for %s could not be found. Maybe you forgot to enter a license key when setting up %s, or the key was deactivated in your account. You can reactivate or purchase a license key from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr "Une clé de licence pour %s n'a pas été trouvée. Vous avez peut-être oublié de saisir cette clé lors de la mise en place de %s, ou bien la clé n'est plus activée dans votre compte client. Vous pouvez réactiver ou acheter une clé de licence depuis votre <a href=\"%s\" target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:535
+#, php-format
+msgid "Download permission for %s has been revoked possibly due to a license key or subscription expiring. You can reactivate or purchase a license key from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr "La permission de download pour  %s a été révoquée probablement suite à l'expiration de la clé de licence ou de l'abonnement. Vous pouvez réactiver ou acheter une clé de licence depuis votre  <a href=\"%s\" target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:550
+#, php-format
+msgid "%s has not been activated. Go to the settings page and enter the license key and license email to activate %s."
+msgstr "%s n'a pas été activé. Aller dans la page des réglages pour entrer la clé de licence et l'adresse email pour permettre l'activation %s."
+
+# @ wc4bp
+#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:565
+#, php-format
+msgid "You changed the subscription for %s, so you will need to enter your new API License Key in the settings page. The License Key should have arrived in your email inbox, if not you can get it by logging into your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr "Vous avez modifié l'abonnement pour %s, vous devez saisir votre nouvelle clé de licence API dans la page de réglage. La clé de licence est contenue dans un email arrivée dans votre messagerie, dans le cas contraire vous l'obtiendrez en vous connectant à votre <a href=\"%s\" target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#: includes/resources/api-manager/api-manager.php:113
+msgid "woocommerce-buddypress-integration"
+msgstr ""
+
+# @ wc4bp
+#: includes/resources/api-manager/api-manager.php:135
+msgid "License Activation"
+msgstr "Activation de la licence"
+
+# @ wc4bp
+#: includes/resources/api-manager/api-manager.php:136
+msgid "License Deactivation"
+msgstr "Désactivation de la licence"
+
+# @ wc4bp
+#: includes/resources/api-manager/api-manager.php:331
+#, php-format
+msgid "The API License Key for WC4BP could not be found. %sClick here%s to activate it."
+msgstr "La clé de licence pour WC4BP ne peut être trouvée. %s Cliquez ici %s pour l'activer."
+
+# @ wc4bp
+#: templates/shop/member/plugin.php:50
+msgid "Pages:"
+msgstr "Pages :"
+
+# @ wc4bp
+#: templates/shop/member/plugin.php:55
+msgid "Edit"
+msgstr "Edition"

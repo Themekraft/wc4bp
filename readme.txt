@@ -113,6 +113,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Adding a described text to the shop option in the settings.
 * Fixing the order detail 404 when the redirection is of.
 * Fixing the User fields to keep in the Woocommerce Session.
+* Adding France localization. Thanks to @denisleclerc.
 
 = 3.0.16 21 December 2017 =
 * Fixing a 404 error in orders details for the free version.
