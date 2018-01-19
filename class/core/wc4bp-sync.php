@@ -98,12 +98,13 @@ class wc4bp_Sync {
 				$user_id = bp_displayed_user_id();
 			}
 
-            $customer        = new WC_Customer( $user_id, false );
-            $call_update_fnc = 'set_' . $type . '_' . $field_slug;
-            if ( method_exists( $customer, $call_update_fnc ) ) {
-                $customer->$call_update_fnc( $value );
-            }
-           $customer->get_data_store()->update($customer);
+			$customer        = new WC_Customer( $user_id, true );
+			$call_update_fnc = 'set_' . $type . '_' . $field_slug;
+			if ( method_exists( $customer, $call_update_fnc ) ) {
+				$customer->$call_update_fnc( $value );
+			}
+			$customer->get_data_store()->update( $customer );
+			add_action( 'shutdown', array( $customer, 'save' ), 10 );
 
 			return update_user_meta( $user_id, $type . '_' . $field_slug, $value );
 		} catch ( Exception $exception ) {
