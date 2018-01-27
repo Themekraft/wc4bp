@@ -4,7 +4,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: WP 4.0
 Tested up to: WP 4.9.1
-Stable tag: 3.0.20
+Stable tag: 3.0.21
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,9 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
+= 3.0.21 18 January 2018 =
+* Updating localization files to include new strings.
+
 = 3.0.20 18 January 2018 =
 * Fixing the url redirection for the woocommerce my account when the shop option is disable.
 * Adding a described text to the shop option in the settings.
