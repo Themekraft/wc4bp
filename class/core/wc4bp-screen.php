@@ -147,12 +147,10 @@ function wc4bp_screen_payment_methods() {
  */
 function wc4bp_screen_settings() {
 	try {
-		if ( ! bp_is_settings_component() || bp_current_action() !== 'shop' ) {
+		if ( ! bp_is_settings_component() || bp_current_action() !== wc4bp_Manager::get_shop_slug() ) {
 			return false;
 		}
-
 		do_action( 'wc4bp_screen_settings' );
-
 		$wc4bp_values = Request_Helper::get_post_param( 'wc4bp' );
 		if ( ! empty( $wc4bp_values ) ) {
 			// default values
@@ -336,7 +334,7 @@ function wc4bp_output_tracking_order() {
 add_action( 'wc4bp_after_track_body', 'wc4bp_output_tracking_order' );
 
 function wc4bp_screen_plugins() {
-	if ( bp_displayed_user_id() && bp_is_current_component( 'shop' ) && bp_current_action() ) {
+	if ( bp_displayed_user_id() && bp_is_current_component( wc4bp_Manager::get_shop_slug() ) && bp_current_action() ) {
 		bp_core_load_template( apply_filters( 'wc4bp_template_member_plugin', 'shop/member/plugin' ) );
 	}
 }
