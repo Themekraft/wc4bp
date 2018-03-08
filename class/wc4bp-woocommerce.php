@@ -67,7 +67,7 @@ class wc4bp_Woocommerce {
 		$default = $is_account_page;
 		try {
 			if ( is_user_logged_in() ) {
-				if ( bp_is_current_component( 'shop' ) && bp_is_current_action( 'checkout' ) ) {
+				if ( bp_is_current_component( wc4bp_Manager::get_shop_slug() ) && bp_is_current_action( 'checkout' ) ) {
 					$is_account_page = true;
 				}
 			}
@@ -89,7 +89,7 @@ class wc4bp_Woocommerce {
 		$default = $is_checkout;
 		try {
 			if ( is_user_logged_in() && ! isset( $this->wc4bp_options['tab_checkout_disabled'] ) ) {
-				if ( bp_is_current_component( 'shop' ) && ( bp_is_current_action( 'checkout' ) || bp_is_current_action( 'home' ) ) ) {
+				if ( bp_is_current_component( wc4bp_Manager::get_shop_slug() ) && ( bp_is_current_action( 'checkout' ) || bp_is_current_action( 'home' ) ) ) {
 					$is_checkout = true;
 				}
 			}
@@ -114,9 +114,9 @@ class wc4bp_Woocommerce {
 		try {
 			$base_path = wc4bp_redirect::get_base_url();
 			switch ( $endpoint ) {
-				case 'orders':
-					$url = $base_path . $endpoint . '/' . $value;
-					break;
+                case 'orders':
+                    $url = $base_path . $endpoint . '/' . $value;
+                    break;
 				case 'edit-address':
 					if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_edit-address'] ) ) {
 						$url = $base_path . $endpoint . '/' . $value;

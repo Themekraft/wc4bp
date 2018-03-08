@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC4BP_Status {
 	private $status_handler;
-
+	
 	public function __construct() {
 		require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/class-wp-plugin-status.php';
 		$this->status_handler = WpPluginStatusFactory::build_manager( array(
@@ -23,14 +23,14 @@ class WC4BP_Status {
 		add_action( 'init', array( $this, 'set_status_options' ), 1, 1 );
 		add_filter( 'wp_plugin_status_data', array( $this, 'status_data' ) );
 	}
-
+	
 	public function set_status_options() {
 		// Only Check for requirements in the admin
 		if ( ! is_admin() ) {
 			return;
 		}
 	}
-
+	
 	public function status_data( $data ) {
 		$versions = array(
 			'WC4BP' => $GLOBALS['wc4bp_loader']->get_version(),
@@ -52,9 +52,9 @@ class WC4BP_Status {
 				}
 			}
 		}
-		$data['Versions'] = $versions;
-
+		$data['Versions']                                = $versions;
 		$wc4bp_options                                   = get_option( 'wc4bp_options' );
+		$shop_settings['shop_slug']                      = wc4bp_Manager::get_shop_slug();
 		$shop_settings['is_shop_off']                    = empty( $wc4bp_options['tab_activity_disabled'] ) ? 'false' : 'true';
 		$shop_settings['is_shop_inside_setting_off']     = empty( $wc4bp_options['disable_shop_settings_tab'] ) ? 'false' : 'true';
 		$shop_settings['is_woo_my_account_redirect_off'] = empty( $wc4bp_options['tab_my_account_disabled'] ) ? 'false' : 'true';
@@ -78,7 +78,7 @@ class WC4BP_Status {
 		$shop_settings['review']       = ( ! empty( $wc4bp_review ) ) ? $wc4bp_review : 'false';
 		$shop_settings['review-later'] = ( ! empty( $wc4bp_review_later ) ) ? $wc4bp_review_later : 'false';
 		$data['WC4BP Settings']        = $shop_settings;
-
+		
 		$shipping          = bp_get_option( 'wc4bp_shipping_address_ids' );
 		$billing           = bp_get_option( 'wc4bp_billing_address_ids' );
 		$exist_group_in_bp = array();
@@ -110,18 +110,18 @@ class WC4BP_Status {
 				}
 			}
 		}
-
+		
 		$xprofiels_settings['shipping_array'] = is_array( $shipping ) ? 'true' : 'false';
 		$xprofiels_settings['billing_array']  = is_array( $billing ) ? 'true' : 'false';
 		/**
-		 * @var string $key
+		 * @var string            $key
 		 * @var BP_XProfile_Group $item
 		 */
 		foreach ( $exist_group_in_bp as $key => $item ) {
 			$xprofiels_settings[ $key ] = $item->name;
 			if ( is_array( $exist_field_in_bp[ $key ] ) ) {
 				/**
-				 * @var integer $field_id
+				 * @var integer           $field_id
 				 * @var BP_XProfile_Field $field_data
 				 */
 				foreach ( $exist_field_in_bp[ $key ] as $field_id => $field_data ) {
@@ -130,14 +130,14 @@ class WC4BP_Status {
 			}
 		}
 		/**
-		 * @var string $key
+		 * @var string            $key
 		 * @var BP_XProfile_Group $item
 		 */
 		foreach ( $no_internal_group as $key => $item ) {
 			$xprofiels_settings[ $key ] = $item->name;
 			if ( is_array( $no_internal_field[ $key ] ) ) {
 				/**
-				 * @var integer $field_id
+				 * @var integer           $field_id
 				 * @var BP_XProfile_Field $field_data
 				 */
 				foreach ( $no_internal_field[ $key ] as $field_id => $field_data ) {
@@ -146,7 +146,7 @@ class WC4BP_Status {
 			}
 		}
 		$data['WC4BP XProfield Details'] = $xprofiels_settings;
-
+		
 		return $data;
 	}
 }
