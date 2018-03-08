@@ -3,7 +3,7 @@
 <p>
 	<?php _e( 'If the Update stops for some reason you can continue the update manually', 'wc4bp' ); ?>
 </p>
-<input type="button" id="continue_update" value="Continue Updating from here">
+<input type="button" id="continue_update" value="<?php _e( ' Continue Updating from here', 'wc4bp' ); ?>">
 <table class="wp-list-table widefat fixed users">
     <thead>
     <tr>

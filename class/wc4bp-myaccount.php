@@ -36,7 +36,7 @@ class WC4BP_MyAccount {
 				$endpoint = '/' . $endpoint;
 			}
 
-			return bp_core_get_user_domain( bp_loggedin_user_id() ) . 'shop' . $endpoint;
+			return bp_core_get_user_domain( bp_loggedin_user_id() ) . wc4bp_Manager::get_shop_slug() . $endpoint;
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 

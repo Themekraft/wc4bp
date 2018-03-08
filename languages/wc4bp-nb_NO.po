@@ -2,421 +2,1139 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce BuddyPress Integration v2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-11-06 14:35:13+0000\n"
+"POT-Creation-Date: 2018-01-27 10:23-0300\n"
+"PO-Revision-Date: 2018-01-27 10:25-0300\n"
 "Last-Translator: Ole Kristian Ek Hornnes <ole@horneks.com>\n"
 "Language-Team: \n"
+"Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.5.4\n"
-"X-Poedit-Language: \n"
-"X-Poedit-Country: \n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
-"X-Poedit-Basepath: ../\n"
-"X-Poedit-Bookmarks: \n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Textdomain-Support: yes\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Textdomain-Support: yes"
 
-#: core/wc4bp-component.php:49
-#@ wc4bp
-msgid "New review created"
-msgstr "Ny vurdering opprettet"
+#: admin/admin-delete.php:46
+msgid ""
+"Delete all WooCommerce BuddyPress Integration Settings on Plugin Deactivation"
+msgstr ""
 
-#: core/wc4bp-component.php:50
-#@ wc4bp
-msgid "New purchase made"
-msgstr "Nytt kjøp er gjort"
+#: admin/admin-delete.php:47
+msgid "<b>Delete all Settings</b>"
+msgstr ""
 
-#: core/wc4bp-component.php:30
-#: core/wc4bp-component.php:122
-#: core/wc4bp-component.php:178
-#: core/wc4bp-component.php:232
-#: core/wc4bp-component.php:242
-#@ wc4bp
-msgid "Shop"
-msgstr "Butikk"
-
-#: core/wc4bp-component.php:136
-#: core/wc4bp-component.php:250
-#@ wc4bp
-msgid "Shopping Cart"
-msgstr "Handlekurv"
-
-#: core/wc4bp-component.php:151
-#: core/wc4bp-component.php:259
-#@ wc4bp
-msgid "History"
-msgstr "Historie"
-
-#: core/wc4bp-component.php:164
-#: core/wc4bp-component.php:268
-#: templates/shop/member/track.php:16
-#@ wc4bp
-msgid "Track your order"
-msgstr "Spor din ordre"
-
-#: core/wc4bp-helpers.php:122
-#, php-format
-#@ wc4bp
-msgid "%s wrote a review about <a href=\"%s\">%s</a>"
-msgstr "%s skrev en vurdering av <a href=\"%s\">%s</a>"
-
-#: core/wc4bp-helpers.php:175
-#, php-format
-#@ wc4bp
-msgid "%s purchased %s"
-msgstr "%s kjøpte %s"
-
-#: core/wc4bp-screen.php:85
-#@ wc4bp
-msgid "Changes saved."
-msgstr "Endringer lagret."
-
-#: core/wc4bp-screen.php:103
-#@ wc4bp
-msgid "Shop Settings"
-msgstr "Butikk instillinger"
-
-#: core/wc4bp-screen.php:129
-#@ wc4bp
-msgid "Activity Stream"
-msgstr "Aktivitets strøm"
-
-#: core/wc4bp-screen.php:130
-#@ wc4bp
-msgid "Yes"
-msgstr "Ja"
-
-#: core/wc4bp-screen.php:131
-#@ wc4bp
-msgid "No"
-msgstr "Nei"
-
-#: core/wc4bp-screen.php:138
-#@ wc4bp
-msgid "Post to activity stream all reviews written by me"
-msgstr "Legg inn i aktivitetsstrømmen alle vurderinger jeg har skrevet"
-
-#: core/wc4bp-screen.php:144
-#@ wc4bp
-msgid "Post to activity stream all purchases I've made"
-msgstr "Legg inn i aktivitetsstrømmen alle kjøp jeg har gjort"
-
-#: core/wc4bp-screen.php:156
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:61
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:65
-#@ wc4bp
-msgid "Save Changes"
-msgstr "Lagre endringer"
-
-#: admin/admin-pages.php:215
-#@ wc4bp
+# @ wc4bp
+#: admin/admin-pages.php:171
 msgid "none"
 msgstr ""
 
-#: admin/admin-xprofile.php:119
-#: admin/admin-xprofile.php:195
-#@ wc4bp
-msgid "(Primary)"
+#: admin/admin-sync.php:46 admin/admin-sync.php:49
+msgid "Profile Field Synchronisation Settings"
 msgstr ""
 
-#: admin/admin-xprofile.php:163
-#@ wc4bp
-msgid "There are no fields in this group."
+#: admin/admin-sync.php:50
+msgid "Default BuddyPress WooCommerce Profile Field Settings"
 msgstr ""
 
-#: admin/admin-xprofile.php:172
-#@ wc4bp
-msgid "You have no groups."
+#: admin/admin-sync.php:51
+msgid "<b>Woo & BP Profile Fields Sync </b>"
 msgstr ""
 
-#: admin/admin-xprofile.php:173
-#@ wc4bp
-msgid "Add New Group"
+#: admin/admin-sync.php:52
+msgid "<b>Profile Field Visibility</b>"
 msgstr ""
 
-#: admin/admin-xprofile.php:195
-#@ wc4bp
-msgid "(Required)"
+#: admin/admin-sync.php:53
+msgid "<b>Default Profile Fields Visibility</b>"
 msgstr ""
 
-#: core/wc4bp-screen.php:181
-#@ wc4bp
-msgid "Please enter a valid order ID"
+#: admin/admin-sync.php:54
+msgid "<b>Allow Custom Visibility Change by User</b>"
 msgstr ""
 
-#: core/wc4bp-screen.php:184
-#@ wc4bp
-msgid "Please enter a valid order email"
+#: admin/admin-sync.php:62
+msgid ""
+"<p><strong>The options in this tab need xProfile be activated in BuddyPress."
+"</strong></p>"
 msgstr ""
 
-#: core/wc4bp-screen.php:193
-#@ wc4bp
-msgid "You are not allowed to view this order."
+#: admin/admin-sync.php:129
+msgid "Select Visibility"
 msgstr ""
 
-#: core/wc4bp-screen.php:196
-#@ wc4bp
-msgid "Sorry, we could not find that order id in our database."
+#: admin/admin-sync.php:137
+msgid "<p><strong>xProfile need to be active in BuddyPress</strong></p>"
 msgstr ""
 
-#: core/wc4bp-screen.php:213
-#@ wc4bp
-msgid "Your Order"
+#: admin/admin.php:58
+msgid "WooCommerce for BuddyPress"
 msgstr ""
 
-#: core/wc4bp-sync.php:185
-#@ wc4bp
-msgid "Customer Billing Address"
+# @ wc4bp
+#: admin/admin.php:58 admin/views/html_admin_header.php:9
+#, fuzzy
+#| msgid "Shop Settings"
+msgid "WC4BP Settings"
+msgstr "Butikk instillinger"
+
+# @ wc4bp
+#: admin/admin.php:111
+#, fuzzy
+#| msgid "Shop Settings"
+msgid "<b>Shop Settings</b>"
+msgstr "Butikk instillinger"
+
+#: admin/admin.php:112
+msgid "<b>Remove My Account Tabs</b>"
 msgstr ""
 
-#: core/wc4bp-sync.php:188
-#: core/wc4bp-sync.php:237
-#@ wc4bp
-msgid "First name"
+#: admin/admin.php:113
+msgid "<b>Remove Shop Tabs</b>"
 msgstr ""
 
-#: core/wc4bp-sync.php:192
-#: core/wc4bp-sync.php:241
-#@ wc4bp
-msgid "Last name"
+#: admin/admin.php:114
+msgid "<b>Turn off the Profile Sync</b>"
 msgstr ""
 
-#: core/wc4bp-sync.php:196
-#: core/wc4bp-sync.php:245
-#@ wc4bp
-msgid "Company"
+#: admin/admin.php:115
+msgid "<b>Default Shop Tab</b>"
 msgstr ""
 
-#: core/wc4bp-sync.php:200
-#: core/wc4bp-sync.php:249
-#@ wc4bp
-msgid "Address 1"
+#: admin/views/delete/html_admin_delete_all_settings.php:1
+msgid ""
+"Be careful! If you check this option, all settings will be deleted on the "
+"plugin deactivation."
 msgstr ""
 
-#: core/wc4bp-sync.php:204
-#: core/wc4bp-sync.php:253
-#@ wc4bp
-msgid "Address 2"
+#: admin/views/delete/html_admin_delete_all_settings.php:2
+msgid "Yes I want to delete all Settings: "
 msgstr ""
 
-#: core/wc4bp-sync.php:208
-#: core/wc4bp-sync.php:257
-#@ wc4bp
-msgid "City"
+#: admin/views/html_admin_header.php:3
+msgid "WooCommerce BuddyPress Integration"
 msgstr ""
 
-#: core/wc4bp-sync.php:212
-#: core/wc4bp-sync.php:261
-#@ wc4bp
-msgid "Postcode"
+#: admin/views/html_admin_header.php:5
+msgid "Proudly brought to you by "
 msgstr ""
 
-#: core/wc4bp-sync.php:216
-#: core/wc4bp-sync.php:265
-#@ wc4bp
-msgid "State/County"
+#: admin/views/html_admin_header.php:10
+msgid "Profile Fields Sync"
 msgstr ""
 
-#: core/wc4bp-sync.php:220
-#: core/wc4bp-sync.php:269
-#@ wc4bp
-msgid "Country"
+#: admin/views/html_admin_header.php:11
+msgid "Integrate Pages"
 msgstr ""
 
-#: core/wc4bp-sync.php:224
-#@ wc4bp
-msgid "Telephone"
+#: admin/views/html_admin_header.php:12
+#: admin/views/pages/html_admin_pages_forms_table.php:31
+msgid "Delete"
 msgstr ""
 
-#: core/wc4bp-sync.php:228
-#@ wc4bp
-msgid "Email"
+#: admin/views/html_admin_header.php:15
+msgid "Go Professional!!!"
 msgstr ""
 
-#: core/wc4bp-sync.php:234
-#@ wc4bp
-msgid "Customer Shipping Address"
+#: admin/views/html_admin_revision.php:5
+msgid " Hey, you just updated to the 3.0.15 version – that’s awesome!"
 msgstr ""
 
-#: core/wc4bp-sync.php:266
-#@ wc4bp
-msgid "State/County or state code"
+#: admin/views/html_admin_revision.php:5
+msgid ""
+" Could you please do me a BIG favor and give it a 5-star rating on "
+"WordPress? Just to help us spread the word and boost our motivation."
 msgstr ""
 
-#: core/wc4bp-sync.php:270
-#@ wc4bp
-msgid "2 letter Country code"
+#: admin/views/html_admin_revision.php:10
+msgid " Ok, you deserve it"
 msgstr ""
 
-#: core/wc4bp-xprofile.php:67
-#@ default
-msgid "Please enter something into this new shiny field."
+#: admin/views/html_admin_revision.php:13
+msgid " Nope, maybe later"
 msgstr ""
 
-#: core/wc4bp-xprofile.php:238
-#@ wc4bp
-msgid "required"
+#: admin/views/html_admin_revision.php:16
+msgid " I already did"
 msgstr ""
 
-#: core/wc4bp-xprofile.php:263
-#@ default
-msgid "How'd you First find us?"
+#: admin/views/html_admin_screen_sync.php:16
+msgid ""
+"This option is not available, you need to uncheck 'Turn off the Profile "
+"Sync' from the WC4BP Settings tab."
 msgstr ""
 
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:80
-#@ wc4bp
-msgid "WC4BP API License Activation"
+#: admin/views/main/html_admin_my_account_tabs.php:3
+msgid ""
+"<p>By default all account related <b>WooCommerce My Account</b> Tabs are "
+"included into the BuddyPress member profiles. When you <b>Turn off</b> one "
+"of the next, the Tab(s) will disappear.</p>"
 msgstr ""
 
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:81
-#@ wc4bp
-msgid "API License Key"
+#: admin/views/main/html_admin_profile_sync.php:4
+msgid ""
+"If you turn off profile sync, the Billing and Shipping profile groups and "
+"tabs from Profile/Edit will be deleted and disable all sync settings. When "
+"you turn of again will be created again."
 msgstr ""
 
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:82
-#@ wc4bp
-msgid "API License Email"
+#: admin/views/main/html_admin_profile_sync.php:8
+msgid "Turn off WooCommerce BuddyPress Profile Sync."
 msgstr ""
 
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:86
-#@ wc4bp
-msgid "WC4BP API License Deactivation"
+#: admin/views/main/html_admin_shop_disable.php:5
+msgid "Turn off 'Cart' tab"
 msgstr ""
 
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:87
-#@ wc4bp
-msgid "Deactivate API License Key"
+#: admin/views/main/html_admin_shop_disable.php:11
+msgid "Turn off 'Checkout' tab."
 msgstr ""
 
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:160
-#@ wc4bp
-msgid "Plugin activated. "
+#: admin/views/main/html_admin_shop_disable.php:17
+msgid "Turn off 'Track my order' tab."
 msgstr ""
 
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:166
-#@ wc4bp
-msgid "Connection failed to the License Key API server. Try again later."
+#: admin/views/main/html_admin_shop_home.php:4
+msgid ""
+"This option override the default tab to show when the user click in the Shop "
+"tab."
 msgstr ""
 
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:241
-#@ wc4bp
-msgid "The license could not be deactivated. Use the License Deactivation tab to manually deactivate the license before activating a new license."
+#: admin/views/main/html_admin_shop_home.php:8
+msgid "Default"
 msgstr ""
 
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:270
-#@ wc4bp
-msgid "Plugin license deactivated."
+#: admin/views/main/html_admin_shop_home.php:14
+msgid "You need at least one Page added to Member Profiles!"
 msgstr ""
 
-#: includes/resources/api-manager/am/admin/class-wc-api-manager-menu.php:290
-#@ wc4bp
-msgid "Deactivates an API License Key so it can be used on another blog."
+#: admin/views/main/html_admin_shop_tabs.php:5
+msgid "Turn off Shop."
 msgstr ""
 
-#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:400
-#, php-format
-#@ wc4bp
-msgid "The license key for %s has expired. You can reactivate or purchase a license key from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#: admin/views/main/html_admin_shop_tabs.php:6
+msgid ""
+"Disable the BuddyPress Shop Tab and Woocommerce My Account will work "
+"normally."
 msgstr ""
 
-#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:415
-#, php-format
-#@ wc4bp
-msgid "The subscription for %s is on-hold. You can reactivate the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#: admin/views/main/html_admin_shop_tabs.php:13
+msgid "Turn off 'Shop Tab' "
 msgstr ""
 
-#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:430
-#, php-format
-#@ wc4bp
-msgid "The subscription for %s has been cancelled. You can renew the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>. A new license key will be emailed to you after your order has been completed."
+#: admin/views/main/html_admin_shop_tabs.php:14
+msgid "inside \"Settings\" for the activity stream settings."
 msgstr ""
 
-#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:445
-#, php-format
-#@ wc4bp
-msgid "The subscription for %s has expired. You can reactivate the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#: admin/views/main/html_admin_shop_tabs.php:20
+msgid "Turn off 'Woocommerce My Account' redirection."
 msgstr ""
 
-#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:460
-#, php-format
-#@ wc4bp
-msgid "The subscription for %s has been suspended. You can reactivate the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#: admin/views/main/html_admin_shop_tabs.php:20
+msgid ""
+"This option is useful when you have problem with 3rd Woocommerce plugins. It "
+"disable only the My Account redirection, not the sub tabs url."
 msgstr ""
 
-#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:475
-#, php-format
-#@ wc4bp
-msgid "The subscription for %s is still pending. You can check on the status of the subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#: admin/views/pages/html_admin_pages_edit_entry.php:2
+msgid "Choose an existing page"
 msgstr ""
 
-#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:490
-#, php-format
-#@ wc4bp
-msgid "The subscription for %s has been placed in the trash and will be deleted soon. You can purchase a new subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#: admin/views/pages/html_admin_pages_edit_entry.php:6
+msgid "Include Children?"
 msgstr ""
 
-#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:505
-#, php-format
-#@ wc4bp
-msgid "A subscription for %s could not be found. You can purchase a subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#: admin/views/pages/html_admin_pages_edit_entry.php:9
+#: admin/views/pages/html_admin_pages_forms_table.php:12
+msgid "Tab Name"
 msgstr ""
 
-#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:520
-#, php-format
-#@ wc4bp
-msgid "A license key for %s could not be found. Maybe you forgot to enter a license key when setting up %s, or the key was deactivated in your account. You can reactivate or purchase a license key from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#: admin/views/pages/html_admin_pages_edit_entry.php:10
+msgid "If empty same as Pagename"
 msgstr ""
 
-#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:535
-#, php-format
-#@ wc4bp
-msgid "Download permission for %s has been revoked possibly due to a license key or subscription expiring. You can reactivate or purchase a license key from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#: admin/views/pages/html_admin_pages_edit_entry.php:15
+#: admin/views/pages/html_admin_pages_forms_table.php:14
+msgid "Position"
 msgstr ""
 
-#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:550
-#, php-format
-#@ wc4bp
-msgid "%s has not been activated. Go to the settings page and enter the license key and license email to activate %s."
+#: admin/views/pages/html_admin_pages_edit_entry.php:17
+msgid "Just enter a number like 1, 2, 3.."
 msgstr ""
 
-#: includes/resources/api-manager/am/classes/class-wc-plugin-update.php:565
-#, php-format
-#@ wc4bp
-msgid "You changed the subscription for %s, so you will need to enter your new API License Key in the settings page. The License Key should have arrived in your email inbox, if not you can get it by logging into your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#: admin/views/pages/html_admin_pages_edit_entry.php:25
+msgid "Save"
 msgstr ""
 
-#: includes/resources/api-manager/api-manager.php:113
-#@ wc4bp
-msgid "woocommerce-buddypress-integration"
+#: admin/views/pages/html_admin_pages_forms_table.php:1
+msgid "Add Pages to Member Profiles"
 msgstr ""
 
-#: includes/resources/api-manager/api-manager.php:135
-#@ wc4bp
-msgid "License Activation"
+#: admin/views/pages/html_admin_pages_forms_table.php:3
+msgid ""
+"Integrate other pages (for example from other WooCommerce extensions) into "
+"your BuddyPress member profiles."
 msgstr ""
 
-#: includes/resources/api-manager/api-manager.php:136
-#@ wc4bp
-msgid "License Deactivation"
+#: admin/views/pages/html_admin_pages_forms_table.php:4
+msgid ""
+"This will redirect the page to the correct profile page and add a menu item "
+"in the profile."
 msgstr ""
 
-#: includes/resources/api-manager/api-manager.php:331
-#, php-format
-#@ wc4bp
-msgid "The API License Key for WC4BP could not be found. %sClick here%s to activate it."
+#: admin/views/pages/html_admin_pages_forms_table.php:10
+msgid "Page"
 msgstr ""
 
-#: templates/shop/member/plugin.php:50
-#@ wc4bp
-msgid "Pages:"
+#: admin/views/pages/html_admin_pages_forms_table.php:11
+msgid "Including Children?"
 msgstr ""
 
-#: templates/shop/member/plugin.php:55
-#@ wc4bp
+#: admin/views/pages/html_admin_pages_forms_table.php:13
+msgid "Tab Slug"
+msgstr ""
+
+#: admin/views/pages/html_admin_pages_forms_table.php:28
+msgid "an existing page to your BuddyPress member profiles"
+msgstr ""
+
+# @ wc4bp
+#: admin/views/pages/html_admin_pages_forms_table.php:28
+#: templates/shop/member/plugin.php:87
 msgid "Edit"
 msgstr ""
 
+#: admin/views/pages/html_admin_pages_forms_table.php:31
+msgid "Delete this item"
+msgstr ""
+
+#: admin/views/pages/html_admin_pages_shop_pages_rename.php:2
+msgid "Rename Shop Parent Tab:"
+msgstr ""
+
+# @ wc4bp
+#: admin/views/pages/html_admin_pages_shop_pages_rename.php:3
+#, fuzzy
+msgid "Rename Shopping Cart:"
+msgstr "Handlekurv:"
+
+# @ wc4bp
+#: admin/views/pages/html_admin_pages_shop_pages_rename.php:4
+msgid "Rename History:"
+msgstr "Historie:"
+
+# @ wc4bp
+#: admin/views/pages/html_admin_pages_shop_pages_rename.php:5
+msgid "Rename Track your order:"
+msgstr "Spor din ordre:"
+
+#: admin/views/pages/html_admin_pages_thickbox.php:2
+msgid "Add an existing page to your BuddyPress member profiles"
+msgstr ""
+
+#: admin/views/pages/html_admin_pages_thickbox.php:2
+msgid "Add a page to your BuddyPress Member Profiles"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_change_xprofile.php:3
+msgid "Set the Profile Field Visibility for all Users:"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_change_xprofile.php:6
+msgid ""
+"You can change the Field Visibility for all users. This will only work if "
+"the option"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_change_xprofile.php:9
+msgid ""
+"\"Allow Custom Visibility Change by User\" is set to \"Let members change "
+"this field's visibility\""
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_change_xprofile.php:13
+#: admin/views/sync/html_admin_sync_shop_profile.php:58
+msgid "Sync Now"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:1
+msgid "Allow if the user can change the Field visibility."
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:5
+msgid "Let members change this field's visibility"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:8
+msgid "Enforce the default visibility for all members"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:12
+#: admin/views/sync/html_admin_sync_change_xprofile_visibility.php:5
+msgid "Change Now"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:21
+#: admin/views/sync/html_admin_sync_change_xprofile_visibility.php:12
+#, php-format
+msgid "<li>billing_%s default visibility changed to %s</li>"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:27
+#: admin/views/sync/html_admin_sync_change_xprofile_visibility.php:18
+#, php-format
+msgid "<li>shipping_%s default visibility changed to %s</li>"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:30
+#: admin/views/sync/html_admin_sync_change_xprofile_visibility.php:21
+msgid "<h3>All Done!</h3>"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:2
+msgid "Sync WooCommerce Customer Billing and Shipping Address with BuddyPress."
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:5
+msgid ""
+"The billing and shipping address fields are WooCommerce default user fields. "
+"You can sync all default WooCommerce\n"
+"            customer fields with BuddyPress."
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:9
+msgid ""
+"During checkout or if a user edits his profile all fields will be synced "
+"automatically."
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:12
+msgid ""
+"If you have already customers and start using WooCommerce BuddyPress "
+"Integration on an existing store, you need \n"
+"            to sync your user once."
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:16
+msgid ""
+"The Customer Billing and Shipping Address fields will be created in "
+"BuddyPress during the plugin installation,\n"
+"            but the user sync can take a while depends on the size of your "
+"user base and needs to be done once after the\n"
+"            first install."
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:23
+msgid " Default WooCommerce Checkout Fields"
+msgstr ""
+
+# @ wc4bp
+#: admin/views/sync/html_admin_sync_shop_profile.php:28
+#: class/core/wc4bp-sync.php:331
+msgid "Customer Billing Address"
+msgstr ""
+
+# @ wc4bp
+#: admin/views/sync/html_admin_sync_shop_profile.php:30
+#: admin/views/sync/html_admin_sync_shop_profile.php:44
+msgid "First name"
+msgstr ""
+
+# @ wc4bp
+#: admin/views/sync/html_admin_sync_shop_profile.php:31
+#: admin/views/sync/html_admin_sync_shop_profile.php:45
+msgid "Last name"
+msgstr ""
+
+# @ wc4bp
+#: admin/views/sync/html_admin_sync_shop_profile.php:32
+#: admin/views/sync/html_admin_sync_shop_profile.php:46
+#: admin/wc4bp-activate.php:106 admin/wc4bp-activate.php:228
+#: class/core/wc4bp-sync.php:342 class/core/wc4bp-sync.php:395
+msgid "Company"
+msgstr ""
+
+# @ wc4bp
+#: admin/views/sync/html_admin_sync_shop_profile.php:33
+#: admin/views/sync/html_admin_sync_shop_profile.php:47
+#: admin/wc4bp-activate.php:113 admin/wc4bp-activate.php:235
+#: class/core/wc4bp-sync.php:346 class/core/wc4bp-sync.php:399
+msgid "Address 1"
+msgstr ""
+
+# @ wc4bp
+#: admin/views/sync/html_admin_sync_shop_profile.php:34
+#: admin/views/sync/html_admin_sync_shop_profile.php:48
+#: admin/wc4bp-activate.php:120 admin/wc4bp-activate.php:242
+#: class/core/wc4bp-sync.php:350 class/core/wc4bp-sync.php:403
+msgid "Address 2"
+msgstr ""
+
+# @ wc4bp
+#: admin/views/sync/html_admin_sync_shop_profile.php:35
+#: admin/views/sync/html_admin_sync_shop_profile.php:49
+#: admin/wc4bp-activate.php:127 admin/wc4bp-activate.php:249
+#: class/core/wc4bp-sync.php:354 class/core/wc4bp-sync.php:407
+msgid "City"
+msgstr ""
+
+# @ wc4bp
+#: admin/views/sync/html_admin_sync_shop_profile.php:36
+#: admin/views/sync/html_admin_sync_shop_profile.php:50
+#: admin/wc4bp-activate.php:134 admin/wc4bp-activate.php:256
+#: class/core/wc4bp-sync.php:358 class/core/wc4bp-sync.php:411
+msgid "Postcode"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:37
+#: admin/views/sync/html_admin_sync_shop_profile.php:51
+msgid "State/County "
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:37
+#: admin/views/sync/html_admin_sync_shop_profile.php:51
+msgid "(Country or state code)"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:38
+#: admin/views/sync/html_admin_sync_shop_profile.php:52
+msgid "Country(2 letter Country code)"
+msgstr ""
+
+# @ wc4bp
+#: admin/views/sync/html_admin_sync_shop_profile.php:39
+msgid "Telephone"
+msgstr ""
+
+# @ wc4bp
+#: admin/views/sync/html_admin_sync_shop_profile.php:40
+msgid "Email"
+msgstr ""
+
+# @ wc4bp
+#: admin/views/sync/html_admin_sync_shop_profile.php:42
+#: class/core/wc4bp-sync.php:384
+msgid "Customer Shipping Address"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:4
+msgid ""
+"If the Update stops for some reason you can continue the update manually"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:6
+msgid " Continue Updating from here"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:11
+msgid "Select All"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:15
+msgid "Username"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:18
+msgid "Name"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:21
+msgid "E-mail"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:24
+msgid "Role"
+msgstr ""
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:43
+msgid "Select admin"
+msgstr ""
+
+#: admin/wc4bp-activate.php:85
+msgid "Billing Address"
+msgstr ""
+
+#: admin/wc4bp-activate.php:92 admin/wc4bp-activate.php:214
+#: class/core/wc4bp-sync.php:334 class/core/wc4bp-sync.php:387
+msgid "First Name"
+msgstr ""
+
+#: admin/wc4bp-activate.php:99 admin/wc4bp-activate.php:221
+#: class/core/wc4bp-sync.php:338 class/core/wc4bp-sync.php:391
+msgid "Last Name"
+msgstr ""
+
+# @ wc4bp
+#: admin/wc4bp-activate.php:142 admin/wc4bp-activate.php:264
+#: class/core/wc4bp-sync.php:366 class/core/wc4bp-sync.php:419
+msgid "Country"
+msgstr ""
+
+# @ wc4bp
+#: admin/wc4bp-activate.php:161 admin/wc4bp-activate.php:283
+#: class/core/wc4bp-sync.php:362 class/core/wc4bp-sync.php:415
+msgid "State/County"
+msgstr ""
+
+#: admin/wc4bp-activate.php:168 class/core/wc4bp-sync.php:374
+msgid "Email Address"
+msgstr ""
+
+#: admin/wc4bp-activate.php:175 class/core/wc4bp-sync.php:370
+msgid "Phone"
+msgstr ""
+
+#: admin/wc4bp-activate.php:182 class/core/wc4bp-sync.php:378
+msgid "Fax"
+msgstr ""
+
+# @ wc4bp
+#: admin/wc4bp-activate.php:207
+#, fuzzy
+#| msgid "Shopping Cart"
+msgid "Shipping Address"
+msgstr "Handlekurv"
+
+# @ wc4bp
+#: class/core/wc4bp-component.php:35 class/core/wc4bp-component.php:153
+#: class/core/wc4bp-component.php:155 class/core/wc4bp-component.php:173
+#: class/core/wc4bp-component.php:175 class/core/wc4bp-component.php:240
+#: class/core/wc4bp-component.php:242 class/core/wc4bp-component.php:254
+#: class/core/wc4bp-component.php:256 class/wc4bp-manager.php:148
+#: class/wc4bp-manager.php:155
+msgid "Shop"
+msgstr "Butikk"
+
+# @ wc4bp
+#: class/core/wc4bp-component.php:82
+msgid "New review created"
+msgstr "Ny vurdering opprettet"
+
+# @ wc4bp
+#: class/core/wc4bp-component.php:83
+msgid "New purchase made"
+msgstr "Nytt kjøp er gjort"
+
+# @ wc4bp
+#: class/core/wc4bp-helpers.php:158
+#, php-format
+msgid "%s wrote a review about <a href=\"%s\">%s</a>"
+msgstr "%s skrev en vurdering av <a href=\"%s\">%s</a>"
+
+# @ wc4bp
+#: class/core/wc4bp-helpers.php:223
+#, php-format
+msgid "%s purchased %s"
+msgstr "%s kjøpte %s"
+
+# @ wc4bp
+#: class/core/wc4bp-screen.php:182
+msgid "Changes saved."
+msgstr "Endringer lagret."
+
+# @ wc4bp
+#: class/core/wc4bp-screen.php:208
+msgid "Shop Settings"
+msgstr "Butikk instillinger"
+
+# @ wc4bp
+#: class/core/wc4bp-screen.php:235
+msgid "Activity Stream"
+msgstr "Aktivitets strøm"
+
+# @ wc4bp
+#: class/core/wc4bp-screen.php:236
+msgid "Yes"
+msgstr "Ja"
+
+# @ wc4bp
+#: class/core/wc4bp-screen.php:237
+msgid "No"
+msgstr "Nei"
+
+# @ wc4bp
+#: class/core/wc4bp-screen.php:244
+msgid "Post to activity stream all reviews written by me"
+msgstr "Legg inn i aktivitetsstrømmen alle vurderinger jeg har skrevet"
+
+# @ wc4bp
+#: class/core/wc4bp-screen.php:250
+msgid "Post to activity stream all purchases I've made"
+msgstr "Legg inn i aktivitetsstrømmen alle kjøp jeg har gjort"
+
+# @ wc4bp
+#: class/core/wc4bp-screen.php:262
+msgid "Save Changes"
+msgstr "Lagre endringer"
+
+# @ wc4bp
+#: class/core/wc4bp-screen.php:291 templates/shop/member/view-order.php:23
+msgid "Please enter a valid order ID"
+msgstr ""
+
+# @ wc4bp
+#: class/core/wc4bp-screen.php:293
+msgid "Please enter a valid order email"
+msgstr ""
+
+# @ wc4bp
+#: class/core/wc4bp-screen.php:300
+msgid "You are not allowed to view this order."
+msgstr ""
+
+# @ wc4bp
+#: class/core/wc4bp-screen.php:303
+msgid "Sorry, we could not find that order id in our database."
+msgstr ""
+
+# @ wc4bp
+#: class/core/wc4bp-screen.php:325
+msgid "Your Order"
+msgstr ""
+
+# @ wc4bp
+#: class/core/wc4bp-sync.php:416
+msgid "State/County or state code"
+msgstr ""
+
+# @ wc4bp
+#: class/core/wc4bp-sync.php:420
+msgid "2 letter Country code"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:334
+msgid "Install Required Plugins"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:335
+msgid "Install Plugins"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:337
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:339
+#, php-format
+msgid "Updating Plugin: %s"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:340
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:343
+#, php-format
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:349
+#, php-format
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:355
+#, php-format
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:361
+#, php-format
+msgid "There is an update available for: %1$s."
+msgid_plural "There are updates available for the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:367
+#, php-format
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:373
+#, php-format
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:378
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:383
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:388
+msgid "Begin activating plugin"
+msgid_plural "Begin activating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:392
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:393
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:394
+#: class/includes/class-tgm-plugin-activation.php:3252
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:395
+#: class/includes/class-tgm-plugin-activation.php:3045
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:397
+#, php-format
+msgid "No action taken. Plugin %1$s was already active."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:399
+#, php-format
+msgid ""
+"Plugin not activated. A higher version of %s is needed for this theme. "
+"Please update the plugin."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:401
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:402
+msgid "Dismiss this notice"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:403
+msgid ""
+"There are one or more required or recommended plugins to install, update or "
+"activate."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:404
+msgid "Please contact the administrator of this site for help."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2075
+#, php-format
+msgid "TGMPA v%s"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2366
+msgid "Required"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2369
+msgid "Recommended"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2385
+msgid "WordPress Repository"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2388
+msgid "External Source"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2391
+msgid "Pre-Packaged"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2408
+msgid "Not Installed"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2412
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2414
+msgid "Active"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2420
+msgid "Required Update not Available"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2423
+msgid "Requires Update"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2426
+msgid "Update recommended"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2435
+#, php-format
+msgctxt "Install/Update Status"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2481
+#, php-format
+msgctxt "plugins"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:2485
+#, php-format
+msgid "To Install <span class=\"count\">(%s)</span>"
+msgid_plural "To Install <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:2489
+#, php-format
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:2493
+#, php-format
+msgid "To Activate <span class=\"count\">(%s)</span>"
+msgid_plural "To Activate <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/includes/class-tgm-plugin-activation.php:2575
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2583
+msgid "Installed version:"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2591
+msgid "Minimum required version:"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2603
+msgid "Available version:"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2640
+msgid "Plugin"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2641
+msgid "Source"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2642
+msgid "Type"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2646
+msgid "Version"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2647
+msgid "Status"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2696
+#, php-format
+msgid "Install %2$s"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2701
+#, php-format
+msgid "Update %2$s"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2707
+#, php-format
+msgid "Activate %2$s"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2810
+msgid "Install"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2816
+msgid "Update"
+msgstr ""
+
+# @ wc4bp
+#: class/includes/class-tgm-plugin-activation.php:2819
+#, fuzzy
+#| msgid "Activity Stream"
+msgid "Activate"
+msgstr "Aktivitets strøm"
+
+#: class/includes/class-tgm-plugin-activation.php:2850
+msgid "No plugins were selected to be installed. No action taken."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2852
+msgid "No plugins were selected to be updated. No action taken."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2893
+msgid "No plugins are available to be installed at this time."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:2895
+msgid "No plugins are available to be updated at this time."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:3251
+msgid "Plugin activation failed."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:3591
+#, php-format
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:3594
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:3596
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:3600
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:3602
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:3603
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:3605
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:3608
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:3611
+msgid "All installations have been completed."
+msgstr ""
+
+#: class/includes/class-tgm-plugin-activation.php:3613
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: class/includes/client-migration/class-fs-client-migration-abstract.php:158
+msgid "An error occurred, please try again."
+msgstr ""
+
+#: class/wc4bp-manage-admin.php:68
+msgid "WC4BP auto-generated"
+msgstr ""
+
+# @ wc4bp
+#: class/wc4bp-manager.php:149 class/wc4bp-manager.php:156
+msgid "Shopping Cart"
+msgstr "Handlekurv"
+
+#: class/wc4bp-manager.php:150 class/wc4bp-manager.php:157
+msgid "Checkout"
+msgstr ""
+
+# @ wc4bp
+#: class/wc4bp-manager.php:151 class/wc4bp-manager.php:158
+#: templates/shop/member/track.php:17
+msgid "Track your order"
+msgstr "Spor din ordre"
+
+#: class/wc4bp-myaccount-private.php:34
+msgid "Sorry this page is only for logging users!"
+msgstr ""
+
+#: class/wc4bp-required.php:93
+#, php-format
+msgid "One of the <u>ThemKraft</u> plugin requires the following plugin: %1$s."
+msgid_plural ""
+"One of the <u>ThemKraft</u> plugin requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/wc4bp-required.php:99
+#, php-format
+msgid ""
+"One of the <u>ThemKraft</u> plugin recommends the following plugin: %1$s."
+msgid_plural ""
+"One of the <u>ThemKraft</u> plugin recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/wc4bp-required.php:105
+#, php-format
+msgid ""
+"The following is a required plugin for one of the <u>ThemKraft</u> and is "
+"currently inactive: %1$s."
+msgid_plural ""
+"The following is a required plugins for one of the <u>ThemKraft</u> and they "
+"are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class/wc4bp-required.php:111
+#, php-format
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this plugin: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this plugin: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+# @ wc4bp
+#: templates/shop/member/plugin.php:82
+msgid "Pages:"
+msgstr ""
+
+#: wc4bp-basic-integration.php:125
+msgid "WC4BP -> WooCommerce BuddyPress Integration"
+msgstr ""

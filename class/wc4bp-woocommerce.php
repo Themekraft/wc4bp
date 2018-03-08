@@ -21,14 +21,15 @@ class wc4bp_Woocommerce {
 	public function __construct() {
 		$this->wc4bp_options = get_option( 'wc4bp_options' );
 		// Check if we are on checkout in profile
-		add_filter( 'woocommerce_is_checkout', array( $this, 'wc4bp_woocommerce_is_checkout' ) );
-		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
-			// Check if we are on the my account page in profile
-			add_filter( 'woocommerce_is_account_page', array( $this, 'wc4bp_woocommerce_is_account_page__premium_only' ) );
+		if ( ! isset( $this->wc4bp_options['tab_activity_disabled'] ) ) {
+			add_filter( 'woocommerce_is_checkout', array( $this, 'wc4bp_woocommerce_is_checkout' ) );
+			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+				// Check if we are on the my account page in profile
+				add_filter( 'woocommerce_is_account_page', array( $this, 'wc4bp_woocommerce_is_account_page__premium_only' ) );
+			}
+			add_filter( 'woocommerce_get_endpoint_url', array( $this, 'endpoint_url' ), 1, 4 );
+			add_filter( 'woocommerce_available_payment_gateways', array( $this, 'available_payment_gateways' ), 1, 1 );
 		}
-
-		add_filter( 'woocommerce_get_endpoint_url', array( $this, 'endpoint_url' ), 1, 4 );
-		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'available_payment_gateways' ), 1, 1 );
 	}
 
 	/**
@@ -66,7 +67,7 @@ class wc4bp_Woocommerce {
 		$default = $is_account_page;
 		try {
 			if ( is_user_logged_in() ) {
-				if ( bp_is_current_component( 'shop' ) && bp_is_current_action( 'checkout' ) ) {
+				if ( bp_is_current_component( wc4bp_Manager::get_shop_slug() ) && bp_is_current_action( 'checkout' ) ) {
 					$is_account_page = true;
 				}
 			}
@@ -88,7 +89,7 @@ class wc4bp_Woocommerce {
 		$default = $is_checkout;
 		try {
 			if ( is_user_logged_in() && ! isset( $this->wc4bp_options['tab_checkout_disabled'] ) ) {
-				if ( bp_is_current_component( 'shop' ) && ( bp_is_current_action( 'checkout' ) || bp_is_current_action( 'home' ) ) ) {
+				if ( bp_is_current_component( wc4bp_Manager::get_shop_slug() ) && ( bp_is_current_action( 'checkout' ) || bp_is_current_action( 'home' ) ) ) {
 					$is_checkout = true;
 				}
 			}

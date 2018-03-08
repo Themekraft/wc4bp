@@ -15,14 +15,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class wc4bp_Manager {
-
+	
 	/**
 	 * Prefix used to mark the pages for my account
 	 *
 	 * @var String
 	 */
 	public static $prefix = 'wc4bp';
-
+	
+	/**
+	 * Shop slug
+	 *
+	 * @var String
+	 */
+	public static $shop_slug = 'membership';
+	
 	public function __construct() {
 		try {
 			//Load resources
@@ -75,7 +82,11 @@ class wc4bp_Manager {
 
 		return $prefix . '_';
 	}
-
+	
+	public static function get_shop_slug() {
+		return apply_filters( 'wc4bp_shop_slug', self::$shop_slug );
+	}
+	
 	/**
 	 * Add admin notices to single site or multisite
 	 *
@@ -171,5 +182,27 @@ class wc4bp_Manager {
 		$result       = array_merge( $shop_tabs, $account_tabs );
 
 		return $result;
+	}
+
+	/**
+	 * What type of request is this?
+	 *
+	 * @param  string $type admin, ajax, cron or frontend.
+	 *
+	 * @return bool
+	 */
+	public static function is_request( $type ) {
+		switch ( $type ) {
+			case 'admin':
+				return is_admin();
+			case 'ajax':
+				return defined( 'DOING_AJAX' );
+			case 'cron':
+				return defined( 'DOING_CRON' );
+			case 'frontend':
+				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
+		}
+
+		return false;
 	}
 }

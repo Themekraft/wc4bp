@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce BuddyPress Integration v2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-27 10:25-0300\n"
-"PO-Revision-Date: 2018-01-27 10:25-0300\n"
+"POT-Creation-Date: 2018-01-27 10:23-0300\n"
+"PO-Revision-Date: 2018-01-27 10:23-0300\n"
 "Last-Translator: admin <mail@sven-lehnert.de>\n"
 "Language-Team: \n"
-"Language: en_US\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,7 +31,7 @@ msgstr ""
 # @ wc4bp
 #: admin/admin-pages.php:171
 msgid "none"
-msgstr ""
+msgstr "aucun"
 
 #: admin/admin-sync.php:46 admin/admin-sync.php:49
 msgid "Profile Field Synchronisation Settings"
@@ -75,13 +75,19 @@ msgstr ""
 msgid "WooCommerce for BuddyPress"
 msgstr ""
 
+# @ wc4bp
 #: admin/admin.php:58 admin/views/html_admin_header.php:9
+#, fuzzy
+#| msgid "Shop Settings"
 msgid "WC4BP Settings"
-msgstr ""
+msgstr "Réglage de la boutique"
 
+# @ wc4bp
 #: admin/admin.php:111
+#, fuzzy
+#| msgid "Shop Settings"
 msgid "<b>Shop Settings</b>"
-msgstr ""
+msgstr "Réglage de la boutique"
 
 #: admin/admin.php:112
 msgid "<b>Remove My Account Tabs</b>"
@@ -280,9 +286,12 @@ msgid ""
 "in the profile."
 msgstr ""
 
+# @ wc4bp
 #: admin/views/pages/html_admin_pages_forms_table.php:10
+#, fuzzy
+#| msgid "Pages:"
 msgid "Page"
-msgstr ""
+msgstr "Pages :"
 
 #: admin/views/pages/html_admin_pages_forms_table.php:11
 msgid "Including Children?"
@@ -300,7 +309,7 @@ msgstr ""
 #: admin/views/pages/html_admin_pages_forms_table.php:28
 #: templates/shop/member/plugin.php:87
 msgid "Edit"
-msgstr ""
+msgstr "Edition"
 
 #: admin/views/pages/html_admin_pages_forms_table.php:31
 msgid "Delete this item"
@@ -310,17 +319,26 @@ msgstr ""
 msgid "Rename Shop Parent Tab:"
 msgstr ""
 
+# @ wc4bp
 #: admin/views/pages/html_admin_pages_shop_pages_rename.php:3
+#, fuzzy
+#| msgid "Shopping Cart"
 msgid "Rename Shopping Cart:"
-msgstr ""
+msgstr "Panier d'achat"
 
+# @ wc4bp
 #: admin/views/pages/html_admin_pages_shop_pages_rename.php:4
+#, fuzzy
+#| msgid "History"
 msgid "Rename History:"
-msgstr ""
+msgstr "Historique"
 
+# @ wc4bp
 #: admin/views/pages/html_admin_pages_shop_pages_rename.php:5
+#, fuzzy
+#| msgid "Track your order"
 msgid "Rename Track your order:"
-msgstr ""
+msgstr "Suivre votre commande"
 
 #: admin/views/pages/html_admin_pages_thickbox.php:2
 msgid "Add an existing page to your BuddyPress member profiles"
@@ -426,19 +444,19 @@ msgstr ""
 #: admin/views/sync/html_admin_sync_shop_profile.php:28
 #: class/core/wc4bp-sync.php:331
 msgid "Customer Billing Address"
-msgstr ""
+msgstr "Adresse de facturation du client"
 
 # @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile.php:30
 #: admin/views/sync/html_admin_sync_shop_profile.php:44
 msgid "First name"
-msgstr ""
+msgstr "Prénom"
 
 # @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile.php:31
 #: admin/views/sync/html_admin_sync_shop_profile.php:45
 msgid "Last name"
-msgstr ""
+msgstr "Nom"
 
 # @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile.php:32
@@ -446,7 +464,7 @@ msgstr ""
 #: admin/wc4bp-activate.php:106 admin/wc4bp-activate.php:228
 #: class/core/wc4bp-sync.php:342 class/core/wc4bp-sync.php:395
 msgid "Company"
-msgstr ""
+msgstr "Entreprise"
 
 # @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile.php:33
@@ -454,7 +472,7 @@ msgstr ""
 #: admin/wc4bp-activate.php:113 admin/wc4bp-activate.php:235
 #: class/core/wc4bp-sync.php:346 class/core/wc4bp-sync.php:399
 msgid "Address 1"
-msgstr ""
+msgstr "Adresse 1"
 
 # @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile.php:34
@@ -462,7 +480,7 @@ msgstr ""
 #: admin/wc4bp-activate.php:120 admin/wc4bp-activate.php:242
 #: class/core/wc4bp-sync.php:350 class/core/wc4bp-sync.php:403
 msgid "Address 2"
-msgstr ""
+msgstr "Adresse 2"
 
 # @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile.php:35
@@ -470,7 +488,7 @@ msgstr ""
 #: admin/wc4bp-activate.php:127 admin/wc4bp-activate.php:249
 #: class/core/wc4bp-sync.php:354 class/core/wc4bp-sync.php:407
 msgid "City"
-msgstr ""
+msgstr "Ville"
 
 # @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile.php:36
@@ -478,38 +496,47 @@ msgstr ""
 #: admin/wc4bp-activate.php:134 admin/wc4bp-activate.php:256
 #: class/core/wc4bp-sync.php:358 class/core/wc4bp-sync.php:411
 msgid "Postcode"
-msgstr ""
+msgstr "Code postal"
 
+# @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile.php:37
 #: admin/views/sync/html_admin_sync_shop_profile.php:51
+#, fuzzy
+#| msgid "State/County"
 msgid "State/County "
-msgstr ""
+msgstr "Etat/Région"
 
+# @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile.php:37
 #: admin/views/sync/html_admin_sync_shop_profile.php:51
+#, fuzzy
+#| msgid "State/County or state code"
 msgid "(Country or state code)"
-msgstr ""
+msgstr "Etat/région ou code associé"
 
+# @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile.php:38
 #: admin/views/sync/html_admin_sync_shop_profile.php:52
+#, fuzzy
+#| msgid "2 letter Country code"
 msgid "Country(2 letter Country code)"
-msgstr ""
+msgstr "Code Pays au format à 2 lettres"
 
 # @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile.php:39
 msgid "Telephone"
-msgstr ""
+msgstr "Téléphone"
 
 # @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile.php:40
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 # @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile.php:42
 #: class/core/wc4bp-sync.php:384
 msgid "Customer Shipping Address"
-msgstr ""
+msgstr "Adresse de livraison du client"
 
 #: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:4
 msgid ""
@@ -532,9 +559,12 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
+# @ wc4bp
 #: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:21
+#, fuzzy
+#| msgid "Email"
 msgid "E-mail"
-msgstr ""
+msgstr "Email"
 
 #: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:24
 msgid "Role"
@@ -544,35 +574,47 @@ msgstr ""
 msgid "Select admin"
 msgstr ""
 
+# @ wc4bp
 #: admin/wc4bp-activate.php:85
+#, fuzzy
+#| msgid "Customer Billing Address"
 msgid "Billing Address"
-msgstr ""
+msgstr "Adresse de facturation du client"
 
+# @ wc4bp
 #: admin/wc4bp-activate.php:92 admin/wc4bp-activate.php:214
 #: class/core/wc4bp-sync.php:334 class/core/wc4bp-sync.php:387
+#, fuzzy
+#| msgid "First name"
 msgid "First Name"
-msgstr ""
+msgstr "Prénom"
 
+# @ wc4bp
 #: admin/wc4bp-activate.php:99 admin/wc4bp-activate.php:221
 #: class/core/wc4bp-sync.php:338 class/core/wc4bp-sync.php:391
+#, fuzzy
+#| msgid "Last name"
 msgid "Last Name"
-msgstr ""
+msgstr "Nom"
 
 # @ wc4bp
 #: admin/wc4bp-activate.php:142 admin/wc4bp-activate.php:264
 #: class/core/wc4bp-sync.php:366 class/core/wc4bp-sync.php:419
 msgid "Country"
-msgstr ""
+msgstr "Pays"
 
 # @ wc4bp
 #: admin/wc4bp-activate.php:161 admin/wc4bp-activate.php:283
 #: class/core/wc4bp-sync.php:362 class/core/wc4bp-sync.php:415
 msgid "State/County"
-msgstr ""
+msgstr "Etat/Région"
 
+# @ wc4bp
 #: admin/wc4bp-activate.php:168 class/core/wc4bp-sync.php:374
+#, fuzzy
+#| msgid "Address 1"
 msgid "Email Address"
-msgstr ""
+msgstr "Adresse 1"
 
 #: admin/wc4bp-activate.php:175 class/core/wc4bp-sync.php:370
 msgid "Phone"
@@ -582,9 +624,12 @@ msgstr ""
 msgid "Fax"
 msgstr ""
 
+# @ wc4bp
 #: admin/wc4bp-activate.php:207
+#, fuzzy
+#| msgid "Customer Shipping Address"
 msgid "Shipping Address"
-msgstr ""
+msgstr "Adresse de livraison du client"
 
 # @ wc4bp
 #: class/core/wc4bp-component.php:35 class/core/wc4bp-component.php:153
@@ -594,104 +639,105 @@ msgstr ""
 #: class/core/wc4bp-component.php:256 class/wc4bp-manager.php:148
 #: class/wc4bp-manager.php:155
 msgid "Shop"
-msgstr ""
+msgstr "Boutique"
 
 # @ wc4bp
 #: class/core/wc4bp-component.php:82
 msgid "New review created"
-msgstr ""
+msgstr "Un nouvel avis a été émis"
 
 # @ wc4bp
 #: class/core/wc4bp-component.php:83
 msgid "New purchase made"
-msgstr ""
+msgstr "Un nouvel achat a été fait"
 
 # @ wc4bp
 #: class/core/wc4bp-helpers.php:158
 #, php-format
 msgid "%s wrote a review about <a href=\"%s\">%s</a>"
-msgstr ""
+msgstr "%s a écrit un avis à propos de <a href=\"%s\">%s</a>"
 
 # @ wc4bp
 #: class/core/wc4bp-helpers.php:223
 #, php-format
 msgid "%s purchased %s"
-msgstr ""
+msgstr "%s a acheté %s"
 
 # @ wc4bp
 #: class/core/wc4bp-screen.php:182
 msgid "Changes saved."
-msgstr ""
+msgstr "Changements sauvegardés."
 
 # @ wc4bp
 #: class/core/wc4bp-screen.php:208
 msgid "Shop Settings"
-msgstr ""
+msgstr "Réglage de la boutique"
 
 # @ wc4bp
 #: class/core/wc4bp-screen.php:235
 msgid "Activity Stream"
-msgstr ""
+msgstr "Flux d'activité"
 
 # @ wc4bp
 #: class/core/wc4bp-screen.php:236
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 # @ wc4bp
 #: class/core/wc4bp-screen.php:237
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 # @ wc4bp
 #: class/core/wc4bp-screen.php:244
 msgid "Post to activity stream all reviews written by me"
-msgstr ""
+msgstr "Publier sur le flux d'activité tous les avis que j'ai fait"
 
 # @ wc4bp
 #: class/core/wc4bp-screen.php:250
 msgid "Post to activity stream all purchases I've made"
-msgstr ""
+msgstr "Publier sur le flux d'activité tous les achats que j'ai fait"
 
 # @ wc4bp
 #: class/core/wc4bp-screen.php:262
 msgid "Save Changes"
-msgstr ""
+msgstr "Sauver les changements"
 
 # @ wc4bp
 #: class/core/wc4bp-screen.php:291 templates/shop/member/view-order.php:23
 msgid "Please enter a valid order ID"
-msgstr ""
+msgstr "Saisissez un identifiant de commande valide"
 
 # @ wc4bp
 #: class/core/wc4bp-screen.php:293
 msgid "Please enter a valid order email"
-msgstr ""
+msgstr "Saisissez une adresse email valide"
 
 # @ wc4bp
 #: class/core/wc4bp-screen.php:300
 msgid "You are not allowed to view this order."
-msgstr ""
+msgstr "Vous n'êtes pas autorisé à voir cette commande."
 
 # @ wc4bp
 #: class/core/wc4bp-screen.php:303
 msgid "Sorry, we could not find that order id in our database."
 msgstr ""
+"Désolé, nous ne trouvons pas cette commande dans notre base de données."
 
 # @ wc4bp
 #: class/core/wc4bp-screen.php:325
 msgid "Your Order"
-msgstr ""
+msgstr "Votre commande"
 
 # @ wc4bp
 #: class/core/wc4bp-sync.php:416
 msgid "State/County or state code"
-msgstr ""
+msgstr "Etat/région ou code associé"
 
 # @ wc4bp
 #: class/core/wc4bp-sync.php:420
 msgid "2 letter Country code"
-msgstr ""
+msgstr "Code Pays au format à 2 lettres"
 
 #: class/includes/class-tgm-plugin-activation.php:334
 msgid "Install Required Plugins"
@@ -787,10 +833,13 @@ msgstr ""
 msgid "Return to the Dashboard"
 msgstr ""
 
+# @ wc4bp
 #: class/includes/class-tgm-plugin-activation.php:394
 #: class/includes/class-tgm-plugin-activation.php:3252
+#, fuzzy
+#| msgid "Plugin activated. "
 msgid "Plugin activated successfully."
-msgstr ""
+msgstr "L'extension a été activée. "
 
 #: class/includes/class-tgm-plugin-activation.php:395
 #: class/includes/class-tgm-plugin-activation.php:3045
@@ -835,9 +884,12 @@ msgstr ""
 msgid "TGMPA v%s"
 msgstr ""
 
+# @ wc4bp
 #: class/includes/class-tgm-plugin-activation.php:2366
+#, fuzzy
+#| msgid "(Required)"
 msgid "Required"
-msgstr ""
+msgstr "(Requis)"
 
 #: class/includes/class-tgm-plugin-activation.php:2369
 msgid "Recommended"
@@ -871,9 +923,12 @@ msgstr ""
 msgid "Required Update not Available"
 msgstr ""
 
+# @ wc4bp
 #: class/includes/class-tgm-plugin-activation.php:2423
+#, fuzzy
+#| msgid "(Required)"
 msgid "Requires Update"
-msgstr ""
+msgstr "(Requis)"
 
 #: class/includes/class-tgm-plugin-activation.php:2426
 msgid "Update recommended"
@@ -974,9 +1029,12 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
+# @ wc4bp
 #: class/includes/class-tgm-plugin-activation.php:2819
+#, fuzzy
+#| msgid "Activity Stream"
 msgid "Activate"
-msgstr ""
+msgstr "Flux d'activité"
 
 #: class/includes/class-tgm-plugin-activation.php:2850
 msgid "No plugins were selected to be installed. No action taken."
@@ -994,9 +1052,12 @@ msgstr ""
 msgid "No plugins are available to be updated at this time."
 msgstr ""
 
+# @ wc4bp
 #: class/includes/class-tgm-plugin-activation.php:3251
+#, fuzzy
+#| msgid "Plugin activated. "
 msgid "Plugin activation failed."
-msgstr ""
+msgstr "L'extension a été activée. "
 
 #: class/includes/class-tgm-plugin-activation.php:3591
 #, php-format
@@ -1059,7 +1120,7 @@ msgstr ""
 # @ wc4bp
 #: class/wc4bp-manager.php:149 class/wc4bp-manager.php:156
 msgid "Shopping Cart"
-msgstr ""
+msgstr "Panier d'achat"
 
 #: class/wc4bp-manager.php:150 class/wc4bp-manager.php:157
 msgid "Checkout"
@@ -1069,7 +1130,7 @@ msgstr ""
 #: class/wc4bp-manager.php:151 class/wc4bp-manager.php:158
 #: templates/shop/member/track.php:17
 msgid "Track your order"
-msgstr ""
+msgstr "Suivre votre commande"
 
 #: class/wc4bp-myaccount-private.php:34
 msgid "Sorry this page is only for logging users!"
@@ -1117,8 +1178,218 @@ msgstr[1] ""
 # @ wc4bp
 #: templates/shop/member/plugin.php:82
 msgid "Pages:"
-msgstr ""
+msgstr "Pages :"
 
 #: wc4bp-basic-integration.php:125
 msgid "WC4BP -> WooCommerce BuddyPress Integration"
 msgstr ""
+
+# @ wc4bp
+#~ msgid "(Primary)"
+#~ msgstr "(Principale)"
+
+# @ wc4bp
+#~ msgid "There are no fields in this group."
+#~ msgstr "Il n'y a pas de champs dans ce groupe."
+
+# @ wc4bp
+#~ msgid "You have no groups."
+#~ msgstr "Vous n'avez aucun groupe."
+
+# @ wc4bp
+#~ msgid "Add New Group"
+#~ msgstr "Ajout d'un nouveau groupe"
+
+# @ default
+#~ msgid "Please enter something into this new shiny field."
+#~ msgstr "Saisissez quelque chose dans le champ en surbrillance."
+
+# @ wc4bp
+#~ msgid "required"
+#~ msgstr "requis"
+
+# @ default
+#~ msgid "How'd you First find us?"
+#~ msgstr "Comment vous avez nous connu ?"
+
+# @ wc4bp
+#~ msgid "WC4BP API License Activation"
+#~ msgstr "Activation de votre licence WC4BP API"
+
+# @ wc4bp
+#~ msgid "API License Key"
+#~ msgstr "Clé de licence API"
+
+# @ wc4bp
+#~ msgid "API License Email"
+#~ msgstr "Adresse email de validation de la licence API"
+
+# @ wc4bp
+#~ msgid "WC4BP API License Deactivation"
+#~ msgstr "Désactivation de votre licence WC4BP API"
+
+# @ wc4bp
+#~ msgid "Deactivate API License Key"
+#~ msgstr "Désactivation de la clé de licence API"
+
+# @ wc4bp
+#~ msgid "Connection failed to the License Key API server. Try again later."
+#~ msgstr ""
+#~ "La connexion au serveur de clé de licence API a échouée. Essayez plus "
+#~ "tard."
+
+# @ wc4bp
+#~ msgid ""
+#~ "The license could not be deactivated. Use the License Deactivation tab to "
+#~ "manually deactivate the license before activating a new license."
+#~ msgstr ""
+#~ "La licence ne peut être désactivée. Utilisez l'onglet de désactivation de "
+#~ "la licence pour désactiver manuellement la licence avant d'en activer une "
+#~ "nouvelle."
+
+# @ wc4bp
+#~ msgid "Plugin license deactivated."
+#~ msgstr "La licence de l'extension est désactivée."
+
+# @ wc4bp
+#~ msgid "Deactivates an API License Key so it can be used on another blog."
+#~ msgstr ""
+#~ "Désactive la clé de licence API afin de l'utiliser sur un autre blog."
+
+# @ wc4bp
+#~ msgid ""
+#~ "The license key for %s has expired. You can reactivate or purchase a "
+#~ "license key from your account <a href=\"%s\" target=\"_blank\">dashboard</"
+#~ "a>."
+#~ msgstr ""
+#~ "La clé de licence pour %s a expirée. Vous pouvez réactiver ou acheter une "
+#~ "clé de licence depuis votre <a href=\"%s\" target=\"_blank\">espace "
+#~ "client</a>."
+
+# @ wc4bp
+#~ msgid ""
+#~ "The subscription for %s is on-hold. You can reactivate the subscription "
+#~ "from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#~ msgstr ""
+#~ "L'abonnement pour %s est en attente. Vous pouvez réactiver votre "
+#~ "abonnement depuis votre <a href=\"%s\" target=\"_blank\">espace client</"
+#~ "a>."
+
+# @ wc4bp
+#~ msgid ""
+#~ "The subscription for %s has been cancelled. You can renew the "
+#~ "subscription from your account <a href=\"%s\" target=\"_blank"
+#~ "\">dashboard</a>. A new license key will be emailed to you after your "
+#~ "order has been completed."
+#~ msgstr ""
+#~ "L'abonnement pour %s a été annulé. Vous pouvez renouveler l'abonnement "
+#~ "depuis votre  <a href=\"%s\" target=\"_blank\">espace client</a>. Une "
+#~ "nouvelle clé de licence vous sera envoyée par email après votre commande."
+
+# @ wc4bp
+#~ msgid ""
+#~ "The subscription for %s has expired. You can reactivate the subscription "
+#~ "from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#~ msgstr ""
+#~ "L'abonnement pour %s a expiré. Vous pouvez réactiver votre abonnement "
+#~ "depuis votre <a href=\"%s\" target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#~ msgid ""
+#~ "The subscription for %s has been suspended. You can reactivate the "
+#~ "subscription from your account <a href=\"%s\" target=\"_blank"
+#~ "\">dashboard</a>."
+#~ msgstr ""
+#~ "L'abonnement pour %s a été suspendu. Vous pouvez réactiver votre "
+#~ "abonnement depuis votre <a href=\"%s\" target=\"_blank\">espace client</"
+#~ "a>."
+
+# @ wc4bp
+#~ msgid ""
+#~ "The subscription for %s is still pending. You can check on the status of "
+#~ "the subscription from your account <a href=\"%s\" target=\"_blank"
+#~ "\">dashboard</a>."
+#~ msgstr ""
+#~ "L'abonnement pour %s n'est toujours pas validé. Vous pouvez vérifier "
+#~ "l'état de votre abonnement dans votre <a href=\"%s\" target=\"_blank"
+#~ "\">espace client</a>."
+
+# @ wc4bp
+#~ msgid ""
+#~ "The subscription for %s has been placed in the trash and will be deleted "
+#~ "soon. You can purchase a new subscription from your account <a href=\"%s"
+#~ "\" target=\"_blank\">dashboard</a>."
+#~ msgstr ""
+#~ "L'abonnement pour %s a été placé dans la corbeille et sera bientôt "
+#~ "détruit. Vous pouvez acheter un nouvel abonnement depuis votre  <a href="
+#~ "\"%s\" target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#~ msgid ""
+#~ "A subscription for %s could not be found. You can purchase a subscription "
+#~ "from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#~ msgstr ""
+#~ "Un abonnement à  %s ne peut être trouvé. Vous pouvez acheter un "
+#~ "abonnement depuis votre  <a href=\"%s\" target=\"_blank\">espace client</"
+#~ "a>."
+
+# @ wc4bp
+#~ msgid ""
+#~ "A license key for %s could not be found. Maybe you forgot to enter a "
+#~ "license key when setting up %s, or the key was deactivated in your "
+#~ "account. You can reactivate or purchase a license key from your account "
+#~ "<a href=\"%s\" target=\"_blank\">dashboard</a>."
+#~ msgstr ""
+#~ "Une clé de licence pour %s n'a pas été trouvée. Vous avez peut-être "
+#~ "oublié de saisir cette clé lors de la mise en place de %s, ou bien la clé "
+#~ "n'est plus activée dans votre compte client. Vous pouvez réactiver ou "
+#~ "acheter une clé de licence depuis votre <a href=\"%s\" target=\"_blank"
+#~ "\">espace client</a>."
+
+# @ wc4bp
+#~ msgid ""
+#~ "Download permission for %s has been revoked possibly due to a license key "
+#~ "or subscription expiring. You can reactivate or purchase a license key "
+#~ "from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+#~ msgstr ""
+#~ "La permission de download pour  %s a été révoquée probablement suite à "
+#~ "l'expiration de la clé de licence ou de l'abonnement. Vous pouvez "
+#~ "réactiver ou acheter une clé de licence depuis votre  <a href=\"%s\" "
+#~ "target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#~ msgid ""
+#~ "%s has not been activated. Go to the settings page and enter the license "
+#~ "key and license email to activate %s."
+#~ msgstr ""
+#~ "%s n'a pas été activé. Aller dans la page des réglages pour entrer la clé "
+#~ "de licence et l'adresse email pour permettre l'activation %s."
+
+# @ wc4bp
+#~ msgid ""
+#~ "You changed the subscription for %s, so you will need to enter your new "
+#~ "API License Key in the settings page. The License Key should have arrived "
+#~ "in your email inbox, if not you can get it by logging into your account "
+#~ "<a href=\"%s\" target=\"_blank\">dashboard</a>."
+#~ msgstr ""
+#~ "Vous avez modifié l'abonnement pour %s, vous devez saisir votre nouvelle "
+#~ "clé de licence API dans la page de réglage. La clé de licence est "
+#~ "contenue dans un email arrivée dans votre messagerie, dans le cas "
+#~ "contraire vous l'obtiendrez en vous connectant à votre <a href=\"%s\" "
+#~ "target=\"_blank\">espace client</a>."
+
+# @ wc4bp
+#~ msgid "License Activation"
+#~ msgstr "Activation de la licence"
+
+# @ wc4bp
+#~ msgid "License Deactivation"
+#~ msgstr "Désactivation de la licence"
+
+# @ wc4bp
+#~ msgid ""
+#~ "The API License Key for WC4BP could not be found. %sClick here%s to "
+#~ "activate it."
+#~ msgstr ""
+#~ "La clé de licence pour WC4BP ne peut être trouvée. %s Cliquez ici %s pour "
+#~ "l'activer."
