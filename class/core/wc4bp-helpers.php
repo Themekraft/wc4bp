@@ -191,9 +191,13 @@ add_action( 'wp_insert_comment', 'wc4bp_loader_review_activity', 10, 2 );
  */
 function wc4bp_loader_purchase_activity( $order_id ) {
 	try {
-		if ( ! is_user_logged_in() ) {
-			return false;
-		}
+        /*remove next condition to allow Paybox IPN notification to add activity : start /
+        /
+        if ( ! is_user_logged_in() ) {
+        return false;
+        }
+        /
+        / remove next condition to allow Paybox IPN notification to add activity : end */
 		
 		if ( ! bp_is_active( 'activity' ) ) {
 			return false;
@@ -204,12 +208,17 @@ function wc4bp_loader_purchase_activity( $order_id ) {
 		if ( $order->get_status() != 'completed' ) {
 			return false;
 		}
-		
-		if ( $order->get_user_id() != $order->get_customer_id() ) {
-			return false;
-		}
-		
-		$user_link = bp_core_get_userlink( $order->get_customer_id() );
+
+        /*remove next condition since get_user_id is an alias of gest_customer_id : start */
+        /*
+        if ( $order->get_user_id() != $order->get_customer_id() ) {
+            write_log('ATFY: inside wc4bp_loader_purchase_activity : user not customer');
+            return false;
+        }
+        */
+        /* remove next condition since get_user_id is an alias of gest_customer_id : end */
+
+        $user_link = bp_core_get_userlink( $order->get_customer_id() );
 		
 		// if several products - combine them, otherwise - display the product name
 		$products = $order->get_items();
