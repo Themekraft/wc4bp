@@ -28,7 +28,7 @@ class wc4bp_Manager {
 	 *
 	 * @var String
 	 */
-	public static $shop_slug = 'membership';
+	public static $shop_slug = 'shop';
 	
 	public function __construct() {
 		try {
