@@ -14,40 +14,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class WC4BP_MyAccount {
-
+	
 	public static $prefix;
 	protected $current_title;
 	private $wc4bp_options;
-
+	
 	public function __construct() {
 		try {
 			$this->wc4bp_options = get_option( 'wc4bp_options' );
 			if ( empty( $this->wc4bp_options['tab_activity_disabled'] ) ) {
 				add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url' ), 10, 2 );
 			}
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-
+	
 	public function get_base_url( $endpoint = '' ) {
 		try {
 			if ( ! empty( $endpoint ) ) {
 				$endpoint = '/' . $endpoint;
 			}
-
+			
 			return bp_core_get_user_domain( bp_loggedin_user_id() ) . wc4bp_Manager::get_shop_slug() . $endpoint;
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-
+			
 			return $endpoint;
 		}
 	}
-
+	
 	/**
 	 * Change url for view order endpoint.
 	 *
-	 * @param $view_order_url
+	 * @param          $view_order_url
 	 * @param WC_Order $order
 	 *
 	 * @return string
@@ -57,15 +59,16 @@ class WC4BP_MyAccount {
 			if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_orders'] ) ) {
 				$view_order_url = wc_get_endpoint_url( 'view-order', $order->get_id(), $this->get_base_url( 'orders' ) );
 			}
-
+			
 			return $view_order_url;
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-
+			
 			return $view_order_url;
 		}
 	}
-
+	
 	/**
 	 * Redirect WC my Account to BP member profile page
 	 *
@@ -77,9 +80,9 @@ class WC4BP_MyAccount {
 		$result = $permalink;
 		try {
 			global $bp;
-
+			
 			$wc4bp_endpoint = WC4BP_MyAccount::get_active_endpoints__premium_only();
-
+			
 			if ( ! empty( $wc4bp_endpoint ) ) {
 				foreach ( $wc4bp_endpoint as $active_page_key => $active_page_name ) {
 					if ( $bp->current_action === $active_page_key ) {
@@ -88,15 +91,16 @@ class WC4BP_MyAccount {
 					}
 				}
 			}
-
+			
 			return $result;
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-
+			
 			return $permalink;
 		}
 	}
-
+	
 	public static function add_all_endpoints__premium_only() {
 		try {
 			$available_endpoints = self::get_available_endpoints();
@@ -122,11 +126,12 @@ class WC4BP_MyAccount {
 					}
 				}
 			}
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-
+	
 	public static function remove_all_endpoints__premium_only() {
 		try {
 			$available_endpoints = self::get_available_endpoints();
@@ -140,17 +145,18 @@ class WC4BP_MyAccount {
 				}
 				self::clean_my_account_cached();
 			}
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-
+	
 	public static function clean_my_account_cached() {
 		wp_cache_delete( 'wc4bp_get_active_endpoints', 'wc4bp' );
 		wp_cache_delete( 'wc4bp_get_available_endpoints', 'wc4bp' );
 		wp_cache_delete( 'wc4bp_my_account_prefix', 'wc4bp' );
 	}
-
+	
 	/**
 	 * Get my account pages content
 	 *
@@ -175,15 +181,16 @@ class WC4BP_MyAccount {
 					}
 				}
 			}
-
+			
 			return $result;
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-
+			
 			return array();
 		}
 	}
-
+	
 	public static function get_page_by_name( $post_name, $output = OBJECT ) {
 		try {
 			global $wpdb;
@@ -193,19 +200,20 @@ class WC4BP_MyAccount {
 				if ( $post ) {
 					$post_result = get_post( $post, $output );
 					wp_cache_add( 'wc4bp_get_page_by_name_' . $post_name, $post_result, 'wc4bp' );
-
+					
 					return $post_result;
 				}
 			}
-
+			
 			return $result;
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
-
+		
 		return null;
 	}
-
+	
 	public static function get_active_endpoints__premium_only() {
 		try {
 			$result    = array();
@@ -222,37 +230,69 @@ class WC4BP_MyAccount {
 					wp_cache_add( 'wc4bp_get_active_endpoints', $result, 'wc4bp' );
 				}
 			}
-
+			
 			return $result;
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-
+			
 			return array();
 		}
 	}
-
+	
 	/**
 	 * @return array
 	 */
 	public static function get_available_endpoints() {
 		try {
-			if ( wc4bp_Manager::is_woocommerce_active() ) {
-				$end_points = wp_cache_get( 'wc4bp_get_available_endpoints', 'wc4bp' );
-				if ( false === $end_points ) {
-					$granted_endpoints = array( 'orders', 'downloads', 'edit-address', 'payment-methods', 'edit-account' );
-					$end_points        = wc_get_account_menu_items();
-					$end_points        = array_intersect_key( $end_points, array_flip( $granted_endpoints ) );
-					$end_points        = apply_filters( 'wc4bp_add_endpoint', $end_points );
-					wp_cache_add( 'wc4bp_get_available_endpoints', $end_points, 'wc4bp' );
+			$end_points = wp_cache_get( 'wc4bp_get_available_endpoints', 'wc4bp' );
+			if ( false === $end_points ) {
+				$woo_endpoints = array(
+					'orders'          => get_option( 'woocommerce_myaccount_orders_endpoint', 'orders' ),
+					'downloads'       => get_option( 'woocommerce_myaccount_downloads_endpoint', 'downloads' ),
+					'edit-address'    => get_option( 'woocommerce_myaccount_edit_address_endpoint', 'edit-address' ),
+					'payment-methods' => get_option( 'woocommerce_myaccount_payment_methods_endpoint', 'payment-methods' ),
+					'edit-account'    => get_option( 'woocommerce_myaccount_edit_account_endpoint', 'edit-account' ),
+				);
+				
+				$end_points = array(
+					'orders'          => __( 'Orders', 'woocommerce' ),
+					'downloads'       => __( 'Downloads', 'woocommerce' ),
+					'edit-address'    => __( 'Addresses', 'woocommerce' ),
+					'payment-methods' => __( 'Payment methods', 'woocommerce' ),
+					'edit-account'    => __( 'Account details', 'woocommerce' ),
+				);
+				
+				// Remove missing endpoints.
+				foreach ( $woo_endpoints as $endpoint_id => $endpoint ) {
+					if ( empty( $endpoint ) ) {
+						unset( $end_points[ $endpoint_id ] );
+					}
 				}
-
-				return $end_points;
-			} else {
-				return array();
+				
+				// Check if payment gateways support add new payment methods.
+				if ( isset( $end_points['payment-methods'] ) ) {
+					$support_payment_methods = false;
+					foreach ( WC()->payment_gateways->get_available_payment_gateways() as $gateway ) {
+						if ( $gateway->supports( 'add_payment_method' ) || $gateway->supports( 'tokenization' ) ) {
+							$support_payment_methods = true;
+							break;
+						}
+					}
+					
+					if ( ! $support_payment_methods ) {
+						unset( $end_points['payment-methods'] );
+					}
+				}
+				
+				wp_cache_add( 'wc4bp_get_available_endpoints', apply_filters( 'wc4bp_add_endpoint', $end_points ), 'wc4bp' );
 			}
-		} catch ( Exception $exception ) {
+			
+			return $end_points;
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-
+			
 			return array();
 		}
 	}
