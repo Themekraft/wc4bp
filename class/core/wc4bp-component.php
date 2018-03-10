@@ -447,7 +447,11 @@ class WC4BP_Component extends BP_Component {
 				if ( ! isset( $this->wc4bp_options[ 'tab_' . $key . '_disabled' ] ) ) {
 					switch ( $key ) {
 						case 'checkout':
-							global $woocommerce;
+							global $woocommerce,$bp;
+							if(isset($_GET['change_payment_method'])){
+
+                                $sub_nav[] = $this->$item_function( $parent, $key, $title );
+                            }
 							// Add the checkout nav item, if cart empty do not add.
 							/** @var WC_Session_Handler $wc_session_data */
 							$wc_session_data = $woocommerce->session;
@@ -458,6 +462,7 @@ class WC4BP_Component extends BP_Component {
 								}
 							}
 							break;
+                        case 'checkout':
 						case 'cart':
 						case 'history':
 						case 'track':
