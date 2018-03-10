@@ -2,9 +2,9 @@
 
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores,
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
-Requires at least: WP 4.0
-Tested up to: WP 4.9.1
-Stable tag: 3.0.21
+Requires at least: 4.0
+Tested up to: 4.9.4
+Stable tag: 3.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,7 +54,6 @@ Overview over the plugin options [youtube https://www.youtube.com/watch?v=DtPk-W
 
 ### Blog Posts
 [Why You Should Build Your Online Shop With WordPress, BuddyPress and WooCommerce](https://themekraft.com/why-you-should-build-your-online-shop-with-wordpress-buddypress-and-woocommerce/)
-
 
 
 > #### AddOns
@@ -108,6 +107,14 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
+= 3.1.0 9 March 2018 =
+* Adding a filter to change the shop slug.
+* Refactoring and Optimizing the code.
+* Improving compatibility with PayBox IPN.
+* Improving compatibility with Amazon Pay.
+* Fixing the Sync of existing profield groups. Now if possible to edit the description by hand.
+* Fixing the Turn off of Sync Profields.
+
 = 3.0.21 18 January 2018 =
 * Updating localization files to include new strings.
 

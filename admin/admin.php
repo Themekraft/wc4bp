@@ -123,7 +123,7 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_shop_tabs() {
 		try {
-			$wc4bp_options             = get_option( 'wc4bp_options' );
+			$wc4bp_options             = $this->wc4bp_options;
 			$tab_activity_disabled     = 0;
 			$disable_shop_settings_tab = 0;
 			$tab_my_account_disabled   = 0;
@@ -167,9 +167,6 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_my_account_tabs_enable() {
 		try {
-			$wc4bp_options = get_option( 'wc4bp_options' );
-			$end_points    = wc_get_account_menu_items();
-
 			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_my_account_tabs.php' );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
@@ -184,7 +181,7 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_shop_tabs_disable() {
 		try {
-			$wc4bp_options         = get_option( 'wc4bp_options' );
+			$wc4bp_options         = $this->wc4bp_options;
 			$tab_cart_disabled     = 0;
 			$tab_checkout_disabled = 0;
 			$tab_track_disabled    = 0;
@@ -210,7 +207,7 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_turn_off_profile_sync() {
 		try {
-			$wc4bp_options = get_option( 'wc4bp_options' );
+			$wc4bp_options = $this->wc4bp_options;
 
 			$tab_sync_disabled = 0;
 			if ( isset( $wc4bp_options['tab_sync_disabled'] ) ) {
@@ -219,7 +216,7 @@ class wc4bp_admin extends wc4bp_base {
 			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_profile_sync.php' );
 			include_once( WC4BP_ABSPATH_CLASS_PATH . '/core/wc4bp-sync.php' );
 			include_once( WC4BP_ABSPATH_ADMIN_PATH . 'wc4bp-activate.php' );
-			if ( isset( $tab_sync_disabled ) && true === $tab_sync_disabled ) {
+			if ( isset( $tab_sync_disabled ) && true == $tab_sync_disabled ) {
 				wc4bp_cleanup();
 			} else {
 				wc4bp_activate();
@@ -234,7 +231,7 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_overwrite_default_shop_home_tab() {
 		try {
-			$wc4bp_options         = get_option( 'wc4bp_options' );
+			$wc4bp_options         = $this->wc4bp_options;
 			$custom_pages          = get_option( 'wc4bp_pages_options' );
 			$wc4bp_pages_options   = array();
 			$tab_activity_disabled = 0;
@@ -304,7 +301,7 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function get_pages_option() {
 		try {
-			$wc4bp_options         = get_option( 'wc4bp_options' );
+			$wc4bp_options         = $this->wc4bp_options;
 			$custom_pages          = get_option( 'wc4bp_pages_options' );
 			$wc4bp_pages_options   = array();
 			$tab_activity_disabled = 0;

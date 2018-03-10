@@ -309,7 +309,7 @@ class WC4BP_Component extends BP_Component {
 			if ( ! bp_is_current_component( wc4bp_Manager::get_shop_slug() ) ) {
 				return $found_template;
 			}
-			$path                     =  'shop/member/plugin';
+			$path                     = 'shop/member/plugin';
 			$this->template_directory = apply_filters( 'wc4bp_members_get_template_directory', constant( 'WC4BP_ABSPATH_TEMPLATE_PATH' ) );
 			bp_register_template_stack( array( $this, 'wc4bp_members_get_template_directory' ), 14 );
 			if ( in_array( $bp->current_action, array_keys( wc4bp_Manager::available_endpoint() ), true ) ) {
@@ -394,13 +394,13 @@ class WC4BP_Component extends BP_Component {
 						}
 					}
 				}
-				$path =  'shop/member/' . $page;
+				$path = 'shop/member/' . $page;
 				break;
 			case 'downloads':
-				$path =  'shop/member/downloads';
+				$path = 'shop/member/downloads';
 				break;
 			case 'edit-account':
-				$path =  'shop/member/edit-account';
+				$path = 'shop/member/edit-account';
 				break;
 			case 'edit-address':
 				$path = 'shop/member/edit-address';

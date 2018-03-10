@@ -208,7 +208,9 @@ class wc4bp_Sync {
 	}
 
 	public static function wc4bp_is_invalid_xprofile_group( $group ) {
-		return ( empty( $group->fields ) || ( apply_filters( 'wc4bp_billing_group_id', 'billing' ) !== $group->description && apply_filters( 'wc4bp_shipping_group_id', 'shipping' ) !== $group->description ) );
+		$billing_text_identification = apply_filters( 'wc4bp_billing_group_id', 'billing' );
+		$shipping_text_identification = apply_filters( 'wc4bp_shipping_group_id', 'shipping' );
+		return ( empty( $group->fields ) || ( $billing_text_identification !== $group->description && $shipping_text_identification !== $group->description ) );
 	}
 
 	private function wc4bp_update_field( $type, $field_slug, $user_id, $field, $use_prefix = false ) {
