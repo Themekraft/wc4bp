@@ -269,6 +269,7 @@ class WC4BP_MyAccount {
 						unset( $end_points[ $endpoint_id ] );
 					}
 				}
+                $end_points        = apply_filters( 'wc4bp_add_endpoint', $end_points );
 				
 //				// Check if payment gateways support add new payment methods.
 //				if ( isset( $end_points['payment-methods'] ) ) {
