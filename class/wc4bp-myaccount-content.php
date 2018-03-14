@@ -59,7 +59,7 @@ class WC4BP_MyAccount_Content {
 			if ( isset( $wp->query_vars['orders'] ) ) {
 				$current_page = $wp->query_vars['orders'];
 			}
-			woocommerce_account_orders( $current_page );//TODO get the current page
+			woocommerce_account_orders( $current_page );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
@@ -111,6 +111,7 @@ class WC4BP_MyAccount_Content {
 
 	public function wc4bp_my_account_process_shortcode_add_payment_methods( $attr, $content ) {
 		try {
+			wc_print_notices();
 			woocommerce_account_add_payment_method();
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );

@@ -21,8 +21,10 @@ class WC4BP_MyAccount {
 	
 	public function __construct() {
 		try {
-			$this->wc4bp_options = get_option( 'wc4bp_options' );
-			if ( empty( $this->wc4bp_options['tab_activity_disabled'] ) ) {
+			$this->wc4bp_options         = get_option( 'wc4bp_options' );
+			$is_shop_disable             = ! isset( $this->wc4bp_options['tab_activity_disabled'] );
+			$is_woo_redirection_disabled = ! isset( $this->wc4bp_options['tab_my_account_disabled'] );
+			if ( ! $is_shop_disable || ( $is_shop_disable || ! $is_woo_redirection_disabled ) ) {
 				add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url' ), 10, 2 );
 			}
 		}
@@ -56,7 +58,8 @@ class WC4BP_MyAccount {
 	 */
 	public function get_view_order_url( $view_order_url, $order ) {
 		try {
-			if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_orders'] ) ) {
+			$is_bp_component = bp_is_current_component( wc4bp_Manager::get_shop_slug() );
+			if ( $is_bp_component && ! isset( $this->wc4bp_options['wc4bp_endpoint_orders'] ) ) {
 				$view_order_url = wc_get_endpoint_url( 'view-order', $order->get_id(), $this->get_base_url( 'orders' ) );
 			}
 			
@@ -196,7 +199,7 @@ class WC4BP_MyAccount {
 			global $wpdb;
 			$result = wp_cache_get( 'wc4bp_get_page_by_name_' . $post_name, 'wc4bp' );
 			if ( false === $result ) {
-				$post = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='page'", array( $post_name ) ) );
+				$post = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_name=%s AND post_type=%s", array( $post_name, 'page' ) ) );
 				if ( $post ) {
 					$post_result = get_post( $post, $output );
 					wp_cache_add( 'wc4bp_get_page_by_name_' . $post_name, $post_result, 'wc4bp' );
@@ -269,23 +272,6 @@ class WC4BP_MyAccount {
 						unset( $end_points[ $endpoint_id ] );
 					}
 				}
-                $end_points        = apply_filters( 'wc4bp_add_endpoint', $end_points );
-				
-//				// Check if payment gateways support add new payment methods.
-//				if ( isset( $end_points['payment-methods'] ) ) {
-//					$support_payment_methods = false;
-//					foreach ( WC()->payment_gateways->get_available_payment_gateways() as $gateway ) {
-//						if ( $gateway->supports( 'add_payment_method' ) || $gateway->supports( 'tokenization' ) ) {
-//							$support_payment_methods = true;
-//							break;
-//						}
-//					}
-//
-//					if ( ! $support_payment_methods ) {
-//						unset( $end_points['payment-methods'] );
-//					}
-//				}
-				
 				wp_cache_add( 'wc4bp_get_available_endpoints', apply_filters( 'wc4bp_add_endpoint', $end_points ), 'wc4bp' );
 			}
 			
