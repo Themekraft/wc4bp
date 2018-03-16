@@ -265,8 +265,9 @@ class WC4BP_MyAccount {
 					'payment-methods' => __( 'Payment methods', 'woocommerce' ),
 					'edit-account'    => __( 'Account details', 'woocommerce' ),
 				);
-				
-				// Remove missing endpoints.
+                $end_points        = apply_filters( 'wc4bp_add_endpoint', $end_points );
+
+                // Remove missing endpoints.
 				foreach ( $woo_endpoints as $endpoint_id => $endpoint ) {
 					if ( empty( $endpoint ) ) {
 						unset( $end_points[ $endpoint_id ] );
