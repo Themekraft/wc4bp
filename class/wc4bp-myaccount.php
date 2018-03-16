@@ -265,18 +265,17 @@ class WC4BP_MyAccount {
 					'payment-methods' => __( 'Payment methods', 'woocommerce' ),
 					'edit-account'    => __( 'Account details', 'woocommerce' ),
 				);
-                $end_points        = apply_filters( 'wc4bp_add_endpoint', $end_points );
-
-                // Remove missing endpoints.
+				
+				// Remove missing endpoints.
 				foreach ( $woo_endpoints as $endpoint_id => $endpoint ) {
 					if ( empty( $endpoint ) ) {
 						unset( $end_points[ $endpoint_id ] );
 					}
 				}
-				wp_cache_add( 'wc4bp_get_available_endpoints', apply_filters( 'wc4bp_add_endpoint', $end_points ), 'wc4bp' );
+				wp_cache_add( 'wc4bp_get_available_endpoints', $end_points, 'wc4bp' );
 			}
 			
-			return $end_points;
+			return apply_filters( 'wc4bp_add_endpoint', $end_points );
 		}
 		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
