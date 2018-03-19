@@ -110,7 +110,8 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 = 3.1.1 9 March 2018 =
 * Fixing integration with amazon pay.
 * Fixed the 404 error when click the Change payment button inside subscription detail page.
-* Fixing the redirection for My Account Woocommerce when is Turn off
+* Fixing the redirection for My Account Woocommerce when is Turn off.
+* Updating freemius.
 
 = 3.1.0 9 March 2018 =
 * Adding a filter to change the shop slug.
