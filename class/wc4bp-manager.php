@@ -154,7 +154,7 @@ class wc4bp_Manager {
 	}
 
 	public static function get_shop_endpoints( $include_home = true ) {
-		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+		if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 			$shop_tabs = array(
 				'home'     => apply_filters( 'bp_shop_link_label', __( 'Shop', 'wc4bp' ) ),
 				'cart'     => apply_filters( 'bp_cart_link_label', __( 'Shopping Cart', 'wc4bp' ) ),

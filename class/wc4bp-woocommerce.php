@@ -23,7 +23,7 @@ class wc4bp_Woocommerce {
 		// Check if we are on checkout in profile
 		if ( ! isset( $this->wc4bp_options['tab_activity_disabled'] ) ) {
 			add_filter( 'woocommerce_is_checkout', array( $this, 'wc4bp_woocommerce_is_checkout' ) );
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+			if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 				// Check if we are on the my account page in profile
 				add_filter( 'woocommerce_is_account_page', array( $this, 'wc4bp_woocommerce_is_account_page__premium_only' ) );
 			}

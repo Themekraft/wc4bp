@@ -33,7 +33,7 @@ class WC4BP_Component extends BP_Component {
 		$this->id                  = wc4bp_Manager::get_shop_slug();
 		$this->wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 		$this->wc4bp_options       = get_option( 'wc4bp_options' );
-		if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+		if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 			$title = apply_filters( 'wc4bp_shop_component_label', __( 'Shop', 'wc4bp' ) );
 		} else {
 			$title = __( 'Shop', 'wc4bp' );
@@ -158,7 +158,7 @@ class WC4BP_Component extends BP_Component {
 				$wc4bp_pages_options = json_decode( $this->wc4bp_pages_options, true );
 			}
 			// Add 'Shop' to the main navigation
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+			if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 				$name = apply_filters( 'bp_shop_link_label', __( 'Shop', 'wc4bp' ) );
 			} else {
 				$name = __( 'Shop', 'wc4bp' );
@@ -178,7 +178,7 @@ class WC4BP_Component extends BP_Component {
 			
 			// Add shop settings sub page
 			if ( ! isset( $this->wc4bp_options['disable_shop_settings_tab'] ) ) {
-				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+				if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 					$name = apply_filters( 'bp_shop_settings_link_label', __( 'Shop', 'wc4bp' ) );
 				} else {
 					$name = __( 'Shop', 'wc4bp' );
@@ -246,7 +246,7 @@ class WC4BP_Component extends BP_Component {
 				$user_domain   = bp_loggedin_user_domain();
 				$settings_link = trailingslashit( $user_domain . BP_SETTINGS_SLUG );
 				if ( ! isset( $this->wc4bp_options['disable_shop_settings_tab'] ) ) {
-					if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+					if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 						$title = apply_filters( 'bp_shop_settings_nav_link_label', __( 'Shop', 'wc4bp' ) );
 					} else {
 						$title = __( 'Shop', 'wc4bp' );
@@ -260,7 +260,7 @@ class WC4BP_Component extends BP_Component {
 					);
 				}
 				$shop_link = trailingslashit( $user_domain . $this->id );
-				if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+				if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 					$title = apply_filters( 'bp_shop_nav_link_label', __( 'Shop', 'wc4bp' ) );
 				} else {
 					$title = __( 'Shop', 'wc4bp' );
@@ -320,7 +320,7 @@ class WC4BP_Component extends BP_Component {
 				if ( 'home' === $bp->current_action ) {
 					if ( isset( $this->wc4bp_options[ 'wc4bp_endpoint_' . $this->wc4bp_options['tab_shop_default'] ] ) || 'default' === $this->wc4bp_options['tab_shop_default'] ) {
 						//Determine what is default
-						if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+						if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 							$wc4bp_pages_options = array();
 							$endpoints           = wc4bp_Manager::get_shop_endpoints( false );
 							if ( isset( $endpoints['checkout'] ) ) {
