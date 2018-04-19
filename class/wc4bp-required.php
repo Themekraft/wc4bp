@@ -25,7 +25,7 @@ class WC4BP_Required {
 		if ( ! is_admin() ) {
 			return;
 		}
-		add_action( 'tgmpa_register', array( $this, 'setup_and_check' ) );
+		add_action( 'wc4bp_tgmpa_register', array( $this, 'setup_and_check' ) );
 		add_action( 'in_admin_footer', array( $this, 'remove_woo_footer' ) );
 	}
 
@@ -90,20 +90,20 @@ class WC4BP_Required {
 				'strings'      => array(
 					'notice_can_install_required'    => _n_noop(
 					/* translators: 1: plugin name(s). */
-						'One of the <u>ThemKraft</u> plugin requires the following plugin: %1$s.',
-						'One of the <u>ThemKraft</u> plugin requires the following plugins: %1$s.',
+						'<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin requires the following plugin: %1$s.',
+						'<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin requires the following plugins: %1$s.',
 						'wc4bp'
 					),
 					'notice_can_install_recommended' => _n_noop(
 					/* translators: 1: plugin name(s). */
-						'One of the <u>ThemKraft</u> plugin recommends the following plugin: %1$s.',
-						'One of the <u>ThemKraft</u> plugin recommends the following plugins: %1$s.',
+						'<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin recommends the following plugin: %1$s.',
+						'<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin recommends the following plugins: %1$s.',
 						'wc4bp'
 					),
 					'notice_can_activate_required'   => _n_noop(
 					/* translators: 1: plugin name(s). */
-						'The following is a required plugin for one of the <u>ThemKraft</u> and is currently inactive: %1$s.',
-						'The following is a required plugins for one of the <u>ThemKraft</u> and they are currently inactive: %1$s.',
+						'The following is a required plugin for <u>WC4BP -> WooCommerce BuddyPress Integration</u> and is currently inactive: %1$s.',
+						'The following is a required plugins for <u>WC4BP -> WooCommerce BuddyPress Integration</u> and they are currently inactive: %1$s.',
 						'wc4bp'
 					),
 					'notice_ask_to_update'           => _n_noop(
@@ -116,7 +116,7 @@ class WC4BP_Required {
 			);
 
 			// Call the tgmpa function to register the required required_plugins
-			tgmpa( $required_plugins, $config );
+			wc4bp_tgmpa( $required_plugins, $config );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
