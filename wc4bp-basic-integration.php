@@ -109,7 +109,6 @@ class WC4BP_Loader {
 				new WC4BP_Required();
 				if ( wc4bp_Manager::is_woocommerce_active() && wc4bp_Manager::is_buddypress_active() ) {
 					//Adding edd migration code
-					require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/client-migration/edd.php';
 					new wc4bp_Manager();
 					new WC4BP_Upgrade( plugin_basename( dirname( __FILE__ ) ) );
 					// Run the activation function
