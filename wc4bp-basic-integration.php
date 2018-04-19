@@ -101,13 +101,13 @@ class WC4BP_Loader {
 			require_once dirname( __FILE__ ) . '/class/wc4bp-required-php.php';
 			require_once dirname( __FILE__ ) . '/class/wc4bp-required.php';
 			require_once dirname( __FILE__ ) . '/class/wc4bp-upgrade.php';
+			// Init Freemius.
+			self::$freemius = $this->wc4bp_fs();
+			do_action( 'wc4bp_core_fs_loaded' );
 			$requirements = new WC4BP_Required_PHP( 'wc4bp' );
 			if ( $requirements->satisfied() ) {
 				new WC4BP_Required();
 				if ( wc4bp_Manager::is_woocommerce_active() && wc4bp_Manager::is_buddypress_active() ) {
-					// Init Freemius.
-					self::$freemius = $this->wc4bp_fs();
-					do_action( 'wc4bp_core_fs_loaded' );
 					//Adding edd migration code
 					require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/client-migration/edd.php';
 					new wc4bp_Manager();
