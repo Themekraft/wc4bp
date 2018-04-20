@@ -5,14 +5,14 @@
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
- * Version: 3.1.1
+ * Version: 3.1.2
  * Licence: GPLv3
  * Text Domain: wc4bp
  * Domain Path: /languages
  *
  *****************************************************************************
  * WC requires at least: 3.0.0
- * WC tested up to: 3.2.0
+ * WC tested up to: 3.3.3
  *****************************************************************************
  *
  * This script is free software; you can redistribute it and/or modify
@@ -50,7 +50,7 @@ class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION = '3.1.1';
+	const VERSION = '3.1.2';
 
 	/**
 	 * Minimum required WP version
@@ -101,15 +101,14 @@ class WC4BP_Loader {
 			require_once dirname( __FILE__ ) . '/class/wc4bp-required-php.php';
 			require_once dirname( __FILE__ ) . '/class/wc4bp-required.php';
 			require_once dirname( __FILE__ ) . '/class/wc4bp-upgrade.php';
+			// Init Freemius.
+			self::$freemius = $this->wc4bp_fs();
+			do_action( 'wc4bp_core_fs_loaded' );
 			$requirements = new WC4BP_Required_PHP( 'wc4bp' );
 			if ( $requirements->satisfied() ) {
 				new WC4BP_Required();
 				if ( wc4bp_Manager::is_woocommerce_active() && wc4bp_Manager::is_buddypress_active() ) {
-					// Init Freemius.
-					self::$freemius = $this->wc4bp_fs();
-					do_action( 'wc4bp_core_fs_loaded' );
 					//Adding edd migration code
-					require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/client-migration/edd.php';
 					new wc4bp_Manager();
 					new WC4BP_Upgrade( plugin_basename( dirname( __FILE__ ) ) );
 					// Run the activation function

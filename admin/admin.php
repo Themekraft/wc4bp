@@ -136,7 +136,7 @@ class wc4bp_admin extends wc4bp_base {
 			if ( isset( $wc4bp_options['tab_my_account_disabled'] ) ) {
 				$tab_my_account_disabled = 1;
 			}
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+			if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 				//Get all actives tabs and custom pages
 				$wc4bp_pages_options = $this->get_pages_option();
 				// If all the tabs are disabled and there is not custom pages, Turn off 'Shop'
@@ -185,7 +185,7 @@ class wc4bp_admin extends wc4bp_base {
 			$tab_cart_disabled     = 0;
 			$tab_checkout_disabled = 0;
 			$tab_track_disabled    = 0;
-			if ( WC4BP_Loader::getFreemius()->is__premium_only() ) {
+			if ( WC4BP_Loader::getFreemius()->is__premium_only() || WC4BP_Loader::getFreemius()->is_trial() ) {
 				if ( isset( $wc4bp_options['tab_cart_disabled'] ) ) {
 					$tab_cart_disabled = $wc4bp_options['tab_cart_disabled'];
 				}
@@ -246,7 +246,7 @@ class wc4bp_admin extends wc4bp_base {
 				}
 			}
 
-			if ( WC4BP_Loader::getFreemius()->is_plan__premium_only( wc4bp_base::$professional_plan_id ) ) {
+			if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 				$woo_my_account = WC4BP_MyAccount::get_active_endpoints__premium_only();
 				if ( ! empty( $woo_my_account ) ) {
 					foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
