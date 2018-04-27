@@ -1,7 +1,7 @@
 <?php
 /**
  * @package        WordPress
- * @subpackage     BuddyPress, Woocommerce
+ * @subpackage     BuddyPress, WooCommerce
  * @author         GFireM
  * @copyright      2017, Themekraft
  * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class wc4bp_Manage_Admin {
-	
+
 	public function __construct() {
 		try {
 			add_action( 'admin_enqueue_scripts', array( $this, 'wc4bp_admin_js' ), 10 );
@@ -30,7 +30,7 @@ class wc4bp_Manage_Admin {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-	
+
 	/**
 	 * Enqueue admin JS and CSS
 	 *

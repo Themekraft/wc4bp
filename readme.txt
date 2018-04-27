@@ -110,14 +110,14 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 = 3.1.2 20 April 2018 =
 * Adding custom message to check dependency.
 * Changing the requirement library to use a custom internal id.
-* Adding woocoomerce minimun version compatibility header.
-* Removing edd migration script.
+* Adding WooCommerce minimum version compatibility header.
+* Removing EDD migration script.
 * Enabling trials in the code.
 
 = 3.1.1 9 March 2018 =
 * Fixing integration with amazon pay.
 * Fixed the 404 error when click the Change payment button inside subscription detail page.
-* Fixing the redirection for My Account Woocommerce when is Turn off.
+* Fixing the redirection for My Account WooCommerce when is Turn off.
 * Updating freemius.
 
 = 3.1.0 9 March 2018 =
@@ -132,10 +132,10 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Updating localization files to include new strings.
 
 = 3.0.20 18 January 2018 =
-* Fixing the url redirection for the woocommerce my account when the shop option is disable.
+* Fixing the url redirection for the WooCommerce My Account when the shop option is disable.
 * Adding a described text to the shop option in the settings.
 * Fixing the order detail 404 when the redirection is of.
-* Fixing the User fields to keep in the Woocommerce Session.
+* Fixing the User fields to keep in the WooCommerce Session.
 * Adding France localization. Thanks to @denisleclerc.
 
 = 3.0.16 21 December 2017 =
@@ -153,7 +153,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 = 3.0.15 14 December 2017 =
 * fix Error 404 in order-received.
 * Solved Fix then pagination for the order page.
-* Changing the option to show inside the groups generated in buddypress by the plugins.
+* Changing the option to show inside the groups generated in BuddyPress by the plugins.
 * Add admin notices in settings.
 * Fixing the 404 in checkout when the user register the account in the process.
 * Adding space in the admin before the link of ThemKraft.
@@ -169,30 +169,30 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Changing the core to be responsible to update the bp/user profield fields, not the x-profile.
 * Disabling the error handler. To improve when massive error comes.
 * Fixing the header of the status section to improve the filter to add custom attributes to the header of each section.
-* Adding extra information to the status section related to the buddypress xprofield groups and fields. This time get all groups and fields.
-* Optimizing the load of the xprofield field ids from our settings to use a cached version.
+* Adding extra information to the status section related to the BuddyPress xProfile groups and fields. This time get all groups and fields.
+* Optimizing the load of the xProfile field ids from our settings to use a cached version.
 
 = 3.0.14 27 November 2017 =
 * Create the status menu option.
 * Optimize all related to the my-account.
 * Optimize the Redirection.
 * Fixing the activation and deactivations for the profile field sync
-* Removing pages for Woocommerce My Account integrations.
+* Removing pages for WooCommerce My Account integrations.
 * Optimize My Account.
 * Adding cache.
 * Improving the UX of the WC4BP Setting Tab.
 * Fixing the function to load the payment method screen.
 * Fixing the edit page to edit the Shipping and Billing group.
 * Adding a message to the sync tab when the user disable the Turn off the Profile Sync.
-* Enabling short-codes for woocommerce my account in the free version.
+* Enabling short-codes for WooCommerce my account in the free version.
 * Removing history. Fixing the default shop in the setting and the front.
 * Adding a patch to remove the old pages.
-* Fixing the css of all woocommerce view.
+* Fixing the css of all WooCommerce view.
 
 = 3.0.13 19 September 2017 =
 * Fixing  Profile Field Visibility for all Users, inside the Profile Syn tab
 * Fixed add-payment-method page
-* Fixing the redirection to not affect the woocommerce my account if the shop is disable
+* Fixing the redirection to not affect the WooCommerce My Account if the shop is disable
 * Fixing the Disable Shop Tab option to work in all plans
 * Fixing the option to Overwrite the Content of your Shop Home/Main Tab to keep the value when the user save it in the admin
 * Remove the template option from the Integrate Pages tab and move it to a hook, now is possible to do the same function using the filter wc4bp_custom_page_template
@@ -200,11 +200,11 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Fixing the payment methods to show in the checkout process
 * Fixing the option Turn off 'Shop' Tab inside "Settings" for the activity stream settings
 * Fixing the duplicate Save Button inside the Shop Setting view
-* Adding a new option to disable all function related to woocommerce, with this option checked all tabs will be disable
+* Adding a new option to disable all function related to WooCommerce, with this option checked all tabs will be disable
 * Fixing the error Illegal string offset 'tab_activity_disabled' for free version
 * Fixed an issue related to the hook the_title form wp. In some instance the post_id come empty and trow a warning.
 * Fixed free version problem add WC4BP_Loader::getFreemius()->is__premium_only() to avoid premium code insert into free version
-* Limit the woocommerce endpoint to only the basic implemented for core.
+* Limit the WooCommerce endpoint to only the basic implemented for core.
 * Implemented a cache for the function where the core get the endpoints
 * Implemented a cache for the functions referent to the endpoints
 * Fixing a waring, reported from h-20409
@@ -213,7 +213,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 = 3.0.12 12 August 2017 =
 * Adjust the default tab logic. If the cart tab is disabled, the next active tab is set as default tab. If no other tab was previously set as default.
 * Added missing string translation
-* Removing the edd migration
+* Removing the EDD migration
 * when working with the free version, put the option 'Select the tab you want to use as your Shop Home' disabled
 * add the shops tab to the 'Select the tab you want to use as your Shop Home.' dropdown
 * now when all the tabs are disabled, if there are custom page, it shows as default tab. when all the tabs are disbled and no custom page were added, the shop turn of until a tab or custom page is enabled
@@ -240,7 +240,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Multiples fixing
 * Updating the readme to hold new work conventions. props @gfirem for improving the workflow with gitflow
 * Changing the initialization hook. Checking if the shop if enabled to process the links.
-* Checking if xprofile is active in buddypress
+* Checking if xProfile is active in BuddyPress
 
 = 3.0.8 Jun 27.2017 =
 * Updated freemius
@@ -251,7 +251,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Added an extra check to avoid notice in the page loop in the WordPress backend.
 * Fixed an issue with WooCommerce 3.0. The BP fields on the checkout disappeared.
 * Fixed an issue when try to "Sync Profile Fields" returned value of 0.
-* Fixed Redundant code to sync xprofile
+* Fixed Redundant code to sync xProfile
 * Fixed order id for compatibility with woo 3.0
 * Fixed the check for post_type in the post list when add the mark #73
 * Resolving the issue to delete integrated page with encoding characters and fix the component to show the content #74

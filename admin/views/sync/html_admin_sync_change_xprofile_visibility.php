@@ -1,5 +1,5 @@
 <p>
-	<?php esc_attr_e( 'Set the default visibility for all Woocommerce Fields inside BuddyPress.', 'wc4bp' ); ?>
+	<?php esc_attr_e( 'Set the default visibility for all WooCommerce Fields inside BuddyPress.', 'wc4bp' ); ?>
 </p>
 <?php $this->select_visibility_levels( 'default_visibility' ); ?>
 <input type="submit" class="button" name="wc4bp_options_sync[change_xprofile_visibility_field_default]" value="<?php _e( "Change Now", "wc4bp" ); ?>">
