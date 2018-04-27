@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         WordPress
- * @subpackage      BuddyPress, Woocommerce
+ * @subpackage      BuddyPress, WooCommerce
  * @author          GFireM
  * @copyright       2017, Themekraft
  * @link            https://github.com/Themekraft/BP-Shop-Integration

@@ -129,15 +129,15 @@ Thanks to Bharat for pointing me on this.
 = v1.2 =
 * fixed several bugs reported by users
 * fixed a problem with the us translation
-* Changed textdomain from woocommerce, buddypress to  wc4bp
+* Changed textdomain from woocommerce, BuddyPress to  wc4bp
 * Changed from "Network: true" to "Network: false" to avoid that the plugin is installed sitewide on a multi site
 
 = v1.1 =
-* Added: buddypress 1.7.x compatibility
+* Added: BuddyPress 1.7.x compatibility
 * Bugfix: reported by users see github thanks @Marco for the greate testing
 
 = v1.0.8 =
-* Added: Only spit out Woocommerce errors on the main site, Thx Ole K Hornnes
+* Added: Only spit out WooCommerce errors on the main site, Thx Ole K Hornnes
 * Added: Making sure that the settings page only shows when needed, Thx Ole K Hornnes
 * Bugfix: Track your order page wouldn't let you track anything
 
@@ -161,7 +161,7 @@ Thanks to Bharat for pointing me on this.
 * Unknown
 
 = v1.0.3 =
-* Rename all jigoshop woocommerce
+* Rename all jigoshop WooCommerce
 
 = v1.0.2 =
 * Bugfix: class woocommerce_orders is not used anymore

@@ -2,7 +2,7 @@
 
 /**
  * @package        WordPress
- * @subpackage     BuddyPress, Woocommerce
+ * @subpackage     BuddyPress, WooCommerce
  * @author         GFireM
  * @copyright      2017, Themekraft
  * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
@@ -90,7 +90,7 @@ if ( ! class_exists( 'WC4BP_3013' ) ) {
 		}
 
 		/**
-		 * Mark this process as finish
+		 * Mark this process as finished
 		 *
 		 * @return bool
 		 */

@@ -2,7 +2,7 @@
 
 /**
  * @package        WordPress
- * @subpackage     BuddyPress, Woocommerce
+ * @subpackage     BuddyPress, WooCommerce
  * @author         GFireM
  * @copyright      2017, Themekraft
  * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
@@ -15,21 +15,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class wc4bp_Manager {
-	
+
 	/**
 	 * Prefix used to mark the pages for my account
 	 *
 	 * @var String
 	 */
 	public static $prefix = 'wc4bp';
-	
+
 	/**
 	 * Shop slug
 	 *
 	 * @var String
 	 */
 	public static $shop_slug = 'shop';
-	
+
 	public function __construct() {
 		try {
 			//Load resources
@@ -82,11 +82,11 @@ class wc4bp_Manager {
 
 		return $prefix . '_';
 	}
-	
+
 	public static function get_shop_slug() {
 		return apply_filters( 'wc4bp_shop_slug', self::$shop_slug );
 	}
-	
+
 	/**
 	 * Add admin notices to single site or multisite
 	 *
