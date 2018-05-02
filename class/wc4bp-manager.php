@@ -83,7 +83,19 @@ class wc4bp_Manager {
 		return $prefix . '_';
 	}
 	
+	/**
+	 * Get store slug
+	 *
+	 * @return string
+	 */
 	public static function get_shop_slug() {
+		/**
+		 * Get the store slug to use in the url
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param String $var The current slug.
+		 */
 		return apply_filters( 'wc4bp_shop_slug', self::$shop_slug );
 	}
 	
@@ -121,7 +133,6 @@ class wc4bp_Manager {
 		try {
 			// core component
 			require( WC4BP_ABSPATH . 'class/core/wc4bp-component.php' );
-
 			global $bp;
 			if ( ! isset( $bp->shop ) ) {
 				$bp->shop = new WC4BP_Component();
