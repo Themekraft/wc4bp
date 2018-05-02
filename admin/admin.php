@@ -127,9 +127,18 @@ class wc4bp_admin extends wc4bp_base {
 			$tab_activity_disabled     = 0;
 			$disable_shop_settings_tab = 0;
 			$tab_my_account_disabled   = 0;
-			if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
-				$tab_activity_disabled = 1;
+            $tab_my_account_shop_label = 'Shop';
+            $tab_my_account_shop_url = 'shop';
+            if ( isset( $wc4bp_options['tab_my_account_shop_url'] ) ) {
+                $tab_my_account_shop_url =  $wc4bp_options['tab_my_account_shop_url']=="" ? "shop":  $wc4bp_options['tab_my_account_shop_url'];
+            }
+			if ( isset( $wc4bp_options['tab_my_account_shop_label'] ) ) {
+                $tab_my_account_shop_label =  $wc4bp_options['tab_my_account_shop_label']=="" ? "Shop":  $wc4bp_options['tab_my_account_shop_label'];
 			}
+
+            if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
+                $tab_activity_disabled = 1;
+            }
 			if ( isset( $wc4bp_options['disable_shop_settings_tab'] ) ) {
 				$disable_shop_settings_tab = 1;
 			}

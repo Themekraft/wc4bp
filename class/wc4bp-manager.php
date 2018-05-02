@@ -24,14 +24,22 @@ class wc4bp_Manager {
 	public static $prefix = 'wc4bp';
 	
 	/**
-	 * Shop slug
+	 * Shop default slug
 	 *
 	 * @var String
 	 */
 	public static $shop_slug = 'shop';
 	
+	/**
+	 * Shop default label
+	 * @var string
+	 */
+	public static $shop_label;
+	
+	
 	public function __construct() {
 		try {
+			self::$shop_label = __( 'Shop', 'wc4bp' );
 			//Load resources
 			require_once 'wc4bp-myaccount-content.php';
 			require_once 'wc4bp-myaccount.php';
@@ -40,15 +48,16 @@ class wc4bp_Manager {
 			require_once 'wc4bp-manage-admin.php';
 			require_once 'wc4bp-redefine-functions.php';
 			require_once 'wc4bp-status.php';
-
+			
 			add_action( 'init', array( $this, 'init' ) );
 			add_action( 'bp_include', array( $this, 'includes' ), 10 );
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-
-
+	
+	
 	public function init() {
 		try {
 			new WC4BP_MyAccount_Private();
@@ -63,23 +72,20 @@ class wc4bp_Manager {
 				new wc4bp_Manage_Admin();
 				new WC4BP_Status();
 			}
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-
+	
+	/**
+	 * Get endpoint prefix
+	 *
+	 * @return string
+	 */
 	public static function get_prefix() {
-		$prefix = wp_cache_get( 'wc4bp_my_account_prefix', 'wc4bp' );
-		if ( false === $prefix ) {
-			$wc4bp_options = get_option( 'wc4bp_options' );
-			if ( ! empty( $wc4bp_options['my_account_prefix'] ) ) {
-				$prefix = $wc4bp_options['my_account_prefix'];
-			} else {
-				$prefix = self::$prefix;
-			}
-			wp_cache_add( 'wc4bp_my_account_prefix', $prefix, 'wc4bp' );
-		}
-
+		$prefix = self::get_cached_option_or_default( 'my_account_prefix', 'prefix' );
+		
 		return $prefix . '_';
 	}
 	
@@ -89,6 +95,8 @@ class wc4bp_Manager {
 	 * @return string
 	 */
 	public static function get_shop_slug() {
+		$slug = self::get_cached_option_or_default( 'tab_my_account_shop_url', 'shop_slug' );
+		
 		/**
 		 * Get the store slug to use in the url
 		 *
@@ -96,7 +104,36 @@ class wc4bp_Manager {
 		 *
 		 * @param String $var The current slug.
 		 */
-		return apply_filters( 'wc4bp_shop_slug', self::$shop_slug );
+		return apply_filters( 'wc4bp_shop_slug', $slug );
+	}
+	
+	/**
+	 * Get the shop label option
+	 *
+	 * @return bool|String
+	 */
+	public static function get_shop_label() {
+		$label = self::get_cached_option_or_default( 'tab_my_account_shop_label', 'shop_label' );
+		
+		return $label;
+	}
+	
+	public static function get_cached_option_or_default( $option, $default_var ) {
+		if ( empty( $option ) || empty( $default_var ) ) {
+			return false;
+		}
+		$val = wp_cache_get( 'wc4bp_cache_' . $option, 'wc4bp' );
+		if ( false === $val ) {
+			$wc4bp_options = get_option( 'wc4bp_options' );
+			if ( ! empty( $wc4bp_options[ $option ] ) ) {
+				$val = $wc4bp_options[ $option ];
+			} else {
+				$val = self::$$default_var;
+			}
+			wp_cache_add( 'wc4bp_cache_' . $option, $val, 'wc4bp' );
+		}
+		
+		return $val;
 	}
 	
 	/**
@@ -116,17 +153,17 @@ class wc4bp_Manager {
 			} );
 		}
 	}
-
+	
 	public static function get_suffix() {
 		return self::$prefix;
 	}
-
+	
 	/**
 	 * Load all BP related files and admin
 	 *
 	 * Attached to bp_include. Stops the plugin if certain conditions are not met.
 	 *
-	 * @since    1.0
+	 * @since     1.0
 	 * @access    public
 	 */
 	public function includes() {
@@ -137,33 +174,34 @@ class wc4bp_Manager {
 			if ( ! isset( $bp->shop ) ) {
 				$bp->shop = new WC4BP_Component();
 			}
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-
+	
 	public static function load_plugins_dependency() {
 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	}
-
+	
 	public static function is_woocommerce_active() {
 		self::load_plugins_dependency();
-
+		
 		return is_plugin_active( 'woocommerce/woocommerce.php' );
 	}
-
+	
 	public static function is_buddypress_active() {
 		self::load_plugins_dependency();
-
+		
 		return is_plugin_active( 'buddypress/bp-loader.php' );
 	}
-
+	
 	public static function is_current_active() {
 		self::load_plugins_dependency();
-
+		
 		return is_plugin_active( 'wc4bp/wc4bp-basic-integration.php' );
 	}
-
+	
 	public static function get_shop_endpoints( $include_home = true ) {
 		if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 			$shop_tabs = array(
@@ -183,18 +221,18 @@ class wc4bp_Manager {
 		if ( ! $include_home ) {
 			unset( $shop_tabs['home'] );
 		}
-
+		
 		return $shop_tabs;
 	}
-
+	
 	public static function available_endpoint() {
 		$shop_tabs    = self::get_shop_endpoints();
 		$account_tabs = WC4BP_MyAccount::get_available_endpoints();
 		$result       = array_merge( $shop_tabs, $account_tabs );
-
+		
 		return $result;
 	}
-
+	
 	/**
 	 * What type of request is this?
 	 *
@@ -213,7 +251,7 @@ class wc4bp_Manager {
 			case 'frontend':
 				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
 		}
-
+		
 		return false;
 	}
 }
