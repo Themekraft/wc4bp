@@ -130,10 +130,14 @@ class wc4bp_admin extends wc4bp_base {
             $tab_my_account_shop_label = 'Shop';
             $tab_my_account_shop_url = 'shop';
             if ( isset( $wc4bp_options['tab_my_account_shop_url'] ) ) {
-                $tab_my_account_shop_url =  $wc4bp_options['tab_my_account_shop_url']=="" ? "shop":  $wc4bp_options['tab_my_account_shop_url'];
+                $tab_my_account_shop_url = $wc4bp_options['tab_my_account_shop_url'] == "" ? "shop": sanitize_title( $wc4bp_options['tab_my_account_shop_url']);
+                $wc4bp_options['tab_my_account_shop_url'] = $tab_my_account_shop_url;
+                update_option( 'wc4bp_options', $wc4bp_options );
             }
 			if ( isset( $wc4bp_options['tab_my_account_shop_label'] ) ) {
-                $tab_my_account_shop_label =  $wc4bp_options['tab_my_account_shop_label']=="" ? "Shop":  $wc4bp_options['tab_my_account_shop_label'];
+                $tab_my_account_shop_label =  $wc4bp_options['tab_my_account_shop_label']=="" ? "Shop": sanitize_text_field($wc4bp_options['tab_my_account_shop_label']);
+                $wc4bp_options['tab_my_account_shop_label'] = $tab_my_account_shop_label;
+                update_option( 'wc4bp_options', $wc4bp_options );
 			}
 
             if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
