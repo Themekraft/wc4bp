@@ -90,8 +90,13 @@ class wc4bp_Manager {
 	}
 	
 	public static function get_shop_slug() {
-		$slug = self::get_cached_option_or_default( 'tab_my_account_shop_url', 'shop_slug' );
-		
+		$slug = '';
+        $wc4bp_options = get_option( 'wc4bp_options' );
+        if ( ! empty( $wc4bp_options[ 'tab_my_account_shop_url' ] ) ) {
+            $slug = $wc4bp_options[ 'tab_my_account_shop_url' ];
+        } else {
+            $slug = 'shop_slug';
+        }
 		return apply_filters( 'wc4bp_shop_slug', $slug );
 	}
 	
