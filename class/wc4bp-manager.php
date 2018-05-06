@@ -136,6 +136,10 @@ class wc4bp_Manager {
 		return $val;
 	}
 	
+	public static function del_cached_option_or_default( $option ) {
+		return wp_cache_delete( 'wc4bp_cache_' . $option, 'wc4bp' );
+	}
+	
 	/**
 	 * Add admin notices to single site or multisite
 	 *
