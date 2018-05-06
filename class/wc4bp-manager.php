@@ -2,7 +2,7 @@
 
 /**
  * @package        WordPress
- * @subpackage     BuddyPress, WooCommerce
+ * @subpackage     BuddyPress, Woocommerce
  * @author         GFireM
  * @copyright      2017, Themekraft
  * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
@@ -15,23 +15,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class wc4bp_Manager {
-
+	
 	/**
 	 * Prefix used to mark the pages for my account
 	 *
 	 * @var String
 	 */
 	public static $prefix = 'wc4bp';
-
+	
 	/**
-	 * Shop slug
+	 * Shop default slug
 	 *
 	 * @var String
 	 */
 	public static $shop_slug = 'shop';
-
+	
+	/**
+	 * Shop default label
+	 * @var string
+	 */
+	public static $shop_label;
+	
 	public function __construct() {
 		try {
+			self::$shop_label = __( 'Shop', 'wc4bp' );
 			//Load resources
 			require_once 'wc4bp-myaccount-content.php';
 			require_once 'wc4bp-myaccount.php';
@@ -43,12 +50,12 @@ class wc4bp_Manager {
 
 			add_action( 'init', array( $this, 'init' ) );
 			add_action( 'bp_include', array( $this, 'includes' ), 10 );
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-
-
+	
 	public function init() {
 		try {
 			new WC4BP_MyAccount_Private();
@@ -63,30 +70,74 @@ class wc4bp_Manager {
 				new wc4bp_Manage_Admin();
 				new WC4BP_Status();
 			}
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-
+	
+	/**
+	 * Get endpoint prefix
+	 *
+	 * @return string
+	 */
 	public static function get_prefix() {
-		$prefix = wp_cache_get( 'wc4bp_my_account_prefix', 'wc4bp' );
-		if ( false === $prefix ) {
-			$wc4bp_options = get_option( 'wc4bp_options' );
-			if ( ! empty( $wc4bp_options['my_account_prefix'] ) ) {
-				$prefix = $wc4bp_options['my_account_prefix'];
-			} else {
-				$prefix = self::$prefix;
-			}
-			wp_cache_add( 'wc4bp_my_account_prefix', $prefix, 'wc4bp' );
-		}
-
+		$prefix = self::get_cached_option_or_default( 'my_account_prefix', 'prefix' );
+		
 		return $prefix . '_';
 	}
-
+	
+	/**
+	 * Get store slug
+	 *
+	 * @return string
+	 */
 	public static function get_shop_slug() {
-		return apply_filters( 'wc4bp_shop_slug', self::$shop_slug );
+		$slug = self::get_cached_option_or_default( 'tab_my_account_shop_url', 'shop_slug' );
+		
+		/**
+		 * Get the store slug to use in the url
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param String $var The current slug.
+		 */
+		return apply_filters( 'wc4bp_shop_slug', $slug );
 	}
-
+	
+	/**
+	 * Get the shop label option
+	 *
+	 * @return bool|String
+	 */
+	public static function get_shop_label() {
+		$label = self::get_cached_option_or_default( 'tab_my_account_shop_label', 'shop_label' );
+		
+		return $label;
+	}
+	
+	public static function get_cached_option_or_default( $option, $default_var ) {
+		if ( empty( $option ) || empty( $default_var ) ) {
+			return false;
+		}
+		$val = wp_cache_get( 'wc4bp_cache_' . $option, 'wc4bp' );
+		if ( false === $val ) {
+			$wc4bp_options = get_option( 'wc4bp_options' );
+			if ( ! empty( $wc4bp_options[ $option ] ) ) {
+				$val = $wc4bp_options[ $option ];
+			} else {
+				$val = self::$$default_var;
+			}
+			wp_cache_add( 'wc4bp_cache_' . $option, $val, 'wc4bp' );
+		}
+		
+		return $val;
+	}
+	
+	public static function del_cached_option_or_default( $option ) {
+		return wp_cache_delete( 'wc4bp_cache_' . $option, 'wc4bp' );
+	}
+	
 	/**
 	 * Add admin notices to single site or multisite
 	 *
@@ -114,19 +165,20 @@ class wc4bp_Manager {
 	 *
 	 * Attached to bp_include. Stops the plugin if certain conditions are not met.
 	 *
-	 * @since    1.0
+	 * @since     1.0
 	 * @access    public
 	 */
 	public function includes() {
 		try {
 			// core component
 			require( WC4BP_ABSPATH . 'class/core/wc4bp-component.php' );
-
+			
 			global $bp;
 			if ( ! isset( $bp->shop ) ) {
 				$bp->shop = new WC4BP_Component();
 			}
-		} catch ( Exception $exception ) {
+		}
+		catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}

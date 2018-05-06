@@ -3,8 +3,8 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores,
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.0
-Tested up to: 4.9.4
-Stable tag: 3.1.2
+Tested up to: 4.9.5
+Stable tag: 3.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,6 +107,12 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
+= 3.1.3 6 May 2018 =
+* Fix error notice.
+* Improving the Spelling/Grammar. Thanks to @arrett-eclipse
+* New option to change Shop label.
+* New option to change Shop slug.
+
 = 3.1.2 20 April 2018 =
 * Adding custom message to check dependency.
 * Changing the requirement library to use a custom internal id.

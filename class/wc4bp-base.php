@@ -65,6 +65,7 @@ class wc4bp_base {
 
 	public function disable_input_tag( $type, $plan = 'professional', $force = false ) {
 		if ( !$this->is_trial ) {
+		    $attr ='';
 			if ( $force || ( ! $this->is_paying || $this->is_free || ! $this->is_plan( $plan ) ) ) {
 				switch ( $type ) {
 					case 'button':
