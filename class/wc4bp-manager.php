@@ -136,6 +136,10 @@ class wc4bp_Manager {
 		return $val;
 	}
 	
+	public static function del_cached_option_or_default( $option ) {
+		return wp_cache_delete( 'wc4bp_cache_' . $option, 'wc4bp' );
+	}
+	
 	/**
 	 * Add admin notices to single site or multisite
 	 *
@@ -170,6 +174,7 @@ class wc4bp_Manager {
 		try {
 			// core component
 			require( WC4BP_ABSPATH . 'class/core/wc4bp-component.php' );
+			
 			global $bp;
 			if ( ! isset( $bp->shop ) ) {
 				$bp->shop = new WC4BP_Component();
