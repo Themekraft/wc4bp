@@ -170,7 +170,7 @@ class WC4BP_Component extends BP_Component {
 				 *
 				 * @param String $var The current label.
 				 */
-				$name = apply_filters( 'bp_shop_link_label', __( 'Shop', 'wc4bp' ) );
+				
 			} else {
 				$name = __( 'Shop', 'wc4bp' );
 			}
@@ -196,7 +196,7 @@ class WC4BP_Component extends BP_Component {
 					 *
 					 * @param String $var The current label.
 					 */
-					$name = apply_filters( 'bp_shop_settings_link_label', __( 'Shop', 'wc4bp' ) );
+					$name = apply_filters( 'bp_shop_settings_link_label', wc4bp_Manager::get_shop_label() );
 				} else {
 					$name = __( 'Shop', 'wc4bp' );
 				}
@@ -270,7 +270,7 @@ class WC4BP_Component extends BP_Component {
 						 *
 						 * @param String $var The current label.
 						 */
-						$title = apply_filters( 'bp_shop_settings_nav_link_label', __( 'Shop', 'wc4bp' ) );
+
 					} else {
 						$title = __( 'Shop', 'wc4bp' );
 					}
@@ -290,7 +290,7 @@ class WC4BP_Component extends BP_Component {
 					 *
 					 * @param String $var The current label.
 					 */
-					$title = apply_filters( 'bp_shop_nav_link_label', wc4bp_Manager::get_shop_label() );
+
 				} else {
 					$title = __( 'Shop', 'wc4bp' );
 				}
