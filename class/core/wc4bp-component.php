@@ -164,13 +164,12 @@ class WC4BP_Component extends BP_Component {
 			}
 			// Add 'Shop' to the main navigation
 			if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
-				$name = apply_filters( 'bp_shop_link_label', wc4bp_Manager::get_shop_label() );
 				/**
 				 * Get the label for the BuddyBar Navigation
 				 *
 				 * @param String $var The current label.
 				 */
-				$name = apply_filters( 'bp_shop_link_label', __( 'Shop', 'wc4bp' ) );
+				$name = apply_filters( 'bp_shop_link_label',  wc4bp_Manager::get_shop_label() );
 			} else {
 				$name = __( 'Shop', 'wc4bp' );
 			}
@@ -190,13 +189,12 @@ class WC4BP_Component extends BP_Component {
 			// Add shop settings sub page
 			if ( ! isset( $this->wc4bp_options['disable_shop_settings_tab'] ) ) {
 				if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
-					$name = apply_filters( 'bp_shop_settings_link_label', wc4bp_Manager::get_shop_label() );
 					/**
 					 * Get the label for the BuddyPress Navigation inside the settings
 					 *
 					 * @param String $var The current label.
 					 */
-					$name = apply_filters( 'bp_shop_settings_link_label', __( 'Shop', 'wc4bp' ) );
+					$name = apply_filters( 'bp_shop_settings_link_label', wc4bp_Manager::get_shop_label() );
 				} else {
 					$name = __( 'Shop', 'wc4bp' );
 				}
@@ -264,13 +262,12 @@ class WC4BP_Component extends BP_Component {
 				$settings_link = trailingslashit( $user_domain . BP_SETTINGS_SLUG );
 				if ( ! isset( $this->wc4bp_options['disable_shop_settings_tab'] ) ) {
 					if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
-						$title = apply_filters( 'bp_shop_settings_nav_link_label', wc4bp_Manager::get_shop_label() );
 						/**
 						 * Get the label for the Setting inside BP
 						 *
 						 * @param String $var The current label.
 						 */
-						$title = apply_filters( 'bp_shop_settings_nav_link_label', __( 'Shop', 'wc4bp' ) );
+						$title = apply_filters( 'bp_shop_settings_nav_link_label', wc4bp_Manager::get_shop_label() );
 					} else {
 						$title = __( 'Shop', 'wc4bp' );
 					}
@@ -284,7 +281,6 @@ class WC4BP_Component extends BP_Component {
 				}
 				$shop_link = trailingslashit( $user_domain . $this->id );
 				if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
-					$title = apply_filters( 'bp_shop_nav_link_label', wc4bp_Manager::get_shop_label() );
 					/**
 					 * Get the label for the admin bar
 					 *
