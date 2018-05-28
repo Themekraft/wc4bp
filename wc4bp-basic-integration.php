@@ -34,17 +34,8 @@
 
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR . 'wc4bp-exception-handler.php';
 //Entry point for this plugins
-if ( class_exists( 'WC4BP_Exception_Handler' ) ) {
-	$exception_handler = WC4BP_Exception_Handler::get_instance();
-	try {
-		$GLOBALS['wc4bp_loader'] = new WC4BP_Loader();
-	} catch ( Exception $exception ) {
-		/** @var WC4BP_Exception_Handler $exception_handler */
-		$exception_handler->save_exception( $exception->getTrace() );
-	}
-} else {
-	$GLOBALS['wc4bp_loader'] = new WC4BP_Loader();
-}
+$GLOBALS['wc4bp_loader'] = new WC4BP_Loader();
+
 
 class WC4BP_Loader {
 	/**
