@@ -5,14 +5,14 @@
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
- * Version: 3.1.4
+ * Version: 3.1.5
  * Licence: GPLv3
  * Text Domain: wc4bp
  * Domain Path: /languages
  *
  *****************************************************************************
- * WC requires at least: 3.0.0
- * WC tested up to: 3.3.3
+ * WC requires at least: 3.4.0
+ * WC tested up to: 3.4.1
  *****************************************************************************
  *
  * This script is free software; you can redistribute it and/or modify
@@ -34,23 +34,14 @@
 
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR . 'wc4bp-exception-handler.php';
 //Entry point for this plugins
-if ( class_exists( 'WC4BP_Exception_Handler' ) ) {
-	$exception_handler = WC4BP_Exception_Handler::get_instance();
-	try {
-		$GLOBALS['wc4bp_loader'] = new WC4BP_Loader();
-	} catch ( Exception $exception ) {
-		/** @var WC4BP_Exception_Handler $exception_handler */
-		$exception_handler->save_exception( $exception->getTrace() );
-	}
-} else {
-	$GLOBALS['wc4bp_loader'] = new WC4BP_Loader();
-}
+$GLOBALS['wc4bp_loader'] = new WC4BP_Loader();
+
 
 class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION = '3.1.4';
+	const VERSION = '3.1.5';
 
 	/**
 	 * Minimum required WP version
@@ -65,7 +56,7 @@ class WC4BP_Loader {
 	/**
 	 * Minimum required woocommerce version
 	 */
-	const MIN_WOO = '3.1';
+	const MIN_WOO = '3.4';
 
 	/**
 	 * Name of the plugin folder
