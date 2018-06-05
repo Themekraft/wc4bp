@@ -32,6 +32,34 @@ class wc4bp_Woocommerce {
 				add_filter( 'woocommerce_available_payment_gateways', array( $this, 'available_payment_gateways' ), 1, 1 );
 			}
 		}
+		if ( isset( $this->wc4bp_options['disable_woo_profile_override'] ) ) {
+			add_action( 'woocommerce_checkout_update_customer', array( $this, 'avoid_override_of_user_meta' ) );
+		}
+	}
+
+	/**
+	 * Set existing values to the user profile before woocommerce save the customer new data from checkout
+	 * @see wordpress/wp-content/plugins/woocommerce/includes/class-wc-checkout.php:924
+	 *
+	 * @param WC_Customer $customer
+	 * @param array $data
+	 */
+	public function avoid_override_of_user_meta( $customer, $data ) {
+		if ( ! is_user_logged_in() || ! wc4bp_Manager::is_request( 'frontend' ) ) {
+			return;
+		}
+
+		$user_id = $customer->get_id();
+
+		$user_first_name = get_user_meta( $user_id, 'first_name', true );
+		$user_last_name  = get_user_meta( $user_id, 'last_name', true );
+
+		if ( empty( $user_first_name ) || empty( $user_last_name ) ) {
+			return;
+		}
+
+		$customer->set_first_name( $user_first_name );
+		$customer->set_last_name( $user_last_name );
 	}
 
 	/**
