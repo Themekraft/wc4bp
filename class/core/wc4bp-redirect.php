@@ -53,7 +53,7 @@ class wc4bp_redirect {
 				return false;
 			}
 			global $bp, $wp;
-			if ( ( isset( $wp->query_vars['name'] ) && 'order-received' === $wp->query_vars['name'] ) || isset( $wp->query_vars['order-received'] ) ) {
+			if ( ( isset( $wp->query_vars['name'] ) && 'order-received' === $wp->query_vars['name'] ) || isset( $wp->query_vars['order-received'] ) || isset($wp->query_vars['order-pay']) ) {
 				return false;
 			}
 			if ( ! empty( $bp->pages ) ) {
@@ -109,10 +109,19 @@ class wc4bp_redirect {
 							} elseif ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) && ! is_object( WC()->cart ) ) {
 								$checkout_url = 'home';
 							}
+							$order_pay  = isset( $wp->query_vars['order-pay']) ?  $wp->query_vars['order-pay'] : '';
 							$checkout_page           = get_post( $checkout_page_id );
 							$url                     = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name;
+
 							$payment_created_account = isset( $bp->unfiltered_uri[0] ) ? $bp->unfiltered_uri[0] : '';
-							$checkout_url            = apply_filters( 'wc4bp_checkout_page_link', $checkout_url );
+							if(isset( $wp->query_vars['order-pay'])){
+
+                               return  $url ;
+                            }
+                            else{
+                                $checkout_url            = apply_filters( 'wc4bp_checkout_page_link', $checkout_url );
+                            }
+
 							
 							return $this->convert_url( $checkout_url );
 							break;
