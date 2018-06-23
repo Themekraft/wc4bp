@@ -100,8 +100,8 @@ class WC4BP_MyAccount_Content {
 				$version = WC()->version;
 				wp_register_script( 'wc-add-payment-method', $path, $deps, $version, true );
 				wp_enqueue_script( 'wc-add-payment-method' );
-                $payment_management = new WC_Gateway_Stripe();
-               $payment_management->payment_scripts();
+				$payment_management = new WC_Gateway_Stripe();
+				$payment_management->payment_scripts();
 				woocommerce_account_add_payment_method();
 			} else {
 				woocommerce_account_payment_methods();
