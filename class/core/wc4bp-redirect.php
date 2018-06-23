@@ -52,9 +52,15 @@ class wc4bp_redirect {
 			if ( empty( $post_id ) ) {
 				return false;
 			}
+			$avoid_woo_endpoints = apply_filters( 'wc4bp_avoid_woo_endpoints', array( 'order-received', 'order-pay' ) );
 			global $bp, $wp;
-			if ( ( isset( $wp->query_vars['name'] ) && 'order-received' === $wp->query_vars['name'] ) || isset( $wp->query_vars['order-received'] ) || isset($wp->query_vars['order-pay']) ) {
+			if ( ( isset( $wp->query_vars['name'] ) && in_array( $wp->query_vars['name'], $avoid_woo_endpoints ) ) ) {
 				return false;
+			}
+			foreach ( $avoid_woo_endpoints as $avoid_woo_endpoint ) {
+				if ( isset( $wp->query_vars[ $avoid_woo_endpoint ] ) ) {
+					return false;
+				}
 			}
 			if ( ! empty( $bp->pages ) ) {
 				//Search in all the actives BPress pages for the current id
