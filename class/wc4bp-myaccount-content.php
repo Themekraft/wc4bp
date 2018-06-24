@@ -20,7 +20,12 @@ class WC4BP_MyAccount_Content {
 	public function __construct() {
 		try {
 			/**
-			 * Apply filters to the endpoint shortcodes to handle woocommerce my account individual tabs
+			 * Filter the endpoint shortcodes to handle woocommerce my account individual tabs.
+			 *
+			 * @param array $args {
+			 *     @type string Key The string to identify each tab item.
+			 *     @type callable Value The callable to handle the content of each tab item.
+			 * }
 			 */
 			$this->end_points = apply_filters( 'wc4bp_woocommerce_endpoint_key_content', array(
 				'orders'              => array( $this, 'wc4bp_my_account_process_shortcode_orders' ),
@@ -100,6 +105,8 @@ class WC4BP_MyAccount_Content {
 				$version = WC()->version;
 				wp_register_script( 'wc-add-payment-method', $path, $deps, $version, true );
 				wp_enqueue_script( 'wc-add-payment-method' );
+				$payment_management = new WC_Gateway_Stripe();
+				$payment_management->payment_scripts();
 				woocommerce_account_add_payment_method();
 			} else {
 				woocommerce_account_payment_methods();

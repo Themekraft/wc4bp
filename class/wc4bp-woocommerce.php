@@ -145,7 +145,9 @@ class wc4bp_Woocommerce {
 			$base_path = wc4bp_redirect::get_base_url();
 			switch ( $endpoint ) {
                 case 'order-pay':
-                    $url = $base_path .'checkout/'. $endpoint . '/' . $value;
+                    $checkout_page_id = wc_get_page_id( 'checkout' );
+                    $checkout_page    = get_post( $checkout_page_id );
+                    $url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' . $endpoint . '/' . $value;
                     break;
                 case 'orders':
                     $url = $base_path . $endpoint . '/' . $value;

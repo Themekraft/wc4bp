@@ -108,8 +108,13 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 
 == Changelog ==
 = 3.1.5 5 Jun 2018 =
-* Testing with the new version of Woocommerce
-* Adding a new option to avoid Woocommerce override User Profile data
+* Testing with the new version of Woocommerce.
+* Adding a new option to avoid Woocommerce override User Profile data.
+* Fixing the 404 in pay invoice link.
+* Fixing the Payment tab.
+* Adding new filter to avoid the redirecting of WC4BP.
+* Improving the code documentation.
+* Removing the restore error handler from debug class.
 
 = 3.1.4 14 May 2018 =
 * Fixing the filters to change the Shop label
