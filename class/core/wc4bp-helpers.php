@@ -133,6 +133,17 @@ function wc4bp_get_settings_link() {
  */
 function wc4bp_loader_review_activity( $comment_id, $comment_data ) {
 	try {
+		/**
+		 * Determinate if the activity stream is enabled.
+		 *
+		 * @param boolean.
+		 */
+		$is_active = apply_filters('wc4bp_activate_stream_activity', true);
+
+		if ( ! $is_active ) {
+			return;
+		}
+
 		if ( ! bp_is_active( 'activity' ) ) {
 			return false;
 		}
@@ -191,7 +202,15 @@ add_action( 'wp_insert_comment', 'wc4bp_loader_review_activity', 10, 2 );
  */
 function wc4bp_loader_purchase_activity( $order_id ) {
 	try {
-		
+		/**
+		 * This filter is documented in /wc4bp-premium/class/core/wc4bp-helpers.php:137
+		 */
+		$is_active = apply_filters('wc4bp_activate_stream_activity', true);
+
+		if ( ! $is_active ) {
+			return;
+		}
+
 		if ( ! bp_is_active( 'activity' ) ) {
 			return;
 		}
@@ -200,6 +219,11 @@ function wc4bp_loader_purchase_activity( $order_id ) {
 		
 		if ( $order->get_status() != 'completed' ) {
 			return;
+		}
+
+		// check that user enabled updating the activity stream
+		if ( bp_get_user_meta( $order->get_customer_id(), 'notification_activity_shop_purchases', true ) == 'no' ) {
+			return false;
 		}
 
         $user_link = bp_core_get_userlink( $order->get_customer_id() );
