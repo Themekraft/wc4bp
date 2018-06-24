@@ -18,8 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Add all BudddyPress profile groups and fields
  *
- * @todo    - Also check xprofile_insert_field to see if 'type' accepts
- *              a value of 'option'
  * @since    1.0
  *
  */
@@ -65,7 +63,13 @@ function wc4bp_activate() {
 			//look if a record with the billing code already exist
 			/** @var BP_XProfile_Group $current */
 			foreach ( $groups as $current ) {
-				if ( apply_filters( 'wc4bp_billing_group_id', 'billing' ) === $current->description ) {
+				/**
+				 * Get the String ID used to identify Billing Group ID used in BuddyPress
+				 *
+				 * @param string
+				 */
+				$billing_string_id = apply_filters( 'wc4bp_billing_group_id', 'billing' );
+				if ( $billing_string_id === $current->description ) {
 					//If exist a record with the billing code take it, and avoid insert a new one
 					$insert_billing_group = false;
 					$type                 = $current->description;
@@ -188,7 +192,13 @@ function wc4bp_activate() {
 			//Look if exist a record with the shipping code
 			/** @var BP_XProfile_Group $current */
 			foreach ( $groups as $current ) {
-				if ( apply_filters( 'wc4bp_shipping_group_id', 'shipping' ) === $current->description ) {
+				/**
+				 * Get the String ID used to identify Shipping Group ID used in BuddyPress
+				 *
+				 * @param string
+				 */
+				$shipping_string_id = apply_filters( 'wc4bp_shipping_group_id', 'shipping' );
+				if ( $shipping_string_id === $current->description ) {
 					// If exist a record with the shipping code take it and avoid inserting a new one
 					$insert_shipping_group = false;
 					$type                  = $current->description;

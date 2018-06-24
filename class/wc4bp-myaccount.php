@@ -175,11 +175,13 @@ class WC4BP_MyAccount {
 				if ( empty( $end_point_key ) ) {
 					foreach ( $available as $available_key => $available_value ) {
 						$result = array_merge( $result, array(
+							//TODO Need clarifications
 							$available_key => apply_filters( 'wc4bp_woocommerce_endpoint_content_' . $available_key, '[' . $available_key . ']' ),
 						) );
 					}
 				} else {
 					if ( ! empty( $available[ $end_point_key ] ) ) {
+						//TODO Need clarifications
 						$result = apply_filters( 'wc4bp_woocommerce_endpoint_content_' . $end_point_key, '[' . $end_point_key . ']' );
 					}
 				}
@@ -274,7 +276,16 @@ class WC4BP_MyAccount {
 				}
 				wp_cache_add( 'wc4bp_get_available_endpoints', $end_points, 'wc4bp' );
 			}
-			
+			/**
+			 * WooCommerce Endpoint.
+			 *
+			 * Filter the list of endpoint emulated from WooCommerce.
+			 *
+			 * @param array $end_points {
+			 *     @type string Key The tab identification.
+			 *     @type string Value The tab Name (localized form WooCommerce).
+			 * }
+			 */
 			return apply_filters( 'wc4bp_add_endpoint', $end_points );
 		}
 		catch ( Exception $exception ) {

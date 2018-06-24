@@ -37,7 +37,7 @@ class WC4BP_Component extends BP_Component {
 			/**
 			 * Get the label for the BuddyPress Core
 			 *
-			 * @param String $var The current label.
+			 * @param String The current label.
 			 */
 			$title = apply_filters( 'wc4bp_shop_component_label', wc4bp_Manager::get_shop_label() );
 		} else {
@@ -123,7 +123,7 @@ class WC4BP_Component extends BP_Component {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-	
+
 	public function get_nav_item( $shop_link, $slug, $title, $screen_function = '' ) {
 		$id              = str_replace( '-', '_', $slug );
 		$screen_function = empty( $screen_function ) ? 'wc4bp_screen_' . $id : $screen_function;
@@ -133,6 +133,12 @@ class WC4BP_Component extends BP_Component {
 			'slug'            => $slug,
 			'parent_url'      => $shop_link,
 			'parent_slug'     => $this->slug,
+			/**
+			 * Filter the function used to process the screen.
+			 *
+			 * @param string  $screen_function The function name to apply to the tab.
+			 * @param integer  $id The slug of the tab.
+			 */
 			'screen_function' => apply_filters( 'wc4bp_screen_function', $screen_function, $id ),
 			'position'        => 10,
 			'item_css_id'     => 'shop-' . $id,
@@ -167,7 +173,7 @@ class WC4BP_Component extends BP_Component {
 				/**
 				 * Get the label for the BuddyBar Navigation
 				 *
-				 * @param String $var The current label.
+				 * @param String The current label.
 				 */
 				$name = apply_filters( 'bp_shop_link_label',  wc4bp_Manager::get_shop_label() );
 			} else {
@@ -192,7 +198,7 @@ class WC4BP_Component extends BP_Component {
 					/**
 					 * Get the label for the BuddyPress Navigation inside the settings
 					 *
-					 * @param String $var The current label.
+					 * @param String The current label.
 					 */
 					$name = apply_filters( 'bp_shop_settings_link_label', wc4bp_Manager::get_shop_label() );
 				} else {
@@ -217,6 +223,16 @@ class WC4BP_Component extends BP_Component {
 					$sub_nav[] = $this->get_nav_item( $shop_link, esc_html( $post->post_name ), $attached_page['tab_name'], 'wc4bp_screen_plugins' );
 				}
 			}
+			/**
+			 * Filter the array of items to attach to the Shop.
+			 *
+			 * @param array $sub_nav {
+			 *     The array of sub item in the tabs.
+			 *     More details in /wc4bp-premium/class/core/wc4bp-component.php:131
+			 * }
+			 * @param string $shop_link The link to main tab, is like the base url.
+			 * @param string Unique slug for the component, for use in query strings and URLs.
+			 */
 			$sub_nav = apply_filters( 'bp_shop_sub_nav', $sub_nav, $shop_link, $this->slug );
 			do_action( 'bp_shop_setup_nav' );
 			parent::setup_nav( $main_nav, $sub_nav );
@@ -265,7 +281,7 @@ class WC4BP_Component extends BP_Component {
 						/**
 						 * Get the label for the Setting inside BP
 						 *
-						 * @param String $var The current label.
+						 * @param String The current label.
 						 */
 						$title = apply_filters( 'bp_shop_settings_nav_link_label', wc4bp_Manager::get_shop_label() );
 					} else {
@@ -284,7 +300,7 @@ class WC4BP_Component extends BP_Component {
 					/**
 					 * Get the label for the admin bar
 					 *
-					 * @param String $var The current label.
+					 * @param String The current label.
 					 */
 					$title = apply_filters( 'bp_shop_nav_link_label', wc4bp_Manager::get_shop_label() );
 				} else {
@@ -335,6 +351,11 @@ class WC4BP_Component extends BP_Component {
 				return $found_template;
 			}
 			$path                     = 'shop/member/plugin';
+			/**
+			 * Filter the path to the directory of the templates.
+			 *
+			 * @param string The path to the templates directory.
+			 */
 			$this->template_directory = apply_filters( 'wc4bp_members_get_template_directory', constant( 'WC4BP_ABSPATH_TEMPLATE_PATH' ) );
 			bp_register_template_stack( array( $this, 'wc4bp_members_get_template_directory' ), 14 );
 			if ( in_array( $bp->current_action, array_keys( wc4bp_Manager::available_endpoint() ), true ) ) {
@@ -388,7 +409,11 @@ class WC4BP_Component extends BP_Component {
 			add_action( 'bp_template_content',
 				create_function( '', "bp_get_template_part( '" . $path . "' );" )
 			);
-			
+			/**
+			 * Filter the founded template.
+			 *
+			 * @param string The template filename.
+			 */
 			return apply_filters( 'wc4bp_members_load_template_filter_founded', $found_template );
 		}
 		catch ( Exception $exception ) {
@@ -438,7 +463,12 @@ class WC4BP_Component extends BP_Component {
 				break;
 			
 		}
-		
+		/**
+		 * Filter the template path.
+		 *
+		 * @param string  $path The path route used to match one tab.
+		 * @param string The path to the template directory. Get more info in /wc4bp-premium/class/core/wc4bp-component.php:355
+		 */
 		return apply_filters( 'wc4bp_load_template_path', $path, $this->template_directory );
 	}
 	

@@ -40,6 +40,14 @@
                 </td>
                 <td class="slug column-slug">
 					<?php
+                    /**
+					 * Page slug
+					 *
+					 * This filter grant the user to change the page slug.
+					 *
+					 * @param string The tab slug
+					 * @param WP_Post The Post to show into the page
+					 */
 					$slug = apply_filters( 'editable_slug', $attached_page['tab_slug'], get_post( $attached_page['page_id'] ) );
 					echo isset( $attached_page['tab_slug'] ) ? esc_html( $slug ) : '--';
 					?>

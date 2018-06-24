@@ -31,6 +31,13 @@ class WC4BP_MyAccount_Private {
 	}
 
 	public function restrict_content() {
+		/**
+		 * Restrict content String.
+		 *
+		 * String used to print if somebody with no permission try to access to one of the endpoint enable.
+		 *
+		 * @param string  The localize message to show.
+		 */
 		return apply_filters( 'wc4bp_restrict_message', __( 'Sorry this page is only for logging users!', 'wc4bp' ) );
 	}
 }

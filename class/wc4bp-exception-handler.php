@@ -21,6 +21,13 @@ class WC4BP_Exception_Handler {
 	private $exception_list;
 
 	public function __construct() {
+		/**
+		 * Debug prefix.
+		 *
+		 * This prefix is used in the debug string to identify the plugin.
+		 *
+		 * @param string Default values is 'wc4bp'
+		 */
 		$prefix                    = apply_filters( 'wc4bp_exception_prefix', 'wc4bp' );
 		$this->exception_list_name = $prefix . '_' . $this->exception_list_name;
 		$this->internal_prefix     = $prefix . '_' . $this->internal_prefix;
