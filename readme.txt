@@ -4,7 +4,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.0
 Tested up to: 4.9.6
-Stable tag: 3.1.5
+Stable tag: 3.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,7 +107,11 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
-= 3.1.5 5 Jun 2018 =
+= 3.1.6 24 Jun 2018 =
+* Fixing the option to disable the stream related to the shop purchases.
+* Adding a filter to disabled the stream activity as global.
+
+= 3.1.5 24 Jun 2018 =
 * Testing with the new version of Woocommerce.
 * Adding a new option to avoid Woocommerce override User Profile data.
 * Fixing the 404 in pay invoice link.
