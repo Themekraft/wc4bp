@@ -36,8 +36,8 @@ msgid "none"
 msgstr "none"
 
 #: admin/admin-sync.php:46, admin/admin-sync.php:49
-msgid "Profile Field Synchronization Settings"
-msgstr "Profile Field Synchronization Settings"
+msgid "Profile Field Synchronisation Settings"
+msgstr "Profile Field Synchronisation Settings"
 
 #: admin/admin-sync.php:50
 msgid "Default BuddyPress WooCommerce Profile Field Settings"
@@ -159,19 +159,19 @@ msgstr "Shipping Address"
 msgid "WC4BP auto-generated"
 msgstr "WC4BP auto-generated"
 
-#: class/wc4bp-manager.php:41, class/wc4bp-manager.php:216, class/wc4bp-manager.php:238, class/core/wc4bp-component.php:44, class/core/wc4bp-component.php:180, class/core/wc4bp-component.php:205, class/core/wc4bp-component.php:288, class/core/wc4bp-component.php:307
+#: class/wc4bp-manager.php:42, class/wc4bp-manager.php:218, class/wc4bp-manager.php:240, class/core/wc4bp-component.php:44, class/core/wc4bp-component.php:180, class/core/wc4bp-component.php:205, class/core/wc4bp-component.php:288, class/core/wc4bp-component.php:307
 msgid "Shop"
 msgstr "Shop"
 
-#: class/wc4bp-manager.php:222, class/wc4bp-manager.php:239
+#: class/wc4bp-manager.php:224, class/wc4bp-manager.php:241
 msgid "Shopping Cart"
 msgstr "Shopping Cart"
 
-#: class/wc4bp-manager.php:228, class/wc4bp-manager.php:240
+#: class/wc4bp-manager.php:230, class/wc4bp-manager.php:242
 msgid "Checkout"
 msgstr "Checkout"
 
-#: class/wc4bp-manager.php:234, class/wc4bp-manager.php:241, templates/shop/member/track.php:17
+#: class/wc4bp-manager.php:236, class/wc4bp-manager.php:243, templates/shop/member/track.php:17
 msgid "Track your order"
 msgstr "Track your order"
 
@@ -323,17 +323,17 @@ msgstr "Your Order"
 msgid "Customer Billing Address"
 msgstr "Customer Billing Address"
 
-#: class/core/wc4bp-sync.php:365, class/core/wc4bp-sync.php:418
-msgid "State/County or state code"
-msgstr "State/County or state code"
-
-#: class/core/wc4bp-sync.php:369, class/core/wc4bp-sync.php:422
-msgid "2 letter Country code"
-msgstr "2 letter Country code"
-
 #: class/core/wc4bp-sync.php:386, admin/views/sync/html_admin_sync_shop_profile.php:42
 msgid "Customer Shipping Address"
 msgstr "Customer Shipping Address"
+
+#: class/core/wc4bp-sync.php:418
+msgid "State/County or state code"
+msgstr "State/County or state code"
+
+#: class/core/wc4bp-sync.php:422
+msgid "2 letter Country code"
+msgstr "2 letter Country code"
 
 #: admin/views/delete/html_admin_delete_all_settings.php:1
 msgid "Be careful! If you check this option, all settings will be deleted on the plugin deactivation."
@@ -348,8 +348,8 @@ msgid "<p>By default all account related <b>WooCommerce My Account</b> Tabs are 
 msgstr "<p>By default all account related <b>WooCommerce My Account</b> Tabs are included into the BuddyPress member profiles. When you <b>Turn off</b> one of the next, the Tab(s) will disappear.</p>"
 
 #: admin/views/main/html_admin_profile_sync.php:4
-msgid "If you turn off profile sync, the Billing and Shipping field groups from Profile/Edit will be deleted and disables all sync settings. When you turn On again they will be created again. IMPORTANT ALL DATA WILL BE LOST!"
-msgstr "If you turn off profile sync, the Billing and Shipping field groups from Profile/Edit will be deleted and disables all sync settings. When you turn On again they will be created again. IMPORTANT ALL DATA WILL BE LOST!"
+msgid "If you turn off profile sync, the Billing and Shipping profield groups from Profile/Edit will be deleted and disable all sync settings. When you turn On again they will be created again. IMPORTANT ALL DATA WILL BE LOST!"
+msgstr "If you turn off profile sync, the Billing and Shipping profield groups from Profile/Edit will be deleted and disable all sync settings. When you turn On again they will be created again. IMPORTANT ALL DATA WILL BE LOST!"
 
 #: admin/views/main/html_admin_profile_sync.php:8
 msgid "Turn off WooCommerce BuddyPress Profile Sync."
@@ -384,8 +384,8 @@ msgid "Turn off Shop."
 msgstr "Turn off Shop."
 
 #: admin/views/main/html_admin_shop_tabs.php:6
-msgid "Disable the BuddyPress Shop Tab and WooCommerce My Account will work normally."
-msgstr "Disable the BuddyPress Shop Tab and WooCommerce My Account will work normally."
+msgid "Disable the BuddyPress Shop Tab and Woocommerce My Account will work normally."
+msgstr "Disable the BuddyPress Shop Tab and Woocommerce My Account will work normally."
 
 #: admin/views/main/html_admin_shop_tabs.php:13
 msgid "Turn off 'Shop Tab' "
@@ -396,12 +396,12 @@ msgid "inside \"Settings\" for the activity stream settings."
 msgstr "inside \"Settings\" for the activity stream settings."
 
 #: admin/views/main/html_admin_shop_tabs.php:20
-msgid "Turn off 'WooCommerce My Account' redirection."
-msgstr "Turn off 'WooCommerce My Account' redirection."
+msgid "Turn off 'Woocommerce My Account' redirection."
+msgstr "Turn off 'Woocommerce My Account' redirection."
 
 #: admin/views/main/html_admin_shop_tabs.php:20
-msgid "This option is useful when you have problems with 3rd WooCommerce plugins. It disables only the My Account redirection, not the sub tabs URL."
-msgstr "This option is useful when you have problems with 3rd WooCommerce plugins. It disables only the My Account redirection, not the sub tabs URL."
+msgid "This option is useful when you have problem with 3rd Woocommerce plugins. It disable only the My Account redirection, not the sub tabs url."
+msgstr "This option is useful when you have problem with 3rd Woocommerce plugins. It disable only the My Account redirection, not the sub tabs url."
 
 #: admin/views/main/html_admin_shop_tabs.php:26
 msgid "Turn off 'Woocommerce User Profile ' override."

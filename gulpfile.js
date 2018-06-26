@@ -22,7 +22,28 @@ const jsDestination = './admin/js/';
 const styleWatchFiles = './admin/css/*.css';
 const jsWatchFiles = './admin/js/*.js';
 const languagesFolder = './languages/';
-const languages = ['es', 'fr', 'nb'];
+const languages = [
+    {
+        lang: 'en',
+        spec: 'US'
+    },
+    {
+        lang: 'es',
+        spec: 'ES'
+    },
+    {
+        lang: 'fr',
+        spec: 'FR'
+    },
+    {
+        lang: 'nb',
+        spec: 'NO'
+    },
+    {
+        lang: 'pt',
+        spec: 'BR'
+    },
+];
 /**
  * Load modules
  */
@@ -50,7 +71,7 @@ gulp.task('lint', () => {
 
 //Extract localization strings and translate it with google
 gulp.task('prepare-localization', function() {
-    gulp.src('./**/*.php')
+    return gulp.src('./**/*.php')
         .pipe(wpPot({
             domain: 'wc4bp',
             package: 'WooCommerce BuddyPress Integration',
@@ -77,22 +98,6 @@ gulp.task('prepare-localization', function() {
             ]
         }))
         .pipe(gulp.dest(languagesFolder + 'wc4bp.pot'));
-    //Create the english po file
-    return gulp.src(languagesFolder + 'wc4bp.pot')
-        .pipe(pofill({
-            items: function(item) {
-                // If msgstr is empty, use identity translation
-                if (!item.msgstr.length) {
-                    item.msgstr = [''];
-                }
-                if (!item.msgstr[0]) {
-                    item.msgstr[0] = item.msgid;
-                }
-                return item;
-            }
-        }))
-        .pipe(rename('wc4bp-en.po'))
-        .pipe(gulp.dest(languagesFolder));
 });
 
 //Extract localization strings and translate it with google
@@ -110,7 +115,7 @@ gulp.task('translate', ['prepare-localization'], function() {
                                 item.msgstr = [''];
                             }
                             if (!item.msgstr[0]) {
-                                googleTranslate.translate(item.msgid, lang, function(err, translation) {
+                                googleTranslate.translate(item.msgid, lang.lang, function(err, translation) {
                                     if (translation && translation.translatedText) {
                                         item.msgstr[0] = translation.translatedText;
                                     }
@@ -122,7 +127,7 @@ gulp.task('translate', ['prepare-localization'], function() {
                         });
                     }
                 }))
-                .pipe(rename('wc4bp-' + lang + '_' + lang.toUpperCase() + '.po'))
+                .pipe(rename('wc4bp-' + lang.lang + '_' + lang.spec.toUpperCase() + '.po'))
                 .pipe(gulp.dest(languagesFolder))
         );
     });
@@ -165,9 +170,8 @@ gulp.task('js', ['clean-min-js'], function() {
         .pipe(notify({message: 'TASK: "JS" Completed!', onLast: true}));
 });
 
-gulp.task('default', ['styles', 'lint', 'js', 'prepare-localization'], function() {
+gulp.task('default', [], function() {
     gulp.run('styles');
-    gulp.run('lint');
     gulp.run('js');
     gulp.run('prepare-localization');
     gulp.run('translate');
