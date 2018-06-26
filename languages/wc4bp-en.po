@@ -1,0 +1,662 @@
+# Copyright (C) 2018 WooCommerce BuddyPress Integration
+# This file is distributed under the same license as the WooCommerce BuddyPress Integration package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce BuddyPress Integration\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: ThemeKraft Team <svenl@themekraft.com>\n"
+"Last-Translator: Sven Lehnert <svenl@themekraft.com>\n"
+"Report-Msgid-Bugs-To: https://github.com/Themekraft/wc4bp/issues\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e;_x:1,2c;_esc_attr;_esc_attr_echo;_esc_html;_esc_html_echo;_ex:1,2c;_esc_attr_x:1,2c;_esc_html_x:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language: \n"
+
+#: wc4bp-basic-integration.php:118
+msgid "WC4BP -> WooCommerce BuddyPress Integration"
+msgstr "WC4BP -> WooCommerce BuddyPress Integration"
+
+#: admin/admin-delete.php:46
+msgid "Delete all WooCommerce BuddyPress Integration Settings on Plugin Deactivation"
+msgstr "Delete all WooCommerce BuddyPress Integration Settings on Plugin Deactivation"
+
+#: admin/admin-delete.php:47
+msgid "<b>Delete all Settings</b>"
+msgstr "<b>Delete all Settings</b>"
+
+#: admin/admin-pages.php:171
+msgid "none"
+msgstr "none"
+
+#: admin/admin-sync.php:46, admin/admin-sync.php:49
+msgid "Profile Field Synchronization Settings"
+msgstr "Profile Field Synchronization Settings"
+
+#: admin/admin-sync.php:50
+msgid "Default BuddyPress WooCommerce Profile Field Settings"
+msgstr "Default BuddyPress WooCommerce Profile Field Settings"
+
+#: admin/admin-sync.php:51
+msgid "<b>Woo & BP Profile Fields Sync </b>"
+msgstr "<b>Woo & BP Profile Fields Sync </b>"
+
+#: admin/admin-sync.php:52
+msgid "<b>Profile Field Visibility</b>"
+msgstr "<b>Profile Field Visibility</b>"
+
+#: admin/admin-sync.php:53
+msgid "<b>Default Profile Fields Visibility</b>"
+msgstr "<b>Default Profile Fields Visibility</b>"
+
+#: admin/admin-sync.php:54
+msgid "<b>Allow Custom Visibility Change by User</b>"
+msgstr "<b>Allow Custom Visibility Change by User</b>"
+
+#: admin/admin-sync.php:62
+msgid "<p><strong>The options in this tab need xProfile be activated in BuddyPress.</strong></p>"
+msgstr "<p><strong>The options in this tab need xProfile be activated in BuddyPress.</strong></p>"
+
+#: admin/admin-sync.php:129
+msgid "Select Visibility"
+msgstr "Select Visibility"
+
+#: admin/admin-sync.php:137
+msgid "<p><strong>xProfile need to be active in BuddyPress</strong></p>"
+msgstr "<p><strong>xProfile need to be active in BuddyPress</strong></p>"
+
+#: admin/admin.php:58
+msgid "WooCommerce for BuddyPress"
+msgstr "WooCommerce for BuddyPress"
+
+#: admin/admin.php:58, admin/views/html_admin_header.php:9
+msgid "WC4BP Settings"
+msgstr "WC4BP Settings"
+
+#: admin/admin.php:111
+msgid "<b>Shop Settings</b>"
+msgstr "<b>Shop Settings</b>"
+
+#: admin/admin.php:112
+msgid "<b>Remove My Account Tabs</b>"
+msgstr "<b>Remove My Account Tabs</b>"
+
+#: admin/admin.php:113
+msgid "<b>Remove Shop Tabs</b>"
+msgstr "<b>Remove Shop Tabs</b>"
+
+#: admin/admin.php:114
+msgid "<b>Turn off the Profile Sync</b>"
+msgstr "<b>Turn off the Profile Sync</b>"
+
+#: admin/admin.php:115
+msgid "<b>Default Shop Tab</b>"
+msgstr "<b>Default Shop Tab</b>"
+
+#: admin/wc4bp-activate.php:89
+msgid "Billing Address"
+msgstr "Billing Address"
+
+#: admin/wc4bp-activate.php:96, admin/wc4bp-activate.php:224, class/core/wc4bp-sync.php:336, class/core/wc4bp-sync.php:389
+msgid "First Name"
+msgstr "First Name"
+
+#: admin/wc4bp-activate.php:103, admin/wc4bp-activate.php:231, class/core/wc4bp-sync.php:340, class/core/wc4bp-sync.php:393
+msgid "Last Name"
+msgstr "Last Name"
+
+#: admin/wc4bp-activate.php:110, admin/wc4bp-activate.php:238, class/core/wc4bp-sync.php:344, class/core/wc4bp-sync.php:397, admin/views/sync/html_admin_sync_shop_profile.php:32, admin/views/sync/html_admin_sync_shop_profile.php:46
+msgid "Company"
+msgstr "Company"
+
+#: admin/wc4bp-activate.php:117, admin/wc4bp-activate.php:245, class/core/wc4bp-sync.php:348, class/core/wc4bp-sync.php:401, admin/views/sync/html_admin_sync_shop_profile.php:33, admin/views/sync/html_admin_sync_shop_profile.php:47
+msgid "Address 1"
+msgstr "Address 1"
+
+#: admin/wc4bp-activate.php:124, admin/wc4bp-activate.php:252, class/core/wc4bp-sync.php:352, class/core/wc4bp-sync.php:405, admin/views/sync/html_admin_sync_shop_profile.php:34, admin/views/sync/html_admin_sync_shop_profile.php:48
+msgid "Address 2"
+msgstr "Address 2"
+
+#: admin/wc4bp-activate.php:131, admin/wc4bp-activate.php:259, class/core/wc4bp-sync.php:356, class/core/wc4bp-sync.php:409, admin/views/sync/html_admin_sync_shop_profile.php:35, admin/views/sync/html_admin_sync_shop_profile.php:49
+msgid "City"
+msgstr "City"
+
+#: admin/wc4bp-activate.php:138, admin/wc4bp-activate.php:266, class/core/wc4bp-sync.php:360, class/core/wc4bp-sync.php:413, admin/views/sync/html_admin_sync_shop_profile.php:36, admin/views/sync/html_admin_sync_shop_profile.php:50
+msgid "Postcode"
+msgstr "Postcode"
+
+#: admin/wc4bp-activate.php:146, admin/wc4bp-activate.php:274, class/core/wc4bp-sync.php:368, class/core/wc4bp-sync.php:421
+msgid "Country"
+msgstr "Country"
+
+#: admin/wc4bp-activate.php:165, admin/wc4bp-activate.php:293, class/core/wc4bp-sync.php:364, class/core/wc4bp-sync.php:417
+msgid "State/County"
+msgstr "State/County"
+
+#: admin/wc4bp-activate.php:172, class/core/wc4bp-sync.php:376
+msgid "Email Address"
+msgstr "Email Address"
+
+#: admin/wc4bp-activate.php:179, class/core/wc4bp-sync.php:372
+msgid "Phone"
+msgstr "Phone"
+
+#: admin/wc4bp-activate.php:186, class/core/wc4bp-sync.php:380
+msgid "Fax"
+msgstr "Fax"
+
+#: admin/wc4bp-activate.php:217
+msgid "Shipping Address"
+msgstr "Shipping Address"
+
+#: class/wc4bp-manage-admin.php:73
+msgid "WC4BP auto-generated"
+msgstr "WC4BP auto-generated"
+
+#: class/wc4bp-manager.php:41, class/wc4bp-manager.php:216, class/wc4bp-manager.php:238, class/core/wc4bp-component.php:44, class/core/wc4bp-component.php:180, class/core/wc4bp-component.php:205, class/core/wc4bp-component.php:288, class/core/wc4bp-component.php:307
+msgid "Shop"
+msgstr "Shop"
+
+#: class/wc4bp-manager.php:222, class/wc4bp-manager.php:239
+msgid "Shopping Cart"
+msgstr "Shopping Cart"
+
+#: class/wc4bp-manager.php:228, class/wc4bp-manager.php:240
+msgid "Checkout"
+msgstr "Checkout"
+
+#: class/wc4bp-manager.php:234, class/wc4bp-manager.php:241, templates/shop/member/track.php:17
+msgid "Track your order"
+msgstr "Track your order"
+
+#: class/wc4bp-myaccount-private.php:41
+msgid "Sorry this page is only for logging users!"
+msgstr "Sorry this page is only for logging users!"
+
+#: class/wc4bp-required.php:91
+msgid "<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin requires the following plugin: %1$s."
+msgid_plural "<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin requires the following plugins: %1$s."
+msgstr[0] "<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin requires the following plugin: %1$s."
+msgstr[1] ""
+
+#: class/wc4bp-required.php:97
+msgid "<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin recommends the following plugin: %1$s."
+msgid_plural "<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin recommends the following plugins: %1$s."
+msgstr[0] "<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin recommends the following plugin: %1$s."
+msgstr[1] ""
+
+#: class/wc4bp-required.php:103
+msgid "The following is a required plugin for <u>WC4BP -> WooCommerce BuddyPress Integration</u> and is currently inactive: %1$s."
+msgid_plural "The following is a required plugins for <u>WC4BP -> WooCommerce BuddyPress Integration</u> and they are currently inactive: %1$s."
+msgstr[0] "The following is a required plugin for <u>WC4BP -> WooCommerce BuddyPress Integration</u> and is currently inactive: %1$s."
+msgstr[1] ""
+
+#: class/wc4bp-required.php:109
+msgid "The following plugin needs to be updated to its latest version to ensure maximum compatibility with this plugin: %1$s."
+msgid_plural "The following plugins need to be updated to their latest version to ensure maximum compatibility with this plugin: %1$s."
+msgstr[0] "The following plugin needs to be updated to its latest version to ensure maximum compatibility with this plugin: %1$s."
+msgstr[1] ""
+
+#: admin/views/html_admin_header.php:3
+msgid "WooCommerce BuddyPress Integration"
+msgstr "WooCommerce BuddyPress Integration"
+
+#: admin/views/html_admin_header.php:5
+msgid "Proudly brought to you by "
+msgstr "Proudly brought to you by "
+
+#: admin/views/html_admin_header.php:10
+msgid "Profile Fields Sync"
+msgstr "Profile Fields Sync"
+
+#: admin/views/html_admin_header.php:11
+msgid "Integrate Pages"
+msgstr "Integrate Pages"
+
+#: admin/views/html_admin_header.php:12, admin/views/pages/html_admin_pages_forms_table.php:31
+msgid "Delete"
+msgstr "Delete"
+
+#: admin/views/html_admin_header.php:15
+msgid "Go Professional!!!"
+msgstr "Go Professional!!!"
+
+#: admin/views/html_admin_revision.php:5
+msgid " Hey, you just updated to the %s version – that’s awesome!"
+msgstr " Hey, you just updated to the %s version – that’s awesome!"
+
+#: admin/views/html_admin_revision.php:5
+msgid " Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation."
+msgstr " Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation."
+
+#: admin/views/html_admin_revision.php:10
+msgid " Ok, you deserve it"
+msgstr " Ok, you deserve it"
+
+#: admin/views/html_admin_revision.php:13
+msgid " Nope, maybe later"
+msgstr " Nope, maybe later"
+
+#: admin/views/html_admin_revision.php:16
+msgid " I already did"
+msgstr " I already did"
+
+#: admin/views/html_admin_screen_sync.php:16
+msgid "This option is not available, you need to uncheck 'Turn off the Profile Sync' from the WC4BP Settings tab."
+msgstr "This option is not available, you need to uncheck 'Turn off the Profile Sync' from the WC4BP Settings tab."
+
+#: class/core/wc4bp-component.php:94
+msgid "New review created"
+msgstr "New review created"
+
+#: class/core/wc4bp-component.php:95
+msgid "New purchase made"
+msgstr "New purchase made"
+
+#: class/core/wc4bp-helpers.php:172
+msgid "%s wrote a review about <a href=\"%s\">%s</a>"
+msgstr "%s wrote a review about <a href=\"%s\">%s</a>"
+
+#: class/core/wc4bp-helpers.php:244
+msgid "%s purchased %s"
+msgstr "%s purchased %s"
+
+#: class/core/wc4bp-screen.php:180
+msgid "Changes saved."
+msgstr "Changes saved."
+
+#: class/core/wc4bp-screen.php:206
+msgid "Shop Settings"
+msgstr "Shop Settings"
+
+#: class/core/wc4bp-screen.php:233
+msgid "Activity Stream"
+msgstr "Activity Stream"
+
+#: class/core/wc4bp-screen.php:234
+msgid "Yes"
+msgstr "Yes"
+
+#: class/core/wc4bp-screen.php:235
+msgid "No"
+msgstr "No"
+
+#: class/core/wc4bp-screen.php:242
+msgid "Post to activity stream all reviews written by me"
+msgstr "Post to activity stream all reviews written by me"
+
+#: class/core/wc4bp-screen.php:248
+msgid "Post to activity stream all purchases I've made"
+msgstr "Post to activity stream all purchases I've made"
+
+#: class/core/wc4bp-screen.php:260
+msgid "Save Changes"
+msgstr "Save Changes"
+
+#: class/core/wc4bp-screen.php:289, templates/shop/member/view-order.php:23
+msgid "Please enter a valid order ID"
+msgstr "Please enter a valid order ID"
+
+#: class/core/wc4bp-screen.php:291
+msgid "Please enter a valid order email"
+msgstr "Please enter a valid order email"
+
+#: class/core/wc4bp-screen.php:298
+msgid "You are not allowed to view this order."
+msgstr "You are not allowed to view this order."
+
+#: class/core/wc4bp-screen.php:301
+msgid "Sorry, we could not find that order id in our database."
+msgstr "Sorry, we could not find that order id in our database."
+
+#: class/core/wc4bp-screen.php:323
+msgid "Your Order"
+msgstr "Your Order"
+
+#: class/core/wc4bp-sync.php:333, admin/views/sync/html_admin_sync_shop_profile.php:28
+msgid "Customer Billing Address"
+msgstr "Customer Billing Address"
+
+#: class/core/wc4bp-sync.php:365, class/core/wc4bp-sync.php:418
+msgid "State/County or state code"
+msgstr "State/County or state code"
+
+#: class/core/wc4bp-sync.php:369, class/core/wc4bp-sync.php:422
+msgid "2 letter Country code"
+msgstr "2 letter Country code"
+
+#: class/core/wc4bp-sync.php:386, admin/views/sync/html_admin_sync_shop_profile.php:42
+msgid "Customer Shipping Address"
+msgstr "Customer Shipping Address"
+
+#: admin/views/delete/html_admin_delete_all_settings.php:1
+msgid "Be careful! If you check this option, all settings will be deleted on the plugin deactivation."
+msgstr "Be careful! If you check this option, all settings will be deleted on the plugin deactivation."
+
+#: admin/views/delete/html_admin_delete_all_settings.php:2
+msgid "Yes I want to delete all Settings: "
+msgstr "Yes I want to delete all Settings: "
+
+#: admin/views/main/html_admin_my_account_tabs.php:3
+msgid "<p>By default all account related <b>WooCommerce My Account</b> Tabs are included into the BuddyPress member profiles. When you <b>Turn off</b> one of the next, the Tab(s) will disappear.</p>"
+msgstr "<p>By default all account related <b>WooCommerce My Account</b> Tabs are included into the BuddyPress member profiles. When you <b>Turn off</b> one of the next, the Tab(s) will disappear.</p>"
+
+#: admin/views/main/html_admin_profile_sync.php:4
+msgid "If you turn off profile sync, the Billing and Shipping field groups from Profile/Edit will be deleted and disables all sync settings. When you turn On again they will be created again. IMPORTANT ALL DATA WILL BE LOST!"
+msgstr "If you turn off profile sync, the Billing and Shipping field groups from Profile/Edit will be deleted and disables all sync settings. When you turn On again they will be created again. IMPORTANT ALL DATA WILL BE LOST!"
+
+#: admin/views/main/html_admin_profile_sync.php:8
+msgid "Turn off WooCommerce BuddyPress Profile Sync."
+msgstr "Turn off WooCommerce BuddyPress Profile Sync."
+
+#: admin/views/main/html_admin_shop_disable.php:5
+msgid "Turn off 'Cart' tab"
+msgstr "Turn off 'Cart' tab"
+
+#: admin/views/main/html_admin_shop_disable.php:11
+msgid "Turn off 'Checkout' tab."
+msgstr "Turn off 'Checkout' tab."
+
+#: admin/views/main/html_admin_shop_disable.php:17
+msgid "Turn off 'Track my order' tab."
+msgstr "Turn off 'Track my order' tab."
+
+#: admin/views/main/html_admin_shop_home.php:4
+msgid "This option override the default tab to show when the user click in the Shop tab."
+msgstr "This option override the default tab to show when the user click in the Shop tab."
+
+#: admin/views/main/html_admin_shop_home.php:8
+msgid "Default"
+msgstr "Default"
+
+#: admin/views/main/html_admin_shop_home.php:14
+msgid "You need at least one Page added to Member Profiles!"
+msgstr "You need at least one Page added to Member Profiles!"
+
+#: admin/views/main/html_admin_shop_tabs.php:5
+msgid "Turn off Shop."
+msgstr "Turn off Shop."
+
+#: admin/views/main/html_admin_shop_tabs.php:6
+msgid "Disable the BuddyPress Shop Tab and WooCommerce My Account will work normally."
+msgstr "Disable the BuddyPress Shop Tab and WooCommerce My Account will work normally."
+
+#: admin/views/main/html_admin_shop_tabs.php:13
+msgid "Turn off 'Shop Tab' "
+msgstr "Turn off 'Shop Tab' "
+
+#: admin/views/main/html_admin_shop_tabs.php:14
+msgid "inside \"Settings\" for the activity stream settings."
+msgstr "inside \"Settings\" for the activity stream settings."
+
+#: admin/views/main/html_admin_shop_tabs.php:20
+msgid "Turn off 'WooCommerce My Account' redirection."
+msgstr "Turn off 'WooCommerce My Account' redirection."
+
+#: admin/views/main/html_admin_shop_tabs.php:20
+msgid "This option is useful when you have problems with 3rd WooCommerce plugins. It disables only the My Account redirection, not the sub tabs URL."
+msgstr "This option is useful when you have problems with 3rd WooCommerce plugins. It disables only the My Account redirection, not the sub tabs URL."
+
+#: admin/views/main/html_admin_shop_tabs.php:26
+msgid "Turn off 'Woocommerce User Profile ' override."
+msgstr "Turn off 'Woocommerce User Profile ' override."
+
+#: admin/views/main/html_admin_shop_tabs.php:26
+msgid "This option is useful to stop Woocommerce override User Profile First Name, Last Name and Display Name."
+msgstr "This option is useful to stop Woocommerce override User Profile First Name, Last Name and Display Name."
+
+#: admin/views/main/html_admin_shop_tabs.php:31
+msgid "Change the  Shop label. "
+msgstr "Change the  Shop label. "
+
+#: admin/views/main/html_admin_shop_tabs.php:31
+msgid "This option is useful when you want to change the Label of the Shop."
+msgstr "This option is useful when you want to change the Label of the Shop."
+
+#: admin/views/main/html_admin_shop_tabs.php:40
+msgid "Change the  Shop Url. "
+msgstr "Change the  Shop Url. "
+
+#: admin/views/main/html_admin_shop_tabs.php:40
+msgid "This option is useful when you want to change the Url of the Shop."
+msgstr "This option is useful when you want to change the Url of the Shop."
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:2
+msgid "Choose an existing page"
+msgstr "Choose an existing page"
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:6
+msgid "Include Children?"
+msgstr "Include Children?"
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:9, admin/views/pages/html_admin_pages_forms_table.php:12
+msgid "Tab Name"
+msgstr "Tab Name"
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:10
+msgid "If empty same as Pagename"
+msgstr "If empty same as Pagename"
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:15, admin/views/pages/html_admin_pages_forms_table.php:14
+msgid "Position"
+msgstr "Position"
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:17
+msgid "Just enter a number like 1, 2, 3.."
+msgstr "Just enter a number like 1, 2, 3.."
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:25
+msgid "Save"
+msgstr "Save"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:1
+msgid "Add Pages to Member Profiles"
+msgstr "Add Pages to Member Profiles"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:3
+msgid "Integrate other pages (for example from other WooCommerce extensions) into your BuddyPress member profiles."
+msgstr "Integrate other pages (for example from other WooCommerce extensions) into your BuddyPress member profiles."
+
+#: admin/views/pages/html_admin_pages_forms_table.php:4
+msgid "This will redirect the page to the correct profile page and add a menu item in the profile."
+msgstr "This will redirect the page to the correct profile page and add a menu item in the profile."
+
+#: admin/views/pages/html_admin_pages_forms_table.php:10
+msgid "Page"
+msgstr "Page"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:11
+msgid "Including Children?"
+msgstr "Including Children?"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:13
+msgid "Tab Slug"
+msgstr "Tab Slug"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:28
+msgid "an existing page to your BuddyPress member profiles"
+msgstr "an existing page to your BuddyPress member profiles"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:28, templates/shop/member/plugin.php:87
+msgid "Edit"
+msgstr "Edit"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:31
+msgid "Delete this item"
+msgstr "Delete this item"
+
+#: admin/views/pages/html_admin_pages_shop_pages_rename.php:2
+msgid "Rename Shop Parent Tab:"
+msgstr "Rename Shop Parent Tab:"
+
+#: admin/views/pages/html_admin_pages_shop_pages_rename.php:3
+msgid "Rename Shopping Cart:"
+msgstr "Rename Shopping Cart:"
+
+#: admin/views/pages/html_admin_pages_shop_pages_rename.php:4
+msgid "Rename History:"
+msgstr "Rename History:"
+
+#: admin/views/pages/html_admin_pages_shop_pages_rename.php:5
+msgid "Rename Track your order:"
+msgstr "Rename Track your order:"
+
+#: admin/views/pages/html_admin_pages_thickbox.php:2
+msgid "Add an existing page to your BuddyPress member profiles"
+msgstr "Add an existing page to your BuddyPress member profiles"
+
+#: admin/views/pages/html_admin_pages_thickbox.php:2
+msgid "Add a page to your BuddyPress Member Profiles"
+msgstr "Add a page to your BuddyPress Member Profiles"
+
+#: admin/views/sync/html_admin_sync_change_xprofile.php:3
+msgid "Set the Profile Field Visibility for all Users:"
+msgstr "Set the Profile Field Visibility for all Users:"
+
+#: admin/views/sync/html_admin_sync_change_xprofile.php:6
+msgid "You can change the Field Visibility for all users. This will only work if the option"
+msgstr "You can change the Field Visibility for all users. This will only work if the option"
+
+#: admin/views/sync/html_admin_sync_change_xprofile.php:9
+msgid "\"Allow Custom Visibility Change by User\" is set to \"Let members change this field's visibility\""
+msgstr "\"Allow Custom Visibility Change by User\" is set to \"Let members change this field's visibility\""
+
+#: admin/views/sync/html_admin_sync_change_xprofile.php:13, admin/views/sync/html_admin_sync_shop_profile.php:58
+msgid "Sync Now"
+msgstr "Sync Now"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:1
+msgid "Allow if the user can change the Field visibility."
+msgstr "Allow if the user can change the Field visibility."
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:5
+msgid "Let members change this field's visibility"
+msgstr "Let members change this field's visibility"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:8
+msgid "Enforce the default visibility for all members"
+msgstr "Enforce the default visibility for all members"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:12, admin/views/sync/html_admin_sync_change_xprofile_visibility.php:5
+msgid "Change Now"
+msgstr "Change Now"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:21, admin/views/sync/html_admin_sync_change_xprofile_visibility.php:12
+msgid "<li>billing_%s default visibility changed to %s</li>"
+msgstr "<li>billing_%s default visibility changed to %s</li>"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:27, admin/views/sync/html_admin_sync_change_xprofile_visibility.php:18
+msgid "<li>shipping_%s default visibility changed to %s</li>"
+msgstr "<li>shipping_%s default visibility changed to %s</li>"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:30, admin/views/sync/html_admin_sync_change_xprofile_visibility.php:21
+msgid "<h3>All Done!</h3>"
+msgstr "<h3>All Done!</h3>"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:2
+msgid "Sync WooCommerce Customer Billing and Shipping Address with BuddyPress."
+msgstr "Sync WooCommerce Customer Billing and Shipping Address with BuddyPress."
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:5
+msgid ""
+"The billing and shipping address fields are WooCommerce default user fields. You can sync all default WooCommerce\n"
+"            customer fields with BuddyPress."
+msgstr ""
+"The billing and shipping address fields are WooCommerce default user fields. You can sync all default WooCommerce\n"
+"            customer fields with BuddyPress."
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:9
+msgid "During checkout or if a user edits his profile all fields will be synced automatically."
+msgstr "During checkout or if a user edits his profile all fields will be synced automatically."
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:12
+msgid ""
+"If you have already customers and start using WooCommerce BuddyPress Integration on an existing store, you need \n"
+"            to sync your user once."
+msgstr ""
+"If you have already customers and start using WooCommerce BuddyPress Integration on an existing store, you need \n"
+"            to sync your user once."
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:16
+msgid ""
+"The Customer Billing and Shipping Address fields will be created in BuddyPress during the plugin installation,\n"
+"            but the user sync can take a while depends on the size of your user base and needs to be done once after the\n"
+"            first install."
+msgstr ""
+"The Customer Billing and Shipping Address fields will be created in BuddyPress during the plugin installation,\n"
+"            but the user sync can take a while depends on the size of your user base and needs to be done once after the\n"
+"            first install."
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:23
+msgid " Default WooCommerce Checkout Fields"
+msgstr " Default WooCommerce Checkout Fields"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:30, admin/views/sync/html_admin_sync_shop_profile.php:44
+msgid "First name"
+msgstr "First name"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:31, admin/views/sync/html_admin_sync_shop_profile.php:45
+msgid "Last name"
+msgstr "Last name"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:37, admin/views/sync/html_admin_sync_shop_profile.php:51
+msgid "State/County "
+msgstr "State/County "
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:37, admin/views/sync/html_admin_sync_shop_profile.php:51
+msgid "(Country or state code)"
+msgstr "(Country or state code)"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:38, admin/views/sync/html_admin_sync_shop_profile.php:52
+msgid "Country(2 letter Country code)"
+msgstr "Country(2 letter Country code)"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:39
+msgid "Telephone"
+msgstr "Telephone"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:40
+msgid "Email"
+msgstr "Email"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:4
+msgid "If the Update stops for some reason you can continue the update manually"
+msgstr "If the Update stops for some reason you can continue the update manually"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:6
+msgid " Continue Updating from here"
+msgstr " Continue Updating from here"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:11
+msgid "Select All"
+msgstr "Select All"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:15
+msgid "Username"
+msgstr "Username"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:18
+msgid "Name"
+msgstr "Name"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:21
+msgid "E-mail"
+msgstr "E-mail"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:24
+msgid "Role"
+msgstr "Role"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:43
+msgid "Select admin"
+msgstr "Select admin"
+
+#: templates/shop/member/plugin.php:82
+msgid "Pages:"
+msgstr "Pages:"

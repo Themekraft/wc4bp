@@ -13,15 +13,25 @@
   },
   "repository": "Themekraft/wc4bp.git",
   "devDependencies": {
+    "css-mqpacker": "^6.0.2",
+    "cssnano": "^3.10.0",
+    "eslint-config-loopback": "^10.0.0",
     "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.2",
-    "gulp-fs": "0.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-deporder": "^1.1.0",
+    "gulp-eslint": "^4.0.2",
     "gulp-gettext": "^0.3.0",
-    "gulp-path": "^3.0.3",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.0",
     "gulp-pofill": "^1.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sort": "^2.0.0",
-    "gulp-transifex": "^0.1.17",
-    "gulp-wp-pot": "^1.3.5"
+    "gulp-strip-debug": "^3.0.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-uglifycss": "^1.1.0",
+    "gulp-util": "^3.0.8",
+    "gulp-wp-pot": "^2.3.1",
+    "install": "^0.12.0",
+    "npm": "^6.1.0"
   }
 }
