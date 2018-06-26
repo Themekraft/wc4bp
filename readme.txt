@@ -53,7 +53,7 @@ Overview over the plugin options [youtube https://www.youtube.com/watch?v=DtPk-W
 ---
 
 ### Blog Posts
-[Why You Should Build Your Online Shop With WordPress, BuddyPress and WooCommerce](https://themekraft.com/why-you-should-build-your-online-shop-with-wordpress-buddypress-and-woocommerce/)
+[Why You Should Build Your Online Shop With WordPress, BuddyPress and WooCommerce](https://themekraft.com/why-you-should-build-your-online-shop-with-wordpress-buddypress-and-WooCommerce/)
 
 
 > #### AddOns
@@ -112,8 +112,8 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Adding a filter to disabled the stream activity as global.
 
 = 3.1.5 24 Jun 2018 =
-* Testing with the new version of Woocommerce.
-* Adding a new option to avoid Woocommerce override User Profile data.
+* Testing with the new version of WooCommerce.
+* Adding a new option to avoid WooCommerce override User Profile data.
 * Fixing the 404 in pay invoice link.
 * Fixing the Payment tab.
 * Adding new filter to avoid the redirecting of WC4BP.
@@ -139,7 +139,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 = 3.1.1 9 March 2018 =
 * Fixing integration with amazon pay.
 * Fixed the 404 error when click the Change payment button inside subscription detail page.
-* Fixing the redirection for My Account Woocommerce when is Turn off.
+* Fixing the redirection for My Account WooCommerce when is Turn off.
 * Updating freemius.
 
 = 3.1.0 9 March 2018 =
@@ -154,10 +154,10 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Updating localization files to include new strings.
 
 = 3.0.20 18 January 2018 =
-* Fixing the url redirection for the woocommerce my account when the shop option is disable.
+* Fixing the url redirection for the WooCommerce my account when the shop option is disable.
 * Adding a described text to the shop option in the settings.
 * Fixing the order detail 404 when the redirection is of.
-* Fixing the User fields to keep in the Woocommerce Session.
+* Fixing the User fields to keep in the WooCommerce Session.
 * Adding France localization. Thanks to @denisleclerc.
 
 = 3.0.16 21 December 2017 =
@@ -199,22 +199,22 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Optimize all related to the my-account.
 * Optimize the Redirection.
 * Fixing the activation and deactivations for the profile field sync
-* Removing pages for Woocommerce My Account integrations.
+* Removing pages for WooCommerce My Account integrations.
 * Optimize My Account.
 * Adding cache.
 * Improving the UX of the WC4BP Setting Tab.
 * Fixing the function to load the payment method screen.
 * Fixing the edit page to edit the Shipping and Billing group.
 * Adding a message to the sync tab when the user disable the Turn off the Profile Sync.
-* Enabling short-codes for woocommerce my account in the free version.
+* Enabling short-codes for WooCommerce my account in the free version.
 * Removing history. Fixing the default shop in the setting and the front.
 * Adding a patch to remove the old pages.
-* Fixing the css of all woocommerce view.
+* Fixing the css of all WooCommerce view.
 
 = 3.0.13 19 September 2017 =
 * Fixing  Profile Field Visibility for all Users, inside the Profile Syn tab
 * Fixed add-payment-method page
-* Fixing the redirection to not affect the woocommerce my account if the shop is disable
+* Fixing the redirection to not affect the WooCommerce my account if the shop is disable
 * Fixing the Disable Shop Tab option to work in all plans
 * Fixing the option to Overwrite the Content of your Shop Home/Main Tab to keep the value when the user save it in the admin
 * Remove the template option from the Integrate Pages tab and move it to a hook, now is possible to do the same function using the filter wc4bp_custom_page_template
@@ -222,11 +222,11 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Fixing the payment methods to show in the checkout process
 * Fixing the option Turn off 'Shop' Tab inside "Settings" for the activity stream settings
 * Fixing the duplicate Save Button inside the Shop Setting view
-* Adding a new option to disable all function related to woocommerce, with this option checked all tabs will be disable
+* Adding a new option to disable all function related to WooCommerce, with this option checked all tabs will be disable
 * Fixing the error Illegal string offset 'tab_activity_disabled' for free version
 * Fixed an issue related to the hook the_title form wp. In some instance the post_id come empty and trow a warning.
 * Fixed free version problem add WC4BP_Loader::getFreemius()->is__premium_only() to avoid premium code insert into free version
-* Limit the woocommerce endpoint to only the basic implemented for core.
+* Limit the WooCommerce endpoint to only the basic implemented for core.
 * Implemented a cache for the function where the core get the endpoints
 * Implemented a cache for the functions referent to the endpoints
 * Fixing a waring, reported from h-20409
