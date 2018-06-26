@@ -112,8 +112,8 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Adding a filter to disabled the stream activity as global.
 
 = 3.1.5 24 Jun 2018 =
-* Testing with the new version of Woocommerce.
-* Adding a new option to avoid Woocommerce override User Profile data.
+* Testing with the new version of WooCommerce.
+* Adding a new option to avoid WooCommerce override User Profile data.
 * Fixing the 404 in pay invoice link.
 * Fixing the Payment tab.
 * Adding new filter to avoid the redirecting of WC4BP.
