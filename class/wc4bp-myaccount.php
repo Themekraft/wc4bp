@@ -261,11 +261,11 @@ class WC4BP_MyAccount {
 				);
 				
 				$end_points = array(
-					'orders'          => __( 'Orders', 'woocommerce' ),
-					'downloads'       => __( 'Downloads', 'woocommerce' ),
-					'edit-address'    => __( 'Addresses', 'woocommerce' ),
-					'payment-methods' => __( 'Payment methods', 'woocommerce' ),
-					'edit-account'    => __( 'Account details', 'woocommerce' ),
+					'orders'          => __( 'Orders', 'wc4bp' ),
+					'downloads'       => __( 'Downloads', 'wc4bp' ),
+					'edit-address'    => __( 'Addresses', 'wc4bp' ),
+					'payment-methods' => __( 'Payment methods', 'wc4bp' ),
+					'edit-account'    => __( 'Account details', 'wc4bp' ),
 				);
 				
 				// Remove missing endpoints.

@@ -281,17 +281,17 @@ class wc4bp_admin extends wc4bp_base {
 				// Add the shop tab to the array
 				if ( empty( $wc4bp_options['tab_cart_disabled'] ) ) {
 					$wc4bp_pages_options['selected_pages']['cart'] = array(
-						'tab_name' => 'Cart',
+						'tab_name' => __('Cart', 'wc4bp'),
 					);
 				}
 				if ( empty( $wc4bp_options['tab_checkout_disabled'] ) ) {
 					$wc4bp_pages_options['selected_pages']['checkout'] = array(
-						'tab_name' => 'Checkout',
+						'tab_name' => __('Checkout', 'wc4bp'),
 					);
 				}
 				if ( empty( $wc4bp_options['tab_track_disabled'] ) ) {
 					$wc4bp_pages_options['selected_pages']['track'] = array(
-						'tab_name' => 'Track my order',
+						'tab_name' => __('Track my order', 'wc4bp'),
 					);
 				}
 				//If wc4bp['tab_shop_default'] is empty add a default value to avoid offset warning
@@ -355,17 +355,17 @@ class wc4bp_admin extends wc4bp_base {
 			// Add the shop tabs to the array
 			if ( empty( $wc4bp_options['tab_cart_disabled'] ) ) {
 				$wc4bp_pages_options['selected_pages']['cart'] = array(
-					'tab_name' => 'Cart',
+					'tab_name' => __('Cart', 'wc4bp'),
 				);
 			}
 			if ( empty( $wc4bp_options['tab_checkout_disabled'] ) ) {
 				$wc4bp_pages_options['selected_pages']['checkout'] = array(
-					'tab_name' => 'Checkout',
+					'tab_name' => __('Checkout', 'wc4bp'),
 				);
 			}
 			if ( empty( $wc4bp_options['tab_track_disabled'] ) ) {
 				$wc4bp_pages_options['selected_pages']['track'] = array(
-					'tab_name' => 'Track my order',
+					'tab_name' => __('Track my order', 'wc4bp'),
 				);
 			}
 

@@ -83,6 +83,7 @@ gulp.task('prepare-localization', function() {
                 {name: '_e'},
                 {name: 'esc_html__'},
                 {name: 'esc_html_e'},
+                {name: 'esc_attr_e'},
                 {name: '_x', context: 2},
                 {name: '_esc_attr'},
                 {name: '_esc_attr_echo'},
