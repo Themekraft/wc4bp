@@ -136,7 +136,7 @@ gulp.task('translate', ['prepare-localization'], function() {
 });
 
 // Compile *.po to *.mo binaries for usage.
-gulp.task('compile-translations', ['translate'], function() {
+gulp.task('compile-translations', function() {
     return gulp.src(languagesFolder + '*.po')
         .pipe(gettext())
         .pipe(gulp.dest(languagesFolder))
@@ -175,6 +175,4 @@ gulp.task('default', [], function() {
     gulp.run('styles');
     gulp.run('js');
     gulp.run('prepare-localization');
-    gulp.run('translate');
-    gulp.run('compile-translations');
 });

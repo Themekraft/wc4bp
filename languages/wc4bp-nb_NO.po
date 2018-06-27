@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Sven Lehnert <svenl@themekraft.com>\n"
 "Report-Msgid-Bugs-To: https://github.com/Themekraft/wc4bp/issues\n"
 "X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e;_x:1,2c;_esc_attr;_esc_attr_echo;_esc_html;_esc_html_echo;_ex:1,2c;_esc_attr_x:1,2c;_esc_html_x:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e;esc_attr_e;_x:1,2c;_esc_attr;_esc_attr_echo;_esc_html;_esc_html_echo;_ex:1,2c;_esc_attr_x:1,2c;_esc_html_x:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -99,6 +99,18 @@ msgstr "<b>Slå av profilsynkroniseringen</b>"
 msgid "<b>Default Shop Tab</b>"
 msgstr "<b>Standard butikkfane</b>"
 
+#: admin/admin.php:284, admin/admin.php:358
+msgid "Cart"
+msgstr "kurven"
+
+#: admin/admin.php:289, admin/admin.php:363, class/wc4bp-manager.php:227, class/wc4bp-manager.php:239
+msgid "Checkout"
+msgstr "Sjekk ut"
+
+#: admin/admin.php:294, admin/admin.php:368
+msgid "Track my order"
+msgstr "Spor min bestilling"
+
 #: admin/wc4bp-activate.php:89
 msgid "Billing Address"
 msgstr "fakturaadresse"
@@ -155,29 +167,45 @@ msgstr "Faks"
 msgid "Shipping Address"
 msgstr "Sendingsadresse"
 
-#: class/wc4bp-manage-admin.php:73
+#: class/wc4bp-manage-admin.php:74
 msgid "WC4BP auto-generated"
 msgstr "WC4BP automatisk generert"
 
-#: class/wc4bp-manager.php:42, class/wc4bp-manager.php:218, class/wc4bp-manager.php:240, class/core/wc4bp-component.php:44, class/core/wc4bp-component.php:180, class/core/wc4bp-component.php:205, class/core/wc4bp-component.php:288, class/core/wc4bp-component.php:307
+#: class/wc4bp-manager.php:42, class/wc4bp-manager.php:215, class/wc4bp-manager.php:237, class/core/wc4bp-component.php:44, class/core/wc4bp-component.php:180, class/core/wc4bp-component.php:205, class/core/wc4bp-component.php:288, class/core/wc4bp-component.php:307
 msgid "Shop"
 msgstr "Butikk"
 
-#: class/wc4bp-manager.php:224, class/wc4bp-manager.php:241
+#: class/wc4bp-manager.php:221, class/wc4bp-manager.php:238
 msgid "Shopping Cart"
 msgstr "Handlevogn"
 
-#: class/wc4bp-manager.php:230, class/wc4bp-manager.php:242
-msgid "Checkout"
-msgstr "Sjekk ut"
-
-#: class/wc4bp-manager.php:236, class/wc4bp-manager.php:243, templates/shop/member/track.php:17
+#: class/wc4bp-manager.php:233, class/wc4bp-manager.php:240, templates/shop/member/track.php:17
 msgid "Track your order"
 msgstr "Spor din bestilling"
 
 #: class/wc4bp-myaccount-private.php:41
 msgid "Sorry this page is only for logging users!"
 msgstr "Beklager, denne siden er bare for å logge brukere!"
+
+#: class/wc4bp-myaccount.php:264
+msgid "Orders"
+msgstr "Bestillinger"
+
+#: class/wc4bp-myaccount.php:265
+msgid "Downloads"
+msgstr "Nedlastinger"
+
+#: class/wc4bp-myaccount.php:266
+msgid "Addresses"
+msgstr "Adresser"
+
+#: class/wc4bp-myaccount.php:267
+msgid "Payment methods"
+msgstr "Betalingsmetoder"
+
+#: class/wc4bp-myaccount.php:268
+msgid "Account details"
+msgstr "Kontodetaljer"
 
 #: class/wc4bp-required.php:91
 msgid "<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin requires the following plugin: %1$s."
@@ -346,6 +374,10 @@ msgstr "Ja, jeg vil slette alle innstillinger:"
 #: admin/views/main/html_admin_my_account_tabs.php:3
 msgid "<p>By default all account related <b>WooCommerce My Account</b> Tabs are included into the BuddyPress member profiles. When you <b>Turn off</b> one of the next, the Tab(s) will disappear.</p>"
 msgstr "<p> Som standard er alle kontorelaterte <b>WooCommerce-kontoer min konto-</b> faner inkludert i BuddyPress- <b>medlemsprofilene</b> . Når du <b>slår av</b> ett av de neste, vil tabulatene forsvinne. </p>"
+
+#: admin/views/main/html_admin_my_account_tabs.php:10
+msgid "Turn off %s tab."
+msgstr "Slå av% s-fanen."
 
 #: admin/views/main/html_admin_profile_sync.php:4
 msgid "If you turn off profile sync, the Billing and Shipping profield groups from Profile/Edit will be deleted and disable all sync settings. When you turn On again they will be created again. IMPORTANT ALL DATA WILL BE LOST!"
@@ -558,6 +590,10 @@ msgstr "<li> shipping_% s standard synlighet endret til% s </li>"
 #: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:30, admin/views/sync/html_admin_sync_change_xprofile_visibility.php:21
 msgid "<h3>All Done!</h3>"
 msgstr "<h3> Ferdig! </h3>"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_visibility.php:2
+msgid "Set the default visibility for all Woocommerce Fields inside BuddyPress."
+msgstr "Angi standard synlighet for alle Woocommerce Fields inne BuddyPress."
 
 #: admin/views/sync/html_admin_sync_shop_profile.php:2
 msgid "Sync WooCommerce Customer Billing and Shipping Address with BuddyPress."
