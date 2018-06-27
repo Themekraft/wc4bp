@@ -134,7 +134,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 
 = 3.1.3 6 May 2018 =
 * Fix error notice.
-* Improving the Spelling/Grammar. Thanks to @arrett-eclipse
+* Improving the Spelling/Grammar. Thanks to @garrett-eclipse
 * New option to change Shop label.
 * New option to change Shop slug.
 
