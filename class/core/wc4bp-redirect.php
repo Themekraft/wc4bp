@@ -20,12 +20,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class wc4bp_redirect
  */
 class wc4bp_redirect {
-	
+
 	public function __construct() {
 		add_action( 'template_redirect', array( $this, 'wc4bp_redirect_to_profile' ) );
 		add_filter( 'page_link', array( $this, 'wc4bp_page_link_router' ), 9999, 2 );//High priority to take precedent over other plugins
 	}
-	
+
 	/**
 	 * Get base url for all redirection
 	 *
@@ -33,10 +33,10 @@ class wc4bp_redirect {
 	 */
 	public static function get_base_url() {
 		$base_url = bp_core_get_user_domain( bp_loggedin_user_id() ) . wc4bp_Manager::get_shop_slug() . '/';
-		
+
 		return $base_url;
 	}
-	
+
 	/**
 	 * Process the url for given post id
 	 *
@@ -52,6 +52,11 @@ class wc4bp_redirect {
 			if ( empty( $post_id ) ) {
 				return false;
 			}
+			/**
+			 * Add more endpoint to avoid the rewrite of the url for the plugin
+			 *
+			 * @param array String values of the endpoint to by pass the url transform
+			 */
 			$avoid_woo_endpoints = apply_filters( 'wc4bp_avoid_woo_endpoints', array( 'order-received', 'order-pay' ) );
 			global $bp, $wp;
 			if ( ( isset( $wp->query_vars['name'] ) && in_array( $wp->query_vars['name'], $avoid_woo_endpoints ) ) ) {
@@ -115,20 +120,24 @@ class wc4bp_redirect {
 							} elseif ( ! isset( $wc4bp_options['tab_checkout_disabled'] ) && ! is_object( WC()->cart ) ) {
 								$checkout_url = 'home';
 							}
-							$order_pay  = isset( $wp->query_vars['order-pay']) ?  $wp->query_vars['order-pay'] : '';
-							$checkout_page           = get_post( $checkout_page_id );
-							$url                     = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name;
+							$order_pay     = isset( $wp->query_vars['order-pay'] ) ? $wp->query_vars['order-pay'] : '';
+							$checkout_page = get_post( $checkout_page_id );
+							$url           = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name;
 
 							$payment_created_account = isset( $bp->unfiltered_uri[0] ) ? $bp->unfiltered_uri[0] : '';
-							if(isset( $wp->query_vars['order-pay'])){
+							if ( isset( $wp->query_vars['order-pay'] ) ) {
 
-                               return  $url ;
-                            }
-                            else{
-                                $checkout_url            = apply_filters( 'wc4bp_checkout_page_link', $checkout_url );
-                            }
+								return $url;
+							} else {
+								/**
+								 * Change the checkout url
+								 *
+								 * @param string The checkout url
+								 */
+								$checkout_url = apply_filters( 'wc4bp_checkout_page_link', $checkout_url );
+							}
 
-							
+
 							return $this->convert_url( $checkout_url );
 							break;
 						case $account_page_id:
@@ -143,12 +152,12 @@ class wc4bp_redirect {
 							if ( $select_page_id === $parent_post_id ) {
 								$post_data  = get_post( $post_id );
 								$final_slug = ( $select_page['tab_slug'] !== $post_data->post_name ) ? $select_page['tab_slug'] . '/' . $post_data->post_name : $select_page['tab_slug'];
-								
+
 								return $this->convert_url( $final_slug );
 							}
 						}
 					}
-					
+
 					return false;
 				} else {
 					return false;
@@ -156,14 +165,13 @@ class wc4bp_redirect {
 			} else {
 				return false;
 			}
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-			
+
 			return false;
 		}
 	}
-	
+
 	private function convert_url( $add_url = '' ) {
 		$suffix = '';
 		if ( ! empty( $add_url ) ) {
@@ -173,10 +181,15 @@ class wc4bp_redirect {
 		if ( 'yes' === get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 			$link = str_replace( 'http:', 'https:', $link );
 		}
-		
+
+		/**
+		 * Change the redirection link
+		 *
+		 * @param string The url
+		 */
 		return apply_filters( 'wc4bp_get_redirect_link', $link );
 	}
-	
+
 	/**
 	 * Change core related urls
 	 *
@@ -190,15 +203,20 @@ class wc4bp_redirect {
 		if ( ! is_user_logged_in() || is_admin() ) {
 			return $link;
 		}
-		
+
 		$new_link = $this->redirect_link( $id );
 		if ( ! empty( $new_link ) ) {
 			$link = $new_link;
 		}
-		
+
+		/**
+		 * Change the route of the link
+		 *
+		 * @param string The url
+		 */
 		return apply_filters( 'wc4bp_router_link', $link );
 	}
-	
+
 	/**
 	 * Redirect core related urls
 	 *
@@ -215,7 +233,7 @@ class wc4bp_redirect {
 			return false;
 		}
 		$link = $this->redirect_link( $post->ID );
-		
+
 		if ( ! empty( $link ) ) {
 			wp_safe_redirect( $link );
 			exit;
@@ -223,7 +241,7 @@ class wc4bp_redirect {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Get the top parent of a post id
 	 *

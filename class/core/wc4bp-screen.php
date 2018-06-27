@@ -24,7 +24,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @uses    apply_filters()
  */
 function wc4bp_screen_cart() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_cart', 'shop/member/cart' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_cart', 'shop/member/cart' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -38,7 +44,13 @@ function wc4bp_screen_cart() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_checkout() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_checkout', 'shop/member/checkout' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_checkout', 'shop/member/checkout' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -52,7 +64,13 @@ function wc4bp_screen_checkout() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_history() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_history', 'shop/member/history' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_history', 'shop/member/history' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -66,7 +84,13 @@ function wc4bp_screen_history() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_track() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_track', 'shop/member/track' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_track', 'shop/member/track' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -80,7 +104,13 @@ function wc4bp_screen_track() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_orders() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_order', 'shop/member/orders' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_order', 'shop/member/orders' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -94,7 +124,13 @@ function wc4bp_screen_orders() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_downloads() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_download', 'shop/member/download' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_download', 'shop/member/download' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -108,7 +144,13 @@ function wc4bp_screen_downloads() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_edit_account() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_edit_account', 'shop/member/edit-account' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_edit_account', 'shop/member/edit-account' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -122,7 +164,13 @@ function wc4bp_screen_edit_account() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_edit_address() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_edit_address', 'shop/member/edit-address' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_edit_address', 'shop/member/edit-address' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -136,7 +184,13 @@ function wc4bp_screen_edit_address() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_payment_methods() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_payment_methods', 'shop/member/payment-methods' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_payment_methods', 'shop/member/payment-methods' );
+	bp_core_load_template( $screen_path );
 }
 
 /**

@@ -58,12 +58,22 @@
 					);
 				}
 			}
+			/**
+			 * Change the Argument for the wp_query to get the current page to show inside a tab
+             *
+             * @param array argument for WP_Query
+			 */
 			$args = apply_filters( 'wc4bp_members_plugin_template_query', $args );
 	}
 
 	if ( $my_account_page <= 1 ) {
 		$wp_query2 = new wp_query( $args );
 		if ( ! empty( $wp_query2->posts ) ) {
+			/**
+			 * Define the custom page template to load the tabs
+             *
+             * @param string Empty string by default
+			 */
 			$custom_page_template = apply_filters( 'wc4bp_custom_page_template', '' );
 			if ( empty( $custom_page_template ) ) {
 				$old_post = $post;
