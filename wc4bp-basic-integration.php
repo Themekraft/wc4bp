@@ -94,6 +94,9 @@ class WC4BP_Loader {
 			require_once dirname( __FILE__ ) . '/class/wc4bp-upgrade.php';
 			// Init Freemius.
 			self::$freemius = $this->wc4bp_fs();
+			/**
+			 * Execute on freemius load to notify the addons
+			 */
 			do_action( 'wc4bp_core_fs_loaded' );
 			$requirements = new WC4BP_Required_PHP( 'wc4bp' );
 			if ( $requirements->satisfied() ) {

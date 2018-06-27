@@ -82,7 +82,7 @@ class WC4BP_Component extends BP_Component {
 	}
 	
 	/**
-	 * Register acctivity actions
+	 * Register activity actions
 	 *
 	 * @since     1.0.4
 	 */
@@ -93,6 +93,9 @@ class WC4BP_Component extends BP_Component {
 			}
 			bp_activity_set_action( $this->id, 'new_shop_review', __( 'New review created', 'wc4bp' ) );
 			bp_activity_set_action( $this->id, 'new_shop_purchase', __( 'New purchase made', 'wc4bp' ) );
+			/**
+			 * New activity register
+			 */
 			do_action( 'wc4bp_register_activity_actions' );
 		}
 		catch ( Exception $exception ) {
@@ -234,6 +237,9 @@ class WC4BP_Component extends BP_Component {
 			 * @param string Unique slug for the component, for use in query strings and URLs.
 			 */
 			$sub_nav = apply_filters( 'bp_shop_sub_nav', $sub_nav, $shop_link, $this->slug );
+			/**
+			 * The navigation of the plugin is ready for setup
+			 */
 			do_action( 'bp_shop_setup_nav' );
 			parent::setup_nav( $main_nav, $sub_nav );
 		}

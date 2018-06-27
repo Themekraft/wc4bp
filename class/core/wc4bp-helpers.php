@@ -38,8 +38,7 @@ function wc4bp_load_template_filter( $found_template, $templates ) {
 		} else {
 			return $found_template;
 		}
-	}
-	catch ( Exception $exception ) {
+	} catch ( Exception $exception ) {
 		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 	}
 }
@@ -64,8 +63,7 @@ function wc4bp_load_template( $template_name ) {
 		}
 
 		include( $located );
-	}
-	catch ( Exception $exception ) {
+	} catch ( Exception $exception ) {
 		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 	}
 }
@@ -86,13 +84,13 @@ function wc4bp_get_settings_link() {
 }
 
 function wc4bp_my_downloads_shortcode( $atts ) {
-	return wc_get_template( 'myaccount/my-downloads.php' );
+	wc_get_template( 'myaccount/my-downloads.php' );
 }
 
 add_shortcode( 'wc4bp_my_downloads', 'wc4bp_my_downloads_shortcode' );
 
 function wc4bp_my_addresses_shortcode( $atts ) {
-	return wc_get_template( 'myaccount/my-address.php' );
+	wc_get_template( 'myaccount/my-address.php' );
 }
 
 add_shortcode( 'wc4bp_my_addresses', 'wc4bp_my_addresses_shortcode' );
@@ -101,12 +99,16 @@ function wc4bp_my_recent_orders_shortcode( $atts ) {
 	try {
 		global $bp;
 		if ( ! isset( $bp->action_variables[1] ) ) {
-			return wc_get_template( 'myaccount/my-orders.php', array( 'order_count' => 0 ) );
+			wc_get_template( 'myaccount/my-orders.php', array( 'order_count' => 0 ) );
 		} else {
-			return do_action( 'woocommerce_view_order', $bp->action_variables[1] );
+			/**
+			 * Execute the action from woo to view the order details
+			 *
+			 * @param string|int The order id
+ 			 */
+			do_action( 'woocommerce_view_order', $bp->action_variables[1] );
 		}
-	}
-	catch ( Exception $exception ) {
+	} catch ( Exception $exception ) {
 		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 	}
 }
@@ -116,19 +118,13 @@ add_shortcode( 'wc4bp_my_recent_orders', 'wc4bp_my_recent_orders_shortcode' );
 /*
  * Inserts a new key/value after the key in the array.
  *
- * @param $key
- *   The key to insert after.
- * @param $array
- *   An array to insert in to.
- * @param $new_key
- *   The key to insert.
- * @param $new_value
- *   An value to insert.
+ * @param $key The key to insert after.
+ * @param $array An array to insert in to.
+ * @param $new_key The key to insert.
+ * @param $new_value An value to insert.
  *
- * @return
- *   The new array if the key exists, FALSE otherwise.
+ * @return The new array if the key exists, FALSE otherwise.
  *
- * @see array_insert_before()
  */
 function wc4bp_array_insert_after( $key, array &$array, $new_key, $new_value ) {
 	if ( array_key_exists( $key, $array ) ) {

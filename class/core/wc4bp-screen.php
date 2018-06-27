@@ -204,6 +204,9 @@ function wc4bp_screen_settings() {
 		if ( ! bp_is_settings_component() || bp_current_action() !== wc4bp_Manager::get_shop_slug() ) {
 			return false;
 		}
+		/**
+		 * Start the setting for the setting screen
+		 */
 		do_action( 'wc4bp_screen_settings' );
 		$wc4bp_values = Request_Helper::get_post_param( 'wc4bp' );
 		if ( ! empty( $wc4bp_values ) ) {
@@ -222,12 +225,24 @@ function wc4bp_screen_settings() {
 			$reviews_2_activity   = ( in_array( $review2, $yes_no, true ) ) ? $review2 : 'yes';
 			$purchases_2_activity = ( in_array( $purchases, $yes_no, true ) ) ? $purchases : 'yes';
 
+			/**
+			 * Before update user settings
+             *
+             * @param int The user id
+             * @param var The value
+			 */
 			do_action( 'wc4bp_pre_update_user_settings', bp_displayed_user_id(), $wc4bp_values );
 
 			// save them
 			bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_reviews', $reviews_2_activity );
 			bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_purchases', $purchases_2_activity );
 
+			/**
+			 * After update user settings
+			 *
+			 * @param int The user id
+			 * @param var The value
+			 */
 			do_action( 'wc4bp_post_update_user_settings', bp_displayed_user_id(), $wc4bp_values );
 
 			// Set the feedback messages
@@ -262,12 +277,6 @@ function wc4bp_screen_settings_title() {
 
 /**
  * Content of the Settings page
- *
- * @since    unknown
- * @uses    bp_is_settings_component()
- * @uses    bp_current_action()
- * @uses    bp_get_user_meta()
- * @uses    do_action()
  */
 function wc4bp_screen_settings_content() {
 	try {
@@ -304,11 +313,14 @@ function wc4bp_screen_settings_content() {
                     <td class="no"><input type="radio" name="wc4bp[purchases_2_activity]" value="no" <?php checked( $shop_purchases, 'no', true ) ?>/></td>
                 </tr>
 
-				<?php do_action( 'wc4bp_screen_notification_activity_settings' ); ?>
+				<?php
+				/**
+				 * Setting screen for Activity Stream executed
+				 */
+                do_action( 'wc4bp_screen_notification_activity_settings' );
+                ?>
                 </tbody>
             </table>
-
-			<?php do_action( 'wc4bp_screen_notification_settings' ); ?>
 
             <div class="submit">
                 <input type="submit" name="submit" value="<?php _e( 'Save Changes', 'wc4bp' ); ?>" id="submit" class="auto">
