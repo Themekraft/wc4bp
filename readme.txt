@@ -141,8 +141,8 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 = 3.1.2 20 April 2018 =
 * Adding custom message to check dependency.
 * Changing the requirement library to use a custom internal id.
-* Adding woocoomerce minimun version compatibility header.
-* Removing edd migration script.
+* Adding WooCommerce minimum version compatibility header.
+* Removing EDD migration script.
 * Enabling trials in the code.
 
 = 3.1.1 9 March 2018 =
@@ -163,7 +163,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Updating localization files to include new strings.
 
 = 3.0.20 18 January 2018 =
-* Fixing the url redirection for the WooCommerce my account when the shop option is disable.
+* Fixing the url redirection for the WooCommerce my account when the shop option is disabled.
 * Adding a described text to the shop option in the settings.
 * Fixing the order detail 404 when the redirection is of.
 * Fixing the User fields to keep in the WooCommerce Session.
@@ -200,8 +200,8 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Changing the core to be responsible to update the bp/user profield fields, not the x-profile.
 * Disabling the error handler. To improve when massive error comes.
 * Fixing the header of the status section to improve the filter to add custom attributes to the header of each section.
-* Adding extra information to the status section related to the buddypress xprofield groups and fields. This time get all groups and fields.
-* Optimizing the load of the xprofield field ids from our settings to use a cached version.
+* Adding extra information to the status section related to the BuddyPress xProfile groups and fields. This time get all groups and fields.
+* Optimizing the load of the xProfile field ids from our settings to use a cached version.
 
 = 3.0.14 27 November 2017 =
 * Create the status menu option.
@@ -244,7 +244,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 = 3.0.12 12 August 2017 =
 * Adjust the default tab logic. If the cart tab is disabled, the next active tab is set as default tab. If no other tab was previously set as default.
 * Added missing string translation
-* Removing the edd migration
+* Removing the EDD migration
 * when working with the free version, put the option 'Select the tab you want to use as your Shop Home' disabled
 * add the shops tab to the 'Select the tab you want to use as your Shop Home.' dropdown
 * now when all the tabs are disabled, if there are custom page, it shows as default tab. when all the tabs are disbled and no custom page were added, the shop turn of until a tab or custom page is enabled
@@ -271,7 +271,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Multiples fixing
 * Updating the readme to hold new work conventions. props @gfirem for improving the workflow with gitflow
 * Changing the initialization hook. Checking if the shop if enabled to process the links.
-* Checking if xprofile is active in buddypress
+* Checking if xProfile is active in BuddyPress
 
 = 3.0.8 Jun 27.2017 =
 * Updated freemius
@@ -282,7 +282,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Added an extra check to avoid notice in the page loop in the WordPress backend.
 * Fixed an issue with WooCommerce 3.0. The BP fields on the checkout disappeared.
 * Fixed an issue when try to "Sync Profile Fields" returned value of 0.
-* Fixed Redundant code to sync xprofile
+* Fixed Redundant code to sync xProfile
 * Fixed order id for compatibility with woo 3.0
 * Fixed the check for post_type in the post list when add the mark #73
 * Resolving the issue to delete integrated page with encoding characters and fix the component to show the content #74
