@@ -1,7 +1,7 @@
 <?php
 /**
  * @package        WordPress
- * @subpackage     BuddyPress, Woocommerce
+ * @subpackage     BuddyPress, WooCommerce
  * @author         GFireM
  * @copyright      2017, Themekraft
  * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
@@ -43,10 +43,10 @@ class wc4bp_admin_sync extends wc4bp_base {
 	public function wc4bp_register_admin_settings_sync() {
 		try {
 			if ( ! bp_is_active( 'xprofile' ) ) {
-				add_settings_section( 'section_sync', __( 'Profile Field Synchronisation Settings', 'wc4bp' ), array( $this, 'need_xprofile' ), 'wc4bp_options_sync' );
+				add_settings_section( 'section_sync', __( 'Profile Field Synchronization Settings', 'wc4bp' ), array( $this, 'need_xprofile' ), 'wc4bp_options_sync' );
 			} else {
 				// Settings fields and sections
-				add_settings_section( 'section_sync', __( 'Profile Field Synchronisation Settings', 'wc4bp' ), '', 'wc4bp_options_sync' );
+				add_settings_section( 'section_sync', __( 'Profile Field Synchronization Settings', 'wc4bp' ), '', 'wc4bp_options_sync' );
 				add_settings_section( 'section_general', __( 'Default BuddyPress WooCommerce Profile Field Settings', 'wc4bp' ), '', 'wc4bp_options_sync' );
 				add_settings_field( 'wc4bp_shop_profile_sync', __( '<b>Woo & BP Profile Fields Sync </b>', 'wc4bp' ), array( $this, 'wc4bp_shop_profile_sync' ), 'wc4bp_options_sync', 'section_sync' );
 				add_settings_field( 'wc4bp_change_xprofile_visibility_by_user', __( '<b>Profile Field Visibility</b>', 'wc4bp' ), array( $this, 'wc4bp_change_xprofile_visibility_by_user' ), 'wc4bp_options_sync', 'section_sync' );
