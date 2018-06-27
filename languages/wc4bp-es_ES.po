@@ -465,7 +465,7 @@ msgstr "Elija una página existente"
 
 #: admin/views/pages/html_admin_pages_edit_entry.php:6
 msgid "Include Children?"
-msgstr "Incluye niños?"
+msgstr "Incluye hijos?"
 
 #: admin/views/pages/html_admin_pages_edit_entry.php:9, admin/views/pages/html_admin_pages_forms_table.php:12
 msgid "Tab Name"
