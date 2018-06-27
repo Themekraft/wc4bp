@@ -16,7 +16,7 @@
 		$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
 	}
 	$my_account_page    = 0;
-	$available_endpoint = WC4BP_MyAccount::get_active_endpoints__premium_only();
+	$available_endpoint = WC4BP_MyAccount::get_active_endpoints();
 	if ( ! empty( $available_endpoint ) ) {
 		foreach ( $available_endpoint as $available_endpoint_key => $available_endpoint_name ) {
 			$current_page = $available_endpoint_key;

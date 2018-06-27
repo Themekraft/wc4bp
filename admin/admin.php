@@ -270,7 +270,7 @@ class wc4bp_admin extends wc4bp_base {
 			}
 
 			if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
-				$woo_my_account = WC4BP_MyAccount::get_active_endpoints__premium_only();
+				$woo_my_account = WC4BP_MyAccount::get_active_endpoints();
 				if ( ! empty( $woo_my_account ) ) {
 					foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
 						$wc4bp_pages_options['selected_pages'][ $active_page_key ] = array(
@@ -344,7 +344,7 @@ class wc4bp_admin extends wc4bp_base {
 			}
 
 			//Add the actives my account pages to the option array
-			$woo_my_account = WC4BP_MyAccount::get_active_endpoints__premium_only();
+			$woo_my_account = WC4BP_MyAccount::get_active_endpoints();
 			if ( ! empty( $woo_my_account ) ) {
 				foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
 					$wc4bp_pages_options['selected_pages'][ $active_page_key ] = array(

@@ -84,7 +84,7 @@ class WC4BP_MyAccount {
 		try {
 			global $bp;
 			
-			$wc4bp_endpoint = WC4BP_MyAccount::get_active_endpoints__premium_only();
+			$wc4bp_endpoint = WC4BP_MyAccount::get_active_endpoints();
 			
 			if ( ! empty( $wc4bp_endpoint ) ) {
 				foreach ( $wc4bp_endpoint as $active_page_key => $active_page_name ) {
@@ -219,7 +219,7 @@ class WC4BP_MyAccount {
 		return null;
 	}
 	
-	public static function get_active_endpoints__premium_only() {
+	public static function get_active_endpoints() {
 		try {
 			$result    = array();
 			$available = self::get_available_endpoints();
