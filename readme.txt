@@ -53,7 +53,7 @@ Overview over the plugin options [youtube https://www.youtube.com/watch?v=DtPk-W
 ---
 
 ### Blog Posts
-[Why You Should Build Your Online Shop With WordPress, BuddyPress and WooCommerce](https://themekraft.com/why-you-should-build-your-online-shop-with-wordpress-buddypress-and-WooCommerce/)
+[Why You Should Build Your Online Shop With WordPress, BuddyPress and WooCommerce](https://themekraft.com/why-you-should-build-your-online-shop-with-wordpress-buddypress-and-woocommerce/)
 
 
 > #### AddOns
