@@ -647,7 +647,7 @@ msgstr "Name"
 
 #: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:21
 msgid "E-mail"
-msgstr "Email"
+msgstr "E-mail"
 
 #: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:24
 msgid "Role"

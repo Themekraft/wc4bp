@@ -33,7 +33,7 @@ function wc4bp_load_template_filter( $found_template, $templates ) {
 					$filtered_templates[] = WC4BP_ABSPATH . 'templates/' . $template;
 				}
 			}
-			
+
 			return apply_filters( 'wc4bp_load_template_filter', $filtered_templates[0] );
 		} else {
 			return $found_template;
@@ -54,7 +54,7 @@ function wc4bp_load_template_filter( $found_template, $templates ) {
 function wc4bp_load_template( $template_name ) {
 	try {
 		global $bp;
-		
+
 		if ( file_exists( STYLESHEETPATH . '/' . $template_name . '.php' ) ) {
 			$located = STYLESHEETPATH . '/' . $template_name . '.php';
 		} elseif ( file_exists( TEMPLATEPATH . '/' . $template_name . '.php' ) ) {
@@ -62,7 +62,7 @@ function wc4bp_load_template( $template_name ) {
 		} else {
 			$located = WC4BP_ABSPATH . 'templates/' . $template_name . '.php';
 		}
-		
+
 		include( $located );
 	}
 	catch ( Exception $exception ) {
@@ -85,18 +85,18 @@ function wc4bp_checkout_url( $url ) {
 	$default = $url;
 	try {
 		$wc4bp_options = get_option( 'wc4bp_options' );
-		
+
 		if ( isset( $wc4bp_options['tab_cart_disabled'] ) ) {
 			return $url;
 		}
-		
+
 		echo $url;
-		
+
 		return ( is_user_logged_in() ) ? apply_filters( 'wc4bp_checkout_url', bp_loggedin_user_domain() . wc4bp_Manager::get_shop_slug() . '/home/checkout/' ) : $url;
 	}
 	catch ( Exception $exception ) {
 		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-		
+
 		return $default;
 	}
 }
@@ -147,23 +147,23 @@ function wc4bp_loader_review_activity( $comment_id, $comment_data ) {
 		if ( ! bp_is_active( 'activity' ) ) {
 			return false;
 		}
-		
+
 		// Get the product data
 		$product = get_post( $comment_data->comment_post_ID );
-		
+
 		if ( $product->post_type != 'product' ) {
 			return false;
 		}
-		
+
 		$user_id = apply_filters( 'wc4bp_loader_review_activity_user_id', $comment_data->user_id );
-		
+
 		// check that user enabled updating the activity stream
 		if ( bp_get_user_meta( $user_id, 'notification_activity_shop_reviews', true ) == 'no' ) {
 			return false;
 		}
-		
+
 		$user_link = bp_core_get_userlink( $user_id );
-		
+
 		// record the activity
 		bp_activity_add( array(
 			'user_id'   => $user_id,
@@ -214,9 +214,9 @@ function wc4bp_loader_purchase_activity( $order_id ) {
 		if ( ! bp_is_active( 'activity' ) ) {
 			return;
 		}
-		
+
 		$order = new WC_Order( $order_id );
-		
+
 		if ( $order->get_status() != 'completed' ) {
 			return;
 		}
@@ -227,7 +227,7 @@ function wc4bp_loader_purchase_activity( $order_id ) {
 		}
 
         $user_link = bp_core_get_userlink( $order->get_customer_id() );
-		
+
 		// if several products - combine them, otherwise - display the product name
 		$products = $order->get_items();
 		$names    = array();
@@ -235,7 +235,7 @@ function wc4bp_loader_purchase_activity( $order_id ) {
 		foreach ( $products as $product ) {
 			$names[] = '<a href="' . $product->get_product()->get_permalink() . '">' . $product->get_product()->get_name() . '</a>';
 		}
-		
+
 		// record the activity
 		bp_activity_add( array(
 			'user_id'   => $order->get_user_id(),
@@ -288,3 +288,36 @@ function wc4bp_my_recent_orders_shortcode( $atts ) {
 }
 
 add_shortcode( 'wc4bp_my_recent_orders', 'wc4bp_my_recent_orders_shortcode' );
+
+/*
+ * Inserts a new key/value after the key in the array.
+ *
+ * @param $key
+ *   The key to insert after.
+ * @param $array
+ *   An array to insert in to.
+ * @param $new_key
+ *   The key to insert.
+ * @param $new_value
+ *   An value to insert.
+ *
+ * @return
+ *   The new array if the key exists, FALSE otherwise.
+ *
+ * @see array_insert_before()
+ */
+function wc4bp_array_insert_after( $key, array &$array, $new_key, $new_value ) {
+	if ( array_key_exists( $key, $array ) ) {
+		$new = array();
+		foreach ( $array as $k => $value ) {
+			$new[ $k ] = $value;
+			if ( $k === $key ) {
+				$new[ $new_key ] = $new_value;
+			}
+		}
+
+		return $new;
+	}
+
+	return false;
+}

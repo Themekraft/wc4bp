@@ -1,167 +1,179 @@
-var gulp = require('gulp');
-var path = require('path');
-var filesystem = require('fs');
-var wpPot = require('gulp-wp-pot');
-var gettext = require('gulp-gettext');
-var sort = require('gulp-sort');
-var pofill = require('gulp-pofill');
-var rename = require('gulp-rename');
-var clean = require('gulp-clean');
+/**
+ * Gulpfile.
+ *
+ * A simple implementation of Gulp.
+ *
+ * Implements:
+ *            1. CSS concatenation and minification
+ *            2. JS concatenation
+ *            3. Watch files
+ *
+ * @since 3.1.6
+ * @author Guillermo Figueroa Mesa (@gfirem)
+ */
 
-var languagesFolder = './languages/';
+/**
+ * Configuration.
+ */
+const styleDir = './admin/css/*.css';
+const styleDestination = './admin/css/';
+const jsDir = './admin/js/*.js';
+const jsDestination = './admin/js/';
+const styleWatchFiles = './admin/css/*.css';
+const jsWatchFiles = './admin/js/*.js';
+const languagesFolder = './languages/';
+const languages = [
+    {
+        lang: 'en',
+        spec: 'US'
+    },
+    {
+        lang: 'es',
+        spec: 'ES'
+    },
+    {
+        lang: 'fr',
+        spec: 'FR'
+    },
+    {
+        lang: 'nb',
+        spec: 'NO'
+    },
+    {
+        lang: 'pt',
+        spec: 'BR'
+    },
+];
+/**
+ * Load modules
+ */
+require('dotenv').config();
+const gulp = require('gulp');
+const minifycss = require('gulp-uglifycss');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const rename = require('gulp-rename');
+const notify = require('gulp-notify');
+const clean = require('gulp-clean');
+const stripDebug = require('gulp-strip-debug');
+const eslint = require('gulp-eslint');
+const wpPot = require('gulp-wp-pot');
+const pofill = require('gulp-pofill');
+const gettext = require('gulp-gettext');
+const googleTranslate = require('google-translate')(process.env.GOOGLE_API);
 
-var options = require('./transifex-config.json');
+gulp.task('lint', () => {
+    return gulp.src([jsDir, '!node_modules/**'])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
+});
 
-function getFolders(dir) {
-    return filesystem.readdirSync(dir)
-        .filter(function (file) {
-            return filesystem.statSync(path.join(dir, file)).isDirectory();
-        });
-}
-
-var transifex = require('gulp-transifex').createClient(options);
-
-// Create POT out of i18n.php.
-gulp.task('prepare-source', function () {
-    gulp.src('**/*.php')
-        .pipe(sort())
+//Extract localization strings and translate it with google
+gulp.task('prepare-localization', function() {
+    return gulp.src('./**/*.php')
         .pipe(wpPot({
-            destFile        : 'freemius.pot',
-            package         : 'freemius',
-            bugReport       : 'https://github.com/Freemius/wordpress-sdk/issues',
-            lastTranslator  : 'Vova Feldman <vova@freemius.com>',
-            team            : 'Freemius Team <admin@freemius.com>',
-            /*gettextMethods: {
-                instances: ['this', '_fs'],
-                methods: [
-                    'get_text_inline'
-                ]
-            },*/
+            domain: 'wc4bp',
+            package: 'WooCommerce BuddyPress Integration',
+            bugReport: 'https://github.com/Themekraft/wc4bp/issues',
+            lastTranslator: 'Sven Lehnert <svenl@themekraft.com>',
+            team: 'ThemeKraft Team <svenl@themekraft.com>',
             gettextFunctions: [
-                {name: 'get_text_inline'},
-
-                {name: 'fs_text_inline'},
-                {name: 'fs_echo_inline'},
-                {name: 'fs_esc_js_inline'},
-                {name: 'fs_esc_attr_inline'},
-                {name: 'fs_esc_attr_echo_inline'},
-                {name: 'fs_esc_html_inline'},
-                {name: 'fs_esc_html_echo_inline'},
-
-                {name: 'get_text_x_inline', context: 2},
-                {name: 'fs_text_x_inline', context: 2},
-                {name: 'fs_echo_x_inline', context: 2},
-                {name: 'fs_esc_attr_x_inline', context: 2},
-                {name: 'fs_esc_js_x_inline', context: 2},
-                {name: 'fs_esc_js_echo_x_inline', context: 2},
-                {name: 'fs_esc_html_x_inline', context: 2},
-                {name: 'fs_esc_html_echo_x_inline', context: 2}
-                /*,
-
-
-                {name: '_fs_text'},
-                {name: '_fs_x', context: 2},
-                {name: '_fs_echo'},
-                {name: '_fs_esc_attr'},
-                {name: '_fs_esc_attr_echo'},
-                {name: '_fs_esc_html'},
-                {name: '_fs_esc_html_echo'},
-                {name: '_fs_ex', context: 2},
-                {name: '_fs_esc_attr_x', context: 2},
-                {name: '_fs_esc_html_x', context: 2},
-
-                {name: '_fs_n', plural: 2},
-                {name: '_fs_n_noop', plural: 2},
-                {name: '_fs_nx', plural: 2, context: 4},
-                {name: '_fs_nx_noop', plural: 2, context: 3}*/
+                {name: '__'},
+                {name: '_e'},
+                {name: 'esc_html__'},
+                {name: 'esc_html_e'},
+                {name: '_x', context: 2},
+                {name: '_esc_attr'},
+                {name: '_esc_attr_echo'},
+                {name: '_esc_html'},
+                {name: '_esc_html_echo'},
+                {name: '_ex', context: 2},
+                {name: '_esc_attr_x', context: 2},
+                {name: '_esc_html_x', context: 2},
+                {name: '_n', plural: 2},
+                {name: '_n_noop', plural: 2},
+                {name: '_nx', plural: 2, context: 4},
+                {name: '_nx_noop', plural: 2, context: 3}
             ]
         }))
-        .pipe(gulp.dest(languagesFolder + 'freemius.pot'));
-
-    // Create English PO out of the POT.
-    return gulp.src(languagesFolder + 'freemius.pot')
-        .pipe(pofill({
-            items: function (item) {
-                // If msgstr is empty, use identity translation
-                if (!item.msgstr.length) {
-                    item.msgstr = [''];
-                }
-                if (!item.msgstr[0]) {
-                    item.msgstr[0] = item.msgid;
-                }
-                return item;
-            }
-        }))
-        .pipe(rename('freemius-en.po'))
-        .pipe(gulp.dest(languagesFolder));
+        .pipe(gulp.dest(languagesFolder + 'wc4bp.pot'));
 });
 
-// Push updated po resource to transifex.
-gulp.task('update-transifex', ['prepare-source'], function () {
-    return gulp.src(languagesFolder + 'freemius-en.po')
-        .pipe(transifex.pushResource());
-});
-
-// Download latest *.po translations.
-gulp.task('download-translations', ['update-transifex'], function () {
-    return gulp.src(languagesFolder + 'freemius-en.po')
-        .pipe(transifex.pullResource());
-});
-
-// Move translations to languages root.
-gulp.task('prepare-translations', ['download-translations'], function () {
-    var folders = getFolders(languagesFolder);
-
-    return folders.map(function (folder) {
-        return gulp.src(path.join(languagesFolder, folder, 'freemius-en.po'))
-            .pipe(rename('freemius-' + folder + '.po'))
-            .pipe(gulp.dest(languagesFolder));
+//Extract localization strings and translate it with google
+gulp.task('translate', ['prepare-localization'], function() {
+    let task = [];
+    //Create the es po file
+    languages.forEach((lang) => {
+        task.push(
+            gulp.src(languagesFolder + 'wc4bp.pot')
+                .pipe(pofill({
+                    items: function(item) {
+                        return new Promise((resolve) => {
+                            // If msgstr is empty, use identity translation
+                            if (!item.msgstr.length) {
+                                item.msgstr = [''];
+                            }
+                            if (!item.msgstr[0]) {
+                                googleTranslate.translate(item.msgid, lang.lang, function(err, translation) {
+                                    if (translation && translation.translatedText) {
+                                        item.msgstr[0] = translation.translatedText;
+                                    }
+                                    resolve(item);
+                                });
+                            } else {
+                                resolve(item);
+                            }
+                        });
+                    }
+                }))
+                .pipe(rename('wc4bp-' + lang.lang + '_' + lang.spec.toUpperCase() + '.po'))
+                .pipe(gulp.dest(languagesFolder))
+        );
     });
-});
-
-// Feel up empty translations with English.
-gulp.task('translations-feelup', ['prepare-translations'], function () {
-    return gulp.src(languagesFolder + '*.po')
-        .pipe(pofill({
-            items: function (item) {
-                // If msgstr is empty, use identity translation
-                if (0 == item.msgstr.length) {
-                    item.msgstr = [''];
-                }
-                if (0 == item.msgstr[0].length) {
-//                    item.msgid[0] = item.msgid;
-                    item.msgstr[0] = item.msgid;
-                }
-                return item;
-            }
-        }))
-        .pipe(gulp.dest(languagesFolder));
-});
-
-// Cleanup temporary translation folders.
-gulp.task('cleanup', ['prepare-translations'], function () {
-    var folders = getFolders(languagesFolder);
-
-    return folders.map(function (folder) {
-        return gulp.src(path.join(languagesFolder, folder), {read: false})
-            .pipe(clean());
-    });
+    return task;
 });
 
 // Compile *.po to *.mo binaries for usage.
-gulp.task('compile-translations', ['translations-feelup'], function () {
-    // Compile POs to MOs.
+gulp.task('compile-translations', ['translate'], function() {
     return gulp.src(languagesFolder + '*.po')
         .pipe(gettext())
         .pipe(gulp.dest(languagesFolder))
 });
 
-gulp.task('default', [], function () {
-    gulp.run('prepare-source');
-    gulp.run('update-transifex');
-    gulp.run('download-translations');
-    gulp.run('prepare-translations');
-    gulp.run('translations-feelup');
-    gulp.run('cleanup');
+gulp.task('clean-min-styles', function() {
+    return gulp.src(styleDestination + '*.min.css', {read: false})
+        .pipe(clean({force: true}));
+});
+
+gulp.task('clean-min-js', function() {
+    return gulp.src(jsDestination + '*.min.js', {read: false})
+        .pipe(clean({force: true}));
+});
+
+gulp.task('styles', ['clean-min-styles'], function() {
+    gulp.src(styleDir)
+        .pipe(rename({suffix: '.min'}))
+        .pipe(minifycss({
+            maxLineLen: 10
+        }))
+        .pipe(gulp.dest(styleDestination))
+        .pipe(notify({message: 'TASK: "CSS" Completed!', onLast: true}))
+});
+
+gulp.task('js', ['clean-min-js'], function() {
+    gulp.src(jsDir)
+        .pipe(rename({suffix: '.min'}))
+        .pipe(uglify())
+        .pipe(stripDebug())
+        .pipe(gulp.dest(jsDestination))
+        .pipe(notify({message: 'TASK: "JS" Completed!', onLast: true}));
+});
+
+gulp.task('default', [], function() {
+    gulp.run('styles');
+    gulp.run('js');
+    gulp.run('prepare-localization');
+    gulp.run('translate');
     gulp.run('compile-translations');
 });
