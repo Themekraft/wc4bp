@@ -280,9 +280,9 @@ class wc4bp_Manager {
 	}
 
 	public static function assets_path( $name, $extension = 'js' ) {
-		$base_path         = ( $extension == 'js' ) ? WC4BP_JS : WC4BP_CSS;
-		$join_ext_and_name = ( ! defined( SCRIPT_DEBUG ) ) ? '.min.' : '.';
+		$base_path = ( $extension == 'js' ) ? WC4BP_JS : WC4BP_CSS;
+		$suffix    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		return $base_path . $name . $join_ext_and_name . $extension;
+		return $base_path . $name . $suffix . '.' . $extension;
 	}
 }
