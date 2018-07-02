@@ -23,7 +23,7 @@ class WC4BP_Component extends BP_Component {
 	public $template_directory;
 	private $wc4bp_pages_options;
 	private $wc4bp_options;
-	
+
 	/**
 	 * Start the shop component creation process
 	 *
@@ -48,7 +48,7 @@ class WC4BP_Component extends BP_Component {
 		add_action( 'bp_register_activity_actions', array( $this, 'register_activity_actions' ) );
 		add_filter( 'bp_located_template', array( $this, 'wc4bp_members_load_template_filter' ), 10, 2 );
 	}
-	
+
 	/**
 	 * Include files
 	 *
@@ -80,7 +80,7 @@ class WC4BP_Component extends BP_Component {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-	
+
 	/**
 	 * Register activity actions
 	 *
@@ -102,7 +102,7 @@ class WC4BP_Component extends BP_Component {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-	
+
 	/**
 	 * Setup globals
 	 *
@@ -130,7 +130,7 @@ class WC4BP_Component extends BP_Component {
 	public function get_nav_item( $shop_link, $slug, $title, $screen_function = '' ) {
 		$id              = str_replace( '-', '_', $slug );
 		$screen_function = empty( $screen_function ) ? 'wc4bp_screen_' . $id : $screen_function;
-		
+
 		return array(
 			'name'            => $title,
 			'slug'            => $slug,
@@ -148,7 +148,7 @@ class WC4BP_Component extends BP_Component {
 			'user_has_access' => bp_is_my_profile(),
 		);
 	}
-	
+
 	/**
 	 * Setup BuddyBar navigation
 	 *
@@ -189,9 +189,9 @@ class WC4BP_Component extends BP_Component {
 				'show_for_displayed_user' => false,
 			);
 			$shop_link = trailingslashit( bp_loggedin_user_domain() . $this->slug );
-			
+
 			$sub_nav = $this->get_endpoints( $sub_nav, $shop_link );
-			
+
 			// Add shop settings sub page
 			if ( ! isset( $this->wc4bp_options['disable_shop_settings_tab'] ) ) {
 //				if ( ! function_exists( 'bp_get_settings_slug' ) ) {
@@ -247,7 +247,7 @@ class WC4BP_Component extends BP_Component {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-	
+
 	public function get_admin_bar_item( $parent, $slug, $title ) {
 		$id     = str_replace( '-', '_', $slug );
 		$result = array(
@@ -256,10 +256,10 @@ class WC4BP_Component extends BP_Component {
 			'title'  => $title,
 			'href'   => trailingslashit( $parent . $slug ),
 		);
-		
+
 		return $result;
 	}
-	
+
 	/**
 	 * Set up the Toolbar
 	 *
@@ -340,7 +340,7 @@ class WC4BP_Component extends BP_Component {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-	
+
 	/**
 	 * WC4BP template loader.
 	 * @since 1.0
@@ -413,7 +413,9 @@ class WC4BP_Component extends BP_Component {
 				$path = $this->get_endpoint_path( $bp->current_action );
 			}
 			add_action( 'bp_template_content',
-				create_function( '', "bp_get_template_part( '" . $path . "' );" )
+				function () use ( $path ) {
+					bp_get_template_part( $path );
+				}
 			);
 			/**
 			 * Filter the founded template.
@@ -426,7 +428,7 @@ class WC4BP_Component extends BP_Component {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-	
+
 	public function get_endpoint_path( $endpoint ) {
 		global $bp;
 		switch ( $endpoint ) {
@@ -467,7 +469,7 @@ class WC4BP_Component extends BP_Component {
 			default:
 				$path = 'shop/member/plugin';
 				break;
-			
+
 		}
 		/**
 		 * Filter the template path.
@@ -477,7 +479,7 @@ class WC4BP_Component extends BP_Component {
 		 */
 		return apply_filters( 'wc4bp_load_template_path', $path, $this->template_directory );
 	}
-	
+
 	/**
 	 * Get the WC4BP template directory
 	 *
@@ -490,7 +492,7 @@ class WC4BP_Component extends BP_Component {
 	public function wc4bp_members_get_template_directory() {
 		return $this->template_directory;
 	}
-	
+
 	/**
 	 * @param      $sub_nav
 	 * @param      $parent
@@ -535,7 +537,7 @@ class WC4BP_Component extends BP_Component {
 				}
 			}
 		}
-		
+
 		return $sub_nav;
 	}
 }
