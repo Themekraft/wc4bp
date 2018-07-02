@@ -110,7 +110,12 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 = 3.1.8 27 Jun 2018 =
 * Fixing the get active endpoint function to work in the free version.
 * Remove the action `wc4bp_screen_notification_settings`
-
+* Fixing the loader for minified assets.
+* Fixing the base url slug for member.
+* Fixing the ability to show the tabs if the Activity Setting in BuddyPress is disabled.
+* Updating translation file.
+* Updated contributors.
+* Grammar Fix thanks to @garrett-eclipse.
 
 = 3.1.7 24 Jun 2018 =
 * Adding new localization files.
