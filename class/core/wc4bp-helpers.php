@@ -80,7 +80,7 @@ function wc4bp_settings_link() {
 }
 
 function wc4bp_get_settings_link() {
-	return apply_filters( 'wc4bp_get_settings_link', trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug() . '/' . wc4bp_Manager::get_shop_slug() ) );
+	return apply_filters( 'wc4bp_get_settings_link', trailingslashit( bp_loggedin_user_domain() . bp_get_members_root_slug() . '/' . wc4bp_Manager::get_shop_slug() ) );
 }
 
 function wc4bp_my_downloads_shortcode( $atts ) {

@@ -161,9 +161,6 @@ class WC4BP_Component extends BP_Component {
 	 */
 	function setup_nav( $main_nav = array(), $sub_nav = array() ) {
 		try {
-			if ( ! function_exists( 'bp_get_settings_slug' ) ) {
-				return;
-			}
 			if ( ! empty( $this->wc4bp_options['tab_activity_disabled'] ) ) {
 				return;
 			}
@@ -197,6 +194,9 @@ class WC4BP_Component extends BP_Component {
 			
 			// Add shop settings sub page
 			if ( ! isset( $this->wc4bp_options['disable_shop_settings_tab'] ) ) {
+//				if ( ! function_exists( 'bp_get_settings_slug' ) ) {
+//					return;
+//				}
 				if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 					/**
 					 * Get the label for the BuddyPress Navigation inside the settings
@@ -210,8 +210,8 @@ class WC4BP_Component extends BP_Component {
 				$sub_nav[] = array(
 					'name'            => $name,
 					'slug'            => wc4bp_Manager::get_shop_slug(),
-					'parent_url'      => trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug() ),
-					'parent_slug'     => bp_get_settings_slug(),
+					'parent_url'      => trailingslashit( bp_loggedin_user_domain() . bp_get_members_root_slug() ),
+					'parent_slug'     => bp_get_members_root_slug(),
 					'screen_function' => 'wc4bp_screen_settings',
 					'position'        => 30,
 					'item_css_id'     => 'shop-settings',
@@ -281,7 +281,7 @@ class WC4BP_Component extends BP_Component {
 			$wp_admin_nav = array();
 			if ( is_user_logged_in() ) {
 				$user_domain   = bp_loggedin_user_domain();
-				$settings_link = trailingslashit( $user_domain . BP_SETTINGS_SLUG );
+				$settings_link = trailingslashit( $user_domain . bp_get_members_root_slug() );
 				if ( ! isset( $this->wc4bp_options['disable_shop_settings_tab'] ) ) {
 					if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 						/**
