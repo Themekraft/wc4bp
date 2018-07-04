@@ -87,7 +87,8 @@ class WC4BP_MyAccount_Content {
 			if ( isset( $wp->query_vars['edit-address'] ) ) {
 				$load_address = $wp->query_vars['edit-address'];
 			}
-			WC_Shortcode_My_Account::edit_address( $load_address );
+
+			woocommerce_account_edit_address( $load_address );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
