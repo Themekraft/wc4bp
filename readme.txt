@@ -107,7 +107,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
-= 3.2.0 2 Jul 2018 =
+= 3.2.0 5 Jul 2018 =
 * Fixing the get active endpoint function to work in the free version.
 * Remove the action `wc4bp_screen_notification_settings`
 * Fixing the loader for minified assets.
