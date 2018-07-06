@@ -145,11 +145,11 @@ class WC4BP_Activity_Stream {
 			$user_link = bp_core_get_userlink( $order->get_customer_id() );
 
 			// if several products - combine them, otherwise - display the product name
-			$products = $order->get_items();
+			$items = $order->get_items();
 			$names    = array();
-			/** @var WC_Product $product */
-			foreach ( $products as $product ) {
-				$names[] = '<a href="' . $product->get_permalink() . '">' . $product->get_name() . '</a>';
+			/** @var WC_Order_Item_Product $item */
+			foreach ( $items as $item ) {
+				$names[] = '<a href="' . $item->get_product()->get_permalink() . '">' . $item->get_product()->get_name() . '</a>';
 			}
 
 			/**
@@ -158,7 +158,7 @@ class WC4BP_Activity_Stream {
 			 * @param string The stream text
 			 * @param integer The customer user id
 			 * @param WC_Order
-			 * @param WC_Product
+			 * @param WC_Order_Item_Product
 			 * @param string The action
 			 */
 			$stream = apply_filters( 'wc4bp_stream_order_complete',
@@ -169,7 +169,7 @@ class WC4BP_Activity_Stream {
 				),
 				$order->get_user_id(),
 				$order,
-				$products,
+				$items,
 				'order_complete'
 			);
 			// record the activity
