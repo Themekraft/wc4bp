@@ -5,7 +5,7 @@
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
- * Version: 3.1.7
+ * Version: 3.2.0
  * Licence: GPLv3
  * Text Domain: wc4bp
  * Domain Path: /languages
@@ -41,7 +41,7 @@ class WC4BP_Loader {
 	/**
 	 * The plugin version
 	 */
-	const VERSION = '3.1.7';
+	const VERSION = '3.2.0';
 
 	/**
 	 * Minimum required WP version
@@ -94,6 +94,9 @@ class WC4BP_Loader {
 			require_once dirname( __FILE__ ) . '/class/wc4bp-upgrade.php';
 			// Init Freemius.
 			self::$freemius = $this->wc4bp_fs();
+			/**
+			 * Execute on freemius load to notify the addons
+			 */
 			do_action( 'wc4bp_core_fs_loaded' );
 			$requirements = new WC4BP_Required_PHP( 'wc4bp' );
 			if ( $requirements->satisfied() ) {
@@ -181,8 +184,8 @@ class WC4BP_Loader {
 		define( 'WC4BP_ABSPATH_TEMPLATE_PATH', WC4BP_ABSPATH . 'templates' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_ABSPATH_ADMIN_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_ABSPATH_ADMIN_VIEWS_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR );
-		define( 'WC4BP_CSS', WC4BP_URLPATH . '/admin/css/' );
-		define( 'WC4BP_JS', WC4BP_URLPATH . '/admin/js/' );
+		define( 'WC4BP_CSS', WC4BP_URLPATH . 'admin/css/' );
+		define( 'WC4BP_JS', WC4BP_URLPATH . 'admin/js/' );
 	}
 
 	/**

@@ -25,8 +25,7 @@ class wc4bp_Manage_Admin {
 				require_once( WC4BP_ABSPATH . 'admin/wc4bp-revision.php' );
 				new WC4BP_Revision();
 			}
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
@@ -48,13 +47,15 @@ class wc4bp_Manage_Admin {
 			wp_enqueue_script( 'jquery-ui-widget' );
 			wp_enqueue_script( 'jquery-ui-tabs' );
 			wp_enqueue_script( 'jquery-effects-core' );
-			wp_enqueue_script( 'wc4bp_admin_js', WC4BP_JS . 'admin.js', array(
+			$admin_script = wc4bp_Manager::assets_path( 'admin' );
+			wp_enqueue_script( 'wc4bp_admin_js', $admin_script, array(
 				'jquery',
 				'jquery-ui-core',
 				'jquery-ui-widget',
 				'jquery-ui-tabs',
 			) );
-			wp_enqueue_style( 'wc4bp_admin_css', WC4BP_CSS . 'admin.css' );
+			$admin_style = wc4bp_Manager::assets_path( 'admin', 'css' );
+			wp_enqueue_style( 'wc4bp_admin_css', $admin_style );
 			if ( 'users_page_bp-profile-setup' === $hook ) {
 				$fields = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
 				if ( ! empty( $fields ) ) {
@@ -62,7 +63,7 @@ class wc4bp_Manage_Admin {
 						$shipping_field = BP_XProfile_Field::get_instance( $fields['shipping']['first_name'], null, false );
 						$billing_field  = BP_XProfile_Field::get_instance( $fields['billing']['first_name'], null, false );
 						if ( ! empty( $shipping_field ) && ! empty( $billing_field ) ) {
-							wp_enqueue_script( 'wc4bp_admin_xprofield', WC4BP_JS . 'wc4bp-xprofield.js', array( 'jquery' ) );
+							wp_enqueue_script( 'wc4bp_admin_xprofield', wc4bp_Manager::assets_path( 'wc4bp-xprofield' ), array( 'jquery' ) );
 							wp_localize_script( 'wc4bp_admin_xprofield', 'wc4bp_admin_xprofield', array(
 								'billing'                      => $billing_field->group_id,
 								'shipping'                     => $shipping_field->group_id,
@@ -76,8 +77,7 @@ class wc4bp_Manage_Admin {
 					}
 				}
 			}
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}

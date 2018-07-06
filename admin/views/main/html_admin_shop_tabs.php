@@ -23,7 +23,7 @@ echo $this->disable_class_tag( 'p', wc4bp_base::$starter_plan_id ); ?>>
 <p <?php echo $this->disable_class_tag( 'p', wc4bp_base::$starter_plan_id ); ?>>
     <label>
         <input <?php echo $this->disable_input_tag( 'checkbox', wc4bp_base::$starter_plan_id ); ?> name='wc4bp_options[disable_woo_profile_override]' type='checkbox' value='1' <?php checked( $disable_woo_profile_override, 1 ); ?> />
-        <b><?php _e( 'Turn off \'Woocommerce User Profile \' override.', 'wc4bp' ); ?></b>&nbsp; <?php _e( 'This option is useful to stop Woocommerce override User Profile First Name, Last Name and Display Name.', 'wc4bp' ); ?>
+        <b><?php _e( 'Turn off \'WooCommerce User Profile \' override.', 'wc4bp' ); ?></b>&nbsp; <?php _e( 'This option is useful to stop WooCommerce override User Profile First Name, Last Name and Display Name.', 'wc4bp' ); ?>
     </label>
 </p>
 <p <?php echo $this->disable_class_tag( 'p' ); ?>>

@@ -24,7 +24,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @uses    apply_filters()
  */
 function wc4bp_screen_cart() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_cart', 'shop/member/cart' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_cart', 'shop/member/cart' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -38,7 +44,13 @@ function wc4bp_screen_cart() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_checkout() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_checkout', 'shop/member/checkout' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_checkout', 'shop/member/checkout' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -52,7 +64,13 @@ function wc4bp_screen_checkout() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_history() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_history', 'shop/member/history' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_history', 'shop/member/history' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -66,7 +84,13 @@ function wc4bp_screen_history() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_track() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_track', 'shop/member/track' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_track', 'shop/member/track' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -80,7 +104,13 @@ function wc4bp_screen_track() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_orders() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_order', 'shop/member/orders' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_order', 'shop/member/orders' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -94,7 +124,13 @@ function wc4bp_screen_orders() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_downloads() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_download', 'shop/member/download' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_download', 'shop/member/download' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -108,7 +144,13 @@ function wc4bp_screen_downloads() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_edit_account() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_edit_account', 'shop/member/edit-account' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_edit_account', 'shop/member/edit-account' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -122,7 +164,13 @@ function wc4bp_screen_edit_account() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_edit_address() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_edit_address', 'shop/member/edit-address' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_edit_address', 'shop/member/edit-address' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -136,7 +184,13 @@ function wc4bp_screen_edit_address() {
  * @uses    apply_filters()
  */
 function wc4bp_screen_payment_methods() {
-	bp_core_load_template( apply_filters( 'wc4bp_template_member_payment_methods', 'shop/member/payment-methods' ) );
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_payment_methods', 'shop/member/payment-methods' );
+	bp_core_load_template( $screen_path );
 }
 
 /**
@@ -150,6 +204,9 @@ function wc4bp_screen_settings() {
 		if ( ! bp_is_settings_component() || bp_current_action() !== wc4bp_Manager::get_shop_slug() ) {
 			return false;
 		}
+		/**
+		 * Start the setting for the setting screen
+		 */
 		do_action( 'wc4bp_screen_settings' );
 		$wc4bp_values = Request_Helper::get_post_param( 'wc4bp' );
 		if ( ! empty( $wc4bp_values ) ) {
@@ -168,12 +225,24 @@ function wc4bp_screen_settings() {
 			$reviews_2_activity   = ( in_array( $review2, $yes_no, true ) ) ? $review2 : 'yes';
 			$purchases_2_activity = ( in_array( $purchases, $yes_no, true ) ) ? $purchases : 'yes';
 
+			/**
+			 * Before update user settings
+             *
+             * @param int The user id
+             * @param var The value
+			 */
 			do_action( 'wc4bp_pre_update_user_settings', bp_displayed_user_id(), $wc4bp_values );
 
 			// save them
 			bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_reviews', $reviews_2_activity );
 			bp_update_user_meta( bp_displayed_user_id(), 'notification_activity_shop_purchases', $purchases_2_activity );
 
+			/**
+			 * After update user settings
+			 *
+			 * @param int The user id
+			 * @param var The value
+			 */
 			do_action( 'wc4bp_post_update_user_settings', bp_displayed_user_id(), $wc4bp_values );
 
 			// Set the feedback messages
@@ -208,12 +277,6 @@ function wc4bp_screen_settings_title() {
 
 /**
  * Content of the Settings page
- *
- * @since    unknown
- * @uses    bp_is_settings_component()
- * @uses    bp_current_action()
- * @uses    bp_get_user_meta()
- * @uses    do_action()
  */
 function wc4bp_screen_settings_content() {
 	try {
@@ -250,11 +313,14 @@ function wc4bp_screen_settings_content() {
                     <td class="no"><input type="radio" name="wc4bp[purchases_2_activity]" value="no" <?php checked( $shop_purchases, 'no', true ) ?>/></td>
                 </tr>
 
-				<?php do_action( 'wc4bp_screen_notification_activity_settings' ); ?>
+				<?php
+				/**
+				 * Setting screen for Activity Stream executed
+				 */
+                do_action( 'wc4bp_screen_notification_activity_settings' );
+                ?>
                 </tbody>
             </table>
-
-			<?php do_action( 'wc4bp_screen_notification_settings' ); ?>
 
             <div class="submit">
                 <input type="submit" name="submit" value="<?php _e( 'Save Changes', 'wc4bp' ); ?>" id="submit" class="auto">

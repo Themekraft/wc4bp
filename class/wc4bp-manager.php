@@ -40,6 +40,7 @@ class wc4bp_Manager {
 		try {
 			self::$shop_label = __( 'Shop', 'wc4bp' );
 			//Load resources
+			require_once 'wc4bp-activity-stream.php';
 			require_once 'wc4bp-myaccount-content.php';
 			require_once 'wc4bp-myaccount.php';
 			require_once 'wc4bp-myaccount-private.php';
@@ -47,15 +48,14 @@ class wc4bp_Manager {
 			require_once 'wc4bp-manage-admin.php';
 			require_once 'wc4bp-redefine-functions.php';
 			require_once 'wc4bp-status.php';
-
+			
 			add_action( 'init', array( $this, 'init' ) );
 			add_action( 'bp_include', array( $this, 'includes' ), 10 );
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-	
+
 	public function init() {
 		try {
 			new WC4BP_MyAccount_Private();
@@ -64,14 +64,14 @@ class wc4bp_Manager {
 				$wc_path = WooCommerce::instance()->plugin_path();
 				include_once( $wc_path . '/includes/class-wc-frontend-scripts.php' );
 				WC_Frontend_Scripts::init();
+				new WC4BP_Activity_Stream();
 				new WC4BP_MyAccount_Content();
 				new wc4bp_Woocommerce();
 				new WC4BP_MyAccount();
 				new wc4bp_Manage_Admin();
 				new WC4BP_Status();
 			}
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
@@ -155,11 +155,11 @@ class wc4bp_Manager {
 			} );
 		}
 	}
-
+	
 	public static function get_suffix() {
 		return self::$prefix;
 	}
-
+	
 	/**
 	 * Load all BP related files and admin
 	 *
@@ -177,34 +177,33 @@ class wc4bp_Manager {
 			if ( ! isset( $bp->shop ) ) {
 				$bp->shop = new WC4BP_Component();
 			}
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-
+	
 	public static function load_plugins_dependency() {
 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	}
-
+	
 	public static function is_woocommerce_active() {
 		self::load_plugins_dependency();
-
+		
 		return is_plugin_active( 'woocommerce/woocommerce.php' );
 	}
-
+	
 	public static function is_buddypress_active() {
 		self::load_plugins_dependency();
-
+		
 		return is_plugin_active( 'buddypress/bp-loader.php' );
 	}
-
+	
 	public static function is_current_active() {
 		self::load_plugins_dependency();
-
+		
 		return is_plugin_active( 'wc4bp/wc4bp-basic-integration.php' );
 	}
-
+	
 	public static function get_shop_endpoints( $include_home = true ) {
 		if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 			$shop_tabs = array(
@@ -244,18 +243,18 @@ class wc4bp_Manager {
 		if ( ! $include_home ) {
 			unset( $shop_tabs['home'] );
 		}
-
+		
 		return $shop_tabs;
 	}
-
+	
 	public static function available_endpoint() {
 		$shop_tabs    = self::get_shop_endpoints();
 		$account_tabs = WC4BP_MyAccount::get_available_endpoints();
 		$result       = array_merge( $shop_tabs, $account_tabs );
-
+		
 		return $result;
 	}
-
+	
 	/**
 	 * What type of request is this?
 	 *
@@ -274,7 +273,14 @@ class wc4bp_Manager {
 			case 'frontend':
 				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
 		}
-
+		
 		return false;
+	}
+
+	public static function assets_path( $name, $extension = 'js' ) {
+		$base_path = ( $extension == 'js' ) ? WC4BP_JS : WC4BP_CSS;
+		$suffix    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+		return $base_path . $name . $suffix . '.' . $extension;
 	}
 }

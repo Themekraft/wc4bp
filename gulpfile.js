@@ -83,6 +83,7 @@ gulp.task('prepare-localization', function() {
                 {name: '_e'},
                 {name: 'esc_html__'},
                 {name: 'esc_html_e'},
+                {name: 'esc_attr_e'},
                 {name: '_x', context: 2},
                 {name: '_esc_attr'},
                 {name: '_esc_attr_echo'},
@@ -135,7 +136,7 @@ gulp.task('translate', ['prepare-localization'], function() {
 });
 
 // Compile *.po to *.mo binaries for usage.
-gulp.task('compile-translations', ['translate'], function() {
+gulp.task('compile-translations', function() {
     return gulp.src(languagesFolder + '*.po')
         .pipe(gettext())
         .pipe(gulp.dest(languagesFolder))
@@ -174,6 +175,4 @@ gulp.task('default', [], function() {
     gulp.run('styles');
     gulp.run('js');
     gulp.run('prepare-localization');
-    gulp.run('translate');
-    gulp.run('compile-translations');
 });

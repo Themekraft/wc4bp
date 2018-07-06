@@ -208,7 +208,9 @@ class wc4bp_Sync {
 	}
 
 	public static function wc4bp_is_invalid_xprofile_group( $group ) {
+		/** This action is documented in /wc4bp-premium/admin/wc4bp-activate.php:68 */
 		$billing_text_identification = apply_filters( 'wc4bp_billing_group_id', 'billing' );
+		/** This action is documented in /wc4bp-premium/admin/wc4bp-activate.php:195 */
 		$shipping_text_identification = apply_filters( 'wc4bp_shipping_group_id', 'shipping' );
 		return ( empty( $group->fields ) || ( $billing_text_identification !== $group->description && $shipping_text_identification !== $group->description ) );
 	}
@@ -328,6 +330,11 @@ class wc4bp_Sync {
 	 * Get Address Fields for edit user pages
 	 */
 	public function wc4bp_get_customer_meta_fields() {
+		/**
+		 * Change WooCommerce customer meta fields
+		 *
+		 * @param array
+		 */
 		$show_fields = apply_filters( 'woocommerce_customer_meta_fields', array(
 			'billing'  => array(
 				'title'  => __( 'Customer Billing Address', 'wc4bp' ),
