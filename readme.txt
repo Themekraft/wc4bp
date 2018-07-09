@@ -117,7 +117,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Updated contributors.
 * Grammar Fix thanks to @garrett-eclipse.
 * Fixing the deprecated use of create_function, now use an anonymous function.
-* Fixing the setting space to be more integrated with BuddyPress. Now if te buddyPress Activity Setting is not enabled it not work.
+* Fixing the setting space to be better integrated with BuddyPress. Now if the BuddyPress Activity Setting is not enabled it will not work.
 * Fixing the edit address inside BuddyPress profile to work with any language.
 * Fixing the activity stream when an Order is complete.
 * Fixing the Profile settings url to save the options related to the activity stream.
