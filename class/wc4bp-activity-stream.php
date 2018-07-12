@@ -15,24 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC4BP_Activity_Stream {
 
-    private $wc4bp_options;
 	public function __construct() {
 		add_action( 'wp_insert_comment', array( $this, 'wc4bp_stream_product_review' ), 10, 2 );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'wc4bp_stream_order_complete' ) );
-		add_filter('wc4bp_activate_stream_activity',array($this,'wc4bp_check_shop_settings_tab'),10,1);
-        $this->wc4bp_options       = get_option( 'wc4bp_options' );
 	}
-
-
-	function wc4bp_check_shop_settings_tab($is_active)
-    {
-        if ( isset( $this->wc4bp_options['disable_shop_settings_tab'] ) ) {
-
-            $is_active = false;
-
-        }
-        return $is_active;
-    }
 
 	/**
 	 * Adds an activity stream item when a user has written a new review to a product.
