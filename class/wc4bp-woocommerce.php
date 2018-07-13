@@ -1,7 +1,7 @@
 <?php
 /**
  * @package        WordPress
- * @subpackage     BuddyPress, Woocommerce
+ * @subpackage     BuddyPress, WooCommerce
  * @author         GFireM
  * @copyright      2017, Themekraft
  * @link           http://themekraft.com/store/woocommerce-buddypress-integration-wordpress-plugin/
@@ -113,7 +113,7 @@ class wc4bp_Woocommerce {
 	/*
 	 * @param is_checkout
 	 *
-	 * @return true if is the woocommerce checkout page
+	 * @return true if is the WooCommerce checkout page
 	 * */
 	public function wc4bp_woocommerce_is_checkout( $is_checkout ) {
 		$default = $is_checkout;
@@ -137,7 +137,7 @@ class wc4bp_Woocommerce {
 	 * @param endpoint
 	 * @param value
 	 * @param permalink
-	 * @return the url of the woocommerce endpoint
+	 * @return the url of the WooCommerce endpoint
 	*/
 	public function endpoint_url( $url, $endpoint, $value, $permalink ) {
 		$default = $url;

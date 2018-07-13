@@ -117,7 +117,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Updated contributors.
 * Grammar Fix thanks to @garrett-eclipse.
 * Fixing the deprecated use of create_function, now use an anonymous function.
-* Fixing the setting space to be more integrated with BuddyPress. Now if te buddyPress Activity Setting is not enabled it not work.
+* Fixing the setting space to be better integrated with BuddyPress. Now if the BuddyPress Activity Setting is not enabled it will not work.
 * Fixing the edit address inside BuddyPress profile to work with any language.
 * Fixing the activity stream when an Order is complete.
 * Fixing the Profile settings url to save the options related to the activity stream.
@@ -173,7 +173,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Updating localization files to include new strings.
 
 = 3.0.20 18 January 2018 =
-* Fixing the url redirection for the WooCommerce my account when the shop option is disabled.
+* Fixing the url redirection for the WooCommerce My Account when the shop option is disable.
 * Adding a described text to the shop option in the settings.
 * Fixing the order detail 404 when the redirection is of.
 * Fixing the User fields to keep in the WooCommerce Session.
@@ -194,7 +194,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 = 3.0.15 14 December 2017 =
 * fix Error 404 in order-received.
 * Solved Fix then pagination for the order page.
-* Changing the option to show inside the groups generated in buddypress by the plugins.
+* Changing the option to show inside the groups generated in BuddyPress by the plugins.
 * Add admin notices in settings.
 * Fixing the 404 in checkout when the user register the account in the process.
 * Adding space in the admin before the link of ThemKraft.
@@ -233,7 +233,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 = 3.0.13 19 September 2017 =
 * Fixing  Profile Field Visibility for all Users, inside the Profile Syn tab
 * Fixed add-payment-method page
-* Fixing the redirection to not affect the WooCommerce my account if the shop is disable
+* Fixing the redirection to not affect the WooCommerce My Account if the shop is disable
 * Fixing the Disable Shop Tab option to work in all plans
 * Fixing the option to Overwrite the Content of your Shop Home/Main Tab to keep the value when the user save it in the admin
 * Remove the template option from the Integrate Pages tab and move it to a hook, now is possible to do the same function using the filter wc4bp_custom_page_template

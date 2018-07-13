@@ -2,7 +2,7 @@
 
 /**
  * @package        WordPress
- * @subpackage     BuddyPress, Woocommerce
+ * @subpackage     BuddyPress, WooCommerce
  * @author         Boris Glumpler
  * @copyright      2011, Themekraft
  * @link           https://github.com/Themekraft/BP-Shop-Integration
@@ -20,12 +20,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class wc4bp_redirect
  */
 class wc4bp_redirect {
-
+	
 	public function __construct() {
 		add_action( 'template_redirect', array( $this, 'wc4bp_redirect_to_profile' ) );
 		add_filter( 'page_link', array( $this, 'wc4bp_page_link_router' ), 9999, 2 );//High priority to take precedent over other plugins
 	}
-
+	
 	/**
 	 * Get base url for all redirection
 	 *
@@ -33,10 +33,10 @@ class wc4bp_redirect {
 	 */
 	public static function get_base_url() {
 		$base_url = bp_core_get_user_domain( bp_loggedin_user_id() ) . wc4bp_Manager::get_shop_slug() . '/';
-
+		
 		return $base_url;
 	}
-
+	
 	/**
 	 * Process the url for given post id
 	 *
@@ -126,7 +126,6 @@ class wc4bp_redirect {
 
 							$payment_created_account = isset( $bp->unfiltered_uri[0] ) ? $bp->unfiltered_uri[0] : '';
 							if ( isset( $wp->query_vars['order-pay'] ) ) {
-
 								return $url;
 							} else {
 								/**
@@ -152,12 +151,12 @@ class wc4bp_redirect {
 							if ( $select_page_id === $parent_post_id ) {
 								$post_data  = get_post( $post_id );
 								$final_slug = ( $select_page['tab_slug'] !== $post_data->post_name ) ? $select_page['tab_slug'] . '/' . $post_data->post_name : $select_page['tab_slug'];
-
+								
 								return $this->convert_url( $final_slug );
 							}
 						}
 					}
-
+					
 					return false;
 				} else {
 					return false;
@@ -167,11 +166,11 @@ class wc4bp_redirect {
 			}
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-
+			
 			return false;
 		}
 	}
-
+	
 	private function convert_url( $add_url = '' ) {
 		$suffix = '';
 		if ( ! empty( $add_url ) ) {
@@ -189,7 +188,7 @@ class wc4bp_redirect {
 		 */
 		return apply_filters( 'wc4bp_get_redirect_link', $link );
 	}
-
+	
 	/**
 	 * Change core related urls
 	 *
@@ -203,7 +202,7 @@ class wc4bp_redirect {
 		if ( ! is_user_logged_in() || is_admin() ) {
 			return $link;
 		}
-
+		
 		$new_link = $this->redirect_link( $id );
 		if ( ! empty( $new_link ) ) {
 			$link = $new_link;
@@ -216,7 +215,7 @@ class wc4bp_redirect {
 		 */
 		return apply_filters( 'wc4bp_router_link', $link );
 	}
-
+	
 	/**
 	 * Redirect core related urls
 	 *
@@ -233,7 +232,7 @@ class wc4bp_redirect {
 			return false;
 		}
 		$link = $this->redirect_link( $post->ID );
-
+		
 		if ( ! empty( $link ) ) {
 			wp_safe_redirect( $link );
 			exit;
@@ -241,7 +240,7 @@ class wc4bp_redirect {
 			return false;
 		}
 	}
-
+	
 	/**
 	 * Get the top parent of a post id
 	 *

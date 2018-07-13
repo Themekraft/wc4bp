@@ -2,7 +2,7 @@
 	<?php
 	/**
 	 * @package        WordPress
-	 * @subpackage    BuddyPress, Woocommerce
+	 * @subpackage    BuddyPress, WooCommerce
 	 * @author        Sven Lehnert
 	 * @link        https://github.com/Themekraft/BP-Shop-Integration
 	 * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License

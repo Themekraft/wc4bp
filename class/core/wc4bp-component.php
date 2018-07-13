@@ -1,7 +1,7 @@
 <?php
 /**
  * @package            WordPress
- * @subpackage         BuddyPress, Woocommerce
+ * @subpackage         BuddyPress, WooCommerce
  * @author             Boris Glumpler
  * @copyright          2011, Themekraft
  * @link               https://github.com/Themekraft/BP-Shop-Integration
@@ -123,7 +123,7 @@ class WC4BP_Component extends BP_Component {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
-
+	
 	public function get_nav_item( $shop_link, $slug, $title, $screen_function = '' ) {
 		$id              = str_replace( '-', '_', $slug );
 		$screen_function = empty( $screen_function ) ? 'wc4bp_screen_' . $id : $screen_function;

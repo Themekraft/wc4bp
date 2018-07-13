@@ -1,7 +1,7 @@
 <?php
 /**
  * @package       WordPress
- * @subpackage    BuddyPress, Woocommerce
+ * @subpackage    BuddyPress, WooCommerce
  * @author        Boris Glumpler
  * @copyright     2011, Themekraft
  * @link          https://github.com/Themekraft/BP-Shop-Integration
@@ -369,11 +369,11 @@ class wc4bp_Sync {
 					),
 					'billing_state'      => array(
 						'label'       => __( 'State/County', 'wc4bp' ),
-						'description' => 'Country or state code',
+						'description' => __( 'State/County or state code', 'wc4bp' ),
 					),
 					'billing_country'    => array(
 						'label'       => __( 'Country', 'wc4bp' ),
-						'description' => '2 letter Country code',
+						'description' => __( '2 letter Country code', 'wc4bp' ),
 					),
 					'billing_phone'      => array(
 						'label'       => __( 'Phone', 'wc4bp' ),
