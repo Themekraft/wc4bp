@@ -146,8 +146,6 @@ class WC4BP_Component extends BP_Component {
 		);
 	}
 
-
-
 	/**
 	 * Setup BuddyBar navigation
 	 *
@@ -166,11 +164,7 @@ class WC4BP_Component extends BP_Component {
 			$wc4bp_pages_options = array();
 			if ( ! empty( $this->wc4bp_pages_options ) && is_string( $this->wc4bp_pages_options ) ) {
 				$wc4bp_pages_options = json_decode( $this->wc4bp_pages_options, true );
-                usort($wc4bp_pages_options['selected_pages'], function($a, $b)
-                {
-                    return strcmp($a['position'], $b['position']);
-                });
-        }
+			}
 			// Add 'Shop' to the main navigation
 			if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 				/**
@@ -276,10 +270,6 @@ class WC4BP_Component extends BP_Component {
 			$wc4bp_pages_options = array();
 			if ( ! empty( $this->wc4bp_pages_options ) && is_string( $this->wc4bp_pages_options ) ) {
 				$wc4bp_pages_options = json_decode( $this->wc4bp_pages_options, true );
-                usort($wc4bp_pages_options['selected_pages'], function($a, $b)
-                {
-                    return strcmp($a['position'], $b['position']);
-                });
 			}
 			$wp_admin_nav = array();
 			if ( is_user_logged_in() ) {
@@ -327,10 +317,6 @@ class WC4BP_Component extends BP_Component {
 				);
 				$wp_admin_nav   = $this->get_endpoints( $wp_admin_nav, $shop_link, false );
 				if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
-                    usort($wc4bp_pages_options['selected_pages'], function($a, $b)
-                    {
-                        return strcmp($a['position'], $b['position']);
-                    });
 					foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
 						$wp_admin_nav[] = array(
 							'parent' => 'my-account-' . $this->id,
