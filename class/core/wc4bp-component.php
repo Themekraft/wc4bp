@@ -170,7 +170,7 @@ class WC4BP_Component extends BP_Component {
                 {
                     return strcmp($a['position'], $b['position']);
                 });
-        }
+            }
 			// Add 'Shop' to the main navigation
 			if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 				/**
