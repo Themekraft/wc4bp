@@ -97,7 +97,11 @@ class wc4bp_admin_pages extends wc4bp_base {
 			?>
             <style type="text/css">
                 .wc4bp_editinline {
-                    color: #bc0b0b;
+                    color: blue;
+                    cursor: pointer;
+                }
+                .wc4bp_deleteinline {
+                    color: red;
                     cursor: pointer;
                 }
 

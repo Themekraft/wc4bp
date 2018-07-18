@@ -7,6 +7,7 @@ jQuery(document).ready(function () {
 		var a = this.href || this.alt;
 		var g = this.rel || false;
 
+        a = a.replace(/\s+/g, '');
 		jQuery.ajax({
 			type: 'POST',
 			url: ajaxurl,
@@ -52,6 +53,8 @@ jQuery(document).ready(function () {
 		var t = this.title || this.name || null;
 		var a = this.href || this.alt;
 		var g = this.rel || false;
+
+        a = a.replace(/\s+/g, '');
 
 		jQuery.ajax({
 			type: 'POST',
