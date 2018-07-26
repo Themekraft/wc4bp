@@ -4,6 +4,7 @@
  *
  * @package Wc4bp_Premium
  */
+
 /**
  * Sample test case.
  */
