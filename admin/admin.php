@@ -112,8 +112,7 @@ class wc4bp_admin extends wc4bp_base {
 			add_settings_section( 'section_general2', '', '', 'wc4bp_options' );
 
 			add_settings_field( 'tabs_shop', __( '<b>Shop Settings</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs' ), 'wc4bp_options', 'section_general' );
-			add_settings_field( 'tabs_enable', __( '<b>Remove My Account Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_my_account_tabs_enable' ), 'wc4bp_options', 'section_general' );
-			add_settings_field( 'tabs_disabled', __( '<b>Remove Shop Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs_disable' ), 'wc4bp_options', 'section_general' );
+			add_settings_field( 'tabs_enable', __( '<b>Remove Shop Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_my_account_tabs_enable' ), 'wc4bp_options', 'section_general' );
 			add_settings_field( 'profile sync', __( '<b>Turn off the Profile Sync</b>', 'wc4bp' ), array( $this, 'wc4bp_turn_off_profile_sync' ), 'wc4bp_options', 'section_general' );
 			add_settings_field( 'overwrite', __( '<b>Default Shop Tab</b>', 'wc4bp' ), array( $this, 'wc4bp_overwrite_default_shop_home_tab' ), 'wc4bp_options', 'section_general' );
 		} catch ( Exception $exception ) {
@@ -126,13 +125,13 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_shop_tabs() {
 		try {
-			$wc4bp_options             = $this->wc4bp_options;
-			$tab_activity_disabled     = 0;
-			$disable_shop_settings_tab = 0;
-			$tab_my_account_disabled   = 0;
-			$disable_woo_profile_override   = 0;
-			$tab_my_account_shop_label = wc4bp_Manager::$shop_label;
-			$tab_my_account_shop_url   = wc4bp_Manager::$shop_slug;
+			$wc4bp_options                = $this->wc4bp_options;
+			$tab_activity_disabled        = 0;
+			$disable_shop_settings_tab    = 0;
+			$tab_my_account_disabled      = 0;
+			$disable_woo_profile_override = 0;
+			$tab_my_account_shop_label    = wc4bp_Manager::$shop_label;
+			$tab_my_account_shop_url      = wc4bp_Manager::$shop_slug;
 			if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 				if ( isset( $wc4bp_options['tab_my_account_shop_url'] ) ) {
 					$tab_my_account_shop_url                  = empty( $wc4bp_options['tab_my_account_shop_url'] ) ? wc4bp_Manager::$shop_slug : sanitize_title( $wc4bp_options['tab_my_account_shop_url'] );
@@ -147,9 +146,9 @@ class wc4bp_admin extends wc4bp_base {
 					update_option( 'wc4bp_options', $wc4bp_options );
 				}
 			}
-            if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
-                $tab_activity_disabled = 1;
-            }
+			if ( isset( $wc4bp_options['tab_activity_disabled'] ) ) {
+				$tab_activity_disabled = 1;
+			}
 			if ( isset( $wc4bp_options['disable_shop_settings_tab'] ) ) {
 				$disable_shop_settings_tab = 1;
 			}
@@ -193,39 +192,73 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_my_account_tabs_enable() {
 		try {
+			echo '<div class="wc4bp-tabs-order">';
+			$wc4bp_options = $this->wc4bp_options;
+			$tabs_array    = array();
+
+			$tabs_array['tab_cart_disabled']['label']         = __( 'Cart', 'wc4bp' );
+			$tabs_array['tab_cart_disabled']['enable']        = 0;
+			$tabs_array['tab_cart_disabled']['name']          = 'wc4bp_options[tab_cart_disabled]';
+			$tabs_array['tab_cart_disabled']['name_position'] = 'wc4bp_options[position][tab_cart_disabled]';
+			$tabs_array['tab_cart_disabled']['position']      = '0';
+
+			$tabs_array['tab_checkout_disabled']['label']         = __( 'Checkout', 'wc4bp' );
+			$tabs_array['tab_checkout_disabled']['enable']        = 0;
+			$tabs_array['tab_checkout_disabled']['name']          = 'wc4bp_options[tab_checkout_disabled]';
+			$tabs_array['tab_checkout_disabled']['name_position'] = 'wc4bp_options[position][tab_checkout_disabled]';
+			$tabs_array['tab_checkout_disabled']['position']      = '1';
+
+			$tabs_array['tab_track_disabled']['label']         = __( 'Track my order', 'wc4bp' );
+			$tabs_array['tab_track_disabled']['enable']        = 0;
+			$tabs_array['tab_track_disabled']['name']          = 'wc4bp_options[tab_track_disabled]';
+			$tabs_array['tab_track_disabled']['name_position'] = 'wc4bp_options[position][tab_track_disabled]';
+			$tabs_array['tab_track_disabled']['position']      = '2';
+
+			$i = 3;
+			foreach ( WC4BP_MyAccount::get_available_endpoints() as $end_point_key => $end_point_name ) {
+				if ( WC4BP_Loader::getFreemius()->is__premium_only() || WC4BP_Loader::getFreemius()->is_trial() ) {
+					$tabs_array[ $end_point_key ]['position'] = isset( $this->wc4bp_options['position'][ 'wc4bp_endpoint_' . $end_point_key ] ) ? $this->wc4bp_options['position'][ 'wc4bp_endpoint_' . $end_point_key ] : $i;
+					$tabs_array[ $end_point_key ]['enable']   = isset( $this->wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] );
+				} else {
+					$tabs_array[ $end_point_key ]['position'] = $i;
+					$tabs_array[ $end_point_key ]['enable']   = 0;
+				}
+				$tabs_array[ $end_point_key ]['label']         = $end_point_name;
+				$tabs_array[ $end_point_key ]['name']          = 'wc4bp_options[wc4bp_endpoint_' . $end_point_key . ']';
+				$tabs_array[ $end_point_key ]['name_position'] = 'wc4bp_options[position][wc4bp_endpoint_' . $end_point_key . ']';
+				$i ++;
+			}
+
+			if ( WC4BP_Loader::getFreemius()->is__premium_only() || WC4BP_Loader::getFreemius()->is_trial() ) {
+				$tabs_array['tab_cart_disabled']['enable'] = isset( $wc4bp_options['tab_cart_disabled'] );
+				if ( isset( $wc4bp_options['position']['tab_cart_disabled'] ) ) {
+					$tabs_array['tab_cart_disabled']['position'] = $wc4bp_options['position']['tab_cart_disabled'];
+				}
+				$tabs_array['tab_checkout_disabled']['enable'] = isset( $wc4bp_options['tab_checkout_disabled'] );
+				if ( isset( $wc4bp_options['position']['tab_checkout_disabled'] ) ) {
+					$tabs_array['tab_checkout_disabled']['position'] = $wc4bp_options['position']['tab_checkout_disabled'];
+				}
+				$tabs_array['tab_track_disabled']['enable'] = isset( $wc4bp_options['tab_track_disabled'] );
+				if ( isset( $wc4bp_options['position']['tab_track_disabled'] ) ) {
+					$tabs_array['tab_track_disabled']['position'] = $wc4bp_options['position']['tab_track_disabled'];
+				}
+			}
+
+			uasort( $tabs_array, array( $this, 'compare_tabs' ) );
+
 			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_my_account_tabs.php' );
+			echo '</div>';
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
 
-	/**
-	 * Do you want to use the WordPress Customizer? This is the option to turn on/off the WordPress Customizer Support.
-	 *
-	 * @author Sven Lehnert
-	 * @since 1.0
-	 */
-	public function wc4bp_shop_tabs_disable() {
-		try {
-			$wc4bp_options         = $this->wc4bp_options;
-			$tab_cart_disabled     = 0;
-			$tab_checkout_disabled = 0;
-			$tab_track_disabled    = 0;
-			if ( WC4BP_Loader::getFreemius()->is__premium_only() || WC4BP_Loader::getFreemius()->is_trial() ) {
-				if ( isset( $wc4bp_options['tab_cart_disabled'] ) ) {
-					$tab_cart_disabled = $wc4bp_options['tab_cart_disabled'];
-				}
-				if ( isset( $wc4bp_options['tab_checkout_disabled'] ) ) {
-					$tab_checkout_disabled = $wc4bp_options['tab_checkout_disabled'];
-				}
-				if ( isset( $wc4bp_options['tab_track_disabled'] ) ) {
-					$tab_track_disabled = $wc4bp_options['tab_track_disabled'];
-				}
-			}
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_disable.php' );
-		} catch ( Exception $exception ) {
-			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+	public function compare_tabs( $a, $b ) {
+		if ( $a['position'] == $b['position'] ) {
+			return 0;
 		}
+
+		return ( $a['position'] < $b['position'] ) ? - 1 : 1;
 	}
 
 	/**
@@ -284,17 +317,17 @@ class wc4bp_admin extends wc4bp_base {
 				// Add the shop tab to the array
 				if ( empty( $wc4bp_options['tab_cart_disabled'] ) ) {
 					$wc4bp_pages_options['selected_pages']['cart'] = array(
-						'tab_name' => __('Cart', 'wc4bp'),
+						'tab_name' => __( 'Cart', 'wc4bp' ),
 					);
 				}
 				if ( empty( $wc4bp_options['tab_checkout_disabled'] ) ) {
 					$wc4bp_pages_options['selected_pages']['checkout'] = array(
-						'tab_name' => __('Checkout', 'wc4bp'),
+						'tab_name' => __( 'Checkout', 'wc4bp' ),
 					);
 				}
 				if ( empty( $wc4bp_options['tab_track_disabled'] ) ) {
 					$wc4bp_pages_options['selected_pages']['track'] = array(
-						'tab_name' => __('Track my order', 'wc4bp'),
+						'tab_name' => __( 'Track my order', 'wc4bp' ),
 					);
 				}
 				//If wc4bp['tab_shop_default'] is empty add a default value to avoid offset warning
@@ -358,17 +391,17 @@ class wc4bp_admin extends wc4bp_base {
 			// Add the shop tabs to the array
 			if ( empty( $wc4bp_options['tab_cart_disabled'] ) ) {
 				$wc4bp_pages_options['selected_pages']['cart'] = array(
-					'tab_name' => __('Cart', 'wc4bp'),
+					'tab_name' => __( 'Cart', 'wc4bp' ),
 				);
 			}
 			if ( empty( $wc4bp_options['tab_checkout_disabled'] ) ) {
 				$wc4bp_pages_options['selected_pages']['checkout'] = array(
-					'tab_name' => __('Checkout', 'wc4bp'),
+					'tab_name' => __( 'Checkout', 'wc4bp' ),
 				);
 			}
 			if ( empty( $wc4bp_options['tab_track_disabled'] ) ) {
 				$wc4bp_pages_options['selected_pages']['track'] = array(
-					'tab_name' => __('Track my order', 'wc4bp'),
+					'tab_name' => __( 'Track my order', 'wc4bp' ),
 				);
 			}
 
