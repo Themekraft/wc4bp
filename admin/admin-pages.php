@@ -155,6 +155,11 @@ class wc4bp_admin_pages extends wc4bp_base {
             $shop_page_id = get_option( 'woocommerce_shop_page_id' );
             $cart_page_id = get_option( 'woocommerce_cart_page_id' );
             $myaccount_page_id = get_option( 'woocommerce_myaccount_page_id' );
+            $budypress_page_array = get_option('bp-pages');
+            foreach ($budypress_page_array as $index=>$value){
+
+                $exclude .= $value.',';
+            }
 
             $exclude .=$shop_page_id.','. $cart_page_id.','.$myaccount_page_id;
             if ( ! empty( $wc4bp_tab_slug ) ) {
