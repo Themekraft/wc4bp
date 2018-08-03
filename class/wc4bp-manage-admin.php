@@ -47,12 +47,14 @@ class wc4bp_Manage_Admin {
 			wp_enqueue_script( 'jquery-ui-widget' );
 			wp_enqueue_script( 'jquery-ui-tabs' );
 			wp_enqueue_script( 'jquery-effects-core' );
+			wp_enqueue_script( 'jquery-ui-sortable' );
 			$admin_script = wc4bp_Manager::assets_path( 'admin' );
 			wp_enqueue_script( 'wc4bp_admin_js', $admin_script, array(
 				'jquery',
 				'jquery-ui-core',
 				'jquery-ui-widget',
 				'jquery-ui-tabs',
+				'jquery-ui-sortable',
 			) );
 			$admin_style = wc4bp_Manager::assets_path( 'admin', 'css' );
 			wp_enqueue_style( 'wc4bp_admin_css', $admin_style );

@@ -174,5 +174,4 @@ gulp.task('js', ['clean-min-js'], function() {
 gulp.task('default', [], function() {
     gulp.run('styles');
     gulp.run('js');
-    gulp.run('prepare-localization');
 });
