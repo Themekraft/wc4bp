@@ -3,8 +3,8 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores,
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.0
-Tested up to: 4.9.6
-Stable tag: 3.2.0
+Tested up to: 4.9.7
+Stable tag: 3.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,6 +107,13 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 8. Profile Address Details
 
 == Changelog ==
+= 3.2.1 2 August 2018 =
+* Adding a global option to disable the activity stream.
+* Fixed the integrated page order.
+* Avoid including Woo pages and BuddyPress pages in the Integrated page functionality.
+* Adding new functionality to sort the tabs.
+* Merging all tabs disable option in one section.
+
 = 3.2.0 5 Jul 2018 =
 * Fixing the get active endpoint function to work in the free version.
 * Remove the action `wc4bp_screen_notification_settings`

@@ -1,5 +1,5 @@
 <?php
-_e( '<div><p>By default all account related <b>WooCommerce Tabs</b> are included into the BuddyPress member profiles. When you <b>Turn off</b> one of the next, the Tab(s) will disappear.</p></div>', 'wc4bp' );
+_e( '<div><p>By default all related <b>WooCommerce Account Tabs</b> are included into the BuddyPress member profiles. When you <b>Turn off</b> one of the next, the Tab(s) will disappear. Also is possible to change the order for the tabs. </p></div>', 'wc4bp' );
 /** @var wc4bp_admin $this */
 foreach ( $tabs_array as $end_point_key => $end_point_name ) {
 	$tab_select = $end_point_name['enable'];
