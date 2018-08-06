@@ -27,23 +27,7 @@ class wc4bp_admin_ajax extends wc4bp_base {
 
 		add_action( 'wp_ajax_wc4bp_shop_profile_sync_ajax', array( $this, 'wc4bp_shop_profile_sync_ajax' ) );
 		add_action( 'wp_ajax_nopriv_wc4bp_shop_profile_sync_ajax', array( $this, 'wc4bp_shop_profile_sync_ajax' ) );
-
-//		add_action( 'wp_ajax_wc4bp_thickbox_add_page', 'wc4bp_thickbox_add_page' );
-//		add_action( 'wp_ajax_nopriv_wc4bp_thickbox_add_page', 'wc4bp_thickbox_add_page' );
 	}
-
-
-	/**
-	 * Ajax call back function to add a page
-	 *
-	 * @author Sven Lehnert
-	 * @package WC4BP
-	 * @since 1.3
-	 */
-//	public function wc4bp_thickbox_add_page(){
-//        wc4bp_admin_pages::wc4bp_add_edit_entry_form_call( 'edit' );
-//        die();
-//    }
 
 
 	public function wc4bp_edit_entry() {
