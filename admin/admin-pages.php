@@ -100,6 +100,7 @@ class wc4bp_admin_pages extends wc4bp_base {
                     color: blue;
                     cursor: pointer;
                 }
+
                 .wc4bp_deleteinline {
                     color: red;
                     cursor: pointer;
@@ -149,20 +150,26 @@ class wc4bp_admin_pages extends wc4bp_base {
 				$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
 			}
 
-			$children = 0;
-			$page_id  = '';
-			$exclude ='';
-            $shop_page_id = get_option( 'woocommerce_shop_page_id' );
-            $cart_page_id = get_option( 'woocommerce_cart_page_id' );
-            $myaccount_page_id = get_option( 'woocommerce_myaccount_page_id' );
-            $budypress_page_array = get_option('bp-pages');
-            foreach ($budypress_page_array as $index=>$value){
-
-                $exclude .= $value.',';
-            }
-
-            $exclude .=$shop_page_id.','. $cart_page_id.','.$myaccount_page_id;
-            if ( ! empty( $wc4bp_tab_slug ) ) {
+			$children             = 0;
+			$page_id              = '';
+			$exclude              = array();
+			$shop_page_id         = get_option( 'woocommerce_shop_page_id' );
+			$cart_page_id         = get_option( 'woocommerce_cart_page_id' );
+			$myaccount_page_id    = get_option( 'woocommerce_myaccount_page_id' );
+			$budypress_page_array = get_option( 'bp-pages' );
+			if ( is_array( $budypress_page_array ) && count( $budypress_page_array ) ) {
+				$exclude = array_merge( $budypress_page_array, $exclude );
+			}
+			if ( $shop_page_id !== false ) {
+				$exclude[] = $shop_page_id;
+			}
+			if ( $cart_page_id !== false ) {
+				$exclude[] = $cart_page_id;
+			}
+			if ( $myaccount_page_id !== false ) {
+				$exclude[] = $myaccount_page_id;
+			}
+			if ( ! empty( $wc4bp_tab_slug ) ) {
 				if ( isset( $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['tab_name'] ) ) {
 					$tab_name = $wc4bp_pages_options['selected_pages'][ $wc4bp_tab_slug ]['tab_name'];
 				}
@@ -187,7 +194,7 @@ class wc4bp_admin_pages extends wc4bp_base {
 				'name'             => 'wc4bp_page_id',
 				'class'            => 'postform',
 				'selected'         => $page_id,
-                'exclude'         => $exclude
+				'exclude'          => join(', ', $exclude)
 			);
 			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'pages/html_admin_pages_edit_entry.php' );
 		} catch ( Exception $exception ) {
