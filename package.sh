@@ -41,6 +41,9 @@ rm -rf ./composer.lock
 rm -rf ./.netbeans*
 rm -rf ./.php_cs
 rm -rf ./*.zip
+rm -rf ./.env
+rm -rf ./.eslintrc.json
+rm -rf ./.DS_Store
 #This contain the test stuff
 rm -rf ./vendor
 rm -rf ./tests
