@@ -179,6 +179,7 @@ class wc4bp_admin_pages extends wc4bp_base {
 			$shop_page_id         = get_option( 'woocommerce_shop_page_id' );
 			$cart_page_id         = get_option( 'woocommerce_cart_page_id' );
 			$myaccount_page_id    = get_option( 'woocommerce_myaccount_page_id' );
+			$checkout_page_id     = get_option( 'woocommerce_checkout_page_id' );
 			$budypress_page_array = get_option( 'bp-pages' );
 			if ( is_array( $budypress_page_array ) && count( $budypress_page_array ) ) {
 				$exclude = array_merge( $budypress_page_array, $exclude );
@@ -192,7 +193,9 @@ class wc4bp_admin_pages extends wc4bp_base {
 			if ( $myaccount_page_id !== false ) {
 				$exclude[] = $myaccount_page_id;
 			}
-
+			if ( $checkout_page_id !== false ) {
+				$exclude[] = $checkout_page_id;
+			}
 			$args = array(
 				'echo'             => true,
 				'sort_column'      => 'post_title',
