@@ -83,7 +83,7 @@ function wc4bpAdministration() {
 	}
 
 	function editPage() {
-		var wc4bp_tab_slug = jQuery( this ).attr( 'id' )
+		var wc4bp_page_id = jQuery( this ).attr( 'id' )
 
 		var t = jQuery( this ).attr( 'title' ) || jQuery( this ).attr( 'name' ) || null
 		var a = jQuery( this ).attr( 'href' ) || jQuery( this ).attr( 'alt' )
@@ -97,7 +97,7 @@ function wc4bpAdministration() {
 			cache: false,
 			data: {
 				'action': 'wc4bp_edit_entry',
-				'wc4bp_tab_slug': wc4bp_tab_slug
+				'wc4bp_page_id': wc4bp_page_id
 			},
 			success: function ( data ) {
 				jQuery( '#add_page' ).html( data )
