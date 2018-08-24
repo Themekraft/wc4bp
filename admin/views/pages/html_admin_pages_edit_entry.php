@@ -19,7 +19,7 @@
     <input id='wc4bp_position' name='wc4bp_position' type='text' value='<?php echo esc_attr( $position ) ?>'/>
 </p>
 <?php if ( isset( $wc4bp_tab_slug ) ) {
-	echo '<input type="hidden" id="wc4bp_tab_slug" value="' . esc_attr( $wc4bp_tab_slug ) . '" />';
+	echo '<input type="hidden" id="wc4bp_tab_slug" value="' . esc_attr( $tab_slug ) . '" />';
 } ?>
-
+<input type="hidden" id="wc4bp_page_id" value="<?php echo esc_attr( $page_id ); ?>" />;
 <input type="button" value="<?php _e( 'Save', 'wc4bp' ); ?>" name="add_cpt4bp_page" class="button add_cpt4bp_page btn">
