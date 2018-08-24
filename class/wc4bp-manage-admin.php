@@ -55,7 +55,7 @@ class wc4bp_Manage_Admin {
 				'jquery-ui-widget',
 				'jquery-ui-tabs',
 				'jquery-ui-sortable',
-			) );
+			), WC4BP_Loader::VERSION );
 			$admin_style = wc4bp_Manager::assets_path( 'admin', 'css' );
 			wp_enqueue_style( 'wc4bp_admin_css', $admin_style );
 			if ( 'users_page_bp-profile-setup' === $hook ) {
@@ -65,7 +65,7 @@ class wc4bp_Manage_Admin {
 						$shipping_field = BP_XProfile_Field::get_instance( $fields['shipping']['first_name'], null, false );
 						$billing_field  = BP_XProfile_Field::get_instance( $fields['billing']['first_name'], null, false );
 						if ( ! empty( $shipping_field ) && ! empty( $billing_field ) ) {
-							wp_enqueue_script( 'wc4bp_admin_xprofield', wc4bp_Manager::assets_path( 'wc4bp-xprofield' ), array( 'jquery' ) );
+							wp_enqueue_script( 'wc4bp_admin_xprofield', wc4bp_Manager::assets_path( 'wc4bp-xprofield' ), array( 'jquery' ) , WC4BP_Loader::VERSION);
 							wp_localize_script( 'wc4bp_admin_xprofield', 'wc4bp_admin_xprofield', array(
 								'billing'                      => $billing_field->group_id,
 								'shipping'                     => $shipping_field->group_id,
