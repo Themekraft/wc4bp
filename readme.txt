@@ -102,9 +102,10 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 3. Add Pages to Member Profiles
 4. Profile Cart
 5. Checkout
-6. Track my order
+6. Orders
 7. Profile Settings
-8. Profile Address Details
+8. Edit Billing Address Details
+9. Admin menu options
 
 == Changelog ==
 = 3.2.3 24 August 2018 =
