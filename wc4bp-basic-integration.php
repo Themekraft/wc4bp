@@ -99,7 +99,7 @@ class WC4BP_Loader {
 			 */
 			do_action( 'wc4bp_core_fs_loaded' );
 			$requirements = new WC4BP_Required_PHP( 'wc4bp' );
-			if ( $requirements->satisfied() ) { 
+			if ( $requirements->satisfied() ) {
 				new WC4BP_Required();
 				if ( wc4bp_Manager::is_woocommerce_active() && wc4bp_Manager::is_buddypress_active() ) {
 					//Adding edd migration code
