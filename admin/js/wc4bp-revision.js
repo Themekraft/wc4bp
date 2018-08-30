@@ -18,7 +18,6 @@ function wc4bp_revision() {
     return {
         init: function () {
             if (jQuery('#wc4bp-ask-revision').length > 0 && jQuery('button.review-notice-dismiss').length > 0) {
-                // Bind event handlers for form Settings page
                 this.attachEvents();
             }
         },

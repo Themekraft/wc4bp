@@ -4,7 +4,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.0
 Tested up to: 4.9.7
-Stable tag: 3.2.3
+Stable tag: 3.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,11 +102,15 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 3. Add Pages to Member Profiles
 4. Profile Cart
 5. Checkout
-6. Track my order
+6. Orders
 7. Profile Settings
-8. Profile Address Details
+8. Edit Billing Address Details
+9. Admin menu options
 
 == Changelog ==
+= 3.2.4 30 August 2018 =
+* Fixed an incompatibility using an internal library with other internal plugins.
+
 = 3.2.3 24 August 2018 =
 * Fixed the edit option for the integrated pages.
 
