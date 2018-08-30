@@ -165,7 +165,11 @@ gulp.task('styles', ['clean-min-styles'], function() {
 gulp.task('js', ['clean-min-js'], function() {
     gulp.src(jsDir)
         .pipe(rename({suffix: '.min'}))
-        .pipe(uglify())
+        .pipe(uglify({
+	        output: {
+		        comments: "all"
+	        }
+        }))
         .pipe(stripDebug())
         .pipe(gulp.dest(jsDestination))
         .pipe(notify({message: 'TASK: "JS" Completed!', onLast: true}));

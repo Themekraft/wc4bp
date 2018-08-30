@@ -182,7 +182,6 @@ function wc4bpAdministration() {
 
 			/* <fs_premium_only> */
 
-			//Add drag and drop for tabs inside the plugin administration
 			var tabs = jQuery( '.wc4bp-tabs-order' )
 			if ( tabs.length > 0 ) {
 				addSortable( tabs )
