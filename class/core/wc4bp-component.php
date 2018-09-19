@@ -528,12 +528,13 @@ class WC4BP_Component extends BP_Component {
 		foreach ( $endpoints as $key => $title ) {
 			if ( array_key_exists( $key, $shop_endpoints ) ) {
 				if ( ! isset( $this->wc4bp_options[ 'tab_' . $key . '_disabled' ] ) ) {
+					$user_label = isset( $this->wc4bp_options['user_label'][ 'tab_' . $key . '_disabled' ] ) ? $this->wc4bp_options['user_label'][ 'tab_' . $key . '_disabled' ] : $title;
 					$position = isset( $this->wc4bp_options['position'][ 'tab_' . $key . '_disabled' ] ) ? $this->wc4bp_options['position'][ 'tab_' . $key . '_disabled' ] : 0;
 					switch ( $key ) {
 						case 'checkout':
 							global $woocommerce;
 							if ( isset( $_GET['change_payment_method'] ) ) {
-								$sub_nav[] = $this->$item_function( $parent, $key, $title, '', $position );
+								$sub_nav[] = $this->$item_function( $parent, $key, $user_label, '', $position );
 							}
 							// Add the checkout nav item, if cart empty do not add.
 							/** @var WC_Session_Handler $wc_session_data */
@@ -541,21 +542,22 @@ class WC4BP_Component extends BP_Component {
 							if ( ! empty( $wc_session_data ) ) {
 								$session_cart = $wc_session_data->get( 'cart' );
 								if ( ! is_admin() && ! empty( $session_cart ) ) {
-									$sub_nav[] = $this->$item_function( $parent, $key, $title, '', $position );
+									$sub_nav[] = $this->$item_function( $parent, $key, $user_label, '', $position );
 								}
 							}
 							break;
 						case 'cart':
 						case 'history':
 						case 'track':
-							$sub_nav[] = $this->$item_function( $parent, $key, $title, '', $position );
+							$sub_nav[] = $this->$item_function( $parent, $key, $user_label, '', $position );
 							break;
 					}
 				}
 			} elseif ( array_key_exists( $key, $my_account_tabs ) ) {
 				if ( empty( $this->wc4bp_options[ 'wc4bp_endpoint_' . $key ] ) ) {
+					$user_label = isset( $this->wc4bp_options['user_label'][ 'wc4bp_endpoint_' . $key ] ) ? $this->wc4bp_options['user_label'][ 'wc4bp_endpoint_' . $key ] : $title;
 					$position  = isset( $this->wc4bp_options['position'][ 'wc4bp_endpoint_' . $key ] ) ? $this->wc4bp_options['position'][ 'wc4bp_endpoint_' . $key ] : 0;
-					$sub_nav[] = $this->$item_function( $parent, $key, $title, '', $position );
+					$sub_nav[] = $this->$item_function( $parent, $key, $user_label, '', $position );
 				}
 			}
 		}

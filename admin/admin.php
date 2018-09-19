@@ -197,35 +197,44 @@ class wc4bp_admin extends wc4bp_base {
 			$tabs_array    = array();
 
 			$tabs_array['tab_cart_disabled']['label']         = __( 'Cart', 'wc4bp' );
+			$tabs_array['tab_cart_disabled']['user_label']    = isset( $this->wc4bp_options['user_label']['tab_cart_disabled'] ) ? $this->wc4bp_options['user_label']['tab_cart_disabled'] : $tabs_array['tab_cart_disabled']['label'];
 			$tabs_array['tab_cart_disabled']['enable']        = 0;
 			$tabs_array['tab_cart_disabled']['name']          = 'wc4bp_options[tab_cart_disabled]';
 			$tabs_array['tab_cart_disabled']['name_position'] = 'wc4bp_options[position][tab_cart_disabled]';
+			$tabs_array['tab_cart_disabled']['name_label']    = 'wc4bp_options[user_label][tab_cart_disabled]';
 			$tabs_array['tab_cart_disabled']['position']      = '0';
 
 			$tabs_array['tab_checkout_disabled']['label']         = __( 'Checkout', 'wc4bp' );
+			$tabs_array['tab_checkout_disabled']['user_label']    = isset( $this->wc4bp_options['user_label']['tab_checkout_disabled'] ) ? $this->wc4bp_options['user_label']['tab_checkout_disabled'] : $tabs_array['tab_checkout_disabled']['label'];
 			$tabs_array['tab_checkout_disabled']['enable']        = 0;
 			$tabs_array['tab_checkout_disabled']['name']          = 'wc4bp_options[tab_checkout_disabled]';
 			$tabs_array['tab_checkout_disabled']['name_position'] = 'wc4bp_options[position][tab_checkout_disabled]';
+			$tabs_array['tab_checkout_disabled']['name_label']    = 'wc4bp_options[user_label][tab_checkout_disabled]';
 			$tabs_array['tab_checkout_disabled']['position']      = '1';
 
 			$tabs_array['tab_track_disabled']['label']         = __( 'Track my order', 'wc4bp' );
+			$tabs_array['tab_track_disabled']['user_label']    = isset( $this->wc4bp_options['user_label']['tab_track_disabled'] ) ? $this->wc4bp_options['user_label']['tab_track_disabled'] : $tabs_array['tab_track_disabled']['label'];
 			$tabs_array['tab_track_disabled']['enable']        = 0;
 			$tabs_array['tab_track_disabled']['name']          = 'wc4bp_options[tab_track_disabled]';
 			$tabs_array['tab_track_disabled']['name_position'] = 'wc4bp_options[position][tab_track_disabled]';
+			$tabs_array['tab_track_disabled']['name_label']    = 'wc4bp_options[user_label][tab_track_disabled]';
 			$tabs_array['tab_track_disabled']['position']      = '2';
 
 			$i = 3;
 			foreach ( WC4BP_MyAccount::get_available_endpoints() as $end_point_key => $end_point_name ) {
 				if ( WC4BP_Loader::getFreemius()->is__premium_only() || WC4BP_Loader::getFreemius()->is_trial() ) {
-					$tabs_array[ $end_point_key ]['position'] = isset( $this->wc4bp_options['position'][ 'wc4bp_endpoint_' . $end_point_key ] ) ? $this->wc4bp_options['position'][ 'wc4bp_endpoint_' . $end_point_key ] : $i;
-					$tabs_array[ $end_point_key ]['enable']   = isset( $this->wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] );
+					$tabs_array[ $end_point_key ]['position']   = isset( $this->wc4bp_options['position'][ 'wc4bp_endpoint_' . $end_point_key ] ) ? $this->wc4bp_options['position'][ 'wc4bp_endpoint_' . $end_point_key ] : $i;
+					$tabs_array[ $end_point_key ]['enable']     = isset( $this->wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] );
+					$tabs_array[ $end_point_key ]['user_label'] = isset( $this->wc4bp_options['user_label'][ 'wc4bp_endpoint_' . $end_point_key ] ) ? $this->wc4bp_options['user_label'][ 'wc4bp_endpoint_' . $end_point_key ] : $end_point_name;
 				} else {
-					$tabs_array[ $end_point_key ]['position'] = $i;
-					$tabs_array[ $end_point_key ]['enable']   = 0;
+					$tabs_array[ $end_point_key ]['position']   = $i;
+					$tabs_array[ $end_point_key ]['enable']     = 0;
+					$tabs_array[ $end_point_key ]['user_label'] = $end_point_name;
 				}
 				$tabs_array[ $end_point_key ]['label']         = $end_point_name;
 				$tabs_array[ $end_point_key ]['name']          = 'wc4bp_options[wc4bp_endpoint_' . $end_point_key . ']';
 				$tabs_array[ $end_point_key ]['name_position'] = 'wc4bp_options[position][wc4bp_endpoint_' . $end_point_key . ']';
+				$tabs_array[ $end_point_key ]['name_label']    = 'wc4bp_options[user_label][wc4bp_endpoint_' . $end_point_key . ']';
 				$i ++;
 			}
 
