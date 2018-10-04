@@ -23,6 +23,7 @@ class WC4BP_Component extends BP_Component {
 	public $template_directory;
 	private $wc4bp_pages_options;
 	private $wc4bp_options;
+	private $template_loaded = false;
 
 	/**
 	 * Start the shop component creation process
@@ -433,9 +434,12 @@ class WC4BP_Component extends BP_Component {
 			}
 			add_action( 'bp_template_content',
 				function () use ( $path ) {
-					bp_get_template_part( $path );
+					if ( ! $this->template_loaded ) {
+						bp_get_template_part( $path );
+						$this->template_loaded = true;
+					}
 				}
-			);
+				, 10 );
 
 			/**
 			 * Filter the founded template.
@@ -529,7 +533,7 @@ class WC4BP_Component extends BP_Component {
 			if ( array_key_exists( $key, $shop_endpoints ) ) {
 				if ( ! isset( $this->wc4bp_options[ 'tab_' . $key . '_disabled' ] ) ) {
 					$user_label = isset( $this->wc4bp_options['user_label'][ 'tab_' . $key . '_disabled' ] ) ? $this->wc4bp_options['user_label'][ 'tab_' . $key . '_disabled' ] : $title;
-					$position = isset( $this->wc4bp_options['position'][ 'tab_' . $key . '_disabled' ] ) ? $this->wc4bp_options['position'][ 'tab_' . $key . '_disabled' ] : 0;
+					$position   = isset( $this->wc4bp_options['position'][ 'tab_' . $key . '_disabled' ] ) ? $this->wc4bp_options['position'][ 'tab_' . $key . '_disabled' ] : 0;
 					switch ( $key ) {
 						case 'checkout':
 							global $woocommerce;
@@ -556,8 +560,8 @@ class WC4BP_Component extends BP_Component {
 			} elseif ( array_key_exists( $key, $my_account_tabs ) ) {
 				if ( empty( $this->wc4bp_options[ 'wc4bp_endpoint_' . $key ] ) ) {
 					$user_label = isset( $this->wc4bp_options['user_label'][ 'wc4bp_endpoint_' . $key ] ) ? $this->wc4bp_options['user_label'][ 'wc4bp_endpoint_' . $key ] : $title;
-					$position  = isset( $this->wc4bp_options['position'][ 'wc4bp_endpoint_' . $key ] ) ? $this->wc4bp_options['position'][ 'wc4bp_endpoint_' . $key ] : 0;
-					$sub_nav[] = $this->$item_function( $parent, $key, $user_label, '', $position );
+					$position   = isset( $this->wc4bp_options['position'][ 'wc4bp_endpoint_' . $key ] ) ? $this->wc4bp_options['position'][ 'wc4bp_endpoint_' . $key ] : 0;
+					$sub_nav[]  = $this->$item_function( $parent, $key, $user_label, '', $position );
 				}
 			}
 		}
