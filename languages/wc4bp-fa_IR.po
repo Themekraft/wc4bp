@@ -1,0 +1,691 @@
+# Copyright (C) 2018 WooCommerce BuddyPress Integration
+# This file is distributed under the same license as the WooCommerce BuddyPress Integration package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce BuddyPress Integration\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: ThemeKraft Team <svenl@themekraft.com>\n"
+"Last-Translator: Sven Lehnert <svenl@themekraft.com>\n"
+"Report-Msgid-Bugs-To: https://github.com/Themekraft/wc4bp/issues\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e;esc_attr_e;_x:1,2c;_esc_attr;_esc_attr_echo;_esc_html;_esc_html_echo;_ex:1,2c;_esc_attr_x:1,2c;_esc_html_x:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language: \n"
+
+#: wc4bp-basic-integration.php:121
+msgid "WC4BP -> WooCommerce BuddyPress Integration"
+msgstr "WC4BP -> ادغام BuddyPress WooCommerce"
+
+#: admin/admin-delete.php:46
+msgid "Delete all WooCommerce BuddyPress Integration Settings on Plugin Deactivation"
+msgstr "حذف تمام تنظیمات یکپارچه سازی BuddyPress WooCommerce در غیر فعال کردن پلاگین"
+
+#: admin/admin-delete.php:47
+msgid "<b>Delete all Settings</b>"
+msgstr "<b>تمام تنظیمات را حذف کنید</b>"
+
+#: admin/admin-pages.php:171
+msgid "none"
+msgstr "هیچ یک"
+
+#: admin/admin-sync.php:46, admin/admin-sync.php:49
+msgid "Profile Field Synchronization Settings"
+msgstr "تنظیمات همگام سازی فیلد پروفایل"
+
+#: admin/admin-sync.php:50
+msgid "Default BuddyPress WooCommerce Profile Field Settings"
+msgstr "پیش فرض BuddyPress WooCommerce تنظیمات فیلد مشخصات"
+
+#: admin/admin-sync.php:51
+msgid "<b>Woo & BP Profile Fields Sync </b>"
+msgstr "<b>Woo & BP فیلد فیلد همگام سازی</b>"
+
+#: admin/admin-sync.php:52
+msgid "<b>Profile Field Visibility</b>"
+msgstr "<b>نمایه فیلد پروفایل</b>"
+
+#: admin/admin-sync.php:53
+msgid "<b>Default Profile Fields Visibility</b>"
+msgstr "<b>دیدگاههای فیلد پیش فرض</b>"
+
+#: admin/admin-sync.php:54
+msgid "<b>Allow Custom Visibility Change by User</b>"
+msgstr "<b>اجازه تغییر کاربر سفارشی را ببینید</b>"
+
+#: admin/admin-sync.php:62
+msgid "<p><strong>The options in this tab need xProfile be activated in BuddyPress.</strong></p>"
+msgstr "<p style=\";text-align:right;direction:rtl\"> <strong>گزینه های موجود در این برگه باید در برنامه BuddyPress فعال شود.</strong> </p>"
+
+#: admin/admin-sync.php:129
+msgid "Select Visibility"
+msgstr "نمایشگر را انتخاب کنید"
+
+#: admin/admin-sync.php:137
+msgid "<p><strong>xProfile need to be active in BuddyPress</strong></p>"
+msgstr "<p style=\";text-align:right;direction:rtl\"> <strong>xProfile باید در BuddyPress فعال باشد</strong> </p>"
+
+#: admin/admin.php:58
+msgid "WooCommerce for BuddyPress"
+msgstr "WooCommerce برای BuddyPress"
+
+#: admin/admin.php:58, admin/views/html_admin_header.php:9
+msgid "WC4BP Settings"
+msgstr "تنظیمات WC4BP"
+
+#: admin/admin.php:114
+msgid "<b>Shop Settings</b>"
+msgstr "<b>تنظیمات فروشگاه</b>"
+
+#: admin/admin.php:115
+msgid "<b>Remove My Account Tabs</b>"
+msgstr "<b>حذف زبانه حساب کاربری من</b>"
+
+#: admin/admin.php:116
+msgid "<b>Remove Shop Tabs</b>"
+msgstr "<b>حذف جداول فروشگاه</b>"
+
+#: admin/admin.php:117
+msgid "<b>Turn off the Profile Sync</b>"
+msgstr "<b>همگام سازی پروفایل را خاموش کنید</b>"
+
+#: admin/admin.php:118
+msgid "<b>Default Shop Tab</b>"
+msgstr "<b>زبانه فروشگاه پیش فرض</b>"
+
+#: admin/admin.php:287, admin/admin.php:361
+msgid "Cart"
+msgstr "سبد خرید"
+
+#: admin/admin.php:292, admin/admin.php:366, class/wc4bp-manager.php:229, class/wc4bp-manager.php:241
+msgid "Checkout"
+msgstr "وارسی"
+
+#: admin/admin.php:297, admin/admin.php:371
+msgid "Track my order"
+msgstr "پیگیری سفارش من"
+
+#: admin/wc4bp-activate.php:89
+msgid "Billing Address"
+msgstr "آدرس قبض"
+
+#: admin/wc4bp-activate.php:96, admin/wc4bp-activate.php:224, class/core/wc4bp-sync.php:343, class/core/wc4bp-sync.php:396
+msgid "First Name"
+msgstr "نام کوچک"
+
+#: admin/wc4bp-activate.php:103, admin/wc4bp-activate.php:231, class/core/wc4bp-sync.php:347, class/core/wc4bp-sync.php:400
+msgid "Last Name"
+msgstr "نام خانوادگی"
+
+#: admin/wc4bp-activate.php:110, admin/wc4bp-activate.php:238, class/core/wc4bp-sync.php:351, class/core/wc4bp-sync.php:404, admin/views/sync/html_admin_sync_shop_profile.php:32, admin/views/sync/html_admin_sync_shop_profile.php:46
+msgid "Company"
+msgstr "شرکت"
+
+#: admin/wc4bp-activate.php:117, admin/wc4bp-activate.php:245, class/core/wc4bp-sync.php:355, class/core/wc4bp-sync.php:408, admin/views/sync/html_admin_sync_shop_profile.php:33, admin/views/sync/html_admin_sync_shop_profile.php:47
+msgid "Address 1"
+msgstr "آدرس 1"
+
+#: admin/wc4bp-activate.php:124, admin/wc4bp-activate.php:252, class/core/wc4bp-sync.php:359, class/core/wc4bp-sync.php:412, admin/views/sync/html_admin_sync_shop_profile.php:34, admin/views/sync/html_admin_sync_shop_profile.php:48
+msgid "Address 2"
+msgstr "آدرس 2"
+
+#: admin/wc4bp-activate.php:131, admin/wc4bp-activate.php:259, class/core/wc4bp-sync.php:363, class/core/wc4bp-sync.php:416, admin/views/sync/html_admin_sync_shop_profile.php:35, admin/views/sync/html_admin_sync_shop_profile.php:49
+msgid "City"
+msgstr "شهر"
+
+#: admin/wc4bp-activate.php:138, admin/wc4bp-activate.php:266, class/core/wc4bp-sync.php:367, class/core/wc4bp-sync.php:420, admin/views/sync/html_admin_sync_shop_profile.php:36, admin/views/sync/html_admin_sync_shop_profile.php:50
+msgid "Postcode"
+msgstr "کد پستی"
+
+#: admin/wc4bp-activate.php:146, admin/wc4bp-activate.php:274, class/core/wc4bp-sync.php:375, class/core/wc4bp-sync.php:428
+msgid "Country"
+msgstr "کشور"
+
+#: admin/wc4bp-activate.php:165, admin/wc4bp-activate.php:293, class/core/wc4bp-sync.php:371, class/core/wc4bp-sync.php:424
+msgid "State/County"
+msgstr "کشور / استان"
+
+#: admin/wc4bp-activate.php:172, class/core/wc4bp-sync.php:383
+msgid "Email Address"
+msgstr "آدرس ایمیل"
+
+#: admin/wc4bp-activate.php:179, class/core/wc4bp-sync.php:379
+msgid "Phone"
+msgstr "تلفن"
+
+#: admin/wc4bp-activate.php:186, class/core/wc4bp-sync.php:387
+msgid "Fax"
+msgstr "فکس"
+
+#: admin/wc4bp-activate.php:217
+msgid "Shipping Address"
+msgstr "آدرس حمل و نقل"
+
+#: class/wc4bp-activity-stream.php:85
+msgid "%s wrote a review about <a href=\"%s\">%s</a>"
+msgstr "٪ s یک بررسی در مورد <a href=\"%s\">٪ s</a> نوشت"
+
+#: class/wc4bp-activity-stream.php:166
+msgid "%s purchased %s"
+msgstr "٪ s٪ s را خریداری کرد"
+
+#: class/wc4bp-manage-admin.php:74
+msgid "WC4BP auto-generated"
+msgstr "WC4BP خودکار تولید شده است"
+
+#: class/wc4bp-manager.php:42, class/wc4bp-manager.php:217, class/wc4bp-manager.php:239, class/core/wc4bp-component.php:44, class/core/wc4bp-component.php:180, class/core/wc4bp-component.php:208, class/core/wc4bp-component.php:294, class/core/wc4bp-component.php:313
+msgid "Shop"
+msgstr "فروشگاه"
+
+#: class/wc4bp-manager.php:223, class/wc4bp-manager.php:240
+msgid "Shopping Cart"
+msgstr "سبد خرید"
+
+#: class/wc4bp-manager.php:235, class/wc4bp-manager.php:242, templates/shop/member/track.php:17
+msgid "Track your order"
+msgstr "سفارشتان را پیگیری کنید"
+
+#: class/wc4bp-myaccount-private.php:41
+msgid "Sorry this page is only for logging users!"
+msgstr "با عرض پوزش این صفحه فقط برای ورود کاربران است!"
+
+#: class/wc4bp-myaccount.php:178
+msgid "Orders"
+msgstr "سفارشات"
+
+#: class/wc4bp-myaccount.php:179
+msgid "Downloads"
+msgstr "دانلودها"
+
+#: class/wc4bp-myaccount.php:180
+msgid "Addresses"
+msgstr "آدرس"
+
+#: class/wc4bp-myaccount.php:181
+msgid "Payment methods"
+msgstr "روش های پرداخت"
+
+#: class/wc4bp-myaccount.php:182
+msgid "Account details"
+msgstr "جزئیات حساب"
+
+#: class/wc4bp-required.php:91
+msgid "<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin requires the following plugin: %1$s."
+msgid_plural "<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin requires the following plugins: %1$s."
+msgstr[0] "<u>WC4BP -></u> افزونه <u>WooCommerce BuddyPress Integration</u> نیاز به پلاگین زیر دارد:٪ 1 $ s."
+msgstr[1] ""
+
+#: class/wc4bp-required.php:97
+msgid "<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin recommends the following plugin: %1$s."
+msgid_plural "<u>WC4BP -> WooCommerce BuddyPress Integration</u> plugin recommends the following plugins: %1$s."
+msgstr[0] "<u>WC4BP -></u> افزونه <u>WooCommerce BuddyPress Integration</u> پلاگین زیر را توصیه می کند:٪ 1 $ s."
+msgstr[1] ""
+
+#: class/wc4bp-required.php:103
+msgid "The following is a required plugin for <u>WC4BP -> WooCommerce BuddyPress Integration</u> and is currently inactive: %1$s."
+msgid_plural "The following is a required plugins for <u>WC4BP -> WooCommerce BuddyPress Integration</u> and they are currently inactive: %1$s."
+msgstr[0] "زیر پلاگین مورد نیاز برای <u>WC4BP -> WooCommerce BuddyPress Integration است</u> و در حال حاضر غیر فعال است:٪ 1 $ s."
+msgstr[1] ""
+
+#: class/wc4bp-required.php:109
+msgid "The following plugin needs to be updated to its latest version to ensure maximum compatibility with this plugin: %1$s."
+msgid_plural "The following plugins need to be updated to their latest version to ensure maximum compatibility with this plugin: %1$s."
+msgstr[0] "پلاگین زیر باید به آخرین نسخه آن بروزرسانی شود تا مطمئن شود حداکثر سازگاری با این پلاگین:٪ 1 $ s باشد."
+msgstr[1] ""
+
+#: admin/views/html_admin_header.php:3
+msgid "WooCommerce BuddyPress Integration"
+msgstr "ادغام BuddyPress WooCommerce"
+
+#: admin/views/html_admin_header.php:5
+msgid "Proudly brought to you by "
+msgstr "با افتخار با شما به ارمغان آورد"
+
+#: admin/views/html_admin_header.php:10
+msgid "Profile Fields Sync"
+msgstr "فیلد فیلد همگام سازی"
+
+#: admin/views/html_admin_header.php:11
+msgid "Integrate Pages"
+msgstr "ادغام صفحات"
+
+#: admin/views/html_admin_header.php:12, admin/views/pages/html_admin_pages_forms_table.php:31
+msgid "Delete"
+msgstr "حذف"
+
+#: admin/views/html_admin_header.php:15
+msgid "Go Professional!!!"
+msgstr "برو حرفه ای"
+
+#: admin/views/html_admin_revision.php:5
+msgid " Hey, you just updated to the %s version – that’s awesome!"
+msgstr "هی، شما فقط به نسخه٪ s به روز رسانی - این عالی است!"
+
+#: admin/views/html_admin_revision.php:5
+msgid " Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation."
+msgstr "آیا می توانید به من لطف بزرگی بدهید و رتبه 5 ستاره ای را در وردپرس بدست آورید؟ فقط برای کمک به ما در گسترش این کلمه و تقویت انگیزه ما."
+
+#: admin/views/html_admin_revision.php:10
+msgid " Ok, you deserve it"
+msgstr "خوب، سزاوار آن هستی"
+
+#: admin/views/html_admin_revision.php:13
+msgid " Nope, maybe later"
+msgstr "نه، شاید بعدا"
+
+#: admin/views/html_admin_revision.php:16
+msgid " I already did"
+msgstr "من قبلا انجام دادم"
+
+#: admin/views/html_admin_screen_sync.php:16
+msgid "This option is not available, you need to uncheck 'Turn off the Profile Sync' from the WC4BP Settings tab."
+msgstr "این گزینه در دسترس نیست، شما باید از علامت \"خاموش کردن همگام سازی مشخصات\" را از زبانه تنظیمات WC4BP بردارید."
+
+#: class/core/wc4bp-component.php:94
+msgid "New review created"
+msgstr "بررسی جدید ایجاد شد"
+
+#: class/core/wc4bp-component.php:95
+msgid "New purchase made"
+msgstr "خرید جدید ساخته شده است"
+
+#: class/core/wc4bp-screen.php:249
+msgid "Changes saved."
+msgstr "تغییرات ذخیره شد."
+
+#: class/core/wc4bp-screen.php:275
+msgid "Shop Settings"
+msgstr "تنظیمات فروشگاه"
+
+#: class/core/wc4bp-screen.php:296
+msgid "Activity Stream"
+msgstr "جریان فعالیت"
+
+#: class/core/wc4bp-screen.php:297
+msgid "Yes"
+msgstr "بله"
+
+#: class/core/wc4bp-screen.php:298
+msgid "No"
+msgstr "نه"
+
+#: class/core/wc4bp-screen.php:305
+msgid "Post to activity stream all reviews written by me"
+msgstr "ارسال کلیه بررسی های نوشته شده توسط من به جریان فعالیت"
+
+#: class/core/wc4bp-screen.php:311
+msgid "Post to activity stream all purchases I've made"
+msgstr "ارسال تمام فعالیت های خریدی که من انجام داده ام به جریان فعالیت است"
+
+#: class/core/wc4bp-screen.php:326
+msgid "Save Changes"
+msgstr "ذخیره تغییرات"
+
+#: class/core/wc4bp-screen.php:355, templates/shop/member/view-order.php:23
+msgid "Please enter a valid order ID"
+msgstr "لطفا یک شناسه معتبر سفارش را وارد کنید"
+
+#: class/core/wc4bp-screen.php:357
+msgid "Please enter a valid order email"
+msgstr "لطفا یک ایمیل سفارش معتبر وارد کنید"
+
+#: class/core/wc4bp-screen.php:364
+msgid "You are not allowed to view this order."
+msgstr "شما مجاز به مشاهده این سفارش نیستید."
+
+#: class/core/wc4bp-screen.php:367
+msgid "Sorry, we could not find that order id in our database."
+msgstr "با عرض پوزش، ما نمیتوانیم این شناسه سفارش را در پایگاه داده ما پیدا کنیم."
+
+#: class/core/wc4bp-screen.php:389
+msgid "Your Order"
+msgstr "سفارش شما"
+
+#: class/core/wc4bp-sync.php:340, admin/views/sync/html_admin_sync_shop_profile.php:28
+msgid "Customer Billing Address"
+msgstr "آدرس پرداخت مشتری"
+
+#: class/core/wc4bp-sync.php:393, admin/views/sync/html_admin_sync_shop_profile.php:42
+msgid "Customer Shipping Address"
+msgstr "آدرس حمل و نقل مشتری"
+
+#: class/core/wc4bp-sync.php:425
+msgid "State/County or state code"
+msgstr "کد کشور / ایالت یا ایالت"
+
+#: class/core/wc4bp-sync.php:429
+msgid "2 letter Country code"
+msgstr "2 حرف کد کشور"
+
+#: admin/views/delete/html_admin_delete_all_settings.php:1
+msgid "Be careful! If you check this option, all settings will be deleted on the plugin deactivation."
+msgstr "مراقب باش! اگر این گزینه را بررسی کنید، تمام تنظیمات در غیر فعال کردن پلاگین حذف خواهند شد."
+
+#: admin/views/delete/html_admin_delete_all_settings.php:2
+msgid "Yes I want to delete all Settings: "
+msgstr "بله من می خواهم تمام تنظیمات را حذف کنم:"
+
+#: admin/views/main/html_admin_my_account_tabs.php:3
+msgid "<p>By default all account related <b>WooCommerce My Account</b> Tabs are included into the BuddyPress member profiles. When you <b>Turn off</b> one of the next, the Tab(s) will disappear.</p>"
+msgstr "<p style=\";text-align:right;direction:rtl\"> به طور پیش فرض تمامی حساب های مربوط به <b>WooCommerce</b> زبانه <b>حساب من</b> در پروفایل های BuddyPress عضو شده است. هنگامی که شما یکی از موارد دیگر را <b>خاموش</b> می <b>کنید</b> ، Tab (ها) ناپدید می شوند. </p>"
+
+#: admin/views/main/html_admin_my_account_tabs.php:10
+msgid "Turn off %s tab."
+msgstr "خاموش٪ s برگه"
+
+#: admin/views/main/html_admin_profile_sync.php:4
+msgid "If you turn off profile sync, the Billing and Shipping profield groups from Profile/Edit will be deleted and disable all sync settings. When you turn On again they will be created again. IMPORTANT ALL DATA WILL BE LOST!"
+msgstr "اگر همگام سازی نمایه را خاموش کنید، گروه های حسابداری و حمل و نقل Profield از نمایه / ویرایش حذف خواهد شد و تمام تنظیمات همگام سازی را غیرفعال می کند. هنگامی که دوباره روشن می کنید، دوباره ایجاد می شوند. مهم تمام داده ها از دست خواهند رفت!"
+
+#: admin/views/main/html_admin_profile_sync.php:8
+msgid "Turn off WooCommerce BuddyPress Profile Sync."
+msgstr "خاموش WooCommerce BuddyPress Sync Profile."
+
+#: admin/views/main/html_admin_shop_disable.php:5
+msgid "Turn off 'Cart' tab"
+msgstr "زبانه \"سبد خرید\" را خاموش کنید"
+
+#: admin/views/main/html_admin_shop_disable.php:11
+msgid "Turn off 'Checkout' tab."
+msgstr "برگه \"پرداخت\" را خاموش کنید"
+
+#: admin/views/main/html_admin_shop_disable.php:17
+msgid "Turn off 'Track my order' tab."
+msgstr "برگه 'Track my order' را خاموش کنید"
+
+#: admin/views/main/html_admin_shop_home.php:4
+msgid "This option override the default tab to show when the user click in the Shop tab."
+msgstr "این گزینه جایگزین زبانه پیش فرض برای نشان دادن زمانی است که کاربر بر روی زبانه Shop کلیک کند."
+
+#: admin/views/main/html_admin_shop_home.php:8
+msgid "Default"
+msgstr "پیش فرض"
+
+#: admin/views/main/html_admin_shop_home.php:14
+msgid "You need at least one Page added to Member Profiles!"
+msgstr "شما نیاز به حداقل یک صفحه اضافه شده به عضو پروفایل!"
+
+#: admin/views/main/html_admin_shop_tabs.php:5
+msgid "Turn off Shop."
+msgstr "خاموش کردن فروشگاه."
+
+#: admin/views/main/html_admin_shop_tabs.php:6
+msgid "Disable the BuddyPress Shop Tab and WooCommerce My Account will work normally."
+msgstr "BuddyPress Shop Tab و WooCommerce غیرفعال حساب من به طور معمول کار خواهد کرد."
+
+#: admin/views/main/html_admin_shop_tabs.php:13
+msgid "Turn off 'Shop Tab' "
+msgstr "خاموش کردن 'Shop Tab'"
+
+#: admin/views/main/html_admin_shop_tabs.php:14
+msgid "inside \"Settings\" for the activity stream settings."
+msgstr "در داخل \"تنظیمات\" برای تنظیمات جریان فعالیت."
+
+#: admin/views/main/html_admin_shop_tabs.php:20
+msgid "Turn off 'WooCommerce My Account' redirection."
+msgstr "غیرفعال کردن \"تغییر حساب کاربری WooCommerce من\""
+
+#: admin/views/main/html_admin_shop_tabs.php:20
+msgid "This option is useful when you have problems with 3rd-party WooCommerce plugins. It disables only the My Account redirection, not the sub tabs url."
+msgstr "این گزینه مفید است هنگامی که شما با مشکلی با پلاگین های WooCommerce 3rd Party دارید. این فقط هدایت حساب من، نه آدرس زیر برگه ها را غیرفعال می کند."
+
+#: admin/views/main/html_admin_shop_tabs.php:26
+msgid "Turn off 'WooCommerce User Profile ' override."
+msgstr "غیرفعال کردن پروفایل WooCommerce User Profile را غیرفعال کنید."
+
+#: admin/views/main/html_admin_shop_tabs.php:26
+msgid "This option is useful to stop WooCommerce override User Profile First Name, Last Name and Display Name."
+msgstr "این گزینه برای جلوگیری از لغو WooCommerce پروفایل کاربری نام، نام خانوادگی و نام نمایشگر مفید است."
+
+#: admin/views/main/html_admin_shop_tabs.php:31
+msgid "Change the  Shop label. "
+msgstr "برچسب فروشگاه را تغییر دهید."
+
+#: admin/views/main/html_admin_shop_tabs.php:31
+msgid "This option is useful when you want to change the Label of the Shop."
+msgstr "این گزینه هنگامی مفید است که می خواهید برچسب Labs را تغییر دهید."
+
+#: admin/views/main/html_admin_shop_tabs.php:40
+msgid "Change the  Shop Url. "
+msgstr "آدرس فروشگاه را عوض کنید"
+
+#: admin/views/main/html_admin_shop_tabs.php:40
+msgid "This option is useful when you want to change the Url of the Shop."
+msgstr "این گزینه زمانی مفید است که شما می خواهید نشانی اینترنتی فروشگاه را تغییر دهید."
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:2
+msgid "Choose an existing page"
+msgstr "یک صفحه موجود را انتخاب کنید"
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:6
+msgid "Include Children?"
+msgstr "شامل بچه ها"
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:9, admin/views/pages/html_admin_pages_forms_table.php:12
+msgid "Tab Name"
+msgstr "نام تابلو"
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:10
+msgid "If empty same as Pagename"
+msgstr "اگر خالی همانند Pagename باشد"
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:15, admin/views/pages/html_admin_pages_forms_table.php:14
+msgid "Position"
+msgstr "موقعیت"
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:17
+msgid "Just enter a number like 1, 2, 3.."
+msgstr "فقط یک عدد مانند 1، 2، 3 را وارد کنید"
+
+#: admin/views/pages/html_admin_pages_edit_entry.php:25
+msgid "Save"
+msgstr "صرفه جویی"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:1
+msgid "Add Pages to Member Profiles"
+msgstr "اضافه کردن صفحات به پروفایل اعضا"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:3
+msgid "Integrate other pages (for example from other WooCommerce extensions) into your BuddyPress member profiles."
+msgstr "دیگر صفحات (به عنوان مثال از سایر پسوندهای WooCommerce) را به پروفایل های BuddyPress خود اضافه کنید."
+
+#: admin/views/pages/html_admin_pages_forms_table.php:4
+msgid "This will redirect the page to the correct profile page and add a menu item in the profile."
+msgstr "این صفحه را به صفحه پروفایل صحیح هدایت می کند و یک مورد منو در نمایه اضافه می کند."
+
+#: admin/views/pages/html_admin_pages_forms_table.php:10
+msgid "Page"
+msgstr "صفحه"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:11
+msgid "Including Children?"
+msgstr "از جمله کودکان؟"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:13
+msgid "Tab Slug"
+msgstr "تب گرمی"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:28
+msgid "an existing page to your BuddyPress member profiles"
+msgstr "یک صفحه موجود در پروفایل های BuddyPress شما"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:28, templates/shop/member/plugin.php:97
+msgid "Edit"
+msgstr "ویرایش"
+
+#: admin/views/pages/html_admin_pages_forms_table.php:31
+msgid "Delete this item"
+msgstr "این مورد را حذف کنید"
+
+#: admin/views/pages/html_admin_pages_shop_pages_rename.php:2
+msgid "Rename Shop Parent Tab:"
+msgstr "تغییر نام فروشگاه پدر و مادر برگه:"
+
+#: admin/views/pages/html_admin_pages_shop_pages_rename.php:3
+msgid "Rename Shopping Cart:"
+msgstr "تغییر نام سبد خرید:"
+
+#: admin/views/pages/html_admin_pages_shop_pages_rename.php:4
+msgid "Rename History:"
+msgstr "تغییر نام تاریخچه:"
+
+#: admin/views/pages/html_admin_pages_shop_pages_rename.php:5
+msgid "Rename Track your order:"
+msgstr "تغییر نام پیگیری سفارش شما:"
+
+#: admin/views/pages/html_admin_pages_thickbox.php:2
+msgid "Add an existing page to your BuddyPress member profiles"
+msgstr "یک صفحه موجود را به پروفایل های BuddyPress خود اضافه کنید"
+
+#: admin/views/pages/html_admin_pages_thickbox.php:2
+msgid "Add a page to your BuddyPress Member Profiles"
+msgstr "یک صفحه را به پروفایلهای BuddyPress خود اضافه کنید"
+
+#: admin/views/sync/html_admin_sync_change_xprofile.php:3
+msgid "Set the Profile Field Visibility for all Users:"
+msgstr "تنظیم میدان دید نمایه برای همه کاربران:"
+
+#: admin/views/sync/html_admin_sync_change_xprofile.php:6
+msgid "You can change the Field Visibility for all users. This will only work if the option"
+msgstr "شما می توانید قابلیت مشاهده فیلد را برای همه کاربران تغییر دهید. این تنها در صورتی امکان پذیر است که کار کند"
+
+#: admin/views/sync/html_admin_sync_change_xprofile.php:9
+msgid "\"Allow Custom Visibility Change by User\" is set to \"Let members change this field's visibility\""
+msgstr "\"اجازه تغییر تغییرات سفارشی توسط کاربر\" بر روی \"اعضای اجازه تغییر دید در این زمینه\" تنظیم شده است"
+
+#: admin/views/sync/html_admin_sync_change_xprofile.php:13, admin/views/sync/html_admin_sync_shop_profile.php:58
+msgid "Sync Now"
+msgstr "همگام سازی اکنون"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:1
+msgid "Allow if the user can change the Field visibility."
+msgstr "اجازه دهید که کاربر بتواند دیداری از فیلد را تغییر دهد."
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:5
+msgid "Let members change this field's visibility"
+msgstr "اجازه دهید اعضای دید این میدان را تغییر دهد"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:8
+msgid "Enforce the default visibility for all members"
+msgstr "اعمال نمایشی پیش فرض برای همه اعضا"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:12, admin/views/sync/html_admin_sync_change_xprofile_visibility.php:5
+msgid "Change Now"
+msgstr "تغییر کن"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:21, admin/views/sync/html_admin_sync_change_xprofile_visibility.php:12
+msgid "<li>billing_%s default visibility changed to %s</li>"
+msgstr "<li style=\";text-align:right;direction:rtl\"> نمایش پیشفرض billing_٪ به٪ s تغییر کرد </li>"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:27, admin/views/sync/html_admin_sync_change_xprofile_visibility.php:18
+msgid "<li>shipping_%s default visibility changed to %s</li>"
+msgstr "<li style=\";text-align:right;direction:rtl\"> دیدگاه پیش فرض ship_٪ s به٪ s تغییر یافت </li>"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_allow_custom.php:30, admin/views/sync/html_admin_sync_change_xprofile_visibility.php:21
+msgid "<h3>All Done!</h3>"
+msgstr "<h3 style=\";text-align:right;direction:rtl\"> همه انجام شده است! </h3>"
+
+#: admin/views/sync/html_admin_sync_change_xprofile_visibility.php:2
+msgid "Set the default visibility for all WooCommerce Fields inside BuddyPress."
+msgstr "نمایش پیش فرض برای تمام زمینه های WooCommerce داخل BuddyPress را تنظیم کنید."
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:2
+msgid "Sync WooCommerce Customer Billing and Shipping Address with BuddyPress."
+msgstr "همگام سازی WooCommerce پرداخت صورت حساب مشتری و ارسال آدرس با BuddyPress."
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:5
+msgid ""
+"The billing and shipping address fields are WooCommerce default user fields. You can sync all default WooCommerce\n"
+"            customer fields with BuddyPress."
+msgstr "زمینه های صورتحساب و حمل و نقل، زمینه های کاربر پیش فرض WooCommerce هستند. شما می توانید تمام زمینه های مشتری WooCommerce پیش فرض با BuddyPress همگام سازی کنید."
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:9
+msgid "During checkout or if a user edits his profile all fields will be synced automatically."
+msgstr "در هنگام پرداخت یا اگر یک کاربر نمایه خود را ویرایش کند، همه فیلدها به صورت خودکار همگام سازی می شوند."
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:12
+msgid ""
+"If you have already customers and start using WooCommerce BuddyPress Integration on an existing store, you need \n"
+"            to sync your user once."
+msgstr "اگر قبلا مشتری هستید و از WooCommerce BuddyPress Integration در فروشگاه موجود استفاده می کنید، باید یک بار یک بار همگام سازی کنید."
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:16
+msgid ""
+"The Customer Billing and Shipping Address fields will be created in BuddyPress during the plugin installation,\n"
+"            but the user sync can take a while depends on the size of your user base and needs to be done once after the\n"
+"            first install."
+msgstr "فیلد آدرس های پرداخت مشتری و حمل و نقل در BuddyPress در طول نصب افزونه ایجاد خواهد شد، اما همگام سازی کاربر می تواند به چندین بار بستگی به اندازه پایگاه کاربر شما داشته باشد و باید بعد از اولین نصب نصب شود."
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:23
+msgid " Default WooCommerce Checkout Fields"
+msgstr "پیش فرض زمینه های پرداخت WooCommerce"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:30, admin/views/sync/html_admin_sync_shop_profile.php:44
+msgid "First name"
+msgstr "نام کوچک"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:31, admin/views/sync/html_admin_sync_shop_profile.php:45
+msgid "Last name"
+msgstr "نام خانوادگی"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:37, admin/views/sync/html_admin_sync_shop_profile.php:51
+msgid "State/County "
+msgstr "کشور / استان"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:37, admin/views/sync/html_admin_sync_shop_profile.php:51
+msgid "(Country or state code)"
+msgstr "(کد کشور یا ایالت)"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:38, admin/views/sync/html_admin_sync_shop_profile.php:52
+msgid "Country(2 letter Country code)"
+msgstr "کشور (2 حرف کد کشور)"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:39
+msgid "Telephone"
+msgstr "تلفن"
+
+#: admin/views/sync/html_admin_sync_shop_profile.php:40
+msgid "Email"
+msgstr "پست الکترونیک"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:4
+msgid "If the Update stops for some reason you can continue the update manually"
+msgstr "اگر به روز رسانی متوقف شود، می توانید بروزرسانی را به صورت دستی ادامه دهید"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:6
+msgid " Continue Updating from here"
+msgstr "ادامه به روز رسانی از اینجا"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:11
+msgid "Select All"
+msgstr "انتخاب همه"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:15
+msgid "Username"
+msgstr "نام کاربری"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:18
+msgid "Name"
+msgstr "نام"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:21
+msgid "E-mail"
+msgstr "پست الکترونیکی"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:24
+msgid "Role"
+msgstr "نقش"
+
+#: admin/views/sync/html_admin_sync_shop_profile_sync_ajax.php:43
+msgid "Select admin"
+msgstr "مدیر را انتخاب کنید"
+
+#: templates/shop/member/plugin.php:92
+msgid "Pages:"
+msgstr "صفحات:"

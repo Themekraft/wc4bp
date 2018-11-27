@@ -113,11 +113,11 @@ msgstr "Seguir mi orden"
 
 #: admin/wc4bp-activate.php:89
 msgid "Billing Address"
-msgstr "Dirección de Envio"
+msgstr "Dirección de pedido del cliente"
 
 #: admin/wc4bp-activate.php:96, admin/wc4bp-activate.php:224, class/core/wc4bp-sync.php:336, class/core/wc4bp-sync.php:389
 msgid "First Name"
-msgstr "Nombre de pila"
+msgstr "Nombre"
 
 #: admin/wc4bp-activate.php:103, admin/wc4bp-activate.php:231, class/core/wc4bp-sync.php:340, class/core/wc4bp-sync.php:393
 msgid "Last Name"
@@ -129,11 +129,11 @@ msgstr "Empresa"
 
 #: admin/wc4bp-activate.php:117, admin/wc4bp-activate.php:245, class/core/wc4bp-sync.php:348, class/core/wc4bp-sync.php:401, admin/views/sync/html_admin_sync_shop_profile.php:33, admin/views/sync/html_admin_sync_shop_profile.php:47
 msgid "Address 1"
-msgstr "Dirección 1"
+msgstr "Dirección, linea 1"
 
 #: admin/wc4bp-activate.php:124, admin/wc4bp-activate.php:252, class/core/wc4bp-sync.php:352, class/core/wc4bp-sync.php:405, admin/views/sync/html_admin_sync_shop_profile.php:34, admin/views/sync/html_admin_sync_shop_profile.php:48
 msgid "Address 2"
-msgstr "Dirección 2"
+msgstr "Dirección, linea 2"
 
 #: admin/wc4bp-activate.php:131, admin/wc4bp-activate.php:259, class/core/wc4bp-sync.php:356, class/core/wc4bp-sync.php:409, admin/views/sync/html_admin_sync_shop_profile.php:35, admin/views/sync/html_admin_sync_shop_profile.php:49
 msgid "City"
@@ -149,11 +149,11 @@ msgstr "País"
 
 #: admin/wc4bp-activate.php:165, admin/wc4bp-activate.php:293, class/core/wc4bp-sync.php:364, class/core/wc4bp-sync.php:417
 msgid "State/County"
-msgstr "Estado / Condado"
+msgstr "Región / Provincia"
 
 #: admin/wc4bp-activate.php:172, class/core/wc4bp-sync.php:376
 msgid "Email Address"
-msgstr "Dirección de correo electrónico"
+msgstr "Correo electrónico"
 
 #: admin/wc4bp-activate.php:179, class/core/wc4bp-sync.php:372
 msgid "Phone"
@@ -165,7 +165,7 @@ msgstr "Fax"
 
 #: admin/wc4bp-activate.php:217
 msgid "Shipping Address"
-msgstr "Dirección de Envío"
+msgstr "Dirección de envío del cliente"
 
 #: class/wc4bp-manage-admin.php:74
 msgid "WC4BP auto-generated"

@@ -43,6 +43,10 @@ const languages = [
         lang: 'pt',
         spec: 'BR'
     },
+	{
+		lang: 'fa',
+		spec: 'IR'
+	}
 ];
 /**
  * Load modules
