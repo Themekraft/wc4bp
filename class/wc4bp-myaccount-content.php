@@ -16,6 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC4BP_MyAccount_Content {
 
 	private $end_points;
+	private $is_payment_short_code;
+	private $exist_stripe_payment;
 
 	public function __construct() {
 		try {
@@ -38,6 +40,8 @@ class WC4BP_MyAccount_Content {
 			foreach ( $this->end_points as $key => $class ) {
 				add_shortcode( $key, array( $this, 'process_shortcodes' ) );
 			}
+			add_action( 'wp_footer', array( $this, 'add_footer_scripts' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ) );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
@@ -100,20 +104,57 @@ class WC4BP_MyAccount_Content {
 			wc_print_notices();
 			$result = Request_Helper::simple_get( 'add-payment-method' );
 			if ( ! empty( $result ) ) {
-				$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-				$path    = WC()->plugin_url() . 'assets/js/frontend/add-payment-method' . $suffix . '.js';
-				$deps    = array( 'jquery', 'woocommerce' );
-				$version = WC()->version;
-				wp_register_script( 'wc-add-payment-method', $path, $deps, $version, true );
-				wp_enqueue_script( 'wc-add-payment-method' );
-				$payment_management = new WC_Gateway_Stripe();
-				$payment_management->payment_scripts();
+				if ( class_exists( 'WooCommerce' ) ) {
+					$this->is_payment_short_code = true;
+					if ( class_exists( 'WC_Gateway_Stripe' ) ) {
+						$this->exist_stripe_payment = true;
+					}
+				}
 				woocommerce_account_add_payment_method();
 			} else {
 				woocommerce_account_payment_methods();
 			}
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+		}
+	}
+
+	public function add_scripts() {
+		$is_wc4pb_component = bp_is_current_component( wc4bp_Manager::get_shop_slug() );
+		$is_checkout        = bp_is_current_action( 'checkout' );
+
+		if ( $is_wc4pb_component && ( $is_checkout ) ) {
+			$this->add_woocommerce_scripts();
+			$this->add_stripe_scripts();
+		}
+	}
+
+	public function add_footer_scripts() {
+		if ( $this->is_payment_short_code ) {
+			$this->add_woocommerce_scripts();
+			if ( $this->exist_stripe_payment ) {
+				$this->add_stripe_scripts();
+			}
+		}
+	}
+
+	public function add_stripe_scripts() {
+		if ( class_exists( 'WC_Gateway_Stripe' ) ) {
+			$payment_management = new WC_Gateway_Stripe();
+			if ( $payment_management->settings['enabled'] === 'yes' ) {
+				$payment_management->payment_scripts();
+			}
+		}
+	}
+
+	public function add_woocommerce_scripts() {
+		if ( class_exists( 'WooCommerce' ) ) {
+			$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+			$path    = WC()->plugin_url() . 'assets/js/frontend/add-payment-method' . $suffix . '.js';
+			$deps    = array( 'jquery', 'woocommerce' );
+			$version = WC()->version;
+			wp_register_script( 'wc-add-payment-method', $path, $deps, $version, true );
+			wp_enqueue_script( 'wc-add-payment-method' );
 		}
 	}
 

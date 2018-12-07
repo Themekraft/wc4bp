@@ -33,6 +33,10 @@ class wc4bp_redirect {
 	 */
 	public static function get_base_url() {
 		$base_url = bp_core_get_user_domain( bp_loggedin_user_id() ) . wc4bp_Manager::get_shop_slug() . '/';
+
+		if ( 'yes' === get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
+			$base_url = str_replace( 'http:', 'https:', $base_url );
+		}
 		
 		return $base_url;
 	}
@@ -177,9 +181,6 @@ class wc4bp_redirect {
 			$suffix = $add_url . '/';
 		}
 		$link = self::get_base_url() . $suffix;
-		if ( 'yes' === get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
-			$link = str_replace( 'http:', 'https:', $link );
-		}
 
 		/**
 		 * Change the redirection link
