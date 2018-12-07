@@ -2,9 +2,9 @@
 
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores,
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
-Requires at least: 4.0
-Tested up to: 4.9.7
-Stable tag: 3.2.4
+Requires at least: 4.9
+Tested up to: 5.0.0
+Stable tag: 3.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,11 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 9. Admin menu options
 
 == Changelog ==
+= 3.2.5 7 December 2018 =
+* Freemius updated to 2.2.2.
+* Fixed the Stripe Payment integrations.
+* Fixed the mixing of urls with https.
+
 = 3.2.4 30 August 2018 =
 * Fixed an incompatibility using an internal library with other internal plugins.
 
