@@ -63,26 +63,21 @@ class wc4bp_redirect {
 			 */
 			$avoid_woo_endpoints = apply_filters( 'wc4bp_avoid_woo_endpoints', array( 'order-received', 'order-pay' ) );
 			global $bp, $wp;
-			require_once ('wc4bp-component.php');
+            $wc4bp_options = get_option( 'wc4bp_options' );
 			if ( ( isset( $wp->query_vars['name'] ) && in_array( $wp->query_vars['name'], $avoid_woo_endpoints ) ) ) {
 				return false;
 			}
 			foreach ( $avoid_woo_endpoints as $avoid_woo_endpoint ) {
 				if ( isset( $wp->query_vars[ $avoid_woo_endpoint ] ) ) {
-				    //If The Thank you page redirection is off do this
-                    $integrated_page= get_option( 'wc4bp_pages_options' );
-                    if ( ! empty( $integrated_page) && is_string( $integrated_page ) ) {
-                        $integrated_page = json_decode($integrated_page,true);
-                        if ( isset( $integrated_page['selected_pages'] ) && is_array( $integrated_page['selected_pages'] ) ) {
-
-                                $first_key = key($integrated_page['selected_pages']);
-                                $page_to_redirect = $integrated_page['selected_pages'][$first_key]['page_id'];
-                                $page_to_redirect_data      = get_post( $page_to_redirect );
+				    
+                        if ( isset( $wc4bp_options['thank_you_page'] ) && $avoid_woo_endpoint =='order-received'  ) {
+                            $page_to_redirect_data      = get_post( $wc4bp_options['thank_you_page'] );
+                            if($page_to_redirect_data){
                                 $url           = get_bloginfo( 'url' ) . '/members/' ._wp_get_current_user()->user_login.'/' . wc4bp_Manager::get_shop_slug().'/'. $page_to_redirect_data->post_name;
                                 return $url;
-
                             }
                         }
+
                     }
 
 					return false;
@@ -96,7 +91,7 @@ class wc4bp_redirect {
 						return false;
 					}
 				}
-				$wc4bp_options = get_option( 'wc4bp_options' );
+
 				if ( ! empty( $wc4bp_options['tab_activity_disabled'] ) ) {
 					return false;
 				}
