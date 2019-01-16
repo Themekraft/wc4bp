@@ -218,50 +218,41 @@ class WC4BP_Component extends BP_Component {
 				);
 			}
 			$position = 40;
-            global  $bp,$woocommerce;
+			global $bp, $woocommerce;
 			if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
 				foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
 					$position ++;
 					//Don´t show the thanks you page until the  checkout is complete
-                    if(isset( $this->wc4bp_options['thank_you_page'] )){
-                        $page_to_redirect_data      = get_post( $this->wc4bp_options['thank_you_page'] );
-                        if($this->wc4bp_options['thank_you_page']==$attached_page['page_id'] ){
-                            $wc_session_data = $woocommerce->session;
-                            if ( ! empty( $wc_session_data ) ) {
-                                $session_thank_you_page = $wc_session_data->get( 'thank_you_page_redirect' );
-                                if ( ! empty( $session_thank_you_page ) ) {
-                                    //Check if The Checkout is complete
-                                    if($session_thank_you_page==$attached_page['page_id']){
-                                        if($page_to_redirect_data){
-                                            //Check If URl is equal to the Thank You Page
-                                            if(in_array($page_to_redirect_data->post_name,$bp->unfiltered_uri) ){
-
-                                            }
-                                            else{
-                                                //If the Url is Different than the Thank You Page, delete the value from the session
-                                                //To Hide the page from the nav bar.
-                                                $wc_session_data->__unset( 'thank_you_page_redirect' );
-                                                continue;
-                                            }
-
-                                        }
-
-
-                                    }
-                                    else{
-                                        continue;
-                                    }
-
-                                }else{
-                                    continue;
-                                }
-                            }else{
-                                continue;
-                            }
-
-
-                        }
-                    }
+					if ( isset( $this->wc4bp_options['thank_you_page'] ) ) {
+						$page_to_redirect_data = get_post( $this->wc4bp_options['thank_you_page'] );
+						if ( $this->wc4bp_options['thank_you_page'] == $attached_page['page_id'] ) {
+							/** @var WC_Session $wc_session_data */
+							$wc_session_data = $woocommerce->session;
+							if ( ! empty( $wc_session_data ) ) {
+								$session_thank_you_page = $wc_session_data->get( 'thank_you_page_redirect' );
+								if ( ! empty( $session_thank_you_page ) ) {
+									//Check if The Checkout is complete
+									if ( $session_thank_you_page == $attached_page['page_id'] ) {
+										if ( ! empty( $page_to_redirect_data ) ) {
+											//Check If URl is equal to the Thank You Page
+											if ( ! in_array( $page_to_redirect_data->post_name, $bp->unfiltered_uri ) ) {
+												//If the Url is Different than the Thank You Page, delete the value from the session
+												//To Hide the page from the nav bar.
+												$wc_session_data->__unset( 'thank_you_page_redirect' );
+												continue;
+											}
+										}
+									} else {
+										continue;
+									}
+								} else {
+									continue;
+								}
+							} else {
+								continue;
+							}
+						}
+					}
 					$post      = get_post( $attached_page['page_id'] );
 					$sub_nav[] = $this->get_nav_item( $shop_link, esc_html( $post->post_name ), $attached_page['tab_name'], 'wc4bp_screen_plugins', $position );
 				}

@@ -389,10 +389,7 @@ class wc4bp_admin extends wc4bp_base {
 
             }
 
-
-
             include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_thank_you_page.php' );
-
 
         } catch ( Exception $exception ) {
             WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );

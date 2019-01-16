@@ -20,12 +20,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class wc4bp_redirect
  */
 class wc4bp_redirect {
-	
+
 	public function __construct() {
 		add_action( 'template_redirect', array( $this, 'wc4bp_redirect_to_profile' ) );
 		add_filter( 'page_link', array( $this, 'wc4bp_page_link_router' ), 9999, 2 );//High priority to take precedent over other plugins
 	}
-	
+
 	/**
 	 * Get base url for all redirection
 	 *
@@ -37,10 +37,10 @@ class wc4bp_redirect {
 		if ( 'yes' === get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 			$base_url = str_replace( 'http:', 'https:', $base_url );
 		}
-		
+
 		return $base_url;
 	}
-	
+
 	/**
 	 * Process the url for given post id
 	 *
@@ -62,30 +62,30 @@ class wc4bp_redirect {
 			 * @param array String values of the endpoint to by pass the url transform
 			 */
 			$avoid_woo_endpoints = apply_filters( 'wc4bp_avoid_woo_endpoints', array( 'order-received', 'order-pay' ) );
-			global $bp, $wp,$woocommerce;
-            $wc4bp_options = get_option( 'wc4bp_options' );
+			global $bp, $wp, $woocommerce;
+			$wc4bp_options = get_option( 'wc4bp_options' );
 			if ( ( isset( $wp->query_vars['name'] ) && in_array( $wp->query_vars['name'], $avoid_woo_endpoints ) ) ) {
 				return false;
 			}
 			foreach ( $avoid_woo_endpoints as $avoid_woo_endpoint ) {
 				if ( isset( $wp->query_vars[ $avoid_woo_endpoint ] ) ) {
+					if ( isset( $wc4bp_options['thank_you_page'] ) && $avoid_woo_endpoint == 'order-received' ) {
+						$page_to_redirect_data = get_post( $wc4bp_options['thank_you_page'] );
+						if ( $page_to_redirect_data ) {
+							/** @var WC_Session $wc_session_data */
+							$wc_session_data = $woocommerce->session;
+							if ( ! empty( $wc_session_data ) ) {
+								$wc_session_data->set( 'thank_you_page_redirect', $wc4bp_options['thank_you_page'] );
+							}
+							$url = get_bloginfo( 'url' ) . '/members/' . _wp_get_current_user()->user_login . '/' . wc4bp_Manager::get_shop_slug() . '/' . $page_to_redirect_data->post_name;
 
-                        if ( isset( $wc4bp_options['thank_you_page'] ) && $avoid_woo_endpoint =='order-received'  ) {
-                            $page_to_redirect_data      = get_post( $wc4bp_options['thank_you_page'] );
-                            if($page_to_redirect_data){
-                                $wc_session_data = $woocommerce->session;
-                                if ( ! empty( $wc_session_data ) ) {
-                                    $wc_session_data->set( 'thank_you_page_redirect',$wc4bp_options['thank_you_page'] );
-                                }
-                                $url           = get_bloginfo( 'url' ) . '/members/' ._wp_get_current_user()->user_login.'/' . wc4bp_Manager::get_shop_slug().'/'. $page_to_redirect_data->post_name;
-                                return $url;
-                            }
-                        }
-
-                    }
-
-					return false;
+							return $url;
+						}
+					}
 				}
+
+				return false;
+			}
 
 			if ( ! empty( $bp->pages ) ) {
 				//Search in all the actives BPress pages for the current id
@@ -171,12 +171,12 @@ class wc4bp_redirect {
 							if ( $select_page_id === $parent_post_id ) {
 								$post_data  = get_post( $post_id );
 								$final_slug = ( $select_page['tab_slug'] !== $post_data->post_name ) ? $select_page['tab_slug'] . '/' . $post_data->post_name : $select_page['tab_slug'];
-								
+
 								return $this->convert_url( $final_slug );
 							}
 						}
 					}
-					
+
 					return false;
 				} else {
 					return false;
@@ -186,11 +186,11 @@ class wc4bp_redirect {
 			}
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-			
+
 			return false;
 		}
 	}
-	
+
 	private function convert_url( $add_url = '' ) {
 		$suffix = '';
 		if ( ! empty( $add_url ) ) {
@@ -205,7 +205,7 @@ class wc4bp_redirect {
 		 */
 		return apply_filters( 'wc4bp_get_redirect_link', $link );
 	}
-	
+
 	/**
 	 * Change core related urls
 	 *
@@ -219,7 +219,7 @@ class wc4bp_redirect {
 		if ( ! is_user_logged_in() || is_admin() ) {
 			return $link;
 		}
-		
+
 		$new_link = $this->redirect_link( $id );
 		if ( ! empty( $new_link ) ) {
 			$link = $new_link;
@@ -232,7 +232,7 @@ class wc4bp_redirect {
 		 */
 		return apply_filters( 'wc4bp_router_link', $link );
 	}
-	
+
 	/**
 	 * Redirect core related urls
 	 *
@@ -249,7 +249,7 @@ class wc4bp_redirect {
 			return false;
 		}
 		$link = $this->redirect_link( $post->ID );
-		
+
 		if ( ! empty( $link ) ) {
 			wp_safe_redirect( $link );
 			exit;
@@ -257,7 +257,7 @@ class wc4bp_redirect {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Get the top parent of a post id
 	 *
