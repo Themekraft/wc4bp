@@ -81,9 +81,8 @@ class wc4bp_redirect {
                     if ( ! empty( $wc_session_data ) ) {
                         $wc_session_data->set( 'thank_you_page_redirect', $wc4bp_options['thank_you_page'] );
                     }
-                    $url = bp_core_get_user_domain( bp_loggedin_user_id() ) . wc4bp_Manager::get_shop_slug() . '/' . $page_to_redirect_data->post_name;
+                    return $this->convert_url( $page_to_redirect_data->post_name );
 
-                    return $url;
                 }
                 else{
                     return false;
