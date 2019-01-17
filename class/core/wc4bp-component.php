@@ -366,7 +366,7 @@ class WC4BP_Component extends BP_Component {
 					foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
                         if ( isset( $this->wc4bp_options['thank_you_page'] ) && $this->wc4bp_options['thank_you_page'] == $attached_page['page_id'] ) {
 
-                           continue;     
+                           continue;
                         }
 						$wp_admin_nav[] = array(
 							'parent' => 'my-account-' . $this->id,

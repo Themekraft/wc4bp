@@ -61,7 +61,7 @@ class wc4bp_redirect {
 			 *
 			 * @param array String values of the endpoint to by pass the url transform
 			 */
-			$avoid_woo_endpoints = apply_filters( 'wc4bp_avoid_woo_endpoints', array( 'order-received', 'order-pay' ) );
+			$avoid_woo_endpoints = apply_filters( 'wc4bp_avoid_woo_endpoints', array(  'order-pay' ) );
 			global $bp, $wp, $woocommerce;
 			$wc4bp_options = get_option( 'wc4bp_options' );
 			if ( ( isset( $wp->query_vars['name'] ) && in_array( $wp->query_vars['name'], $avoid_woo_endpoints ) ) ) {
@@ -69,23 +69,26 @@ class wc4bp_redirect {
 			}
 			foreach ( $avoid_woo_endpoints as $avoid_woo_endpoint ) {
 				if ( isset( $wp->query_vars[ $avoid_woo_endpoint ] ) ) {
-					if ( isset( $wc4bp_options['thank_you_page'] ) && $avoid_woo_endpoint == 'order-received' ) {
-						$page_to_redirect_data = get_post( $wc4bp_options['thank_you_page'] );
-						if ( $page_to_redirect_data ) {
-							/** @var WC_Session $wc_session_data */
-							$wc_session_data = $woocommerce->session;
-							if ( ! empty( $wc_session_data ) ) {
-								$wc_session_data->set( 'thank_you_page_redirect', $wc4bp_options['thank_you_page'] );
-							}
-							$url = get_bloginfo( 'url' ) . '/members/' . _wp_get_current_user()->user_login . '/' . wc4bp_Manager::get_shop_slug() . '/' . $page_to_redirect_data->post_name;
-
-							return $url;
-						}
-					}
+                    return false;
 				}
-
-				return false;
 			}
+
+            if ( isset( $wc4bp_options['thank_you_page'] ) && isset( $wp->query_vars[ 'order-received' ]  )) {
+                $page_to_redirect_data = get_post( $wc4bp_options['thank_you_page'] );
+                if ( $page_to_redirect_data ) {
+                    /** @var WC_Session $wc_session_data */
+                    $wc_session_data = $woocommerce->session;
+                    if ( ! empty( $wc_session_data ) ) {
+                        $wc_session_data->set( 'thank_you_page_redirect', $wc4bp_options['thank_you_page'] );
+                    }
+                    $url = bp_core_get_user_domain( bp_loggedin_user_id() ) . wc4bp_Manager::get_shop_slug() . '/' . $page_to_redirect_data->post_name;
+
+                    return $url;
+                }
+                else{
+                    return false;
+                }
+            }
 
 			if ( ! empty( $bp->pages ) ) {
 				//Search in all the actives BPress pages for the current id
