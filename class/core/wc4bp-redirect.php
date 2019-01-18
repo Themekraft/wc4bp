@@ -83,8 +83,7 @@ class wc4bp_redirect {
                     }
                     return $this->convert_url( $page_to_redirect_data->post_name );
 
-                }
-                else{
+                } else{
                     return false;
                 }
             }

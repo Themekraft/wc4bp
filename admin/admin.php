@@ -371,7 +371,6 @@ class wc4bp_admin extends wc4bp_base {
             $wc4bp_options         = $this->wc4bp_options;
             $custom_pages          = get_option( 'wc4bp_pages_options' );
             $wc4bp_pages_options   = array();
-            $tab_activity_disabled = 0;
             if ( ! empty( $custom_pages ) && is_string( $custom_pages ) ) {
                 $custom_pages_temp = json_decode( $custom_pages, true );
                 if ( isset( $custom_pages_temp['selected_pages'] ) && is_array( $custom_pages_temp['selected_pages'] ) ) {
@@ -385,8 +384,6 @@ class wc4bp_admin extends wc4bp_base {
             }
             if ( ! isset( $wc4bp_options['thank_you_page'] ) ) {
                 $wc4bp_options['thank_you_page'] = 'default';
-            }else{
-
             }
 
             include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_thank_you_page.php' );
