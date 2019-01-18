@@ -114,7 +114,10 @@ class wc4bp_admin extends wc4bp_base {
 			add_settings_field( 'tabs_shop', __( '<b>Shop Settings</b>', 'wc4bp' ), array( $this, 'wc4bp_shop_tabs' ), 'wc4bp_options', 'section_general' );
 			add_settings_field( 'tabs_enable', __( '<b>Remove Shop Tabs</b>', 'wc4bp' ), array( $this, 'wc4bp_my_account_tabs_enable' ), 'wc4bp_options', 'section_general' );
 			add_settings_field( 'profile sync', __( '<b>Turn off the Profile Sync</b>', 'wc4bp' ), array( $this, 'wc4bp_turn_off_profile_sync' ), 'wc4bp_options', 'section_general' );
+            add_settings_field( 'thank_you_page', __( '<b>Default Thank You Page</b>', 'wc4bp' ), array( $this, 'wc4bp_overwrite_default_thank_you_page' ), 'wc4bp_options', 'section_general' );
 			add_settings_field( 'overwrite', __( '<b>Default Shop Tab</b>', 'wc4bp' ), array( $this, 'wc4bp_overwrite_default_shop_home_tab' ), 'wc4bp_options', 'section_general' );
+
+
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
@@ -362,6 +365,33 @@ class wc4bp_admin extends wc4bp_base {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
+
+    public function wc4bp_overwrite_default_thank_you_page() {
+        try {
+            $wc4bp_options         = $this->wc4bp_options;
+            $custom_pages          = get_option( 'wc4bp_pages_options' );
+            $wc4bp_pages_options   = array();
+            if ( ! empty( $custom_pages ) && is_string( $custom_pages ) ) {
+                $custom_pages_temp = json_decode( $custom_pages, true );
+                if ( isset( $custom_pages_temp['selected_pages'] ) && is_array( $custom_pages_temp['selected_pages'] ) ) {
+                    $wc4bp_pages_options['selected_pages'][ 'default' ]= array( 'tab_name' => __( 'Default', 'wc4bp' )  );
+                    foreach ( $custom_pages_temp['selected_pages'] as $key => $attached_page ) {
+                            $wc4bp_pages_options['selected_pages'][ $attached_page['page_id'] ] = array(
+                            'tab_name' => $attached_page['tab_name'],
+                        );
+                    }
+                }
+            }
+            if ( ! isset( $wc4bp_options['thank_you_page'] ) ) {
+                $wc4bp_options['thank_you_page'] = 'default';
+            }
+
+            include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_thank_you_page.php' );
+
+        } catch ( Exception $exception ) {
+            WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+        }
+    }
 
 	/**
 	 * Return array with all the  actives tabs and custom pages.
