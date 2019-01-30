@@ -369,6 +369,10 @@ class wc4bp_admin extends wc4bp_base {
     public function wc4bp_overwrite_default_thank_you_page() {
         try {
             $wc4bp_options         = $this->wc4bp_options;
+            if ( ! empty( $wc4bp_options ) && is_string( $wc4bp_options ) ) {
+                $wc4bp_options = json_decode( $wc4bp_options, true );
+            }
+
             $custom_pages          = get_option( 'wc4bp_pages_options' );
             $wc4bp_pages_options   = array();
             if ( ! empty( $custom_pages ) && is_string( $custom_pages ) ) {

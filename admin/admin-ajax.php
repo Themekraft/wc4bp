@@ -172,8 +172,24 @@ class wc4bp_admin_ajax extends wc4bp_base {
 			if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
 				$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
 			}
-			unset( $wc4bp_pages_options['selected_pages'][ $page_id ] );
+            unset( $wc4bp_pages_options['selected_pages'][ $page_id ] );
 
+            $wc4bp_options= get_option( 'wc4bp_options' );
+            if ( ! empty( $wc4bp_options )  ) {
+                if ( ! empty( $wc4bp_options ) && is_string( $wc4bp_options ) ) {
+                    $wc4bp_options = json_decode( $wc4bp_options, true );
+                }
+                //Check if the page to delete is the one defined as thank you page
+                if (isset( $wc4bp_options['thank_you_page'] ) && $wc4bp_options['thank_you_page']==$page_id ) {
+                    //Then set the Woocommerce page as Thank you page.
+                    $wc4bp_options['thank_you_page'] = 'default';
+                }
+
+            }
+
+
+
+            update_option( 'wc4bp_options', wp_json_encode( $wc4bp_options ) );
 			update_option( 'wc4bp_pages_options', wp_json_encode( $wc4bp_pages_options ) );
 			die();
 		} catch ( Exception $exception ) {
