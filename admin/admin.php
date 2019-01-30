@@ -27,6 +27,9 @@ class wc4bp_admin extends wc4bp_base {
 		try {
 			parent::__construct();
 			$this->wc4bp_options = get_option( 'wc4bp_options' );
+            if ( ! empty( $this->wc4bp_options ) && is_string( $this->wc4bp_options ) ) {
+                $this->wc4bp_options = json_decode( $this->wc4bp_options, true );
+            }
 			add_action( 'admin_menu', array( $this, 'wc4bp_admin_menu' ) );
 			add_action( 'admin_init', array( $this, 'wc4bp_register_admin_settings' ) );
 
