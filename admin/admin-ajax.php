@@ -184,11 +184,16 @@ class wc4bp_admin_ajax extends wc4bp_base {
                     //Then set the Woocommerce page as Thank you page.
                     $wc4bp_options['thank_you_page'] = 'default';
                 }
+                //Check if the tab_shop_default is equal to the page to delete
+                $page_name = get_post( $page_id );
+                if($page_name && isset($wc4bp_options['tab_shop_default']) ){
+                    if($page_name->post_name == $wc4bp_options['tab_shop_default']){
+                        //If the page to delete is set as default tab, then do this.
+                        $wc4bp_options['tab_shop_default'] = 'default';
 
+                    }
+                }
             }
-
-
-
             update_option( 'wc4bp_options', wp_json_encode( $wc4bp_options ) );
 			update_option( 'wc4bp_pages_options', wp_json_encode( $wc4bp_pages_options ) );
 			die();

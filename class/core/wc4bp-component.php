@@ -426,6 +426,9 @@ class WC4BP_Component extends BP_Component {
 				$cart_page      = get_post( $cart_page_id, ARRAY_A );
 				$cart_slug      = $cart_page['post_name'];
 				if ( 'home' === $bp->current_action ) {
+                    if ( ! empty( $this->wc4bp_options ) && is_string( $this->wc4bp_options ) ) {
+                        $this->wc4bp_options = json_decode( $this->wc4bp_options, true );
+                    }
 					if ( isset( $this->wc4bp_options[ 'wc4bp_endpoint_' . $this->wc4bp_options['tab_shop_default'] ] ) || 'default' === $this->wc4bp_options['tab_shop_default'] ) {
 						//Determine what is default
 						if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
