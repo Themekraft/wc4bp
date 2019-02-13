@@ -74,12 +74,61 @@ function wc4bpAdministration() {
 				'wc4bp_children': wc4bp_children
 			},
 			success: function ( data ) {
-				window.location.reload( true )
+                jQuery("#the-list").empty();
+                if(data && data !== ''){
+                    jQuery.each( data.selected_pages, function( key, value ) {
+                    	var row = jQuery('<tr id="post-'+key+'" class="post-'+key+' type-page status-publish hentry alternate iedit author-self wc4bp_tr" valign="bottom">');
+                    	var column = jQuery('<td class="column-name">'+ value.tab_name+'<div class="wc4bp-row-actions"><span class="wc4bp_inline hide-if-no-js"><input id="'+ value.page_id+'" alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="an existing page to your BuddyPress member profiles" class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button" value="Edit"/></span><span class="trash"><input type="button" id="'+ value.page_id+'" class="wc4bp_delete_page  wc4bp_deleteinline" title="Delete this item" value="Delete" /></span></div></td>');
+                    	var haveChildren = 'No';
+                    	if(value.children && value.children ==="true" ){
+                    		haveChildren = 'Yes';
+						}
+
+						var tabName = '--';
+                        if(value.tab_name && value.tab_name !=="" ){
+                            tabName = value.tab_name;
+                        }
+                        var tabSlug = '--';
+                        if(value.tab_slug && value.tab_slug !=="" ){
+                            tabSlug = value.tab_slug;
+                        }
+                        var pagePosition = '--';
+                        if(value.position && value.position !=="" ){
+                            pagePosition = value.position;
+                        }
+
+
+                    	var column1 = jQuery('<td class="column-slug">'+ haveChildren +' </td>');
+                        var column2 = jQuery('<td class="slug column-slug">'+ tabName +' </td>');
+                        var column3 = jQuery('<td class="slug column-slug">'+ tabSlug +' </td>');
+                        var column4 = jQuery('<td class="slug column-slug">'+ pagePosition +' </td>');
+
+						row.append(column);
+                        row.append(column1);
+                        row.append(column2);
+                        row.append(column3);
+                        row.append(column4);
+                        jQuery("#the-list").append(row);
+
+                    });
+
+                    var deletePageElement = jQuery( '.wc4bp_delete_page' )
+                    if ( deletePageElement.length > 0 ) {
+                        deletePageElement.on( 'click', deletePage );
+                    }
+
+                    var editPageElement = jQuery( '.wc4bp_editinline' )
+                    if ( editPageElement.length > 0 ) {
+                        editPageElement.on( 'click', editPage );
+                    }
+                    jQuery("#TB_closeWindowButton").click();
+
+				}
 			},
 			error: function () {
-				alert( 'Something went wrong.. ;-(sorry)' )
+				alert( 'Something went wrong.. ;-(sorry)' );
 			}
-		} )
+		} );
 	}
 
 	function editPage() {
@@ -102,12 +151,12 @@ function wc4bpAdministration() {
 			success: function ( data ) {
 				jQuery( '#add_page' ).html( data )
 				tb_show( t, a, g )
-				onLoadThickBoc()
+				onLoadThickBoc();
 			},
 			error: function () {
-				alert( 'Something went wrong.. ;-(sorry)' )
+				alert( 'Something went wrong.. ;-(sorry)' );
 			}
-		} )
+		} );
 	}
 
 	function deletePage() {
@@ -122,12 +171,61 @@ function wc4bpAdministration() {
 					'wc4bp_tab_id': wc4bp_tab_id
 				},
 				success: function ( data ) {
-					window.location.reload( true )
+                    jQuery("#the-list").empty();
+                    if(data && data !== ''){
+                        jQuery.each( data.selected_pages, function( key, value ) {
+                            var row = jQuery('<tr id="post-'+key+'" class="post-'+key+' type-page status-publish hentry alternate iedit author-self wc4bp_tr" valign="bottom">');
+                            var column = jQuery('<td class="column-name">'+ value.tab_name+'<div class="wc4bp-row-actions"><span class="wc4bp_inline hide-if-no-js"><input id="'+ value.page_id+'" alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="an existing page to your BuddyPress member profiles" class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button" value="Edit"/></span><span class="trash"><input type="button" id="'+ value.page_id+'" class="wc4bp_delete_page  wc4bp_deleteinline" title="Delete this item" value="Delete" /></span></div></td>');
+                            var haveChildren = 'No';
+                            if(value.children && value.children ==="true" ){
+                                haveChildren = 'Yes';
+                            }
+
+                            var tabName = '--';
+                            if(value.tab_name && value.tab_name !=="" ){
+                                tabName = value.tab_name;
+                            }
+                            var tabSlug = '--';
+                            if(value.tab_slug && value.tab_slug !=="" ){
+                                tabSlug = value.tab_slug;
+                            }
+                            var pagePosition = '--';
+                            if(value.position && value.position !=="" ){
+                                pagePosition = value.position;
+                            }
+
+
+                            var column1 = jQuery('<td class="column-slug">'+ haveChildren +' </td>');
+                            var column2 = jQuery('<td class="slug column-slug">'+ tabName +' </td>');
+                            var column3 = jQuery('<td class="slug column-slug">'+ tabSlug +' </td>');
+                            var column4 = jQuery('<td class="slug column-slug">'+ pagePosition +' </td>');
+
+                            row.append(column);
+                            row.append(column1);
+                            row.append(column2);
+                            row.append(column3);
+                            row.append(column4);
+                            jQuery("#the-list").append(row);
+
+                        });
+
+                        var deletePageElement = jQuery( '.wc4bp_delete_page' )
+                        if ( deletePageElement.length > 0 ) {
+                            deletePageElement.on( 'click', deletePage );
+                        }
+
+                        var editPageElement = jQuery( '.wc4bp_editinline' )
+                        if ( editPageElement.length > 0 ) {
+                            editPageElement.on( 'click', editPage );
+                        }
+                        jQuery("#TB_closeWindowButton").click();
+
+                    }
 				},
 				error: function () {
-					alert( 'Something went wrong.. ;-(sorry)' )
+					alert( 'Something went wrong.. ;-(sorry)' );
 				}
-			} )
+			} );
 		}
 	}
 
@@ -147,12 +245,12 @@ function wc4bpAdministration() {
 			success: function ( data ) {
 				jQuery( '#add_page' ).html( data )
 				tb_show( t, a, g )
-				onLoadThickBoc()
+				onLoadThickBoc();
 			},
 			error: function () {
-				alert( 'Something went wrong.. ;-(sorry)' )
+				alert( 'Something went wrong.. ;-(sorry)' );
 			}
-		} )
+		} );
 	}
 
 	function onLoadThickBoc() {

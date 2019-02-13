@@ -146,7 +146,8 @@ class wc4bp_admin_ajax extends wc4bp_base {
 			$wc4bp_pages_options['selected_pages'][ $page_id ]['page_id']  = $page_id;
 
 			update_option( 'wc4bp_pages_options', wp_json_encode( $wc4bp_pages_options ) );
-
+            header('Content-Type: application/json');
+            echo json_encode($wc4bp_pages_options);
 			die();
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
@@ -196,6 +197,8 @@ class wc4bp_admin_ajax extends wc4bp_base {
             }
             update_option( 'wc4bp_options', wp_json_encode( $wc4bp_options ) );
 			update_option( 'wc4bp_pages_options', wp_json_encode( $wc4bp_pages_options ) );
+            header('Content-Type: application/json');
+            echo json_encode($wc4bp_pages_options);
 			die();
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
