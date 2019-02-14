@@ -54,6 +54,7 @@ function wc4bpAdministration() {
 	}
 
 	function addPage() {
+        jQuery("#LoadingImageinModal").show();
 		var wc4bp_page_id = jQuery( '#wc4bp_page_id' ).val()
 		var wc4bp_tab_slug = jQuery( '#wc4bp_tab_slug' ).val()
 		var wc4bp_tab_name = jQuery( '#wc4bp_tab_name' ).val()
@@ -121,17 +122,22 @@ function wc4bpAdministration() {
                     if ( editPageElement.length > 0 ) {
                         editPageElement.on( 'click', editPage );
                     }
+                    jQuery("#LoadingImage").hide();
                     jQuery("#TB_closeWindowButton").click();
+
 
 				}
 			},
 			error: function () {
+                jQuery("#LoadingImage").hide();
+                jQuery("#LoadingImageinModal").hide();
 				alert( 'Something went wrong.. ;-(sorry)' );
 			}
 		} );
 	}
 
 	function editPage() {
+        jQuery("#LoadingImage").show();
 		var wc4bp_page_id = jQuery( this ).attr( 'id' )
 
 		var t = jQuery( this ).attr( 'title' ) || jQuery( this ).attr( 'name' ) || null
@@ -163,6 +169,7 @@ function wc4bpAdministration() {
 		var wc4bp_tab_id = jQuery( this ).attr( 'id' )
 
 		if ( confirm( 'Delete Permanently' ) ) {
+            jQuery("#LoadingImage").show();
 			jQuery.ajax( {
 				type: 'POST',
 				url: ajaxurl,
@@ -218,6 +225,7 @@ function wc4bpAdministration() {
                         if ( editPageElement.length > 0 ) {
                             editPageElement.on( 'click', editPage );
                         }
+                        jQuery("#LoadingImage").hide();
                         jQuery("#TB_closeWindowButton").click();
 
                     }
@@ -230,6 +238,7 @@ function wc4bpAdministration() {
 	}
 
 	function openThickBox() {
+        jQuery("#LoadingImage").show();
 		var t = jQuery( this ).attr( 'title' ) || jQuery( this ).attr( 'name' ) || null
 		var a = jQuery( this ).attr( 'href' ) || jQuery( this ).attr( 'alt' )
 		var g = jQuery( this ).attr( 'rel' ) || false
@@ -256,9 +265,14 @@ function wc4bpAdministration() {
 	function onLoadThickBoc() {
 		var addPageElement = jQuery( '.add_cpt4bp_page' )
 		if ( addPageElement.length > 0 ) {
-			addPageElement.on( 'click', addPage )
+			addPageElement.on( 'click', addPage );
 		}
+        jQuery("#TB_closeWindowButton").on('click',hideLoadingSpinners );
 	}
+	function hideLoadingSpinners() {
+        jQuery("#LoadingImage").hide();
+        jQuery("#LoadingImageinModal").hide();
+    }
 
 	/* </fs_premium_only> */
 
