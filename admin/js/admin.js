@@ -54,6 +54,7 @@ function wc4bpAdministration() {
 	}
 
 	function addPage() {
+        jQuery("#LoadingImageinModal").show();
 		var wc4bp_page_id = jQuery( '#wc4bp_page_id' ).val()
 		var wc4bp_tab_slug = jQuery( '#wc4bp_tab_slug' ).val()
 		var wc4bp_tab_name = jQuery( '#wc4bp_tab_name' ).val()
@@ -74,15 +75,69 @@ function wc4bpAdministration() {
 				'wc4bp_children': wc4bp_children
 			},
 			success: function ( data ) {
-				window.location.reload( true )
+                jQuery("#the-list").empty();
+                if(data && data !== ''){
+                    jQuery.each( data.selected_pages, function( key, value ) {
+                    	var row = jQuery('<tr id="post-'+key+'" class="post-'+key+' type-page status-publish hentry alternate iedit author-self wc4bp_tr" valign="bottom">');
+                    	var column = jQuery('<td class="column-name">'+ value.tab_name+'<div class="wc4bp-row-actions"><span class="wc4bp_inline hide-if-no-js"><input id="'+ value.page_id+'" alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="an existing page to your BuddyPress member profiles" class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button" value="Edit"/></span><span class="trash"><input type="button" id="'+ value.page_id+'" class="wc4bp_delete_page  wc4bp_deleteinline" title="Delete this item" value="Delete" /></span></div></td>');
+                    	var haveChildren = 'No';
+                    	if(value.children && value.children ==="true" ){
+                    		haveChildren = 'Yes';
+						}
+
+						var tabName = '--';
+                        if(value.tab_name && value.tab_name !=="" ){
+                            tabName = value.tab_name;
+                        }
+                        var tabSlug = '--';
+                        if(value.tab_slug && value.tab_slug !=="" ){
+                            tabSlug = value.tab_slug;
+                        }
+                        var pagePosition = '--';
+                        if(value.position && value.position !=="" ){
+                            pagePosition = value.position;
+                        }
+
+
+                    	var column1 = jQuery('<td class="column-slug">'+ haveChildren +' </td>');
+                        var column2 = jQuery('<td class="slug column-slug">'+ tabName +' </td>');
+                        var column3 = jQuery('<td class="slug column-slug">'+ tabSlug +' </td>');
+                        var column4 = jQuery('<td class="slug column-slug">'+ pagePosition +' </td>');
+
+						row.append(column);
+                        row.append(column1);
+                        row.append(column2);
+                        row.append(column3);
+                        row.append(column4);
+                        jQuery("#the-list").append(row);
+
+                    });
+
+                    var deletePageElement = jQuery( '.wc4bp_delete_page' )
+                    if ( deletePageElement.length > 0 ) {
+                        deletePageElement.on( 'click', deletePage );
+                    }
+
+                    var editPageElement = jQuery( '.wc4bp_editinline' )
+                    if ( editPageElement.length > 0 ) {
+                        editPageElement.on( 'click', editPage );
+                    }
+                    jQuery("#LoadingImage").hide();
+                    jQuery("#TB_closeWindowButton").click();
+
+
+				}
 			},
 			error: function () {
-				alert( 'Something went wrong.. ;-(sorry)' )
+                jQuery("#LoadingImage").hide();
+                jQuery("#LoadingImageinModal").hide();
+				alert( 'Something went wrong.. ;-(sorry)' );
 			}
-		} )
+		} );
 	}
 
 	function editPage() {
+        jQuery("#LoadingImage").show();
 		var wc4bp_page_id = jQuery( this ).attr( 'id' )
 
 		var t = jQuery( this ).attr( 'title' ) || jQuery( this ).attr( 'name' ) || null
@@ -102,18 +157,19 @@ function wc4bpAdministration() {
 			success: function ( data ) {
 				jQuery( '#add_page' ).html( data )
 				tb_show( t, a, g )
-				onLoadThickBoc()
+				onLoadThickBoc();
 			},
 			error: function () {
-				alert( 'Something went wrong.. ;-(sorry)' )
+				alert( 'Something went wrong.. ;-(sorry)' );
 			}
-		} )
+		} );
 	}
 
 	function deletePage() {
 		var wc4bp_tab_id = jQuery( this ).attr( 'id' )
 
 		if ( confirm( 'Delete Permanently' ) ) {
+            jQuery("#LoadingImage").show();
 			jQuery.ajax( {
 				type: 'POST',
 				url: ajaxurl,
@@ -122,16 +178,67 @@ function wc4bpAdministration() {
 					'wc4bp_tab_id': wc4bp_tab_id
 				},
 				success: function ( data ) {
-					window.location.reload( true )
+                    jQuery("#the-list").empty();
+                    if(data && data !== ''){
+                        jQuery.each( data.selected_pages, function( key, value ) {
+                            var row = jQuery('<tr id="post-'+key+'" class="post-'+key+' type-page status-publish hentry alternate iedit author-self wc4bp_tr" valign="bottom">');
+                            var column = jQuery('<td class="column-name">'+ value.tab_name+'<div class="wc4bp-row-actions"><span class="wc4bp_inline hide-if-no-js"><input id="'+ value.page_id+'" alt="#TB_inline?height=300&amp;width=400&amp;inlineId=add_page" title="an existing page to your BuddyPress member profiles" class="thickbox_edit wc4bp_editinline cptfbp_thickbox" type="button" value="Edit"/></span><span class="trash"><input type="button" id="'+ value.page_id+'" class="wc4bp_delete_page  wc4bp_deleteinline" title="Delete this item" value="Delete" /></span></div></td>');
+                            var haveChildren = 'No';
+                            if(value.children && value.children ==="true" ){
+                                haveChildren = 'Yes';
+                            }
+
+                            var tabName = '--';
+                            if(value.tab_name && value.tab_name !=="" ){
+                                tabName = value.tab_name;
+                            }
+                            var tabSlug = '--';
+                            if(value.tab_slug && value.tab_slug !=="" ){
+                                tabSlug = value.tab_slug;
+                            }
+                            var pagePosition = '--';
+                            if(value.position && value.position !=="" ){
+                                pagePosition = value.position;
+                            }
+
+
+                            var column1 = jQuery('<td class="column-slug">'+ haveChildren +' </td>');
+                            var column2 = jQuery('<td class="slug column-slug">'+ tabName +' </td>');
+                            var column3 = jQuery('<td class="slug column-slug">'+ tabSlug +' </td>');
+                            var column4 = jQuery('<td class="slug column-slug">'+ pagePosition +' </td>');
+
+                            row.append(column);
+                            row.append(column1);
+                            row.append(column2);
+                            row.append(column3);
+                            row.append(column4);
+                            jQuery("#the-list").append(row);
+
+                        });
+
+                        var deletePageElement = jQuery( '.wc4bp_delete_page' )
+                        if ( deletePageElement.length > 0 ) {
+                            deletePageElement.on( 'click', deletePage );
+                        }
+
+                        var editPageElement = jQuery( '.wc4bp_editinline' )
+                        if ( editPageElement.length > 0 ) {
+                            editPageElement.on( 'click', editPage );
+                        }
+                        jQuery("#LoadingImage").hide();
+                        jQuery("#TB_closeWindowButton").click();
+
+                    }
 				},
 				error: function () {
-					alert( 'Something went wrong.. ;-(sorry)' )
+					alert( 'Something went wrong.. ;-(sorry)' );
 				}
-			} )
+			} );
 		}
 	}
 
 	function openThickBox() {
+        jQuery("#LoadingImage").show();
 		var t = jQuery( this ).attr( 'title' ) || jQuery( this ).attr( 'name' ) || null
 		var a = jQuery( this ).attr( 'href' ) || jQuery( this ).attr( 'alt' )
 		var g = jQuery( this ).attr( 'rel' ) || false
@@ -147,20 +254,25 @@ function wc4bpAdministration() {
 			success: function ( data ) {
 				jQuery( '#add_page' ).html( data )
 				tb_show( t, a, g )
-				onLoadThickBoc()
+				onLoadThickBoc();
 			},
 			error: function () {
-				alert( 'Something went wrong.. ;-(sorry)' )
+				alert( 'Something went wrong.. ;-(sorry)' );
 			}
-		} )
+		} );
 	}
 
 	function onLoadThickBoc() {
 		var addPageElement = jQuery( '.add_cpt4bp_page' )
 		if ( addPageElement.length > 0 ) {
-			addPageElement.on( 'click', addPage )
+			addPageElement.on( 'click', addPage );
 		}
+        jQuery("#TB_closeWindowButton").on('click',hideLoadingSpinners );
 	}
+	function hideLoadingSpinners() {
+        jQuery("#LoadingImage").hide();
+        jQuery("#LoadingImageinModal").hide();
+    }
 
 	/* </fs_premium_only> */
 

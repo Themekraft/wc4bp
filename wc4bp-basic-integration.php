@@ -186,6 +186,7 @@ class WC4BP_Loader {
 		define( 'WC4BP_ABSPATH_ADMIN_VIEWS_PATH', dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR );
 		define( 'WC4BP_CSS', WC4BP_URLPATH . 'admin/css/' );
 		define( 'WC4BP_JS', WC4BP_URLPATH . 'admin/js/' );
+        define( 'WC4BP_IMAGES', WC4BP_URLPATH . 'admin/images/' );
 	}
 
 	/**

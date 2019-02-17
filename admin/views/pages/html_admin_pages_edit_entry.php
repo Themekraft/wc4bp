@@ -22,4 +22,9 @@
 	echo '<input type="hidden" id="wc4bp_tab_slug" value="' . esc_attr( $tab_slug ) . '" />';
 } ?>
 <input type="hidden" id="wc4bp_page_id" value="<?php echo esc_attr( $page_id ); ?>" />;
-<input type="button" value="<?php _e( 'Save', 'wc4bp' ); ?>" name="add_cpt4bp_page" class="button add_cpt4bp_page btn">
+<div class="parent_div">
+    <input type="button" value="<?php _e( 'Save', 'wc4bp' ); ?>" name="add_cpt4bp_page" class="button add_cpt4bp_page btn">
+</div>
+<div id="LoadingImageinModal" class="child_div" style="display: none">
+    <img class="lds-spinner" src="<?php echo WC4BP_IMAGES."giphy.gif"?>" />
+</div>
