@@ -2,20 +2,16 @@
     <b><?php _e( 'Sync WooCommerce Customer Billing and Shipping Address with BuddyPress.', 'wc4bp' ); ?></b>
 </p>
 <p>
-	<?php _e( 'The billing and shipping address fields are WooCommerce default user fields. You can sync all default WooCommerce
-            customer fields with BuddyPress.', 'wc4bp' ); ?>
+	<?php _e( 'The billing and shipping address fields are WooCommerce default user fields. You can sync all default WooCommerce customer fields with BuddyPress.', 'wc4bp' ); ?>
 </p>
 <p>
 	<?php _e( 'During checkout or if a user edits his profile all fields will be synced automatically.', 'wc4bp' ); ?>
 </p>
 <p>
-	<?php _e( 'If you have already customers and start using WooCommerce BuddyPress Integration on an existing store, you need 
-            to sync your user once.', 'wc4bp' ); ?>
+	<?php _e( 'If you have already customers and start using WooCommerce BuddyPress Integration on an existing store, you need to sync your user once.', 'wc4bp' ); ?>
 </p>
 <p>
-	<?php _e( 'The Customer Billing and Shipping Address fields will be created in BuddyPress during the plugin installation,
-            but the user sync can take a while depends on the size of your user base and needs to be done once after the
-            first install.', 'wc4bp' ); ?>
+	<?php _e( 'The Customer Billing and Shipping Address fields will be created in BuddyPress during the plugin installation, but the user sync can take a while depends on the size of your user base and needs to be done once after the first install.', 'wc4bp' ); ?>
 </p>
 
 <br>

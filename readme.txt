@@ -1,10 +1,10 @@
 === WooCommerce BuddyPress Integration ===
 
-Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores,
+Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
 Tested up to: 5.0.0
-Stable tag: 3.2.5
+Stable tag: 3.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,15 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 9. Admin menu options
 
 == Changelog ==
+= 3.2.6 2 March 2019 =
+* Freemius updated to 2.2.4.
+* Add a new option to disable redirection for the thankyou page.
+* Fixed: Clean the thank you page when the selected page is deleted from the integrated pages.
+* Fixed: Clean the default tab when the selected page is deleted from the integrated pages.
+* Use ajax for add and delete integrated pages, to avoid refresh the entire page.
+* Added promotional messages to get discount on upgrades.
+
+
 = 3.2.5 7 December 2018 =
 * Freemius updated to 2.2.2.
 * Fixed the Stripe Payment integrations.
