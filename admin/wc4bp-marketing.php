@@ -41,36 +41,6 @@ class WC4BP_Marketing extends wc4bp_base {
 				
 			);
 			$need_notice = true;
-		} else {
-			$current_screen = get_current_screen();
-//			$installed_date = get_option( 'wc4bp_installed_date' );
-			$now = new DateTime('now');
-			$installed_date = $now->sub( new DateInterval( 'P5D' ) );
-			
-			$time_now = new DateTime( 'now' );
-			$time_comparison  = $time_now->diff( $installed_date );
-			$time_result      = ( 1 === $time_comparison->invert );
-			
-			if ( ! empty( $installed_date ) && ! empty( $current_screen ) && 'toplevel_page_wc4bp-options-page' === $current_screen->id ) {
-				
-				if ( $this->is_free  || $this->is_trial || $this->is_paid_trial) {
-					//Offer a coupon to convert into professional
-					$message     = __( 'We have an <strong>LIMIT OFFER</strong> for you. If you upgrade to <strong>Professional plan</strong>, the first year you will get a discount of 30% in monthly plans ( <u>GOPRO</u> ) and 40% on yearly plans ( <u>GOYEAR</u> ).', 'wc4bp' );
-					$links       = array(
-						'activation' => array(
-							'name'   => __( 'Upgrade now', 'wc4bp' ),
-							'target' => WC4BP_Loader::getFreemius()->_get_admin_page_url('pricing', array('couponCode'=>'sdfsdf') )
-						),
-						'trial' => array(
-							'name'   => __( 'Start Trial', 'wc4bp' ),
-							'target' => WC4BP_Loader::getFreemius()->get_trial_url()
-						)
-					);
-					$need_notice = true;
-				} elseif ( $this->is_paying ) {
-					//Offer a year discount if it pay month period
-				}
-			}
 		}
 		if ( $need_notice ) {
 			$this->notice_view( $message, $links );

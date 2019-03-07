@@ -6,7 +6,7 @@
 .review-notice-message{width:100%;padding:10px 20px;color:#444}
 .review-notice-message strong{color:#000}
 .review-notice-cta{border-left:1px solid #e5e5e5;background:#f8f8f8;padding:0 30px;position:relative;white-space:nowrap}
-.wp-core-ui .review-notice-cta button,.wp-core-ui .review-notice-cta a,.wp-core-ui .review-notice-cta .button-primary:active{vertical-align:middle}
+.wp-core-ui .review-notice-cta button,.wp-core-ui .review-notice-cta a,.wp-core-ui .review-notice-cta .button-primary:active{vertical-align:middle;padding:10px}
 .wp-core-ui .review-notice-cta input[type="email"]{vertical-align:middle;line-height:20px;margin:0;min-width:50px;max-width:320px;text-align:center;padding-left:0;padding-right:0}
 .review-notice-dismiss:first-child{color:#008000}
 .review-notice-dismiss{background:transparent;border:0;cursor:pointer;color:#BBB}
@@ -21,10 +21,10 @@
 .review-notice>.review-notice-logo{float:left;display:inline-block;height:80px;margin:10px;border-radius:4px}
 .review-notice>.review-notice-message{width:auto;display:block;padding:10px;min-height:80px}
 .review-notice>.review-notice-cta{display:block;border-top:1px solid #e5e5e5;border-left:0;text-align:center;white-space:normal;line-height:30px;padding:10px 20px}
-.wp-core-ui .review-notice>.review-notice-cta>input[type="email"],.review-notice>.review-notice-cta>a,.review-notice>.review-notice-cta>button{font-size:14px}
+.wp-core-ui .review-notice>.review-notice-cta>input[type="email"],.review-notice>.review-notice-cta>a,.review-notice>.review-notice-cta>button{font-size:14px;padding:10px}
 .review-notice>.review-notice-cta>.review-notice-dismiss{display:inline-block;float:none;line-height:26px;padding-top:0;padding-bottom:0;font-size:13px}
 .review-notice>.review-notice-cta>.review-notice-dismiss:first-child{color:#008000}
-}@media only all and (max-width:500px){.wp-core-ui .review-notice>.review-notice-cta>input[type="email"],.review-notice>.review-notice-cta>a,.review-notice>.review-notice-cta>button{display:block;width:100% !important;max-width:none;margin-bottom:4px;font-size:16px;height:34px}
+}@media only all and (max-width:500px){.wp-core-ui .review-notice>.review-notice-cta>input[type="email"],.review-notice>.review-notice-cta>a,.review-notice>.review-notice-cta>button{display:block;width:100% !important;max-width:none;margin-bottom:4px;font-size:16px;height:34px;padding:10px}
 .review-notice>.review-notice-cta>.review-notice-dismiss{margin-top:5px;font-size:14px;height:23px}
 .review-notice>.review-notice-cta>.review-notice-dismiss:first-child{color:#008000}
 }

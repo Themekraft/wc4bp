@@ -72,6 +72,7 @@
 .wp-core-ui .review-notice-cta a,
 .wp-core-ui .review-notice-cta .button-primary:active {
     vertical-align: middle;
+	padding: 10px;
 }
 
 .wp-core-ui .review-notice-cta input[type="email"] {
@@ -175,6 +176,7 @@
 	.review-notice > .review-notice-cta > a,
     .review-notice > .review-notice-cta > button {
         font-size: 14px;
+		padding: 10px;
     }
 
     .review-notice > .review-notice-cta > .review-notice-dismiss {
@@ -201,6 +203,7 @@
         margin-bottom: 4px;
         font-size: 16px;
         height: 34px;
+		padding: 10px;
     }
 
     .review-notice > .review-notice-cta > .review-notice-dismiss {
