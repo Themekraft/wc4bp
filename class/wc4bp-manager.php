@@ -264,6 +264,8 @@ class wc4bp_Manager {
 	 */
 	public static function is_request( $type ) {
 		switch ( $type ) {
+			case 'administration':
+				return ( is_admin() && !defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
 			case 'admin':
 				return is_admin();
 			case 'ajax':

@@ -19,9 +19,14 @@ class WC4BP_Revision {
 		$wc4bp_review_later = get_user_meta( $user_id, 'wc4bp-review-later', true );
 		$time_result        = false;
 		if ( ! empty( $wc4bp_review_later ) ) {
-			$wc4bp_review_now = new DateTime( 'now' );
-			$time_comparison  = $wc4bp_review_now->diff( $wc4bp_review_later );
-			$time_result      = ( 1 === $time_comparison->invert );
+			try {
+				$wc4bp_review_now = new DateTime( 'now' );
+				$time_comparison  = $wc4bp_review_now->diff( $wc4bp_review_later );
+				$time_result      = ( 1 === $time_comparison->invert );
+			}
+			catch ( Exception $exception ) {
+				WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+			}
 		}
 		if ( empty( $wc4bp_review ) ) {
 			if ( false !== $time_result || empty( $wc4bp_review_later ) ) {
@@ -34,24 +39,20 @@ class WC4BP_Revision {
 			}
 		}
 	}
-
+	
 	public function ask_for_revision() {
 		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_revision.php' );
 	}
-
+	
 	public function revision_script( $hook ) {
-		try {
-			wp_enqueue_style( 'wc4bp_admin_revision_css', wc4bp_Manager::assets_path('wc4bp-revision','css') );
-			wp_enqueue_script( 'wc4bp_admin_revision_js', wc4bp_Manager::assets_path( 'wc4bp-revision'), array( 'jquery' ), WC4BP_Loader::VERSION );
-			wp_localize_script( 'wc4bp_admin_revision_js', 'wc4bp_admin_revision_js', array(
-				'nonce'   => wp_create_nonce( 'wc4bp_review_nonce' ),
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-			) );
-		} catch ( Exception $exception ) {
-			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-		}
+		wp_enqueue_style( 'wc4bp_admin_revision_css', wc4bp_Manager::assets_path( 'wc4bp-revision', 'css' ) );
+		wp_enqueue_script( 'wc4bp_admin_revision_js', wc4bp_Manager::assets_path( 'wc4bp-revision' ), array( 'jquery' ), WC4BP_Loader::VERSION );
+		wp_localize_script( 'wc4bp_admin_revision_js', 'wc4bp_admin_revision_js', array(
+			'nonce'   => wp_create_nonce( 'wc4bp_review_nonce' ),
+			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+		) );
 	}
-
+	
 	public function wc4bp_revision_trigger() {
 		if ( ! defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return false;
@@ -65,9 +66,14 @@ class WC4BP_Revision {
 					update_user_meta( $user_id, 'wc4bp-review', true );
 					break;
 				case 'later':
-					$remind = new DateTime( 'now' );
-					$remind->add( new DateInterval( 'P5D' ) );
-					update_user_meta( $user_id, 'wc4bp-review-later', $remind );
+					try {
+						$remind = new DateTime( 'now' );
+						$remind->add( new DateInterval( 'P5D' ) );
+						update_user_meta( $user_id, 'wc4bp-review-later', $remind );
+					}
+					catch ( Exception $exception ) {
+						WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+					}
 					break;
 				case 'already':
 					update_user_meta( $user_id, 'wc4bp-review', true );

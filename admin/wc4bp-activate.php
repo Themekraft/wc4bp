@@ -298,6 +298,13 @@ function wc4bp_activate() {
 			if ( is_multisite() ) {
 				// set the plugin to be installed
 				update_blog_option( BP_ROOT_BLOG, 'wc4bp_installed', true );
+				try {
+					$now = new DateTime( 'now' );
+					update_blog_option( BP_ROOT_BLOG, 'wc4bp_installed_date', $now );
+				}
+				catch ( Exception $exception ) {
+					WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+				}
 				// save the shipping data
 				update_blog_option( BP_ROOT_BLOG, 'wc4bp_shipping_address_ids', $shipping );
 				// save the billing data
@@ -305,6 +312,13 @@ function wc4bp_activate() {
 			} else {
 				// set the plugin to be installed
 				update_option( 'wc4bp_installed', true );
+				try {
+					$now = new DateTime( 'now' );
+					update_option( 'wc4bp_installed_date', $now );
+				}
+				catch ( Exception $exception ) {
+					WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+				}
 				// save the shipping data
 				update_option( 'wc4bp_shipping_address_ids', $shipping );
 				// save the billing data

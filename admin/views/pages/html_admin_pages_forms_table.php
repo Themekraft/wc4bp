@@ -2,7 +2,6 @@
 
 <p><?php _e( 'Integrate other pages (for example from other WooCommerce extensions) into your BuddyPress member profiles.', 'wc4bp' ); ?></p>
 <p><i><?php _e( 'This will redirect the page to the correct profile page and add a menu item in the profile.', 'wc4bp' ); ?></i></p><br>
-<?php wp_enqueue_style( 'wc4bp_admin_spinner_css', wc4bp_Manager::assets_path('loading-spiner','css') ); ?>
 <?php $this->wc4bp_thickbox_page_form(); ?>
 <table class="wp-list-table widefat fixed posts">
     <thead>

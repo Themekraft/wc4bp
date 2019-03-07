@@ -22,6 +22,11 @@ class wc4bp_Manage_Admin {
 				// API License Key Registration Form
 				require_once( WC4BP_ABSPATH . 'admin/admin.php' );
 				new wc4bp_admin();
+			}
+			$is_backend = wc4bp_Manager::is_request('administration');
+			if($is_backend ){
+				require_once( WC4BP_ABSPATH . 'admin/wc4bp-marketing.php' );
+				new WC4BP_Marketing();
 				require_once( WC4BP_ABSPATH . 'admin/wc4bp-revision.php' );
 				new WC4BP_Revision();
 			}
@@ -56,6 +61,7 @@ class wc4bp_Manage_Admin {
 				'jquery-ui-tabs',
 				'jquery-ui-sortable',
 			), WC4BP_Loader::VERSION );
+			wp_enqueue_style( 'wc4bp_admin_spinner_css', wc4bp_Manager::assets_path('loading-spiner','css') );
 			$admin_style = wc4bp_Manager::assets_path( 'admin', 'css' );
 			wp_enqueue_style( 'wc4bp_admin_css', $admin_style );
 			if ( 'users_page_bp-profile-setup' === $hook ) {

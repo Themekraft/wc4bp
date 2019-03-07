@@ -69,6 +69,7 @@
 }
 
 .wp-core-ui .review-notice-cta button,
+.wp-core-ui .review-notice-cta a,
 .wp-core-ui .review-notice-cta .button-primary:active {
     vertical-align: middle;
 }
@@ -171,6 +172,7 @@
     }
 
     .wp-core-ui .review-notice > .review-notice-cta > input[type="email"],
+	.review-notice > .review-notice-cta > a,
     .review-notice > .review-notice-cta > button {
         font-size: 14px;
     }
@@ -191,6 +193,7 @@
 
 @media only all and (max-width: 500px) {
     .wp-core-ui .review-notice > .review-notice-cta > input[type="email"],
+	.review-notice > .review-notice-cta > a,
     .review-notice > .review-notice-cta > button {
         display: block;
         width: 100% !important;
