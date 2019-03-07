@@ -108,13 +108,14 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 9. Admin menu options
 
 == Changelog ==
-= 3.2.6 2 March 2019 =
+= 3.2.6 7 March 2019 =
 * Freemius updated to 2.2.4.
 * Add a new option to disable redirection for the thankyou page.
 * Fixed: Clean the thank you page when the selected page is deleted from the integrated pages.
 * Fixed: Clean the default tab when the selected page is deleted from the integrated pages.
 * Use ajax for add and delete integrated pages, to avoid refresh the entire page.
-* Added promotional messages to get discount on upgrades.
+* Improved the activation of the pro version when the free is installed.
+* Added an admin message to remember activate the account when is pro installed but not active.
 
 
 = 3.2.5 7 December 2018 =
