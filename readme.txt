@@ -108,6 +108,11 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 9. Admin menu options
 
 == Changelog ==
+= 3.2.6.1 11 March 2019 =
+* Improved the loading spinner into the admin.
+* Included the argument parameter for the hook `woocommerce_checkout_update_customer` to avoid the error `ArgumentCountError`.
+* Added validation to ensure the buddypress xprofile is activated and ready to use in our code.
+
 = 3.2.6 7 March 2019 =
 * Freemius updated to 2.2.4.
 * Add a new option to disable redirection for the thankyou page.
