@@ -165,7 +165,7 @@ class wc4bp_Sync {
 	 */
 	public function wc4bp_sync_addresses_to_profile( $user_id ) {
 		try {
-			if ( bp_is_active( 'xprofile' ) ) {
+			if ( bp_is_active( 'xprofile' ) && class_exists( 'BP_XProfile_Group' )) {
 				// get the profile fields
 				$ids      = self::wc4bp_get_xprofield_fields_ids();
 				$shipping = $ids['shipping'];

@@ -86,7 +86,7 @@ class wc4bp_admin_sync extends wc4bp_base {
 
 	public function wc4bp_sync_from_admin( $user_id ) {
 		try {
-			if ( bp_is_active( 'xprofile' ) ) {
+			if ( bp_is_active( 'xprofile' ) && class_exists( 'BP_XProfile_Group' ) ) {
 				// get the profile fields
 				$ids      = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
 				$shipping = $ids['shipping'];

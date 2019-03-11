@@ -53,7 +53,7 @@ function wc4bp_activate() {
 
 		$billing = array();
 
-		if ( bp_is_active( 'xprofile' ) ) {
+		if ( bp_is_active( 'xprofile' ) && class_exists( 'BP_XProfile_Group' ) ) {
 			$insert_billing_group  = true;
 			$insert_shipping_group = true;
 			//Get all the groups from the database

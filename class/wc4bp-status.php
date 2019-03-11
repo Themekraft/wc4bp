@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC4BP_Status {
 	private $status_handler;
-
+	
 	public function __construct() {
 		require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/class-wp-plugin-status.php';
 		$this->status_handler = WpPluginStatusFactory::build_manager( array(
@@ -23,14 +23,14 @@ class WC4BP_Status {
 		add_action( 'init', array( $this, 'set_status_options' ), 1, 1 );
 		add_filter( 'wp_plugin_status_data', array( $this, 'status_data' ) );
 	}
-
+	
 	public function set_status_options() {
 		// Only Check for requirements in the admin
 		if ( ! is_admin() ) {
 			return;
 		}
 	}
-
+	
 	public function status_data( $data ) {
 		$versions = array(
 			'WC4BP' => $GLOBALS['wc4bp_loader']->get_version(),
@@ -78,75 +78,77 @@ class WC4BP_Status {
 		$shop_settings['review']       = ( ! empty( $wc4bp_review ) ) ? $wc4bp_review : 'false';
 		$shop_settings['review-later'] = ( ! empty( $wc4bp_review_later ) ) ? $wc4bp_review_later : 'false';
 		$data['WC4BP Settings']        = $shop_settings;
-
-		$shipping          = bp_get_option( 'wc4bp_shipping_address_ids' );
-		$billing           = bp_get_option( 'wc4bp_billing_address_ids' );
-		$exist_group_in_bp = array();
-		$exist_field_in_bp = array();
-		$no_internal_group = array();
-		$no_internal_field = array();
-		//Get BP XProfield groups
-		$groups = BP_XProfile_Group::get( array(
-			'fetch_fields' => true,
-		) );
-		/** @var BP_XProfile_Group $group */
-		foreach ( $groups as $group ) {
-			$group_id = ( empty( $group->description ) ) ? $group->id : $group->description;
-			if ( wc4bp_Sync::wc4bp_is_invalid_xprofile_group( $group ) ) {
-				$no_internal_group[ $group_id ] = $group;
-				/** @var BP_XProfile_Field $field */
-				foreach ( $group->fields as $field ) {
-					$no_internal_field[ $group_id ][ $field->id ] = $field;
-				}
-			} else {
-				$exist_group_in_bp[ $group_id ] = $group;
-				/** @var BP_XProfile_Field $field */
-				foreach ( $group->fields as $field ) {
-					$billing_key  = array_search( $field->id, $billing, true );
-					$shipping_key = array_search( $field->id, $shipping, true );
-					if ( $shipping_key || $billing_key ) {
-						$exist_field_in_bp[ $group_id ][ $field->id ] = $field;
+		
+		if ( bp_is_active( 'xprofile' ) && class_exists( 'BP_XProfile_Group' ) ) {
+			$shipping          = bp_get_option( 'wc4bp_shipping_address_ids' );
+			$billing           = bp_get_option( 'wc4bp_billing_address_ids' );
+			$exist_group_in_bp = array();
+			$exist_field_in_bp = array();
+			$no_internal_group = array();
+			$no_internal_field = array();
+			//Get BP XProfield groups
+			$groups = BP_XProfile_Group::get( array(
+				'fetch_fields' => true,
+			) );
+			/** @var BP_XProfile_Group $group */
+			foreach ( $groups as $group ) {
+				$group_id = ( empty( $group->description ) ) ? $group->id : $group->description;
+				if ( wc4bp_Sync::wc4bp_is_invalid_xprofile_group( $group ) ) {
+					$no_internal_group[ $group_id ] = $group;
+					/** @var BP_XProfile_Field $field */
+					foreach ( $group->fields as $field ) {
+						$no_internal_field[ $group_id ][ $field->id ] = $field;
+					}
+				} else {
+					$exist_group_in_bp[ $group_id ] = $group;
+					/** @var BP_XProfile_Field $field */
+					foreach ( $group->fields as $field ) {
+						$billing_key  = array_search( $field->id, $billing, true );
+						$shipping_key = array_search( $field->id, $shipping, true );
+						if ( $shipping_key || $billing_key ) {
+							$exist_field_in_bp[ $group_id ][ $field->id ] = $field;
+						}
 					}
 				}
 			}
-		}
-
-		$xprofiels_settings['shipping_array'] = is_array( $shipping ) ? 'true' : 'false';
-		$xprofiels_settings['billing_array']  = is_array( $billing ) ? 'true' : 'false';
-		/**
-		 * @var string            $key
-		 * @var BP_XProfile_Group $item
-		 */
-		foreach ( $exist_group_in_bp as $key => $item ) {
-			$xprofiels_settings[ $key ] = $item->name;
-			if ( is_array( $exist_field_in_bp[ $key ] ) ) {
-				/**
-				 * @var integer           $field_id
-				 * @var BP_XProfile_Field $field_data
-				 */
-				foreach ( $exist_field_in_bp[ $key ] as $field_id => $field_data ) {
-					$xprofiels_settings[ $key . '_' . $field_data->name ] = $field_data->id . ' (required:' . $field_data->is_required . ')';
+			
+			$xprofiels_settings['shipping_array'] = is_array( $shipping ) ? 'true' : 'false';
+			$xprofiels_settings['billing_array']  = is_array( $billing ) ? 'true' : 'false';
+			/**
+			 * @var string            $key
+			 * @var BP_XProfile_Group $item
+			 */
+			foreach ( $exist_group_in_bp as $key => $item ) {
+				$xprofiels_settings[ $key ] = $item->name;
+				if ( is_array( $exist_field_in_bp[ $key ] ) ) {
+					/**
+					 * @var integer           $field_id
+					 * @var BP_XProfile_Field $field_data
+					 */
+					foreach ( $exist_field_in_bp[ $key ] as $field_id => $field_data ) {
+						$xprofiels_settings[ $key . '_' . $field_data->name ] = $field_data->id . ' (required:' . $field_data->is_required . ')';
+					}
 				}
 			}
-		}
-		/**
-		 * @var string            $key
-		 * @var BP_XProfile_Group $item
-		 */
-		foreach ( $no_internal_group as $key => $item ) {
-			$xprofiels_settings[ $key ] = $item->name;
-			if ( is_array( $no_internal_field[ $key ] ) ) {
-				/**
-				 * @var integer           $field_id
-				 * @var BP_XProfile_Field $field_data
-				 */
-				foreach ( $no_internal_field[ $key ] as $field_id => $field_data ) {
-					$xprofiels_settings[ $key . '_' . $field_data->name ] = $field_data->id . ' (required:' . $field_data->is_required . ')';
+			/**
+			 * @var string            $key
+			 * @var BP_XProfile_Group $item
+			 */
+			foreach ( $no_internal_group as $key => $item ) {
+				$xprofiels_settings[ $key ] = $item->name;
+				if ( is_array( $no_internal_field[ $key ] ) ) {
+					/**
+					 * @var integer           $field_id
+					 * @var BP_XProfile_Field $field_data
+					 */
+					foreach ( $no_internal_field[ $key ] as $field_id => $field_data ) {
+						$xprofiels_settings[ $key . '_' . $field_data->name ] = $field_data->id . ' (required:' . $field_data->is_required . ')';
+					}
 				}
 			}
+			$data['WC4BP XProfield Details'] = $xprofiels_settings;
 		}
-		$data['WC4BP XProfield Details'] = $xprofiels_settings;
-
+		
 		return $data;
 	}
 }
