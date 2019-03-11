@@ -33,7 +33,7 @@ class wc4bp_Woocommerce {
 			}
 		}
 		if ( isset( $this->wc4bp_options['disable_woo_profile_override'] ) ) {
-			add_action( 'woocommerce_checkout_update_customer', array( $this, 'avoid_override_of_user_meta' ) );
+			add_action( 'woocommerce_checkout_update_customer', array( $this, 'avoid_override_of_user_meta' ), 10, 2 );
 		}
 	}
 
