@@ -6,7 +6,7 @@
 </div>
 
 <div id="LoadingImage" class="child_div" style="display: none">
-    <img class="lds-spinner" src="<?php echo WC4BP_IMAGES."giphy.gif"?>" />
+    <img class="lds-spinner" src="/wp-admin/images/wpspin_light.gif" />
 </div>
 
 <div id="add_page" style="display:none"></div>

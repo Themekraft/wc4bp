@@ -1,9 +1,7 @@
 .lds-spinner {
     display: inline-block;
     position: relative;
-    top:-25px;
-    width: 80px;
-    height: 80px;
+    top:7px;
 }
 .parent_div{
     margin-right:10px;
