@@ -1,5 +1,5 @@
 <?php if ( ! empty( $message ) ): ?>
-	<div class="notice review-notice active" id="wc4bp-ask-revision" style="">
+	<div class="notice review-notice active" id="wc4bp-notice" style="">
 	<div class="review-notice-logo"><span class="dashicons dashicons-chart-line"></span></div>
 	<div class="review-notice-message">
 		<strong>WC4BP -> WooCommerce BuddyPress Integration</strong> <br>

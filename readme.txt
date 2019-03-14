@@ -111,6 +111,8 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 = 3.3.0 14 March 2019 =
 * Security Fix: Freemius
 * Fixed the default thankyou page and default tab dropdown component to show correctly in the free version.
+* Fixed the function to hide the admin messages.
+* Fixed the ajax call to hide the ask for review admin notice. 
 
 = 3.2.6.1 11 March 2019 =
 * Improved the loading spinner into the admin.
