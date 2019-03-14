@@ -157,7 +157,6 @@ class wc4bp_redirect {
 								$checkout_url = apply_filters( 'wc4bp_checkout_page_link', $checkout_url );
 							}
 
-
 							return $this->convert_url( $checkout_url );
 							break;
 						case $account_page_id:

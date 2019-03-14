@@ -5,7 +5,7 @@
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
- * Version: 3.2.6.1
+ * Version: 3.3.0
  * Licence: GPLv3
  * Text Domain: wc4bp
  * Domain Path: /languages
@@ -43,52 +43,52 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		/**
 		 * The plugin version
 		 */
-		const VERSION = '3.2.6.1';
-		
+		const VERSION = '3.3.0';
+
 		/**
 		 * Minimum required WP version
 		 */
 		const MIN_WP = '4.9';
-		
+
 		/**
 		 * Minimum required BP version
 		 */
 		const MIN_BP = '2.2';
-		
+
 		/**
 		 * Minimum required woocommerce version
 		 */
 		const MIN_WOO = '3.4';
-		
+
 		/**
 		 * Name of the plugin folder
 		 */
 		static $plugin_name;
-		
+
 		/**
 		 * Can the plugin be executed
 		 */
 		static $active = false;
-		
+
 		/**
 		 * @var Freemius
 		 */
 		public static $freemius;
-		
+
 		/**
 		 * Is true when the plugin is the premium version
 		 *
 		 * @var bool
 		 */
 		private static $is_pro;
-		
+
 		/**
 		 * Initiate the class
 		 *
 		 * @package WooCommerce for BuddyPress
 		 * @since   0.1-beta
 		 */
-		
+
 		public function __construct() {
 			try {
 				self::$plugin_name = __FILE__;
@@ -102,7 +102,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 				require_once dirname( __FILE__ ) . '/class/wc4bp-required-php.php';
 				require_once dirname( __FILE__ ) . '/class/wc4bp-required.php';
 				require_once dirname( __FILE__ ) . '/class/wc4bp-upgrade.php';
-				
+
 				// Init Freemius.
 				self::$freemius = $this->wc4bp_fs();
 				self::$freemius->set_basename( true, __FILE__ );
@@ -123,10 +123,10 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 						 * Deletes all data if plugin deactivated
 						 */
 						register_deactivation_hook( __FILE__, array( $this, 'deactivation' ) );
-						
+
 						add_action( 'plugins_loaded', array( $this, 'update' ), 10 );
 						add_action( 'plugins_loaded', array( $this, 'wc4bp_translate' ) );
-						
+
 						self::getFreemius()->add_action( 'after_uninstall', array( $this, 'uninstall_cleanup' ) );
 					}
 				} else {
@@ -138,11 +138,11 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 				self::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
 		}
-		
+
 		public function get_version() {
 			return self::VERSION;
 		}
-		
+
 		/**
 		 * Create a helper function for easy Freemius SDK access.
 		 *
@@ -154,7 +154,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 				if ( ! isset( $wc4bp_fs ) ) {
 					// Include Freemius SDK.
 					require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/freemius/start.php';
-					
+
 					$wc4bp_fs = fs_dynamic_init( array(
 						'id'                  => '425',
 						'slug'                => 'wc4bp',
@@ -180,10 +180,10 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 			catch ( Exception $exception ) {
 				self::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
-			
+
 			return $wc4bp_fs;
 		}
-		
+
 		/**
 		 * Declare all constants
 		 *
@@ -204,14 +204,14 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 			define( 'WC4BP_JS', WC4BP_URLPATH . 'admin/js/' );
 			define( 'WC4BP_IMAGES', WC4BP_URLPATH . 'admin/images/' );
 		}
-		
+
 		/**
 		 * @return Freemius
 		 */
 		public static function getFreemius() {
 			return self::$freemius;
 		}
-		
+
 		/**
 		 * Load the language file
 		 *
@@ -221,32 +221,32 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		public function wc4bp_translate() {
 			load_plugin_textdomain( 'wc4bp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		}
-		
+
 		/*
 		 *  Update function from version 1.3.8 to 1.4
 		 */
 		public function update() {
 			try {
 				if ( version_compare( WC4BP_VERSION, '1.4', '<' ) ) {
-					
+
 					$billing  = bp_get_option( 'wc4bp_billing_address_ids' );
 					$shipping = bp_get_option( 'wc4bp_shipping_address_ids' );
-					
+
 					$billing_changed  = false;
 					$shipping_changed = false;
-					
+
 					if ( isset( $billing['address'] ) ) {
 						$billing['address_1'] = $billing['address'];
 						unset( $billing['address'] );
 						$billing_changed = true;
 					}
-					
+
 					if ( isset( $billing['address-2'] ) ) {
 						$billing['address_2'] = $billing['address-2'];
 						unset( $billing['address-2'] );
 						$billing_changed = true;
 					}
-					
+
 					if ( isset( $shipping['address'] ) ) {
 						$shipping['address_1'] = $shipping['address'];
 						unset( $shipping['address'] );
@@ -257,11 +257,11 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 						unset( $shipping['address-2'] );
 						$shipping_changed = true;
 					}
-					
+
 					if ( true === $billing_changed ) {
 						bp_update_option( 'wc4bp_billing_address_ids', $billing );
 					}
-					
+
 					if ( true === $shipping_changed ) {
 						bp_update_option( 'wc4bp_shipping_address_ids', $shipping );
 					}
@@ -271,7 +271,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 				self::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
 		}
-		
+
 		/**
 		 * Generate the default data arrays
 		 */
@@ -290,7 +290,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 				self::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
 		}
-		
+
 		/**
 		 * Deletes all data if plugin deactivated
 		 *
@@ -310,14 +310,14 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 				self::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
 		}
-		
+
 		/**
 		 * @return WC4BP_Exception_Handler
 		 */
 		public static function get_exception_handler() {
 			return WC4BP_Exception_Handler::get_instance();
 		}
-		
+
 		/**
 		 * Clean the related plugins data when it is uninstall
 		 */
