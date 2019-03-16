@@ -12,9 +12,7 @@
                 var button = jQuery(this);
                 button.click(function () {
                     var item = jQuery(this);
-                    if('dismiss' === item.data('action')){
-                    	 container.hide();
-					}
+                    container.hide();
                 });
             });
         }

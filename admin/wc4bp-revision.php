@@ -28,16 +28,16 @@ class WC4BP_Revision {
 				WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
 		}
-//		if ( empty( $wc4bp_review ) ) {
-//			if ( false !== $time_result || empty( $wc4bp_review_later ) ) {
+		if ( empty( $wc4bp_review ) ) {
+			if ( false !== $time_result || empty( $wc4bp_review_later ) ) {
 				add_action( 'admin_notices', array( $this, 'ask_for_revision' ) );
 				add_action( 'network_admin_notices', array( $this, 'ask_for_revision' ) );
 				add_action( 'admin_enqueue_scripts', array( $this, 'revision_script' ), 10 );
 				add_action( 'wp_ajax_wc4bp_revision_review', array( $this, 'wc4bp_revision_trigger' ) );
 				add_action( 'wp_ajax_wc4bp_revision_later', array( $this, 'wc4bp_revision_trigger' ) );
 				add_action( 'wp_ajax_wc4bp_revision_already', array( $this, 'wc4bp_revision_trigger' ) );
-//			}
-//		}
+			}
+		}
 	}
 
 	public function ask_for_revision() {

@@ -62,8 +62,7 @@ class wc4bp_redirect {
 			 * @param array String values of the endpoint to by pass the url transform
 			 */
 			$avoid_woo_endpoints = apply_filters( 'wc4bp_avoid_woo_endpoints', array(  'order-pay' ) );
-			global $bp, $wp, $woocommerce;
-			$wc4bp_options = get_option( 'wc4bp_options' );
+			global $wp;
 			if ( ( isset( $wp->query_vars['name'] ) && in_array( $wp->query_vars['name'], $avoid_woo_endpoints ) ) ) {
 				return false;
 			}
@@ -73,21 +72,28 @@ class wc4bp_redirect {
 				}
 			}
 
-            if ( isset( $wc4bp_options['thank_you_page'] ) && isset( $wp->query_vars[ 'order-received' ]  )) {
-                $page_to_redirect_data = get_post( $wc4bp_options['thank_you_page'] );
-                if ( $page_to_redirect_data ) {
-                    /** @var WC_Session $wc_session_data */
-                    $wc_session_data = $woocommerce->session;
-                    if ( ! empty( $wc_session_data ) ) {
-                        $wc_session_data->set( 'thank_you_page_redirect', $wc4bp_options['thank_you_page'] );
-                    }
-                    return $this->convert_url( $page_to_redirect_data->post_name );
+			$wc4bp_options = get_option( 'wc4bp_options' );
+			if ( isset( $wp->query_vars['order-received'] ) ) {
+				if ( ! empty( $wc4bp_options['thank_you_page'] ) && 'default' !== $wc4bp_options['thank_you_page'] ) {
+					$page_to_redirect_data = get_post( $wc4bp_options['thank_you_page'] );
+					if ( $page_to_redirect_data ) {
+						global $woocommerce;
+						/** @var WC_Session $wc_session_data */
+						$wc_session_data = $woocommerce->session;
+						if ( ! empty( $wc_session_data ) ) {
+							$wc_session_data->set( 'thank_you_page_redirect', $wc4bp_options['thank_you_page'] );
+						}
 
-                } else{
-                    return false;
-                }
-            }
+						return $this->convert_url( $page_to_redirect_data->post_name );
+					} else {
+						return false;
+					}
+				} else {
+					return false;
+				}
+			}
 
+			global $bp;
 			if ( ! empty( $bp->pages ) ) {
 				//Search in all the actives BPress pages for the current id
 				foreach ( $bp->pages as $page_key => $page_data ) {

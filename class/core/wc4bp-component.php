@@ -364,10 +364,10 @@ class WC4BP_Component extends BP_Component {
 						return strcmp( $a['position'], $b['position'] );
 					} );
 					foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
-                        if ( isset( $this->wc4bp_options['thank_you_page'] ) && $this->wc4bp_options['thank_you_page'] == $attached_page['page_id'] ) {
+						if ( isset( $this->wc4bp_options['thank_you_page'] ) && $this->wc4bp_options['thank_you_page'] == $attached_page['page_id'] ) {
 
-                           continue;
-                        }
+							continue;
+						}
 						$wp_admin_nav[] = array(
 							'parent' => 'my-account-' . $this->id,
 							'id'     => 'my-account-' . $this->id . '-' . $attached_page['tab_slug'],
@@ -426,12 +426,12 @@ class WC4BP_Component extends BP_Component {
 				$cart_page      = get_post( $cart_page_id, ARRAY_A );
 				$cart_slug      = $cart_page['post_name'];
 				if ( 'home' === $bp->current_action ) {
-                    if ( ! empty( $this->wc4bp_options ) && is_string( $this->wc4bp_options ) ) {
-                        $this->wc4bp_options = json_decode( $this->wc4bp_options, true );
-                    }
-					if ( isset( $this->wc4bp_options[ 'wc4bp_endpoint_' . $this->wc4bp_options['tab_shop_default'] ] ) || 'default' === $this->wc4bp_options['tab_shop_default'] ) {
-						//Determine what is default
-						if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
+					if ( ! empty( $this->wc4bp_options ) && is_string( $this->wc4bp_options ) ) {
+						$this->wc4bp_options = json_decode( $this->wc4bp_options, true );
+					}
+					if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
+						if ( isset( $this->wc4bp_options[ 'wc4bp_endpoint_' . $this->wc4bp_options['tab_shop_default'] ] ) || 'default' === $this->wc4bp_options['tab_shop_default'] ) {
+							//Determine what is default
 							$wc4bp_pages_options = array();
 							$endpoints           = wc4bp_Manager::get_shop_endpoints( false );
 							if ( isset( $endpoints['checkout'] ) ) {
@@ -462,11 +462,12 @@ class WC4BP_Component extends BP_Component {
 							} else {
 								$bp->current_action = '';
 							}
+
 						} else {
-							$bp->current_action = 'cart';
+							$bp->current_action = $this->wc4bp_options['tab_shop_default'];
 						}
 					} else {
-						$bp->current_action = $this->wc4bp_options['tab_shop_default'];
+						$bp->current_action = 'cart';
 					}
 				}
 				$path = $this->get_endpoint_path( $bp->current_action );

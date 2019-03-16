@@ -3,15 +3,13 @@ function wc4bp_revision() {
         if (action === 'review') {
             window.open('https://wordpress.org/support/plugin/wc4bp/reviews/', '_blank');
         }
+        container.hide();
         jQuery.ajax({
             type: 'POST', url: wc4bp_admin_revision_js.ajaxurl,
             data: {
                 action: 'wc4bp_revision_' + action,
                 nonce: wc4bp_admin_revision_js.nonce,
                 trigger: action
-            },
-            success: function () {
-                container.hide();
             }
         });
     }
