@@ -245,7 +245,7 @@ class wc4bp_redirect {
 	 * @return bool
 	 */
 	function wc4bp_redirect_to_profile() {
-		global $post;
+		global $post,$bp,$wp;
 		//if user is not logged or is in the backend in exit
 		if ( ! is_user_logged_in() || is_admin() ) {
 			return false;
@@ -254,11 +254,12 @@ class wc4bp_redirect {
 		if ( empty( $post ) ) {
 			return false;
 		}
-		$link = $this->redirect_link( $post->ID );
+		//this is to avoid the 404 error on woocommerce endpoint rule. For more details on the rule see the wc-template-functions.php line: 45
+		unset($wp->query_vars[ $bp->current_action ]);
+		$link = $this->convert_url( $bp->current_action );//$this->redirect_link( $post->ID );
 
 		if ( ! empty( $link ) ) {
-			wp_safe_redirect( $link );
-			exit;
+			return  $link ;
 		} else {
 			return false;
 		}
