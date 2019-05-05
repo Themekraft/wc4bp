@@ -97,7 +97,8 @@ class wc4bp_Woocommerce {
 		$default = $is_account_page;
 		try {
 			if ( is_user_logged_in() ) {
-				if ( bp_is_current_component( wc4bp_Manager::get_shop_slug() ) && bp_is_current_action( 'checkout' ) ) {
+				$is_current_component = bp_is_current_component( wc4bp_Manager::get_shop_slug() );
+				if ( $is_current_component ) {
 					$is_account_page = true;
 				}
 			}

@@ -46,6 +46,7 @@ if ( ! function_exists( 'is_order_received_page' ) ) {
 		return false;
 	}
 }
+
 // TODO commented in order to avoid incompatibility with the payment method page. In some install woo my account page is not detected
 //if ( ! function_exists( 'is_add_payment_method_page' ) ) {
 //
