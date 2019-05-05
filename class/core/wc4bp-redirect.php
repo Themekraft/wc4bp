@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class wc4bp_redirect {
 
 	public function __construct() {
-		add_action( 'template_redirect', array( $this, 'wc4bp_redirect_to_profile' ) );
+		add_action( 'template_redirect', array( $this, 'wc4bp_redirect_to_profile' ));
 		add_filter( 'page_link', array( $this, 'wc4bp_page_link_router' ), 9999, 2 );//High priority to take precedent over other plugins
 	}
 
@@ -53,23 +53,25 @@ class wc4bp_redirect {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 				return false;
 			}
-			if ( empty( $post_id ) ) {
-				return false;
-			}
+
 			/**
 			 * Add more endpoint to avoid the rewrite of the url for the plugin
 			 *
 			 * @param array String values of the endpoint to by pass the url transform
 			 */
-			$avoid_woo_endpoints = apply_filters( 'wc4bp_avoid_woo_endpoints', array(  'order-pay' ) );
+			$avoid_woo_endpoints = apply_filters( 'wc4bp_avoid_woo_endpoints', array( 'order-pay' ) );
 			global $wp;
 			if ( ( isset( $wp->query_vars['name'] ) && in_array( $wp->query_vars['name'], $avoid_woo_endpoints ) ) ) {
 				return false;
 			}
 			foreach ( $avoid_woo_endpoints as $avoid_woo_endpoint ) {
 				if ( isset( $wp->query_vars[ $avoid_woo_endpoint ] ) ) {
-                    return false;
+					return false;
 				}
+			}
+
+			if ( empty( $post_id ) ) {
+				return false;
 			}
 
 			$wc4bp_options = get_option( 'wc4bp_options' );
@@ -245,7 +247,7 @@ class wc4bp_redirect {
 	 * @return bool
 	 */
 	function wc4bp_redirect_to_profile() {
-		global $post,$bp,$wp;
+		global $post;
 		//if user is not logged or is in the backend in exit
 		if ( ! is_user_logged_in() || is_admin() ) {
 			return false;
@@ -254,12 +256,11 @@ class wc4bp_redirect {
 		if ( empty( $post ) ) {
 			return false;
 		}
-		//this is to avoid the 404 error on woocommerce endpoint rule. For more details on the rule see the wc-template-functions.php line: 45
-		unset($wp->query_vars[ $bp->current_action ]);
-		$link = $this->convert_url( $bp->current_action );//$this->redirect_link( $post->ID );
+		$link = $this->redirect_link( $post->ID );
 
 		if ( ! empty( $link ) ) {
-			return  $link ;
+			wp_safe_redirect( $link );
+			exit;
 		} else {
 			return false;
 		}
