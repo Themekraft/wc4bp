@@ -25,7 +25,9 @@
         "bruli/php-git-hooks": "^5.1"
     },
     "scripts":{
-        "package": "sh package.sh",
+        "package": "sh .tk/package.sh loader",
+        "version": "sh .tk/update_version.sh",
+        "wp-release": "sh .tk/wp_release.sh",
         "test": [
         	"#IF NOT WORK REVIEW ALL NECESSARY ARE SET TO RUN PHPUNIT, CHECK THE README#",
             "SHELL_INTERACTIVE=1",

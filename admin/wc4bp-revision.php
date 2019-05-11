@@ -14,28 +14,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC4BP_Revision {
 	public function __construct() {
-		$user_id            = get_current_user_id();
-		$wc4bp_review       = get_user_meta( $user_id, 'wc4bp-review', true );
-		$wc4bp_review_later = get_user_meta( $user_id, 'wc4bp-review-later', true );
-		$time_result        = false;
-		if ( ! empty( $wc4bp_review_later ) ) {
-			try {
-				$wc4bp_review_now = new DateTime( 'now' );
-				$time_comparison  = $wc4bp_review_now->diff( $wc4bp_review_later );
-				$time_result      = ( 1 === $time_comparison->invert );
+		$user  = wp_get_current_user();
+		$roles = $user->roles;
+		if ( in_array( 'administrator', $roles ) ) {
+			$user_id            = $user->ID;
+			$wc4bp_review       = get_user_meta( $user_id, 'wc4bp-review', true );
+			$wc4bp_review_later = get_user_meta( $user_id, 'wc4bp-review-later', true );
+			$time_result        = false;
+			if ( ! empty( $wc4bp_review_later ) ) {
+				try {
+					$wc4bp_review_now = new DateTime( 'now' );
+					$time_comparison  = $wc4bp_review_now->diff( $wc4bp_review_later );
+					$time_result      = ( 1 === $time_comparison->invert );
+				} catch ( Exception $exception ) {
+					WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+				}
 			}
-			catch ( Exception $exception ) {
-				WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
-			}
-		}
-		if ( empty( $wc4bp_review ) ) {
-			if ( false !== $time_result || empty( $wc4bp_review_later ) ) {
-				add_action( 'admin_notices', array( $this, 'ask_for_revision' ) );
-				add_action( 'network_admin_notices', array( $this, 'ask_for_revision' ) );
-				add_action( 'admin_enqueue_scripts', array( $this, 'revision_script' ), 10 );
-				add_action( 'wp_ajax_wc4bp_revision_review', array( $this, 'wc4bp_revision_trigger' ) );
-				add_action( 'wp_ajax_wc4bp_revision_later', array( $this, 'wc4bp_revision_trigger' ) );
-				add_action( 'wp_ajax_wc4bp_revision_already', array( $this, 'wc4bp_revision_trigger' ) );
+			if ( empty( $wc4bp_review ) ) {
+				if ( false !== $time_result || empty( $wc4bp_review_later ) ) {
+					add_action( 'admin_notices', array( $this, 'ask_for_revision' ) );
+					add_action( 'network_admin_notices', array( $this, 'ask_for_revision' ) );
+					add_action( 'admin_enqueue_scripts', array( $this, 'revision_script' ), 10 );
+					add_action( 'wp_ajax_wc4bp_revision_review', array( $this, 'wc4bp_revision_trigger' ) );
+					add_action( 'wp_ajax_wc4bp_revision_later', array( $this, 'wc4bp_revision_trigger' ) );
+					add_action( 'wp_ajax_wc4bp_revision_already', array( $this, 'wc4bp_revision_trigger' ) );
+				}
 			}
 		}
 	}
@@ -70,8 +73,7 @@ class WC4BP_Revision {
 						$remind = new DateTime( 'now' );
 						$remind->add( new DateInterval( 'P5D' ) );
 						update_user_meta( $user_id, 'wc4bp-review-later', $remind );
-					}
-					catch ( Exception $exception ) {
+					} catch ( Exception $exception ) {
 						WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 					}
 					break;

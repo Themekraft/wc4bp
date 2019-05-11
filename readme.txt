@@ -4,7 +4,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
 Tested up to: 5.0.0
-Stable tag: 3.3.1
+Stable tag: 3.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,10 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 9. Admin menu options
 
 == Changelog ==
+= 3.3.2 11 May 2019 =
+* Fix the 404 redirection for the user profile pages.
+* Limiting teh review message only to administrator.
+
 = 3.3.1 14 March 2019 =
 * Fixed the annoying review message.
 * Fixed the redirection for the thankyou page option. The expected behavior for default is to continue the normal WooCommerce process.
