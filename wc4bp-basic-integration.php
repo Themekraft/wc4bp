@@ -9,6 +9,7 @@
  * Licence: GPLv3
  * Text Domain: wc4bp
  * Domain Path: /languages
+ * Svn: wc4bp
  *
  *****************************************************************************
  * WC requires at least: 3.5.0
