@@ -27,7 +27,8 @@
     "scripts":{
         "package": "sh .tk/package.sh wc4bp-basic-integration",
         "wp-release": "sh .tk/wp_release.sh",
-        "full-deploy": "sh .tk/full-deploy.sh wc4bp-basic-integration 425 true",
+        "beta-release": "sh .tk/full-deploy.sh wc4bp-basic-integration 425 false beta",
+        "full-release": "sh .tk/full-deploy.sh wc4bp-basic-integration 425 false released",
         "test": [
         	"#IF NOT WORK REVIEW ALL NECESSARY ARE SET TO RUN PHPUNIT, CHECK THE README#",
             "SHELL_INTERACTIVE=1",
