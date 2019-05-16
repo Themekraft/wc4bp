@@ -104,12 +104,12 @@ class WC4BP_MyAccount_Content {
 			wc_print_notices();
 			$result = Request_Helper::simple_get( 'add-payment-method' );
 			if ( ! empty( $result ) ) {
-				if ( class_exists( 'WooCommerce' ) ) {
-					$this->is_payment_short_code = true;
-					if ( class_exists( 'WC_Gateway_Stripe' ) ) {
-						$this->exist_stripe_payment = true;
-					}
-				}
+//				if ( class_exists( 'WooCommerce' ) ) {
+//					$this->is_payment_short_code = true;
+//					if ( class_exists( 'WC_Gateway_Stripe' ) ) {
+//						$this->exist_stripe_payment = true;
+//					}
+//				}
 				woocommerce_account_add_payment_method();
 			} else {
 				woocommerce_account_payment_methods();
