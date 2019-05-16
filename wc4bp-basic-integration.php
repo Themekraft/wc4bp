@@ -5,7 +5,7 @@
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
- * Version: 3.3.2
+ * Version: 3.3.3
  * Licence: GPLv3
  * Text Domain: wc4bp
  * Domain Path: /languages
@@ -44,7 +44,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		/**
 		 * The plugin version
 		 */
-		const VERSION = '3.3.2';
+		const VERSION = '3.3.3';
 
 		/**
 		 * Minimum required WP version
