@@ -3,8 +3,8 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
-Tested up to: 5.0.0
-Stable tag: 3.3.4
+Tested up to: 5.1
+Stable tag: 3.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,9 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 9. Admin menu options
 
 == Changelog ==
+= 3.3.5 19 May 2019 =
+* Fixing the extra weigh of the plugin zip.
+
 = 3.3.4 11 May 2019 =
 * fixed the assets issue caused by the automation script where is deploy the new version.
 
