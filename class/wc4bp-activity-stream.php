@@ -96,7 +96,7 @@ class WC4BP_Activity_Stream {
 			// record the activity
 			bp_activity_add( array(
 				'user_id'   => $user_id,
-				'action'    => $stream,
+				'content'    => $stream,
 				'component' => wc4bp_Manager::get_shop_slug(),
 				'type'      => 'new_shop_review',
 			) );

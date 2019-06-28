@@ -25,8 +25,9 @@ class wc4bp_Manage_Admin {
 			}
 			$is_backend = wc4bp_Manager::is_request('administration');
 			if($is_backend ){
-				require_once( WC4BP_ABSPATH . 'admin/wc4bp-marketing.php' );
-				new WC4BP_Marketing();
+				//Disabling marketing until we have a better idea
+//				require_once( WC4BP_ABSPATH . 'admin/wc4bp-marketing.php' );
+//				new WC4BP_Marketing();
 				require_once( WC4BP_ABSPATH . 'admin/wc4bp-revision.php' );
 				new WC4BP_Revision();
 			}
