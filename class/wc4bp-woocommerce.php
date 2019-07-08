@@ -33,6 +33,27 @@ class wc4bp_Woocommerce {
 		if ( isset( $this->wc4bp_options['disable_woo_profile_override'] ) ) {
 			add_action( 'woocommerce_checkout_update_customer', array( $this, 'avoid_override_of_user_meta' ), 10, 2 );
 		}
+		add_filter('woocommerce_is_order_received_page', array($this, 'wc4bp_woocommerce_is_order_received_page'));
+	}
+
+	/**
+	 * Override the Order received page
+	 *
+	 * @param $is_order_received_page bool
+	 *
+	 * @return bool
+	 * @since 3.3.8
+	 *
+	 * @see woocommerce/includes/wc-conditional-functions.php:221
+	 */
+	public function wc4bp_woocommerce_is_order_received_page( $is_order_received_page ) {
+		if ( is_user_logged_in() ) {
+			if ( bp_is_current_component( wc4bp_Manager::get_shop_slug() ) && ( bp_is_action_variable( 'checkout' ) || bp_is_action_variable( 'cart' ) ) ) {
+				$is_order_received_page = true;
+			}
+		}
+
+		return $is_order_received_page;
 	}
 
 	/**

@@ -23,30 +23,6 @@ if ( ! function_exists( 'is_cart' ) ) {
 	}
 }
 
-if ( ! function_exists( 'is_order_received_page' ) ) {
-	/**
-	 * is_order_received_page - Returns true when viewing the order received page.
-	 *
-	 * @access public
-	 * @return bool
-	 */
-	function is_order_received_page() {
-		global $wp;
-
-		if ( is_user_logged_in() ) {
-			if ( bp_is_current_component( wc4bp_Manager::get_shop_slug() ) && ( bp_is_action_variable( 'checkout' ) || bp_is_action_variable( 'cart' ) ) ) {
-				return true;
-			}
-		} else {
-			if ( is_page( wc_get_page_id( 'checkout' ) ) && isset( $wp->query_vars['order-received'] ) ) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-}
-
 // TODO commented in order to avoid incompatibility with the payment method page. In some install woo my account page is not detected
 if ( ! function_exists( 'is_add_payment_method_page' ) ) {
 

@@ -69,7 +69,11 @@ class WC4BP_Activity_Stream {
 				return false;
 			}
 
-			$user_link = bp_core_get_userlink( $user_id );
+			if ( is_user_logged_in() ) {
+				$user_link = bp_core_get_userlink( $user_id );
+			} else {
+				$user_link = __( 'A guest', 'wc4bp' );
+			}
 
 			/**
 			 * Modify the string to insert into the BuddyPress Activity Stream on Product Review
@@ -142,7 +146,11 @@ class WC4BP_Activity_Stream {
 				return false;
 			}
 
-			$user_link = bp_core_get_userlink( $order->get_customer_id() );
+			if ( is_user_logged_in() ) {
+				$user_link = bp_core_get_userlink( $order->get_customer_id() );
+			} else {
+				$user_link = __( 'A guest', 'wc4bp' );
+			}
 
 			// if several products - combine them, otherwise - display the product name
 			$items = $order->get_items();
@@ -187,4 +195,37 @@ class WC4BP_Activity_Stream {
 
 		return false;
 	}
+}
+
+add_filter( 'wc4bp_stream_order_complete', 'wc4bp_callback_stream_order_complete', 10, 5 );
+
+/**
+ * Override the Activity Stream for Order Complete
+ *
+ * @param string $text_output
+ * @param int $user_id_from_order
+ * @param WC_Order $order
+ * @param WC_ORder_Item[] $order_items
+ * @param string $stream_action
+ *
+ * @return string
+ */
+function wc4bp_callback_stream_order_complete( $text_output, $user_id_from_order, $order, $order_items, $stream_action ) {
+	if(is_user_logged_in()) {
+		$user_link = bp_core_get_userlink( $user_id_from_order );
+	} else {
+		$user_link = 'A guest ';
+	}
+
+	$names = array();
+	/** @var WC_Order_Item_Product $item */
+	foreach ( $order_items as $item ) {
+		$names[] = '<a href="' . $item->get_product()->get_permalink() . '">' . $item->get_product()->get_name() . '</a>';
+	}
+
+	return sprintf(
+		'The user: %s bought %s',
+		$user_link,
+		implode( ', ', $names )
+	);
 }
