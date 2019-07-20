@@ -4,7 +4,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
 Tested up to: 5.1
-Stable tag: 3.3.7
+Stable tag: 3.3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,12 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 9. Admin menu options
 
 == Changelog ==
+= 3.3.8 7 Jul 2019 =
+* Fixed the message posted in the Activity stream when a logged out user bought or comment product. In this case the message will start by `A guest ...`.
+* Removed the redefine function `is_order_received_page` now this check is trough a filter from WooCommerce.
+* Updated Freemius sdk to version 2.3.0.
+* Added the new option to join to the beta channel of the plugin.
+
 = 3.3.7 4 Jun 2019 =
 * Removed the noise message to Activate your account.
 
