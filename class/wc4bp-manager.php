@@ -198,6 +198,12 @@ class wc4bp_Manager {
 		return is_plugin_active( 'buddypress/bp-loader.php' );
 	}
 
+	public static function is_buddyboss_theme_active() {
+		$theme = wp_get_theme(); // gets the current theme
+
+		return ( 'BuddyBoss Theme' === $theme->name || 'BuddyBoss Theme' === $theme->parent_theme );
+	}
+
 	public static function is_current_active() {
 		self::load_plugins_dependency();
 

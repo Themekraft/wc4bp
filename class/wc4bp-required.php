@@ -65,18 +65,22 @@ class WC4BP_Required {
 			// Create the required required_plugins array
 			$required_plugins = array(
 				array(
-					'name'     => 'BuddyPress',
-					'slug'     => 'buddypress',
-					'version'  => '2.2',
-					'required' => true,
-				),
-				array(
 					'name'     => 'WooCommerce',
 					'slug'     => 'woocommerce',
 					'version'  => '3.1',
 					'required' => true,
 				),
 			);
+
+			$theme = wp_get_theme(); // gets the current theme
+			if ( 'BuddyBoss Theme' != $theme->name && 'BuddyBoss Theme' != $theme->parent_theme ) {
+				$required_plugins[] = array(
+					'name'     => 'BuddyPress',
+					'slug'     => 'buddypress',
+					'version'  => '2.2',
+					'required' => true,
+				);
+			}
 
 			$config = array(
 				'id'           => 'wc4bp',                 // Unique ID for hashing notices for multiple instances of TGMPA.

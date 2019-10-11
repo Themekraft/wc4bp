@@ -204,7 +204,7 @@ class wc4bp_Woocommerce {
 					break;
 			}
 
-			return $url;
+			return apply_filters('wc4bp_endpoint_url', $url, $endpoint, $value, $permalink, $base_path);
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 
