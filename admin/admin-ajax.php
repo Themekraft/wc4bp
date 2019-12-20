@@ -26,7 +26,7 @@ class wc4bp_admin_ajax extends wc4bp_base {
 		add_action( 'wp_ajax_nopriv_wc4bp_delete_page', array( $this, 'wc4bp_delete_page' ) );
 
 		add_action( 'wp_ajax_wc4bp_shop_profile_sync_ajax', array( $this, 'wc4bp_shop_profile_sync_ajax' ) );
-		add_action( 'wp_ajax_nopriv_wc4bp_shop_profile_sync_ajax', array( $this, 'wc4bp_shop_profile_sync_ajax' ) );
+//		add_action( 'wp_ajax_nopriv_wc4bp_shop_profile_sync_ajax', array( $this, 'wc4bp_shop_profile_sync_ajax' ) );
 	}
 
 
@@ -101,7 +101,8 @@ class wc4bp_admin_ajax extends wc4bp_base {
 								$field_slug = $billing_key;
 							}
 							if ( isset( $field_slug ) ) {
-								xprofile_set_field_data( $field->id, $user_id, get_user_meta( $user_id, $type . '_' . $field_slug, true ) );
+								$user_meta = get_user_meta( $user_id, $type . '_' . $field_slug, true );
+								xprofile_set_field_data( $field->id, $user_id, $user_meta );
 							}
 						}
 					}
