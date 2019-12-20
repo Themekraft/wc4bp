@@ -229,6 +229,11 @@ class wc4bp_Sync {
 					$value = sanitize_text_field( $request_var );
 				}
 				xprofile_set_field_data( $field->id, $user_id, $value );
+				//Force existing visibility level
+				$current_visibility = xprofile_get_field_visibility_level( $field->id, $user_id );
+				if ( ! empty( $current_visibility ) ) {
+					xprofile_set_field_visibility_level( $field->id, $user_id, $current_visibility );
+				}
 			}
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
