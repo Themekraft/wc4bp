@@ -18,35 +18,33 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {
-        "php": ">=5.2"
-    },
     "require-dev": {
-        "bruli/php-git-hooks": "^5.1"
+        "phpunit/phpunit": "^6.1",
+        "php-coveralls/php-coveralls": "^2.0@dev",
+        "squizlabs/php_codesniffer": "3.*",
+        "friendsofphp/php-cs-fixer": "^2.9",
+        "jakub-onderka/php-parallel-lint": "dev-master",
+        "jakub-onderka/php-console-highlighter": "dev-master",
+        "wp-coding-standards/wpcs": "dev-master",
+        "symplify/easy-coding-standard": "^5.2@dev",
+        "brainmaestro/composer-git-hooks": "dev-master",
+        "lucatume/wp-browser": "dev-master",
+        "vlucas/phpdotenv": "3.6.0",
+        "codeception/module-asserts": "dev-master",
+        "codeception/module-webdriver": "dev-master",
+        "codeception/module-phpbrowser": "^1.0",
+        "codeception/module-db": "^1.0",
+        "codeception/module-filesystem": "^1.0",
+        "codeception/module-cli": "^1.0",
+        "codeception/util-universalframework": "^1.0"
     },
     "scripts":{
         "package": "sh .tk/package.sh wc4bp-basic-integration",
         "wp-release": "sh .tk/wp_release.sh",
         "beta-release": "sh .tk/full-deploy.sh wc4bp-basic-integration 425 false beta",
         "full-release": "sh .tk/full-deploy.sh wc4bp-basic-integration 425 false released",
-        "test": [
-        	"#IF NOT WORK REVIEW ALL NECESSARY ARE SET TO RUN PHPUNIT, CHECK THE README#",
-            "SHELL_INTERACTIVE=1",
-            "php vendor/bin/phpunit --color"
-        ],
-        "start": [
-            "cd ../../../..",
-            "vagrant up"
-        ],
-        "stop": [
-            "cd ../../../..",
-            "vagrant halt"
-        ],
-		"post-install-cmd": [
-		  	"PhpGitHooks\\Infrastructure\\Composer\\ConfiguratorScript::buildConfig"
-		],
-		"post-update-cmd": [
-		  	"PhpGitHooks\\Infrastructure\\Composer\\ConfiguratorScript::buildConfig"
-		]
+        "update-freemius": "sh .tk/update-freemius.sh ../wordpress-sdk includes/resources/freemius",
+        "codecept": "vendor/bin/codecept",
+        "chromedriver": "sh .tk/chromedriver.sh"
     }
 }

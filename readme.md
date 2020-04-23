@@ -1,28 +1,56 @@
-[ ![Codeship Status for Themekraft/wc4bp](https://app.codeship.com/projects/918f5b60-7309-0135-803a-0e96b9c00ff8/status?branch=master)](https://app.codeship.com/projects/243716)
 
 ## WooCommerce for Buddypress (wc4bp-premium) 
-Contributors: @themekraft, @svenl77, @slava, @travel-junkie, @kishores, @marin250189, @gfirem, @garrett-eclipse
+Create a seamless customer experience and get more engagement on your site by integrating your WooCommerce store with your BuddyPress community.
 
-Shop solution for your BuddyPress community. Integrates a WooCommerce installation with a BuddyPress social network.
+# Setup for development
+If you want install buddyforms in your local for testing or develop. You need to read carefully the next sections.
 
-#### Development Details
-1. IDE PhpStorm (latest)
-1. Environment (https://github.com/gfirem/themekraft_environment)
+### Requirements
+- PHP 7
+- WordPress
+- Docker & Docker Composer
 
-#### VCS
-1. SourceTree or git with a git flow module
-1. Mandatory of use of git flow
-1. To create hot-fix use the name convention h-### (help scout number of the ticket) or g-### (github issue number)
+### Installation
 
-### Unit test 
-To run unit test local first you need to have all set inside the vagrant machine. Check the next commands.
-1. The user to run the commands. 
-	1. `CREATE USER user@localhost IDENTIFIED BY 'userpass'; `
-1. The database to run the test
-	1. `CREATE DATABASE wordpress_test;`
-1. Grant permission to connect from the host machine to the VVV to run the test
-	1. `GRANT ALL PRIVILEGES ON wordpress_test.* TO user@'%' IDENTIFIED BY 'userpass';`
-1. Run the next command local or remote to configure the environment each time the tmp folder is empty
-	1. `bash bin/install-wp-tests.sh wordpress_test user 'userpass' kraft.dev latest true`. This is to run from the host machine
-	1. `bash bin/install-wp-tests.sh wordpress_test user 'userpass' localhost latest true`. This is to run inside the VVV
-1. `composer test`. With the las command is enough to run the test in both environments. 
+* Composer
+  * `composer install`
+* If you need the TK Script submodule
+  * `git submodule update --init --recursive`
+  
+#### Troubleshooting
+If you face composer memory problems like in the next line.
+
+> `PHP Fatal error: Allowed memory size of XXXXXX bytes exhausted <...>`
+
+Use the command
+
+> `php -d memory_limit=-1 <composer path> <...>`
+
+Source: [https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors](https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors) 
+
+### Testing
+We use [codeception](https://codeception.com/) and webdriver.
+
+Related commands for testing
+* Run chromedriver before start executing the test 
+    * `vendor/bin/chromedriver --url-base=/wd/hub`
+* Generate Class Test file
+    * `vendor/bin/codecept g:cest acceptance <testName>`
+* To run all the acceptance test from command line with steps
+    * `vendor/bin/codecept run tests/acceptance/SiteNameCest.php --steps`
+* To run specific file test from command line with steps
+    * `vendor/bin/codecept run <path to the file> --steps`
+
+## Contributors
+* @themekraft
+* @svenl77
+* @slava
+* @travel-junkie
+* @kishores
+* @marin250189
+* @gfirem
+* @garrett-eclipse
+
+## License
+
+This project is licensed under the GPLv2 or later license - see the [license.txt](LICENSE) file for details.

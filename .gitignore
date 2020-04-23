@@ -8,8 +8,11 @@ node_modules
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
 composer.lock
 package-lock.json
-.env
 config.ini
+
+# dotenv environment variables file
+.env*
+!.env.example
 
 ###> phpunit/phpunit ###
 /phpunit.xml
