@@ -26,7 +26,6 @@ class wc4bp_admin_ajax extends wc4bp_base {
 		add_action( 'wp_ajax_nopriv_wc4bp_delete_page', array( $this, 'wc4bp_delete_page' ) );
 
 		add_action( 'wp_ajax_wc4bp_shop_profile_sync_ajax', array( $this, 'wc4bp_shop_profile_sync_ajax' ) );
-//		add_action( 'wp_ajax_nopriv_wc4bp_shop_profile_sync_ajax', array( $this, 'wc4bp_shop_profile_sync_ajax' ) );
 	}
 
 
@@ -56,17 +55,23 @@ class wc4bp_admin_ajax extends wc4bp_base {
 
 	public function wc4bp_change_xprofile_visibility_by_user_ajax( $user_id ) {
 		try {
-			// get the corresponding  wc4bp fields
 			if ( bp_is_active( 'xprofile' ) ) {
+				// get the corresponding  wc4bp fields
 				$ids              = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
 				$shipping         = $ids['shipping'];
 				$billing          = $ids['billing'];
-				$visibility_level = sanitize_text_field( Request_Helper::get_post_param( 'visibility_level' ) );
-				foreach ( $shipping as $key => $field_id ) {
-					xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
-				}
-				foreach ( $billing as $key => $field_id ) {
-					xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
+				$visibility_level_param = Request_Helper::get_post_param( 'visibility_level' );
+				if ( ! empty( $visibility_level_param ) ) {
+					foreach ( $shipping as $key => $field_id ) {
+						$visibility_level = apply_filters('wc4bp_xprofile_visibility', $visibility_level_param, $field_id );
+						$visibility_level = apply_filters('wc4bp_xprofile_visibility_by_user', $visibility_level, $field_id, $user_id );
+						xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
+					}
+					foreach ( $billing as $key => $field_id ) {
+						$visibility_level = apply_filters('wc4bp_xprofile_visibility', $visibility_level_param, $field_id );
+						$visibility_level = apply_filters('wc4bp_xprofile_visibility_by_user', $visibility_level, $field_id, $user_id );
+						xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
+					}
 				}
 			}
 		} catch ( Exception $exception ) {

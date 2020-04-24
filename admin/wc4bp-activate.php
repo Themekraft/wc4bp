@@ -339,8 +339,6 @@ function wc4bp_activate() {
 
 		return false;
 	}
-
-
 }
 
 /**

@@ -156,12 +156,16 @@ class wc4bp_admin_sync extends wc4bp_base {
 				$ids              = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
 				$shipping         = $ids['shipping'];
 				$billing          = $ids['billing'];
-				$visibility_level = Request_Helper::get_post_param( 'visibility_level' );
-				if ( ! empty( $visibility_level ) ) {
+				$visibility_level_param = Request_Helper::get_post_param( 'visibility_level' );
+				if ( ! empty( $visibility_level_param ) ) {
 					foreach ( $shipping as $key => $field_id ) {
+						$visibility_level = apply_filters('wc4bp_xprofile_visibility', $visibility_level_param, $field_id );
+						$visibility_level = apply_filters('wc4bp_xprofile_visibility_by_user', $visibility_level, $field_id, $user_id );
 						xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
 					}
 					foreach ( $billing as $key => $field_id ) {
+						$visibility_level = apply_filters('wc4bp_xprofile_visibility', $visibility_level_param, $field_id );
+						$visibility_level = apply_filters('wc4bp_xprofile_visibility_by_user', $visibility_level, $field_id, $user_id );
 						xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
 					}
 				}
