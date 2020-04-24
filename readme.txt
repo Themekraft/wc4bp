@@ -3,8 +3,8 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
-Tested up to: 5.3.2
-Stable tag: 3.3.10
+Tested up to: 5.4
+Stable tag: 3.3.11-beta1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,9 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 9. Admin menu options
 
 == Changelog ==
+= 3.3.11-beta1 - 24 April 2020 =
+* Added a hook filter to let 3rd party force the field visibility.
+
 = 3.3.10 - 20 Dec 2019 =
 * Updated Freemius.
 * Fix to force the visibility level on user sing up.
