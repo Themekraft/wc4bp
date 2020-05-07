@@ -98,9 +98,10 @@ class wc4bp_Manager {
 		/**
 		 * Get the store slug to use in the url
 		 *
+		 * @param String $var The current slug.
+		 *
 		 * @since 3.0.0
 		 *
-		 * @param String $var The current slug.
 		 */
 		return apply_filters( 'wc4bp_shop_slug', $slug );
 	}
@@ -195,13 +196,13 @@ class wc4bp_Manager {
 	public static function is_buddypress_active() {
 		self::load_plugins_dependency();
 
-		return is_plugin_active( 'buddypress/bp-loader.php' );
+		return is_plugin_active( 'buddypress/bp-loader.php' ) && function_exists( 'bp_is_current_component' );
 	}
 
 	public static function is_buddyboss_theme_active() {
 		$theme = wp_get_theme(); // gets the current theme
 
-		return ( 'BuddyBoss Theme' === $theme->name || 'BuddyBoss Theme' === $theme->parent_theme );
+		return ( 'BuddyBoss Theme' === $theme->name || 'BuddyBoss Theme' === $theme->parent_theme ) && function_exists( 'bp_is_current_component' );
 	}
 
 	public static function is_current_active() {
@@ -264,7 +265,7 @@ class wc4bp_Manager {
 	/**
 	 * What type of request is this?
 	 *
-	 * @param  string $type admin, ajax, cron or frontend.
+	 * @param string $type admin, ajax, cron or frontend.
 	 *
 	 * @return bool
 	 */

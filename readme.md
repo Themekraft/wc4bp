@@ -3,7 +3,7 @@
 Create a seamless customer experience and get more engagement on your site by integrating your WooCommerce store with your BuddyPress community.
 
 # Setup for development
-If you want install buddyforms in your local for testing or develop. You need to read carefully the next sections.
+If you want install this plugin in your local for testing or develop. You need to read carefully the next sections.
 
 ### Requirements
 - PHP 7
