@@ -196,12 +196,13 @@ class wc4bp_Manager {
 	public static function is_buddypress_active() {
 		self::load_plugins_dependency();
 
-		return is_plugin_active( 'buddypress/bp-loader.php' ) && function_exists( 'bp_is_current_component' );
+		return is_plugin_active( 'buddypress/bp-loader.php' ) && function_exists( 'buddypress' );
 	}
 
 	public static function is_buddyboss_theme_active() {
 		$theme = wp_get_theme(); // gets the current theme
 
+		//todo check if this validation not run into a race condition with the function `bp_is_current_component`
 		return ( 'BuddyBoss Theme' === $theme->name || 'BuddyBoss Theme' === $theme->parent_theme ) && function_exists( 'bp_is_current_component' );
 	}
 
