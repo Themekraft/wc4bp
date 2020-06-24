@@ -196,7 +196,7 @@ class wc4bp_Manager {
 	public static function is_buddypress_active() {
 		self::load_plugins_dependency();
 
-		return is_plugin_active( 'buddypress/bp-loader.php' ) && function_exists( 'buddypress' );
+		return is_plugin_active( 'buddypress/bp-loader.php' );
 	}
 
 	public static function is_buddyboss_theme_active() {
