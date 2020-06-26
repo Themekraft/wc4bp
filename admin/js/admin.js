@@ -57,6 +57,7 @@ function wc4bpAdministration() {
 	function addPage() {
 		jQuery('#LoadingImageinModal').show();
 		var wc4bp_page_id = jQuery('#wc4bp_page_id').val();
+		var wc4bp_old_page_id = jQuery('#wc4bp_old_page_id').val();
 		var wc4bp_tab_slug = jQuery('#wc4bp_tab_slug').val();
 		var wc4bp_tab_name = jQuery('#wc4bp_tab_name').val();
 		var wc4bp_position = jQuery('#wc4bp_position').val();
@@ -70,6 +71,7 @@ function wc4bpAdministration() {
 			data: {
 				'action': 'wc4bp_add_page',
 				'wc4bp_page_id': wc4bp_page_id,
+				'wc4bp_old_page_id': wc4bp_old_page_id,
 				'wc4bp_tab_slug': wc4bp_tab_slug,
 				'wc4bp_tab_name': wc4bp_tab_name,
 				'wc4bp_position': wc4bp_position,
