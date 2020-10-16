@@ -22,6 +22,7 @@ modules:
             # re-import the dump between tests; this means the test site database will be repopulated between the tests.
             cleanup: true
             waitlock: 10
+            originalUrl: '%TEST_SITE_WP_URL%'
             url: '%TEST_SITE_WP_URL%'
             urlReplacement: true #replace the hardcoded dump URL with the one above
             tablePrefix: '%TEST_SITE_TABLE_PREFIX%'
@@ -35,6 +36,10 @@ modules:
                 X_WPBROWSER_REQUEST: 1
         WPWebDriver:
             url: '%TEST_SITE_WP_URL%'
+            port: '%LT_PORT%' #Uncomment to run using LambdaTest service
+            host: '%LT_URL%' #Uncomment to run using LambdaTest service
+#            host: '%TEST_CHROME_DRIVER_IP%' #Uncomment to run using local chrome driver
+#            port: '%TEST_CHROME_DRIVER_PORT%' #Uncomment to run using local chrome driver
             adminUsername: '%TEST_SITE_ADMIN_USERNAME%'
             adminPassword: '%TEST_SITE_ADMIN_PASSWORD%'
             adminPath: '%TEST_SITE_WP_ADMIN_PATH%'
@@ -46,11 +51,15 @@ modules:
             wait: 0
             window_size: 1024x768
             clear_cookies: false
-            port: '%TEST_CHROME_DRIVER_PORT%'
-            host: '%TEST_CHROME_DRIVER_IP%'
             log_js_errors: true
             capabilities:
-                browserName: chrome
-                chromeOptions:
-                    args:
-                        - --headless
+                name: 'WC4BP Codeception'
+                build: '1.0'
+                browserName: 'Chrome' # request the latest version of chrome
+                platform: 'ANY'
+                version: '71.0'
+                tunnel: true
+                network: true
+                video: true
+                visual: true
+                console: true

@@ -13,6 +13,8 @@ config.ini
 # dotenv environment variables file
 .env*
 !.env.example
+tunnel.log
+.ltcbin
 
 ###> phpunit/phpunit ###
 /phpunit.xml
