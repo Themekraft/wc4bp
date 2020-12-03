@@ -43,14 +43,5 @@
     "codeception/module-filesystem": "^1.0",
     "codeception/module-cli": "^1.0",
     "codeception/util-universalframework": "^1.0"
-  },
-  "scripts": {
-    "package": "sh .tk/package.sh wc4bp-basic-integration",
-    "wp-release": "sh .tk/wp_release.sh",
-    "beta-release": "sh .tk/full-deploy.sh wc4bp-basic-integration 425 false beta",
-    "full-release": "sh .tk/full-deploy.sh wc4bp-basic-integration 425 false released",
-    "codecept": "vendor/bin/codecept",
-    "chromedriver": "sh .tk/chromedriver.sh",
-    "update-freemius": "sh .tk/update-freemius.sh ../wordpress-sdk includes/resources/freemius"
   }
 }

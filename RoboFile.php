@@ -5,26 +5,26 @@ include '.tk/RoboFileBase.php';
 class RoboFile extends RoboFileBase {
 
 	public function directoriesStructure() {
-		return array( 'includes' );
+		return array( 'admin', 'class', 'languages', 'patch', 'templates' );
 	}
 
 	public function fileStructure() {
-		return array( 'loader.php', 'composer.json', 'license.txt', 'readme.txt' );
+		return array( 'wc4bp-basic-integration.php', 'composer.json', 'license.txt', 'readme.txt' );
 	}
 
 	/**
 	 * @return array List of relative paths from the root folder of the plugin
 	 */
 	public function cleanPhpDirectories() {
-		return array(  );
+		return array();
 	}
 
 	public function pluginMainFile() {
-		return 'loader';
+		return 'wc4bp-basic-integration';
 	}
 
 	public function pluginFreemiusId() {
-		return 1924;
+		return 425;
 	}
 
 	public function minifyImagesDirectories() {
@@ -32,7 +32,7 @@ class RoboFile extends RoboFileBase {
 	}
 
 	public function minifyAssetsDirectories() {
-		return array( );
+		return array();
 	}
 
 	/**
