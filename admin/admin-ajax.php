@@ -95,6 +95,11 @@ class wc4bp_admin_ajax extends wc4bp_base {
 							continue;
 						}
 						foreach ( $group->fields as $field ) {
+
+							if ( isset( $billing['group_id'] ) ) {
+								unset( $billing['group_id'] );
+							}
+
 							$billing_key  = array_search( $field->id, $billing, true );
 							$shipping_key = array_search( $field->id, $shipping, true );
 							if ( $shipping_key ) {
