@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WC4BP -> WooCommerce BuddyPress Integration
+ * Plugin Name: WooBuddy -> WooCommerce BuddyPress Integration
  * Plugin URI: https://themekraft.com/woocommerce-buddypress-integration/
  * Description: Integrates a WooCommerce installation with a BuddyPress social network
  * Author: ThemeKraft
@@ -131,7 +131,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 						self::getFreemius()->add_action( 'after_uninstall', array( $this, 'uninstall_cleanup' ) );
 					}
 				} else {
-					$faux_plugin = new WP_Faux_Plugin( __( 'WC4BP -> WooCommerce BuddyPress Integration', 'wc4bp' ), $requirements->getResults() );
+					$faux_plugin = new WP_Faux_Plugin( __( 'WooBuddy -> WooCommerce BuddyPress Integration', 'wc4bp' ), $requirements->getResults() );
 					$faux_plugin->show_result( plugin_basename( __FILE__ ) );
 				}
 			}

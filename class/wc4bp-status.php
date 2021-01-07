@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC4BP_Status {
 	private $status_handler;
-	
+
 	public function __construct() {
 		require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/class-wp-plugin-status.php';
 		$this->status_handler = WpPluginStatusFactory::build_manager( array(
@@ -23,14 +23,14 @@ class WC4BP_Status {
 		add_action( 'init', array( $this, 'set_status_options' ), 1, 1 );
 		add_filter( 'wp_plugin_status_data', array( $this, 'status_data' ) );
 	}
-	
+
 	public function set_status_options() {
 		// Only Check for requirements in the admin
 		if ( ! is_admin() ) {
 			return;
 		}
 	}
-	
+
 	public function status_data( $data ) {
 		$versions = array(
 			'WC4BP' => $GLOBALS['wc4bp_loader']->get_version(),
@@ -77,8 +77,8 @@ class WC4BP_Status {
 		}
 		$shop_settings['review']       = ( ! empty( $wc4bp_review ) ) ? $wc4bp_review : 'false';
 		$shop_settings['review-later'] = ( ! empty( $wc4bp_review_later ) ) ? $wc4bp_review_later : 'false';
-		$data['WC4BP Settings']        = $shop_settings;
-		
+		$data['WooBuddy Settings']        = $shop_settings;
+
 		if ( bp_is_active( 'xprofile' ) && class_exists( 'BP_XProfile_Group' ) ) {
 			$shipping          = bp_get_option( 'wc4bp_shipping_address_ids' );
 			$billing           = bp_get_option( 'wc4bp_billing_address_ids' );
@@ -111,7 +111,7 @@ class WC4BP_Status {
 					}
 				}
 			}
-			
+
 			$xprofiels_settings['shipping_array'] = is_array( $shipping ) ? 'true' : 'false';
 			$xprofiels_settings['billing_array']  = is_array( $billing ) ? 'true' : 'false';
 			/**
@@ -146,9 +146,9 @@ class WC4BP_Status {
 					}
 				}
 			}
-			$data['WC4BP XProfield Details'] = $xprofiels_settings;
+			$data['WooBuddy XProfield Details'] = $xprofiels_settings;
 		}
-		
+
 		return $data;
 	}
 }
