@@ -1,4 +1,4 @@
-=== WooBuddy ===
+=== WooBuddy -> WooCommerce BuddyPress Integration ===
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
