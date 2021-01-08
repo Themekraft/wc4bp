@@ -118,6 +118,7 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 * Changing the title of the plugin on the readme.txt for copyright reasons.
 * Improve the requirement validation to avoid crash with the new version of BuddyPress.
 * Fixed the integrated page edit functionality to avoid create a new page instead of create a new one.
+* Updated Freemius SDK.
 
 
 = 3.3.10 - 20 Dec 2019 =
