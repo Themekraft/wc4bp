@@ -371,6 +371,7 @@
                  * sites in the network.
                  */
                 'is_network_activation'        => 0,
+                'license_migration'            => 0,
 
                 // When network activated, then network level.
                 'install_timestamp'            => 1,
@@ -378,16 +379,17 @@
                 'require_license_activation'   => 1,
 
                 // If not network activated OR delegated, then site level.
-                'activation_timestamp'         => 2,
-                'expired_license_notice_shown' => 2,
-                'is_whitelabeled'              => 2,
-                'last_license_key'             => 2,
-                'last_license_user_id'         => 2,
-                'prev_user_id'                 => 2,
-                'sticky_optin_added'           => 2,
-                'uninstall_reason'             => 2,
-                'is_pending_activation'        => 2,
-                'pending_license_key'          => 2,
+                'activation_timestamp'           => 2,
+                'expired_license_notice_shown'   => 2,
+                'is_whitelabeled'                => 2,
+                'last_license_key'               => 2,
+                'last_license_user_id'           => 2,
+                'prev_user_id'                   => 2,
+                'sticky_optin_added'             => 2,
+                'uninstall_reason'               => 2,
+                'is_pending_activation'          => 2,
+                'pending_license_key'            => 2,
+                'is_extensions_tracking_allowed' => 2,
 
                 // Site level options.
                 'is_anonymous'                 => 3,

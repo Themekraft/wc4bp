@@ -778,6 +778,11 @@ msgid_plural "The following recommended plugins are currently inactive: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
+#: class/wc4bp-activity-stream.php:227 class/wc4bp-activity-stream.php:232
+#, php-format
+msgid "The user: %s bought %s"
+msgstr ""
+
 #: class/includes/class-tgm-plugin-activation.php:378
 msgid "Begin installing plugin"
 msgid_plural "Begin installing plugins"

@@ -230,8 +230,10 @@ class wc4bp_Sync {
 				}
 				xprofile_set_field_data( $field->id, $user_id, $value );
 				//Force existing visibility level
-				$current_visibility = xprofile_get_field_visibility_level( $field->id, $user_id );
-				if ( ! empty( $current_visibility ) ) {
+				$visibility_level_param = xprofile_get_field_visibility_level( $field->id, $user_id );
+				if ( ! empty( $visibility_level_param ) ) {
+					$current_visibility = apply_filters('wc4bp_xprofile_visibility', $visibility_level_param, $field->id );
+					$current_visibility = apply_filters('wc4bp_xprofile_visibility_by_user', $current_visibility, $field->id, $user_id );
 					xprofile_set_field_visibility_level( $field->id, $user_id, $current_visibility );
 				}
 			}

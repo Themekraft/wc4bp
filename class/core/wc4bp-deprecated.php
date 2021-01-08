@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since     1.0
  */
 function wc4bp_get_tracking_page_id() {
-	_deprecated_function( __FUNCTION__, 'WC4BP 1.0.5', "woocommerce_get_page_id( 'order_tracking' )" );
+	_deprecated_function( __FUNCTION__, 'WooBuddy 1.0.5', "woocommerce_get_page_id( 'order_tracking' )" );
 
 	return woocommerce_get_page_id( 'order_tracking' );
 }

@@ -1,10 +1,9 @@
-=== WooCommerce BuddyPress Integration ===
-
+=== WooBuddy -> WooCommerce BuddyPress Integration ===
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
-Tested up to: 5.3.2
-Stable tag: 3.3.10
+Tested up to: 5.6
+Stable tag: 3.3.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,9 +16,18 @@ Create a seamless customer experience and get more engagement on your site by in
 ---
 
 Sync customer data: Show purchase history, product downloads and more in your BuddyPress member profiles. Make all customer relevant data accessible from one place. Add pages from other WooCommerce extensions right into your BuddyPress member profiles.
+
 ---
 
 That allows you a quick great overview about the engagement level of your customers & users and let’s you manage your site more efficiently.
+
+---
+
+### Addons
+
+> * [WooBuddy -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.](https://wordpress.org/plugins/woocommerce-buddypress-integration-xprofile-checkout-manager/)
+> * [WooBuddy -> Groups, integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://wordpress.org/plugins/wc4bp-groups/)
+> * [WooBuddy -> Subscriptions, integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
 
 ---
 
@@ -27,7 +35,6 @@ That allows you a quick great overview about the engagement level of your custom
 > * Empower your customers to become more involved and interact with other users, your products and brand, or even contribute in product development.
 > * Perfect for marketplaces, membership sites, digital products, auction sites or any kind of subscription site!
 > * Secure your data
-
 
 ---
 
@@ -44,8 +51,6 @@ That allows you a quick great overview about the engagement level of your custom
 > * Synchronization: It synchronizes all WooCommerce data with your BuddyPress data. If you register a new account via the checkout or add data like your billing address etc. the plugin will handle all the communication between WooCommerce and BuddyPress and keep the data synchronized.
 > * Fallback save! If you turn off BuddyPress for some reason, or the user don’t want to become a member the plugin falls back to the regular WooCommerce pages.
 
----
-
 <h4>Videos</h4>
 
 Overview over the plugin options [youtube https://www.youtube.com/watch?v=DtPk-WKo8ww&feature=youtu.be]
@@ -57,7 +62,7 @@ Overview over the plugin options [youtube https://www.youtube.com/watch?v=DtPk-W
 
 
 > #### AddOns
-> * WC4BP -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
+> * WooBuddy -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
 
 
 ---
@@ -68,12 +73,12 @@ Overview over the plugin options [youtube https://www.youtube.com/watch?v=DtPk-W
 ---
 
 > #### Submit Issues - Contribute
-> * Pull request are welcome. WC4BP is community driven and developed on [Github](https://github.com/Themekraft/wc4bp)
+> * Pull request are welcome. WooBuddy is community driven and developed on [Github](https://github.com/Themekraft/wc4bp)
 
 ---
 
 > #### Demo Site
-> * Feel free to test WC4BP on our Demo Site: [WC4BP Demo](https://addendio.com/try-plugin/?slug=wc4bp)
+> * Feel free to test WooBuddy on our Demo Site: [WooBuddy Demo](https://addendio.com/try-plugin/?slug=wc4bp)
 
 ---
 
@@ -91,9 +96,9 @@ Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shoppi
 
 
 == Installation ==
-Upload the entire WC4BP folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
+Upload the entire WooBuddy folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
 Activate the plugin through the 'Plugins' menu in WordPress.
-Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the settings
+Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the settings
 
 == Screenshots ==
 
@@ -108,6 +113,14 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 9. Admin menu options
 
 == Changelog ==
+= 3.3.11 - 7 Jan 2021 =
+* Added a hook filter to let 3rd party force the field visibility.
+* Changing the title of the plugin on the readme.txt for copyright reasons.
+* Improve the requirement validation to avoid crash with the new version of BuddyPress.
+* Fixed the integrated page edit functionality to avoid create a new page instead of create a new one.
+* Updated Freemius SDK.
+
+
 = 3.3.10 - 20 Dec 2019 =
 * Updated Freemius.
 * Fix to force the visibility level on user sing up.
@@ -215,7 +228,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Adding a new option to avoid WooCommerce override User Profile data.
 * Fixing the 404 in pay invoice link.
 * Fixing the Payment tab.
-* Adding new filter to avoid the redirecting of WC4BP.
+* Adding new filter to avoid the redirecting of WooBuddy.
 * Improving the code documentation.
 * Removing the restore error handler from debug class.
 
@@ -261,7 +274,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 
 = 3.0.16 21 December 2017 =
 * Fixing a 404 error in orders details for the free version.
-* Solved HTTP request of WC checkout page leads to INET_E_REDIRECT_FAILED with WC4BP plugin activated.
+* Solved HTTP request of WC checkout page leads to INET_E_REDIRECT_FAILED with WooBuddy plugin activated.
 
 = 3.0.15.3 19 December 2017 =
 * Fixing 404 in Activity Stream
@@ -301,7 +314,7 @@ Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the setti
 * Removing pages for WooCommerce My Account integrations.
 * Optimize My Account.
 * Adding cache.
-* Improving the UX of the WC4BP Setting Tab.
+* Improving the UX of the WooBuddy Setting Tab.
 * Fixing the function to load the payment method screen.
 * Fixing the edit page to edit the Shipping and Billing group.
 * Adding a message to the sync tab when the user disable the Turn off the Profile Sync.

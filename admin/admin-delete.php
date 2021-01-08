@@ -43,7 +43,7 @@ class wc4bp_admin_delete extends wc4bp_base {
 
 	public function wc4bp_register_admin_settings_delete() {
 		// Settings fields and sections
-		add_settings_section( 'section_delete', __( 'Delete all WooCommerce BuddyPress Integration Settings on Plugin Deactivation', 'wc4bp' ), '', 'wc4bp_options_delete' );
+		add_settings_section( 'section_delete', __( 'Delete all WooBuddy -> WooCommerce BuddyPress Integration Settings on Plugin Deactivation', 'wc4bp' ), '', 'wc4bp_options_delete' );
 		add_settings_field( 'delete_all_settings', __( '<b>Delete all Settings</b>', 'wc4bp' ), array( $this, 'wc4bp_delete_all_settings' ), 'wc4bp_options_delete', 'section_delete' );
 	}
 

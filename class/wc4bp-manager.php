@@ -98,9 +98,10 @@ class wc4bp_Manager {
 		/**
 		 * Get the store slug to use in the url
 		 *
+		 * @param String $var The current slug.
+		 *
 		 * @since 3.0.0
 		 *
-		 * @param String $var The current slug.
 		 */
 		return apply_filters( 'wc4bp_shop_slug', $slug );
 	}
@@ -147,11 +148,11 @@ class wc4bp_Manager {
 	public static function admin_notice( $message, $type = 'error' ) {
 		if ( is_multisite() ) {
 			add_action( 'network_admin_notices', function () use ( $message, $type ) {
-				echo '<div class="' . esc_attr( $type ) . '"><b>WC4BP -> WooCommerce BuddyPress Integration</b>: ' . $message . '</div>';
+				echo '<div class="' . esc_attr( $type ) . '"><b>WooBuddy -> WooCommerce BuddyPress Integration</b>: ' . $message . '</div>';
 			} );
 		} else {
 			add_action( 'admin_notices', function () use ( $message, $type ) {
-				echo '<div class="' . esc_attr( $type ) . '"><b>WC4BP -> WooCommerce BuddyPress Integration</b>: ' . $message . '</div>';
+				echo '<div class="' . esc_attr( $type ) . '"><b>WooBuddy -> WooCommerce BuddyPress Integration</b>: ' . $message . '</div>';
 			} );
 		}
 	}
@@ -201,7 +202,8 @@ class wc4bp_Manager {
 	public static function is_buddyboss_theme_active() {
 		$theme = wp_get_theme(); // gets the current theme
 
-		return ( 'BuddyBoss Theme' === $theme->name || 'BuddyBoss Theme' === $theme->parent_theme );
+		//todo check if this validation not run into a race condition with the function `bp_is_current_component`
+		return ( 'BuddyBoss Theme' === $theme->name || 'BuddyBoss Theme' === $theme->parent_theme ) && function_exists( 'bp_is_current_component' );
 	}
 
 	public static function is_current_active() {
@@ -264,7 +266,7 @@ class wc4bp_Manager {
 	/**
 	 * What type of request is this?
 	 *
-	 * @param  string $type admin, ajax, cron or frontend.
+	 * @param string $type admin, ajax, cron or frontend.
 	 *
 	 * @return bool
 	 */

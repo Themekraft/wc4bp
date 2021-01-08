@@ -78,7 +78,7 @@ gulp.task('prepare-localization', function() {
     return gulp.src('./**/*.php')
         .pipe(wpPot({
             domain: 'wc4bp',
-            package: 'WooCommerce BuddyPress Integration',
+            package: 'WooBuddy -> WooCommerce BuddyPress Integration',
             bugReport: 'https://github.com/Themekraft/wc4bp/issues',
             lastTranslator: 'Sven Lehnert <svenl@themekraft.com>',
             team: 'ThemeKraft Team <svenl@themekraft.com>',

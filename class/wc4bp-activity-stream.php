@@ -224,7 +224,7 @@ function wc4bp_callback_stream_order_complete( $text_output, $user_id_from_order
 	}
 
 	return sprintf(
-		'The user: %s bought %s',
+		__('The user: %s bought %s','wc4bp'),
 		$user_link,
 		implode( ', ', $names )
 	);
