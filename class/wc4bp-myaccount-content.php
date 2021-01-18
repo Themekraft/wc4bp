@@ -8,11 +8,6 @@
  * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 
-// No direct access is allowed
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class WC4BP_MyAccount_Content {
 
 	private $end_points;

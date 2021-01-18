@@ -7,10 +7,6 @@
  * @link               https://github.com/Themekraft/BP-Shop-Integration
  * @license            http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
-// No direct access is allowed
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 class WC4BP_Component extends BP_Component {
 	/**

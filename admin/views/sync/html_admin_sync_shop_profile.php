@@ -1,3 +1,6 @@
+<?php
+//Leaven empty tag to let automation add the path disclosure line
+?>
 <p>
     <b><?php _e( 'Sync WooCommerce Customer Billing and Shipping Address with BuddyPress.', 'wc4bp' ); ?></b>
 </p>

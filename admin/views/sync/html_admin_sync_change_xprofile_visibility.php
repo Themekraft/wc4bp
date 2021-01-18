@@ -1,3 +1,6 @@
+<?php
+//Leaven empty tag to let automation add the path disclosure line
+?>
 <p>
 	<?php esc_attr_e( 'Set the default visibility for all WooCommerce Fields inside BuddyPress.', 'wc4bp' ); ?>
 </p>

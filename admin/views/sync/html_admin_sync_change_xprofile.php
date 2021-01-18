@@ -1,3 +1,6 @@
+<?php
+//Leaven empty tag to let automation add the path disclosure line
+?>
 <?php /** @var wc4bp_admin_sync $this */ ?>
 <b>
     <p><?php _e( 'Set the Profile Field Visibility for all existing Users:', 'wc4bp' ); ?></p>

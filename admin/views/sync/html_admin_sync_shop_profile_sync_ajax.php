@@ -1,3 +1,6 @@
+<?php
+//Leaven empty tag to let automation add the path disclosure line
+?>
 <?php /** @var wc4bp_admin_sync $this */?>
 <input id="continue_update_paged" type="hidden" value="<?php echo $paged ?>">
 <p>
@@ -27,7 +30,7 @@
     </thead>
 
     <tbody id="result" data-wp-lists="list:user">
-	
+
 	<?php
 	foreach ( $query as $q ) {
 		if ( $update_type == 'wc4bp_sync_wc_user_with_bp_ajax' ) {

@@ -1,3 +1,6 @@
+<?php
+//Leaven empty tag to let automation add the path disclosure line
+?>
 <p>
     <b><?php _e( 'Choose an existing page', 'wc4bp' ); ?></b>
     <br>

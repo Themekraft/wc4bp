@@ -1,4 +1,7 @@
 <?php
+//Leaven empty tag to let automation add the path disclosure line
+?>
+<?php
 _e( '<div><p>By default all related <b>WooCommerce Account Tabs</b> are included into the BuddyPress member profiles. When you <b>Turn off</b> one of the next, the Tab(s) will disappear. Also is possible to change the order for the tabs. </p></div>', 'wc4bp' );
 /** @var wc4bp_admin $this */
 foreach ( $tabs_array as $end_point_key => $end_point_name ) {

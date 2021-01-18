@@ -1,3 +1,6 @@
+<?php
+//Leaven empty tag to let automation add the path disclosure line
+?>
 <?php /** @var wc4bp_admin $this */ ?>
 <label>
     <p>

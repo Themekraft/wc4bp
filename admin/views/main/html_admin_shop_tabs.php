@@ -1,3 +1,6 @@
+<?php
+//Leaven empty tag to let automation add the path disclosure line
+?>
 <?php /** @var wc4bp_admin $this */ ?>
 <p <?php echo $this->disable_class_tag( 'p', wc4bp_base::$starter_plan_id ); ?>>
     <label>
