@@ -1,3 +1,6 @@
+<?php
+//Leaven empty tag to let automation add the path disclosure line
+?>
 <?php if ( ! empty( $message ) ): ?>
 	<div class="notice review-notice active" id="wc4bp-notice" style="">
 	<div class="review-notice-logo"><span class="dashicons dashicons-chart-line"></span></div>

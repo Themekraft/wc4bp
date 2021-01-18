@@ -1,3 +1,6 @@
+<?php
+//Leaven empty tag to let automation add the path disclosure line
+?>
 <?php /** @var wc4bp_admin $this */ ?>
 <label>
 	<p><?php _e( 'This option override the default Woocommerce Thank You Page for one of the integrated pages.', 'wc4bp' ); ?></p>

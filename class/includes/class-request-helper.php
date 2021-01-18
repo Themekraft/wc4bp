@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
+
 
 if ( ! class_exists( 'Request_Helper' ) ) {
 	/**

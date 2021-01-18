@@ -1,9 +1,5 @@
 <?php
 
-// No direct access is allowed
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 class wc4bp_base {
 	private $debug;
@@ -17,12 +13,12 @@ class wc4bp_base {
 	public $need_account_activation;
 	public $is_paid_trial;
 	public $has_paid_plan;
-	
+
 	static $starter_plan_id = 'starter';
 	static $professional_plan_id = 'professional';
 	static $business_plan_id = 'business';
 	private $plan;
-	
+
 	public function __construct( $debug = false ) {
 		//Comment the next line to disable the forced debug
 //		$debug       = true;
@@ -38,7 +34,7 @@ class wc4bp_base {
 			$this->has_paid_plan           = WC4BP_Loader::getFreemius()->has_paid_plan();
 			$this->current_plan            = WC4BP_Loader::getFreemius()->get_current_or_network_install();
 			$this->need_account_activation = ( $this->has_paid_plan && ! $this->is_paying && ! $this->is_paid_trial );
-			
+
 			return;
 		} else if ( ! is_array( $debug ) ) {
 			$debug = array( 'is_paying' => false, 'is_free_plan' => true, 'starter' => false, 'professional' => false, 'is_premium_only' => false, 'trial' => false ); //Free
@@ -51,11 +47,11 @@ class wc4bp_base {
 		$this->is_professional = $debug['professional'];
 		$this->is_premium_only = $debug['is_premium_only'];
 		$this->is_trial        = $debug['trial'];
-		
+
 		//Set the fake plan
 		$this->plan = self::$starter_plan_id;
 	}
-	
+
 	public function disable_class_tag( $tag, $plan = 'professional', $force = false ) {
 		if ( ! $this->is_trial ) {
 			if ( $force || ( ! $this->is_paying || $this->is_free || ! $this->is_plan( $plan ) ) ) {
@@ -63,14 +59,14 @@ class wc4bp_base {
 					default:
 						$class = 'wc4bp-disabled';
 				}
-				
+
 				return 'class="' . $class . '"';
 			}
 		}
-		
+
 		return '';
 	}
-	
+
 	public function disable_input_tag( $type, $plan = 'professional', $force = false ) {
 		if ( ! $this->is_trial ) {
 			$attr = '';
@@ -83,26 +79,26 @@ class wc4bp_base {
 						$attr = 'disabled="disabled"';
 				}
 			}
-			
+
 			return $attr;
 		}
-		
+
 		return '';
 	}
-	
+
 	public function is_plan( $plan_id ) {
 		if ( $this->debug ) {
 			$result = ( $this->plan == $plan_id );
 		} else {
 			$result = WC4BP_Loader::getFreemius()->is_plan_or_trial( $plan_id );
 		}
-		
+
 		return $result;
 	}
-	
+
 	public function needs_upgrade() {
 		return ( $this->is_free || $this->is_start || $this->is_trial ) && ! $this->is_professional;
 	}
-	
-	
+
+
 }

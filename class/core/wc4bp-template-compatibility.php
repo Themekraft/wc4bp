@@ -5,10 +5,6 @@
  * @author r-a-y
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /** 1.7 compat *****************************************************/
 

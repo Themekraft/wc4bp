@@ -1,3 +1,6 @@
+<?php
+//Leaven empty tag to let automation add the path disclosure line
+?>
 <?php settings_errors(); ?>
 <div id="icon-options-general" class="icon32"><br></div>
 <h2> <?php _e( 'WooBuddy -> WooCommerce BuddyPress Integration', 'wc4bp' ); ?></h2>

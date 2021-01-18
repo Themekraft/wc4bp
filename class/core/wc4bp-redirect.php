@@ -9,10 +9,6 @@
  * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 
-// No direct access is allowed
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * This class handle all core redirection and url replace

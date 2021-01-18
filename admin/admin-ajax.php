@@ -8,11 +8,6 @@
  * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 
-// No direct access is allowed
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 class wc4bp_admin_ajax extends wc4bp_base {
 
 	public function __construct() {

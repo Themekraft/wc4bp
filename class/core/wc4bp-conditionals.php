@@ -8,11 +8,6 @@
  * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 
-// No direct access is allowed
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Conditional to check what page the user is on
  *

@@ -3,7 +3,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
 Tested up to: 5.6
-Stable tag: 3.3.11
+Stable tag: 3.3.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,9 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 9. Admin menu options
 
 == Changelog ==
+= 3.3.12 - 18 Jan 2021 =
+* Update the plugin to fix a release script error causing output php code into the administration.
+
 = 3.3.11 - 7 Jan 2021 =
 * Added a hook filter to let 3rd party force the field visibility.
 * Changing the title of the plugin on the readme.txt for copyright reasons.

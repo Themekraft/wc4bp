@@ -1,3 +1,6 @@
+<?php
+//Leaven empty tag to let automation add the path disclosure line
+?>
 <h3><?php _e( 'Add Pages to Member Profiles', 'wc4bp' ); ?></h3>
 
 <p><?php _e( 'Integrate other pages (for example from other WooCommerce extensions) into your BuddyPress member profiles.', 'wc4bp' ); ?></p>
@@ -15,7 +18,7 @@
     </thead>
     <tbody id="the-list">
 	<?php
-	
+
 	if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) :
 		foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ):
 			?>

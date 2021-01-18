@@ -1,3 +1,6 @@
+<?php
+//Leaven empty tag to let automation add the path disclosure line
+?>
 <p><?php _e( 'Allow if the user can change the Field visibility.', 'wc4bp' ); ?></p>
 <p>
 	<select name="wc4bp_options_sync[custom_visibility]">
