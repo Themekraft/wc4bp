@@ -3,7 +3,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
 Tested up to: 5.6
-Stable tag: 3.3.13-beta.1
+Stable tag: 3.3.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,7 +113,7 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 9. Admin menu options
 
 == Changelog ==
-= 3.3.13-beta.1 20 - Jan 2021 =
+= 3.3.13 28 - Jan 2021 =
 * Fixed race condition on the method is_buddyboss_theme_active. This issue was affecting BuddyBoss users.
 
 = 3.3.12 - 18 Jan 2021 =
