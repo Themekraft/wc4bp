@@ -70,16 +70,17 @@ class wc4bp_redirect {
                 return false;
             }
             $wc4bp_options = get_option( 'wc4bp_options' );
-            if (!isset($wc4bp_options['tab_my_account_disabled'])) {
-
-                if (isset($wp->query_vars['pagename']) && $wp->query_vars['pagename'] == 'my-account') {
-                    foreach (WC4BP_MyAccount::get_available_endpoints() as $end_point_key => $end_point_name) {
-                        if (isset($wp->query_vars[$end_point_key])) {
-                            return $this->convert_url($end_point_key);
+            if (!isset( $wc4bp_options['tab_my_account_disabled'] ) ) {
+                $account_page_id           = wc_get_page_id( 'myaccount' );
+                $myaccount_pagename        = get_post(intval( $account_page_id ) )->post_name;
+                if (isset( $wp->query_vars['pagename'] ) && $wp->query_vars['pagename'] == $myaccount_pagename ) {
+                    foreach ( WC4BP_MyAccount::get_available_endpoints() as $end_point_key => $end_point_name ) {
+                        if ( isset( $wp->query_vars[$end_point_key] ) ) {
+                            return $this->convert_url( $end_point_key );
                         }
                     }
                 }
-          }
+            }
 
 			if ( isset( $wp->query_vars['order-received'] ) ) {
 				if ( ! empty( $wc4bp_options['thank_you_page'] ) && 'default' !== $wc4bp_options['thank_you_page'] ) {
