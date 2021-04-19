@@ -50,3 +50,30 @@ if ( ! function_exists( 'is_add_payment_method_page' ) ) {
 		return ( ( ( $page_id && $is_page_id ) || ( $is_wc4pb_component || $is_checkout ) && ( $payment_methods || $add_payment_method || $add_payment_methods ) ) );
 	}
 }
+
+
+/**
+ * Add Remove button to checkout page   
+ */ 
+
+add_filter( 'woocommerce_cart_item_name', 'wc4bp_filter_wc_checkout_item_remove', 10, 3 );
+
+function wc4bp_filter_wc_checkout_item_remove( $product_name, $cart_item, $cart_item_key ) {
+	
+	global $woocommerce, $bp;
+	$is_current_component = bp_is_current_component( wc4bp_Manager::get_shop_slug() );
+	
+	if ( is_checkout() && $is_current_component == 1 ) {
+		
+		$product_name .= apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
+		'<a href="%s" rel="nofollow" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s" style="float:left;margin-right:5px">&times;</a>',
+		esc_url(wc_get_cart_remove_url($cart_item_key)),
+		esc_attr__( 'Remove this item', 'woocommerce' ),
+		esc_attr( $cart_item[ 'product_id' ]),
+		esc_attr( $cart_item_key ),
+		esc_attr( $cart_item[ 'data' ]->get_sku())),
+		$cart_item_key);
+
+		return $product_name;
+    }
+}
