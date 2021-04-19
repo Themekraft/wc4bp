@@ -68,7 +68,7 @@ function wc4bp_filter_wc_checkout_item_remove( $product_name, $cart_item, $cart_
 		$product_name .= apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
 		'<a href="%s" rel="nofollow" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s" style="float:left;margin-right:5px">&times;</a>',
 		esc_url(wc_get_cart_remove_url($cart_item_key)),
-		esc_attr__( 'Remove this item', 'woocommerce' ),
+		esc_attr__( 'Remove this item', 'wc4bp' ),
 		esc_attr( $cart_item[ 'product_id' ]),
 		esc_attr( $cart_item_key ),
 		esc_attr( $cart_item[ 'data' ]->get_sku())),
