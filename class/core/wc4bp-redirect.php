@@ -46,31 +46,42 @@ class wc4bp_redirect {
 	 */
 	public function redirect_link( $post_id = false ) {
 		try {
-			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-				return false;
-			}
+            if (defined('DOING_AJAX') && DOING_AJAX) {
+                return false;
+            }
 
-			/**
-			 * Add more endpoint to avoid the rewrite of the url for the plugin
-			 *
-			 * @param array String values of the endpoint to by pass the url transform
-			 */
-			$avoid_woo_endpoints = apply_filters( 'wc4bp_avoid_woo_endpoints', array( 'order-pay' ) );
-			global $wp;
-			if ( ( isset( $wp->query_vars['name'] ) && in_array( $wp->query_vars['name'], $avoid_woo_endpoints ) ) ) {
-				return false;
-			}
-			foreach ( $avoid_woo_endpoints as $avoid_woo_endpoint ) {
-				if ( isset( $wp->query_vars[ $avoid_woo_endpoint ] ) ) {
-					return false;
-				}
-			}
+            /**
+             * Add more endpoint to avoid the rewrite of the url for the plugin
+             *
+             * @param array String values of the endpoint to by pass the url transform
+             */
+            $avoid_woo_endpoints = apply_filters('wc4bp_avoid_woo_endpoints', array('order-pay'));
+            global $wp;
+            if ((isset($wp->query_vars['name']) && in_array($wp->query_vars['name'], $avoid_woo_endpoints))) {
+                return false;
+            }
+            foreach ($avoid_woo_endpoints as $avoid_woo_endpoint) {
+                if (isset($wp->query_vars[$avoid_woo_endpoint])) {
+                    return false;
+                }
+            }
 
-			if ( empty( $post_id ) ) {
-				return false;
-			}
+            if (empty($post_id)) {
+                return false;
+            }
+            $wc4bp_options = get_option( 'wc4bp_options' );
+            if (!isset( $wc4bp_options['tab_my_account_disabled'] ) ) {
+                $account_page_id           = wc_get_page_id( 'myaccount' );
+                $myaccount_pagename        = get_post(intval( $account_page_id ) )->post_name;
+                if (isset( $wp->query_vars['pagename'] ) && $wp->query_vars['pagename'] == $myaccount_pagename ) {
+                    foreach ( WC4BP_MyAccount::get_available_endpoints() as $end_point_key => $end_point_name ) {
+                        if ( isset( $wp->query_vars[$end_point_key] ) ) {
+                            return $this->convert_url( $end_point_key );
+                        }
+                    }
+                }
+            }
 
-			$wc4bp_options = get_option( 'wc4bp_options' );
 			if ( isset( $wp->query_vars['order-received'] ) ) {
 				if ( ! empty( $wc4bp_options['thank_you_page'] ) && 'default' !== $wc4bp_options['thank_you_page'] ) {
 					$page_to_redirect_data = get_post( $wc4bp_options['thank_you_page'] );

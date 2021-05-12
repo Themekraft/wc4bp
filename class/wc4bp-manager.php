@@ -197,8 +197,10 @@ class wc4bp_Manager {
 	public static function is_buddyboss_theme_active() {
 		$theme = wp_get_theme(); // gets the current theme
 
-		//todo check if this validation not run into a race condition with the function `bp_is_current_component`
-		return ( 'BuddyBoss Theme' === $theme->name || 'BuddyBoss Theme' === $theme->parent_theme ) && function_exists( 'bp_is_current_component' );
+		$check_bb_theme  = ( 'BuddyBoss Theme' === $theme->name || 'BuddyBoss Theme' === $theme->parent_theme );
+		$check_bb_plugin = in_array('buddyboss-platform/bp-loader.php', apply_filters('active_plugins', get_option('active_plugins') ) );
+
+		return $check_bb_theme && $check_bb_plugin;
 	}
 
 	public static function is_current_active() {
