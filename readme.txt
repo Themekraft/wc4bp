@@ -3,7 +3,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
 Tested up to: 5.7
-Stable tag: 3.3.14
+Stable tag: 3.3.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,12 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 9. Admin menu options
 
 == Changelog ==
+= 3.3.15 - 12 May 2021 =
+* Fixed issue on redirections from My Account pages to our BP Profile equivalents.
+* Added missing asset on the fremius SDK.
+* Removed unused Composer dependencies.
+* Removed option "Turn off WooCommerce User Profile override", this option isn't necesary and usable anymore.
+
 = 3.3.14 - 9 Mar 2021 =
 * Tested up with WordPress 5.7
 * Tested up with WC 5.1.0
