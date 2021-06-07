@@ -98,16 +98,17 @@ class wc4bp_Woocommerce {
 		}
 	}
 
-	/*
-	 * @param is_checkout
-	 *
-	 * @return true if is the WooCommerce checkout page
-	 * */
+	/**
+	 * Extend the is_checkout WooCommerce function to give support 
+	 * to the WooBuddy checkout view on the member profile.
+	 * @param bool $is_checkout false by default
+	 * @return bool true if is the WooBuddy checkout page.
+	 */
 	public function wc4bp_woocommerce_is_checkout( $is_checkout ) {
 		$default = $is_checkout;
 		try {
 			if ( is_user_logged_in() && ! isset( $this->wc4bp_options['tab_checkout_disabled'] ) ) {
-				if ( bp_is_current_component( wc4bp_Manager::get_shop_slug() ) && ( bp_is_current_action( 'checkout' ) || bp_is_current_action( 'home' ) ) ) {
+				if ( bp_is_current_component( wc4bp_Manager::get_shop_slug() ) && bp_is_current_action( 'checkout' ) ) {
 					$is_checkout = true;
 				}
 			}
