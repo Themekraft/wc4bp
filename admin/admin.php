@@ -31,6 +31,7 @@ class wc4bp_admin extends wc4bp_base {
 			require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-pages.php' );
 			require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-sync.php' );
 			require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-delete.php' );
+			require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-notifications.php' );
 			require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-ajax.php' );
 			new wc4bp_admin_ajax();
 		} catch ( Exception $exception ) {
@@ -86,6 +87,10 @@ class wc4bp_admin extends wc4bp_base {
 					$admin_delete = new wc4bp_admin_delete();
 					$admin_delete->wc4bp_screen_delete( $active_tab );
 					break;
+				case 'notifications':
+					$admin_notifications = new wc4bp_admin_notifications();
+					$admin_notifications->wc4bp_screen_notifications( $active_tab );
+					break;
 			}
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
@@ -105,6 +110,7 @@ class wc4bp_admin extends wc4bp_base {
 			register_setting( 'wc4bp_options_pages', 'wc4bp_options_pages' );
 			register_setting( 'wc4bp_options', 'wc4bp_options' );
 			register_setting( 'wc4bp_options_sync', 'wc4bp_options_sync' );
+			register_setting( 'wc4bp_options_notifications', 'wc4bp_options_notifications' );
 
 			add_settings_section( 'section_general', '', '', 'wc4bp_options' );
 			add_settings_section( 'section_general2', '', '', 'wc4bp_options' );
