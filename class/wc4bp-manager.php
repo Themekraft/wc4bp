@@ -43,6 +43,8 @@ class wc4bp_Manager {
 			require_once 'wc4bp-manage-admin.php';
 			require_once 'wc4bp-redefine-functions.php';
 			require_once 'wc4bp-status.php';
+			require_once 'wc4bp-notifications.php';
+
 
 			add_action( 'init', array( $this, 'init' ) );
 			add_action( 'bp_include', array( $this, 'includes' ), 10 );

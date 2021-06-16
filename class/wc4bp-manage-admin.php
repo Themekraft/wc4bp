@@ -58,6 +58,7 @@ class wc4bp_Manage_Admin {
 				'jquery-ui-sortable',
 			), WC4BP_Loader::VERSION );
 			wp_enqueue_style( 'wc4bp_admin_spinner_css', wc4bp_Manager::assets_path('loading-spiner','css') );
+			wp_enqueue_style( 'dashicons' );
 			$admin_style = wc4bp_Manager::assets_path( 'admin', 'css' );
 			wp_enqueue_style( 'wc4bp_admin_css', $admin_style );
 			if ( 'users_page_bp-profile-setup' === $hook ) {

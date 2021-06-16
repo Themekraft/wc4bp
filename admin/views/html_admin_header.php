@@ -9,9 +9,10 @@
 </div>
 
 <h2 class="nav-tab-wrapper">
-    <a href="?page=<?php echo wc4bp_admin::getSlug(); ?>&tab=generic" class="nav-tab <?php echo $active_tab == 'generic' ? 'nav-tab-active' : ''; ?>"><?php _e( 'WooBuddy Settings', 'wc4bp' ) ?></a>
+    <a href="?page=<?php echo wc4bp_admin::getSlug(); ?>&tab=generic" class="nav-tab <?php echo $active_tab == 'generic' ? 'nav-tab-active' : ''; ?>"><?php _e( 'General Settings', 'wc4bp' ) ?></a>
     <a href="?page=<?php echo wc4bp_admin::getSlug(); ?>&tab=page-sync" class="nav-tab <?php echo $active_tab == 'page-sync' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Profile Fields Sync', 'wc4bp' ) ?></a>
     <a href="?page=<?php echo wc4bp_admin::getSlug(); ?>&tab=integrate-pages" class="nav-tab <?php echo $active_tab == 'integrate-pages' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Integrate Pages', 'wc4bp' ) ?></a>
+    <a href="?page=<?php echo wc4bp_admin::getSlug(); ?>&tab=notifications" class="nav-tab <?php echo $active_tab == 'notifications' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Notifications', 'wc4bp' ) ?></a>
     <a href="?page=<?php echo wc4bp_admin::getSlug(); ?>&tab=delete" class="nav-tab <?php echo $active_tab == 'delete' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Delete', 'wc4bp' ) ?></a>
 
     <?php /** @var wc4bp_admin $this */	if ( $this->needs_upgrade() ) : ?>
