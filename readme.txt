@@ -3,7 +3,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
 Tested up to: 5.7
-Stable tag: 3.3.16-beta.1
+Stable tag: 3.3.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,10 +113,12 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 9. Admin menu options
 
 == Changelog ==
-= 3.3.16-beta.1 - 12 May 2021 =
+= 3.3.16 - 22 Jun 2021 =
 * Removed CSS styles for BuddyPress/BuddyBoss pages. Let's keep the build-in stayles to avoid conflicts.
 * Added a remove item button on the checkout page.
 * Fixed 404 issue when all items are removed from the cart on the checkout.
+* Fixed issue with Default Tab Shop Page. The option was being ignored on the Frontend.
+* Adding notifications depending on status of the product bought.
 
 = 3.3.15 - 12 May 2021 =
 * Fixed issue on redirections from My Account pages to our BP Profile equivalents.
