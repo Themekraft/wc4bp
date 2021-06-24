@@ -348,6 +348,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		}
 	}
 
-//Entry point for this plugins
+	//Entry point for this plugins
 	$GLOBALS['wc4bp_loader'] = new WC4BP_Loader();
+	do_action('wc4bp_init', $GLOBALS['wc4bp_loader']);
 }
