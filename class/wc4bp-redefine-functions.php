@@ -76,6 +76,8 @@ function wc4bp_filter_wc_checkout_item_remove( $product_name, $cart_item, $cart_
 
 		return $product_name;
     }
+
+	return $product_name;
 }
 
 /**
