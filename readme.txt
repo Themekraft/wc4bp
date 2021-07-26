@@ -2,8 +2,8 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
-Tested up to: 5.7
-Stable tag: 3.3.16
+Tested up to: 5.8
+Stable tag: 3.3.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,11 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 9. Admin menu options
 
 == Changelog ==
+= 3.3.17 - 26 Jul 2021 =
+* Tested up to WordPress 5.8
+* Fixed Race Condition issue. This fix rely on WooBuddy >= 3.3.17.
+* Fixed issue on the Cart Page, the product name was not been showing up.
+
 = 3.3.16 - 22 Jun 2021 =
 * Removed CSS styles for BuddyPress/BuddyBoss pages. Let's keep the build-in stayles to avoid conflicts.
 * Added a remove item button on the checkout page.
