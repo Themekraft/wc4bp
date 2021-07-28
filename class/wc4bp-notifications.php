@@ -35,8 +35,9 @@ function wc4bp_format_purchased_notifications( $action, $item_id, $secondary_ite
 			}
 			$notification  = sprintf( $message,$user_link, implode( ', ',$names ) );
 		}
+        return $notification;
     }
-	return $notification;
+	return $action;
 }
 
 /**
