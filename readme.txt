@@ -3,7 +3,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
 Tested up to: 5.8
-Stable tag: 3.3.17
+Stable tag: 3.3.18
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,9 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 9. Admin menu options
 
 == Changelog ==
+= 3.3.18 - 29 Jul 2021 =
+*Fixed bug on purchased notifications
+
 = 3.3.17 - 26 Jul 2021 =
 * Tested up to WordPress 5.8
 * Fixed Race Condition issue. This fix rely on WooBuddy >= 3.3.17.
