@@ -27,11 +27,19 @@ function wc4bp_format_purchased_notifications( $action, $item_id, $secondary_ite
     if ( 'send_purchase_notification' === $action ) {
 		if( ! empty( $item_id ) ){
 			$order         = wc_get_order( $item_id );
+            if ( empty( $order ) ) {
+                $message       = __( 'A user bought a product','wc4bp' );
+                return $message;
+            }
 			$names         = array();
 			$message       = __( 'The user %s has bought %s','wc4bp' );
+            $user_link = bp_core_get_userlink( $order->get_customer_id() );
 			foreach( $order->get_items() as $item_id => $item ){
+                $product = $item->get_product();
+                if ( ! $product instanceof WC_Product ) {
+                    continue;
+                }
 				$names[]   = '<a href="' . $item->get_product()->get_permalink() . '">' . $item->get_product()->get_name() . '</a>';
-				$user_link = bp_core_get_userlink( $order->get_customer_id() );
 			}
 			$notification  = sprintf( $message,$user_link, implode( ', ',$names ) );
 		}
