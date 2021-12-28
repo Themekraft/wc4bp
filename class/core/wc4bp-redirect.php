@@ -34,7 +34,7 @@ class wc4bp_redirect {
 			$base_url = str_replace( 'http:', 'https:', $base_url );
 		}
 
-		return $base_url;
+		return apply_filters( 'wc4bp_base_url_redirect', $base_url );
 	}
 
 	/**

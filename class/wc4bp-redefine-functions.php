@@ -117,3 +117,13 @@ function wc4bp_url_cart_refresh() {
     	wp_enqueue_script( 'wc4bp-checkout-refresh-page', dirname( plugin_dir_url( __FILE__ ) ) . '/admin/js/wc4bp-cart-page-reload.js', array( 'jquery' ), '1.0.0', true );
     }
 }
+
+/**
+ * Redirect after logout to avoid 404 error 
+ * on user profile pages  
+ */ 
+add_action( 'wp_logout', 'wc4bp_safe_redirect_bp' );
+function wc4bp_safe_redirect_bp(){
+  	wp_redirect( home_url() );
+  	exit();
+}
