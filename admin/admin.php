@@ -136,6 +136,7 @@ class wc4bp_admin extends wc4bp_base {
 			$tab_activity_disabled        = 0;
 			$disable_shop_settings_tab    = 0;
 			$tab_my_account_disabled      = 0;
+			$tab_my_account_enable_extra_content = 0;
 			$tab_my_account_shop_label    = wc4bp_Manager::$shop_label;
 			$tab_my_account_shop_url      = wc4bp_Manager::$shop_slug;
 			if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
@@ -161,6 +162,10 @@ class wc4bp_admin extends wc4bp_base {
 			if ( isset( $wc4bp_options['tab_my_account_disabled'] ) ) {
 				$tab_my_account_disabled = 1;
 			}
+			if ( isset( $wc4bp_options['tab_my_account_extra_content'] ) ) {
+				$tab_my_account_enable_extra_content = 1;
+				$tab_my_account_disabled = 1;
+			}
 
 			//Get all actives tabs and custom pages
 			$wc4bp_pages_options = $this->get_pages_option();
@@ -178,6 +183,9 @@ class wc4bp_admin extends wc4bp_base {
 				}
 				if ( isset( $wc4bp_options['tab_my_account_disabled'] ) ) {
 					$tab_my_account_disabled = $wc4bp_options['tab_my_account_disabled'];
+				}
+				if ( isset( $wc4bp_options['tab_my_account_extra_content'] ) ) {
+					$tab_my_account_enable_extra_content = $wc4bp_options['tab_my_account_extra_content'];
 				}
 			}
 			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_tabs.php' );

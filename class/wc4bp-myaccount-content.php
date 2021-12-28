@@ -134,12 +134,10 @@ class WC4BP_MyAccount_Content {
 	}
 
 	public function add_stripe_scripts() {
-		if ( class_exists( 'WC_Gateway_Stripe' ) && class_exists( 'WC_Subscriptions_Order' )  ) {
-			if ( function_exists( 'wcs_create_renewal_order' ) ) {
-				$payment_class = "WC_Stripe_Subs_Compat";
-			} else {
-				$payment_class = "WC_Gateway_Stripe";
-			}
+		if ( class_exists( 'WC_Gateway_Stripe' ) ) {
+
+			$payment_class = "WC_Gateway_Stripe";
+
 			/** @var WC_Gateway_Stripe $payment_management */
 			$payment_management = new $payment_class();
 

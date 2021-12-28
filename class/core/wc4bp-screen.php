@@ -149,6 +149,27 @@ function wc4bp_screen_edit_account() {
 }
 
 /**
+ * Screen function to display the extra content tab
+ *
+ * Template can be changed via the <code> wc4bp_template_member_edit_address</code>
+ * filter hook. Note that template files can also be copied to the current theme.
+ *
+ * @since    1.0
+ * @uses    bp_core_load_template()
+ * @uses    apply_filters()
+ */
+
+function wc4bp_screen_extra_content() {
+	/**
+	 * Change the path the screen
+	 *
+	 * @param string The current path
+	 */
+	$screen_path = apply_filters( 'wc4bp_template_member_extra_content', 'shop/member/extra-content' );
+	bp_core_load_template( $screen_path );
+}
+
+/**
  * Screen function to display the edit address
  *
  * Template can be changed via the <code> wc4bp_template_member_edit_address</code>

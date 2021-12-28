@@ -127,3 +127,33 @@ function wc4bp_safe_redirect_bp(){
   	wp_redirect( home_url() );
   	exit();
 }
+
+add_filter( 'woocommerce_locate_template', 'wc4bp_hide_wc_dashboard_template', 10, 3 );
+function wc4bp_hide_wc_dashboard_template( $template, $template_name, $template_path ) {
+	$wc4bp_options = get_option('wc4bp_options');
+	if( array_key_exists( 'tab_my_account_extra_content', $wc4bp_options ) && $wc4bp_options['tab_my_account_extra_content'] == '1' ){
+		if ( 'dashboard.php' === basename( $template ) ) {
+			return false;
+		}
+	}
+
+	return $template;
+
+}
+
+
+add_filter ( 'woocommerce_account_menu_items', 'misha_remove_my_account_links',9999 );
+function misha_remove_my_account_links( $menu_links ){
+	$wc4bp_options = get_option('wc4bp_options');
+	if( array_key_exists( 'tab_my_account_extra_content', $wc4bp_options ) && $wc4bp_options['tab_my_account_extra_content'] == '1' ){
+		unset( $menu_links['dashboard'] );
+		unset( $menu_links['orders'] );
+		unset( $menu_links['downloads'] );
+		unset( $menu_links['edit-address'] );
+		unset( $menu_links['payment-methods'] );
+		unset( $menu_links['edit-account'] );
+		unset( $menu_links['customer-logout'] );
+	}
+	return $menu_links;
+	
+}

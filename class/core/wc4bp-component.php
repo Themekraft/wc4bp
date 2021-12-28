@@ -524,7 +524,9 @@ class WC4BP_Component extends BP_Component {
 				break;
 			case 'payment-methods':
 				$path = 'shop/member/payment-methods';
-				set_query_var('add-payment-method', 'asdasdas');
+				break;
+			case 'extra-content':
+				$path = 'shop/member/extra-content';
 				break;
 			default:
 				$path = 'shop/member/plugin';

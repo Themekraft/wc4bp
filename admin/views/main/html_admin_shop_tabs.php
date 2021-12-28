@@ -23,6 +23,12 @@ echo $this->disable_class_tag( 'p', wc4bp_base::$starter_plan_id ); ?>>
         <b><?php _e( 'Turn off \'WooCommerce My Account\' redirection.', 'wc4bp' ); ?></b>&nbsp; <?php _e( 'This option is useful when you have problems with 3rd WooCommerce plugins. It disables only the My Account redirection, not the sub tabs URL.', 'wc4bp' ); ?>
     </label>
 </p>
+<p <?php echo $this->disable_class_tag( 'p', wc4bp_base::$starter_plan_id ); ?>>
+    <label>
+        <input <?php echo $this->disable_input_tag( 'checkbox', wc4bp_base::$starter_plan_id ); ?> name='wc4bp_options[tab_my_account_extra_content]' type='checkbox' value='1' <?php checked( $tab_my_account_enable_extra_content, 1 ); ?> />
+        <b><?php _e( 'Turn on \'Extra Content Tab\' (BETA).', 'wc4bp' ); ?></b>&nbsp; <?php _e( 'Check this option if you have 3rd WooCommerce plugins and some of them add tabs within My Account. It also disables the My Account redirection.', 'wc4bp' ); ?>
+    </label>
+</p>
 <p <?php echo $this->disable_class_tag( 'p' ); ?>>
     <label>
         <b><?php _e( 'Change the  Shop label. ', 'wc4bp' ); ?></b>&nbsp; <?php _e( 'This option is useful when you want to change the Label of the Shop.', 'wc4bp' ); ?>
