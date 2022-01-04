@@ -54,6 +54,7 @@ class WC4BP_Status {
 		$shop_settings['is_shop_off']                    = empty( $wc4bp_options['tab_activity_disabled'] ) ? 'false' : 'true';
 		$shop_settings['is_shop_inside_setting_off']     = empty( $wc4bp_options['disable_shop_settings_tab'] ) ? 'false' : 'true';
 		$shop_settings['is_woo_my_account_redirect_off'] = empty( $wc4bp_options['tab_my_account_disabled'] ) ? 'false' : 'true';
+		$shop_settings['enable_extra_content_tab']       = empty( $wc4bp_options['tab_my_account_extra_content'] ) ? 'false' : 'true';
 		$shop_settings['woo_page_prefix']                = ( isset( $wc4bp_options['my_account_prefix'] ) ) ? $wc4bp_options['my_account_prefix'] : 'default';
 		$shop_settings['is_cart_off']                    = empty( $wc4bp_options['tab_cart_disabled'] ) ? 'false' : 'true';
 		$shop_settings['is_checkout_off']                = empty( $wc4bp_options['tab_checkout_disabled'] ) ? 'false' : 'true';

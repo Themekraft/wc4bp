@@ -159,6 +159,7 @@ class WC4BP_MyAccount {
 	 */
 	public static function get_available_endpoints() {
 		try {
+			$wc4bp_options = get_option('wc4bp_options');
 			$end_points = wp_cache_get( 'wc4bp_get_available_endpoints', 'wc4bp' );
 			if ( false === $end_points ) {
 				$woo_endpoints = array(
@@ -176,6 +177,10 @@ class WC4BP_MyAccount {
 					'payment-methods' => __( 'Payment methods', 'wc4bp' ),
 					'edit-account'    => __( 'Account details', 'wc4bp' ),
 				);
+				if( array_key_exists( 'tab_my_account_extra_content', $wc4bp_options ) && $wc4bp_options['tab_my_account_extra_content'] == '1' ){
+					$woo_endpoints['extra-content'] = 'extra-content';
+					$end_points['extra-content'] = __( 'Extra Content', 'wc4bp' );
+				}
 
 				// Remove missing endpoints.
 				foreach ( $woo_endpoints as $endpoint_id => $endpoint ) {

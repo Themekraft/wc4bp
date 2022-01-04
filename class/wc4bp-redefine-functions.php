@@ -127,3 +127,44 @@ function wc4bp_safe_redirect_bp(){
   	wp_redirect( home_url() );
   	exit();
 }
+
+add_filter( 'wc_get_template', 'wc4bp_change_wc_dashboard_template', 9999, 5 );
+function wc4bp_change_wc_dashboard_template( $template, $template_name, $args, $template_path, $default_path ){
+	$theme_active = wp_get_theme();
+	$theme_active_name = $theme_active->template;
+	$wc4bp_options = get_option('wc4bp_options');
+	if( array_key_exists( 'tab_my_account_extra_content', $wc4bp_options ) && $wc4bp_options['tab_my_account_extra_content'] == '1' ){
+		
+		if ( 'my-account.php' === basename( $template ) ){
+			$template = plugin_dir_path( dirname( __FILE__ ) ) . "templates/shop/member/my-account.php";
+		} elseif( 'dashboard.php' === basename( $template ) ){
+			$template = plugin_dir_path( dirname( __FILE__ ) ) . "templates/shop/member/dashboard.php";
+		}
+
+		if( ! empty( $theme_active_name ) && ($theme_active_name  == 'buddyboss-theme') ){
+			if ( 'my-account.php' === basename( $template ) ){
+				$template = plugin_dir_path( dirname( __FILE__ ) ) . "templates/shop/member/bb/my-account.php";
+			} elseif( 'dashboard.php' === basename( $template ) ){
+				$template = plugin_dir_path( dirname( __FILE__ ) ) . "templates/shop/member/bb/dashboard.php";
+			}
+		}
+	}
+	return $template;
+}
+
+
+add_filter ( 'woocommerce_account_menu_items', 'wc4bp_hide_my_account_tabs',9999 );
+function wc4bp_hide_my_account_tabs( $menu_links ){
+	$wc4bp_options = get_option('wc4bp_options');
+	if( array_key_exists( 'tab_my_account_extra_content', $wc4bp_options ) && $wc4bp_options['tab_my_account_extra_content'] == '1' ){
+		unset( $menu_links['dashboard'] );
+		unset( $menu_links['orders'] );
+		unset( $menu_links['downloads'] );
+		unset( $menu_links['edit-address'] );
+		unset( $menu_links['payment-methods'] );
+		unset( $menu_links['edit-account'] );
+		unset( $menu_links['customer-logout'] );
+	}
+	return $menu_links;
+	
+}
