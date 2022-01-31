@@ -70,7 +70,7 @@ class wc4bp_redirect {
                 return false;
             }
             $wc4bp_options = get_option( 'wc4bp_options' );
-            if (!isset( $wc4bp_options['tab_my_account_disabled'] ) ) {
+            if (!isset( $wc4bp_options['tab_my_account_disabled'] ) && !isset( $wc4bp_options['tab_my_account_extra_content'] ) ) {
                 $account_page_id           = wc_get_page_id( 'myaccount' );
                 $myaccount_pagename        = get_post(intval( $account_page_id ) )->post_name;
                 if (isset( $wp->query_vars['pagename'] ) && $wp->query_vars['pagename'] == $myaccount_pagename ) {
@@ -175,7 +175,7 @@ class wc4bp_redirect {
 							return $this->convert_url( $checkout_url );
 							break;
 						case $account_page_id:
-							if ( ! isset( $wc4bp_options['tab_my_account_disabled'] ) ) {
+							if ( ! isset( $wc4bp_options['tab_my_account_disabled'] ) && !isset( $wc4bp_options['tab_my_account_extra_content'] ) ) {
 								return $this->convert_url();
 							}
 							break;
