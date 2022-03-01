@@ -3,7 +3,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
 Tested up to: 5.9
-Stable tag: 3.4.0
+Stable tag: 3.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,6 +12,8 @@ Shop solution for your BuddyPress community. Integrates a WooCommerce installati
 == Description ==
 
 Create a seamless customer experience and get more engagement on your site by integrating your WooCommerce store with your BuddyPress community.
+
+[youtube https://www.youtube.com/watch?v=vgSKhrvi3SU&t]
 
 ---
 
@@ -51,19 +53,13 @@ That allows you a quick great overview about the engagement level of your custom
 > * Synchronization: It synchronizes all WooCommerce data with your BuddyPress data. If you register a new account via the checkout or add data like your billing address etc. the plugin will handle all the communication between WooCommerce and BuddyPress and keep the data synchronized.
 > * Fallback save! If you turn off BuddyPress for some reason, or the user don’t want to become a member the plugin falls back to the regular WooCommerce pages.
 
-<h4>Videos</h4>
-
-Overview over the plugin options [youtube https://www.youtube.com/watch?v=DtPk-WKo8ww&feature=youtu.be]
-
 ---
 
 ### Blog Posts
 [Why You Should Build Your Online Shop With WordPress, BuddyPress and WooCommerce](https://themekraft.com/why-you-should-build-your-online-shop-with-wordpress-buddypress-and-woocommerce/)
 
-
 > #### AddOns
 > * WooBuddy -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
-
 
 ---
 
@@ -113,6 +109,10 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 9. Admin menu options
 
 == Changelog ==
+= 3.4.1 - 28 Feb 2022 =
+* Added descriptive video in readme.txt file.
+* Removed outdated media content.
+
 = 3.4.0 - 25 Feb 2022 =
 * Fixed checkout issue related with Woocommerce Subscriptions.
 * Added new option for 3rd party tabs integration.
