@@ -13,5 +13,5 @@ foreach ( $tabs_array as $end_point_key => $end_point_name ) {
 	     "<label><span class=\"dashicons dashicons-sort\"></span>" .
 	     "<input " . $this->disable_input_tag( 'checkbox' ) . " name='" . $end_point_name['name'] . "' type='checkbox' value='1' " . checked( $tab_select, 1, false ) . " />" .
 	     "<input class='wc4bp-tabs-position' type='hidden' name='" . $end_point_name['name_position'] . "' value='" . $position . "'><b>" . $text . "</b>" .
-	     "</label> Or set tab's name <input " . $this->disable_input_tag( 'text' ) . " type='text' name='" . $end_point_name['name_label'] . "' value='" . esc_attr($user_label). "'></p>";
+	     "</label> Or set tab's name <input " . $this->disable_input_tag( 'text' ) . " type='text' name='" . $end_point_name['name_label'] . "' value='" . esc_attr__($user_label). "'></p>";
 }

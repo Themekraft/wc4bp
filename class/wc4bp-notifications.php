@@ -57,6 +57,9 @@ add_action( 'woocommerce_order_status_changed', 'wc4bp_send_purchase_notificatio
 function wc4bp_send_purchase_notification( $order_id ) {
     try {
         $send_notifications = get_option( 'wc4bp_options_notifications' );
+        if( ! is_array( $send_notifications ) ){
+            return false;
+        }
         if( array_key_exists( 'notifications_settings', $send_notifications ) && $send_notifications['notifications_settings'] === '1' ){
             $order_status = $send_notifications['notifications_order_status'];
             if( ! isset( $order_status) || empty( $order_status )){
