@@ -388,5 +388,4 @@
     }
     if ( ! defined( 'FS_SDK__SSLVERIFY' ) ) {
         define( 'FS_SDK__SSLVERIFY', false );
-    }
-    
+    }
