@@ -2,8 +2,8 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
-Tested up to: 5.9
-Stable tag: 3.4.2
+Tested up to: 5.9.3
+Stable tag: 3.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,9 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 9. Admin menu options
 
 == Changelog ==
+= 3.4.3 - 17 May 2022 =
+* Updated readme.txt
+
 = 3.4.2 - 17 Mar 2022 =
 * Fixed purchased product notification warning.
 * Improved shop strings translations.
