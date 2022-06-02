@@ -22,7 +22,7 @@ class wc4bp_admin_notifications extends wc4bp_base {
 	public function wc4bp_screen_notifications( $active_tab ) {
 		try {
 			$this->wc4bp_register_admin_settings_notifications();
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_notifications_screen.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_notifications_screen.php';
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
@@ -46,16 +46,16 @@ class wc4bp_admin_notifications extends wc4bp_base {
 	public function wc4bp_notifications_settings() {
 		try {
 			$wc4bp_options_notifications = get_option( 'wc4bp_options_notifications' );
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'notifications/html_admin_notifications_settings.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'notifications/html_admin_notifications_settings.php';
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
 
-    public function wc4bp_notifications_order_status() {
+	public function wc4bp_notifications_order_status() {
 		try {
 			$wc4bp_options_notifications = get_option( 'wc4bp_options_notifications' );
-            include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'notifications/html_admin_notifications_select_order.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'notifications/html_admin_notifications_select_order.php';
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}

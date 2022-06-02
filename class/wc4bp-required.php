@@ -39,7 +39,7 @@ class WC4BP_Required {
 		try {
 			$filters = $GLOBALS['wp_filter'][ $tag ];
 
-			if ( empty ( $filters ) || empty( $filters->callbacks ) ) {
+			if ( empty( $filters ) || empty( $filters->callbacks ) ) {
 				return;
 			}
 

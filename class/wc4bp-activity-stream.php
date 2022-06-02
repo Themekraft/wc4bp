@@ -79,9 +79,10 @@ class WC4BP_Activity_Stream {
 			 * @param WC_Product
 			 * @param string The action
 			 */
-			$stream = apply_filters( 'wc4bp_stream_product_review',
+			$stream = apply_filters(
+				'wc4bp_stream_product_review',
 				sprintf(
-					__( '%s wrote a review about <a href="%s">%s</a>', 'wc4bp' ),
+					__( '%1$s wrote a review about <a href="%2$s">%3$s</a>', 'wc4bp' ),
 					$user_link,
 					get_permalink( $comment_data->comment_post_ID ),
 					$product->post_title
@@ -93,12 +94,14 @@ class WC4BP_Activity_Stream {
 			);
 
 			// record the activity
-			bp_activity_add( array(
-				'user_id'   => $user_id,
-				'content'    => $stream,
-				'component' => wc4bp_Manager::get_shop_slug(),
-				'type'      => 'new_shop_review',
-			) );
+			bp_activity_add(
+				array(
+					'user_id'   => $user_id,
+					'content'   => $stream,
+					'component' => wc4bp_Manager::get_shop_slug(),
+					'type'      => 'new_shop_review',
+				)
+			);
 
 			return true;
 		} catch ( Exception $exception ) {
@@ -149,7 +152,7 @@ class WC4BP_Activity_Stream {
 
 			// if several products - combine them, otherwise - display the product name
 			$items = $order->get_items();
-			$names    = array();
+			$names = array();
 			/** @var WC_Order_Item_Product $item */
 			foreach ( $items as $item ) {
 				$names[] = '<a href="' . $item->get_product()->get_permalink() . '">' . $item->get_product()->get_name() . '</a>';
@@ -164,9 +167,10 @@ class WC4BP_Activity_Stream {
 			 * @param WC_Order_Item_Product
 			 * @param string The action
 			 */
-			$stream = apply_filters( 'wc4bp_stream_order_complete',
+			$stream = apply_filters(
+				'wc4bp_stream_order_complete',
 				sprintf(
-					__( '%s purchased %s', 'wc4bp' ),
+					__( '%1$s purchased %2$s', 'wc4bp' ),
 					$user_link,
 					implode( ', ', $names )
 				),
@@ -176,12 +180,14 @@ class WC4BP_Activity_Stream {
 				'order_complete'
 			);
 			// record the activity
-			bp_activity_add( array(
-				'user_id'   => $order->get_user_id(),
-				'action'    => $stream,
-				'component' => wc4bp_Manager::get_shop_slug(),
-				'type'      => 'new_shop_purchase',
-			) );
+			bp_activity_add(
+				array(
+					'user_id'   => $order->get_user_id(),
+					'action'    => $stream,
+					'component' => wc4bp_Manager::get_shop_slug(),
+					'type'      => 'new_shop_purchase',
+				)
+			);
 
 			return true;
 		} catch ( Exception $exception ) {
@@ -197,16 +203,16 @@ add_filter( 'wc4bp_stream_order_complete', 'wc4bp_callback_stream_order_complete
 /**
  * Override the Activity Stream for Order Complete
  *
- * @param string $text_output
- * @param int $user_id_from_order
- * @param WC_Order $order
+ * @param string          $text_output
+ * @param int             $user_id_from_order
+ * @param WC_Order        $order
  * @param WC_ORder_Item[] $order_items
- * @param string $stream_action
+ * @param string          $stream_action
  *
  * @return string
  */
 function wc4bp_callback_stream_order_complete( $text_output, $user_id_from_order, $order, $order_items, $stream_action ) {
-	if(is_user_logged_in()) {
+	if ( is_user_logged_in() ) {
 		$user_link = bp_core_get_userlink( $user_id_from_order );
 	} else {
 		$user_link = 'A guest ';
@@ -219,7 +225,7 @@ function wc4bp_callback_stream_order_complete( $text_output, $user_id_from_order
 	}
 
 	return sprintf(
-		__('The user: %s bought %s','wc4bp'),
+		__( 'The user: %1$s bought %2$s', 'wc4bp' ),
 		$user_link,
 		implode( ', ', $names )
 	);

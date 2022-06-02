@@ -14,14 +14,14 @@ class wc4bp_base {
 	public $is_paid_trial;
 	public $has_paid_plan;
 
-	static $starter_plan_id = 'starter';
+	static $starter_plan_id      = 'starter';
 	static $professional_plan_id = 'professional';
-	static $business_plan_id = 'business';
+	static $business_plan_id     = 'business';
 	private $plan;
 
 	public function __construct( $debug = false ) {
-		//Comment the next line to disable the forced debug
-//		$debug       = true;
+		// Comment the next line to disable the forced debug
+		// $debug       = true;
 		$this->debug = $debug;
 		if ( ! $debug ) {
 			$this->is_paying               = WC4BP_Loader::getFreemius()->is_paying();
@@ -36,10 +36,17 @@ class wc4bp_base {
 			$this->need_account_activation = ( $this->has_paid_plan && ! $this->is_paying && ! $this->is_paid_trial );
 
 			return;
-		} else if ( ! is_array( $debug ) ) {
-			$debug = array( 'is_paying' => false, 'is_free_plan' => true, 'starter' => false, 'professional' => false, 'is_premium_only' => false, 'trial' => false ); //Free
-//			$debug = array( 'is_paying' => true, 'is_free_plan' => false, 'starter' => true, 'professional' => false, 'is_premium_only' => true ); //Starter
-//			$debug = array( 'is_paying' => true, 'is_free_plan' => false, 'starter' => false, 'professional' => true, 'is_premium_only' => true );//Professional
+		} elseif ( ! is_array( $debug ) ) {
+			$debug = array(
+				'is_paying'       => false,
+				'is_free_plan'    => true,
+				'starter'         => false,
+				'professional'    => false,
+				'is_premium_only' => false,
+				'trial'           => false,
+			); // Free
+			// $debug = array( 'is_paying' => true, 'is_free_plan' => false, 'starter' => true, 'professional' => false, 'is_premium_only' => true ); //Starter
+			// $debug = array( 'is_paying' => true, 'is_free_plan' => false, 'starter' => false, 'professional' => true, 'is_premium_only' => true );//Professional
 		}
 		$this->is_paying       = $debug['is_paying'];
 		$this->is_free         = $debug['is_free_plan'];
@@ -48,7 +55,7 @@ class wc4bp_base {
 		$this->is_premium_only = $debug['is_premium_only'];
 		$this->is_trial        = $debug['trial'];
 
-		//Set the fake plan
+		// Set the fake plan
 		$this->plan = self::$starter_plan_id;
 	}
 

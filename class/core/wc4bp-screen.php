@@ -243,9 +243,9 @@ function wc4bp_screen_settings() {
 
 			/**
 			 * Before update user settings
-             *
-             * @param int The user id
-             * @param var The value
+			 *
+			 * @param int The user id
+			 * @param var The value
 			 */
 			do_action( 'wc4bp_pre_update_user_settings', bp_displayed_user_id(), $wc4bp_values );
 
@@ -288,7 +288,7 @@ function wc4bp_screen_settings() {
  * @since    unknown
  */
 function wc4bp_screen_settings_title() {
-	_e( 'Shop Settings', 'wc4bp' );
+	esc_html_e( 'Shop Settings', 'wc4bp' );
 }
 
 /**
@@ -303,46 +303,46 @@ function wc4bp_screen_settings_content() {
 			$shop_purchases = 'yes';
 		}
 		?>
-        <form action="<?php wc4bp_settings_link() ?>" method="POST">
+		<form action="<?php wc4bp_settings_link(); ?>" method="POST">
 
-            <table class="notification-settings" id="shop-notification-settings">
-                <thead>
-                <tr>
-                    <th class="icon"></th>
-                    <th class="title"><?php _e( 'Activity Stream', 'wc4bp' ) ?></th>
-                    <th class="yes"><?php _e( 'Yes', 'wc4bp' ) ?></th>
-                    <th class="no"><?php _e( 'No', 'wc4bp' ) ?></th>
-                </tr>
-                </thead>
+			<table class="notification-settings" id="shop-notification-settings">
+				<thead>
+				<tr>
+					<th class="icon"></th>
+					<th class="title"><?php esc_html_e( 'Activity Stream', 'wc4bp' ); ?></th>
+					<th class="yes"><?php esc_html_e( 'Yes', 'wc4bp' ); ?></th>
+					<th class="no"><?php esc_html_e( 'No', 'wc4bp' ); ?></th>
+				</tr>
+				</thead>
 
-                <tbody>
-                <tr id="shop-notification-settings-reviews">
-                    <td></td>
-                    <td><?php _e( 'Post to activity stream all reviews written by me', 'wc4bp' ) ?></td>
-                    <td class="yes"><input type="radio" name="wc4bp[reviews_2_activity]" value="yes" <?php checked( $shop_reviews, 'yes', true ) ?>/></td>
-                    <td class="no"><input type="radio" name="wc4bp[reviews_2_activity]" value="no" <?php checked( $shop_reviews, 'no', true ) ?>/></td>
-                </tr>
-                <tr id="shop-notification-settings-purchases">
-                    <td></td>
-                    <td><?php _e( 'Post to activity stream all purchases I\'ve made', 'wc4bp' ) ?></td>
-                    <td class="yes"><input type="radio" name="wc4bp[purchases_2_activity]" value="yes" <?php checked( $shop_purchases, 'yes', true ) ?>/></td>
-                    <td class="no"><input type="radio" name="wc4bp[purchases_2_activity]" value="no" <?php checked( $shop_purchases, 'no', true ) ?>/></td>
-                </tr>
+				<tbody>
+				<tr id="shop-notification-settings-reviews">
+					<td></td>
+					<td><?php esc_html_e( 'Post to activity stream all reviews written by me', 'wc4bp' ); ?></td>
+					<td class="yes"><input type="radio" name="wc4bp[reviews_2_activity]" value="yes" <?php checked( $shop_reviews, 'yes', true ); ?>/></td>
+					<td class="no"><input type="radio" name="wc4bp[reviews_2_activity]" value="no" <?php checked( $shop_reviews, 'no', true ); ?>/></td>
+				</tr>
+				<tr id="shop-notification-settings-purchases">
+					<td></td>
+					<td><?php esc_html_e( 'Post to activity stream all purchases I\'ve made', 'wc4bp' ); ?></td>
+					<td class="yes"><input type="radio" name="wc4bp[purchases_2_activity]" value="yes" <?php checked( $shop_purchases, 'yes', true ); ?>/></td>
+					<td class="no"><input type="radio" name="wc4bp[purchases_2_activity]" value="no" <?php checked( $shop_purchases, 'no', true ); ?>/></td>
+				</tr>
 
 				<?php
 				/**
 				 * Setting screen for Activity Stream executed
 				 */
-                do_action( 'wc4bp_screen_notification_activity_settings' );
-                ?>
-                </tbody>
-            </table>
+				do_action( 'wc4bp_screen_notification_activity_settings' );
+				?>
+				</tbody>
+			</table>
 
-            <div class="submit">
-                <input type="submit" name="submit" value="<?php _e( 'Save Changes', 'wc4bp' ); ?>" id="submit" class="auto">
-            </div>
+			<div class="submit">
+				<input type="submit" name="submit" value="<?php esc_html_e( 'Save Changes', 'wc4bp' ); ?>" id="submit" class="auto">
+			</div>
 
-        </form>
+		</form>
 		<?php
 	} catch ( Exception $exception ) {
 		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
@@ -368,19 +368,19 @@ function wc4bp_setup_tracking_order() {
 			$order_id         = empty( $post_order_id ) ? 0 : $post_order_id;
 			$order_email      = empty( $post_order_email ) ? '' : $post_order_email;
 			if ( ! $order_id ) {
-				echo '<p class="woocommerce_error">' . __( 'Please enter a valid order ID', 'wc4bp' ) . '</p>';
+				echo '<p class="woocommerce_error">' . esc_html__( 'Please enter a valid order ID', 'wc4bp' ) . '</p>';
 			} elseif ( ! $order_email ) {
-				echo '<p class="woocommerce_error">' . __( 'Please enter a valid order email', 'wc4bp' ) . '</p>';
+				echo '<p class="woocommerce_error">' . esc_html__( 'Please enter a valid order email', 'wc4bp' ) . '</p>';
 			} else {
 				$order = new WC_Order( apply_filters( 'woocommerce_shortcode_order_tracking_order_id', $order_id ) );
 				if ( $order->get_id() && $order_email ) {
 					if ( strtolower( $order->get_billing_email() ) === strtolower( $order_email ) ) {
 						$current_order = $order;
 					} else {
-						echo '<p class="woocommerce_error">' . __( 'You are not allowed to view this order.', 'wc4bp' ) . '</p>';
+						echo '<p class="woocommerce_error">' . esc_html__( 'You are not allowed to view this order.', 'wc4bp' ) . '</p>';
 					}
 				} else {
-					echo '<p class="woocommerce_error">' . __( 'Sorry, we could not find that order id in our database.', 'wc4bp' ) . '</p>';
+					echo '<p class="woocommerce_error">' . esc_html__( 'Sorry, we could not find that order id in our database.', 'wc4bp' ) . '</p>';
 				}
 			}
 		}
@@ -389,7 +389,7 @@ function wc4bp_setup_tracking_order() {
 	}
 }
 
-//add_action( 'wc4bp_after_track_heading', 'wc4bp_setup_tracking_order' );
+// add_action( 'wc4bp_after_track_heading', 'wc4bp_setup_tracking_order' );
 
 /**
  * Output the tracked order
@@ -402,11 +402,14 @@ function wc4bp_output_tracking_order() {
 
 		if ( $current_order instanceof WC_Order ) {
 			do_action( 'woocommerce_track_order', $current_order->get_id() );
-			echo '<h3>' . __( 'Your Order', 'wc4bp' ) . '<h3>';
+			echo '<h3>' . esc_html__( 'Your Order', 'wc4bp' ) . '<h3>';
 
-			wc_get_template( 'order/tracking.php', array(
-				'order' => $current_order
-			) );
+			wc_get_template(
+				'order/tracking.php',
+				array(
+					'order' => $current_order,
+				)
+			);
 		}
 	} catch ( Exception $exception ) {
 		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );

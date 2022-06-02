@@ -10,13 +10,13 @@
 ?>
 
 <div class="entry-content">
-    <div id="item-body" role="main">
-        <div class="woocommerce">
+	<div id="item-body" role="main">
+		<div class="woocommerce">
 			<?php do_action( 'wc4bp_before_extra_content_body' ); ?>
-          <div id="wc4bp-hidden-content" style="display:none;"></div>
-          <div id="extra-content-tab"></div>
-          <div id="extra-content-complement" style="display:none;"></div>
+		  <div id="wc4bp-hidden-content" style="display:none;"></div>
+		  <div id="extra-content-tab"></div>
+		  <div id="extra-content-complement" style="display:none;"></div>
 			<?php do_action( 'wc4bp_after_extra_content_body' ); ?>
-       </div>
-    </div>
+	   </div>
+	</div>
 </div>

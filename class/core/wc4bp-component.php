@@ -52,7 +52,6 @@ class WC4BP_Component extends BP_Component {
 	 * @since     1.0
 	 *
 	 * @param array $includes
-	 *
 	 */
 	function includes( $includes = array() ) {
 		try {
@@ -65,10 +64,10 @@ class WC4BP_Component extends BP_Component {
 				'wc4bp-sync',
 			);
 			foreach ( $includes as $file ) {
-				require( WC4BP_ABSPATH . 'class/core/' . $file . '.php' );
+				require WC4BP_ABSPATH . 'class/core/' . $file . '.php';
 			}
 			if ( ! class_exists( 'BP_Theme_Compat' ) ) {
-				require( WC4BP_ABSPATH . 'class/core/wc4bp-template-compatibility.php' );
+				require WC4BP_ABSPATH . 'class/core/wc4bp-template-compatibility.php';
 			}
 			new wc4bp_Sync();
 			new wc4bp_redirect();
@@ -162,9 +161,12 @@ class WC4BP_Component extends BP_Component {
 			$wc4bp_pages_options = array();
 			if ( ! empty( $this->wc4bp_pages_options ) && is_string( $this->wc4bp_pages_options ) ) {
 				$wc4bp_pages_options = json_decode( $this->wc4bp_pages_options, true );
-				usort( $wc4bp_pages_options['selected_pages'], function ( $a, $b ) {
-					return strcmp( $a['position'], $b['position'] );
-				} );
+				usort(
+					$wc4bp_pages_options['selected_pages'],
+					function ( $a, $b ) {
+						return strcmp( $a['position'], $b['position'] );
+					}
+				);
 			}
 			// Add 'Shop' to the main navigation
 			if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
@@ -218,7 +220,7 @@ class WC4BP_Component extends BP_Component {
 			if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
 				foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
 					$position ++;
-					//Don´t show the thanks you page until the  checkout is complete
+					// Don´t show the thanks you page until the  checkout is complete
 					if ( isset( $this->wc4bp_options['thank_you_page'] ) ) {
 						$page_to_redirect_data = get_post( $this->wc4bp_options['thank_you_page'] );
 						if ( $this->wc4bp_options['thank_you_page'] == $attached_page['page_id'] ) {
@@ -227,13 +229,13 @@ class WC4BP_Component extends BP_Component {
 							if ( ! empty( $wc_session_data ) ) {
 								$session_thank_you_page = $wc_session_data->get( 'thank_you_page_redirect' );
 								if ( ! empty( $session_thank_you_page ) ) {
-									//Check if The Checkout is complete
+									// Check if The Checkout is complete
 									if ( $session_thank_you_page == $attached_page['page_id'] ) {
 										if ( ! empty( $page_to_redirect_data ) ) {
-											//Check If URl is equal to the Thank You Page
+											// Check If URl is equal to the Thank You Page
 											if ( ! in_array( $page_to_redirect_data->post_name, $bp->unfiltered_uri ) ) {
-												//If the Url is Different than the Thank You Page, delete the value from the session
-												//To Hide the page from the nav bar.
+												// If the Url is Different than the Thank You Page, delete the value from the session
+												// To Hide the page from the nav bar.
 												$wc_session_data->__unset( 'thank_you_page_redirect' );
 												continue;
 											}
@@ -304,9 +306,12 @@ class WC4BP_Component extends BP_Component {
 			$wc4bp_pages_options = array();
 			if ( ! empty( $this->wc4bp_pages_options ) && is_string( $this->wc4bp_pages_options ) ) {
 				$wc4bp_pages_options = json_decode( $this->wc4bp_pages_options, true );
-				usort( $wc4bp_pages_options['selected_pages'], function ( $a, $b ) {
-					return strcmp( $a['position'], $b['position'] );
-				} );
+				usort(
+					$wc4bp_pages_options['selected_pages'],
+					function ( $a, $b ) {
+						return strcmp( $a['position'], $b['position'] );
+					}
+				);
 			}
 			$wp_admin_nav = array();
 			if ( is_user_logged_in() ) {
@@ -356,9 +361,12 @@ class WC4BP_Component extends BP_Component {
 				uasort( $endpoints_admin_nav, array( $this, 'compare_tabs' ) );
 				$wp_admin_nav = array_merge( $wp_admin_nav, $endpoints_admin_nav );
 				if ( isset( $wc4bp_pages_options['selected_pages'] ) && is_array( $wc4bp_pages_options['selected_pages'] ) ) {
-					usort( $wc4bp_pages_options['selected_pages'], function ( $a, $b ) {
-						return strcmp( $a['position'], $b['position'] );
-					} );
+					usort(
+						$wc4bp_pages_options['selected_pages'],
+						function ( $a, $b ) {
+							return strcmp( $a['position'], $b['position'] );
+						}
+					);
 					foreach ( $wc4bp_pages_options['selected_pages'] as $key => $attached_page ) {
 						if ( isset( $this->wc4bp_options['thank_you_page'] ) && $this->wc4bp_options['thank_you_page'] == $attached_page['page_id'] ) {
 
@@ -395,6 +403,7 @@ class WC4BP_Component extends BP_Component {
 
 	/**
 	 * WC4BP template loader.
+	 *
 	 * @since 1.0
 	 *
 	 * @param $found_template
@@ -427,7 +436,7 @@ class WC4BP_Component extends BP_Component {
 					}
 					if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 						if ( isset( $this->wc4bp_options[ 'wc4bp_endpoint_' . $this->wc4bp_options['tab_shop_default'] ] ) || 'default' === $this->wc4bp_options['tab_shop_default'] ) {
-							//Determine what is default
+							// Determine what is default
 							$wc4bp_pages_options = array();
 							$endpoints           = wc4bp_Manager::get_shop_endpoints( false );
 							if ( isset( $endpoints['checkout'] ) ) {
@@ -458,7 +467,6 @@ class WC4BP_Component extends BP_Component {
 							} else {
 								$bp->current_action = '';
 							}
-
 						} else {
 							$bp->current_action = $this->wc4bp_options['tab_shop_default'];
 						}
@@ -468,14 +476,16 @@ class WC4BP_Component extends BP_Component {
 				}
 				$path = $this->get_endpoint_path( $bp->current_action );
 			}
-			add_action( 'bp_template_content',
+			add_action(
+				'bp_template_content',
 				function () use ( $path ) {
 					if ( ! $this->template_loaded ) {
 						bp_get_template_part( $path );
 						$this->template_loaded = true;
 					}
-				}
-				, 10 );
+				},
+				10
+			);
 
 			/**
 			 * Filter the founded template.
@@ -559,7 +569,7 @@ class WC4BP_Component extends BP_Component {
 	/**
 	 * @param      $sub_nav
 	 * @param      $parent
-	 * @param bool $is_tabs
+	 * @param bool    $is_tabs
 	 *
 	 * @return array
 	 */

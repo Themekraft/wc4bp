@@ -31,17 +31,18 @@ $request = explode( '/', $wp->request );
 
 // If in My account dashboard page
 if ( ( end( $request ) == 'my-account' && is_account_page() ) ) {
-	$dashBoardClass = "bsMyAccount--dashboard";
+	$dashBoardClass = 'bsMyAccount--dashboard';
 } else {
-	$dashBoardClass = "bsMyAccount--dashboard-inner";
+	$dashBoardClass = 'bsMyAccount--dashboard-inner';
 }
 ?>
 
-<div class="bsMyAccount <?php echo $dashBoardClass; ?>">
-    <?php
-    do_action( 'woocommerce_account_navigation' ); ?>
+<div class="bsMyAccount <?php echo esc_attr( $dashBoardClass ); ?>">
+	<?php
+	do_action( 'woocommerce_account_navigation' );
+	?>
 
-    <div class="woocommerce-MyAccount-content">
+	<div class="woocommerce-MyAccount-content">
 		<?php
 		/**
 		 * My Account content.
@@ -50,5 +51,5 @@ if ( ( end( $request ) == 'my-account' && is_account_page() ) ) {
 		 */
 		do_action( 'woocommerce_account_content' );
 		?>
-    </div>
+	</div>
 </div>

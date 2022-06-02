@@ -9,8 +9,8 @@
  */
 ?>
 <div class="entry-content">
-    <div id="item-body" role="main">
-        <div class="woocommerce">
+	<div id="item-body" role="main">
+		<div class="woocommerce">
 			<?php do_action( 'wc4bp_before_cart_body' ); ?>
 
 			<?php if ( wc4bp_is_subpage( 'checkout' ) ) { ?>
@@ -20,6 +20,6 @@
 			<?php } ?>
 
 			<?php do_action( 'wc4bp_after_cart_body' ); ?>
-        </div>
-    </div><!-- #item-body -->
+		</div>
+	</div><!-- #item-body -->
 </div><!-- #item-body -->

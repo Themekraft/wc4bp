@@ -24,20 +24,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="MyAccount-content--dashboard">
-    <div class="wc-MyAccount-sub-heading">
-        <p>
+	<div class="wc-MyAccount-sub-heading">
+		<p>
 			<?php
 			/* translators: 1: Orders URL 2: Address URL 3: Account URL. */
 			$dashboard_desc = __( 'On this page you can find all the content added by third-party plugins within Woocommerce. In case the tab you want is not shown, we recommend going to <strong>Woocommerce - Settings - Advanced</strong> and checking the configuration of the endpoitns', 'wc4bp' );
-			echo $dashboard_desc;
+			echo esc_html( $dashboard_desc );
 			?>
 		</p>
-    </div>
-    <div class="wc-MyAccount-inner-content">
-        
-        <div class="wc-MyAccount-dashboard-block"></div>
-        
-    </div>
+	</div>
+	<div class="wc-MyAccount-inner-content">
+		
+		<div class="wc-MyAccount-dashboard-block"></div>
+		
+	</div>
 </div>
 
 <?php

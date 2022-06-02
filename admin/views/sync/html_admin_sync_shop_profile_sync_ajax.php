@@ -1,35 +1,35 @@
 <?php
-//Leaven empty tag to let automation add the path disclosure line
+// Leaven empty tag to let automation add the path disclosure line
 ?>
-<?php /** @var wc4bp_admin_sync $this */?>
-<input id="continue_update_paged" type="hidden" value="<?php echo $paged ?>">
+<?php /** @var wc4bp_admin_sync $this */ ?>
+<input id="continue_update_paged" type="hidden" value="<?php echo esc_attr( $paged ); ?>">
 <p>
-	<?php _e( 'If the Update stops for some reason you can continue the update manually', 'wc4bp' ); ?>
+	<?php esc_html_e( 'If the Update stops for some reason you can continue the update manually', 'wc4bp' ); ?>
 </p>
-<input type="button" id="continue_update" value="<?php _e( ' Continue Updating from here', 'wc4bp' ); ?>">
+<input type="button" id="continue_update" value="<?php esc_html_e( ' Continue Updating from here', 'wc4bp' ); ?>">
 <table class="wp-list-table widefat fixed users">
-    <thead>
-    <tr>
-        <th scope="col" id="cb" class="manage-column column-cb check-column" style="">
-            <label class="screen-reader-text" for="cb-select-all-1"><?php _e( "Select All", "wc4bp" ); ?></label>
-            <input id="cb-select-all-1" type="checkbox">
-        </th>
-        <th scope="col" id="username" class="manage-column column-username sortable desc" style="">
-            <span><?php _e( 'Username', 'wc4bp' ); ?></span>
-        </th>
-        <th scope="col" id="name" class="manage-column column-name sortable desc" style=""><a
-            <span><?php _e( 'Name', 'wc4bp' ); ?></span>
-        </th>
-        <th scope="col" id="email" class="manage-column column-email sortable desc" style="">
-            <span><?php _e( 'E-mail', 'wc4bp' ); ?></span>
-        </th>
-        <th scope="col" id="role" class="manage-column column-role" style="">
-			<?php _e( 'Role', 'wc4bp' ); ?>
-        </th>
-    </tr>
-    </thead>
+	<thead>
+	<tr>
+		<th scope="col" id="cb" class="manage-column column-cb check-column" style="">
+			<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'wc4bp' ); ?></label>
+			<input id="cb-select-all-1" type="checkbox">
+		</th>
+		<th scope="col" id="username" class="manage-column column-username sortable desc" style="">
+			<span><?php esc_html_e( 'Username', 'wc4bp' ); ?></span>
+		</th>
+		<th scope="col" id="name" class="manage-column column-name sortable desc" style=""><a
+			<span><?php esc_html_e( 'Name', 'wc4bp' ); ?></span>
+		</th>
+		<th scope="col" id="email" class="manage-column column-email sortable desc" style="">
+			<span><?php esc_html_e( 'E-mail', 'wc4bp' ); ?></span>
+		</th>
+		<th scope="col" id="role" class="manage-column column-role" style="">
+			<?php esc_html_e( 'Role', 'wc4bp' ); ?>
+		</th>
+	</tr>
+	</thead>
 
-    <tbody id="result" data-wp-lists="list:user">
+	<tbody id="result" data-wp-lists="list:user">
 
 	<?php
 	foreach ( $query as $q ) {
@@ -41,30 +41,30 @@
 		}
 		?>
 
-        <tr id="user-1" class="alternate">
-            <th scope="row" class="check-column">
-                <label class="screen-reader-text" for="cb-select-1"><?php _e( "Select admin", "wc4bp" ); ?></label>
-                <input type="checkbox" name="users[]" id="user_1" class="administrator" value="1">
-            </th>
-            <td class="username column-username"><?php echo get_avatar( $q->ID, 40 ); ?> <strong>
-					<?php echo get_the_author_meta( 'user_nicename', $q->ID ); ?>
-                </strong><br>
-                <div class="row-actions"></div>
-            </td>
-            <td class="name column-name">
-				<?php echo get_the_author_meta( 'display_name', $q->ID ); ?>
-            </td>
-            <td class="email column-email">
-                <a href="<?php echo get_the_author_meta( 'user_email', $q->ID ); ?>" title="E-mail: <?php echo get_the_author_meta( 'user_email', $q->ID ); ?>">
-					<?php echo get_the_author_meta( 'user_email', $q->ID ); ?>
-                </a>
-            </td>
-            <td class="role column-role">
-				<?php echo implode( ',', get_the_author_meta( 'roles', $q->ID ) ); ?>
-            </td>
-        </tr>
+		<tr id="user-1" class="alternate">
+			<th scope="row" class="check-column">
+				<label class="screen-reader-text" for="cb-select-1"><?php esc_html_e( 'Select admin', 'wc4bp' ); ?></label>
+				<input type="checkbox" name="users[]" id="user_1" class="administrator" value="1">
+			</th>
+			<td class="username column-username"><?php echo get_avatar( $q->ID, 40 ); ?> <strong>
+					<?php echo esc_html( get_the_author_meta( 'user_nicename', $q->ID ) ); ?>
+				</strong><br>
+				<div class="row-actions"></div>
+			</td>
+			<td class="name column-name">
+				<?php echo esc_html( get_the_author_meta( 'display_name', $q->ID ) ); ?>
+			</td>
+			<td class="email column-email">
+				<a href="<?php echo esc_url( get_the_author_meta( 'user_email', $q->ID ) ); ?>" title="E-mail: <?php echo esc_attr( get_the_author_meta( 'user_email', $q->ID ) ); ?>">
+					<?php echo esc_html( get_the_author_meta( 'user_email', $q->ID ) ); ?>
+				</a>
+			</td>
+			<td class="role column-role">
+				<?php echo esc_html( implode( ',', get_the_author_meta( 'roles', $q->ID ) ) ); ?>
+			</td>
+		</tr>
 	<?php } ?>
-    </tbody>
+	</tbody>
 </table>
 
 <?php

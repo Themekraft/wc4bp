@@ -22,7 +22,7 @@ class wc4bp_admin_delete extends wc4bp_base {
 	public function wc4bp_screen_delete( $active_tab ) {
 		try {
 			$this->wc4bp_register_admin_settings_delete();
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_delete_screen.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_delete_screen.php';
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
@@ -45,7 +45,7 @@ class wc4bp_admin_delete extends wc4bp_base {
 	public function wc4bp_delete_all_settings() {
 		try {
 			$wc4bp_options_delete = get_option( 'wc4bp_options_delete' );
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'delete/html_admin_delete_all_settings.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'delete/html_admin_delete_all_settings.php';
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}

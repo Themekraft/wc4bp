@@ -13,9 +13,11 @@ class WC4BP_Status {
 
 	public function __construct() {
 		require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/class-wp-plugin-status.php';
-		$this->status_handler = WpPluginStatusFactory::build_manager( array(
-			'slug' => 'wc4bp-options-page',
-		) );
+		$this->status_handler = WpPluginStatusFactory::build_manager(
+			array(
+				'slug' => 'wc4bp-options-page',
+			)
+		);
 		add_action( 'init', array( $this, 'set_status_options' ), 1, 1 );
 		add_filter( 'wp_plugin_status_data', array( $this, 'status_data' ) );
 	}
@@ -62,9 +64,9 @@ class WC4BP_Status {
 		$shop_settings['is_track_off']                   = empty( $wc4bp_options['tab_track_disabled'] ) ? 'false' : 'true';
 		$shop_settings['is_woo_sync_off']                = empty( $wc4bp_options['tab_sync_disabled'] ) ? 'false' : 'true';
 		$shop_settings['tab_shop_default']               = ( isset( $wc4bp_options['tab_shop_default'] ) ) ? $wc4bp_options['tab_shop_default'] : 'default';
-		$user_id                                         = get_current_user_id();
-		$wc4bp_review                                    = false;
-		$wc4bp_review_later                              = false;
+		$user_id            = get_current_user_id();
+		$wc4bp_review       = false;
+		$wc4bp_review_later = false;
 		if ( $user_id > 0 ) {
 			$wc4bp_review       = get_user_meta( $user_id, 'wc4bp-review', true );
 			$wc4bp_review_later = get_user_meta( $user_id, 'wc4bp-review-later', true );
@@ -74,7 +76,7 @@ class WC4BP_Status {
 		}
 		$shop_settings['review']       = ( ! empty( $wc4bp_review ) ) ? $wc4bp_review : 'false';
 		$shop_settings['review-later'] = ( ! empty( $wc4bp_review_later ) ) ? $wc4bp_review_later : 'false';
-		$data['WooBuddy Settings']        = $shop_settings;
+		$data['WooBuddy Settings']     = $shop_settings;
 
 		if ( bp_is_active( 'xprofile' ) && class_exists( 'BP_XProfile_Group' ) ) {
 			$shipping          = bp_get_option( 'wc4bp_shipping_address_ids' );
@@ -83,10 +85,12 @@ class WC4BP_Status {
 			$exist_field_in_bp = array();
 			$no_internal_group = array();
 			$no_internal_field = array();
-			//Get BP XProfield groups
-			$groups = BP_XProfile_Group::get( array(
-				'fetch_fields' => true,
-			) );
+			// Get BP XProfield groups
+			$groups = BP_XProfile_Group::get(
+				array(
+					'fetch_fields' => true,
+				)
+			);
 			/** @var BP_XProfile_Group $group */
 			foreach ( $groups as $group ) {
 				$group_id = ( empty( $group->description ) ) ? $group->id : $group->description;

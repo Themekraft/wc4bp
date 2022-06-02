@@ -18,8 +18,8 @@
 class wc4bp_redirect {
 
 	public function __construct() {
-		add_action( 'template_redirect', array( $this, 'wc4bp_redirect_to_profile' ));
-		add_filter( 'page_link', array( $this, 'wc4bp_page_link_router' ), 9999, 2 );//High priority to take precedent over other plugins
+		add_action( 'template_redirect', array( $this, 'wc4bp_redirect_to_profile' ) );
+		add_filter( 'page_link', array( $this, 'wc4bp_page_link_router' ), 9999, 2 );// High priority to take precedent over other plugins
 	}
 
 	/**
@@ -46,41 +46,41 @@ class wc4bp_redirect {
 	 */
 	public function redirect_link( $post_id = false ) {
 		try {
-            if (defined('DOING_AJAX') && DOING_AJAX) {
-                return false;
-            }
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+				return false;
+			}
 
-            /**
-             * Add more endpoint to avoid the rewrite of the url for the plugin
-             *
-             * @param array String values of the endpoint to by pass the url transform
-             */
-            $avoid_woo_endpoints = apply_filters('wc4bp_avoid_woo_endpoints', array('order-pay'));
-            global $wp;
-            if ((isset($wp->query_vars['name']) && in_array($wp->query_vars['name'], $avoid_woo_endpoints))) {
-                return false;
-            }
-            foreach ($avoid_woo_endpoints as $avoid_woo_endpoint) {
-                if (isset($wp->query_vars[$avoid_woo_endpoint])) {
-                    return false;
-                }
-            }
+			/**
+			 * Add more endpoint to avoid the rewrite of the url for the plugin
+			 *
+			 * @param array String values of the endpoint to by pass the url transform
+			 */
+			$avoid_woo_endpoints = apply_filters( 'wc4bp_avoid_woo_endpoints', array( 'order-pay' ) );
+			global $wp;
+			if ( ( isset( $wp->query_vars['name'] ) && in_array( $wp->query_vars['name'], $avoid_woo_endpoints ) ) ) {
+				return false;
+			}
+			foreach ( $avoid_woo_endpoints as $avoid_woo_endpoint ) {
+				if ( isset( $wp->query_vars[ $avoid_woo_endpoint ] ) ) {
+					return false;
+				}
+			}
 
-            if (empty($post_id)) {
-                return false;
-            }
-            $wc4bp_options = get_option( 'wc4bp_options' );
-            if (!isset( $wc4bp_options['tab_my_account_disabled'] ) && !isset( $wc4bp_options['tab_my_account_extra_content'] ) ) {
-                $account_page_id           = wc_get_page_id( 'myaccount' );
-                $myaccount_pagename        = get_post(intval( $account_page_id ) )->post_name;
-                if (isset( $wp->query_vars['pagename'] ) && $wp->query_vars['pagename'] == $myaccount_pagename ) {
-                    foreach ( WC4BP_MyAccount::get_available_endpoints() as $end_point_key => $end_point_name ) {
-                        if ( isset( $wp->query_vars[$end_point_key] ) ) {
-                            return $this->convert_url( $end_point_key );
-                        }
-                    }
-                }
-            }
+			if ( empty( $post_id ) ) {
+				return false;
+			}
+			$wc4bp_options = get_option( 'wc4bp_options' );
+			if ( ! isset( $wc4bp_options['tab_my_account_disabled'] ) && ! isset( $wc4bp_options['tab_my_account_extra_content'] ) ) {
+				$account_page_id    = wc_get_page_id( 'myaccount' );
+				$myaccount_pagename = get_post( intval( $account_page_id ) )->post_name;
+				if ( isset( $wp->query_vars['pagename'] ) && $wp->query_vars['pagename'] == $myaccount_pagename ) {
+					foreach ( WC4BP_MyAccount::get_available_endpoints() as $end_point_key => $end_point_name ) {
+						if ( isset( $wp->query_vars[ $end_point_key ] ) ) {
+							return $this->convert_url( $end_point_key );
+						}
+					}
+				}
+			}
 
 			if ( isset( $wp->query_vars['order-received'] ) ) {
 				if ( ! empty( $wc4bp_options['thank_you_page'] ) && 'default' !== $wc4bp_options['thank_you_page'] ) {
@@ -104,9 +104,9 @@ class wc4bp_redirect {
 
 			global $bp;
 			if ( ! empty( $bp->pages ) ) {
-				//Search in all the actives BPress pages for the current id
+				// Search in all the actives BPress pages for the current id
 				foreach ( $bp->pages as $page_key => $page_data ) {
-					//if the current id is in the BP pages, do not redirect the link, maintain the BP link
+					// if the current id is in the BP pages, do not redirect the link, maintain the BP link
 					if ( intval( $page_data->id ) === intval( $post_id ) ) {
 						return false;
 					}
@@ -131,7 +131,7 @@ class wc4bp_redirect {
 							$granted_wc_pages_id[]                   = $parent_id;
 							$granted_selected_pages_id[ $parent_id ] = $selected_page;
 						} else {
-							$granted_wc_pages_id[]                                            = intval( $selected_page['page_id'] );
+							$granted_wc_pages_id[] = intval( $selected_page['page_id'] );
 							$granted_selected_pages_id[ intval( $selected_page['page_id'] ) ] = $selected_page;
 						}
 					}
@@ -175,7 +175,7 @@ class wc4bp_redirect {
 							return $this->convert_url( $checkout_url );
 							break;
 						case $account_page_id:
-							if ( ! isset( $wc4bp_options['tab_my_account_disabled'] ) && !isset( $wc4bp_options['tab_my_account_extra_content'] ) ) {
+							if ( ! isset( $wc4bp_options['tab_my_account_disabled'] ) && ! isset( $wc4bp_options['tab_my_account_extra_content'] ) ) {
 								return $this->convert_url();
 							}
 							break;
@@ -230,7 +230,7 @@ class wc4bp_redirect {
 	 * @return mixed
 	 */
 	function wc4bp_page_link_router( $link, $id ) {
-		//if user is not logged or is in the backend in exit
+		// if user is not logged or is in the backend in exit
 		if ( ! is_user_logged_in() || is_admin() ) {
 			return $link;
 		}
@@ -255,11 +255,11 @@ class wc4bp_redirect {
 	 */
 	function wc4bp_redirect_to_profile() {
 		global $post;
-		//if user is not logged or is in the backend in exit
+		// if user is not logged or is in the backend in exit
 		if ( ! is_user_logged_in() || is_admin() ) {
 			return false;
 		}
-		//if post is empty exit
+		// if post is empty exit
 		if ( empty( $post ) ) {
 			return false;
 		}

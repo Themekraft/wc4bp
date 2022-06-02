@@ -10,7 +10,7 @@
 /** @var WP_Post $post */
 global $bp, $wp_query, $post;
 $post->post_name     = 'view-order';
-$post->post_title    = __('Order Details', 'wc4bp');
+$post->post_title    = __( 'Order Details', 'wc4bp' );
 $bp_action_variables = $bp->action_variables;
 if ( ! empty( $bp_action_variables ) ) {
 	if ( isset( $bp_action_variables[0] ) && ! empty( $bp_action_variables[1] ) && 'view-order' === $bp_action_variables[0] && is_numeric( $bp_action_variables[1] ) ) {

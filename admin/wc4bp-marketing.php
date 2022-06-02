@@ -22,18 +22,18 @@ class WC4BP_Marketing extends wc4bp_base {
 		$message     = '';
 		$links       = array();
 		$need_notice = false;
-		//the plugins is the pro version and the client need to activate his account
+		// the plugins is the pro version and the client need to activate his account
 		if ( $this->need_account_activation ) {
-			$message     = __( 'Look like you have the Premium version of our plugin and the license is still inactive. Please follow the next link to unlock all the power!', 'wc4bp' );
-			$links       = array(
+			$message = __( 'Look like you have the Premium version of our plugin and the license is still inactive. Please follow the next link to unlock all the power!', 'wc4bp' );
+			$links   = array(
 				'activation' => array(
 					'name'   => __( 'Activate your account', 'wc4bp' ),
-					'target' => WC4BP_Loader::getFreemius()->get_account_url( false, array( 'activate_license' => 'true' ) )
+					'target' => WC4BP_Loader::getFreemius()->get_account_url( false, array( 'activate_license' => 'true' ) ),
 				),
-				'dismiss' => array(
+				'dismiss'    => array(
 					'name'   => __( 'Dismiss', 'wc4bp' ),
-					'target' => '#'
-				)
+					'target' => '#',
+				),
 
 			);
 			$need_notice = true;
@@ -47,17 +47,20 @@ class WC4BP_Marketing extends wc4bp_base {
 		try {
 			wp_enqueue_style( 'wc4bp_admin_revision_css', wc4bp_Manager::assets_path( 'wc4bp-revision', 'css' ) );
 			wp_enqueue_script( 'wc4bp_admin_marketing_js', wc4bp_Manager::assets_path( 'wc4bp-marketing' ), array( 'jquery' ), WC4BP_Loader::VERSION );
-			wp_localize_script( 'wc4bp_admin_marketing_js', 'wc4bp_admin_marketing_js', array(
-				'nonce'   => wp_create_nonce( 'wc4bp_marketing_nonce' ),
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-			) );
-		}
-		catch ( Exception $exception ) {
+			wp_localize_script(
+				'wc4bp_admin_marketing_js',
+				'wc4bp_admin_marketing_js',
+				array(
+					'nonce'   => wp_create_nonce( 'wc4bp_marketing_nonce' ),
+					'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				)
+			);
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
 
 	public function notice_view( $message = '', $links = array() ) {
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_marketing.php' );
+		include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_marketing.php';
 	}
 }
