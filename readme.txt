@@ -1,9 +1,9 @@
-=== WooBuddy -> WooCommerce BuddyPress Integration ===
+=== WC4BP ===
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
-Tested up to: 5.9.3
-Stable tag: 3.4.3
+Tested up to: 6.0
+Stable tag: 3.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,11 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 9. Admin menu options
 
 == Changelog ==
+= 3.4.4 - 02 Jun 2022 =
+* Fixed vulnerability issue.
+* Updated plugin name.
+* Tested up to WordPress 6.0
+
 = 3.4.3 - 17 May 2022 =
 * Updated readme.txt
 
