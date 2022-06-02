@@ -5,7 +5,7 @@
 	<div class="notice review-notice active" id="wc4bp-notice" style="">
 	<div class="review-notice-logo"><span class="dashicons dashicons-chart-line"></span></div>
 	<div class="review-notice-message">
-		<strong>WooBuddy -> WooCommerce BuddyPress Integration</strong> <br>
+		<strong>WC4BP</strong> <br>
 		<p><?php echo esc_html( $message ); ?></p>
 		~ <a target="_blank" href="https://www.themekraft.com/">ThemeKraft Team</a>
 	</div>

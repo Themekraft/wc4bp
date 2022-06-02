@@ -146,14 +146,14 @@ class wc4bp_Manager {
 			add_action(
 				'network_admin_notices',
 				function () use ( $message, $type ) {
-					echo '<div class="' . esc_attr( $type ) . '"><b>WooBuddy -> WooCommerce BuddyPress Integration</b>: ' . esc_html( $message ) . '</div>';
+					echo '<div class="' . esc_attr( $type ) . '"><b>WC4BP</b>: ' . esc_html( $message ) . '</div>';
 				}
 			);
 		} else {
 			add_action(
 				'admin_notices',
 				function () use ( $message, $type ) {
-					echo '<div class="' . esc_attr( $type ) . '"><b>WooBuddy -> WooCommerce BuddyPress Integration</b>: ' . esc_html( $message ) . '</div>';
+					echo '<div class="' . esc_attr( $type ) . '"><b>WC4BP</b>: ' . esc_html( $message ) . '</div>';
 				}
 			);
 		}

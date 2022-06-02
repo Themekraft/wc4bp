@@ -100,10 +100,10 @@ class wc4bp_Woocommerce {
 
 	/**
 	 * Extend the is_checkout WooCommerce function to give support
-	 * to the WooBuddy checkout view on the member profile.
+	 * to the WC4BP checkout view on the member profile.
 	 *
 	 * @param bool $is_checkout false by default
-	 * @return bool true if is the WooBuddy checkout page.
+	 * @return bool true if is the WC4BP checkout page.
 	 */
 	public function wc4bp_woocommerce_is_checkout( $is_checkout ) {
 		$default = $is_checkout;

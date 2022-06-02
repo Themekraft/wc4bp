@@ -16,7 +16,7 @@
 			</form>
 		<?php else : ?>
 			<h3>
-				<?php esc_html_e( "This option is not available, you need to uncheck 'Turn off the Profile Sync' from the WooBuddy Settings tab.", 'wc4bp' ); ?>
+				<?php esc_html_e( "This option is not available, you need to uncheck 'Turn off the Profile Sync' from the WC4BP Settings tab.", 'wc4bp' ); ?>
 			</h3>
 		<?php endif; ?>
 	</div>

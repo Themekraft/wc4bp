@@ -3,7 +3,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
 Tested up to: 6.0
-Stable tag: 3.4.4
+Stable tag: 3.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,9 +27,9 @@ That allows you a quick great overview about the engagement level of your custom
 
 ### Addons
 
-> * [WooBuddy -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.](https://wordpress.org/plugins/woocommerce-buddypress-integration-xprofile-checkout-manager/)
-> * [WooBuddy -> Groups, integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://wordpress.org/plugins/wc4bp-groups/)
-> * [WooBuddy -> Subscriptions, integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
+> * [WC4BP -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.](https://wordpress.org/plugins/woocommerce-buddypress-integration-xprofile-checkout-manager/)
+> * [WC4BP -> Groups, integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://wordpress.org/plugins/wc4bp-groups/)
+> * [WC4BP -> Subscriptions, integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
 
 ---
 
@@ -59,7 +59,7 @@ That allows you a quick great overview about the engagement level of your custom
 [Why You Should Build Your Online Shop With WordPress, BuddyPress and WooCommerce](https://themekraft.com/why-you-should-build-your-online-shop-with-wordpress-buddypress-and-woocommerce/)
 
 > #### AddOns
-> * WooBuddy -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
+> * WC4BP -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
 
 ---
 
@@ -69,12 +69,12 @@ That allows you a quick great overview about the engagement level of your custom
 ---
 
 > #### Submit Issues - Contribute
-> * Pull request are welcome. WooBuddy is community driven and developed on [Github](https://github.com/Themekraft/wc4bp)
+> * Pull request are welcome. WC4BP is community driven and developed on [Github](https://github.com/Themekraft/wc4bp)
 
 ---
 
 > #### Demo Site
-> * Feel free to test WooBuddy on our Demo Site: [WooBuddy Demo](https://addendio.com/try-plugin/?slug=wc4bp)
+> * Feel free to test WC4BP on our Demo Site: [WC4BP Demo](https://addendio.com/try-plugin/?slug=wc4bp)
 
 ---
 
@@ -92,9 +92,9 @@ Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shoppi
 
 
 == Installation ==
-Upload the entire WooBuddy folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
+Upload the entire WC4BP folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
 Activate the plugin through the 'Plugins' menu in WordPress.
-Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the settings
+Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the settings
 
 == Screenshots ==
 
@@ -109,6 +109,9 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 9. Admin menu options
 
 == Changelog ==
+= 3.4.5 - 02 Jun 2022 =
+* Fixed issue of trademarks.
+
 = 3.4.4 - 02 Jun 2022 =
 * Fixed vulnerability issue.
 * Updated plugin name.
@@ -137,7 +140,7 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 
 = 3.3.17 - 26 Jul 2021 =
 * Tested up to WordPress 5.8
-* Fixed Race Condition issue. This fix rely on WooBuddy >= 3.3.17.
+* Fixed Race Condition issue. This fix rely on WC4BP >= 3.3.17.
 * Fixed issue on the Cart Page, the product name was not been showing up.
 
 = 3.3.16 - 22 Jun 2021 =
@@ -278,7 +281,7 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 * Adding a new option to avoid WooCommerce override User Profile data.
 * Fixing the 404 in pay invoice link.
 * Fixing the Payment tab.
-* Adding new filter to avoid the redirecting of WooBuddy.
+* Adding new filter to avoid the redirecting of WC4BP.
 * Improving the code documentation.
 * Removing the restore error handler from debug class.
 
@@ -324,7 +327,7 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 
 = 3.0.16 21 December 2017 =
 * Fixing a 404 error in orders details for the free version.
-* Solved HTTP request of WC checkout page leads to INET_E_REDIRECT_FAILED with WooBuddy plugin activated.
+* Solved HTTP request of WC checkout page leads to INET_E_REDIRECT_FAILED with WC4BP plugin activated.
 
 = 3.0.15.3 19 December 2017 =
 * Fixing 404 in Activity Stream
@@ -364,7 +367,7 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 * Removing pages for WooCommerce My Account integrations.
 * Optimize My Account.
 * Adding cache.
-* Improving the UX of the WooBuddy Setting Tab.
+* Improving the UX of the WC4BP Setting Tab.
 * Fixing the function to load the payment method screen.
 * Fixing the edit page to edit the Shipping and Billing group.
 * Adding a message to the sync tab when the user disable the Turn off the Profile Sync.

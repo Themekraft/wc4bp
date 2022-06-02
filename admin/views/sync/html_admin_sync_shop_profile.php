@@ -11,7 +11,7 @@
 	<?php esc_html_e( 'During checkout or if a user edits his profile all fields will be synced automatically.', 'wc4bp' ); ?>
 </p>
 <p>
-	<?php esc_html_e( 'If you have already customers and start using WooBuddy -> WooCommerce BuddyPress Integration on an existing store, you need to sync your user once.', 'wc4bp' ); ?>
+	<?php esc_html_e( 'If you have already customers and start using WC4BP on an existing store, you need to sync your user once.', 'wc4bp' ); ?>
 </p>
 <p>
 	<?php esc_html_e( 'The Customer Billing and Shipping Address fields will be created in BuddyPress during the plugin installation, but the user sync can take a while depends on the size of your user base and needs to be done once after the first install.', 'wc4bp' ); ?>

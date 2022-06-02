@@ -76,7 +76,7 @@ class WC4BP_Status {
 		}
 		$shop_settings['review']       = ( ! empty( $wc4bp_review ) ) ? $wc4bp_review : 'false';
 		$shop_settings['review-later'] = ( ! empty( $wc4bp_review_later ) ) ? $wc4bp_review_later : 'false';
-		$data['WooBuddy Settings']     = $shop_settings;
+		$data['WC4BP Settings']     = $shop_settings;
 
 		if ( bp_is_active( 'xprofile' ) && class_exists( 'BP_XProfile_Group' ) ) {
 			$shipping          = bp_get_option( 'wc4bp_shipping_address_ids' );
@@ -147,7 +147,7 @@ class WC4BP_Status {
 					}
 				}
 			}
-			$data['WooBuddy XProfield Details'] = $xprofiels_settings;
+			$data['WC4BP XProfield Details'] = $xprofiels_settings;
 		}
 
 		return $data;
