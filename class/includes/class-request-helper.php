@@ -66,15 +66,15 @@ if ( ! class_exists( 'Request_Helper' ) ) {
 			$value    = $args['default'];
 			if ( 'get' === $args['type'] ) {
 				if ( $_GET && isset( $_GET[ $args['param'] ] ) ) {
-					$value = $_GET[ $args['param'] ];
+					$value = wc_clean( wp_unslash( $_GET[ $args['param'] ] ) );
 				}
 			} elseif ( 'post' === $args['type'] ) {
 				if ( isset( $_POST[ $args['param'] ] ) ) {
-					$value = stripslashes_deep( maybe_unserialize( $_POST[ $args['param'] ] ) );
+					$value = wc_clean( maybe_unserialize( wp_unslash( $_POST[ $args['param'] ] ) ) );
 				}
 			} else {
 				if ( isset( $_REQUEST[ $args['param'] ] ) ) {
-					$value = $_REQUEST[ $args['param'] ];
+					$value = wc_clean( wp_unslash( $_REQUEST[ $args['param'] ] ) );
 				}
 			}
 			self::sanitize_value( $args['sanitize'], $value );

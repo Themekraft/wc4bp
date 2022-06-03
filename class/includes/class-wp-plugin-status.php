@@ -93,7 +93,7 @@ if ( ! class_exists( 'WpPluginStatus100', false ) ) {
 						'wp_debug_mode'          => ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
 						'wp_cron'                => ! ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ),
 						'language'               => get_locale(),
-						'server_info'            => $_SERVER['SERVER_SOFTWARE'],
+						'server_info'            => wc_clean( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) ),
 						'php_version'            => phpversion(),
 						'php_max_execution_time' => ini_get( 'max_execution_time' ),
 						'php_max_input_vars'     => ini_get( 'max_input_vars' ),
