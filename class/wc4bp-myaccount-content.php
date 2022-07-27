@@ -145,7 +145,7 @@ class WC4BP_MyAccount_Content {
 			$payment_management = new $payment_class();
 
 			if ( $payment_management->settings['enabled'] === 'yes' ) {
-				$payment_management->payment_scripts();
+				add_action( 'wp_enqueue_scripts', [ 'WC_Gateway_Stripe', 'payment_scripts' ] );
 			}
 		}
 	}

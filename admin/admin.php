@@ -27,7 +27,7 @@ class wc4bp_admin extends wc4bp_base {
 			}
 			add_action( 'admin_menu', array( $this, 'wc4bp_admin_menu' ) );
 			add_action( 'admin_init', array( $this, 'wc4bp_register_admin_settings' ) );
-
+			WC4BP_Loader::getFreemius()->add_filter( 'show_admin_notice',  array( $this, 'wc4bp_disable_fs_admin_notices' ), 10, 2 );
 			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-pages.php';
 			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-sync.php';
 			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-delete.php';
@@ -459,5 +459,9 @@ class wc4bp_admin extends wc4bp_base {
 
 			return array();
 		}
+	}
+
+	public function wc4bp_disable_fs_admin_notices( $show, $msg ){
+		return false;
 	}
 }
