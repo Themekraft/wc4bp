@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WC4BP
+ * Plugin Name: BuddyPress Integration for WooCommerce
  * Plugin URI: https://themekraft.com/woocommerce-buddypress-integration/
  * Description: Integrates WooCommerce with a BuddyPress social network
  * Author: ThemeKraft

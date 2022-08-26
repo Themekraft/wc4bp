@@ -38,7 +38,7 @@ class wc4bp_admin_notifications extends wc4bp_base {
 
 	public function wc4bp_register_admin_settings_notifications() {
 		// Settings fields and sections
-		add_settings_section( 'section_notifications', __( 'WC4BP Notifications Settings', 'wc4bp' ), '', 'wc4bp_options_notifications' );
+		add_settings_section( 'section_notifications', __( 'Notifications Settings', 'wc4bp' ), '', 'wc4bp_options_notifications' );
 		add_settings_field( 'notifications_settings', __( '<b>Purchase Notification</b>', 'wc4bp' ), array( $this, 'wc4bp_notifications_settings' ), 'wc4bp_options_notifications', 'section_notifications' );
 		add_settings_field( 'notifications_order_status', '', array( $this, 'wc4bp_notifications_order_status' ), 'wc4bp_options_notifications', 'section_notifications' );
 	}

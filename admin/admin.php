@@ -54,7 +54,7 @@ class wc4bp_admin extends wc4bp_base {
 	 * @since 1.3
 	 */
 	public function wc4bp_admin_menu() {
-		add_menu_page( __( 'WC4BP', 'wc4bp' ), __( 'WC4BP Settings', 'wc4bp' ), 'manage_options', self::getSlug(), array( $this, 'wc4bp_screen' ) );
+		add_menu_page( __( 'WC4BP', 'wc4bp' ), __( 'BuddyPress for WooCommerce', 'wc4bp' ), 'manage_options', self::getSlug(), array( $this, 'wc4bp_screen' ) );
 		/**
 		 * SubMenu Page added
 		 */

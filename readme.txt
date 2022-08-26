@@ -1,4 +1,4 @@
-=== WC4BP ===
+=== BuddyPress Integration for WooCommerce ===
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
@@ -27,9 +27,9 @@ That allows you a quick great overview about the engagement level of your custom
 
 ### Addons
 
-> * [WC4BP -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.](https://wordpress.org/plugins/woocommerce-buddypress-integration-xprofile-checkout-manager/)
-> * [WC4BP -> Groups, integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://wordpress.org/plugins/wc4bp-groups/)
-> * [WC4BP -> Subscriptions, integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
+> * [BuddyPress Integration for WooCommerce -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.](https://wordpress.org/plugins/woocommerce-buddypress-integration-xprofile-checkout-manager/)
+> * [BuddyPress Integration for WooCommerce -> Groups, integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://wordpress.org/plugins/wc4bp-groups/)
+> * [BuddyPress Integration for WooCommerce -> Subscriptions, integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
 
 ---
 
@@ -59,7 +59,7 @@ That allows you a quick great overview about the engagement level of your custom
 [Why You Should Build Your Online Shop With WordPress, BuddyPress and WooCommerce](https://themekraft.com/why-you-should-build-your-online-shop-with-wordpress-buddypress-and-woocommerce/)
 
 > #### AddOns
-> * WC4BP -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
+> * BuddyPress Integration for WooCommerce -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
 
 ---
 
@@ -69,12 +69,7 @@ That allows you a quick great overview about the engagement level of your custom
 ---
 
 > #### Submit Issues - Contribute
-> * Pull request are welcome. WC4BP is community driven and developed on [Github](https://github.com/Themekraft/wc4bp)
-
----
-
-> #### Demo Site
-> * Feel free to test WC4BP on our Demo Site: [WC4BP Demo](https://addendio.com/try-plugin/?slug=wc4bp)
+> * Pull request are welcome. BuddyPress Integration for WooCommerce is community driven and developed on [Github](https://github.com/Themekraft/wc4bp)
 
 ---
 
@@ -92,9 +87,9 @@ Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shoppi
 
 
 == Installation ==
-Upload the entire WC4BP folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
+Upload the entire BuddyPress Integration for WooCommerce  folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
 Activate the plugin through the 'Plugins' menu in WordPress.
-Head to the 'WC4BP Settings' menu item in your admin sidebar to adjust the settings
+Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your admin sidebar to adjust the settings
 
 == Screenshots ==
 
