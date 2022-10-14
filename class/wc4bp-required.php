@@ -68,7 +68,7 @@ class WC4BP_Required {
 			);
 
 			$theme = wp_get_theme(); // gets the current theme
-			if ( 'BuddyBoss Theme' != $theme->name && 'BuddyBoss Theme' != $theme->parent_theme ) {
+			if ( 'BuddyBoss Theme' != $theme->name && 'BuddyBoss Theme' != $theme->parent_theme && ! is_plugin_active( 'buddyboss-platform/bp-loader.php' ) ) {
 				$required_plugins[] = array(
 					'name'     => 'BuddyPress',
 					'slug'     => 'buddypress',

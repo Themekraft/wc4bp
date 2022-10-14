@@ -197,8 +197,12 @@ class wc4bp_Manager {
 
 	public static function is_buddypress_active() {
 		self::load_plugins_dependency();
-
-		return is_plugin_active( 'buddypress/bp-loader.php' );
+		
+		if( is_plugin_active( 'buddypress/bp-loader.php' ) || is_plugin_active( 'buddyboss-platform/bp-loader.php' ) ){
+			return true;
+		} else{
+			return false;
+		}
 	}
 
 	public static function is_buddyboss_theme_active() {
