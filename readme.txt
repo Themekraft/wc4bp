@@ -2,8 +2,8 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
 Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 Requires at least: 4.9
-Tested up to: 6.0.1
-Stable tag: 3.4.8
+Tested up to: 6.0.2
+Stable tag: 3.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,12 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 9. Admin menu options
 
 == Changelog ==
+= 3.4.9 - 13 Oct 2022 =
+* Removing old revision popup on admin pages.
+* Fixing activation issue when using BuddyBoss Platform free.
+* Added auto activation when using bundle license.
+* Tested up to WordPress 6.0.2
+
 = 3.4.8 - 26 Aug 2022 =
 * Updated plugin name.
 * Changed admin screen labels and titles.
