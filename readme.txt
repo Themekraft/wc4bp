@@ -33,7 +33,6 @@ Mix BuddyPress and WooCommerce Data in the checkout. Remove unwanted WooCommerce
 ### WooCommerce Groups
 Use BuddyPress Groups with WooCommerce and bring your client relation to the next lavel.
 
-
 ##How to Integrate WooCommerce with BuddyPress or BuddyBoss seamlessly
 
 Online Business Growth Solutions for BuddyPress & BuddyBoss Shop Owners
