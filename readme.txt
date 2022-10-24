@@ -15,44 +15,43 @@ Create a seamless customer experience and get more engagement on your site by in
 
 [youtube https://www.youtube.com/watch?v=vgSKhrvi3SU&t]
 
----
+### Integrate it all
+Show purchase history, product downloads and more in your BuddyPress member profiles. Make all WooCommerce customer data accessible from one place and create woocommerce member pages that display all data relevant for your woocommerce customers. Add pages from other WooCommerce extensions right into your BuddyPress member profiles.
+
 ### WooCommerce Member Pages
+Create WooCommerce Member Pages that are easy accessable from there BuddyPress Member Profile and make Pages only available to your customers as new BuddyPress Profile Tab
 
 ### Display customer relevant data:
+Display relevant data from any WooCommerce Extension in your BuddyPresss Member Profile under a Shop Tab. Create Shob sub nav tabs with any data revevant for your clients
 
 ### Sync customer data:
+Syncronise WooComemrce Data like Billing and Shipping Address with BuddyPress and make your website become your CRM Customer Relation Mangement
 
 ### WooCommerce Checkout
+Mix BuddyPress and WooCommerce Data in the checkout
 
 ### BuddyPress xprfile Fields
+Sync any WooCommerce Data with xProfile Fields 
 
-### BuddyPress xprfile Fields
+### WooCommerce Groups
+Use BuddyPress Groups with WooCommerce and bring your client relation to the next lavel.
+
+##How to Integrate WooCommerce with BuddyPress or BuddyBoss seamlessly
+
+Online Business Growth Solutions for BuddyPress & BuddyBoss Shop Owners
+Supercharge your WooCommerce BuddyPress / BuddyBoss site with eCommerce features. Make WooCommerce fully integrated into your Social Network.
+[Integrate WooCommerce with BuddyPress](https://themekraft.com/wordpress-solutions/woocommerce-buddypress/)
 
 ### Extendable with Addons
 
-
- Show purchase history, product downloads and more in your BuddyPress member profiles. Make all WooCommerce customer data accessible from one place and create woocommerce member pages that display all data relevant for your woocommerce members . Add pages from other WooCommerce extensions right into your BuddyPress member profiles.
-
----
-
-That allows you a quick great overview about the engagement level of your customers & users and let’s you manage your site more efficiently.
-
----
-
-### Addons
-
-> * [BuddyPress Integration for WooCommerce -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.](https://wordpress.org/plugins/woocommerce-buddypress-integration-xprofile-checkout-manager/)
-> * [BuddyPress Integration for WooCommerce -> Groups, integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://wordpress.org/plugins/wc4bp-groups/)
-> * [BuddyPress Integration for WooCommerce -> Subscriptions, integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
-
----
+> * [Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.](https://wordpress.org/plugins/woocommerce-buddypress-integration-xprofile-checkout-manager/)
+> * [WooCommerce Groups, integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://wordpress.org/plugins/wc4bp-groups/)
+> * [WooCommerce Subscriptions, integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
 
 > #### Push your online shop and products to a new level
 > * Empower your customers to become more involved and interact with other users, your products and brand, or even contribute in product development.
 > * Perfect for marketplaces, membership sites, digital products, auction sites or any kind of subscription site!
 > * Secure your data
-
----
 
 > #### All Plugin Features in Detail
 > * Easy to use. No configuration needed. Just activate it. That’s it!
@@ -68,41 +67,23 @@ That allows you a quick great overview about the engagement level of your custom
 > * Fallback save! If you turn off BuddyPress for some reason, or the user don’t want to become a member the plugin falls back to the regular WooCommerce pages.
 > * Easy switch from BuddyCommerce to WooBuddy. Just deactivate BuddyCommerce and Activate WooBuddy. You maybe need to redo custom Tabs.
 
----
-
 ### Blog Posts
 [Why You Should Build Your Online Shop With WordPress, BuddyPress and WooCommerce](https://themekraft.com/why-you-should-build-your-online-shop-with-wordpress-buddypress-and-woocommerce/)
-
-> #### AddOns
-> * BuddyPress Integration for WooCommerce -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
-
----
 
 > #### Docs & Support
 > * Find our Getting Started, How-to and Developer Docs on [docs.themekraft.com](http://docs.themekraft.com/)
 
----
-
-> #### Submit Issues - Contribute
-> * Pull request are welcome. BuddyPress Integration for WooCommerce is community driven and developed on [Github](https://github.com/Themekraft/wc4bp)
-
----
 
 > #### Follow Us
 > [Blog](https://themekraft.com/blog/) | [Twitter](https://twitter.com/themekraft) | [Facebook](https://www.facebook.com/themekraft/)
 
----
 
 > **Powered with ❤ by [ThemeKraft](https://themekraft.com)**
 
----
-
-#### Tags
-Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
 
 
 == Installation ==
-Upload the entire BuddyPress Integration for WooCommerce  folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
+Upload the entire BuddyPress Integration for WooCommerce folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
 Activate the plugin through the 'Plugins' menu in WordPress.
 Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your admin sidebar to adjust the settings
 
