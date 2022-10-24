@@ -1,6 +1,6 @@
 === BuddyPress WooCommerce My Account Integration. Create WooCommerce Member Pages  ===
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
-Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages, buddypress
+Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages, buddyboss
 Requires at least: 4.9
 Tested up to: 6.0.2
 Stable tag: 3.4.9
