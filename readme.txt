@@ -42,9 +42,14 @@ Supercharge your WooCommerce BuddyPress / BuddyBoss site with eCommerce features
 
 ### Extendable with Addons
 
-> * [Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.](https://wordpress.org/plugins/woocommerce-buddypress-integration-xprofile-checkout-manager/)
-> * [WooCommerce Groups, integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://wordpress.org/plugins/wc4bp-groups/)
-> * [WooCommerce Subscriptions, integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
+Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form
+[Checkout Manager](https://wordpress.org/plugins/woocommerce-buddypress-integration-xprofile-checkout-manager/)
+
+Integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.
+[WooCommerce Groups](https://wordpress.org/plugins/wc4bp-groups/)
+
+Integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.
+[WooCommerce Subscriptions](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
 
 > #### Push your online shop and products to a new level
 > * Empower your customers to become more involved and interact with other users, your products and brand, or even contribute in product development.
@@ -64,9 +69,6 @@ Supercharge your WooCommerce BuddyPress / BuddyBoss site with eCommerce features
 > * Synchronization: It synchronizes all WooCommerce data with your BuddyPress data. If you register a new account via the checkout or add data like your billing address etc. the plugin will handle all the communication between WooCommerce and BuddyPress and keep the data synchronized.
 > * Fallback save! If you turn off BuddyPress for some reason, or the user don’t want to become a member the plugin falls back to the regular WooCommerce pages.
 > * Easy switch from BuddyCommerce to WooBuddy. Just deactivate BuddyCommerce and Activate WooBuddy. You maybe need to redo custom Tabs.
-
-### Blog Posts
-[Why You Should Build Your Online Shop With WordPress, BuddyPress and WooCommerce](https://themekraft.com/why-you-should-build-your-online-shop-with-wordpress-buddypress-and-woocommerce/)
 
 > #### Docs & Support
 > * Find our Getting Started, How-to and Developer Docs on [docs.themekraft.com](http://docs.themekraft.com/)
