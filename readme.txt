@@ -1,23 +1,37 @@
-=== BuddyPress Integration for WooCommerce ===
+=== BuddyPress WooCommerce My Account Integration. Create WooCommerce Member Pages ===
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
-Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
+Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages
 Requires at least: 4.9
 Tested up to: 6.0.2
 Stable tag: 3.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Shop solution for your BuddyPress community. Integrates a WooCommerce installation with a BuddyPress social network.
+Integrate WooCommerce my account into BuddyPress Member Profiles. Bring your WooCommerce member pages into BuddyPress and BuddyBoss. Create the most straightforward user experience and benefit from Social Network features.
 
 == Description ==
 
-Create a seamless customer experience and get more engagement on your site by integrating your WooCommerce store with your BuddyPress community.
+Create a seamless customer experience and get more engagement on your site by integrating your WooCommerce store with your BuddyPress or BuddyBoss community.
 
 [youtube https://www.youtube.com/watch?v=vgSKhrvi3SU&t]
 
 ---
+### WooCommerce Member Pages
 
-Sync customer data: Show purchase history, product downloads and more in your BuddyPress member profiles. Make all customer relevant data accessible from one place. Add pages from other WooCommerce extensions right into your BuddyPress member profiles.
+### Display customer relevant data:
+
+### Sync customer data:
+
+### WooCommerce Checkout
+
+### BuddyPress xprfile Fields
+
+### BuddyPress xprfile Fields
+
+### Extendable with Addons
+
+
+ Show purchase history, product downloads and more in your BuddyPress member profiles. Make all WooCommerce customer data accessible from one place and create woocommerce member pages that display all data relevant for your woocommerce members . Add pages from other WooCommerce extensions right into your BuddyPress member profiles.
 
 ---
 
@@ -52,6 +66,7 @@ That allows you a quick great overview about the engagement level of your custom
 > * Manage notifications: Members can choose if they want their reviews and purchased activities to be shown in the activity stream or not.
 > * Synchronization: It synchronizes all WooCommerce data with your BuddyPress data. If you register a new account via the checkout or add data like your billing address etc. the plugin will handle all the communication between WooCommerce and BuddyPress and keep the data synchronized.
 > * Fallback save! If you turn off BuddyPress for some reason, or the user don’t want to become a member the plugin falls back to the regular WooCommerce pages.
+> * Easy switch from BuddyCommerce to WooBuddy. Just deactivate BuddyCommerce and Activate WooBuddy. You maybe need to redo custom Tabs.
 
 ---
 
