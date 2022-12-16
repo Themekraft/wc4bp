@@ -3,7 +3,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages, buddyboss
 Requires at least: 4.9
 Tested up to: 6.1.1
-Stable tag: 3.4.10
+Stable tag: 3.4.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,9 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 9. Admin menu options
 
 == Changelog ==
+= 3.4.11 - 15 Dec 2022 =
+* Updated Freemius SDK.
+
 = 3.4.10 - 30 Nov 2022 =
 * Updated Freemius SDK.
 * Tested up to WordPress 6.1.1
