@@ -18,14 +18,6 @@ class wc4bp_Manage_Admin {
 				require_once WC4BP_ABSPATH . 'admin/admin.php';
 				new wc4bp_admin();
 			}
-			$is_backend = wc4bp_Manager::is_request( 'administration' );
-			if ( $is_backend ) {
-				// Disabling marketing until we have a better idea
-				// require_once( WC4BP_ABSPATH . 'admin/wc4bp-marketing.php' );
-				// new WC4BP_Marketing();
-				//require_once WC4BP_ABSPATH . 'admin/wc4bp-revision.php';
-				//new WC4BP_Revision();
-			}
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
