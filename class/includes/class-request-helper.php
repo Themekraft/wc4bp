@@ -18,12 +18,14 @@ if ( ! class_exists( 'Request_Helper' ) ) {
 		 * @return mixed
 		 */
 		public static function get_post_param( $param, $default = '', $sanitize = '' ) {
-			return self::get_simple_request( array(
-				'type'     => 'post',
-				'param'    => $param,
-				'default'  => $default,
-				'sanitize' => $sanitize,
-			) );
+			return self::get_simple_request(
+				array(
+					'type'     => 'post',
+					'param'    => $param,
+					'default'  => $default,
+					'sanitize' => $sanitize,
+				)
+			);
 		}
 
 		/**
@@ -36,12 +38,14 @@ if ( ! class_exists( 'Request_Helper' ) ) {
 		 * @return mixed
 		 */
 		public static function simple_get( $param, $sanitize = 'sanitize_text_field', $default = '' ) {
-			return self::get_simple_request( array(
-				'type'     => 'get',
-				'param'    => $param,
-				'default'  => $default,
-				'sanitize' => $sanitize,
-			) );
+			return self::get_simple_request(
+				array(
+					'type'     => 'get',
+					'param'    => $param,
+					'default'  => $default,
+					'sanitize' => $sanitize,
+				)
+			);
 		}
 
 		/**
@@ -62,15 +66,15 @@ if ( ! class_exists( 'Request_Helper' ) ) {
 			$value    = $args['default'];
 			if ( 'get' === $args['type'] ) {
 				if ( $_GET && isset( $_GET[ $args['param'] ] ) ) {
-					$value = $_GET[ $args['param'] ];
+					$value = wc_clean( wp_unslash( $_GET[ $args['param'] ] ) );
 				}
 			} elseif ( 'post' === $args['type'] ) {
 				if ( isset( $_POST[ $args['param'] ] ) ) {
-					$value = stripslashes_deep( maybe_unserialize( $_POST[ $args['param'] ] ) );
+					$value = wc_clean( maybe_unserialize( wp_unslash( $_POST[ $args['param'] ] ) ) );
 				}
 			} else {
 				if ( isset( $_REQUEST[ $args['param'] ] ) ) {
-					$value = $_REQUEST[ $args['param'] ];
+					$value = wc_clean( wp_unslash( $_REQUEST[ $args['param'] ] ) );
 				}
 			}
 			self::sanitize_value( $args['sanitize'], $value );
@@ -103,7 +107,7 @@ if ( ! class_exists( 'Request_Helper' ) ) {
 				if ( is_array( $value ) ) {
 					$temp_values = $value;
 					foreach ( $temp_values as $k => $v ) {
-						Request_Helper::sanitize_value( $sanitize, $value[ $k ] );
+						self::sanitize_value( $sanitize, $value[ $k ] );
 					}
 				} else {
 					$value = call_user_func( $sanitize, $value );

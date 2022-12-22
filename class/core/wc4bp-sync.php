@@ -160,14 +160,16 @@ class wc4bp_Sync {
 	 */
 	public function wc4bp_sync_addresses_to_profile( $user_id ) {
 		try {
-			if ( bp_is_active( 'xprofile' ) && class_exists( 'BP_XProfile_Group' )) {
+			if ( bp_is_active( 'xprofile' ) && class_exists( 'BP_XProfile_Group' ) ) {
 				// get the profile fields
 				$ids      = self::wc4bp_get_xprofield_fields_ids();
 				$shipping = $ids['shipping'];
 				$billing  = $ids['billing'];
-				$groups   = BP_XProfile_Group::get( array(
-					'fetch_fields' => true,
-				) );
+				$groups   = BP_XProfile_Group::get(
+					array(
+						'fetch_fields' => true,
+					)
+				);
 				if ( ! empty( $shipping ) && ! empty( $billing ) ) {
 					if ( is_array( $shipping ) && is_array( $billing ) ) {
 						unset( $shipping['group_id'] );
@@ -224,11 +226,11 @@ class wc4bp_Sync {
 					$value = sanitize_text_field( $request_var );
 				}
 				xprofile_set_field_data( $field->id, $user_id, $value );
-				//Force existing visibility level
+				// Force existing visibility level
 				$visibility_level_param = xprofile_get_field_visibility_level( $field->id, $user_id );
 				if ( ! empty( $visibility_level_param ) ) {
-					$current_visibility = apply_filters('wc4bp_xprofile_visibility', $visibility_level_param, $field->id );
-					$current_visibility = apply_filters('wc4bp_xprofile_visibility_by_user', $current_visibility, $field->id, $user_id );
+					$current_visibility = apply_filters( 'wc4bp_xprofile_visibility', $visibility_level_param, $field->id );
+					$current_visibility = apply_filters( 'wc4bp_xprofile_visibility_by_user', $current_visibility, $field->id, $user_id );
 					xprofile_set_field_visibility_level( $field->id, $user_id, $current_visibility );
 				}
 			}
@@ -267,7 +269,7 @@ class wc4bp_Sync {
 	 *
 	 * @param string $group ['billing'|'shipping']
 	 * @param string $name
-	 * @param bool $remove_group_from_name
+	 * @param bool   $remove_group_from_name
 	 *
 	 * @return bool|string
 	 */
@@ -337,102 +339,105 @@ class wc4bp_Sync {
 		 *
 		 * @param array
 		 */
-		$show_fields = apply_filters( 'woocommerce_customer_meta_fields', array(
-			'billing'  => array(
-				'title'  => __( 'Customer Billing Address', 'wc4bp' ),
-				'fields' => array(
-					'billing_first_name' => array(
-						'label'       => __( 'First Name', 'wc4bp' ),
-						'description' => '',
-					),
-					'billing_last_name'  => array(
-						'label'       => __( 'Last Name', 'wc4bp' ),
-						'description' => '',
-					),
-					'billing_company'    => array(
-						'label'       => __( 'Company', 'wc4bp' ),
-						'description' => '',
-					),
-					'billing_address_1'  => array(
-						'label'       => __( 'Address 1', 'wc4bp' ),
-						'description' => '',
-					),
-					'billing_address_2'  => array(
-						'label'       => __( 'Address 2', 'wc4bp' ),
-						'description' => '',
-					),
-					'billing_city'       => array(
-						'label'       => __( 'City', 'wc4bp' ),
-						'description' => '',
-					),
-					'billing_postcode'   => array(
-						'label'       => __( 'Postcode', 'wc4bp' ),
-						'description' => '',
-					),
-					'billing_state'      => array(
-						'label'       => __( 'State/County', 'wc4bp' ),
-						'description' => __( 'State/County or state code', 'wc4bp' ),
-					),
-					'billing_country'    => array(
-						'label'       => __( 'Country', 'wc4bp' ),
-						'description' => __( '2 letter Country code', 'wc4bp' ),
-					),
-					'billing_phone'      => array(
-						'label'       => __( 'Phone', 'wc4bp' ),
-						'description' => '',
-					),
-					'billing_email'      => array(
-						'label'       => __( 'Email Address', 'wc4bp' ),
-						'description' => '',
-					),
-					'billing_fax'        => array(
-						'label'       => __( 'Fax', 'wc4bp' ),
-						'description' => '',
-					),
-				),
-			),
-			'shipping' => array(
-				'title'  => __( 'Customer Shipping Address', 'wc4bp' ),
-				'fields' => array(
-					'shipping_first_name' => array(
-						'label'       => __( 'First Name', 'wc4bp' ),
-						'description' => '',
-					),
-					'shipping_last_name'  => array(
-						'label'       => __( 'Last Name', 'wc4bp' ),
-						'description' => '',
-					),
-					'shipping_company'    => array(
-						'label'       => __( 'Company', 'wc4bp' ),
-						'description' => '',
-					),
-					'shipping_address_1'  => array(
-						'label'       => __( 'Address 1', 'wc4bp' ),
-						'description' => '',
-					),
-					'shipping_address_2'  => array(
-						'label'       => __( 'Address 2', 'wc4bp' ),
-						'description' => '',
-					),
-					'shipping_city'       => array(
-						'label'       => __( 'City', 'wc4bp' ),
-						'description' => '',
-					),
-					'shipping_postcode'   => array(
-						'label'       => __( 'Postcode', 'wc4bp' ),
-						'description' => '',
-					),
-					'shipping_state'      => array(
-						'label'       => __( 'State/County', 'wc4bp' ),
-						'description' => __( 'State/County or state code', 'wc4bp' ),
-					),
-					'shipping_country'    => array(
-						'label'       => __( 'Country', 'wc4bp' ),
-						'description' => __( '2 letter Country code', 'wc4bp' ),
+		$show_fields = apply_filters(
+			'woocommerce_customer_meta_fields',
+			array(
+				'billing'  => array(
+					'title'  => __( 'Customer Billing Address', 'wc4bp' ),
+					'fields' => array(
+						'billing_first_name' => array(
+							'label'       => __( 'First Name', 'wc4bp' ),
+							'description' => '',
+						),
+						'billing_last_name'  => array(
+							'label'       => __( 'Last Name', 'wc4bp' ),
+							'description' => '',
+						),
+						'billing_company'    => array(
+							'label'       => __( 'Company', 'wc4bp' ),
+							'description' => '',
+						),
+						'billing_address_1'  => array(
+							'label'       => __( 'Address 1', 'wc4bp' ),
+							'description' => '',
+						),
+						'billing_address_2'  => array(
+							'label'       => __( 'Address 2', 'wc4bp' ),
+							'description' => '',
+						),
+						'billing_city'       => array(
+							'label'       => __( 'City', 'wc4bp' ),
+							'description' => '',
+						),
+						'billing_postcode'   => array(
+							'label'       => __( 'Postcode', 'wc4bp' ),
+							'description' => '',
+						),
+						'billing_state'      => array(
+							'label'       => __( 'State/County', 'wc4bp' ),
+							'description' => __( 'State/County or state code', 'wc4bp' ),
+						),
+						'billing_country'    => array(
+							'label'       => __( 'Country', 'wc4bp' ),
+							'description' => __( '2 letter Country code', 'wc4bp' ),
+						),
+						'billing_phone'      => array(
+							'label'       => __( 'Phone', 'wc4bp' ),
+							'description' => '',
+						),
+						'billing_email'      => array(
+							'label'       => __( 'Email Address', 'wc4bp' ),
+							'description' => '',
+						),
+						'billing_fax'        => array(
+							'label'       => __( 'Fax', 'wc4bp' ),
+							'description' => '',
+						),
 					),
 				),
-			),
-		) );
+				'shipping' => array(
+					'title'  => __( 'Customer Shipping Address', 'wc4bp' ),
+					'fields' => array(
+						'shipping_first_name' => array(
+							'label'       => __( 'First Name', 'wc4bp' ),
+							'description' => '',
+						),
+						'shipping_last_name'  => array(
+							'label'       => __( 'Last Name', 'wc4bp' ),
+							'description' => '',
+						),
+						'shipping_company'    => array(
+							'label'       => __( 'Company', 'wc4bp' ),
+							'description' => '',
+						),
+						'shipping_address_1'  => array(
+							'label'       => __( 'Address 1', 'wc4bp' ),
+							'description' => '',
+						),
+						'shipping_address_2'  => array(
+							'label'       => __( 'Address 2', 'wc4bp' ),
+							'description' => '',
+						),
+						'shipping_city'       => array(
+							'label'       => __( 'City', 'wc4bp' ),
+							'description' => '',
+						),
+						'shipping_postcode'   => array(
+							'label'       => __( 'Postcode', 'wc4bp' ),
+							'description' => '',
+						),
+						'shipping_state'      => array(
+							'label'       => __( 'State/County', 'wc4bp' ),
+							'description' => __( 'State/County or state code', 'wc4bp' ),
+						),
+						'shipping_country'    => array(
+							'label'       => __( 'Country', 'wc4bp' ),
+							'description' => __( '2 letter Country code', 'wc4bp' ),
+						),
+					),
+				),
+			)
+		);
 
 		return $show_fields;
 	}

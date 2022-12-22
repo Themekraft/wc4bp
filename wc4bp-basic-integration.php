@@ -1,20 +1,20 @@
 <?php
 /**
- * Plugin Name: WooBuddy -> WooCommerce BuddyPress Integration
+ * Plugin Name: BuddyPress Integration for WooCommerce
  * Plugin URI: https://themekraft.com/woocommerce-buddypress-integration/
  * Description: Integrates WooCommerce with a BuddyPress social network
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
- * Version: 3.3.15
+ * Version: 3.4.12
  * Licence: GPLv3
  * Text Domain: wc4bp
  * Domain Path: /languages
  * Svn: wc4bp
  *
- *****************************************************************************
+ * ****************************************************************************
  * WC requires at least: 3.3.0
- * WC tested up to: 5.1.0
- *****************************************************************************
+ * WC tested up to: 6.2.1
+ * ****************************************************************************
  *
  * This script is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- ****************************************************************************
+ * ***************************************************************************
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -44,7 +44,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		/**
 		 * The plugin version
 		 */
-		const VERSION = '3.3.15';
+		const VERSION = '3.4.12';
 
 		/**
 		 * Minimum required WP version
@@ -115,7 +115,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 				if ( $requirements->satisfied() ) {
 					new WC4BP_Required();
 					if ( wc4bp_Manager::is_woocommerce_active() && ( wc4bp_Manager::is_buddypress_active() || wc4bp_Manager::is_buddyboss_theme_active() ) ) {
-						//Adding edd migration code
+						// Adding edd migration code
 						new wc4bp_Manager();
 						new WC4BP_Upgrade( plugin_basename( dirname( __FILE__ ) ) );
 						// Run the activation function
@@ -131,11 +131,10 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 						self::getFreemius()->add_action( 'after_uninstall', array( $this, 'uninstall_cleanup' ) );
 					}
 				} else {
-					$faux_plugin = new WP_Faux_Plugin( __( 'WooBuddy -> WooCommerce BuddyPress Integration', 'wc4bp' ), $requirements->getResults() );
+					$faux_plugin = new WP_Faux_Plugin( __( 'WC4BP', 'wc4bp' ), $requirements->getResults() );
 					$faux_plugin->show_result( plugin_basename( __FILE__ ) );
 				}
-			}
-			catch ( Exception $exception ) {
+			} catch ( Exception $exception ) {
 				self::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
 		}
@@ -156,29 +155,31 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 					// Include Freemius SDK.
 					require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/freemius/start.php';
 
-					$wc4bp_fs = fs_dynamic_init( array(
-						'id'                  => '425',
-						'slug'                => 'wc4bp',
-						'type'                => 'plugin',
-						'public_key'          => 'pk_71d28f28e3e545100e9f859cf8554',
-						'is_premium'          => true,
-						'premium_suffix'      => 'premium',
-						'has_premium_version' => true,
-						'has_addons'          => true,
-						'has_paid_plans'      => true,
-						'trial'               => array(
-							'days'               => 14,
-							'is_require_payment' => false,
-						),
-						'has_affiliation'     => 'all',
-						'menu'                => array(
-							'slug'    => 'wc4bp-options-page',
-							'support' => false,
+					$wc4bp_fs = fs_dynamic_init(
+						array(
+							'id'                  => '425',
+							'slug'                => 'wc4bp',
+							'type'                => 'plugin',
+							'public_key'          => 'pk_71d28f28e3e545100e9f859cf8554',
+							'is_premium'          => true,
+							'premium_suffix'      => 'Premium',
+							'has_premium_version' => true,
+							'has_addons'          => true,
+							'has_paid_plans'      => true,
+							'trial'               => array(
+								'days'               => 7,
+								'is_require_payment' => true,
+							),
+							'has_affiliation'     => 'all',
+							'menu'                => array(
+								'slug'    => 'wc4bp-options-page',
+								'support' => false,
+							),
+							'bundle_license_auto_activation' => true,
 						)
-					) );
+					);
 				}
-			}
-			catch ( Exception $exception ) {
+			} catch ( Exception $exception ) {
 				self::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
 
@@ -267,8 +268,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 						bp_update_option( 'wc4bp_shipping_address_ids', $shipping );
 					}
 				}
-			}
-			catch ( Exception $exception ) {
+			} catch ( Exception $exception ) {
 				self::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
 		}
@@ -283,11 +283,10 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 					deactivate_plugins( 'wc4bp/wc4bp-basic-integration', true );
 				}
 				WC4BP_MyAccount::clean_my_account_cached();
-				include_once( dirname( __FILE__ ) . '/class/core/wc4bp-sync.php' );
-				include_once( dirname( __FILE__ ) . '/admin/wc4bp-activate.php' );
+				include_once dirname( __FILE__ ) . '/class/core/wc4bp-sync.php';
+				include_once dirname( __FILE__ ) . '/admin/wc4bp-activate.php';
 				wc4bp_activate();
-			}
-			catch ( Exception $exception ) {
+			} catch ( Exception $exception ) {
 				self::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
 		}
@@ -301,13 +300,12 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 			try {
 				$wc4bp_options_delete = get_option( 'wc4bp_options_delete' );
 				if ( $wc4bp_options_delete ) {
-					include_once( dirname( __FILE__ ) . '/class/core/wc4bp-sync.php' );
+					include_once dirname( __FILE__ ) . '/class/core/wc4bp-sync.php';
 					wc4bp_Sync::clean_xprofield_fields_cached();
 					WC4BP_MyAccount::clean_my_account_cached();
 					self::uninstall_cleanup();
 				}
-			}
-			catch ( Exception $exception ) {
+			} catch ( Exception $exception ) {
 				self::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
 		}
@@ -341,13 +339,13 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 				delete_option( 'wc4bp_options_tabs' );
 				delete_option( 'wc4bp_pages_options' );
 				delete_option( 'wc4bp_options_delete' );
-			}
-			catch ( Exception $exception ) {
+			} catch ( Exception $exception ) {
 				self::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
 		}
 	}
 
-//Entry point for this plugins
+	// Entry point for this plugins
 	$GLOBALS['wc4bp_loader'] = new WC4BP_Loader();
+	do_action( 'wc4bp_init', $GLOBALS['wc4bp_loader'] );
 }

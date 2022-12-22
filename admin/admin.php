@@ -27,11 +27,12 @@ class wc4bp_admin extends wc4bp_base {
 			}
 			add_action( 'admin_menu', array( $this, 'wc4bp_admin_menu' ) );
 			add_action( 'admin_init', array( $this, 'wc4bp_register_admin_settings' ) );
-
-			require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-pages.php' );
-			require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-sync.php' );
-			require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-delete.php' );
-			require_once( WC4BP_ABSPATH_ADMIN_PATH . 'admin-ajax.php' );
+			WC4BP_Loader::getFreemius()->add_filter( 'show_admin_notice',  array( $this, 'wc4bp_disable_fs_admin_notices' ), 10, 2 );
+			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-pages.php';
+			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-sync.php';
+			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-delete.php';
+			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-notifications.php';
+			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-ajax.php';
 			new wc4bp_admin_ajax();
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
@@ -53,7 +54,7 @@ class wc4bp_admin extends wc4bp_base {
 	 * @since 1.3
 	 */
 	public function wc4bp_admin_menu() {
-		add_menu_page( __( 'WooBuddy', 'wc4bp' ), __( 'WooBuddy Settings', 'wc4bp' ), 'manage_options', self::getSlug(), array( $this, 'wc4bp_screen' ) );
+		add_menu_page( __( 'WC4BP', 'wc4bp' ), __( 'BuddyPress for WooCommerce', 'wc4bp' ), 'manage_options', self::getSlug(), array( $this, 'wc4bp_screen' ) );
 		/**
 		 * SubMenu Page added
 		 */
@@ -72,7 +73,7 @@ class wc4bp_admin extends wc4bp_base {
 			$active_tab = Request_Helper::simple_get( 'tab', 'sanitize_text_field', 'generic' );
 			switch ( $active_tab ) {
 				case 'generic':
-					include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_screen.php' );
+					include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_screen.php';
 					break;
 				case 'page-sync':
 					$admin_sync = new wc4bp_admin_sync();
@@ -85,6 +86,10 @@ class wc4bp_admin extends wc4bp_base {
 				case 'delete':
 					$admin_delete = new wc4bp_admin_delete();
 					$admin_delete->wc4bp_screen_delete( $active_tab );
+					break;
+				case 'notifications':
+					$admin_notifications = new wc4bp_admin_notifications();
+					$admin_notifications->wc4bp_screen_notifications( $active_tab );
 					break;
 			}
 		} catch ( Exception $exception ) {
@@ -105,6 +110,7 @@ class wc4bp_admin extends wc4bp_base {
 			register_setting( 'wc4bp_options_pages', 'wc4bp_options_pages' );
 			register_setting( 'wc4bp_options', 'wc4bp_options' );
 			register_setting( 'wc4bp_options_sync', 'wc4bp_options_sync' );
+			register_setting( 'wc4bp_options_notifications', 'wc4bp_options_notifications' );
 
 			add_settings_section( 'section_general', '', '', 'wc4bp_options' );
 			add_settings_section( 'section_general2', '', '', 'wc4bp_options' );
@@ -114,7 +120,6 @@ class wc4bp_admin extends wc4bp_base {
 			add_settings_field( 'profile sync', __( '<b>Turn off the Profile Sync</b>', 'wc4bp' ), array( $this, 'wc4bp_turn_off_profile_sync' ), 'wc4bp_options', 'section_general' );
 			add_settings_field( 'thank_you_page', __( '<b>Default Thank You Page</b>', 'wc4bp' ), array( $this, 'wc4bp_overwrite_default_thank_you_page' ), 'wc4bp_options', 'section_general' );
 			add_settings_field( 'overwrite', __( '<b>Default Shop Tab</b>', 'wc4bp' ), array( $this, 'wc4bp_overwrite_default_shop_home_tab' ), 'wc4bp_options', 'section_general' );
-
 
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
@@ -126,12 +131,13 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_shop_tabs() {
 		try {
-			$wc4bp_options                = $this->wc4bp_options;
-			$tab_activity_disabled        = 0;
-			$disable_shop_settings_tab    = 0;
-			$tab_my_account_disabled      = 0;
-			$tab_my_account_shop_label    = wc4bp_Manager::$shop_label;
-			$tab_my_account_shop_url      = wc4bp_Manager::$shop_slug;
+			$wc4bp_options                       = $this->wc4bp_options;
+			$tab_activity_disabled               = 0;
+			$disable_shop_settings_tab           = 0;
+			$tab_my_account_disabled             = 0;
+			$tab_my_account_enable_extra_content = 0;
+			$tab_my_account_shop_label           = wc4bp_Manager::$shop_label;
+			$tab_my_account_shop_url             = wc4bp_Manager::$shop_slug;
 			if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 				if ( isset( $wc4bp_options['tab_my_account_shop_url'] ) ) {
 					$tab_my_account_shop_url                  = empty( $wc4bp_options['tab_my_account_shop_url'] ) ? wc4bp_Manager::$shop_slug : sanitize_title( $wc4bp_options['tab_my_account_shop_url'] );
@@ -155,8 +161,12 @@ class wc4bp_admin extends wc4bp_base {
 			if ( isset( $wc4bp_options['tab_my_account_disabled'] ) ) {
 				$tab_my_account_disabled = 1;
 			}
+			if ( isset( $wc4bp_options['tab_my_account_extra_content'] ) ) {
+				$tab_my_account_enable_extra_content = 1;
+				$tab_my_account_disabled             = 1;
+			}
 
-			//Get all actives tabs and custom pages
+			// Get all actives tabs and custom pages
 			$wc4bp_pages_options = $this->get_pages_option();
 			// If all the tabs are disabled and there is not custom pages, Turn off 'Shop'
 			if ( is_array( $wc4bp_pages_options ) && count( $wc4bp_pages_options ) === 0 ) {
@@ -173,8 +183,11 @@ class wc4bp_admin extends wc4bp_base {
 				if ( isset( $wc4bp_options['tab_my_account_disabled'] ) ) {
 					$tab_my_account_disabled = $wc4bp_options['tab_my_account_disabled'];
 				}
+				if ( isset( $wc4bp_options['tab_my_account_extra_content'] ) ) {
+					$tab_my_account_enable_extra_content = $wc4bp_options['tab_my_account_extra_content'];
+				}
 			}
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_tabs.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_tabs.php';
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
@@ -248,7 +261,7 @@ class wc4bp_admin extends wc4bp_base {
 
 			uasort( $tabs_array, array( $this, 'compare_tabs' ) );
 
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_my_account_tabs.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_my_account_tabs.php';
 			echo '</div>';
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
@@ -274,9 +287,9 @@ class wc4bp_admin extends wc4bp_base {
 			if ( isset( $wc4bp_options['tab_sync_disabled'] ) ) {
 				$tab_sync_disabled = $wc4bp_options['tab_sync_disabled'];
 			}
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_profile_sync.php' );
-			include_once( WC4BP_ABSPATH_CLASS_PATH . '/core/wc4bp-sync.php' );
-			include_once( WC4BP_ABSPATH_ADMIN_PATH . 'wc4bp-activate.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_profile_sync.php';
+			include_once WC4BP_ABSPATH_CLASS_PATH . '/core/wc4bp-sync.php';
+			include_once WC4BP_ABSPATH_ADMIN_PATH . 'wc4bp-activate.php';
 			if ( isset( $tab_sync_disabled ) && true == $tab_sync_disabled ) {
 				wc4bp_cleanup();
 			} else {
@@ -332,7 +345,7 @@ class wc4bp_admin extends wc4bp_base {
 						'tab_name' => __( 'Track my order', 'wc4bp' ),
 					);
 				}
-				//If wc4bp['tab_shop_default'] is empty add a default value to avoid offset warning
+				// If wc4bp['tab_shop_default'] is empty add a default value to avoid offset warning
 				if ( ! isset( $wc4bp_options['tab_shop_default'] ) ) {
 					$wc4bp_options['tab_shop_default'] = 'default';
 				} else {
@@ -348,7 +361,7 @@ class wc4bp_admin extends wc4bp_base {
 				$wc4bp_options['tab_shop_default'] = 'default';
 			}
 
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_home.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_admin_shop_home.php';
 
 			submit_button();
 		} catch ( Exception $exception ) {
@@ -381,7 +394,7 @@ class wc4bp_admin extends wc4bp_base {
 				$wc4bp_options['thank_you_page'] = 'default';
 			}
 
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_thank_you_page.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'main/html_thank_you_page.php';
 
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
@@ -390,6 +403,7 @@ class wc4bp_admin extends wc4bp_base {
 
 	/**
 	 * Return array with all the  actives tabs and custom pages.
+	 *
 	 * @return array
 	 */
 	public function get_pages_option() {
@@ -399,7 +413,7 @@ class wc4bp_admin extends wc4bp_base {
 			$wc4bp_pages_options   = array();
 			$tab_activity_disabled = 0;
 
-			//Add the customs page to the array
+			// Add the customs page to the array
 			if ( ! empty( $custom_pages ) && is_string( $custom_pages ) ) {
 				$custom_pages_temp = json_decode( $custom_pages, true );
 				if ( isset( $custom_pages_temp['selected_pages'] ) && is_array( $custom_pages_temp['selected_pages'] ) ) {
@@ -413,7 +427,7 @@ class wc4bp_admin extends wc4bp_base {
 				}
 			}
 
-			//Add the actives my account pages to the option array
+			// Add the actives my account pages to the option array
 			$woo_my_account = WC4BP_MyAccount::get_active_endpoints();
 			if ( ! empty( $woo_my_account ) ) {
 				foreach ( $woo_my_account as $active_page_key => $active_page_name ) {
@@ -445,5 +459,9 @@ class wc4bp_admin extends wc4bp_base {
 
 			return array();
 		}
+	}
+
+	public function wc4bp_disable_fs_admin_notices( $show, $msg ){
+		return false;
 	}
 }

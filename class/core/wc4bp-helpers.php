@@ -38,7 +38,7 @@ function wc4bp_load_template_filter( $found_template, $templates ) {
 	}
 }
 
-//add_filter( 'bp_located_template', 'wc4bp_load_template_filter', 10, 2 );
+// add_filter( 'bp_located_template', 'wc4bp_load_template_filter', 10, 2 );
 
 /**
  * Load a template in the correct order
@@ -57,7 +57,7 @@ function wc4bp_load_template( $template_name ) {
 			$located = WC4BP_ABSPATH . 'templates/' . $template_name . '.php';
 		}
 
-		include( $located );
+		include $located;
 	} catch ( Exception $exception ) {
 		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 	}
@@ -71,7 +71,7 @@ function wc4bp_load_template( $template_name ) {
  * @uses    bp_get_settings_slug()
  */
 function wc4bp_settings_link() {
-	echo wc4bp_get_settings_link();
+	echo esc_url_raw( wc4bp_get_settings_link() );
 }
 
 function wc4bp_get_settings_link() {
@@ -100,7 +100,7 @@ function wc4bp_my_recent_orders_shortcode( $atts ) {
 			 * Execute the action from woo to view the order details
 			 *
 			 * @param string|int The order id
- 			 */
+			 */
 			do_action( 'woocommerce_view_order', $bp->action_variables[1] );
 		}
 	} catch ( Exception $exception ) {

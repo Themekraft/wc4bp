@@ -13,7 +13,7 @@ if ( ! class_exists( 'WC4BP_Exception_Handler' ) ) {
 	class WC4BP_Exception_Handler {
 		private static $instance;
 		private $exception_list_name = 'exceptions';
-		private $internal_prefix = 'exception';
+		private $internal_prefix     = 'exception';
 		private $exception_list;
 
 		public function __construct() {
@@ -31,7 +31,7 @@ if ( ! class_exists( 'WC4BP_Exception_Handler' ) ) {
 		}
 
 		public function error_handler( $number, $message, $file, $line ) {
-			$trace          = new stdClass;
+			$trace          = new stdClass();
 			$trace->number  = $number;
 			$trace->message = $message;
 			$trace->file    = $file;
@@ -88,7 +88,7 @@ if ( ! class_exists( 'WC4BP_Exception_Handler' ) ) {
 		public static function get_instance() {
 			// If the single instance hasn't been set, set it now.
 			if ( null === self::$instance ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 
 			return self::$instance;

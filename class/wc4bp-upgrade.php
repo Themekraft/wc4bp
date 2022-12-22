@@ -15,13 +15,12 @@
  * This class handle the patch to apply to future version when we need to fix some issue. It use name conventions to find the version patch to apply.
  * The patch need to be created as a php class with a file name to match with the plugin version like '3.0.13.php', the class name is a combination of
  * the version with no dots and the string WC4BP for the last example the class name will be 'WC4BP_3013'.
- *
  */
 class WC4BP_Upgrade {
 	private $plugin_name;
 
 	public function __construct( $plugin_name ) {
-		$this->plugin_name = $plugin_name . DIRECTORY_SEPARATOR . 'wc4bp-basic-integration.php';//TODO this need to be testd in the free version
+		$this->plugin_name = $plugin_name . DIRECTORY_SEPARATOR . 'wc4bp-basic-integration.php';// TODO this need to be testd in the free version
 		add_action( 'upgrader_process_complete', array( $this, 'upgrader_process_complete' ), 10, 2 );
 	}
 
@@ -39,7 +38,7 @@ class WC4BP_Upgrade {
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && defined( 'WP_ADMIN' ) && WP_ADMIN ) {
 			return false;
 		}
-		$wc4bp_upgrade_patch = get_option( 'wc4bp_upgrade' ); //Option where the flags of path version will be store
+		$wc4bp_upgrade_patch = get_option( 'wc4bp_upgrade' ); // Option where the flags of path version will be store
 		if ( empty( $wc4bp_upgrade_patch ) || empty( $wc4bp_upgrade_patch[ WC4BP_Loader::VERSION ] ) ) {
 			if ( 'update' === $options['action'] && 'plugin' === $options['type'] && isset( $options['plugins'] ) ) {
 				// Iterate through the plugins being updated and check if ours is there

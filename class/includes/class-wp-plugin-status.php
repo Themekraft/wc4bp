@@ -27,7 +27,7 @@ if ( ! class_exists( 'WpPluginStatus100', false ) ) {
 		 * @param $args
 		 */
 		public function __construct( $args ) {
-			//Check for required parameters
+			// Check for required parameters
 			if ( ! empty( $args ) ) {
 				if ( isset( $args['slug'] ) ) {
 					$this->plugin_slug = $args['slug'] . '_status';
@@ -81,31 +81,41 @@ if ( ! class_exists( 'WpPluginStatus100', false ) ) {
 			}
 
 			// Return all environment info. Described by JSON Schema.
-			return apply_filters( 'wp_plugin_status_data', array(
-				'WordPress environment' => array(
-					'home_url'               => get_option( 'home' ),
-					'site_url'               => get_option( 'siteurl' ),
-					'wp_version'             => get_bloginfo( 'version' ),
-					'wp_multisite'           => is_multisite(),
-					'wp_memory_limit'        => $wp_memory_limit,
-					'wp_debug_mode'          => ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
-					'wp_cron'                => ! ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ),
-					'language'               => get_locale(),
-					'server_info'            => $_SERVER['SERVER_SOFTWARE'],
-					'php_version'            => phpversion(),
-					'php_max_execution_time' => ini_get( 'max_execution_time' ),
-					'php_max_input_vars'     => ini_get( 'max_input_vars' ),
-					'mysql_version'          => ( ! empty( $wpdb->is_mysql ) ? $wpdb->db_version() : '' ),
-					'default_timezone'       => date_default_timezone_get(),
-				),
-			) );
+			return apply_filters(
+				'wp_plugin_status_data',
+				array(
+					'WordPress environment' => array(
+						'home_url'               => get_option( 'home' ),
+						'site_url'               => get_option( 'siteurl' ),
+						'wp_version'             => get_bloginfo( 'version' ),
+						'wp_multisite'           => is_multisite(),
+						'wp_memory_limit'        => $wp_memory_limit,
+						'wp_debug_mode'          => ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
+						'wp_cron'                => ! ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ),
+						'language'               => get_locale(),
+						'server_info'            => wc_clean( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) ),
+						'php_version'            => phpversion(),
+						'php_max_execution_time' => ini_get( 'max_execution_time' ),
+						'php_max_input_vars'     => ini_get( 'max_input_vars' ),
+						'mysql_version'          => ( ! empty( $wpdb->is_mysql ) ? $wpdb->db_version() : '' ),
+						'default_timezone'       => date_default_timezone_get(),
+					),
+				)
+			);
 		}
 
 		public function add_status_menu() {
-			add_submenu_page( $this->parent_slug, 'Status', 'Status', 'manage_options', $this->plugin_slug, array(
-				$this,
-				'status_view',
-			) );
+			add_submenu_page(
+				$this->parent_slug,
+				'Status',
+				'Status',
+				'manage_options',
+				$this->plugin_slug,
+				array(
+					$this,
+					'status_view',
+				)
+			);
 		}
 
 		public function get_section_id( $title ) {
@@ -122,154 +132,158 @@ if ( ! class_exists( 'WpPluginStatus100', false ) ) {
 				}
 			}
 			?>
-            <h2 class="nav-tab-wrapper status">
-                <a href="?page=<?php echo esc_attr( $this->plugin_slug ); ?>&tab=status"
-                   class="nav-tab <?php echo 'generic' === $active_tab ? 'nav-tab-active' : ''; ?>"><?php esc_attr_e( 'Status' ); ?></a>
-            </h2>
+			<h2 class="nav-tab-wrapper status">
+				<a href="?page=<?php echo esc_attr( $this->plugin_slug ); ?>&tab=status"
+				   class="nav-tab <?php echo 'generic' === $active_tab ? 'nav-tab-active' : ''; ?>"><?php esc_attr_e( 'Status' ); ?></a>
+			</h2>
 			<?php
 			switch ( $active_tab ) {
 				case 'generic';
 					$data = $this->get_basic_status();
 					?>
-                    <p><?php echo esc_attr( apply_filters( 'wp_plugin_status_view_description', 'This is the basic information from your system' ) ); ?></p>
-                    <style>
-                        table.wc_status_table {
-                            margin-bottom: 1em;
-                        }
+					<p><?php echo esc_attr( apply_filters( 'wp_plugin_status_view_description', 'This is the basic information from your system' ) ); ?></p>
+					<style>
+						table.wc_status_table {
+							margin-bottom: 1em;
+						}
 
-                        table.wc_status_table h2 {
-                            font-size: 14px;
-                            margin: 0;
-                        }
+						table.wc_status_table h2 {
+							font-size: 14px;
+							margin: 0;
+						}
 
-                        table.wc_status_table tr:nth-child(2n) th,
-                        table.wc_status_table tr:nth-child(2n) td {
-                            background: #fcfcfc;
-                        }
+						table.wc_status_table tr:nth-child(2n) th,
+						table.wc_status_table tr:nth-child(2n) td {
+							background: #fcfcfc;
+						}
 
-                        table.wc_status_table th {
-                            font-weight: 700;
-                            padding: 9px;
-                        }
+						table.wc_status_table th {
+							font-weight: 700;
+							padding: 9px;
+						}
 
-                        table.wc_status_table td:first-child {
-                            width: 33%;
-                        }
+						table.wc_status_table td:first-child {
+							width: 33%;
+						}
 
-                        table.wc_status_table td.help {
-                            width: 1em;
-                        }
+						table.wc_status_table td.help {
+							width: 1em;
+						}
 
-                        table.wc_status_table td {
-                            padding: 9px;
-                            font-size: 1.1em;
-                        }
+						table.wc_status_table td {
+							padding: 9px;
+							font-size: 1.1em;
+						}
 
-                        table.wc_status_table td mark {
-                            background: transparent none;
-                        }
+						table.wc_status_table td mark {
+							background: transparent none;
+						}
 
-                        table.wc_status_table td mark.yes {
-                            color: green;
-                        }
+						table.wc_status_table td mark.yes {
+							color: green;
+						}
 
-                        table.wc_status_table td mark.no {
-                            color: #999;
-                        }
+						table.wc_status_table td mark.no {
+							color: #999;
+						}
 
-                        table.wc_status_table td mark.error {
-                            color: red;
-                        }
+						table.wc_status_table td mark.error {
+							color: red;
+						}
 
-                        table.wc_status_table td ul {
-                            margin: 0;
-                        }
+						table.wc_status_table td ul {
+							margin: 0;
+						}
 
-                        table.wc_status_table .help_tip {
-                            cursor: help;
-                        }
+						table.wc_status_table .help_tip {
+							cursor: help;
+						}
 
-                        .woocommerce-help-tip::after {
-                            font-family: Dashicons;
-                            speak: none;
-                            font-weight: 400;
-                            text-transform: none;
-                            line-height: 1;
-                            -webkit-font-smoothing: antialiased;
-                            text-indent: 0px;
-                            position: absolute;
-                            top: 0px;
-                            left: 0px;
-                            width: 100%;
-                            height: 100%;
-                            text-align: center;
-                            content: "";
-                            cursor: help;
-                            font-variant: normal normal;
-                            margin: 0px;
-                        }
+						.woocommerce-help-tip::after {
+							font-family: Dashicons;
+							speak: none;
+							font-weight: 400;
+							text-transform: none;
+							line-height: 1;
+							-webkit-font-smoothing: antialiased;
+							text-indent: 0px;
+							position: absolute;
+							top: 0px;
+							left: 0px;
+							width: 100%;
+							height: 100%;
+							text-align: center;
+							content: "";
+							cursor: help;
+							font-variant: normal normal;
+							margin: 0px;
+						}
 
-                        .woocommerce-help-tip {
-                            color: #666;
-                            display: inline-block;
-                            font-size: 1.1em;
-                            font-style: normal;
-                            height: 16px;
-                            line-height: 16px;
-                            position: relative;
-                            vertical-align: middle;
-                            width: 16px;
-                        }
-                    </style>
-                    <script>
-                        function IsJsonString(str) {
-                            try {
-                                JSON.parse(str);
-                            } catch (e) {
-                                return false;
-                            }
-                            return true;
-                        }
+						.woocommerce-help-tip {
+							color: #666;
+							display: inline-block;
+							font-size: 1.1em;
+							font-style: normal;
+							height: 16px;
+							line-height: 16px;
+							position: relative;
+							vertical-align: middle;
+							width: 16px;
+						}
+					</style>
+					<script>
+						function IsJsonString(str) {
+							try {
+								JSON.parse(str);
+							} catch (e) {
+								return false;
+							}
+							return true;
+						}
 
-                        function export_status(element) {
-                            var final_result = [];
-                            var btn_export = jQuery(element);
-                            jQuery('tr.' + btn_export.attr('value')).each(function (position, item) {
-                                var result = {};
-                                var value = jQuery(item).find('.status_value').text();
-                                result['title'] = jQuery(item).find('.status_title').text();
-                                result['value'] = IsJsonString(value) ? JSON.parse(value) : value;
-                                final_result.push(result);
-                            });
-                            var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(final_result));
-                            btn_export.attr("href", dataStr);
-                            btn_export.attr("download", "status.json");
-                        }
-						<?php echo apply_filters( 'wp_plugin_status_append_js', '' ); ?>
-                    </script>
-					<?php foreach ( $data as $section_key => $section_values ): ?>
-                    <table class="wc_status_table widefat" cellspacing="0" id="status_<?php echo $this->get_section_id( $section_key ); ?>">
-                        <thead>
-                        <tr>
-                            <th colspan="2"><h2 style="float:left; display: inline"><?php echo esc_attr( $section_key ); ?></h2>
-								<?php echo apply_filters( 'wp_plugin_status_header_append_html', $this->export_html( $section_key ), $section_key ); ?>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-						<?php foreach ( $section_values as $key => $value ):
-							$to_render = apply_filters( 'wp_plugin_status_view_values', array(
-								'key'   => $key,
-								'value' => $value,
-							) );
+						function export_status(element) {
+							var final_result = [];
+							var btn_export = jQuery(element);
+							jQuery('tr.' + btn_export.attr('value')).each(function (position, item) {
+								var result = {};
+								var value = jQuery(item).find('.status_value').text();
+								result['title'] = jQuery(item).find('.status_title').text();
+								result['value'] = IsJsonString(value) ? JSON.parse(value) : value;
+								final_result.push(result);
+							});
+							var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(final_result));
+							btn_export.attr("href", dataStr);
+							btn_export.attr("download", "status.json");
+						}
+						<?php echo esc_js( apply_filters( 'wp_plugin_status_append_js', '' ) ); ?>
+					</script>
+					<?php foreach ( $data as $section_key => $section_values ) : ?>
+					<table class="wc_status_table widefat" cellspacing="0" id="status_<?php echo esc_attr( $this->get_section_id( $section_key ) ); ?>">
+						<thead>
+						<tr>
+							<th colspan="2"><h2 style="float:left; display: inline"><?php echo esc_attr( $section_key ); ?></h2>
+								<?php echo wp_kses_post( apply_filters( 'wp_plugin_status_header_append_html', $this->export_html( $section_key ), $section_key ) ); ?>
+							</th>
+						</tr>
+						</thead>
+						<tbody>
+						<?php
+						foreach ( $section_values as $key => $value ) :
+							$to_render = apply_filters(
+								'wp_plugin_status_view_values',
+								array(
+									'key'   => $key,
+									'value' => $value,
+								)
+							);
 							?>
-                            <tr class="status_values_<?php echo $this->get_section_id( $section_key ); ?>">
-                                <td class="status_title"><?php echo esc_attr( $to_render['key'] ); ?>:</td>
-                                <td class="status_value"><?php echo esc_attr( $to_render['value'] ); ?></td>
-                            </tr>
+							<tr class="status_values_<?php echo esc_attr( $this->get_section_id( $section_key ) ); ?>">
+								<td class="status_title"><?php echo esc_attr( $to_render['key'] ); ?>:</td>
+								<td class="status_value"><?php echo esc_attr( $to_render['value'] ); ?></td>
+							</tr>
 						<?php endforeach; ?>
-                        </tbody>
-                    </table>
+						</tbody>
+					</table>
 				<?php endforeach; ?>
 					<?php
 					break;
@@ -277,10 +291,11 @@ if ( ! class_exists( 'WpPluginStatus100', false ) ) {
 		}
 
 		private function export_html( $section_key ) {
-			ob_start(); ?>
-            <div style="float:right; display: inline; margin-right: 20px;">
-                <a class="button-primary" onclick="export_status(this);" value="status_values_<?php echo esc_attr( strtolower( sanitize_title( $section_key ) ) ); ?>" id="export_status_<?php echo esc_attr( strtolower( sanitize_title( $section_key ) ) ); ?>">Export</a>
-            </div>
+			ob_start();
+			?>
+			<div style="float:right; display: inline; margin-right: 20px;">
+				<a class="button-primary" onclick="export_status(this);" value="status_values_<?php echo esc_attr( strtolower( sanitize_title( $section_key ) ) ); ?>" id="export_status_<?php echo esc_attr( strtolower( sanitize_title( $section_key ) ) ); ?>">Export</a>
+			</div>
 			<?php
 			return ob_get_clean();
 		}
@@ -308,7 +323,7 @@ if ( ! class_exists( 'WpPluginStatus100', false ) ) {
 if ( ! class_exists( 'WpPluginStatusFactory', false ) ) {
 	class WpPluginStatusFactory {
 		protected static $class_versions = array();
-		protected static $sorted = false;
+		protected static $sorted         = false;
 
 		/**
 		 * Create a new instance of WpPluginStatus.

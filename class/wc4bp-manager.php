@@ -27,6 +27,7 @@ class wc4bp_Manager {
 
 	/**
 	 * Shop default label
+	 *
 	 * @var string
 	 */
 	public static $shop_label;
@@ -34,7 +35,7 @@ class wc4bp_Manager {
 	public function __construct() {
 		try {
 			self::$shop_label = __( 'Shop', 'wc4bp' );
-			//Load resources
+			// Load resources
 			require_once 'wc4bp-activity-stream.php';
 			require_once 'wc4bp-myaccount-content.php';
 			require_once 'wc4bp-myaccount.php';
@@ -43,6 +44,7 @@ class wc4bp_Manager {
 			require_once 'wc4bp-manage-admin.php';
 			require_once 'wc4bp-redefine-functions.php';
 			require_once 'wc4bp-status.php';
+			require_once 'wc4bp-notifications.php';
 
 			add_action( 'init', array( $this, 'init' ) );
 			add_action( 'bp_include', array( $this, 'includes' ), 10 );
@@ -57,7 +59,7 @@ class wc4bp_Manager {
 			$cu = get_current_user_id();
 			if ( $cu > 0 ) {
 				$wc_path = WooCommerce::instance()->plugin_path();
-				include_once( $wc_path . '/includes/class-wc-frontend-scripts.php' );
+				include_once $wc_path . '/includes/class-wc-frontend-scripts.php';
 				WC_Frontend_Scripts::init();
 				new WC4BP_Activity_Stream();
 				new WC4BP_MyAccount_Content();
@@ -96,7 +98,6 @@ class wc4bp_Manager {
 		 * @param String $var The current slug.
 		 *
 		 * @since 3.0.0
-		 *
 		 */
 		return apply_filters( 'wc4bp_shop_slug', $slug );
 	}
@@ -138,17 +139,23 @@ class wc4bp_Manager {
 	 * Add admin notices to single site or multisite
 	 *
 	 * @param        $message
-	 * @param string $type
+	 * @param string  $type
 	 */
 	public static function admin_notice( $message, $type = 'error' ) {
 		if ( is_multisite() ) {
-			add_action( 'network_admin_notices', function () use ( $message, $type ) {
-				echo '<div class="' . esc_attr( $type ) . '"><b>WooBuddy -> WooCommerce BuddyPress Integration</b>: ' . $message . '</div>';
-			} );
+			add_action(
+				'network_admin_notices',
+				function () use ( $message, $type ) {
+					echo '<div class="' . esc_attr( $type ) . '"><b>WC4BP</b>: ' . esc_html( $message ) . '</div>';
+				}
+			);
 		} else {
-			add_action( 'admin_notices', function () use ( $message, $type ) {
-				echo '<div class="' . esc_attr( $type ) . '"><b>WooBuddy -> WooCommerce BuddyPress Integration</b>: ' . $message . '</div>';
-			} );
+			add_action(
+				'admin_notices',
+				function () use ( $message, $type ) {
+					echo '<div class="' . esc_attr( $type ) . '"><b>WC4BP</b>: ' . esc_html( $message ) . '</div>';
+				}
+			);
 		}
 	}
 
@@ -167,7 +174,7 @@ class wc4bp_Manager {
 	public function includes() {
 		try {
 			// core component
-			require( WC4BP_ABSPATH . 'class/core/wc4bp-component.php' );
+			require WC4BP_ABSPATH . 'class/core/wc4bp-component.php';
 
 			global $bp;
 			if ( ! isset( $bp->shop ) ) {
@@ -179,7 +186,7 @@ class wc4bp_Manager {
 	}
 
 	public static function load_plugins_dependency() {
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		include_once ABSPATH . 'wp-admin/includes/plugin.php';
 	}
 
 	public static function is_woocommerce_active() {
@@ -190,15 +197,19 @@ class wc4bp_Manager {
 
 	public static function is_buddypress_active() {
 		self::load_plugins_dependency();
-
-		return is_plugin_active( 'buddypress/bp-loader.php' );
+		
+		if( is_plugin_active( 'buddypress/bp-loader.php' ) || is_plugin_active( 'buddyboss-platform/bp-loader.php' ) ){
+			return true;
+		} else{
+			return false;
+		}
 	}
 
 	public static function is_buddyboss_theme_active() {
 		$theme = wp_get_theme(); // gets the current theme
 
 		$check_bb_theme  = ( 'BuddyBoss Theme' === $theme->name || 'BuddyBoss Theme' === $theme->parent_theme );
-		$check_bb_plugin = in_array('buddyboss-platform/bp-loader.php', apply_filters('active_plugins', get_option('active_plugins') ) );
+		$check_bb_plugin = in_array( 'buddyboss-platform/bp-loader.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) );
 
 		return $check_bb_theme && $check_bb_plugin;
 	}

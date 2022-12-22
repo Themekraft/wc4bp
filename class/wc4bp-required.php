@@ -39,7 +39,7 @@ class WC4BP_Required {
 		try {
 			$filters = $GLOBALS['wp_filter'][ $tag ];
 
-			if ( empty ( $filters ) || empty( $filters->callbacks ) ) {
+			if ( empty( $filters ) || empty( $filters->callbacks ) ) {
 				return;
 			}
 
@@ -68,7 +68,7 @@ class WC4BP_Required {
 			);
 
 			$theme = wp_get_theme(); // gets the current theme
-			if ( 'BuddyBoss Theme' != $theme->name && 'BuddyBoss Theme' != $theme->parent_theme ) {
+			if ( 'BuddyBoss Theme' != $theme->name && 'BuddyBoss Theme' != $theme->parent_theme && ! is_plugin_active( 'buddyboss-platform/bp-loader.php' ) ) {
 				$required_plugins[] = array(
 					'name'     => 'BuddyPress',
 					'slug'     => 'buddypress',
@@ -89,20 +89,20 @@ class WC4BP_Required {
 				'strings'      => array(
 					'notice_can_install_required'    => _n_noop(
 					/* translators: 1: plugin name(s). */
-						'<u>WooBuddy -> WooCommerce BuddyPress Integration</u> plugin requires the following plugin: %1$s.',
-						'<u>WooBuddy -> WooCommerce BuddyPress Integration</u> plugin requires the following plugins: %1$s.',
+						'<u>WC4BP</u> plugin requires the following plugin: %1$s.',
+						'<u>WC4BP</u> plugin requires the following plugins: %1$s.',
 						'wc4bp'
 					),
 					'notice_can_install_recommended' => _n_noop(
 					/* translators: 1: plugin name(s). */
-						'<u>WooBuddy -> WooCommerce BuddyPress Integration</u> plugin recommends the following plugin: %1$s.',
-						'<u>WooBuddy -> WooCommerce BuddyPress Integration</u> plugin recommends the following plugins: %1$s.',
+						'<u>WC4BP</u> plugin recommends the following plugin: %1$s.',
+						'<u>WC4BP</u> plugin recommends the following plugins: %1$s.',
 						'wc4bp'
 					),
 					'notice_can_activate_required'   => _n_noop(
 					/* translators: 1: plugin name(s). */
-						'The following is a required plugin for <u>WooBuddy -> WooCommerce BuddyPress Integration</u> and is currently inactive: %1$s.',
-						'The following is a required plugins for <u>WooBuddy -> WooCommerce BuddyPress Integration</u> and they are currently inactive: %1$s.',
+						'The following is a required plugin for <u>WC4BP</u> and is currently inactive: %1$s.',
+						'The following is a required plugins for <u>WC4BP</u> and they are currently inactive: %1$s.',
 						'wc4bp'
 					),
 					'notice_ask_to_update'           => _n_noop(

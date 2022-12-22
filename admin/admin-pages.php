@@ -20,7 +20,7 @@ class wc4bp_admin_pages extends wc4bp_base {
 	public function wc4bp_screen_pages( $active_tab ) {
 		try {
 			$this->wc4bp_register_admin_pages_settings();
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_pages_screen_pages.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_pages_screen_pages.php';
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
@@ -71,7 +71,7 @@ class wc4bp_admin_pages extends wc4bp_base {
 				$track_sub_nav = $options['track_sub_nav'];
 			}
 
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'pages/html_admin_pages_shop_pages_rename.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'pages/html_admin_pages_shop_pages_rename.php';
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
@@ -80,7 +80,7 @@ class wc4bp_admin_pages extends wc4bp_base {
 
 	public function wc4bp_get_forms_table() {
 		try {
-			//$wc4bp_options			= get_option( 'wc4bp_options' );
+			// $wc4bp_options            = get_option( 'wc4bp_options' );
 			$wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 			if ( ! empty( $wc4bp_pages_options ) && is_string( $wc4bp_pages_options ) ) {
 				$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
@@ -90,33 +90,33 @@ class wc4bp_admin_pages extends wc4bp_base {
 			// print_r($wc4bp_pages_options);
 			// echo '</pre>';
 			?>
-            <style type="text/css">
-                .wc4bp_editinline {
-                    color: blue;
-                    cursor: pointer;
-                }
+			<style type="text/css">
+				.wc4bp_editinline {
+					color: blue;
+					cursor: pointer;
+				}
 
-                .wc4bp_deleteinline {
-                    color: red;
-                    cursor: pointer;
-                }
+				.wc4bp_deleteinline {
+					color: red;
+					cursor: pointer;
+				}
 
-                table #the-list tr .wc4bp-row-actions {
-                    opacity: 0
-                }
+				table #the-list tr .wc4bp-row-actions {
+					opacity: 0
+				}
 
-                table #the-list tr:hover .wc4bp-row-actions {
-                    opacity: 1
-                }
+				table #the-list tr:hover .wc4bp-row-actions {
+					opacity: 1
+				}
 
-                table.wp-list-table th.manage-column {
-                    width: auto;
-                    padding: 20px 0px 20px 10px;
-                }
+				table.wp-list-table th.manage-column {
+					width: auto;
+					padding: 20px 0px 20px 10px;
+				}
 
-            </style>
+			</style>
 			<?php
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'pages/html_admin_pages_forms_table.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'pages/html_admin_pages_forms_table.php';
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
@@ -124,8 +124,8 @@ class wc4bp_admin_pages extends wc4bp_base {
 
 	public function wc4bp_thickbox_page_form() {
 		try {
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'pages/html_admin_pages_thickbox.php' );
-			//$options = get_option( 'wc4bp_options' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'pages/html_admin_pages_thickbox.php';
+			// $options = get_option( 'wc4bp_options' );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
@@ -198,9 +198,9 @@ class wc4bp_admin_pages extends wc4bp_base {
 				'name'             => 'wc4bp_page_id',
 				'class'            => 'postform',
 				'selected'         => $page_id,
-				'exclude'          => join( ', ', $exclude )
+				'exclude'          => join( ', ', $exclude ),
 			);
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'pages/html_admin_pages_edit_entry.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'pages/html_admin_pages_edit_entry.php';
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}

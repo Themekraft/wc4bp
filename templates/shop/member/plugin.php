@@ -1,5 +1,5 @@
 <?php
-//Leaven empty tag to let automation add the path disclosure line
+// Leaven empty tag to let automation add the path disclosure line
 ?>
 <div id="item-body" role="main">
 	<?php
@@ -52,19 +52,19 @@
 				if ( isset( $bp_action_variables[0] ) ) {
 					$args = array(
 						'name'      => $bp_action_variables[0],
-						'post_type' => 'page'
+						'post_type' => 'page',
 					);
-				} else if ( isset( $wc4bp_pages_options['selected_pages'][ $page->ID ]['page_id'] ) ) {
+				} elseif ( isset( $wc4bp_pages_options['selected_pages'][ $page->ID ]['page_id'] ) ) {
 					$args = array(
 						'p'         => $wc4bp_pages_options['selected_pages'][ $page->ID ]['page_id'],
-						'post_type' => 'page'
+						'post_type' => 'page',
 					);
 				}
 			}
 			/**
 			 * Change the Argument for the wp_query to get the current page to show inside a tab
-             *
-             * @param array argument for WP_Query
+			 *
+			 * @param array argument for WP_Query
 			 */
 			$args = apply_filters( 'wc4bp_members_plugin_template_query', $args );
 	}
@@ -74,31 +74,34 @@
 		if ( ! empty( $wp_query2->posts ) ) {
 			/**
 			 * Define the custom page template to load the tabs
-             *
-             * @param string Empty string by default
+			 *
+			 * @param string Empty string by default
 			 */
 			$custom_page_template = apply_filters( 'wc4bp_custom_page_template', '' );
 			if ( empty( $custom_page_template ) ) {
 				$old_post = $post;
 				$post     = $wp_query2->posts[0];
-				setup_postdata( $post ); ?>
+				setup_postdata( $post );
+				?>
 
-                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                    <header class="page-header">
-                        <h1 class="page-title"><?php the_title(); ?></h1>
-                    </header><!-- .entry-header -->
+				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+					<header class="page-header">
+						<h1 class="page-title"><?php the_title(); ?></h1>
+					</header><!-- .entry-header -->
 
-                    <div class="entry-content">
+					<div class="entry-content">
 						<?php the_content(); ?>
 						<?php
-						wp_link_pages( array(
-							'before' => '<div class="page-links">' . __( 'Pages:', 'wc4bp' ),
-							'after'  => '</div>',
-						) );
+						wp_link_pages(
+							array(
+								'before' => '<div class="page-links">' . __( 'Pages:', 'wc4bp' ),
+								'after'  => '</div>',
+							)
+						);
 						?>
-                    </div><!-- .entry-content -->
+					</div><!-- .entry-content -->
 					<?php edit_post_link( __( 'Edit', 'wc4bp' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
-                </article><!-- #post-## -->
+				</article><!-- #post-## -->
 
 				<?php
 				wp_reset_postdata();
@@ -111,7 +114,7 @@
 			$wp_query2->set_404();
 			status_header( 404 );
 			nocache_headers();
-			include( get_query_template( '404' ) );
+			include get_query_template( '404' );
 		}
 	}
 	?>

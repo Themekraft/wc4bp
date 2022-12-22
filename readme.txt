@@ -1,42 +1,58 @@
-=== WooBuddy -> WooCommerce BuddyPress Integration ===
+=== BuddyPress WooCommerce My Account Integration. Create WooCommerce Member Pages  ===
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
-Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
+Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages, buddyboss
 Requires at least: 4.9
-Tested up to: 5.7
-Stable tag: 3.3.15
+Tested up to: 6.1.1
+Stable tag: 3.4.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Shop solution for your BuddyPress community. Integrates a WooCommerce installation with a BuddyPress social network.
+Integrate WooCommerce my account into BuddyPress member profiles. Bring your WooCommerce member pages into BuddyPress and BuddyBoss. Create the most straightforward user experience and benefit from Social Network features like groups and messages.
 
 == Description ==
 
-Create a seamless customer experience and get more engagement on your site by integrating your WooCommerce store with your BuddyPress community.
+Create a seamless customer experience and get more engagement on your site by integrating your WooCommerce store with your BuddyPress or BuddyBoss community.
 
----
+[youtube https://www.youtube.com/watch?v=vgSKhrvi3SU&t]
 
-Sync customer data: Show purchase history, product downloads and more in your BuddyPress member profiles. Make all customer relevant data accessible from one place. Add pages from other WooCommerce extensions right into your BuddyPress member profiles.
+### Integrate it all
+Show purchase history, product downloads and more in your BuddyPress member profiles. Make all WooCommerce customer data accessible from one place and create WooCommerce member pages that display all data relevant for your customers. Add pages from other WooCommerce extensions right into your BuddyPress member profiles as a new tab.
 
----
+### WooCommerce Member Pages
+Create WooCommerce Member Pages that are easy accessable from there BuddyPress Member Profile and make Pages only available to your customers.
 
-That allows you a quick great overview about the engagement level of your customers & users and let’s you manage your site more efficiently.
+### Display Customer Data:
+Display relevant data from any WooCommerce Extension in your BuddyPresss Member Profile. Create tabs with any data revevant for your clients.
 
----
+### Sync Customer Data:
+Syncronise WooComemrce data like Billing and Shipping Address with BuddyPress and WordPress and make your website become your CRM Customer Relation Mangement. USe BuddyPress as data hub and avoid redundat data on your site.
 
-### Addons
+### WooCommerce Checkout and BuddyPress Profile Fields
+Mix BuddyPress and WooCommerce Data in the checkout. Remove unwanted WooCommerce Checkout form elements. Add BuddyPress Profile Form Elements.
 
-> * [WooBuddy -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.](https://wordpress.org/plugins/woocommerce-buddypress-integration-xprofile-checkout-manager/)
-> * [WooBuddy -> Groups, integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://wordpress.org/plugins/wc4bp-groups/)
-> * [WooBuddy -> Subscriptions, integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
+### WooCommerce Groups
+Use BuddyPress Groups with WooCommerce and bring your client relation to the next lavel.
 
----
+##How to Integrate WooCommerce with BuddyPress or BuddyBoss seamlessly
+
+Online Business Growth Solutions for BuddyPress & BuddyBoss Shop Owners. Supercharge your WooCommerce BuddyPress / BuddyBoss site with eCommerce features. Make WooCommerce fully integrated into your Social Network.
+[Integrate WooCommerce with BuddyPress](https://themekraft.com/wordpress-solutions/woocommerce-buddypress/)
+
+### Extendable with Addons
+
+Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
+[Checkout Manager](https://wordpress.org/plugins/woocommerce-buddypress-integration-xprofile-checkout-manager/)
+
+Integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Link your groups to products so that they can only be accessible through purchase.
+[WooCommerce Groups](https://wordpress.org/plugins/wc4bp-groups/)
+
+Integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.
+[WooCommerce Subscriptions](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
 
 > #### Push your online shop and products to a new level
 > * Empower your customers to become more involved and interact with other users, your products and brand, or even contribute in product development.
 > * Perfect for marketplaces, membership sites, digital products, auction sites or any kind of subscription site!
 > * Secure your data
-
----
 
 > #### All Plugin Features in Detail
 > * Easy to use. No configuration needed. Just activate it. That’s it!
@@ -50,55 +66,21 @@ That allows you a quick great overview about the engagement level of your custom
 > * Manage notifications: Members can choose if they want their reviews and purchased activities to be shown in the activity stream or not.
 > * Synchronization: It synchronizes all WooCommerce data with your BuddyPress data. If you register a new account via the checkout or add data like your billing address etc. the plugin will handle all the communication between WooCommerce and BuddyPress and keep the data synchronized.
 > * Fallback save! If you turn off BuddyPress for some reason, or the user don’t want to become a member the plugin falls back to the regular WooCommerce pages.
-
-<h4>Videos</h4>
-
-Overview over the plugin options [youtube https://www.youtube.com/watch?v=DtPk-WKo8ww&feature=youtu.be]
-
----
-
-### Blog Posts
-[Why You Should Build Your Online Shop With WordPress, BuddyPress and WooCommerce](https://themekraft.com/why-you-should-build-your-online-shop-with-wordpress-buddypress-and-woocommerce/)
-
-
-> #### AddOns
-> * WooBuddy -> Checkout Manager: Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
-
-
----
+> * Easy switch from BuddyCommerce to WooBuddy. Just deactivate BuddyCommerce and Activate WooBuddy. You maybe need to redo custom Tabs.
+> * Display content added by third party WooCommerce extensions directly on user profiles.
 
 > #### Docs & Support
 > * Find our Getting Started, How-to and Developer Docs on [docs.themekraft.com](http://docs.themekraft.com/)
 
----
-
-> #### Submit Issues - Contribute
-> * Pull request are welcome. WooBuddy is community driven and developed on [Github](https://github.com/Themekraft/wc4bp)
-
----
-
-> #### Demo Site
-> * Feel free to test WooBuddy on our Demo Site: [WooBuddy Demo](https://addendio.com/try-plugin/?slug=wc4bp)
-
----
-
 > #### Follow Us
 > [Blog](https://themekraft.com/blog/) | [Twitter](https://twitter.com/themekraft) | [Facebook](https://www.facebook.com/themekraft/)
 
----
-
 > **Powered with ❤ by [ThemeKraft](https://themekraft.com)**
 
----
-
-#### Tags
-Tags: WooCommerce, BuddyPress, Shop, eCommerce, social networking, social shopping, customer, customer relation, achievements, support, product, vendor, marketplace, groups, support groups, profile, my account, my-account
-
-
 == Installation ==
-Upload the entire WooBuddy folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
+Upload the entire BuddyPress Integration for WooCommerce folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
 Activate the plugin through the 'Plugins' menu in WordPress.
-Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the settings
+Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your admin sidebar to adjust the settings
 
 == Screenshots ==
 
@@ -113,6 +95,76 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 9. Admin menu options
 
 == Changelog ==
+= 3.4.12 - 21 Dec 2022 =
+* Removed old marketing files.
+* Updated trial version duration.
+
+= 3.4.11 - 15 Dec 2022 =
+* Updated Freemius SDK.
+
+= 3.4.10 - 30 Nov 2022 =
+* Updated Freemius SDK.
+* Tested up to WordPress 6.1.1
+
+= 3.4.9 - 13 Oct 2022 =
+* Deleted old revision popup on admin pages.
+* Fixed activation issue when using BuddyBoss Platform free.
+* Added auto activation when using bundle license.
+* Tested up to WordPress 6.0.2
+
+= 3.4.8 - 26 Aug 2022 =
+* Updated plugin name.
+* Changed admin screen labels and titles.
+
+= 3.4.7 - 26 Jul 2022 =
+* Fixed issue during checkout.
+* Removed admin notices from Freemius.
+* Tested up to WordPress 6.0.1
+
+= 3.4.6 - 03 Jun 2022 =
+* Fixed vulnerability issue.
+
+= 3.4.5 - 02 Jun 2022 =
+* Fixed issue of trademarks.
+
+= 3.4.4 - 02 Jun 2022 =
+* Fixed vulnerability issue.
+* Updated plugin name.
+* Tested up to WordPress 6.0
+
+= 3.4.3 - 17 May 2022 =
+* Updated readme.txt
+
+= 3.4.2 - 17 Mar 2022 =
+* Fixed purchased product notification warning.
+* Improved shop strings translations.
+* Fixed security issue.
+
+= 3.4.1 - 28 Feb 2022 =
+* Added descriptive video in readme.txt file.
+* Removed outdated media content.
+
+= 3.4.0 - 25 Feb 2022 =
+* Fixed checkout issue related with Woocommerce Subscriptions.
+* Added new option for 3rd party tabs integration.
+* Added new hook to modify base url redirection.
+* Tested up to WordPress 5.9
+
+= 3.3.18 - 29 Jul 2021 =
+*Fixed bug on purchased notifications
+
+= 3.3.17 - 26 Jul 2021 =
+* Tested up to WordPress 5.8
+* Fixed Race Condition issue. This fix rely on WC4BP >= 3.3.17.
+* Fixed issue on the Cart Page, the product name was not been showing up.
+
+= 3.3.16 - 22 Jun 2021 =
+* Removed CSS styles for BuddyPress/BuddyBoss pages. Let's keep the build-in stayles to avoid conflicts.
+* Added a remove item button on the checkout page.
+* Fixed 404 issue when all items are removed from the cart on the checkout.
+* Fixed issue with Default Tab Shop Page. The option was being ignored on the Frontend.
+* Adding notifications depending on status of the product bought.
+
 = 3.3.15 - 12 May 2021 =
 * Fixed issue on redirections from My Account pages to our BP Profile equivalents.
 * Added missing asset on the fremius SDK.
@@ -244,7 +296,7 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 * Adding a new option to avoid WooCommerce override User Profile data.
 * Fixing the 404 in pay invoice link.
 * Fixing the Payment tab.
-* Adding new filter to avoid the redirecting of WooBuddy.
+* Adding new filter to avoid the redirecting of WC4BP.
 * Improving the code documentation.
 * Removing the restore error handler from debug class.
 
@@ -290,7 +342,7 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 
 = 3.0.16 21 December 2017 =
 * Fixing a 404 error in orders details for the free version.
-* Solved HTTP request of WC checkout page leads to INET_E_REDIRECT_FAILED with WooBuddy plugin activated.
+* Solved HTTP request of WC checkout page leads to INET_E_REDIRECT_FAILED with WC4BP plugin activated.
 
 = 3.0.15.3 19 December 2017 =
 * Fixing 404 in Activity Stream
@@ -330,7 +382,7 @@ Head to the 'WooBuddy Settings' menu item in your admin sidebar to adjust the se
 * Removing pages for WooCommerce My Account integrations.
 * Optimize My Account.
 * Adding cache.
-* Improving the UX of the WooBuddy Setting Tab.
+* Improving the UX of the WC4BP Setting Tab.
 * Fixing the function to load the payment method screen.
 * Fixing the edit page to edit the Shipping and Billing group.
 * Adding a message to the sync tab when the user disable the Turn off the Profile Sync.

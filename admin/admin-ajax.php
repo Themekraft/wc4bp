@@ -42,7 +42,7 @@ class wc4bp_admin_ajax extends wc4bp_base {
 			$offset      = ( $paged - 1 ) * $number;
 			$query       = get_users( '&offset=' . $offset . '&number=' . $number );
 
-			include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'sync/html_admin_sync_shop_profile_sync_ajax.php' );
+			include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'sync/html_admin_sync_shop_profile_sync_ajax.php';
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
@@ -81,9 +81,11 @@ class wc4bp_admin_ajax extends wc4bp_base {
 				$ids      = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
 				$shipping = $ids['shipping'];
 				$billing  = $ids['billing'];
-				$groups   = BP_XProfile_Group::get( array(
-					'fetch_fields' => true,
-				) );
+				$groups   = BP_XProfile_Group::get(
+					array(
+						'fetch_fields' => true,
+					)
+				);
 				if ( ! empty( $groups ) ) {
 					foreach ( $groups as $group ) {
 						if ( wc4bp_Sync::wc4bp_is_invalid_xprofile_group( $group ) ) {
@@ -191,16 +193,16 @@ class wc4bp_admin_ajax extends wc4bp_base {
 				if ( ! empty( $wc4bp_options ) && is_string( $wc4bp_options ) ) {
 					$wc4bp_options = json_decode( $wc4bp_options, true );
 				}
-				//Check if the page to delete is the one defined as thank you page
+				// Check if the page to delete is the one defined as thank you page
 				if ( isset( $wc4bp_options['thank_you_page'] ) && $wc4bp_options['thank_you_page'] == $page_id ) {
-					//Then set the Woocommerce page as Thank you page.
+					// Then set the Woocommerce page as Thank you page.
 					$wc4bp_options['thank_you_page'] = 'default';
 				}
-				//Check if the tab_shop_default is equal to the page to delete
+				// Check if the tab_shop_default is equal to the page to delete
 				$page_name = get_post( $page_id );
 				if ( $page_name && isset( $wc4bp_options['tab_shop_default'] ) ) {
 					if ( $page_name->post_name == $wc4bp_options['tab_shop_default'] ) {
-						//If the page to delete is set as default tab, then do this.
+						// If the page to delete is set as default tab, then do this.
 						$wc4bp_options['tab_shop_default'] = 'default';
 
 					}

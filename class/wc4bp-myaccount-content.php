@@ -24,14 +24,17 @@ class WC4BP_MyAccount_Content {
 			 *     @type callable Value The callable to handle the content of each tab item.
 			 * }
 			 */
-			$this->end_points = apply_filters( 'wc4bp_woocommerce_endpoint_key_content', array(
-				'orders'              => array( $this, 'wc4bp_my_account_process_shortcode_orders' ),
-				'downloads'           => array( $this, 'wc4bp_my_account_process_shortcode_downloads' ),
-				'edit-address'        => array( $this, 'wc4bp_my_account_process_shortcode_edit_address' ),
-				'payment-methods'     => array( $this, 'wc4bp_my_account_process_shortcode_payment_methods' ),
-				'edit-account'        => array( $this, 'wc4bp_my_account_process_shortcode_edit_account' ),
-				'add-payment-methods' => array( $this, 'wc4bp_my_account_process_shortcode_add_payment_methods' ),
-			) );
+			$this->end_points = apply_filters(
+				'wc4bp_woocommerce_endpoint_key_content',
+				array(
+					'orders'              => array( $this, 'wc4bp_my_account_process_shortcode_orders' ),
+					'downloads'           => array( $this, 'wc4bp_my_account_process_shortcode_downloads' ),
+					'edit-address'        => array( $this, 'wc4bp_my_account_process_shortcode_edit_address' ),
+					'payment-methods'     => array( $this, 'wc4bp_my_account_process_shortcode_payment_methods' ),
+					'edit-account'        => array( $this, 'wc4bp_my_account_process_shortcode_edit_account' ),
+					'add-payment-methods' => array( $this, 'wc4bp_my_account_process_shortcode_add_payment_methods' ),
+				)
+			);
 			foreach ( $this->end_points as $key => $class ) {
 				add_shortcode( $key, array( $this, 'process_shortcodes' ) );
 			}
@@ -99,12 +102,12 @@ class WC4BP_MyAccount_Content {
 			wc_print_notices();
 			$result = Request_Helper::simple_get( 'add-payment-method' );
 			if ( ! empty( $result ) ) {
-//				if ( class_exists( 'WooCommerce' ) ) {
-//					$this->is_payment_short_code = true;
-//					if ( class_exists( 'WC_Gateway_Stripe' ) ) {
-//						$this->exist_stripe_payment = true;
-//					}
-//				}
+				// if ( class_exists( 'WooCommerce' ) ) {
+				// $this->is_payment_short_code = true;
+				// if ( class_exists( 'WC_Gateway_Stripe' ) ) {
+				// $this->exist_stripe_payment = true;
+				// }
+				// }
 				woocommerce_account_add_payment_method();
 			} else {
 				woocommerce_account_payment_methods();
@@ -134,17 +137,15 @@ class WC4BP_MyAccount_Content {
 	}
 
 	public function add_stripe_scripts() {
-		if ( class_exists( 'WC_Gateway_Stripe' ) && class_exists( 'WC_Subscriptions_Order' )  ) {
-			if ( function_exists( 'wcs_create_renewal_order' ) ) {
-				$payment_class = "WC_Stripe_Subs_Compat";
-			} else {
-				$payment_class = "WC_Gateway_Stripe";
-			}
+		if ( class_exists( 'WC_Gateway_Stripe' ) ) {
+
+			$payment_class = 'WC_Gateway_Stripe';
+
 			/** @var WC_Gateway_Stripe $payment_management */
 			$payment_management = new $payment_class();
 
 			if ( $payment_management->settings['enabled'] === 'yes' ) {
-				$payment_management->payment_scripts();
+				add_action( 'wp_enqueue_scripts', [ 'WC_Gateway_Stripe', 'payment_scripts' ] );
 			}
 		}
 	}

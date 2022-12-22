@@ -22,8 +22,7 @@ class WC4BP_MyAccount {
 			if ( ! $is_shop_disable || ( $is_shop_disable || ! $is_woo_redirection_disabled ) ) {
 				add_filter( 'woocommerce_get_view_order_url', array( $this, 'get_view_order_url' ), 10, 2 );
 			}
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 	}
@@ -35,8 +34,7 @@ class WC4BP_MyAccount {
 			}
 
 			return bp_core_get_user_domain( bp_loggedin_user_id() ) . wc4bp_Manager::get_shop_slug() . $endpoint;
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 
 			return $endpoint;
@@ -47,7 +45,7 @@ class WC4BP_MyAccount {
 	 * Change url for view order endpoint.
 	 *
 	 * @param          $view_order_url
-	 * @param WC_Order $order
+	 * @param WC_Order       $order
 	 *
 	 * @return string
 	 */
@@ -59,8 +57,7 @@ class WC4BP_MyAccount {
 			}
 
 			return $view_order_url;
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 
 			return $view_order_url;
@@ -79,7 +76,7 @@ class WC4BP_MyAccount {
 		try {
 			global $bp;
 
-			$wc4bp_endpoint = WC4BP_MyAccount::get_active_endpoints();
+			$wc4bp_endpoint = self::get_active_endpoints();
 
 			if ( ! empty( $wc4bp_endpoint ) ) {
 				foreach ( $wc4bp_endpoint as $active_page_key => $active_page_name ) {
@@ -91,8 +88,7 @@ class WC4BP_MyAccount {
 			}
 
 			return $result;
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 
 			return $permalink;
@@ -120,8 +116,7 @@ class WC4BP_MyAccount {
 			}
 
 			return $result;
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
 
@@ -146,8 +141,7 @@ class WC4BP_MyAccount {
 			}
 
 			return $result;
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 
 			return array();
@@ -159,6 +153,10 @@ class WC4BP_MyAccount {
 	 */
 	public static function get_available_endpoints() {
 		try {
+			$wc4bp_options = get_option( 'wc4bp_options' );
+			if ( ! is_array( $wc4bp_options ) ) {
+				$wc4bp_options = (array) json_decode( $wc4bp_options );
+			}
 			$end_points = wp_cache_get( 'wc4bp_get_available_endpoints', 'wc4bp' );
 			if ( false === $end_points ) {
 				$woo_endpoints = array(
@@ -176,6 +174,10 @@ class WC4BP_MyAccount {
 					'payment-methods' => __( 'Payment methods', 'wc4bp' ),
 					'edit-account'    => __( 'Account details', 'wc4bp' ),
 				);
+				if ( array_key_exists( 'tab_my_account_extra_content', $wc4bp_options ) && $wc4bp_options['tab_my_account_extra_content'] == '1' ) {
+					$woo_endpoints['extra-content'] = 'extra-content';
+					$end_points['extra-content']    = __( 'Extra Content', 'wc4bp' );
+				}
 
 				// Remove missing endpoints.
 				foreach ( $woo_endpoints as $endpoint_id => $endpoint ) {
@@ -196,8 +198,7 @@ class WC4BP_MyAccount {
 			 * }
 			 */
 			return apply_filters( 'wc4bp_add_endpoint', $end_points );
-		}
-		catch ( Exception $exception ) {
+		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 
 			return array();

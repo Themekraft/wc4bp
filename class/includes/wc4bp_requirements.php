@@ -6,20 +6,20 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 	class wc4bp_requirements {
 		private static $text_domain;
 		protected $results = array();
-		
+
 		public function __construct( $text_domain = 'wc4bp_requirements' ) {
 			self::$text_domain = $text_domain;
 		}
-		
+
 		public static function _t( $string ) {
 			return __( $string, self::$text_domain );
 		}
-		
+
 		/* abstract */
 		function getRequirements() {
 			return array();
 		}
-		
+
 		function satisfied() {
 			$requirements = $this->getRequirements();
 			$results      = array();
@@ -27,7 +27,7 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 			foreach ( $requirements as $requirement ) {
 				$result = array(
 					'satisfied'   => $requirement->check(),
-					'requirement' => $requirement
+					'requirement' => $requirement,
 				);
 				array_push( $results, $result );
 				if ( ! $result['satisfied'] ) {
@@ -35,17 +35,17 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 				}
 			}
 			$this->results = $results;
-			
+
 			return $success;
 		}
-		
+
 		function getResults() {
 			return $this->results;
 		}
-		
-		
+
+
 	}
-	
+
 	class WP_Min_Requirements extends wc4bp_requirements {
 		function getRequirements() {
 			$requirements = array();
@@ -56,11 +56,11 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 			$requirement                 = new WP_WordPress_Requirement();
 			$requirement->minimumVersion = '3.5.0';
 			array_push( $requirements, $requirement );
-			
+
 			return $requirements;
 		}
 	}
-	
+
 	class WP_Modern_Requirements extends wc4bp_requirements {
 		function getRequirements() {
 			$requirements                = array();
@@ -80,14 +80,14 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 				'gd',
 				'mbstring',
 				'phar',
-				'zlib'
+				'zlib',
 			);
 			array_push( $requirements, $requirement );
-			
+
 			return $requirements;
 		}
 	}
-	
+
 	// For Testing
 	class WP_Failing_Requirements extends wc4bp_requirements {
 		function getRequirements() {
@@ -98,73 +98,77 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 			$requirement                 = new WP_WordPress_Requirement();
 			$requirement->minimumVersion = '100.0.0';
 			array_push( $requirements, $requirement );
-			
+
 			return $requirements;
 		}
 	}
-	
+
 	class WP_PHP_Requirement {
 		public $minimumVersion = '5.3.2';
-		
+
 		function check() {
 			return version_compare(
-				phpversion(), $this->minimumVersion, '>='
+				phpversion(),
+				$this->minimumVersion,
+				'>='
 			);
 		}
-		
+
 		function message() {
 			$version = phpversion();
-			
-			return sprintf( wc4bp_requirements::_t( "PHP %s+ Required, Detected %s" ), $this->minimumVersion, $version );
+
+			return sprintf( wc4bp_requirements::_t( 'PHP %s+ Required, Detected %s' ), $this->minimumVersion, $version );
 		}
 	}
-	
+
 	class WP_WordPress_Requirement {
 		public $minimumVersion = '3.5.0';
-		
+
 		function check() {
 			return version_compare(
-				$this->getWordPressVersion(), $this->minimumVersion, '>='
+				$this->getWordPressVersion(),
+				$this->minimumVersion,
+				'>='
 			);
 		}
-		
+
 		function getWordPressVersion() {
 			global $wp_version;
-			
+
 			return $wp_version;
 		}
-		
+
 		function message() {
 			$version = $this->getWordPressVersion();
-			
-			return sprintf( wc4bp_requirements::_t( "WordPress %s+ Required, Detected %s" ), $this->minimumVersion, $version );
+
+			return sprintf( wc4bp_requirements::_t( 'WordPress %s+ Required, Detected %s' ), $this->minimumVersion, $version );
 		}
 	}
-	
+
 	class WPMU_WordPress_Requirement {
 		private $only_multisite = true;
-		
+
 		function check() {
 			return is_multisite() == $this->isForMultisite();
 		}
-		
+
 		function message() {
 			$message = wc4bp_requirements::_t( 'This plugins is ' );
 			if ( ! $this->isForMultisite() ) {
 				$message .= wc4bp_requirements::_t( 'not ' );
 			}
 			$message .= wc4bp_requirements::_t( 'for multisite installation.' );
-			
+
 			return $message;
 		}
-		
+
 		/**
 		 * @return mixed
 		 */
 		public function isForMultisite() {
 			return $this->only_multisite;
 		}
-		
+
 		/**
 		 * @param mixed $only_multisite
 		 */
@@ -172,16 +176,16 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 			$this->only_multisite = $only_multisite;
 		}
 	}
-	
+
 	class WP_Plugins_Requirement {
-		public $plugins = array();
-		public $notFound = array();
+		public $plugins     = array();
+		public $notFound    = array();
 		private $notVersion = array();
-		
+
 		private function load_plugins_dependency() {
-			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
-		
+
 		function check() {
 			$this->load_plugins_dependency();
 			$result          = true;
@@ -207,31 +211,31 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 					}
 				}
 			}
-			
+
 			return $result;
 		}
-		
+
 		function message() {
-			$result              = wc4bp_requirements::_t( "Requirements Plugins." );
+			$result              = wc4bp_requirements::_t( 'Requirements Plugins.' );
 			$plugins_not_version = implode( ', ', $this->notVersion );
 			if ( ! empty( $this->notFound ) ) {
 				$plugins_not_found = implode( '</li><li class="requirement_sub_item">', $this->notFound );
-				$result            .= "<ul class='requirement_sub_list'>" . sprintf( wc4bp_requirements::_t( " Not Found: %s" ), '<li class="requirement_sub_item">' . $plugins_not_found . '</li>' ) . "</ul>";
+				$result           .= "<ul class='requirement_sub_list'>" . sprintf( wc4bp_requirements::_t( ' Not Found: %s' ), '<li class="requirement_sub_item">' . $plugins_not_found . '</li>' ) . '</ul>';
 			}
-			
+
 			if ( ! empty( $this->notVersion ) ) {
 				$plugins_not_version = implode( '</li><li class="requirement_sub_item">', $this->notVersion );
-				$result              .= "<ul class='requirement_sub_list'>" . sprintf( wc4bp_requirements::_t( " Requirement Version Fail: %s" ), '<li class="requirement_sub_item">' . $plugins_not_version . '</li>' ) . "</ul>";
+				$result             .= "<ul class='requirement_sub_list'>" . sprintf( wc4bp_requirements::_t( ' Requirement Version Fail: %s' ), '<li class="requirement_sub_item">' . $plugins_not_version . '</li>' ) . '</ul>';
 			}
-			
+
 			return $result;
 		}
 	}
-	
+
 	class WP_PHP_Extension_Requirement {
 		public $extensions = array();
-		public $notFound = array();
-		
+		public $notFound   = array();
+
 		function check() {
 			$result         = true;
 			$this->notFound = array();
@@ -241,96 +245,97 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 					array_push( $this->notFound, $extension );
 				}
 			}
-			
+
 			return $result;
 		}
-		
+
 		function message() {
 			$extensions = implode( ', ', $this->notFound );
-			
-			return sprintf( wc4bp_requirements::_t( "PHP Extensions Not Found: %s" ), $extensions );
+
+			return sprintf( wc4bp_requirements::_t( 'PHP Extensions Not Found: %s' ), $extensions );
 		}
 	}
-	
+
 	class WP_Faux_Plugin {
 		public $pluginName;
 		public $results;
-		
+
 		function __construct( $pluginName, $results ) {
 			$this->pluginName = $pluginName;
 			$this->results    = $results;
 		}
-		
+
 		/**
 		 * NOTE This don't work in multisite
 		 */
 		function activate( $pluginFile ) {
 			register_activation_hook(
-				$pluginFile, array( $this, 'onActivate' )
+				$pluginFile,
+				array( $this, 'onActivate' )
 			);
 		}
-		
+
 		function onActivate() {
 			$this->showError( $this->resultsToNotice() );
 		}
-		
+
 		function showError( $message ) {
 			if ( $this->isErrorScraper() ) {
-				echo $message;
+				echo esc_html( $message );
 				$this->quit();
 			} else {
 				throw new WP_Requirements_Exception();
 			}
 		}
-		
+
 		function quit() {
 			if ( ! defined( 'PHPUNIT_RUNNER' ) ) {
 				exit();
 			}
 		}
-		
+
 		function isErrorScraper() {
-            $result = Request_Helper::simple_get('action');
+			$result = Request_Helper::simple_get( 'action' );
 			return $result === 'error_scrape';
 		}
-		
+
 		function resultsToNotice() {
-			$html = $this->getStyles();
+			$html  = $this->getStyles();
 			$html .= $this->getHeading();
 			foreach ( $this->results as $result ) {
 				if ( ! $result['satisfied'] ) {
 					$html .= $this->resultToNotice( $result );
 				}
 			}
-			
+
 			return $this->toDiv( $html, 'error' );
 		}
-		
+
 		function resultToNotice( $result ) {
 			$message = $result['requirement']->message();
-			
+
 			return "<li>$message</li>";
 		}
-		
+
 		function toDiv( $content, $classname ) {
 			return "<div class='$classname'>$content</div>";
 		}
-		
+
 		function getHeading() {
-			$html = wc4bp_requirements::_t( "<p>Minimum System Requirements not satisfied for: " );
+			$html  = wc4bp_requirements::_t( '<p>Minimum System Requirements not satisfied for: ' );
 			$html .= "<strong>$this->pluginName</strong>.";
-			$html .= wc4bp_requirements::_t( " The plugins wont be activated.</p>" );
-			
+			$html .= wc4bp_requirements::_t( ' The plugins wont be activated.</p>' );
+
 			return $html;
 		}
-		
+
 		function getStyles() {
 			$styles = '.requirement_sub_list{ margin-left: 50px; }.requirement_sub_item{margin-left: 15px;} ';
 			$styles = "<style type='text/css' scoped>$styles</style>";
-			
+
 			return $styles;
 		}
-		
+
 		/**
 		 * Show te result and disable the plugins.
 		 *
@@ -358,12 +363,12 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 				}
 			}
 		}
-		
+
 		public function show_notice() {
-			echo $this->resultsToNotice();
+			echo esc_html( $this->resultsToNotice() );
 		}
 	}
-	
+
 	class WP_Requirements_Exception extends \Exception {
 	}
 }

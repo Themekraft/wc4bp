@@ -15,7 +15,7 @@
 	 *
 	 * @var string
 	 */
-	$this_sdk_version = '2.4.1';
+	$this_sdk_version = '2.5.3';
 
 	#region SDK Selection Logic --------------------------------------------------------------------
 
@@ -68,7 +68,11 @@
 
 	if ( ! isset( $fs_active_plugins ) ) {
 		// Load all Freemius powered active plugins.
-		$fs_active_plugins = get_option( 'fs_active_plugins', new stdClass() );
+		$fs_active_plugins = get_option( 'fs_active_plugins' );
+
+        if ( ! is_object( $fs_active_plugins ) ) {
+            $fs_active_plugins = new stdClass();
+        }
 
 		if ( ! isset( $fs_active_plugins->plugins ) ) {
 			$fs_active_plugins->plugins = array();
@@ -512,7 +516,7 @@
 		}
 
 		/**
-		 * @param array <string,string> $module Plugin or Theme details.
+		 * @param array <string,string|bool|array> $module Plugin or Theme details.
 		 *
 		 * @return Freemius
 		 * @throws Freemius_Exception

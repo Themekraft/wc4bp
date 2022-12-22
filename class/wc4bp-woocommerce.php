@@ -8,7 +8,7 @@
  * @license        http://www.opensource.org/licenses/gpl-2.0.php GPL License
  */
 
-//Manage Woocommerce hooks
+// Manage Woocommerce hooks
 class wc4bp_Woocommerce {
 
 	private $wc4bp_options;
@@ -25,8 +25,8 @@ class wc4bp_Woocommerce {
 				add_filter( 'woocommerce_available_payment_gateways', array( $this, 'available_payment_gateways' ), 1, 1 );
 			}
 		}
-		
-		add_filter('woocommerce_is_order_received_page', array($this, 'wc4bp_woocommerce_is_order_received_page'));
+
+		add_filter( 'woocommerce_is_order_received_page', array( $this, 'wc4bp_woocommerce_is_order_received_page' ) );
 	}
 
 	/**
@@ -98,16 +98,18 @@ class wc4bp_Woocommerce {
 		}
 	}
 
-	/*
-	 * @param is_checkout
+	/**
+	 * Extend the is_checkout WooCommerce function to give support
+	 * to the WC4BP checkout view on the member profile.
 	 *
-	 * @return true if is the WooCommerce checkout page
-	 * */
+	 * @param bool $is_checkout false by default
+	 * @return bool true if is the WC4BP checkout page.
+	 */
 	public function wc4bp_woocommerce_is_checkout( $is_checkout ) {
 		$default = $is_checkout;
 		try {
 			if ( is_user_logged_in() && ! isset( $this->wc4bp_options['tab_checkout_disabled'] ) ) {
-				if ( bp_is_current_component( wc4bp_Manager::get_shop_slug() ) && ( bp_is_current_action( 'checkout' ) || bp_is_current_action( 'home' ) ) ) {
+				if ( bp_is_current_component( wc4bp_Manager::get_shop_slug() ) && bp_is_current_action( 'checkout' ) ) {
 					$is_checkout = true;
 				}
 			}
@@ -132,14 +134,14 @@ class wc4bp_Woocommerce {
 		try {
 			$base_path = wc4bp_redirect::get_base_url();
 			switch ( $endpoint ) {
-                case 'order-pay':
-                    $checkout_page_id = wc_get_page_id( 'checkout' );
-                    $checkout_page    = get_post( $checkout_page_id );
-                    $url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' . $endpoint . '/' . $value;
-                    break;
-                case 'orders':
-                    $url = $base_path . $endpoint . '/' . $value;
-                    break;
+				case 'order-pay':
+					$checkout_page_id = wc_get_page_id( 'checkout' );
+					$checkout_page    = get_post( $checkout_page_id );
+					$url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' . $endpoint . '/' . $value;
+					break;
+				case 'orders':
+					$url = $base_path . $endpoint . '/' . $value;
+					break;
 				case 'edit-address':
 					if ( ! isset( $this->wc4bp_options['wc4bp_endpoint_edit-address'] ) ) {
 						$url = $base_path . $endpoint . '/' . $value;
@@ -154,7 +156,7 @@ class wc4bp_Woocommerce {
 					$checkout_page_id = wc_get_page_id( 'checkout' );
 					$checkout_page    = get_post( $checkout_page_id );
 					$url              = get_bloginfo( 'url' ) . '/' . $checkout_page->post_name . '/' . $endpoint . '/' . $value;
-					//If checkout page do not exist, assign this url.
+					// If checkout page do not exist, assign this url.
 					if ( - 1 === $checkout_page_id ) {
 						$url = $base_path . '/orders/view-order/' . $value;
 					}
@@ -172,7 +174,7 @@ class wc4bp_Woocommerce {
 					break;
 			}
 
-			return apply_filters('wc4bp_endpoint_url', $url, $endpoint, $value, $permalink, $base_path);
+			return apply_filters( 'wc4bp_endpoint_url', $url, $endpoint, $value, $permalink, $base_path );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 

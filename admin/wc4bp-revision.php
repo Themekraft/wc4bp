@@ -40,16 +40,20 @@ class WC4BP_Revision {
 	}
 
 	public function ask_for_revision() {
-		include_once( WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_revision.php' );
+		include_once WC4BP_ABSPATH_ADMIN_VIEWS_PATH . 'html_admin_revision.php';
 	}
 
 	public function revision_script( $hook ) {
 		wp_enqueue_style( 'wc4bp_admin_revision_css', wc4bp_Manager::assets_path( 'wc4bp-revision', 'css' ) );
 		wp_enqueue_script( 'wc4bp_admin_revision_js', wc4bp_Manager::assets_path( 'wc4bp-revision' ), array( 'jquery' ), WC4BP_Loader::VERSION );
-		wp_localize_script( 'wc4bp_admin_revision_js', 'wc4bp_admin_revision_js', array(
-			'nonce'   => wp_create_nonce( 'wc4bp_review_nonce' ),
-			'ajaxurl' => admin_url( 'admin-ajax.php' ),
-		) );
+		wp_localize_script(
+			'wc4bp_admin_revision_js',
+			'wc4bp_admin_revision_js',
+			array(
+				'nonce'   => wp_create_nonce( 'wc4bp_review_nonce' ),
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			)
+		);
 	}
 
 	public function wc4bp_revision_trigger() {
