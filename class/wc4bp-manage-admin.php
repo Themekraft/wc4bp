@@ -41,6 +41,12 @@ class wc4bp_Manage_Admin {
 			wp_enqueue_script( 'jquery-ui-tabs' );
 			wp_enqueue_script( 'jquery-effects-core' );
 			wp_enqueue_script( 'jquery-ui-sortable' );
+			wp_register_script( 'freemius-checkout', 'https://checkout.freemius.com/checkout.min.js', array(), false );
+    		wp_enqueue_script( 'freemius-checkout' );
+			wp_register_style( 'gopro-screen', wc4bp_Manager::assets_path( 'gopro-screen', 'css' ), array(), false );
+    		wp_enqueue_style( 'gopro-screen' );
+			wp_register_script( 'gopro-screen-js', wc4bp_Manager::assets_path( 'gopro-screen-script' ), array( 'jquery' ), WC4BP_Loader::VERSION );
+    		wp_enqueue_script( 'gopro-screen-js' );
 			$admin_script = wc4bp_Manager::assets_path( 'admin' );
 			wp_enqueue_script(
 				'wc4bp_admin_js',

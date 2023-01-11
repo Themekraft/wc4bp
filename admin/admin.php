@@ -43,6 +43,7 @@ class wc4bp_admin extends wc4bp_base {
 	 * @return string
 	 */
 	public static function getSlug() {
+		$test = self::$slug;
 		return self::$slug;
 	}
 
@@ -55,10 +56,15 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_admin_menu() {
 		add_menu_page( __( 'WC4BP', 'wc4bp' ), __( 'BuddyPress for WooCommerce', 'wc4bp' ), 'manage_options', self::getSlug(), array( $this, 'wc4bp_screen' ) );
+		add_submenu_page( self::getSlug(), __( 'Bundle', 'wc4bp' ), __( 'Go Pro!', 'wc4bp' ), 'manage_options', 'wc4bp_bundle_screen', array( $this, 'wc4bp_bundle_screen_content' ), 999 );
 		/**
 		 * SubMenu Page added
 		 */
 		do_action( 'wc4bp_add_submenu_page' );
+	}
+
+	public function wc4bp_bundle_screen_content(){
+		include_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-gopro-screen.php';
 	}
 
 	/**

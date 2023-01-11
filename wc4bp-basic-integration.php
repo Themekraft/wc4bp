@@ -172,8 +172,9 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 							),
 							'has_affiliation'     => 'all',
 							'menu'                => array(
-								'slug'    => 'wc4bp-options-page',
-								'support' => false,
+								'slug'       => 'wc4bp-options-page',
+								'support'    => false,
+								'first-path' => 'plugins.php',
 							),
 							'bundle_license_auto_activation' => true,
 						)
