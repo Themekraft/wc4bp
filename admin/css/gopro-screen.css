@@ -11,7 +11,7 @@
     line-height: 1.2em;
 }
 
-.price-row{
+.woobuddy-price-row{
     width: 90%;
     max-width: 1100px;
     margin: auto;
@@ -20,7 +20,7 @@
     grid-gap: 25px;
 }
 
-.price-col{
+.woobuddy-price-col{
     background: rgb(107,107,107);
     background: linear-gradient(360deg, rgba(107,107,107,1) 0%, rgba(174,174,177,1) 35%, rgba(255,255,255,1) 100%);
     padding: 10% 15%;
@@ -29,20 +29,20 @@
     text-align: center;
 }
 
-.price-col p{
+.woobuddy-price-col p{
     font-size: 22px;
 }
 
-.price-col h5{
+.woobuddy-price-col h5{
     color: #243b53;
     margin-bottom: 40px;
 }
 
-.price-col h4{
+.woobuddy-price-col h4{
     margin-bottom: 20px !important;
 }
 
-.price-col h4, #savings-price, #savings-price-2, #savings-price-3{
+.woobuddy-price-col h4, #savings-price, #savings-price-2, #savings-price-3{
     position: relative;
     font-size: 24px;
     margin: 20px 0 40px;
@@ -50,7 +50,7 @@
     color: #243b53;
 }
 
-.price-col h4::after{
+.woobuddy-price-col h4::after{
     position: absolute;
     top: 50%;
     left: 50px;
@@ -61,34 +61,34 @@
     border-bottom: 2px solid #d64545;
 }
 
-.price-col h4 span{
+.woobuddy-price-col h4 span{
     font-size: 16px;
     color: #fca300;
 }
 
-.price-col h3{
+.woobuddy-price-col h3{
     position: relative;
 }
 
-.price-col h3 span.fs-bundle-currency{
+.woobuddy-price-col h3 span.fs-bundle-currency{
     font-size: 1.5em;
 }
 
-.price-col h3 span.fs-bundle-price-1, .price-col h3 span.fs-bundle-price-2, .price-col h3 span.fs-bundle-price-3{
+.woobuddy-price-col h3 span.fs-bundle-price-1, .woobuddy-price-col h3 span.fs-bundle-price-2, .woobuddy-price-col h3 span.fs-bundle-price-3{
     font-size: 50px;
     color: #243b53;
 }
 
-.price-col ul{
+.woobuddy-price-col ul{
     text-align: left;
     margin: 20px 0;
     color: #ddd;
 }
-.price-col ul li{
+.woobuddy-price-col ul li{
     margin: 15px 0;
     size: 20px;
 }
-.price-col button{
+.woobuddy-price-col button{
     width: 100%;
     padding: 14px 0;
     background: transparent;
@@ -100,11 +100,11 @@
     transition: background 0.5s;
 }
 
-.price-col #purchase-3:hover, .price-col #purchase-2:hover, .price-col #purchase:hover{
+.woobuddy-price-col #woobuddy-purchase-membership:hover, .woobuddy-price-col #woobuddy-purchase-bundle:hover, .woobuddy-price-col #woobuddy-purchase-pro:hover{
     background: #fca300;
 }
 
-.price-col.tk-bundle-1{
+.woobuddy-price-col.woobuddy-pro-plan{
     height: 480px;
 }
 
@@ -122,7 +122,7 @@ div.separator{
     margin: 10px auto;
 }
 
-#purchase-2{
+#woobuddy-purchase-bundle{
     margin-top: 30px;
 }
 
@@ -133,7 +133,7 @@ p.bundle-type{
     margin-bottom: 50px;
 }
 
-select#licenses-1, select#licenses-2, select#licenses-3{
+select#woobuddy-license-pro, select#woobuddy-license-bundle, select#woobuddy-license-membership{
     margin-bottom: 30px;
 }
 
@@ -163,7 +163,7 @@ li.tk-bundle-product{
     width: 300px;
 }
 
-.list-bundle-ul{
+.woobuddy-list-bundle-ul{
     height: 230px;
     overflow: hidden;
 }

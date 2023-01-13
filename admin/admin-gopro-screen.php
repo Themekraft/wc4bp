@@ -2,54 +2,54 @@
                 <h2>CHOOSE THE BEST PLAN FOR YOU</h2>
                 
                 <h3>Upgrade your free version or join our premium membership community of online business owners who build, grow and scale together, with our bundles.</h3>
-                <div class="price-row">
-                <div class="price-col tk-bundle-1">
+                <div class="woobuddy-price-row">
+                <div class="woobuddy-price-col woobuddy-pro-plan">
                         <p class="bundle-type">Pro Version</p>
                         <h4><span id='savings-price'>$79.99</span> <span>/year</span></h4>
                         <h5>BLOCKED WITH THE FREE VERSION? UNLOCK ALL PRO FEATURES.</h5>
                         <h3><span class="fs-bundle-currency">$</span><span class="fs-bundle-price-1">39.99</span> /year</h3>
-                        <select id="licenses-1">
+                        <select id="woobuddy-license-pro">
                             <option value="1" selected="selected">Single Site License</option>
                             <option value="5">5-Site License</option>
                             <option value="unlimited">Unlimited Sites License</option>
                         </select>
                         <ul id="bf-go-pro-ul">
-                            <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/frontend-post-form-buddyforms/" class="tk-bundle-link" target="_blank">BuddyPress Integration for WooCommerce</a></li>
+                            <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/woocommerce-buddypress-integration/" class="tk-bundle-link" target="_blank">BuddyPress Integration for WooCommerce</a></li>
                         </ul>
-                        <button id="purchase">GET NOW</button>
+                        <button id="woobuddy-purchase-pro">GET NOW</button>
                     </div>
-                    <div class="price-col tk-bundle-2">
+                    <div class="woobuddy-price-col woobuddy-bundle-plan">
                         <p class="bundle-type">WooBuddy Bundle</p>
                         <h4><span id='savings-price-2'>$342.84</span> <span>/year</span></h4>
                         <h5>GET ALL BUDDYFORMS PRODUCTS FOR THE PRICE OF ONE.</h5>
                         <h3><span class="fs-bundle-currency">$</span><span class="fs-bundle-price-2">79.99</span> /year</h3>
-                        <select id="licenses-2">
+                        <select id="woobuddy-license-bundle">
                             <option value="1" selected="selected">Single Site License</option>
                             <option value="5">5-Site License</option>
                             <option value="unlimited">Unlimited Sites License</option>
                         </select>
-                        <div class="list-bundle-ul show-more-woobuddy">
+                        <div class="woobuddy-list-bundle-ul show-more-woobuddy">
                             <ul>
-                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/frontend-post-form-buddyforms/" class="tk-bundle-link" target="_blank">BuddyPress Integration for WooCommerce</a></li>
-                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/buddyforms-advanced-custom-fields/" class="tk-bundle-link" target="_blank">BuddyPress Groups Integration for WooCommerce</a></li>
-                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/buddyforms-anonymous-author/" class="tk-bundle-link" target="_blank">BuddyPress xProfile Integration for WooCommerce Checkout</a></li>
-                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/buddypress-group-post/" class="tk-bundle-link" target="_blank">BuddyPress Integration for WooCommerce Subscriptions</a></li>
+                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/woocommerce-buddypress-integration/" class="tk-bundle-link" target="_blank">BuddyPress Integration for WooCommerce</a></li>
+                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/woocommerce-buddypress-groups/" class="tk-bundle-link" target="_blank">BuddyPress Groups Integration for WooCommerce</a></li>
+                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/woobuddy-checkout-manager/" class="tk-bundle-link" target="_blank">BuddyPress xProfile Integration for WooCommerce Checkout</a></li>
+                                <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/woocommerce-subscriptions-buddypress/" class="tk-bundle-link" target="_blank">BuddyPress Integration for WooCommerce Subscriptions</a></li>
                             </ul>
                         </div>
                         <div class="separator"></div>
-                        <button id="purchase-2">GET NOW</button>
+                        <button id="woobuddy-purchase-bundle">GET NOW</button>
                     </div>
-                    <div class="price-col tk-bundle-3">
+                    <div class="woobuddy-price-col woobuddy-membership-plan">
                         <p class="bundle-type">TK Membership</p>
                         <h4><span id='savings-price-3'>$602.75</span> <span>/year</span></h4>
                         <h5>PREMIUM PACK WITH ALL OUR PRODUCTS INCLUDED.</h5>
                         <h3><span class="fs-bundle-currency">$</span><span class="fs-bundle-price-3">99.99</span> /year</h3>
-                        <select id="licenses-3">
+                        <select id="woobuddy-license-membership">
                             <option value="1" selected="selected">Single Site License</option>
                             <option value="5">5-Site License</option>
                             <option value="unlimited">Unlimited Sites License</option>
                         </select>
-                        <div class="list-bundle-ul show-more-tk">
+                        <div class="woobuddy-list-bundle-ul show-more-tk">
                             <ul>
                                 <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/frontend-post-form-buddyforms/" class="tk-bundle-link" target="_blank">BuddyForms</a></li>
                                 <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/buddyforms-advanced-custom-fields/" class="tk-bundle-link" target="_blank">BuddyForms ACF</a></li>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="separator"></div>
                         <button class="bundle-list-see-more">See more</button>
-                        <button id="purchase-3">GET NOW</button>
+                        <button id="woobuddy-purchase-membership">GET NOW</button>
                     </div>
                 </div>
         </div>
