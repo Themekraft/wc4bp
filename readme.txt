@@ -2,8 +2,8 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
 Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages, buddyboss
 Requires at least: 4.9
-Tested up to: 6.1.1
-Stable tag: 3.4.14
+Tested up to: 6.2
+Stable tag: 3.4.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,12 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 9. Admin menu options
 
 == Changelog ==
+= 3.4.14 - 10 Mar 2023 =
+* Added new option to enable/disable purchase notification on activity stream.
+* Fixed CSS issue on gopro screen.
+* Updated Freemius SDK.
+* Tested up to WordPress 6.2
+
 = 3.4.14 - 10 Mar 2023 =
 * Updated freemius SDK.
 
