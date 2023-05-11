@@ -123,6 +123,11 @@ class WC4BP_Activity_Stream {
 			/**
 			 * This filter is documented in /wc4bp-premium/class/core/wc4bp-helpers.php:137
 			 */
+			$stream_visibility = get_option( 'wc4bp_options_notifications' );
+			if( isset( $stream_visibility['disable_activity_feed'] ) && $stream_visibility['disable_activity_feed'] === '1' ){
+				return false;
+			}
+			
 			$is_active = apply_filters( 'wc4bp_activate_stream_activity', true );
 
 			if ( ! $is_active ) {
@@ -212,6 +217,10 @@ add_filter( 'wc4bp_stream_order_complete', 'wc4bp_callback_stream_order_complete
  * @return string
  */
 function wc4bp_callback_stream_order_complete( $text_output, $user_id_from_order, $order, $order_items, $stream_action ) {
+	$stream_visibility = get_option( 'wc4bp_options_notifications' );
+	if( isset( $stream_visibility['disable_activity_feed'] ) && $stream_visibility['disable_activity_feed'] === '1' ){
+		return false;
+	}
 	if ( is_user_logged_in() ) {
 		$user_link = bp_core_get_userlink( $user_id_from_order );
 	} else {
