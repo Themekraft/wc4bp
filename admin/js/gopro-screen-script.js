@@ -9,7 +9,7 @@ jQuery(document).ready(function (jQuery) {
             height: "1200"
         });
         jQuery(".woobuddy-bundle-plan").height(670);
-        jQuery(".separator, .bundle-list-see-more").hide();
+        jQuery(".wc4bp-separator, .bundle-list-see-more").hide();
     });
 
     jQuery('#woobuddy-purchase-pro').on('click', function (e) {

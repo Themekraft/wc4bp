@@ -36,7 +36,7 @@
                                 <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/woocommerce-subscriptions-buddypress/" class="tk-bundle-link" target="_blank">BuddyPress Integration for WooCommerce Subscriptions</a></li>
                             </ul>
                         </div>
-                        <div class="separator"></div>
+                        <div class="wc4bp-separator"></div>
                         <button id="woobuddy-purchase-bundle">GET NOW</button>
                     </div>
                     <div class="woobuddy-price-col woobuddy-membership-plan">
@@ -84,7 +84,7 @@
                                 <li class="tk-bundle-product"><a href="https://themekraft.com/wordpress-products/woobuddy-checkout-manager/" class="tk-bundle-link" target="_blank">WooBuddy xProfile Checkout Manager</a></li>
                             </ul>
                         </div>
-                        <div class="separator"></div>
+                        <div class="wc4bp-separator"></div>
                         <button class="bundle-list-see-more">See more</button>
                         <button id="woobuddy-purchase-membership">GET NOW</button>
                     </div>
