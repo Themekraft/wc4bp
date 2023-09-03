@@ -10,8 +10,8 @@ if ( ! function_exists( 'is_cart' ) ) {
 	 */
 	function is_cart() {
 		$wc4bp_options = get_option( 'wc4bp_options' );
-
-		if ( is_user_logged_in() && ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
+		$current_user = wp_get_current_user();
+		if ( ! empty( $current_user ) && ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
 			if ( bp_is_current_component( wc4bp_Manager::get_shop_slug() ) && ! bp_action_variables() ) {
 				return true;
 			}
