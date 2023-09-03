@@ -2,8 +2,8 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin
 Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages, buddyboss
 Requires at least: 4.9
-Tested up to: 6.2.2
-Stable tag: 3.4.16
+Tested up to: 6.3.1
+Stable tag: 3.4.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,10 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 9. Admin menu options
 
 == Changelog ==
+= 3.4.17 - 03 Sep 2023 =
+* Fixed issue with undefined function.
+* Tested up to WordPress 6.3.1
+
 = 3.4.16 - 05 Jul 2023 =
 * Fixed XSS vulnerability.
 * Tested up to WordPress 6.2.2
