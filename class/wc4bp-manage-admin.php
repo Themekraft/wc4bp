@@ -60,6 +60,13 @@ class wc4bp_Manage_Admin {
 				),
 				WC4BP_Loader::VERSION
 			);
+			wp_localize_script(
+				'wc4bp_admin_js',
+				'wc4bp_admin_js',
+				array(
+					'nonce'   => wp_create_nonce( 'wc4bp_admin_sync_nonce' ),
+				)
+			);
 			wp_enqueue_style( 'wc4bp_admin_spinner_css', wc4bp_Manager::assets_path( 'loading-spiner', 'css' ) );
 			wp_enqueue_style( 'dashicons' );
 			$admin_style = wc4bp_Manager::assets_path( 'admin', 'css' );

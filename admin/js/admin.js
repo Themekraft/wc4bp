@@ -6,7 +6,7 @@ function wc4bpAdministration() {
 			async: false,
 			type: 'POST',
 			url: ajaxurl,
-			data: {'action': 'wc4bp_shop_profile_sync_ajax', 'visibility_level': visibility_level, 'update_type': update_type, 'wc4bp_page': wc4bp_this_user_pages},
+			data: {'action': 'wc4bp_shop_profile_sync_ajax', 'visibility_level': visibility_level, 'update_type': update_type, 'wc4bp_page': wc4bp_this_user_pages,'nonce':wc4bp_admin_js.nonce},
 			success: function(data) {
 				jQuery('#result').html(data);
 			},
