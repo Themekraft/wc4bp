@@ -3,7 +3,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages, buddyboss
 Requires at least: 4.9
 Tested up to: 6.4.2
-Stable tag: 3.4.19
+Stable tag: 3.4.20
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,10 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 9. Admin menu options
 
 == Changelog ==
+= 3.4.20 - 18 Jan 2024 =
+* Added user role validation ajax call.
+* Updated Freemius SDK.
+
 = 3.4.19 - 15 Dec 2023 =
 * Fixed security issue on admin Ajax callback
 * Tested up to WordPress 6.4.2
