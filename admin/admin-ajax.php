@@ -37,6 +37,9 @@ class wc4bp_admin_ajax extends wc4bp_base {
 		if ( ! defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return false;
 		}
+		if ( ! current_user_can('manage_options') ) {
+			return false;
+		}
 		check_ajax_referer( 'wc4bp_admin_sync_nonce', 'nonce' );
 		try {
 			$wc4bp_page  = Request_Helper::get_post_param( 'wc4bp_page' );
