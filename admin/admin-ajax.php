@@ -128,11 +128,22 @@ class wc4bp_admin_ajax extends wc4bp_base {
 	}
 
 	public function wc4bp_add_page( $wc4bp_page_id ) {
+		if ( ! defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return false;
+		}
+		if ( ! current_user_can('manage_options') ) {
+			return false;
+		}
+		check_ajax_referer( 'wc4bp_admin_sync_nonce', 'nonce' );
 		try {
-			$position    = Request_Helper::get_post_param( 'wc4bp_position' );
-			$children    = Request_Helper::get_post_param( 'wc4bp_children' );
-			$page_id     = Request_Helper::get_post_param( 'wc4bp_page_id' );
-			$old_page_id = Request_Helper::get_post_param( 'wc4bp_old_page_id' );
+			if( ! isset( $_POST['page_data'] ) ){
+				return;
+			}
+			$page_data = json_decode( wc_clean( stripslashes( $_POST['page_data'] ) ) );
+			$position = isset( $page_data->wc4bp_position ) ? $page_data->wc4bp_position : '';
+			$children = isset( $page_data->wc4bp_children ) ? $page_data->wc4bp_children : '';
+			$page_id = isset( $page_data->wc4bp_page_id ) ? $page_data->wc4bp_page_id : '';
+			$old_page_id = isset( $page_data->wc4bp_old_page_id ) ? $page_data->wc4bp_old_page_id : '';
 
 			if ( empty( $page_id ) ) {
 				return;
@@ -166,9 +177,8 @@ class wc4bp_admin_ajax extends wc4bp_base {
 			$wc4bp_pages_options['selected_pages'][ $page_id ]['page_id']  = $page_id;
 
 			update_option( 'wc4bp_pages_options', wp_json_encode( $wc4bp_pages_options ) );
-			header( 'Content-Type: application/json' );
-			echo json_encode( $wc4bp_pages_options );
-			die();
+			wp_send_json_success( $wc4bp_pages_options );
+
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
