@@ -175,3 +175,9 @@ function wc4bp_hide_my_account_tabs( $menu_links ) {
 	return $menu_links;
 
 }
+
+add_action( 'before_woocommerce_init', function() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+	  \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WP_PLUGIN_DIR . '/wc4bp/wc4bp-basic-integration.php', true );
+	}
+  } );
