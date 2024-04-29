@@ -28,7 +28,7 @@ class wc4bp_redirect {
 	 * @return string
 	 */
 	public static function get_base_url() {
-		$base_url = bp_members_get_user_url( bp_loggedin_user_id() ) . wc4bp_Manager::get_shop_slug() . '/';
+		$base_url = bp_core_get_user_domain( bp_loggedin_user_id() ) . wc4bp_Manager::get_shop_slug() . '/';
 
 		if ( 'yes' === get_option( 'woocommerce_force_ssl_checkout' ) || is_ssl() ) {
 			$base_url = str_replace( 'http:', 'https:', $base_url );
