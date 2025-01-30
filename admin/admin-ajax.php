@@ -34,7 +34,7 @@ class wc4bp_admin_ajax extends wc4bp_base {
 	}
 
 	public function wc4bp_shop_profile_sync_ajax() {
-		if ( ! defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( ! defined( 'DOING_AJAX' ) && ! DOING_AJAX ) {
 			return false;
 		}
 		if ( ! current_user_can('manage_options') ) {
@@ -128,7 +128,7 @@ class wc4bp_admin_ajax extends wc4bp_base {
 	}
 
 	public function wc4bp_add_page( $wc4bp_page_id ) {
-		if ( ! defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( ! defined( 'DOING_AJAX' ) && ! DOING_AJAX ) {
 			return false;
 		}
 		if ( ! current_user_can('manage_options') ) {
@@ -192,9 +192,13 @@ class wc4bp_admin_ajax extends wc4bp_base {
 	 * @since 1.3
 	 */
 	public function wc4bp_delete_page() {
-		if ( ! current_user_can( 'manage_options' ) ) {
-				return;
+		if ( ! defined( 'DOING_AJAX' ) && ! DOING_AJAX ) {
+			return false;
 		}
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return false;
+		}
+		check_ajax_referer( 'wc4bp_admin_sync_nonce', 'nonce' );
 
 		try {
 			$page_id = Request_Helper::get_post_param( 'wc4bp_tab_id' );
