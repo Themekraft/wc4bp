@@ -3,7 +3,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages, buddyboss
 Requires at least: 4.9
 Tested up to: 6.7
-Stable tag: 3.4.25
+Stable tag: 3.4.26
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,7 +95,12 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 9. Admin menu options
 
 == Changelog ==
-= 3.4.25 - 20 Feb 2026 =
+= 3.4.26 - 27 Feb 2025 =
+* Tested up to WordPress 6.7
+* Fixed Freemius license permissions issue
+* Fixed nonce check for wc4bp_delete_page function
+
+= 3.4.25 - 20 Feb 2025 =
 * Updated Freemius SDK.
 * Fixed vulneratbility on wc4bp_delete_page function (issue found by Tieu Pham Trong Nhan)
 
