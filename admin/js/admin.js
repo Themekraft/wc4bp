@@ -187,7 +187,7 @@ function wc4bpAdministration() {
 				data: {
 					'action': 'wc4bp_delete_page',
 					'wc4bp_tab_id': wc4bp_tab_id,
-          'none': wc4bp_admin_js.nonce,
+          'nonce': wc4bp_admin_js.nonce,
 				},
 				success: function(data) {
 					jQuery('#the-list').empty();
