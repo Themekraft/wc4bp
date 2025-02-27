@@ -8,6 +8,7 @@
   "main": "gulpfile.js",
   "dependencies": {},
   "scripts": {
+    "start": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prune": "rimraf .codeclimate.yml .git .github .gitignore .travis.yml gulpfile.js composer.json"
   },
