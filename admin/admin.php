@@ -33,9 +33,22 @@ class wc4bp_admin extends wc4bp_base {
 			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-delete.php';
 			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-notifications.php';
 			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-ajax.php';
+			require_once WC4BP_ABSPATH_ADMIN_PATH . 'pricing-page/pricing-page.php';
+
+			add_action( 'admin_menu', array( $this, 'wc4bp_bundle_screen_menu' ), 9999 );
+
 			new wc4bp_admin_ajax();
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+		}
+	}
+
+	/**
+	 * Add the BuddyForms Bundle screen menu.
+	 */
+	public function wc4bp_bundle_screen_menu() {
+		if ( WC4BP_Loader::getFreemius()->is_not_paying() ) {
+			add_submenu_page( self::$slug, __( 'Bundle', 'wc4bp' ), __( 'Go Pro!', 'wc4bp' ), 'manage_options', 'wc4bp_bundle_screen', 'buddyforms_bundle_screen_content', 99 );
 		}
 	}
 
@@ -56,15 +69,10 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_admin_menu() {
 		add_menu_page( __( 'WC4BP', 'wc4bp' ), __( 'BuddyPress for WooCommerce', 'wc4bp' ), 'manage_options', self::getSlug(), array( $this, 'wc4bp_screen' ) );
-		add_submenu_page( self::getSlug(), __( 'Bundle', 'wc4bp' ), __( 'Go Pro!', 'wc4bp' ), 'manage_options', 'wc4bp_bundle_screen', array( $this, 'wc4bp_bundle_screen_content' ), 999 );
 		/**
 		 * SubMenu Page added
 		 */
 		do_action( 'wc4bp_add_submenu_page' );
-	}
-
-	public function wc4bp_bundle_screen_content(){
-		include_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-gopro-screen.php';
 	}
 
 	/**
