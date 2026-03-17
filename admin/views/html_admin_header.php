@@ -15,7 +15,7 @@
 	<a href="?page=<?php echo esc_attr( wc4bp_admin::getSlug() ); ?>&tab=notifications" class="nav-tab <?php echo $active_tab == 'notifications' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Notifications', 'wc4bp' ); ?></a>
 	<a href="?page=<?php echo esc_attr( wc4bp_admin::getSlug() ); ?>&tab=delete" class="nav-tab <?php echo $active_tab == 'delete' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Delete', 'wc4bp' ); ?></a>
 
-	<?php /** @var wc4bp_admin $this */ if ( $this->needs_upgrade() ) : ?>
-		<a href="?page=wc4bp-options-page-pricing" class="nav-tab"><font color="#b22222"><?php esc_html_e( 'Go Professional!!!', 'wc4bp' ); ?></font></a>
-	<?php endif; ?>
+		<?php /** @var wc4bp_admin $this */ if ( $this->needs_upgrade() ) : ?>
+			<a href="?page=wc4bp_bundle_screen" class="nav-tab"><font color="#b22222"><?php esc_html_e( 'Go Professional!!!', 'wc4bp' ); ?></font></a>
+		<?php endif; ?>
 </h2>
