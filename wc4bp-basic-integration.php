@@ -157,25 +157,28 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 
 					$wc4bp_fs = fs_dynamic_init(
 						array(
-							'id'                  => '425',
-							'slug'                => 'wc4bp',
-							'type'                => 'plugin',
-							'public_key'          => 'pk_71d28f28e3e545100e9f859cf8554',
-							'is_premium'          => true,
-							'premium_suffix'      => 'Premium',
-							'has_premium_version' => true,
-							'has_addons'          => true,
-							'has_paid_plans'      => true,
-							'trial'               => array(
+							'id'                             => '425',
+							'slug'                           => 'wc4bp',
+							'type'                           => 'plugin',
+							'public_key'                     => 'pk_71d28f28e3e545100e9f859cf8554',
+							'is_premium'                     => true,
+							'premium_suffix'                 => 'Premium',
+							'has_premium_version'            => true,
+							'has_addons'                     => true,
+							'has_paid_plans'                 => true,
+							'has_affiliation'                => 'all',
+							'menu'                           => array(
+								'slug'       => 'wc4bp-options-page',
+								'first-path' => 'plugins.php',
+								'support'    => false,
+								'pricing'    => false,
+							),
+							'trial'                          => array(
 								'days'               => 7,
 								'is_require_payment' => true,
 							),
-							'has_affiliation'     => 'all',
-							'menu'                => array(
-								'slug'       => 'wc4bp-options-page',
-								'support'    => false,
-								'first-path' => 'plugins.php',
-							),
+							'bundle_id'                      => '2046',
+							'bundle_public_key'              => 'pk_ee958df753d34648b465568a836aa',
 							'bundle_license_auto_activation' => true,
 						)
 					);
