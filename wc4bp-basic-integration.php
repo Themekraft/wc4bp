@@ -37,6 +37,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR . 'wc4bp-exception-handler.php';
 
 if ( ! class_exists( 'WC4BP_Loader' ) ) {
@@ -152,9 +154,6 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 			global $wc4bp_fs;
 			try {
 				if ( ! isset( $wc4bp_fs ) ) {
-					// Include Freemius SDK.
-					require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/freemius/start.php';
-
 					$wc4bp_fs = fs_dynamic_init(
 						array(
 							'id'                  => '425',

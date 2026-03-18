@@ -5,18 +5,18 @@ include '.tk/RoboFileBase.php';
 class RoboFile extends RoboFileBase {
 
 	public function directoriesStructure() {
-		return array( 'admin', 'class', 'languages', 'patch', 'templates' );
+		return array( 'admin', 'class', 'languages', 'patch', 'templates', 'vendor' );
 	}
 
 	public function fileStructure() {
-		return array( 'wc4bp-basic-integration.php', 'composer.json', 'license.txt', 'readme.txt' );
+		return array( 'wc4bp-basic-integration.php', 'composer.json', 'composer.lock', 'license.txt', 'readme.txt' );
 	}
 
 	/**
 	 * @return array List of relative paths from the root folder of the plugin
 	 */
 	public function cleanPhpDirectories() {
-		return array();
+		return array( 'vendor' );
 	}
 
 	public function pluginMainFile() {
