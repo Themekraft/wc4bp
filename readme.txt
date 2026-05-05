@@ -2,7 +2,7 @@
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin, camiloluna
 Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages, buddyboss
 Requires at least: 4.9
-Tested up to: 6.8.1
+Tested up to: 6.9
 Stable tag: 3.6.0-beta.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
