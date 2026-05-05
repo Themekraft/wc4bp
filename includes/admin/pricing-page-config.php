@@ -15,6 +15,11 @@ if ( ! function_exists( 'wc4bp_pricing_page_config' ) ) {
 	 * @return array<string,mixed>
 	 */
 	function wc4bp_pricing_page_config( $config ) {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( ! $screen || ! str_contains( $screen->id, 'wc4bp_bundle_screen' ) ) {
+			return $config;
+		}
+
 		$config['heading']    = __( 'Get the WooBuddy Bundle', 'wc4bp' );
 		$config['subheading'] = __( 'Unlock every WooBuddy product in one bundle, with a year of updates and support.', 'wc4bp' );
 
