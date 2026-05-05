@@ -3,7 +3,7 @@ Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores
 Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages, buddyboss
 Requires at least: 4.9
 Tested up to: 6.8.1
-Stable tag: 3.5.0
+Stable tag: 3.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,11 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 9. Admin menu options
 
 == Changelog ==
+
+= 3.6.0 - 04 May 2026 =
+* Updated Freemius SDK to 2.13.1.
+* Reworked the Go Pro page to use the parameterized shared pricing-page submodule with three site-license tiers.
+* Aligned the pricing-page submodule path under includes/admin/.
 
 = 3.5.0 - 4 Jun 2025 =
  * Update pricing page for bundle pricing
