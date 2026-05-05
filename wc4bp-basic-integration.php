@@ -6,7 +6,8 @@
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
  * Version: 3.6.0-beta.4
- * Licence: GPLv3
+ * License: GPLv3
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: wc4bp
  * Domain Path: /languages
  * Svn: wc4bp

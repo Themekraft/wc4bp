@@ -1,4 +1,4 @@
-=== BuddyPress WooCommerce My Account Integration. Create WooCommerce Member Pages  ===
+=== BuddyPress Integration for WooCommerce ===
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin, camiloluna
 Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages, buddyboss
 Requires at least: 4.9
@@ -97,6 +97,7 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 == Changelog ==
 
 = 3.6.0 - 04 May 2026 =
+* Plugin Check: fixed plugin-header License field, aligned the readme plugin name with the plugin-file plugin name, and stripped hidden macOS metadata from the release.
 * Updated Freemius SDK to 2.13.1.
 * Reworked the Go Pro page to use the parameterized shared pricing-page submodule with three site-license tiers.
 * Refreshed the Go Pro page card layout to a responsive CSS grid.
