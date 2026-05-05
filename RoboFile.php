@@ -5,7 +5,7 @@ include '.tk/RoboFileBase.php';
 class RoboFile extends RoboFileBase {
 
 	public function directoriesStructure() {
-		return array( 'admin', 'class', 'languages', 'patch', 'templates', 'vendor' );
+		return array( 'admin', 'class', 'includes', 'languages', 'patch', 'templates', 'vendor' );
 	}
 
 	public function fileStructure() {
