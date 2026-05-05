@@ -152,35 +152,32 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		 */
 		public function wc4bp_fs() {
 			global $wc4bp_fs;
-			try {
-				if ( ! isset( $wc4bp_fs ) ) {
-					$wc4bp_fs = fs_dynamic_init(
-						array(
-							'id'                  => '425',
-							'slug'                => 'wc4bp',
-							'type'                => 'plugin',
-							'public_key'          => 'pk_71d28f28e3e545100e9f859cf8554',
-							'is_premium'          => true,
-							'premium_suffix'      => 'Premium',
-							'has_premium_version' => true,
-							'has_addons'          => true,
-							'has_paid_plans'      => true,
-							'trial'               => array(
-								'days'               => 7,
-								'is_require_payment' => true,
-							),
-							'has_affiliation'     => 'all',
-							'menu'                => array(
-								'slug'       => 'wc4bp-options-page',
-								'support'    => false,
-								'first-path' => 'plugins.php',
-							),
-							'bundle_license_auto_activation' => true,
-						)
-					);
-				}
-			} catch ( Exception $exception ) {
-				self::get_exception_handler()->save_exception( $exception->getTrace() );
+
+			if ( ! isset( $wc4bp_fs ) ) {
+				$wc4bp_fs = fs_dynamic_init( array(
+					'id'                             => '425',
+					'slug'                           => 'wc4bp',
+					'type'                           => 'plugin',
+					'public_key'                     => 'pk_71d28f28e3e545100e9f859cf8554',
+					'is_premium'                     => true,
+					'premium_suffix'                 => 'Premium',
+					'has_premium_version'            => true,
+					'has_addons'                     => true,
+					'has_paid_plans'                 => true,
+					'is_org_compliant'               => true,
+					'wp_org_gatekeeper'              => 'OA7#BoRiBNqdf52FvzEf!!074aRLPs8fspif$7K1#4u4Csys1fQlCecVcUTOs2mcpeVHi#C2j9d09fOTvbC0HloPT7fFee5WdS3G',
+					'trial'                          => array(
+						'days'               => 7,
+						'is_require_payment' => true,
+					),
+					'has_affiliation'                => 'all',
+					'menu'                           => array(
+						'slug'       => 'wc4bp-options-page',
+						'support'    => false,
+						'first-path' => 'plugins.php',
+					),
+					'bundle_license_auto_activation' => true,
+				) );
 			}
 
 			return $wc4bp_fs;

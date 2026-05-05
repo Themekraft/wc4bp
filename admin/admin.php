@@ -33,7 +33,8 @@ class wc4bp_admin extends wc4bp_base {
 			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-delete.php';
 			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-notifications.php';
 			require_once WC4BP_ABSPATH_ADMIN_PATH . 'admin-ajax.php';
-			require_once WC4BP_ABSPATH_ADMIN_PATH . 'pricing-page/pricing-page.php';
+			require_once WC4BP_ABSPATH_ADMIN_PATH . '../includes/admin/pricing-page/pricing-page.php';
+			require_once WC4BP_ABSPATH_ADMIN_PATH . '../includes/admin/pricing-page-config.php';
 
 			add_action( 'admin_menu', array( $this, 'wc4bp_bundle_screen_menu' ), 9999 );
 
@@ -48,7 +49,7 @@ class wc4bp_admin extends wc4bp_base {
 	 */
 	public function wc4bp_bundle_screen_menu() {
 		if ( WC4BP_Loader::getFreemius()->is_not_paying() ) {
-			add_submenu_page( self::$slug, __( 'Bundle', 'wc4bp' ), __( 'Go Pro!', 'wc4bp' ), 'manage_options', 'wc4bp_bundle_screen', 'buddyforms_bundle_screen_content', 99 );
+			add_submenu_page( self::$slug, __( 'Bundle', 'wc4bp' ), __( 'Go Pro!', 'wc4bp' ), 'manage_options', 'wc4bp_bundle_screen', 'tk_pricing_page_render', 99 );
 		}
 	}
 

@@ -3,7 +3,7 @@
         'name' => 'themekraft/wc4bp',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '8771091d2f06ba4a5224c6884bfae8665a626ded',
+        'reference' => '1f96bfd69e5aeab19adbe1913f075f118a2b38f0',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'freemius/wordpress-sdk' => array(
-            'pretty_version' => '2.13.0',
-            'version' => '2.13.0.0',
-            'reference' => '3cbe98b5bd0b0fb5ca4df97b8088592737ea4375',
+            'pretty_version' => '2.13.1',
+            'version' => '2.13.1.0',
+            'reference' => '7376c0eca1ae7f92aaba9d3b550bd10affe797ff',
             'type' => 'library',
             'install_path' => __DIR__ . '/../freemius/wordpress-sdk',
             'aliases' => array(),
@@ -22,7 +22,7 @@
         'themekraft/wc4bp' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '8771091d2f06ba4a5224c6884bfae8665a626ded',
+            'reference' => '1f96bfd69e5aeab19adbe1913f075f118a2b38f0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
