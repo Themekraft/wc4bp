@@ -17,7 +17,7 @@
 <p>
 	<b><?php esc_html_e( 'Position', 'wc4bp' ); ?></b>
 	<br>
-	<small><i><?php esc_html_e( 'Just enter a number like 1, 2, 3..', 'wc4bp' ); ?></i></small>
+	<small><i><?php esc_html_e( 'Just enter a number like 1, 2, 3.', 'wc4bp' ); ?></i></small>
 	<br>
 	<input id='wc4bp_position' name='wc4bp_position' type='text' value='<?php echo esc_attr( $position ); ?>'/>
 </p>

@@ -98,6 +98,7 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 
 = 3.6.0 - 04 May 2026 =
 * Plugin Check: fixed plugin-header License field, aligned the readme plugin name with the plugin-file plugin name, stripped hidden macOS metadata from the release, and dropped the manual `load_plugin_textdomain()` call (WordPress.org loads translations automatically since WP 4.6).
+* Cleaned up a few user-facing English copy issues: "Country(2 letter Country code)" → "Country (2-letter country code)", "Change the  Shop label" / "Change the  Shop Url" (extra space, capitalization) → "Change the Shop label." / "Change the Shop URL.", trailing "..` typo on the entry-page hint. POT regenerated; bundled en / en_US / es_ES / fa_IR / fr_FR / nb_NO / pt_BR translations carried forward where the meaning was preserved.
 * Updated Freemius SDK to 2.13.1.
 * Reworked the Go Pro page to use the parameterized shared pricing-page submodule with three site-license tiers.
 * Refreshed the Go Pro page card layout to a responsive CSS grid.

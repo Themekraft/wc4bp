@@ -35,7 +35,7 @@ echo wp_kses_post( $this->disable_class_tag( 'p', wc4bp_base::$starter_plan_id )
 </p>
 <p <?php echo wp_kses_post( $this->disable_class_tag( 'p' ) ); ?>>
 	<label>
-		<b><?php esc_html_e( 'Change the  Shop label. ', 'wc4bp' ); ?></b>&nbsp; <?php esc_html_e( 'This option is useful when you want to change the Label of the Shop.', 'wc4bp' ); ?>
+		<b><?php esc_html_e( 'Change the Shop label.', 'wc4bp' ); ?></b>&nbsp; <?php esc_html_e( 'This option is useful when you want to change the Label of the Shop.', 'wc4bp' ); ?>
 		<br/>
 		<input <?php echo wp_kses_post( $this->disable_input_tag( 'text' ) ); ?> name='wc4bp_options[tab_my_account_shop_label]' type='text' value='<?php echo esc_attr( $tab_my_account_shop_label ); ?>'  />
 
@@ -44,7 +44,7 @@ echo wp_kses_post( $this->disable_class_tag( 'p', wc4bp_base::$starter_plan_id )
 
 <p <?php echo wp_kses_post( $this->disable_class_tag( 'p' ) ); ?>>
 	<label>
-		<b><?php esc_html_e( 'Change the  Shop Url. ', 'wc4bp' ); ?></b>&nbsp; <?php esc_html_e( 'This option is useful when you want to change the Url of the Shop.', 'wc4bp' ); ?>
+		<b><?php esc_html_e( 'Change the Shop URL.', 'wc4bp' ); ?></b>&nbsp; <?php esc_html_e( 'This option is useful when you want to change the URL of the Shop.', 'wc4bp' ); ?>
 		<br/>
 		<input <?php echo wp_kses_post( $this->disable_input_tag( 'text' ) ); ?> name='wc4bp_options[tab_my_account_shop_url]' type='text' value='<?php echo esc_attr( $tab_my_account_shop_url ); ?>'  />
 
