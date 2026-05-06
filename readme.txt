@@ -97,7 +97,7 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 == Changelog ==
 
 = 3.6.0 - 04 May 2026 =
-* Plugin Check: fixed plugin-header License field, aligned the readme plugin name with the plugin-file plugin name, and stripped hidden macOS metadata from the release.
+* Plugin Check: fixed plugin-header License field, aligned the readme plugin name with the plugin-file plugin name, stripped hidden macOS metadata from the release, and dropped the manual `load_plugin_textdomain()` call (WordPress.org loads translations automatically since WP 4.6).
 * Updated Freemius SDK to 2.13.1.
 * Reworked the Go Pro page to use the parameterized shared pricing-page submodule with three site-license tiers.
 * Refreshed the Go Pro page card layout to a responsive CSS grid.

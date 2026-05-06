@@ -129,7 +129,6 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 						register_deactivation_hook( __FILE__, array( $this, 'deactivation' ) );
 
 						add_action( 'plugins_loaded', array( $this, 'update' ), 10 );
-						add_action( 'plugins_loaded', array( $this, 'wc4bp_translate' ) );
 
 						self::getFreemius()->add_action( 'after_uninstall', array( $this, 'uninstall_cleanup' ) );
 					}
@@ -211,16 +210,6 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		 */
 		public static function getFreemius() {
 			return self::$freemius;
-		}
-
-		/**
-		 * Load the language file
-		 *
-		 * @since    1.0
-		 * @uses     load_plugin_textdomain()
-		 */
-		public function wc4bp_translate() {
-			load_plugin_textdomain( 'wc4bp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		}
 
 		/*
