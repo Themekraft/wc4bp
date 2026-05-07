@@ -89,7 +89,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		/**
 		 * Initiate the class
 		 *
-		 * @package WooCommerce for BuddyPress
+		 * @package BuddyPress Integration for WooCommerce
 		 * @since   0.1-beta
 		 */
 
