@@ -2,7 +2,7 @@
 /**
  * Pricing page filter registration for WooBuddy (wc4bp).
  *
- * @package wc4bp
+ * @package BuddyPress Integration for WooCommerce
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
