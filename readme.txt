@@ -105,6 +105,8 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 * Hid the duplicate Upgrade menu item under WC4BP; the Go Pro link is now the single upsell entry.
 * Highlighted the Go Pro menu link in the admin sidebar.
 * Aligned the pricing-page submodule path under includes/admin/.
+* Plugin Check: aligned the plugin-header License field ("GPLv3" → "GPLv2 or later") with the readme so the license-mismatch rule passes; aligned the constructor docblock `@package` and `pricing-page-config.php` `@package` with the readable Plugin Name "BuddyPress Integration for WooCommerce". Three TextDomainMismatch warnings on the shared pricing-page submodule are now suppressed at the submodule layer.
+* Release tooling: bumped the shared tk_script + pricing-page submodules.
 * Tested up to WordPress 6.9.
 
 = 3.5.0 - 4 Jun 2025 =
