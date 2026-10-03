@@ -4,7 +4,7 @@ Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, wooco
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.6.1
+Stable tag: 3.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,10 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 9. Admin menu options
 
 == Changelog ==
+
+= 3.6.2 - 03 Oct 2026 =
+* Fixed a fatal error in the xProfile Checkout Manager, Subscriptions and Groups add-ons after updating WooBuddy to 3.6.0.
+* The premium version now satisfies add-ons that list WooBuddy as a required plugin (WordPress 6.5+ plugin dependencies).
 
 = 3.6.1 - 03 Oct 2026 =
 * Removed build tooling files that were accidentally included in the 3.6.0 package.
