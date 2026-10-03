@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 if ( ! class_exists( 'WpPluginStatus100', false ) ) {
 	/**
 	 * Class WpPluginStatus10
@@ -134,7 +138,7 @@ if ( ! class_exists( 'WpPluginStatus100', false ) ) {
 			?>
 			<h2 class="nav-tab-wrapper status">
 				<a href="?page=<?php echo esc_attr( $this->plugin_slug ); ?>&tab=status"
-				   class="nav-tab <?php echo 'generic' === $active_tab ? 'nav-tab-active' : ''; ?>"><?php esc_attr_e( 'Status' ); ?></a>
+				   class="nav-tab <?php echo 'generic' === $active_tab ? 'nav-tab-active' : ''; ?>"><?php esc_attr_e( 'Status', 'wc4bp' ); ?></a>
 			</h2>
 			<?php
 			switch ( $active_tab ) {

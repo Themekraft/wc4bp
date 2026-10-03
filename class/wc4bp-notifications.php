@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 /**
  * This file is to handle notifications within wc4bp
  */
@@ -32,7 +36,7 @@ function wc4bp_format_purchased_notifications( $action, $item_id, $secondary_ite
 				return $message;
 			}
 			$names     = array();
-			$message   = __( 'The user %1$s has bought %2$s', 'wc4bp' );
+			$message   = /* translators: %1$s: value; %2$s: value. */ /* translators: %1$s: value; %2$s: value. */ __( 'The user %1$s has bought %2$s', 'wc4bp' );
 			$user_link = bp_core_get_userlink( $order->get_customer_id() );
 			foreach ( $order->get_items() as $item_id => $item ) {
 				$product = $item->get_product();

@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 // Leaven empty tag to let automation add the path disclosure line
 ?>
 <p><input type="checkbox" name="wc4bp_options_notifications[notifications_settings]" value="1" 

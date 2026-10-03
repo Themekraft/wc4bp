@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 // Leaven empty tag to let automation add the path disclosure line
 ?>
 <h3><?php esc_html_e( 'Add Pages to Member Profiles', 'wc4bp' ); ?></h3>

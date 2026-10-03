@@ -1,10 +1,14 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 // Leaven empty tag to let automation add the path disclosure line
 ?>
 <p>
 	<b><?php esc_html_e( 'Choose an existing page', 'wc4bp' ); ?></b>
 	<br>
-	<?php wp_dropdown_pages( $args ); ?>
+	<?php wp_dropdown_pages( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core function, builds its own escaped markup. ?>
 	<input id='wc4bp_children' name='wc4bp_children' type='checkbox' value='1' <?php checked( $children, 1 ); ?> />&nbsp;
 	<b><?php esc_html_e( 'Include Children?', 'wc4bp' ); ?></b>
 </p>

@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 // Leaven empty tag to let automation add the path disclosure line
 ?>
 <?php /** @var wc4bp_admin_sync $this */ ?>

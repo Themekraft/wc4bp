@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 // Leaven empty tag to let automation add the path disclosure line
 ?>
 <p>
@@ -22,13 +26,13 @@ if ( bp_is_active( 'xprofile' ) ) {
 		echo '<ul>';
 		foreach ( $billing as $key => $field_id ) {
 			bp_xprofile_update_field_meta( $field_id, 'default_visibility', $wc4bp_options_sync['default_visibility'] );
-			echo wp_kses( sprintf( __( '<li>billing_%1$s default visibility changed to %2$s</li>', 'wc4bp' ), $key, $wc4bp_options_sync['default_visibility'] ), $allowed );
+			echo wp_kses( sprintf( /* translators: %1$s: $key; %2$s: $wc4bp_options_sync['default_visibility']. */ /* translators: %1$s: value; %2$s: value. */ __( '<li>billing_%1$s default visibility changed to %2$s</li>', 'wc4bp' ), $key, $wc4bp_options_sync['default_visibility'] ), $allowed );
 		}
 		echo '</ul>';
 		echo '<ul>';
 		foreach ( $shipping as $key => $field_id ) {
 			bp_xprofile_update_field_meta( $field_id, 'default_visibility', $wc4bp_options_sync['default_visibility'] );
-			echo wp_kses( sprintf( __( '<li>shipping_%1$s default visibility changed to %2$s</li>', 'wc4bp' ), $key, $wc4bp_options_sync['default_visibility'] ), $allowed );
+			echo wp_kses( sprintf( /* translators: %1$s: $key; %2$s: $wc4bp_options_sync['default_visibility']. */ /* translators: %1$s: value; %2$s: value. */ __( '<li>shipping_%1$s default visibility changed to %2$s</li>', 'wc4bp' ), $key, $wc4bp_options_sync['default_visibility'] ), $allowed );
 
 		}
 		echo '</ul>';

@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 // Leaven empty tag to let automation add the path disclosure line
 ?>
 <p><b><?php esc_html_e( 'Rename Shop Parent Tab:', 'wc4bp' ); ?></b><input id='text' name='wc4bp_options[shop_main_nav]' type='text' value='<?php echo esc_attr( $shop_main_nav ); ?>'/></p>
