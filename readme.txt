@@ -4,7 +4,7 @@ Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, wooco
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.6.0-beta.8
+Stable tag: 3.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -97,7 +97,7 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 
 == Changelog ==
 
-= 3.6.0 - 04 May 2026 =
+= 3.6.0 - 03 Oct 2026 =
 * Plugin Check: fixed plugin-header License field, aligned the readme plugin name with the plugin-file plugin name, stripped hidden macOS metadata from the release, and dropped the manual `load_plugin_textdomain()` call (WordPress.org loads translations automatically since WP 4.6).
 * Cleaned up a few user-facing English copy issues: "Country(2 letter Country code)" → "Country (2-letter country code)", "Change the  Shop label" / "Change the  Shop Url" (extra space, capitalization) → "Change the Shop label." / "Change the Shop URL.", trailing "..` typo on the entry-page hint. POT regenerated; bundled en / en_US / es_ES / fa_IR / fr_FR / nb_NO / pt_BR translations carried forward where the meaning was preserved.
 * Updated Freemius SDK to 2.13.1.
