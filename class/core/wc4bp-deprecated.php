@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 /**
  * @package        WordPress
  * @subpackage        BuddyPress, WooCommerce
