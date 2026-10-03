@@ -1,0 +1,15 @@
+# Files and folders that must not ship in the release zip (rsync exclude syntax).
+# VCS metadata, .github, node_modules and the old tk_script files are always excluded.
+/tests
+/patch
+/codeception.yml
+/phpunit.xml.dist
+/phpcs.ruleset.xml
+/php-git-hooks.yml
+/.env.example
+/.eslintrc.json
+/gulpfile.js
+/package.json
+/package-lock.json
+/readme.md
+/includes/admin/pricing-page/package-lock.json
