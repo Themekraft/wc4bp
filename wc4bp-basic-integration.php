@@ -339,3 +339,26 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 	$GLOBALS['wc4bp_loader'] = new WC4BP_Loader();
 	do_action( 'wc4bp_init', $GLOBALS['wc4bp_loader'] );
 }
+
+if ( ! function_exists( 'wc4bp_plugin_dependencies_slug' ) ) {
+	/**
+	 * Let the running copy of WooBuddy satisfy "Requires Plugins: wc4bp".
+	 *
+	 * WordPress (6.5+) matches plugin dependencies by folder name, and the premium
+	 * build lives in `wc4bp-premium`. Without this, add-ons that declare WooBuddy
+	 * as a dependency could not be activated next to the premium build.
+	 *
+	 * @param string $slug Dependency slug from a plugin's "Requires Plugins" header.
+	 *
+	 * @return string
+	 */
+	function wc4bp_plugin_dependencies_slug( $slug ) {
+		if ( 'wc4bp' === $slug && defined( 'WC4BP_FOLDER' ) ) {
+			return WC4BP_FOLDER;
+		}
+
+		return $slug;
+	}
+
+	add_filter( 'wp_plugin_dependencies_slug', 'wc4bp_plugin_dependencies_slug' );
+}
