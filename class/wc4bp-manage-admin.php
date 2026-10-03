@@ -41,6 +41,8 @@ class wc4bp_Manage_Admin {
 			wp_enqueue_script( 'jquery-ui-tabs' );
 			wp_enqueue_script( 'jquery-effects-core' );
 			wp_enqueue_script( 'jquery-ui-sortable' );
+			wp_register_script( 'gopro-screen-js', wc4bp_Manager::assets_path( 'gopro-screen-script' ), array( 'jquery' ), WC4BP_Loader::VERSION );
+    		wp_enqueue_script( 'gopro-screen-js' );
 			$admin_script = wc4bp_Manager::assets_path( 'admin' );
 			wp_enqueue_script(
 				'wc4bp_admin_js',
@@ -53,6 +55,13 @@ class wc4bp_Manage_Admin {
 					'jquery-ui-sortable',
 				),
 				WC4BP_Loader::VERSION
+			);
+			wp_localize_script(
+				'wc4bp_admin_js',
+				'wc4bp_admin_js',
+				array(
+					'nonce'   => wp_create_nonce( 'wc4bp_admin_sync_nonce' ),
+				)
 			);
 			wp_enqueue_style( 'wc4bp_admin_spinner_css', wc4bp_Manager::assets_path( 'loading-spiner', 'css' ) );
 			wp_enqueue_style( 'dashicons' );

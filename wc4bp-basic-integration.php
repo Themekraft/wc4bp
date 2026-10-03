@@ -5,8 +5,11 @@
  * Description: Integrates WooCommerce with a BuddyPress social network
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
- * Version: 3.4.12
- * Licence: GPLv3
+ * Version: 3.6.0
+ * Requires at least: 5.9
+ * Requires PHP: 7.4
+ * License: GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: wc4bp
  * Domain Path: /languages
  * Svn: wc4bp
@@ -37,6 +40,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR . 'wc4bp-exception-handler.php';
 
 if ( ! class_exists( 'WC4BP_Loader' ) ) {
@@ -44,7 +49,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		/**
 		 * The plugin version
 		 */
-		const VERSION = '3.4.12';
+		const VERSION = '3.6.0';
 
 		/**
 		 * Minimum required WP version
@@ -86,7 +91,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		/**
 		 * Initiate the class
 		 *
-		 * @package WooCommerce for BuddyPress
+		 * @package BuddyPress Integration for WooCommerce
 		 * @since   0.1-beta
 		 */
 
@@ -126,7 +131,6 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 						register_deactivation_hook( __FILE__, array( $this, 'deactivation' ) );
 
 						add_action( 'plugins_loaded', array( $this, 'update' ), 10 );
-						add_action( 'plugins_loaded', array( $this, 'wc4bp_translate' ) );
 
 						self::getFreemius()->add_action( 'after_uninstall', array( $this, 'uninstall_cleanup' ) );
 					}
@@ -150,37 +154,33 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		 */
 		public function wc4bp_fs() {
 			global $wc4bp_fs;
-			try {
-				if ( ! isset( $wc4bp_fs ) ) {
-					// Include Freemius SDK.
-					require_once WC4BP_ABSPATH_CLASS_PATH . 'includes/freemius/start.php';
 
-					$wc4bp_fs = fs_dynamic_init(
-						array(
-							'id'                  => '425',
-							'slug'                => 'wc4bp',
-							'type'                => 'plugin',
-							'public_key'          => 'pk_71d28f28e3e545100e9f859cf8554',
-							'is_premium'          => true,
-							'premium_suffix'      => 'Premium',
-							'has_premium_version' => true,
-							'has_addons'          => true,
-							'has_paid_plans'      => true,
-							'trial'               => array(
-								'days'               => 7,
-								'is_require_payment' => true,
-							),
-							'has_affiliation'     => 'all',
-							'menu'                => array(
-								'slug'    => 'wc4bp-options-page',
-								'support' => false,
-							),
-							'bundle_license_auto_activation' => true,
-						)
-					);
-				}
-			} catch ( Exception $exception ) {
-				self::get_exception_handler()->save_exception( $exception->getTrace() );
+			if ( ! isset( $wc4bp_fs ) ) {
+				$wc4bp_fs = fs_dynamic_init( array(
+					'id'                             => '425',
+					'slug'                           => 'wc4bp',
+					'type'                           => 'plugin',
+					'public_key'                     => 'pk_71d28f28e3e545100e9f859cf8554',
+					'is_premium'                     => true,
+					'premium_suffix'                 => 'Premium',
+					'has_premium_version'            => true,
+					'has_addons'                     => true,
+					'has_paid_plans'                 => true,
+					'is_org_compliant'               => true,
+					'wp_org_gatekeeper'              => 'OA7#BoRiBNqdf52FvzEf!!074aRLPs8fspif$7K1#4u4Csys1fQlCecVcUTOs2mcpeVHi#C2j9d09fOTvbC0HloPT7fFee5WdS3G',
+					'trial'                          => array(
+						'days'               => 7,
+						'is_require_payment' => true,
+					),
+					'has_affiliation'                => 'all',
+					'menu'                           => array(
+						'slug'       => 'wc4bp-options-page',
+						'support'    => false,
+						'pricing'    => false,
+						'first-path' => 'plugins.php',
+					),
+					'bundle_license_auto_activation' => true,
+				) );
 			}
 
 			return $wc4bp_fs;
@@ -212,16 +212,6 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		 */
 		public static function getFreemius() {
 			return self::$freemius;
-		}
-
-		/**
-		 * Load the language file
-		 *
-		 * @since    1.0
-		 * @uses     load_plugin_textdomain()
-		 */
-		public function wc4bp_translate() {
-			load_plugin_textdomain( 'wc4bp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		}
 
 		/*

@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 /**
  * @see https://github.com/dsawardekar/wp-requirements
  */
@@ -11,8 +15,12 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 			self::$text_domain = $text_domain;
 		}
 
+		/**
+		 * Kept for backwards compatibility. Strings are translated at the call site
+		 * now, because gettext cannot extract a string passed in a variable.
+		 */
 		public static function _t( $string ) {
-			return __( $string, self::$text_domain );
+			return $string;
 		}
 
 		/* abstract */
@@ -117,7 +125,8 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 		function message() {
 			$version = phpversion();
 
-			return sprintf( wc4bp_requirements::_t( 'PHP %s+ Required, Detected %s' ), $this->minimumVersion, $version );
+			/* translators: %1$s: minimum PHP version; %2$s: PHP version on this server. */
+			return sprintf( __( 'PHP %1$s+ Required, Detected %2$s', 'wc4bp' ), $this->minimumVersion, $version );
 		}
 	}
 
@@ -141,7 +150,8 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 		function message() {
 			$version = $this->getWordPressVersion();
 
-			return sprintf( wc4bp_requirements::_t( 'WordPress %s+ Required, Detected %s' ), $this->minimumVersion, $version );
+			/* translators: %1$s: minimum WordPress version; %2$s: WordPress version on this site. */
+			return sprintf( __( 'WordPress %1$s+ Required, Detected %2$s', 'wc4bp' ), $this->minimumVersion, $version );
 		}
 	}
 
@@ -153,13 +163,11 @@ if ( class_exists( 'wc4bp_requirements' ) === false ) {
 		}
 
 		function message() {
-			$message = wc4bp_requirements::_t( 'This plugins is ' );
-			if ( ! $this->isForMultisite() ) {
-				$message .= wc4bp_requirements::_t( 'not ' );
+			if ( $this->isForMultisite() ) {
+				return __( 'This plugin is for multisite installations.', 'wc4bp' );
 			}
-			$message .= wc4bp_requirements::_t( 'for multisite installation.' );
 
-			return $message;
+			return __( 'This plugin is not for multisite installations.', 'wc4bp' );
 		}
 
 		/**

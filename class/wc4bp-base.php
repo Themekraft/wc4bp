@@ -1,5 +1,8 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+
+
 
 class wc4bp_base {
 	private $debug;
@@ -61,7 +64,7 @@ class wc4bp_base {
 
 	public function disable_class_tag( $tag, $plan = 'professional', $force = false ) {
 		if ( ! $this->is_trial ) {
-			if ( $force || ( ! $this->is_paying || $this->is_free || ! $this->is_plan( $plan ) ) ) {
+			if ( $force || ( ! $this->is_paying || $this->is_free || ! $this->is_premium_only ) ) {
 				switch ( $tag ) {
 					default:
 						$class = 'wc4bp-disabled';
@@ -77,7 +80,7 @@ class wc4bp_base {
 	public function disable_input_tag( $type, $plan = 'professional', $force = false ) {
 		if ( ! $this->is_trial ) {
 			$attr = '';
-			if ( $force || ( ! $this->is_paying || $this->is_free || ! $this->is_plan( $plan ) ) ) {
+			if ( $force || ( ! $this->is_paying || $this->is_free || ! $this->is_premium_only ) ) {
 				switch ( $type ) {
 					case 'button':
 						$attr = 'disabled';

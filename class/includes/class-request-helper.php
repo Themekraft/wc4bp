@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 
 if ( ! class_exists( 'Request_Helper' ) ) {
 	/**
@@ -70,7 +74,7 @@ if ( ! class_exists( 'Request_Helper' ) ) {
 				}
 			} elseif ( 'post' === $args['type'] ) {
 				if ( isset( $_POST[ $args['param'] ] ) ) {
-					$value = wc_clean( maybe_unserialize( wp_unslash( $_POST[ $args['param'] ] ) ) );
+					$value = wc_clean( wp_unslash( $_POST[ $args['param'] ] ) );
 				}
 			} else {
 				if ( isset( $_REQUEST[ $args['param'] ] ) ) {

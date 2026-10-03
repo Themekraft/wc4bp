@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 // Leaven empty tag to let automation add the path disclosure line
 ?>
 <p>
@@ -34,7 +38,7 @@
 		<li><?php esc_html_e( 'City', 'wc4bp' ); ?></li>
 		<li><?php esc_html_e( 'Postcode', 'wc4bp' ); ?></li>
 		<li><?php esc_html_e( 'State/County ', 'wc4bp' ); ?><i><?php esc_html_e( '(Country or state code)', 'wc4bp' ); ?></i></li>
-		<li><?php esc_html_e( 'Country(2 letter Country code)', 'wc4bp' ); ?></li>
+		<li><?php esc_html_e( 'Country (2-letter country code)', 'wc4bp' ); ?></li>
 		<li><?php esc_html_e( 'Telephone', 'wc4bp' ); ?></li>
 		<li><?php esc_html_e( 'Email', 'wc4bp' ); ?></li>
 	</ul>
@@ -48,7 +52,7 @@
 		<li><?php esc_html_e( 'City', 'wc4bp' ); ?></li>
 		<li><?php esc_html_e( 'Postcode', 'wc4bp' ); ?></li>
 		<li><?php esc_html_e( 'State/County ', 'wc4bp' ); ?><i><?php esc_html_e( '(Country or state code)', 'wc4bp' ); ?></i></li>
-		<li><?php esc_html_e( 'Country(2 letter Country code)', 'wc4bp' ); ?></li>
+		<li><?php esc_html_e( 'Country (2-letter country code)', 'wc4bp' ); ?></li>
 	</ul>
 	<a onclick="document.getElementById('div_name2').style.display='none';return false;" href="" style="text-decoration:none;border-bottom:1px dotted blue;">hide</a>
 </div>

@@ -6,7 +6,13 @@ function wc4bpAdministration() {
 			async: false,
 			type: 'POST',
 			url: ajaxurl,
-			data: {'action': 'wc4bp_shop_profile_sync_ajax', 'visibility_level': visibility_level, 'update_type': update_type, 'wc4bp_page': wc4bp_this_user_pages},
+			data: {
+        'action': 'wc4bp_shop_profile_sync_ajax',
+        'visibility_level': visibility_level,
+        'update_type': update_type,
+        'wc4bp_page': wc4bp_this_user_pages,
+        'nonce': wc4bp_admin_js.nonce
+      },
 			success: function(data) {
 				jQuery('#result').html(data);
 			},
@@ -64,18 +70,22 @@ function wc4bpAdministration() {
 		var wc4bp_children = (
 			jQuery('#wc4bp_children').attr('checked') === 'checked'
 		);
+		var page_data = {
+			wc4bp_page_id: wc4bp_page_id,
+			wc4bp_old_page_id: wc4bp_old_page_id,
+			wc4bp_tab_slug: wc4bp_tab_slug,
+			wc4bp_tab_name: wc4bp_tab_name,
+			wc4bp_position: wc4bp_position,
+			wc4bp_children: wc4bp_children,
+		  };
 
 		jQuery.ajax({
 			type: 'POST',
 			url: ajaxurl,
 			data: {
 				'action': 'wc4bp_add_page',
-				'wc4bp_page_id': wc4bp_page_id,
-				'wc4bp_old_page_id': wc4bp_old_page_id,
-				'wc4bp_tab_slug': wc4bp_tab_slug,
-				'wc4bp_tab_name': wc4bp_tab_name,
-				'wc4bp_position': wc4bp_position,
-				'wc4bp_children': wc4bp_children,
+				page_data: JSON.stringify(page_data),
+				'nonce': wc4bp_admin_js.nonce,
 			},
 			success: function(data) {
 				jQuery('#the-list').empty();
@@ -177,6 +187,7 @@ function wc4bpAdministration() {
 				data: {
 					'action': 'wc4bp_delete_page',
 					'wc4bp_tab_id': wc4bp_tab_id,
+          'nonce': wc4bp_admin_js.nonce,
 				},
 				success: function(data) {
 					jQuery('#the-list').empty();

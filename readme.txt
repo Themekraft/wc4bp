@@ -1,9 +1,10 @@
-=== BuddyPress WooCommerce My Account Integration. Create WooCommerce Member Pages  ===
-Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin, camilolunacom
+=== BuddyPress Integration for WooCommerce ===
+Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin, camiloluna
 Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages, buddyboss
-Requires at least: 4.9
-Tested up to: 6.1.1
-Stable tag: 3.4.12
+Requires at least: 5.9
+Tested up to: 7.1
+Requires PHP: 7.4
+Stable tag: 3.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +96,88 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 9. Admin menu options
 
 == Changelog ==
+
+= 3.6.0 - 03 Oct 2026 =
+* Plugin Check: fixed plugin-header License field, aligned the readme plugin name with the plugin-file plugin name, stripped hidden macOS metadata from the release, and dropped the manual `load_plugin_textdomain()` call (WordPress.org loads translations automatically since WP 4.6).
+* Cleaned up a few user-facing English copy issues: "Country(2 letter Country code)" → "Country (2-letter country code)", "Change the  Shop label" / "Change the  Shop Url" (extra space, capitalization) → "Change the Shop label." / "Change the Shop URL.", trailing "..` typo on the entry-page hint. POT regenerated; bundled en / en_US / es_ES / fa_IR / fr_FR / nb_NO / pt_BR translations carried forward where the meaning was preserved.
+* Updated Freemius SDK to 2.13.1.
+* Reworked the Go Pro page to use the parameterized shared pricing-page submodule with three site-license tiers.
+* Refreshed the Go Pro page card layout to a responsive CSS grid.
+* Hid the duplicate Upgrade menu item under WC4BP; the Go Pro link is now the single upsell entry.
+* Highlighted the Go Pro menu link in the admin sidebar.
+* Aligned the pricing-page submodule path under includes/admin/.
+* Plugin Check: aligned the plugin-header License field ("GPLv3" → "GPLv2 or later") with the readme so the license-mismatch rule passes; aligned the constructor docblock `@package` and `pricing-page-config.php` `@package` with the readable Plugin Name "BuddyPress Integration for WooCommerce". Three TextDomainMismatch warnings on the shared pricing-page submodule are now suppressed at the submodule layer.
+* Tested up to WordPress 6.9.
+* The Go Pro page sells the WooBuddy Bundle and is hidden on sites with an active license. Removed the old Go Pro checkout code that still loaded on every WooBuddy admin page.
+* Plugin Check: direct access guards in every PHP file, translator comments, text domain fixes and WordPress template path functions.
+* Fixed the custom My Account tab label being treated as a translatable string.
+* Requires WordPress 5.9 or later and PHP 7.4 or later.
+* Tested up to WordPress 7.1.
+
+= 3.5.0 - 4 Jun 2025 =
+ * Update pricing page for bundle pricing
+ * Tested up to WordPress 6.8.1
+
+= 3.4.26 - 27 Feb 2025 =
+* Tested up to WordPress 6.7
+* Fixed Freemius license permissions issue
+* Fixed nonce check for wc4bp_delete_page function
+
+= 3.4.25 - 20 Feb 2025 =
+* Updated Freemius SDK.
+* Fixed vulneratbility on wc4bp_delete_page function (issue found by Tieu Pham Trong Nhan)
+
+= 3.4.24 - 16 Jul 2024 =
+* Updated Freemius SDK.
+* Tested up to WordPress 6.6
+
+= 3.4.23 - 29 Apr 2024 =
+* Fixed issue with function bp_members_get_user_url in BuddyBoss platform.
+
+= 3.4.22 - 26 Apr 2024 =
+* Fixed issue with deprecated BP function.
+* Added support to High Performance Order.
+* Updated Freemius SDK.
+* Tested up to WordPress 6.5.2
+
+= 3.4.21 - 20 Mar 2024 =
+* Fixed issue with PHP Object Injection.
+* Added user role validation on ajax request.
+* Tested up to WordPress 6.4.3
+
+= 3.4.20 - 18 Jan 2024 =
+* Added user role validation ajax call.
+* Updated Freemius SDK.
+
+= 3.4.19 - 15 Dec 2023 =
+* Fixed security issue on admin Ajax callback
+* Tested up to WordPress 6.4.2
+
+= 3.4.18 - 05 Nov 2023 =
+* Updated Freemius SDK.
+* Tested up to WordPress 6.3.2
+
+= 3.4.17 - 03 Sep 2023 =
+* Fixed issue with undefined function.
+* Tested up to WordPress 6.3.1
+
+= 3.4.16 - 05 Jul 2023 =
+* Fixed XSS vulnerability.
+* Tested up to WordPress 6.2.2
+
+= 3.4.15 - 10 Mar 2023 =
+* Added new option to enable/disable purchase notification on activity stream.
+* Fixed CSS issue on gopro screen.
+* Updated Freemius SDK.
+* Tested up to WordPress 6.2
+
+= 3.4.14 - 10 Mar 2023 =
+* Updated freemius SDK.
+
+= 3.4.13 - 15 Jan 2023 =
+* Fixed issue when the plugin was installed without dependencies.
+* Added Go Pro screen.
+
 = 3.4.12 - 21 Dec 2022 =
 * Removed old marketing files.
 * Updated trial version duration.
