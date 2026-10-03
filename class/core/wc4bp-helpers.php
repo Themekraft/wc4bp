@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 /**
  * @package            WordPress
  * @subpackage         BuddyPress, WooCommerce
@@ -22,8 +26,8 @@ function wc4bp_load_template_filter( $found_template, $templates ) {
 	try {
 		if ( bp_is_current_component( wc4bp_Manager::get_shop_slug() ) ) {
 			foreach ( (array) $templates as $template ) {
-				if ( file_exists( STYLESHEETPATH . '/' . $template ) ) {
-					$filtered_templates[] = STYLESHEETPATH . '/' . $template;
+				if ( file_exists( get_stylesheet_directory() . '/' . $template ) ) {
+					$filtered_templates[] = get_stylesheet_directory() . '/' . $template;
 				} else {
 					$filtered_templates[] = WC4BP_ABSPATH . 'templates/' . $template;
 				}
@@ -49,10 +53,10 @@ function wc4bp_load_template( $template_name ) {
 	try {
 		global $bp;
 
-		if ( file_exists( STYLESHEETPATH . '/' . $template_name . '.php' ) ) {
-			$located = STYLESHEETPATH . '/' . $template_name . '.php';
-		} elseif ( file_exists( TEMPLATEPATH . '/' . $template_name . '.php' ) ) {
-			$located = TEMPLATEPATH . '/' . $template_name . '.php';
+		if ( file_exists( get_stylesheet_directory() . '/' . $template_name . '.php' ) ) {
+			$located = get_stylesheet_directory() . '/' . $template_name . '.php';
+		} elseif ( file_exists( get_template_directory() . '/' . $template_name . '.php' ) ) {
+			$located = get_template_directory() . '/' . $template_name . '.php';
 		} else {
 			$located = WC4BP_ABSPATH . 'templates/' . $template_name . '.php';
 		}
