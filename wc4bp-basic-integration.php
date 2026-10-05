@@ -16,7 +16,7 @@
  *
  * ****************************************************************************
  * WC requires at least: 3.3.0
- * WC tested up to: 6.2.1
+ * WC tested up to: 11.1
  * ****************************************************************************
  *
  * This script is free software; you can redistribute it and/or modify
@@ -39,6 +39,15 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+add_action(
+	'before_woocommerce_init',
+	function () {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);
 
 require_once __DIR__ . '/vendor/autoload.php';
 

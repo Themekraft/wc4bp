@@ -142,9 +142,9 @@ class WC4BP_Activity_Stream {
 				return false;
 			}
 
-			$order = new WC_Order( $order_id );
+			$order = wc_get_order( $order_id );
 
-			if ( $order->get_status() != 'completed' ) {
+			if ( ! $order || $order->get_status() != 'completed' ) {
 				return false;
 			}
 
