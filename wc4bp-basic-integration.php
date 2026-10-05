@@ -5,7 +5,7 @@
  * Description: Integrates WooCommerce with a BuddyPress social network
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
- * Version: 3.6.2
+ * Version: 3.6.3
  * Requires at least: 5.9
  * Requires PHP: 7.4
  * License: GPLv2 or later
@@ -16,7 +16,7 @@
  *
  * ****************************************************************************
  * WC requires at least: 3.3.0
- * WC tested up to: 6.2.1
+ * WC tested up to: 11.1
  * ****************************************************************************
  *
  * This script is free software; you can redistribute it and/or modify
@@ -40,6 +40,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+add_action(
+	'before_woocommerce_init',
+	function () {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR . 'wc4bp-exception-handler.php';
@@ -49,7 +58,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		/**
 		 * The plugin version
 		 */
-		const VERSION = '3.6.2';
+		const VERSION = '3.6.3';
 
 		/**
 		 * Minimum required WP version

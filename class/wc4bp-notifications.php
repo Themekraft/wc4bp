@@ -71,9 +71,9 @@ function wc4bp_send_purchase_notification( $order_id ) {
 			}
 			$notification         = array();
 			$users                = get_users();
-			$order                = new WC_Order( $order_id );
-			$current_order_status = $order->get_status();
+			$order = wc_get_order( $order_id );
 			if ( $order instanceof WC_Order ) {
+				$current_order_status = $order->get_status();
 				$item_id = $order->get_id();
 				if ( $current_order_status != $order_status ) {
 					return false;

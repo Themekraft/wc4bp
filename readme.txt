@@ -4,7 +4,7 @@ Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, wooco
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.6.2
+Stable tag: 3.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,11 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 9. Admin menu options
 
 == Changelog ==
+
+= 3.6.3 - 05 Oct 2026 =
+* The premium version is now recognised as compatible with WooCommerce High-Performance Order Storage (HPOS), so HPOS can be enabled.
+* Orders are loaded through the WooCommerce order API in order tracking, purchase activity and purchase notifications.
+* Tested up to WooCommerce 11.1.
 
 = 3.6.2 - 03 Oct 2026 =
 * Fixed a fatal error in the xProfile Checkout Manager, Subscriptions and Groups add-ons after updating WooBuddy to 3.6.0.

@@ -376,8 +376,8 @@ function wc4bp_setup_tracking_order() {
 			} elseif ( ! $order_email ) {
 				echo '<p class="woocommerce_error">' . esc_html__( 'Please enter a valid order email', 'wc4bp' ) . '</p>';
 			} else {
-				$order = new WC_Order( apply_filters( 'woocommerce_shortcode_order_tracking_order_id', $order_id ) );
-				if ( $order->get_id() && $order_email ) {
+				$order = wc_get_order( apply_filters( 'woocommerce_shortcode_order_tracking_order_id', $order_id ) );
+				if ( $order && $order->get_id() && $order_email ) {
 					if ( strtolower( $order->get_billing_email() ) === strtolower( $order_email ) ) {
 						$current_order = $order;
 					} else {
