@@ -5,7 +5,7 @@
  * Description: Integrates WooCommerce with a BuddyPress social network
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
- * Version: 3.6.4-beta.4
+ * Version: 3.6.4
  * Requires at least: 5.9
  * Requires PHP: 7.4
  * License: GPLv2 or later
@@ -66,7 +66,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		/**
 		 * The plugin version
 		 */
-		const VERSION = '3.6.4-beta.4';
+		const VERSION = '3.6.4';
 
 		/**
 		 * Minimum required WP version

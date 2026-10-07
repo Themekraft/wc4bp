@@ -4,7 +4,7 @@ Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, wooco
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.6.4-beta.4
+Stable tag: 3.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,9 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 9. Admin menu options
 
 == Changelog ==
+
+= 3.6.4 - 07 Oct 2026 =
+* Fixed a fatal error when activating the premium version while the free version is active. Activating one version now deactivates the other one.
 
 = 3.6.3 - 05 Oct 2026 =
 * The premium version is now recognised as compatible with WooCommerce High-Performance Order Storage (HPOS), so HPOS can be enabled.
