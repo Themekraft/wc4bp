@@ -5,7 +5,7 @@
  * Description: Integrates WooCommerce with a BuddyPress social network
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/products/woocommerce-buddypress-integration/
- * Version: 3.6.3
+ * Version: 3.6.4
  * Requires at least: 5.9
  * Requires PHP: 7.4
  * License: GPLv2 or later
@@ -49,6 +49,14 @@ add_action(
 	}
 );
 
+// The other build (free or premium) is already loaded: let Freemius deactivate it
+// when this one is activated, and stop here. Both builds ship the same Composer
+// autoloader class, so loading it twice is a fatal error.
+if ( function_exists( 'wc4bp_fs' ) ) {
+	wc4bp_fs()->set_basename( true, __FILE__ );
+	return;
+}
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR . 'wc4bp-exception-handler.php';
@@ -58,7 +66,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		/**
 		 * The plugin version
 		 */
-		const VERSION = '3.6.3';
+		const VERSION = '3.6.4';
 
 		/**
 		 * Minimum required WP version
@@ -120,7 +128,6 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 
 				// Init Freemius.
 				self::$freemius = $this->wc4bp_fs();
-				self::$freemius->set_basename( true, __FILE__ );
 				/**
 				 * Execute on freemius load to notify the addons
 				 */
@@ -341,6 +348,19 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 			} catch ( Exception $exception ) {
 				self::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
+		}
+	}
+
+	if ( ! function_exists( 'wc4bp_fs' ) ) {
+		/**
+		 * Freemius instance of the running copy, used by the other-copy guard at the top
+		 * of this file. Freemius only generates the free build's flag for that guard when
+		 * it is the file's only basename call and it goes through a function like this.
+		 *
+		 * @return Freemius
+		 */
+		function wc4bp_fs() {
+			return WC4BP_Loader::$freemius;
 		}
 	}
 
