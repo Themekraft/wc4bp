@@ -52,8 +52,10 @@ add_action(
 // The other build (free or premium) is already loaded: let Freemius deactivate it
 // when this one is activated, and stop here. Both builds ship the same Composer
 // autoloader class, so loading it twice is a fatal error.
-if ( class_exists( 'WC4BP_Loader' ) && WC4BP_Loader::$freemius ) {
-	WC4BP_Loader::$freemius->set_basename( true, __FILE__ );
+if ( function_exists( 'wc4bp_fs' ) ) {
+	if ( wc4bp_fs() ) {
+		wc4bp_fs()->set_basename( true, __FILE__ );
+	}
 	return;
 }
 
@@ -128,7 +130,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 
 				// Init Freemius.
 				self::$freemius = $this->wc4bp_fs();
-				self::$freemius->set_basename( true, __FILE__ );
+				wc4bp_fs()->set_basename( true, __FILE__ );
 				/**
 				 * Execute on freemius load to notify the addons
 				 */
@@ -349,6 +351,19 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 			} catch ( Exception $exception ) {
 				self::get_exception_handler()->save_exception( $exception->getTrace() );
 			}
+		}
+	}
+
+	if ( ! function_exists( 'wc4bp_fs' ) ) {
+		/**
+		 * Freemius instance of the running copy. Freemius generates the free build with
+		 * `set_basename( false, ... )` only when the instance comes from a function call
+		 * like this one, so both build-specific calls above go through it.
+		 *
+		 * @return Freemius
+		 */
+		function wc4bp_fs() {
+			return WC4BP_Loader::$freemius;
 		}
 	}
 
