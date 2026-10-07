@@ -49,6 +49,14 @@ add_action(
 	}
 );
 
+// The other build (free or premium) is already loaded: let Freemius deactivate it
+// when this one is activated, and stop here. Both builds ship the same Composer
+// autoloader class, so loading it twice is a fatal error.
+if ( class_exists( 'WC4BP_Loader' ) && WC4BP_Loader::$freemius ) {
+	WC4BP_Loader::$freemius->set_basename( true, __FILE__ );
+	return;
+}
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR . 'wc4bp-exception-handler.php';
