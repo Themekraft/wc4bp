@@ -53,9 +53,7 @@ add_action(
 // when this one is activated, and stop here. Both builds ship the same Composer
 // autoloader class, so loading it twice is a fatal error.
 if ( function_exists( 'wc4bp_fs' ) ) {
-	if ( wc4bp_fs() ) {
-		wc4bp_fs()->set_basename( true, __FILE__ );
-	}
+	wc4bp_fs()->set_basename( true, __FILE__ );
 	return;
 }
 
