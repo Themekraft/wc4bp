@@ -128,7 +128,6 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 
 				// Init Freemius.
 				self::$freemius = $this->wc4bp_fs();
-				wc4bp_fs()->set_basename( true, __FILE__ );
 				/**
 				 * Execute on freemius load to notify the addons
 				 */
@@ -354,9 +353,9 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 
 	if ( ! function_exists( 'wc4bp_fs' ) ) {
 		/**
-		 * Freemius instance of the running copy. Freemius generates the free build with
-		 * `set_basename( false, ... )` only when the instance comes from a function call
-		 * like this one, so both build-specific calls above go through it.
+		 * Freemius instance of the running copy, used by the other-copy guard at the top
+		 * of this file. Freemius only generates the free build's flag for that guard when
+		 * it is the file's only basename call and it goes through a function like this.
 		 *
 		 * @return Freemius
 		 */
