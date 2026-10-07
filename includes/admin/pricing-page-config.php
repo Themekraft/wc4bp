@@ -37,7 +37,7 @@ if ( ! function_exists( 'wc4bp_pricing_page_config' ) ) {
 			),
 			array(
 				'label' => __( 'BuddyPress Integration for WooCommerce', 'wc4bp' ),
-				'url'   => 'https://themekraft.com/wordpress-products/woocommerce-buddypress-integration/',
+				'url'   => 'https://themekraft.com/plugins/woobuddy-woocommerce-buddypress-integration/',
 			),
 			array(
 				'label' => __( 'BuddyPress Groups Integration for WooCommerce', 'wc4bp' ),
