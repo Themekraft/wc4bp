@@ -37,19 +37,19 @@ if ( ! function_exists( 'wc4bp_pricing_page_config' ) ) {
 			),
 			array(
 				'label' => __( 'BuddyPress Integration for WooCommerce', 'wc4bp' ),
-				'url'   => 'https://themekraft.com/wordpress-products/woocommerce-buddypress-integration/',
+				'url'   => 'https://themekraft.com/plugins/woobuddy-woocommerce-buddypress-integration/',
 			),
 			array(
 				'label' => __( 'BuddyPress Groups Integration for WooCommerce', 'wc4bp' ),
-				'url'   => 'https://themekraft.com/wordpress-products/woocommerce-buddypress-groups/',
+				'url'   => 'https://themekraft.com/plugins/woocommerce-buddypress-groups/',
 			),
 			array(
 				'label' => __( 'BuddyPress xProfile Integration for WooCommerce Checkout', 'wc4bp' ),
-				'url'   => 'https://themekraft.com/wordpress-products/woobuddy-checkout-manager/',
+				'url'   => 'https://themekraft.com/add-on/woobuddy-checkout-manager/',
 			),
 			array(
 				'label' => __( 'BuddyPress Integration for WooCommerce Subscriptions', 'wc4bp' ),
-				'url'   => 'https://themekraft.com/wordpress-products/woocommerce-subscriptions-buddypress/',
+				'url'   => 'https://themekraft.com/add-on/woocommerce-subscriptions-buddypress/',
 			),
 			__( 'One year of support', 'wc4bp' ),
 			__( 'One year of updates', 'wc4bp' ),
