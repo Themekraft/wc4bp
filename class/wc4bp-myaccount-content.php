@@ -38,6 +38,7 @@ class WC4BP_MyAccount_Content {
 			foreach ( $this->end_points as $key => $class ) {
 				add_shortcode( $key, array( $this, 'process_shortcodes' ) );
 			}
+			add_action( 'wp', array( $this, 'set_edit_address_query_var' ) );
 			add_action( 'wp_footer', array( $this, 'add_footer_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ) );
 		} catch ( Exception $exception ) {
@@ -65,6 +66,9 @@ class WC4BP_MyAccount_Content {
 			$current_page = 1;
 			if ( isset( $wp->query_vars['orders'] ) ) {
 				$current_page = $wp->query_vars['orders'];
+			} elseif ( is_numeric( bp_action_variable( 0 ) ) ) {
+				// BuddyPress routes members/<user>/shop/orders/<page>/, so WordPress never sets the query var.
+				$current_page = absint( bp_action_variable( 0 ) );
 			}
 			woocommerce_account_orders( $current_page );
 		} catch ( Exception $exception ) {
@@ -76,6 +80,31 @@ class WC4BP_MyAccount_Content {
 		try {
 			wc_print_notices();
 			woocommerce_account_downloads();
+		} catch ( Exception $exception ) {
+			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
+		}
+	}
+
+	/**
+	 * Expose the address type of the BuddyPress Addresses tab to WooCommerce.
+	 *
+	 * The tab lives at members/<user>/shop/edit-address/<type>/, which BuddyPress
+	 * routes, so WordPress never sets the `edit-address` query var. Without it
+	 * WooCommerce shows the address list instead of the edit form and saves every
+	 * submitted address as billing. Runs on `wp`, before WooCommerce handles the
+	 * form on `template_redirect`.
+	 */
+	public function set_edit_address_query_var() {
+		try {
+			if ( ! bp_is_current_component( wc4bp_Manager::get_shop_slug() ) || ! bp_is_current_action( 'edit-address' ) || ! bp_is_my_profile() ) {
+				return;
+			}
+			$address_type = sanitize_title( (string) bp_action_variable( 0 ) );
+			// The link carries the translated slug, map it back before checking.
+			if ( in_array( wc_edit_address_i18n( $address_type, true ), array( 'billing', 'shipping' ), true ) ) {
+				global $wp;
+				$wp->query_vars['edit-address'] = $address_type;
+			}
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 		}
