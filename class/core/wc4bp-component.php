@@ -44,6 +44,42 @@ class WC4BP_Component extends BP_Component {
 		$this->includes();
 		add_action( 'bp_register_activity_actions', array( $this, 'register_activity_actions' ) );
 		add_filter( 'bp_located_template', array( $this, 'wc4bp_members_load_template_filter' ), 10, 2 );
+		add_action( 'bp_actions', array( $this, 'redirect_empty_checkout' ), 1 );
+	}
+
+	/**
+	 * Send the profile Checkout to the cart when the cart is empty.
+	 *
+	 * The Checkout tab is only registered while the cart has items, so an empty cart
+	 * (a refresh or the back button after placing an order) used to end in a 404.
+	 * WooCommerce's own checkout redirects to the cart in that case; do the same.
+	 */
+	public function redirect_empty_checkout() {
+		if ( ! is_user_logged_in() || ! bp_is_my_profile() || ! bp_is_current_component( $this->id ) || ! bp_is_current_action( 'checkout' ) ) {
+			return;
+		}
+		if ( ! empty( $this->wc4bp_options['tab_activity_disabled'] ) || isset( $this->wc4bp_options['tab_checkout_disabled'] ) ) {
+			return;
+		}
+		if ( isset( $_GET['change_payment_method'] ) || ! function_exists( 'WC' ) || empty( WC()->cart ) || ! WC()->cart->is_empty() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+
+		if ( ! isset( $this->wc4bp_options['tab_cart_disabled'] ) ) {
+			$cart_url = trailingslashit( bp_loggedin_user_domain() . $this->id ) . 'cart/';
+		} else {
+			$cart_url = wc_get_cart_url();
+		}
+
+		/**
+		 * Filter where the profile Checkout sends members when the cart is empty.
+		 *
+		 * @param string $cart_url The cart URL.
+		 *
+		 * @since 3.6.5
+		 */
+		wp_safe_redirect( apply_filters( 'wc4bp_empty_checkout_redirect', $cart_url ) );
+		exit;
 	}
 
 	/**
