@@ -4,7 +4,7 @@ Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, wooco
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.6.4
+Stable tag: 3.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,16 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 9. Admin menu options
 
 == Changelog ==
+
+= 3.6.5 - 18 Nov 2026 =
+* Fixed the Edit links of the Addresses tab in the member profile shop, which reloaded the address list instead of opening the form, and the order list, which always showed the first page.
+* The profile Checkout tab now sends members to the cart when the cart is empty, instead of a "page not found" error.
+* WooCommerce is now declared as a required plugin.
+* Updated the Go Pro links to the current themekraft.com product pages, and the WooBuddy Bundle list now names only the paid items.
+* Fixed a JavaScript error on every admin page of the free version, which kept the "Sync Now" buttons of Profile Fields Sync from working.
+* Purchase activities are now created when a member's order is completed without them being logged in (payment gateway notifications, scheduled tasks, WP-CLI), only once per order. Guest orders and subscription renewals do not create an activity.
+* Purchase notifications are now sent once per order and in the background, in batches, so large sites no longer slow down when an order changes status.
+* Fixed PHP 8.x deprecation notices in the status page and the My Account shortcodes, and the "translation loading was triggered too early" notice.
 
 = 3.6.4 - 07 Oct 2026 =
 * Fixed a fatal error when activating the premium version while the free version is active. Activating one version now deactivates the other one.
