@@ -30,21 +30,33 @@ class WC4BP_Component extends BP_Component {
 		$this->id                  = wc4bp_Manager::get_shop_slug();
 		$this->wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 		$this->wc4bp_options       = get_option( 'wc4bp_options' );
+		// The component starts on bp_include, before translations can load: its name is set on init.
+		parent::start( $this->id, '', WC4BP_ABSPATH );
+		if ( did_action( 'init' ) ) {
+			$this->set_component_name();
+		} else {
+			add_action( 'init', array( $this, 'set_component_name' ), 1 );
+		}
+		$this->includes();
+		add_action( 'bp_register_activity_actions', array( $this, 'register_activity_actions' ) );
+		add_filter( 'bp_located_template', array( $this, 'wc4bp_members_load_template_filter' ), 10, 2 );
+		add_action( 'bp_actions', array( $this, 'redirect_empty_checkout' ), 1 );
+	}
+
+	/**
+	 * Set the translated component name.
+	 */
+	public function set_component_name() {
 		if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 			/**
 			 * Get the label for the BuddyPress Core
 			 *
 			 * @param String The current label.
 			 */
-			$title = apply_filters( 'wc4bp_shop_component_label', wc4bp_Manager::get_shop_label() );
+			$this->name = apply_filters( 'wc4bp_shop_component_label', wc4bp_Manager::get_shop_label() );
 		} else {
-			$title = __( 'Shop', 'wc4bp' );
+			$this->name = __( 'Shop', 'wc4bp' );
 		}
-		parent::start( $this->id, $title, WC4BP_ABSPATH );
-		$this->includes();
-		add_action( 'bp_register_activity_actions', array( $this, 'register_activity_actions' ) );
-		add_filter( 'bp_located_template', array( $this, 'wc4bp_members_load_template_filter' ), 10, 2 );
-		add_action( 'bp_actions', array( $this, 'redirect_empty_checkout' ), 1 );
 	}
 
 	/**

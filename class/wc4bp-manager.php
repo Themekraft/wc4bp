@@ -34,7 +34,8 @@ class wc4bp_Manager {
 
 	public function __construct() {
 		try {
-			self::$shop_label = __( 'Shop', 'wc4bp' );
+			// Translations can only load from init on (WordPress 6.7+ warns otherwise).
+			add_action( 'init', array( __CLASS__, 'set_translated_defaults' ), 0 );
 			// Load resources
 			require_once 'wc4bp-activity-stream.php';
 			require_once 'wc4bp-myaccount-content.php';
@@ -111,6 +112,13 @@ class wc4bp_Manager {
 		$label = self::get_cached_option_or_default( 'tab_my_account_shop_label', 'shop_label' );
 
 		return $label;
+	}
+
+	/**
+	 * Set the defaults that need translation, once translations can load.
+	 */
+	public static function set_translated_defaults() {
+		self::$shop_label = __( 'Shop', 'wc4bp' );
 	}
 
 	public static function get_cached_option_or_default( $option, $default_var ) {
