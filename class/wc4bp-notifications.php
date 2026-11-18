@@ -124,7 +124,40 @@ function wc4bp_enqueue_purchase_notification_batch( $order_id, $after_user_id ) 
 		return false;
 	}
 
-	return (bool) as_enqueue_async_action( 'wc4bp_send_purchase_notification_batch', array( (int) $order_id, (int) $after_user_id ), 'wc4bp' );
+	$hook  = 'wc4bp_send_purchase_notification_batch';
+	$args  = array( (int) $order_id, (int) $after_user_id );
+	$group = 'wc4bp';
+
+	// Two requests completing the same order at once (gateway webhook and return page) both get here: queue the batch once.
+	$can_check = function_exists( 'as_has_scheduled_action' );
+	if ( $can_check && as_has_scheduled_action( $hook, $args, $group ) ) {
+		return true;
+	}
+
+	$unique = wc4bp_action_scheduler_unique_by_args();
+	if ( as_enqueue_async_action( $hook, $args, $group, $unique ) ) {
+		return true;
+	}
+
+	// A unique job is refused when the same batch is already pending or running: it is queued, do not send it inline.
+	return $unique && $can_check && as_has_scheduled_action( $hook, $args, $group );
+}
+
+/**
+ * Whether Action Scheduler's $unique flag takes the job arguments into account.
+ *
+ * Action Scheduler 3.6 to 3.9 (WooCommerce 8.0 to 10.x) compare only hook and group, so a unique job for one order or
+ * batch would block every other order and the next batch. From 4.0 the arguments are compared too.
+ *
+ * @return bool
+ */
+function wc4bp_action_scheduler_unique_by_args() {
+	if ( ! class_exists( 'ActionScheduler_Versions' ) || ! method_exists( 'ActionScheduler_Versions', 'instance' ) ) {
+		return false;
+	}
+	$version = ActionScheduler_Versions::instance()->latest_version();
+
+	return is_string( $version ) && version_compare( $version, '4.0.0', '>=' );
 }
 
 /**
@@ -148,7 +181,7 @@ function wc4bp_send_purchase_notification_batch( $order_id, $after_user_id = 0, 
 	// Page by ID instead of offset, so users added or deleted between batches do not shift the pages.
 	$after_id_where = static function ( $query ) use ( $after_user_id ) {
 		global $wpdb;
-		$query->query_where .= $wpdb->prepare( ' AND ID > %d', $after_user_id );
+		$query->query_where .= $wpdb->prepare( " AND {$wpdb->users}.ID > %d", $after_user_id );
 	};
 	add_action( 'pre_user_query', $after_id_where );
 	$user_ids = get_users(

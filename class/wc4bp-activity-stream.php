@@ -154,6 +154,10 @@ class WC4BP_Activity_Stream {
 				return false;
 			}
 
+			if ( ! wc4bp_order_creates_purchase_activity( $order ) ) {
+				return false;
+			}
+
 			// check that user enabled updating the activity stream
 			if ( bp_get_user_meta( $order->get_customer_id(), 'notification_activity_shop_purchases', true ) == 'no' ) {
 				return false;
@@ -212,6 +216,36 @@ class WC4BP_Activity_Stream {
 
 		return false;
 	}
+}
+
+/**
+ * Whether a completed order gets a "bought" activity.
+ *
+ * Guest orders (no customer account) and WooCommerce Subscriptions renewal orders do not. Guest checkouts never
+ * created an activity while the hook only ran for logged-in visitors, and renewals are completed automatically
+ * every billing cycle, so posting them would repeat the same purchase in the stream. The initial subscription
+ * order, resubscribes and switches are purchases the customer made at checkout, so they still post.
+ *
+ * @param WC_Order $order
+ *
+ * @return bool
+ */
+function wc4bp_order_creates_purchase_activity( $order ) {
+	$create = true;
+
+	if ( (int) $order->get_customer_id() <= 0 ) {
+		$create = false;
+	} elseif ( function_exists( 'wcs_order_contains_renewal' ) && wcs_order_contains_renewal( $order ) ) {
+		$create = false;
+	}
+
+	/**
+	 * Decide whether a completed order gets a purchase activity.
+	 *
+	 * @param bool     $create False for guest orders and subscription renewal orders.
+	 * @param WC_Order $order
+	 */
+	return (bool) apply_filters( 'wc4bp_create_purchase_activity', $create, $order );
 }
 
 /**
