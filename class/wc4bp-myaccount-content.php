@@ -46,7 +46,7 @@ class WC4BP_MyAccount_Content {
 		}
 	}
 
-	public function process_shortcodes( $attr, $content = '', $tag ) {
+	public function process_shortcodes( $attr, $content = '', $tag = '' ) {
 		try {
 			foreach ( $this->end_points as $key => $class ) {
 				if ( $tag == $key ) {
