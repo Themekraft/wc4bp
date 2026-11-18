@@ -142,7 +142,7 @@ if ( ! class_exists( 'WpPluginStatus100', false ) ) {
 			</h2>
 			<?php
 			switch ( $active_tab ) {
-				case 'generic';
+				case 'generic':
 					$data = $this->get_basic_status();
 					?>
 					<p><?php echo esc_attr( apply_filters( 'wp_plugin_status_view_description', 'This is the basic information from your system' ) ); ?></p>
