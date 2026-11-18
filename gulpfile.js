@@ -167,7 +167,8 @@ gulp.task('styles', ['clean-min-styles'], function() {
 });
 
 gulp.task('js', ['clean-min-js'], function() {
-    gulp.src(jsDir)
+    // admin.js ships unminified: minifying breaks its <fs_premium_only> blocks in the free build.
+    gulp.src([jsDir, '!./admin/js/admin.js'])
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify({
 	        output: {
