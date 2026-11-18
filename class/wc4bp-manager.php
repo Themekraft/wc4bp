@@ -57,12 +57,13 @@ class wc4bp_Manager {
 	public function init() {
 		try {
 			new WC4BP_MyAccount_Private();
+			// Order hooks must exist in every request: orders are also completed by gateway webhooks, cron, Action Scheduler, WP-CLI and REST, where nobody is logged in.
+			new WC4BP_Activity_Stream();
 			$cu = get_current_user_id();
 			if ( $cu > 0 ) {
 				$wc_path = WooCommerce::instance()->plugin_path();
 				include_once $wc_path . '/includes/class-wc-frontend-scripts.php';
 				WC_Frontend_Scripts::init();
-				new WC4BP_Activity_Stream();
 				new WC4BP_MyAccount_Content();
 				new wc4bp_Woocommerce();
 				new WC4BP_MyAccount();
