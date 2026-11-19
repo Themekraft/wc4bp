@@ -12,7 +12,7 @@ if ( ! function_exists( 'is_cart' ) ) {
 	 *
 	 * @since    1.0.5
 	 */
-	function is_cart() {
+	function is_cart() { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- Defines WooCommerce's pluggable is_cart() before WooCommerce does, on purpose.
 		$wc4bp_options = get_option( 'wc4bp_options' );
 		$current_user = wp_get_current_user();
 		if ( ! empty( $current_user ) && ! isset( $wc4bp_options['tab_cart_disabled'] ) ) {
@@ -35,7 +35,7 @@ if ( ! function_exists( 'is_add_payment_method_page' ) ) {
 	 *
 	 * @return bool
 	 */
-	function is_add_payment_method_page() {
+	function is_add_payment_method_page() { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- Defines WooCommerce's pluggable is_add_payment_method_page() before WooCommerce does, on purpose.
 
 		global $wp;
 
@@ -70,7 +70,7 @@ function wc4bp_filter_wc_checkout_item_remove( $product_name, $cart_item, $cart_
 	if ( is_checkout() && $is_current_component === true ) {
 
 		$product_name .= apply_filters(
-			'woocommerce_cart_item_remove_link',
+			'woocommerce_cart_item_remove_link', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce hook.
 			sprintf(
 				'<a href="%s" rel="nofollow" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s" style="float:left;margin-right:5px">&times;</a>',
 				esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
@@ -132,7 +132,7 @@ function wc4bp_url_cart_refresh() {
  */
 add_action( 'wp_logout', 'wc4bp_safe_redirect_bp' );
 function wc4bp_safe_redirect_bp() {
-	wp_redirect( home_url() );
+	wp_safe_redirect( home_url() );
 	exit();
 }
 

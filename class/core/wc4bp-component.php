@@ -634,7 +634,7 @@ class WC4BP_Component extends BP_Component {
 					switch ( $key ) {
 						case 'checkout':
 							global $woocommerce;
-							if ( isset( $_GET['change_payment_method'] ) ) {
+							if ( isset( $_GET['change_payment_method'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only change_payment_method flag, decides whether to show the checkout tab.
 								$sub_nav[] = $this->$item_function( $parent, $key, $user_label, '', $position );
 							}
 							// Add the checkout nav item, if cart empty do not add.
