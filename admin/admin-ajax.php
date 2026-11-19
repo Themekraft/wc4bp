@@ -169,6 +169,10 @@ class wc4bp_admin_ajax extends wc4bp_base {
 				$wc4bp_pages_options = json_decode( $wc4bp_pages_options, true );
 			}
 
+			if ( ! is_array( $wc4bp_pages_options ) ) {
+				$wc4bp_pages_options = array();
+			}
+
 			if ( ! empty( $old_page_id ) && ! empty( $wc4bp_pages_options['selected_pages'][ $old_page_id ] ) ) {
 				unset( $wc4bp_pages_options['selected_pages'][ $old_page_id ] );
 			}
