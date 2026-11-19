@@ -164,6 +164,7 @@ function wc4bpAdministration() {
 			data: {
 				'action': 'wc4bp_edit_entry',
 				'wc4bp_page_id': wc4bp_page_id,
+				'nonce': wc4bp_admin_js.nonce,
 			},
 			success: function(data) {
 				jQuery('#add_page').html(data);
@@ -261,6 +262,7 @@ function wc4bpAdministration() {
 			cache: false,
 			data: {
 				'action': 'wc4bp_edit_entry',
+				'nonce': wc4bp_admin_js.nonce,
 			},
 			success: function(data) {
 				jQuery('#add_page').html(data);

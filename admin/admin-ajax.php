@@ -12,19 +12,22 @@ class wc4bp_admin_ajax extends wc4bp_base {
 
 	public function __construct() {
 		add_action( 'wp_ajax_wc4bp_edit_entry', array( $this, 'wc4bp_edit_entry' ) );
-		add_action( 'wp_ajax_nopriv_wc4bp_edit_entry', array( $this, 'wc4bp_edit_entry' ) );
 
 		add_action( 'wp_ajax_wc4bp_add_page', array( $this, 'wc4bp_add_page' ) );
-		add_action( 'wp_ajax_nopriv_wc4bp_add_page', array( $this, 'wc4bp_add_page' ) );
 
 		add_action( 'wp_ajax_wc4bp_delete_page', array( $this, 'wc4bp_delete_page' ) );
-		add_action( 'wp_ajax_nopriv_wc4bp_delete_page', array( $this, 'wc4bp_delete_page' ) );
 
 		add_action( 'wp_ajax_wc4bp_shop_profile_sync_ajax', array( $this, 'wc4bp_shop_profile_sync_ajax' ) );
 	}
 
 
 	public function wc4bp_edit_entry() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( -1, 403 );
+		}
+
+		check_ajax_referer( 'wc4bp_admin_sync_nonce', 'nonce' );
+
 		try {
 			wc4bp_admin_pages::wc4bp_add_edit_entry_form_call( 'edit' );
 			die();
