@@ -33,7 +33,7 @@ class WC4BP_MyAccount {
 				$endpoint = '/' . $endpoint;
 			}
 
-			return bp_core_get_user_domain( bp_loggedin_user_id() ) . wc4bp_Manager::get_shop_slug() . $endpoint;
+			return wc4bp_Manager::get_user_domain( bp_loggedin_user_id() ) . wc4bp_Manager::get_shop_slug() . $endpoint;
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
 
@@ -130,6 +130,7 @@ class WC4BP_MyAccount {
 			if ( ! empty( $available ) ) {
 				$result = wp_cache_get( 'wc4bp_get_active_endpoints', 'wc4bp' );
 				if ( false === $result ) {
+					$result        = array();
 					$wc4bp_options = get_option( 'wc4bp_options' );
 					foreach ( $available as $end_point_key => $end_point_value ) {
 						if ( empty( $wc4bp_options[ 'wc4bp_endpoint_' . $end_point_key ] ) ) {
