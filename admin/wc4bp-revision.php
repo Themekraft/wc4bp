@@ -44,8 +44,8 @@ class WC4BP_Revision {
 	}
 
 	public function revision_script( $hook ) {
-		wp_enqueue_style( 'wc4bp_admin_revision_css', wc4bp_Manager::assets_path( 'wc4bp-revision', 'css' ) );
-		wp_enqueue_script( 'wc4bp_admin_revision_js', wc4bp_Manager::assets_path( 'wc4bp-revision' ), array( 'jquery' ), WC4BP_Loader::VERSION );
+		wp_enqueue_style( 'wc4bp_admin_revision_css', wc4bp_Manager::assets_path( 'wc4bp-revision', 'css' ), array(), WC4BP_Loader::VERSION );
+		wp_enqueue_script( 'wc4bp_admin_revision_js', wc4bp_Manager::assets_path( 'wc4bp-revision' ), array( 'jquery' ), WC4BP_Loader::VERSION, false );
 		wp_localize_script(
 			'wc4bp_admin_revision_js',
 			'wc4bp_admin_revision_js',
