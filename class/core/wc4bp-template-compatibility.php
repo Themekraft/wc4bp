@@ -3,6 +3,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Fallbacks for BuddyPress < 1.7 that keep BuddyPress' own function and hook names; each is wrapped in function_exists().
 /**
  * Backwards compatibililty functions for < BP 1.7.
  *
