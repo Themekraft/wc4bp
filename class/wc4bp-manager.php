@@ -34,7 +34,8 @@ class wc4bp_Manager {
 
 	public function __construct() {
 		try {
-			self::$shop_label = __( 'Shop', 'wc4bp' );
+			// Translations can only load from init on (WordPress 6.7+ warns otherwise).
+			add_action( 'init', array( __CLASS__, 'set_translated_defaults' ), 0 );
 			// Load resources
 			require_once 'wc4bp-activity-stream.php';
 			require_once 'wc4bp-myaccount-content.php';
@@ -56,12 +57,13 @@ class wc4bp_Manager {
 	public function init() {
 		try {
 			new WC4BP_MyAccount_Private();
+			// Order hooks must exist in every request: orders are also completed by gateway webhooks, cron, Action Scheduler, WP-CLI and REST, where nobody is logged in.
+			new WC4BP_Activity_Stream();
 			$cu = get_current_user_id();
 			if ( $cu > 0 ) {
 				$wc_path = WooCommerce::instance()->plugin_path();
 				include_once $wc_path . '/includes/class-wc-frontend-scripts.php';
 				WC_Frontend_Scripts::init();
-				new WC4BP_Activity_Stream();
 				new WC4BP_MyAccount_Content();
 				new wc4bp_Woocommerce();
 				new WC4BP_MyAccount();
@@ -111,6 +113,13 @@ class wc4bp_Manager {
 		$label = self::get_cached_option_or_default( 'tab_my_account_shop_label', 'shop_label' );
 
 		return $label;
+	}
+
+	/**
+	 * Set the defaults that need translation, once translations can load.
+	 */
+	public static function set_translated_defaults() {
+		self::$shop_label = __( 'Shop', 'wc4bp' );
 	}
 
 	public static function get_cached_option_or_default( $option, $default_var ) {

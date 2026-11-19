@@ -30,20 +30,68 @@ class WC4BP_Component extends BP_Component {
 		$this->id                  = wc4bp_Manager::get_shop_slug();
 		$this->wc4bp_pages_options = get_option( 'wc4bp_pages_options' );
 		$this->wc4bp_options       = get_option( 'wc4bp_options' );
+		// The component starts on bp_include, before translations can load: its name is set on init.
+		parent::start( $this->id, '', WC4BP_ABSPATH );
+		if ( did_action( 'init' ) ) {
+			$this->set_component_name();
+		} else {
+			add_action( 'init', array( $this, 'set_component_name' ), 1 );
+		}
+		$this->includes();
+		add_action( 'bp_register_activity_actions', array( $this, 'register_activity_actions' ) );
+		add_filter( 'bp_located_template', array( $this, 'wc4bp_members_load_template_filter' ), 10, 2 );
+		add_action( 'bp_actions', array( $this, 'redirect_empty_checkout' ), 1 );
+	}
+
+	/**
+	 * Set the translated component name.
+	 */
+	public function set_component_name() {
 		if ( WC4BP_Loader::getFreemius()->is_plan_or_trial__premium_only( wc4bp_base::$professional_plan_id ) ) {
 			/**
 			 * Get the label for the BuddyPress Core
 			 *
 			 * @param String The current label.
 			 */
-			$title = apply_filters( 'wc4bp_shop_component_label', wc4bp_Manager::get_shop_label() );
+			$this->name = apply_filters( 'wc4bp_shop_component_label', wc4bp_Manager::get_shop_label() );
 		} else {
-			$title = __( 'Shop', 'wc4bp' );
+			$this->name = __( 'Shop', 'wc4bp' );
 		}
-		parent::start( $this->id, $title, WC4BP_ABSPATH );
-		$this->includes();
-		add_action( 'bp_register_activity_actions', array( $this, 'register_activity_actions' ) );
-		add_filter( 'bp_located_template', array( $this, 'wc4bp_members_load_template_filter' ), 10, 2 );
+	}
+
+	/**
+	 * Send the profile Checkout to the cart when the cart is empty.
+	 *
+	 * The Checkout tab is only registered while the cart has items, so an empty cart
+	 * (a refresh or the back button after placing an order) used to end in a 404.
+	 * WooCommerce's own checkout redirects to the cart in that case; do the same.
+	 */
+	public function redirect_empty_checkout() {
+		if ( ! is_user_logged_in() || ! bp_is_my_profile() || ! bp_is_current_component( $this->id ) || ! bp_is_current_action( 'checkout' ) ) {
+			return;
+		}
+		if ( ! empty( $this->wc4bp_options['tab_activity_disabled'] ) || isset( $this->wc4bp_options['tab_checkout_disabled'] ) ) {
+			return;
+		}
+		if ( isset( $_GET['change_payment_method'] ) || ! function_exists( 'WC' ) || empty( WC()->cart ) || ! WC()->cart->is_empty() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+
+		if ( ! isset( $this->wc4bp_options['tab_cart_disabled'] ) ) {
+			$cart_url = trailingslashit( bp_loggedin_user_domain() . $this->id ) . 'cart/';
+		} else {
+			$cart_url = wc_get_cart_url();
+		}
+
+		/**
+		 * Filter where the profile Checkout sends members when the cart is empty.
+		 *
+		 * @param string $cart_url The cart URL.
+		 *
+		 * @since 3.6.5
+		 */
+		wp_safe_redirect( apply_filters( 'wc4bp_empty_checkout_redirect', $cart_url ) );
+		exit;
 	}
 
 	/**

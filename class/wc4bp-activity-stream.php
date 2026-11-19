@@ -68,11 +68,12 @@ class WC4BP_Activity_Stream {
 				return false;
 			}
 
-			if ( is_user_logged_in() ) {
-				$user_link = bp_core_get_userlink( $user_id );
-			} else {
-				$user_link = __( 'A guest', 'wc4bp' );
+			// Reviews by guests never created an activity (the hook only ran for logged-in visitors), keep it that way now that it runs in every request.
+			if ( empty( $user_id ) ) {
+				return false;
 			}
+
+			$user_link = wc4bp_activity_user_link( $user_id );
 
 			/**
 			 * Modify the string to insert into the BuddyPress Activity Stream on Product Review
@@ -148,24 +149,26 @@ class WC4BP_Activity_Stream {
 				return false;
 			}
 
+			// The order can reach "completed" more than once (completed, back to processing, completed again): one activity per order.
+			if ( $order->get_meta( '_wc4bp_purchase_activity_id' ) ) {
+				return false;
+			}
+
+			if ( ! wc4bp_order_creates_purchase_activity( $order ) ) {
+				return false;
+			}
+
 			// check that user enabled updating the activity stream
 			if ( bp_get_user_meta( $order->get_customer_id(), 'notification_activity_shop_purchases', true ) == 'no' ) {
 				return false;
 			}
 
-			if ( is_user_logged_in() ) {
-				$user_link = bp_core_get_userlink( $order->get_customer_id() );
-			} else {
-				$user_link = __( 'A guest', 'wc4bp' );
-			}
+			// The request user is the admin, a webhook or nobody: attribute the activity to the order's customer.
+			$user_link = wc4bp_activity_user_link( $order->get_customer_id() );
 
 			// if several products - combine them, otherwise - display the product name
 			$items = $order->get_items();
-			$names = array();
-			/** @var WC_Order_Item_Product $item */
-			foreach ( $items as $item ) {
-				$names[] = '<a href="' . $item->get_product()->get_permalink() . '">' . $item->get_product()->get_name() . '</a>';
-			}
+			$names = wc4bp_activity_product_links( $items );
 
 			/**
 			 * Modify the string to insert into the BuddyPress Activity Stream on Order Complete
@@ -189,14 +192,22 @@ class WC4BP_Activity_Stream {
 				'order_complete'
 			);
 			// record the activity
-			bp_activity_add(
+			$activity_id = bp_activity_add(
 				array(
 					'user_id'   => $order->get_user_id(),
 					'action'    => $stream,
 					'component' => wc4bp_Manager::get_shop_slug(),
 					'type'      => 'new_shop_purchase',
+					'item_id'   => $order->get_id(),
 				)
 			);
+
+			if ( ! $activity_id ) {
+				return false;
+			}
+
+			$order->update_meta_data( '_wc4bp_purchase_activity_id', $activity_id );
+			$order->save_meta_data();
 
 			return true;
 		} catch ( Exception $exception ) {
@@ -205,6 +216,73 @@ class WC4BP_Activity_Stream {
 
 		return false;
 	}
+}
+
+/**
+ * Whether a completed order gets a "bought" activity.
+ *
+ * Guest orders (no customer account) and WooCommerce Subscriptions renewal orders do not. Guest checkouts never
+ * created an activity while the hook only ran for logged-in visitors, and renewals are completed automatically
+ * every billing cycle, so posting them would repeat the same purchase in the stream. The initial subscription
+ * order, resubscribes and switches are purchases the customer made at checkout, so they still post.
+ *
+ * @param WC_Order $order
+ *
+ * @return bool
+ */
+function wc4bp_order_creates_purchase_activity( $order ) {
+	$create = true;
+
+	if ( (int) $order->get_customer_id() <= 0 ) {
+		$create = false;
+	} elseif ( function_exists( 'wcs_order_contains_renewal' ) && wcs_order_contains_renewal( $order ) ) {
+		$create = false;
+	}
+
+	/**
+	 * Decide whether a completed order gets a purchase activity.
+	 *
+	 * @param bool     $create False for guest orders and subscription renewal orders.
+	 * @param WC_Order $order
+	 */
+	return (bool) apply_filters( 'wc4bp_create_purchase_activity', $create, $order );
+}
+
+/**
+ * Link to a user's profile, or "A guest" when there is no such user (guest orders).
+ *
+ * @param int $user_id The user the activity belongs to, not the current user.
+ *
+ * @return string
+ */
+function wc4bp_activity_user_link( $user_id ) {
+	$user_id = absint( $user_id );
+	if ( $user_id > 0 && get_userdata( $user_id ) ) {
+		return bp_core_get_userlink( $user_id );
+	}
+
+	return __( 'A guest', 'wc4bp' );
+}
+
+/**
+ * Product links for the order items, skipping items whose product no longer exists.
+ *
+ * @param WC_Order_Item[] $order_items
+ *
+ * @return string[]
+ */
+function wc4bp_activity_product_links( $order_items ) {
+	$names = array();
+	/** @var WC_Order_Item_Product $item */
+	foreach ( $order_items as $item ) {
+		$product = is_callable( array( $item, 'get_product' ) ) ? $item->get_product() : false;
+		if ( ! $product instanceof WC_Product ) {
+			continue;
+		}
+		$names[] = '<a href="' . $product->get_permalink() . '">' . $product->get_name() . '</a>';
+	}
+
+	return $names;
 }
 
 add_filter( 'wc4bp_stream_order_complete', 'wc4bp_callback_stream_order_complete', 10, 5 );
@@ -225,17 +303,8 @@ function wc4bp_callback_stream_order_complete( $text_output, $user_id_from_order
 	if( isset( $stream_visibility['disable_activity_feed'] ) && $stream_visibility['disable_activity_feed'] === '1' ){
 		return false;
 	}
-	if ( is_user_logged_in() ) {
-		$user_link = bp_core_get_userlink( $user_id_from_order );
-	} else {
-		$user_link = 'A guest ';
-	}
-
-	$names = array();
-	/** @var WC_Order_Item_Product $item */
-	foreach ( $order_items as $item ) {
-		$names[] = '<a href="' . $item->get_product()->get_permalink() . '">' . $item->get_product()->get_name() . '</a>';
-	}
+	$user_link = wc4bp_activity_user_link( $user_id_from_order );
+	$names     = wc4bp_activity_product_links( $order_items );
 
 	return sprintf(
 		/* translators: %1$s: $user_link; %2$s: implode( ', ', $names ). */ /* translators: %1$s: value; %2$s: value. */ __( 'The user: %1$s bought %2$s', 'wc4bp' ),

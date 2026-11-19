@@ -43,7 +43,10 @@ class wc4bp_Manage_Admin {
 			wp_enqueue_script( 'jquery-ui-sortable' );
 			wp_register_script( 'gopro-screen-js', wc4bp_Manager::assets_path( 'gopro-screen-script' ), array( 'jquery' ), WC4BP_Loader::VERSION );
     		wp_enqueue_script( 'gopro-screen-js' );
-			$admin_script = wc4bp_Manager::assets_path( 'admin' );
+			// Always load the readable admin.js: Freemius strips the <fs_premium_only> blocks
+			// from the free build, and a minified copy breaks when those blocks sit inside
+			// joined expressions (TKT-123).
+			$admin_script = WC4BP_JS . 'admin.js';
 			wp_enqueue_script(
 				'wc4bp_admin_js',
 				$admin_script,
