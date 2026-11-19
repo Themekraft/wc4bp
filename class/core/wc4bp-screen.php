@@ -230,6 +230,8 @@ function wc4bp_screen_settings() {
 		do_action( 'wc4bp_screen_settings' );
 		$wc4bp_values = Request_Helper::get_post_param( 'wc4bp' );
 		if ( ! empty( $wc4bp_values ) ) {
+			check_admin_referer( 'wc4bp_shop_settings', 'wc4bp_shop_settings_nonce' );
+
 			// default values
 			$yes_no = array( 'yes', 'no' );
 
@@ -308,6 +310,7 @@ function wc4bp_screen_settings_content() {
 		}
 		?>
 		<form action="<?php wc4bp_settings_link(); ?>" method="POST">
+			<?php wp_nonce_field( 'wc4bp_shop_settings', 'wc4bp_shop_settings_nonce' ); ?>
 
 			<table class="notification-settings" id="shop-notification-settings">
 				<thead>
