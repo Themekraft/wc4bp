@@ -149,6 +149,7 @@ class wc4bp_Sync {
 	public static function wc4bp_get_xprofield_fields_ids() {
 		$result = wp_cache_get( 'wc4bp_get_xprofield_fields_ids', 'wc4bp' );
 		if ( false === $result ) {
+			$result             = array();
 			$result['shipping'] = bp_get_option( 'wc4bp_shipping_address_ids' );
 			$result['billing']  = bp_get_option( 'wc4bp_billing_address_ids' );
 			wp_cache_add( 'wc4bp_get_xprofield_fields_ids', $result, 'wc4bp' );
