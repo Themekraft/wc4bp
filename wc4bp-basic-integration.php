@@ -67,7 +67,7 @@ if ( ! class_exists( 'WC4BP_Loader' ) ) {
 		/**
 		 * The plugin version
 		 */
-		const VERSION = '3.6.5';
+		const VERSION = '3.6.6';
 
 		/**
 		 * Minimum required WP version
