@@ -54,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					 * @param string The tab slug
 					 * @param WP_Post The Post to show into the page
 					 */
-					$slug = apply_filters( 'editable_slug', $attached_page['tab_slug'], get_post( $attached_page['page_id'] ) );
+					$slug = apply_filters( 'editable_slug', $attached_page['tab_slug'], get_post( $attached_page['page_id'] ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core hook.
 					echo isset( $attached_page['tab_slug'] ) ? esc_html( $slug ) : '--';
 					?>
 				</td>

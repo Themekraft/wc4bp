@@ -351,7 +351,7 @@ class wc4bp_Sync {
 		 * @param array
 		 */
 		$show_fields = apply_filters(
-			'woocommerce_customer_meta_fields',
+			'woocommerce_customer_meta_fields', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce hook.
 			array(
 				'billing'  => array(
 					'title'  => __( 'Customer Billing Address', 'wc4bp' ),

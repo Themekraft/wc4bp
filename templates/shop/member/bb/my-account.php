@@ -39,7 +39,7 @@ if ( ( end( $request ) == 'my-account' && is_account_page() ) ) {
 
 <div class="bsMyAccount <?php echo esc_attr( $dashBoardClass ); ?>">
 	<?php
-	do_action( 'woocommerce_account_navigation' );
+	do_action( 'woocommerce_account_navigation' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce hook.
 	?>
 
 	<div class="woocommerce-MyAccount-content">
@@ -49,7 +49,7 @@ if ( ( end( $request ) == 'my-account' && is_account_page() ) ) {
 		 *
 		 * @since 2.6.0
 		 */
-		do_action( 'woocommerce_account_content' );
+		do_action( 'woocommerce_account_content' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce hook.
 		?>
 	</div>
 </div>

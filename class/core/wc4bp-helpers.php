@@ -105,7 +105,7 @@ function wc4bp_my_recent_orders_shortcode( $atts ) {
 			 *
 			 * @param string|int The order id
 			 */
-			do_action( 'woocommerce_view_order', $bp->action_variables[1] );
+			do_action( 'woocommerce_view_order', $bp->action_variables[1] ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce hook.
 		}
 	} catch ( Exception $exception ) {
 		WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );

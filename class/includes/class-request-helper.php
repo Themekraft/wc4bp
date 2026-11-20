@@ -70,15 +70,15 @@ if ( ! class_exists( 'Request_Helper' ) ) {
 			$value    = $args['default'];
 			if ( 'get' === $args['type'] ) {
 				if ( $_GET && isset( $_GET[ $args['param'] ] ) ) {
-					$value = wc_clean( wp_unslash( $_GET[ $args['param'] ] ) );
+					$value = wc_clean( wp_unslash( $_GET[ $args['param'] ] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized with wc_clean().
 				}
 			} elseif ( 'post' === $args['type'] ) {
 				if ( isset( $_POST[ $args['param'] ] ) ) {
-					$value = wc_clean( wp_unslash( $_POST[ $args['param'] ] ) );
+					$value = wc_clean( wp_unslash( $_POST[ $args['param'] ] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized with wc_clean().
 				}
 			} else {
 				if ( isset( $_REQUEST[ $args['param'] ] ) ) {
-					$value = wc_clean( wp_unslash( $_REQUEST[ $args['param'] ] ) );
+					$value = wc_clean( wp_unslash( $_REQUEST[ $args['param'] ] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized with wc_clean().
 				}
 			}
 			self::sanitize_value( $args['sanitize'], $value );

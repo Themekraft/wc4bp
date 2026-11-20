@@ -41,7 +41,7 @@ class wc4bp_Manage_Admin {
 			wp_enqueue_script( 'jquery-ui-tabs' );
 			wp_enqueue_script( 'jquery-effects-core' );
 			wp_enqueue_script( 'jquery-ui-sortable' );
-			wp_register_script( 'gopro-screen-js', wc4bp_Manager::assets_path( 'gopro-screen-script' ), array( 'jquery' ), WC4BP_Loader::VERSION );
+			wp_register_script( 'gopro-screen-js', wc4bp_Manager::assets_path( 'gopro-screen-script' ), array( 'jquery' ), WC4BP_Loader::VERSION, false );
     		wp_enqueue_script( 'gopro-screen-js' );
 			// Always load the readable admin.js: Freemius strips the <fs_premium_only> blocks
 			// from the free build, and a minified copy breaks when those blocks sit inside
@@ -57,7 +57,8 @@ class wc4bp_Manage_Admin {
 					'jquery-ui-tabs',
 					'jquery-ui-sortable',
 				),
-				WC4BP_Loader::VERSION
+				WC4BP_Loader::VERSION,
+				false
 			);
 			wp_localize_script(
 				'wc4bp_admin_js',
@@ -66,10 +67,10 @@ class wc4bp_Manage_Admin {
 					'nonce'   => wp_create_nonce( 'wc4bp_admin_sync_nonce' ),
 				)
 			);
-			wp_enqueue_style( 'wc4bp_admin_spinner_css', wc4bp_Manager::assets_path( 'loading-spiner', 'css' ) );
+			wp_enqueue_style( 'wc4bp_admin_spinner_css', wc4bp_Manager::assets_path( 'loading-spiner', 'css' ), array(), WC4BP_Loader::VERSION );
 			wp_enqueue_style( 'dashicons' );
 			$admin_style = wc4bp_Manager::assets_path( 'admin', 'css' );
-			wp_enqueue_style( 'wc4bp_admin_css', $admin_style );
+			wp_enqueue_style( 'wc4bp_admin_css', $admin_style, array(), WC4BP_Loader::VERSION );
 			if ( 'users_page_bp-profile-setup' === $hook ) {
 				$fields = wc4bp_Sync::wc4bp_get_xprofield_fields_ids();
 				if ( ! empty( $fields ) ) {
@@ -77,7 +78,7 @@ class wc4bp_Manage_Admin {
 						$shipping_field = BP_XProfile_Field::get_instance( $fields['shipping']['first_name'], null, false );
 						$billing_field  = BP_XProfile_Field::get_instance( $fields['billing']['first_name'], null, false );
 						if ( ! empty( $shipping_field ) && ! empty( $billing_field ) ) {
-							wp_enqueue_script( 'wc4bp_admin_xprofield', wc4bp_Manager::assets_path( 'wc4bp-xprofield' ), array( 'jquery' ), WC4BP_Loader::VERSION );
+							wp_enqueue_script( 'wc4bp_admin_xprofield', wc4bp_Manager::assets_path( 'wc4bp-xprofield' ), array( 'jquery' ), WC4BP_Loader::VERSION, false );
 							wp_localize_script(
 								'wc4bp_admin_xprofield',
 								'wc4bp_admin_xprofield',

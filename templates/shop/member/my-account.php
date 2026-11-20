@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 2.6.0
  */
-do_action( 'woocommerce_account_navigation' ); ?>
+do_action( 'woocommerce_account_navigation' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce hook. ?>
 
 <div class="woocommerce-MyAccount-content">
 	<?php
@@ -31,6 +31,6 @@ do_action( 'woocommerce_account_navigation' ); ?>
 		 *
 		 * @since 2.6.0
 		 */
-		do_action( 'woocommerce_account_content' );
+		do_action( 'woocommerce_account_content' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce hook.
 	?>
 </div>
