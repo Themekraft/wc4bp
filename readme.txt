@@ -1,6 +1,6 @@
 === BuddyPress Integration for WooCommerce ===
 Contributors: themekraft, svenl77, gfirem, garrett-eclipse, shabushabu, kishores, vmarin, camiloluna
-Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, woocommerce member pages, buddyboss
+Tags: buddypress, buddyboss, woocommerce, woocommerce my account, profile
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -8,67 +8,52 @@ Stable tag: 3.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Integrate WooCommerce my account into BuddyPress member profiles. Bring your WooCommerce member pages into BuddyPress and BuddyBoss.
+Bring the WooCommerce customer area into BuddyPress and BuddyBoss member profiles: cart, checkout, orders, downloads and synced addresses.
 
 == Description ==
 
-Create a seamless customer experience and get more engagement on your site by integrating your WooCommerce store with your BuddyPress or BuddyBoss community.
+BuddyPress Integration for WooCommerce, also known as WooBuddy, moves the WooCommerce customer area into your BuddyPress or BuddyBoss member profiles. Customers get a Shop tab in their profile with cart, checkout, order tracking, orders, downloads, addresses, payment methods and account details. Billing and shipping data stay in sync with the profile, and purchases and reviews can appear in the activity stream. Requires WooCommerce and BuddyPress or BuddyBoss.
 
 [youtube https://www.youtube.com/watch?v=vgSKhrvi3SU&t]
 
-### Integrate it all
-Show purchase history, product downloads and more in your BuddyPress member profiles. Make all WooCommerce customer data accessible from one place and create WooCommerce member pages that display all data relevant for your customers. Add pages from other WooCommerce extensions right into your BuddyPress member profiles as a new tab.
+= Free features =
 
-### WooCommerce Member Pages
-Create WooCommerce Member Pages that are easy accessable from there BuddyPress Member Profile and make Pages only available to your customers.
+* Shop tab in every member profile with Cart, Checkout and Track my order
+* WooCommerce's own My Account pages inside the profile, with My Account links redirected to the member's profile Shop tab automatically
+* Shop links in the admin bar
+* Billing and shipping profile fields kept in sync in both directions, with a bulk sync for existing users and per-field visibility
+* Purchases and product reviews posted to the activity stream, and each member can opt out
+* BuddyPress notifications on purchase
+* Shortcodes for downloads, addresses and recent orders
+* Compatible with WooCommerce High-Performance Order Storage (HPOS)
+* Falls back to the regular WooCommerce pages if BuddyPress is turned off
+* Easy switch from BuddyCommerce: deactivate BuddyCommerce and activate WooBuddy (you may need to redo custom tabs)
 
-### Display Customer Data:
-Display relevant data from any WooCommerce Extension in your BuddyPresss Member Profile. Create tabs with any data revevant for your clients.
+= Want more? WooBuddy Pro adds =
 
-### Sync Customer Data:
-Syncronise WooComemrce data like Billing and Shipping Address with BuddyPress and WordPress and make your website become your CRM Customer Relation Mangement. USe BuddyPress as data hub and avoid redundat data on your site.
+* Hide, rename and reorder the My Account tabs in the profile
+* Rename the Shop tab and change its URL
+* Choose which tab the Shop opens on
+* Add any WordPress page as a Shop sub-tab
+* Show pages that other plugins add to My Account (beta)
+* Send customers to a profile page instead of the WooCommerce thank-you page
+* Choose which order status triggers notifications
+* Turn off the Shop tab, the Shop settings tab, the My Account redirect or the profile sync when another plugin needs them
+* Unlocks the WooBuddy Groups and WooBuddy Subscriptions add-ons
 
-### WooCommerce Checkout and BuddyPress Profile Fields
-Mix BuddyPress and WooCommerce Data in the checkout. Remove unwanted WooCommerce Checkout form elements. Add BuddyPress Profile Form Elements.
+WooBuddy Pro is a yearly license for 1 site, 5 sites or unlimited sites, and every Pro feature is included at every size. [Compare Free and Pro on themekraft.com](https://themekraft.com/plugins/woobuddy-woocommerce-buddypress-integration/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=free-vs-pro&utm_content=wc4bp)
 
-### WooCommerce Groups
-Use BuddyPress Groups with WooCommerce and bring your client relation to the next lavel.
+= Add-ons =
 
-##How to Integrate WooCommerce with BuddyPress or BuddyBoss seamlessly
+* [WooBuddy xProfile Checkout Manager](https://wordpress.org/plugins/woocommerce-buddypress-integration-xprofile-checkout-manager/) (free, works with the free or Pro version of WooBuddy): add BuddyPress profile fields to the WooCommerce checkout and remove the default checkout fields you do not need. Works with BuddyPress (not BuddyBoss).
+* WooBuddy Groups (needs WooBuddy Pro): sell membership of BuddyPress groups with a WooCommerce purchase. Works with BuddyPress (not BuddyBoss).
+* WooBuddy Subscriptions (needs WooBuddy Pro): members manage their WooCommerce Subscriptions from their profile. Needs WooCommerce Subscriptions.
 
-Online Business Growth Solutions for BuddyPress & BuddyBoss Shop Owners. Supercharge your WooCommerce BuddyPress / BuddyBoss site with eCommerce features. Make WooCommerce fully integrated into your Social Network.
-[Integrate WooCommerce with BuddyPress](https://themekraft.com/wordpress-solutions/woocommerce-buddypress/)
+[Browse the WooBuddy add-ons](https://themekraft.com/plugins/woobuddy-woocommerce-buddypress-integration/addons/)
 
-### Extendable with Addons
+= Learn more =
 
-Add your BuddyPress Profile Fields into the WooCommerce Checkout. Customize your WooCommerce Checkout field and remove unwanted fields for example "phone number" from the checkout form.
-[Checkout Manager](https://wordpress.org/plugins/woocommerce-buddypress-integration-xprofile-checkout-manager/)
-
-Integrate BuddyPress Groups with WooCommerce and WooCommerce Subscription. Link your groups to products so that they can only be accessible through purchase.
-[WooCommerce Groups](https://wordpress.org/plugins/wc4bp-groups/)
-
-Integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and membership sites such as premium support.
-[WooCommerce Subscriptions](https://themekraft.com/products/buddypress-woocommerce-subscriptions-integration/)
-
-> #### Push your online shop and products to a new level
-> * Empower your customers to become more involved and interact with other users, your products and brand, or even contribute in product development.
-> * Perfect for marketplaces, membership sites, digital products, auction sites or any kind of subscription site!
-> * Secure your data
-
-> #### All Plugin Features in Detail
-> * Easy to use. No configuration needed. Just activate it. That’s it!
-> * Member data: Edit your shipping and billing address directly in your member profile and find all personal information in one place.
-> * Checkout: Find your cart in your member profile.
-> * Purchase history: Find your payment history and access your downloads from your member profile.
-> * View of a single purchase in member profile
-> * Track your order in your profile, with your order ID.
-> * Activity Stream Integration
-> * Always stay informed with the activity stream! All activities like reviews written by customers or purchases made by your customers are posted to the activity stream.
-> * Manage notifications: Members can choose if they want their reviews and purchased activities to be shown in the activity stream or not.
-> * Synchronization: It synchronizes all WooCommerce data with your BuddyPress data. If you register a new account via the checkout or add data like your billing address etc. the plugin will handle all the communication between WooCommerce and BuddyPress and keep the data synchronized.
-> * Fallback save! If you turn off BuddyPress for some reason, or the user don’t want to become a member the plugin falls back to the regular WooCommerce pages.
-> * Easy switch from BuddyCommerce to WooBuddy. Just deactivate BuddyCommerce and Activate WooBuddy. You maybe need to redo custom Tabs.
-> * Display content added by third party WooCommerce extensions directly on user profiles.
+* [How to integrate WooCommerce with BuddyPress or BuddyBoss](https://themekraft.com/solution/woocommerce-buddypress/)
 
 > #### Docs & Support
 > * Find our Getting Started, How-to and Developer Docs on [docs.themekraft.com](http://docs.themekraft.com/)
@@ -81,19 +66,45 @@ Integrate BuddyPress with WooCommerce Subscription. Ideal for subscription and m
 == Installation ==
 Upload the entire BuddyPress Integration for WooCommerce folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
 Activate the plugin through the 'Plugins' menu in WordPress.
-Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your admin sidebar to adjust the settings
+Go to BuddyPress for WooCommerce in the admin sidebar.
+
+== Frequently Asked Questions ==
+
+= What is free and what is Pro? =
+
+The free version puts the WooCommerce My Account pages, cart, checkout and order tracking into BuddyPress and BuddyBoss member profiles, keeps billing and shipping data in sync, and posts purchases and reviews to the activity stream. Pro adds control over the profile tabs (hide, rename, reorder), Shop tab settings, extra pages, pages from other plugins, and unlocks the Groups and Subscriptions add-ons.
+
+= Does WooBuddy work with BuddyBoss? =
+
+Yes. WooBuddy works with BuddyPress and BuddyBoss. The xProfile Checkout Manager and Groups add-ons work with BuddyPress only.
+
+= Will it work with other plugins that add pages to My Account? =
+
+In the free version, My Account opens the member's profile Shop tab, and only WooCommerce's own My Account pages appear there. Pages that other plugins add to My Account are not shown in the profile. WooBuddy Pro can add those pages to the profile (beta) and can turn off the My Account redirect.
+
+= Can I run the free and Pro versions together? =
+
+No. Activating one version deactivates the other.
+
+= How is Pro licensed? =
+
+WooBuddy Pro is a yearly license for 1 site, 5 sites or unlimited sites. Every Pro feature is included at every size. Pricing and purchase are on themekraft.com.
+
+= Is there a free trial of Pro? =
+
+Yes. WooBuddy Pro has a 7-day free trial. A payment method is required to start it.
 
 == Screenshots ==
 
-1. Admin Settings General
+1. Admin Settings General (Pro options shown)
 2. Profile Field Synchronization Settings
-3. Add Pages to Member Profiles
+3. Add Pages to Member Profiles (Pro)
 4. Profile Cart
 5. Checkout
 6. Orders
 7. Profile Settings
 8. Edit Billing Address Details
-9. Admin menu options
+9. Profile Shop menu with custom page tabs (Pro)
 
 == Changelog ==
 
