@@ -105,6 +105,27 @@ class wc4bp_Manager {
 	}
 
 	/**
+	 * Get the profile URL of a member, with a trailing slash.
+	 *
+	 * Uses bp_members_get_user_url() on BuddyPress 12+, where bp_core_get_user_domain() is deprecated,
+	 * and falls back to bp_core_get_user_domain() on older BuddyPress versions and BuddyBoss.
+	 *
+	 * @param int $user_id The user ID.
+	 *
+	 * @return string Empty string when there is no user.
+	 */
+	public static function get_user_domain( $user_id ) {
+		if ( empty( $user_id ) ) {
+			return '';
+		}
+		if ( function_exists( 'bp_members_get_user_url' ) ) {
+			return bp_members_get_user_url( $user_id );
+		}
+
+		return bp_core_get_user_domain( $user_id );
+	}
+
+	/**
 	 * Get the shop label option
 	 *
 	 * @return bool|String

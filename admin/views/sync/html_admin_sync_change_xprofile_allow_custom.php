@@ -4,14 +4,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 // Leaven empty tag to let automation add the path disclosure line
+$custom_visibility = isset( $wc4bp_options_sync['custom_visibility'] ) ? $wc4bp_options_sync['custom_visibility'] : '';
 ?>
 <p><?php esc_html_e( 'Allow if the user can change the Field visibility.', 'wc4bp' ); ?></p>
 <p>
 	<select name="wc4bp_options_sync[custom_visibility]">
-		<option value="allowed" <?php echo selected( $wc4bp_options_sync['custom_visibility'], 'allowed', false ); ?>>
+		<option value="allowed" <?php echo selected( $custom_visibility, 'allowed', false ); ?>>
 			<?php esc_html_e( 'Let members change this field\'s visibility', 'wc4bp' ); ?>
 		</option>
-		<option value="disabled" <?php echo selected( $wc4bp_options_sync['custom_visibility'], 'disabled', false ); ?>>
+		<option value="disabled" <?php echo selected( $custom_visibility, 'disabled', false ); ?>>
 			<?php esc_html_e( 'Enforce the default visibility for all members', 'wc4bp' ); ?>
 		</option>
 	</select>
