@@ -128,8 +128,18 @@ class wc4bp_Sync {
 
 	function wc4bp_xprofile_profile_field_data_updated( $field_id, $value ) {
 		try {
-			global $bp;
-			$user_id = Request_Helper::simple_get( 'user_id', 'sanitize_text_field', bp_loggedin_user_id() );
+			// BuddyPress saved the field for the profile being edited: the displayed member on the front end,
+			// the user in the URL on the wp-admin Extended Profile screen.
+			$user_id = bp_displayed_user_id();
+			if ( is_admin() ) {
+				$user_id = absint( Request_Helper::simple_get( 'user_id', 'absint', 0 ) );
+			}
+			if ( empty( $user_id ) ) {
+				$user_id = bp_loggedin_user_id();
+			}
+			if ( empty( $user_id ) || ! current_user_can( 'edit_user', $user_id ) ) {
+				return;
+			}
 			self::wc4bp_sync_addresses_from_profile( $user_id, $field_id, $value );
 		} catch ( Exception $exception ) {
 			WC4BP_Loader::get_exception_handler()->save_exception( $exception->getTrace() );
