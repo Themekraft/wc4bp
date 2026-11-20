@@ -4,7 +4,7 @@ Tags: woocommerce my account, woocommerce buddypress, woocommerce profile, wooco
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.6.5
+Stable tag: 3.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,12 @@ Head to the 'BuddyPress Integration for WooCommerce Settings' menu item in your 
 9. Admin menu options
 
 == Changelog ==
+
+= 3.6.6 - 20 Nov 2026 =
+* Security: Profile Fields Sync now only updates the WooCommerce addresses of the member whose profile was saved.
+* Security: the Integrate Pages edit form now checks the user's permissions.
+* Security: the Shop settings in the member profile now verify the request before saving.
+* Fixed PHP 8.1+ deprecation notices in the profile shop, the Profile Fields Sync tab and the page integration, and the BuddyPress 12 deprecation notice on profile shop pages.
 
 = 3.6.5 - 18 Nov 2026 =
 * Fixed the Edit links of the Addresses tab in the member profile shop, which reloaded the address list instead of opening the form, and the order list, which always showed the first page.
