@@ -20,8 +20,8 @@ if ( ! function_exists( 'wc4bp_pricing_page_config' ) ) {
 			return $config;
 		}
 
-		$config['heading']    = __( 'Get the WooBuddy Bundle', 'wc4bp' );
-		$config['subheading'] = __( 'Unlock every WooBuddy product in one bundle, with a year of updates and support.', 'wc4bp' );
+		$config['heading']    = __( 'Go Pro to make the profile Shop your own', 'wc4bp' );
+		$config['subheading'] = __( 'The free version moves the WooCommerce customer area into member profiles. Pro gives you control over every tab and lets other plugins work alongside it.', 'wc4bp' );
 
 		$config['bundle'] = array(
 			'product_id' => '8055',
@@ -35,18 +35,13 @@ if ( ! function_exists( 'wc4bp_pricing_page_config' ) ) {
 				'label'     => __( 'All WooBuddy products included', 'wc4bp' ),
 				'highlight' => true,
 			),
-			array(
-				'label' => __( 'BuddyPress Integration for WooCommerce', 'wc4bp' ),
-				'url'   => 'https://themekraft.com/plugins/woobuddy-woocommerce-buddypress-integration/',
-			),
-			array(
-				'label' => __( 'BuddyPress Groups Integration for WooCommerce', 'wc4bp' ),
-				'url'   => 'https://themekraft.com/plugins/woocommerce-buddypress-groups/',
-			),
-			array(
-				'label' => __( 'BuddyPress Integration for WooCommerce Subscriptions', 'wc4bp' ),
-				'url'   => 'https://themekraft.com/add-on/woocommerce-subscriptions-buddypress/',
-			),
+			__( 'Hide, rename and reorder the My Account tabs in the profile', 'wc4bp' ),
+			__( 'Rename the Shop tab, change its URL and choose which tab it opens on', 'wc4bp' ),
+			__( 'Add any WordPress page as a Shop sub-tab', 'wc4bp' ),
+			__( 'Show pages that other plugins add to My Account (beta)', 'wc4bp' ),
+			__( 'Send customers to a profile page after checkout and choose which order status triggers notifications', 'wc4bp' ),
+			__( 'Turn off the Shop tab, the My Account redirect or the profile sync when another plugin needs them', 'wc4bp' ),
+			__( 'Unlock WooBuddy Groups and WooBuddy Subscriptions', 'wc4bp' ),
 			__( 'One year of support', 'wc4bp' ),
 			__( 'One year of updates', 'wc4bp' ),
 		);
