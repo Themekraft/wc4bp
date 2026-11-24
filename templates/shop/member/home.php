@@ -31,7 +31,7 @@ get_header( 'buddypress' ); ?>
 
 							<?php bp_get_displayed_user_nav(); ?>
 
-							<?php do_action( 'bp_member_options_nav' ); ?>
+							<?php do_action( 'bp_member_options_nav' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- BuddyPress hook. ?>
 
 						</ul>
 					</div>

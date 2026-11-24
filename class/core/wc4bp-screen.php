@@ -379,7 +379,7 @@ function wc4bp_setup_tracking_order() {
 			} elseif ( ! $order_email ) {
 				echo '<p class="woocommerce_error">' . esc_html__( 'Please enter a valid order email', 'wc4bp' ) . '</p>';
 			} else {
-				$order = wc_get_order( apply_filters( 'woocommerce_shortcode_order_tracking_order_id', $order_id ) );
+				$order = wc_get_order( apply_filters( 'woocommerce_shortcode_order_tracking_order_id', $order_id ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce hook.
 				if ( $order && $order->get_id() && $order_email ) {
 					if ( strtolower( $order->get_billing_email() ) === strtolower( $order_email ) ) {
 						$current_order = $order;
@@ -408,7 +408,7 @@ function wc4bp_output_tracking_order() {
 		global $current_order;
 
 		if ( $current_order instanceof WC_Order ) {
-			do_action( 'woocommerce_track_order', $current_order->get_id() );
+			do_action( 'woocommerce_track_order', $current_order->get_id() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce hook.
 			echo '<h3>' . esc_html__( 'Your Order', 'wc4bp' ) . '<h3>';
 
 			wc_get_template(

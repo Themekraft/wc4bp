@@ -239,7 +239,7 @@ class wc4bp_Manager {
 		$theme = wp_get_theme(); // gets the current theme
 
 		$check_bb_theme  = ( 'BuddyBoss Theme' === $theme->name || 'BuddyBoss Theme' === $theme->parent_theme );
-		$check_bb_plugin = in_array( 'buddyboss-platform/bp-loader.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) );
+		$check_bb_plugin = in_array( 'buddyboss-platform/bp-loader.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core hook.
 
 		return $check_bb_theme && $check_bb_plugin;
 	}

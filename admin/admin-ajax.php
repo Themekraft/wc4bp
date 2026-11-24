@@ -145,7 +145,7 @@ class wc4bp_admin_ajax extends wc4bp_base {
 			if( ! isset( $_POST['page_data'] ) ){
 				return;
 			}
-			$page_data = json_decode( wc_clean( stripslashes( $_POST['page_data'] ) ) );
+			$page_data = json_decode( wc_clean( wp_unslash( $_POST['page_data'] ) ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitized with wc_clean().
 			$position = isset( $page_data->wc4bp_position ) ? $page_data->wc4bp_position : '';
 			$children = isset( $page_data->wc4bp_children ) ? $page_data->wc4bp_children : '';
 			$page_id = isset( $page_data->wc4bp_page_id ) ? $page_data->wc4bp_page_id : '';
